@@ -1,10 +1,4 @@
-# Build Stage
-FROM node:12-buster-slim AS umbrel-middleware-builder
-
-# Install tools
-# RUN apt-get update \
-#     && apt-get install -y build-essential \
-#     && apt-get install -y python3
+FROM node:16-buster-slim as build-dependencies-helper
 
 # Create app directory
 WORKDIR /app
@@ -15,16 +9,34 @@ COPY yarn.lock package.json ./
 # Install dependencies
 RUN yarn install --production
 
+# TS Build Stage
+FROM build-dependencies-helper as middleware-builder
+
+# Change directory to '/app'
+WORKDIR /app
+
 # Copy project files and folders to the current working directory (i.e. '/app')
 COPY . .
 
+# Install dependencies
+RUN yarn install
+
+# Build TS code
+RUN yarn build
+
+# Delete everyhing we don't need in the next stage
+RUN rm -rf node_modules tsconfig.tsbuildinfo *.ts **/*.ts .eslint* .git* .prettier* .vscode* tsconfig.json
+
 # Final image
-FROM node:12-buster-slim AS umbrel-middleware
+FROM node:16-buster-slim AS middleware
 
 # Copy built code from build stage to '/app' directory
-COPY --from=umbrel-middleware-builder /app /app
+COPY --from=middleware-builder /app /app
 
-# Change directory to '/app' 
+# Copy node_modules
+COPY --from=build-dependencies-helper /app/node_modules /app/node_modules
+
+# Change directory to '/app'
 WORKDIR /app
 
 EXPOSE 3006

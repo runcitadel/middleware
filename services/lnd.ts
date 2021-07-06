@@ -1,5 +1,4 @@
 /* eslint-disable camelcase, max-lines */
-const grpc = require('grpc');
 const camelizeKeys = require('camelize-keys');
 
 const diskService = require('services/disk');
@@ -22,9 +21,15 @@ if (process.env.MACAROON_DIR) {
   MACAROON_FILE = process.env.MACAROON_DIR + 'admin.macaroon';
 }
 
-// TODO move this to volume
-const lnrpcDescriptor = grpc.load(PROTO_FILE);
-const lnrpc = lnrpcDescriptor.lnrpc;
+import * as grpc from '@grpc/grpc-js';
+import * as protoLoader from '@grpc/proto-loader';
+import { ProtoGrpcType } from '../lnd/rpc';
+
+const packageDefinition = protoLoader.loadSync('./proto/example.proto');
+const proto = (grpc.loadPackageDefinition(
+  packageDefinition
+) as unknown) as ProtoGrpcType;
+const lnrpc = proto.lnrpc;
 
 const DEFAULT_RECOVERY_WINDOW = 250;
 
