@@ -1,0 +1,16 @@
+// Original file: resources/rpc.proto
+
+import type { Long } from '@grpc/proto-loader';
+
+export interface FeeLimit {
+  'fixed'?: (number | string | Long);
+  'percent'?: (number | string | Long);
+  'fixedMsat'?: (number | string | Long);
+  'limit'?: "fixed"|"fixedMsat"|"percent";
+}
+
+export interface FeeLimit__Output {
+  'fixed'?: (Long);
+  'percent'?: (Long);
+  'fixedMsat'?: (Long);
+}
