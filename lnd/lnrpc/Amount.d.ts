@@ -1,0 +1,10 @@
+/// <reference types="long" />
+import type { Long } from '@grpc/proto-loader';
+export interface Amount {
+    'sat'?: (number | string | Long);
+    'msat'?: (number | string | Long);
+}
+export interface Amount__Output {
+    'sat': (Long);
+    'msat': (Long);
+}
