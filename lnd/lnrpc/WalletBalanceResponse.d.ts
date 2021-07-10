@@ -10,9 +10,9 @@ export interface WalletBalanceResponse {
     });
 }
 export interface WalletBalanceResponse__Output {
-    'totalBalance': (Long);
-    'confirmedBalance': (Long);
-    'unconfirmedBalance': (Long);
+    'totalBalance': (string);
+    'confirmedBalance': (string);
+    'unconfirmedBalance': (string);
     'accountBalance': ({
         [key: string]: _lnrpc_WalletAccountBalance__Output;
     });

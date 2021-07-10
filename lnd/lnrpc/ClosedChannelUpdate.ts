@@ -11,8 +11,8 @@ export interface ClosedChannelUpdate {
 }
 
 export interface ClosedChannelUpdate__Output {
-  'chanId': (Long);
-  'capacity': (Long);
+  'chanId': (string);
+  'capacity': (string);
   'closedHeight': (number);
   'chanPoint': (_lnrpc_ChannelPoint__Output | null);
 }

@@ -35,7 +35,7 @@ export interface GetInfoResponse__Output {
     'syncedToChain': (boolean);
     'testnet': (boolean);
     'uris': (string)[];
-    'bestHeaderTimestamp': (Long);
+    'bestHeaderTimestamp': (string);
     'version': (string);
     'numInactiveChannels': (number);
     'chains': (_lnrpc_Chain__Output)[];

@@ -20,14 +20,14 @@ export interface ChannelUpdate {
 export interface ChannelUpdate__Output {
   'signature': (Buffer);
   'chainHash': (Buffer);
-  'chanId': (Long);
+  'chanId': (string);
   'timestamp': (number);
   'channelFlags': (number);
   'timeLockDelta': (number);
-  'htlcMinimumMsat': (Long);
+  'htlcMinimumMsat': (string);
   'baseFee': (number);
   'feeRate': (number);
   'messageFlags': (number);
-  'htlcMaximumMsat': (Long);
+  'htlcMaximumMsat': (string);
   'extraOpaqueData': (Buffer);
 }

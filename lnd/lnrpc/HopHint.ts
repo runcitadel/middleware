@@ -12,7 +12,7 @@ export interface HopHint {
 
 export interface HopHint__Output {
   'nodeId': (string);
-  'chanId': (Long);
+  'chanId': (string);
   'feeBaseMsat': (number);
   'feeProportionalMillionths': (number);
   'cltvExpiryDelta': (number);

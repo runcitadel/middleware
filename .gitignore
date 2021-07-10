@@ -10,3 +10,14 @@ lb_settings.json
 .nyc_output
 coverage
 .todo
+.yarn/*
+!.yarn/patches
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions
+.pnp.*
+lnd/**/*.js
+tsconfig.tsbuildinfo
+*.d.ts
+!lnd/**/*.d.ts

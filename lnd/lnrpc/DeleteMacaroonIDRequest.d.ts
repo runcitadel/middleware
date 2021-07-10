@@ -4,5 +4,5 @@ export interface DeleteMacaroonIDRequest {
     'rootKeyId'?: (number | string | Long);
 }
 export interface DeleteMacaroonIDRequest__Output {
-    'rootKeyId': (Long);
+    'rootKeyId': (string);
 }

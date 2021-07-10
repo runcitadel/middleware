@@ -13,8 +13,8 @@ export interface Utxo {
 export interface Utxo__Output {
     'addressType': (_lnrpc_AddressType);
     'address': (string);
-    'amountSat': (Long);
+    'amountSat': (string);
     'pkScript': (string);
     'outpoint': (_lnrpc_OutPoint__Output | null);
-    'confirmations': (Long);
+    'confirmations': (string);
 }

@@ -22,21 +22,21 @@ export interface OpenChannelRequest {
     'maxLocalCsv'?: (number);
 }
 export interface OpenChannelRequest__Output {
-    'satPerVbyte': (Long);
+    'satPerVbyte': (string);
     'nodePubkey': (Buffer);
     'nodePubkeyString': (string);
-    'localFundingAmount': (Long);
-    'pushSat': (Long);
+    'localFundingAmount': (string);
+    'pushSat': (string);
     'targetConf': (number);
-    'satPerByte': (Long);
+    'satPerByte': (string);
     'private': (boolean);
-    'minHtlcMsat': (Long);
+    'minHtlcMsat': (string);
     'remoteCsvDelay': (number);
     'minConfs': (number);
     'spendUnconfirmed': (boolean);
     'closeAddress': (string);
     'fundingShim': (_lnrpc_FundingShim__Output | null);
-    'remoteMaxValueInFlightMsat': (Long);
+    'remoteMaxValueInFlightMsat': (string);
     'remoteMaxHtlcs': (number);
     'maxLocalCsv': (number);
 }

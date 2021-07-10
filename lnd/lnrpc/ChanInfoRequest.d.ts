@@ -4,5 +4,5 @@ export interface ChanInfoRequest {
     'chanId'?: (number | string | Long);
 }
 export interface ChanInfoRequest__Output {
-    'chanId': (Long);
+    'chanId': (string);
 }

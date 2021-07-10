@@ -9,7 +9,7 @@ export interface EstimateFeeResponse {
 }
 
 export interface EstimateFeeResponse__Output {
-  'feeSat': (Long);
-  'feerateSatPerByte': (Long);
-  'satPerVbyte': (Long);
+  'feeSat': (string);
+  'feerateSatPerByte': (string);
+  'satPerVbyte': (string);
 }

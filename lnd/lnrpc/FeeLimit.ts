@@ -10,7 +10,7 @@ export interface FeeLimit {
 }
 
 export interface FeeLimit__Output {
-  'fixed'?: (Long);
-  'percent'?: (Long);
-  'fixedMsat'?: (Long);
+  'fixed'?: (string);
+  'percent'?: (string);
+  'fixedMsat'?: (string);
 }

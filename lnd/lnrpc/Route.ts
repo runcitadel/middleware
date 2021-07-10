@@ -14,9 +14,9 @@ export interface Route {
 
 export interface Route__Output {
   'totalTimeLock': (number);
-  'totalFees': (Long);
-  'totalAmt': (Long);
+  'totalFees': (string);
+  'totalAmt': (string);
   'hops': (_lnrpc_Hop__Output)[];
-  'totalFeesMsat': (Long);
-  'totalAmtMsat': (Long);
+  'totalFeesMsat': (string);
+  'totalAmtMsat': (string);
 }

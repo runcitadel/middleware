@@ -15,8 +15,8 @@ export interface ChannelBalanceResponse {
 }
 
 export interface ChannelBalanceResponse__Output {
-  'balance': (Long);
-  'pendingOpenBalance': (Long);
+  'balance': (string);
+  'pendingOpenBalance': (string);
   'localBalance': (_lnrpc_Amount__Output | null);
   'remoteBalance': (_lnrpc_Amount__Output | null);
   'unsettledLocalBalance': (_lnrpc_Amount__Output | null);

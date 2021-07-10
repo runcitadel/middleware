@@ -7,5 +7,5 @@ export interface ListMacaroonIDsResponse {
 }
 
 export interface ListMacaroonIDsResponse__Output {
-  'rootKeyIds': (Long)[];
+  'rootKeyIds': (string)[];
 }

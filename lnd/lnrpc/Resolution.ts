@@ -17,6 +17,6 @@ export interface Resolution__Output {
   'resolutionType': (_lnrpc_ResolutionType);
   'outcome': (_lnrpc_ResolutionOutcome);
   'outpoint': (_lnrpc_OutPoint__Output | null);
-  'amountSat': (Long);
+  'amountSat': (string);
   'sweepTxid': (string);
 }

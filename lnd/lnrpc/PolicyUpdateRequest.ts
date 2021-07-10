@@ -18,10 +18,10 @@ export interface PolicyUpdateRequest {
 export interface PolicyUpdateRequest__Output {
   'global'?: (boolean);
   'chanPoint'?: (_lnrpc_ChannelPoint__Output | null);
-  'baseFeeMsat': (Long);
+  'baseFeeMsat': (string);
   'feeRate': (number);
   'timeLockDelta': (number);
-  'maxHtlcMsat': (Long);
-  'minHtlcMsat': (Long);
+  'maxHtlcMsat': (string);
+  'minHtlcMsat': (string);
   'minHtlcMsatSpecified': (boolean);
 }

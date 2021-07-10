@@ -10,5 +10,5 @@ export interface BakeMacaroonRequest {
 
 export interface BakeMacaroonRequest__Output {
   'permissions': (_lnrpc_MacaroonPermission__Output)[];
-  'rootKeyId': (Long);
+  'rootKeyId': (string);
 }

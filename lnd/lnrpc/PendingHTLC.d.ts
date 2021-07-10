@@ -10,7 +10,7 @@ export interface PendingHTLC {
 }
 export interface PendingHTLC__Output {
     'incoming': (boolean);
-    'amount': (Long);
+    'amount': (string);
     'outpoint': (string);
     'maturityHeight': (number);
     'blocksTilMaturity': (number);

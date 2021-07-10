@@ -62,10 +62,3 @@ app.use((req, res) => {
 });
 
 module.exports = app;
-
-// LND Unlocker
-if (constants.LND_WALLET_PASSWORD) {
-  const LndUnlocker = require('logic/lnd-unlocker');
-  lndUnlocker = new LndUnlocker(constants.LND_WALLET_PASSWORD);
-  lndUnlocker.start();
-}

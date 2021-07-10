@@ -12,5 +12,5 @@ export interface ConnectPeerRequest {
 export interface ConnectPeerRequest__Output {
   'addr': (_lnrpc_LightningAddress__Output | null);
   'perm': (boolean);
-  'timeout': (Long);
+  'timeout': (string);
 }

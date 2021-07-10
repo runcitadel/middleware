@@ -28,17 +28,17 @@ export interface Peer {
 export interface Peer__Output {
     'pubKey': (string);
     'address': (string);
-    'bytesSent': (Long);
-    'bytesRecv': (Long);
-    'satSent': (Long);
-    'satRecv': (Long);
+    'bytesSent': (string);
+    'bytesRecv': (string);
+    'satSent': (string);
+    'satRecv': (string);
     'inbound': (boolean);
-    'pingTime': (Long);
+    'pingTime': (string);
     'syncType': (_lnrpc_Peer_SyncType);
     'features': ({
         [key: number]: _lnrpc_Feature__Output;
     });
     'errors': (_lnrpc_TimestampedError__Output)[];
     'flapCount': (number);
-    'lastFlapNs': (Long);
+    'lastFlapNs': (string);
 }

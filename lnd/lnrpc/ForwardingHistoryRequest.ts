@@ -10,8 +10,8 @@ export interface ForwardingHistoryRequest {
 }
 
 export interface ForwardingHistoryRequest__Output {
-  'startTime': (Long);
-  'endTime': (Long);
+  'startTime': (string);
+  'endTime': (string);
   'indexOffset': (number);
   'numMaxEvents': (number);
 }

@@ -1,15 +1,13 @@
-const UUID = require('utils/UUID.js');
-const constants = require('utils/const.js');
-const createNamespace = require('continuation-local-storage').createNamespace;
+import { v4 as createUUID } from 'uuid';
+import constants from '../utils/const.js';
+import { createNamespace } from 'continuation-local-storage';
 const apiRequest = createNamespace(constants.REQUEST_CORRELATION_NAMESPACE_KEY);
-
-function addCorrelationId(req, res, next) {
-  apiRequest.bindEmitter(req);
-  apiRequest.bindEmitter(res);
-  apiRequest.run(function() {
-    apiRequest.set(constants.REQUEST_CORRELATION_ID_KEY, UUID.create());
-    next();
-  });
+function addCorrelationId(request, res, next) {
+    apiRequest.bindEmitter(request);
+    apiRequest.bindEmitter(res);
+    apiRequest.run(() => {
+        apiRequest.set(constants.REQUEST_CORRELATION_ID_KEY, createUUID());
+        next();
+    });
 }
-
-module.exports = addCorrelationId;
+export default addCorrelationId;

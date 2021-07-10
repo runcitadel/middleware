@@ -16,10 +16,10 @@ export interface SendCoinsRequest {
 
 export interface SendCoinsRequest__Output {
   'addr': (string);
-  'amount': (Long);
+  'amount': (string);
   'targetConf': (number);
-  'satPerVbyte': (Long);
-  'satPerByte': (Long);
+  'satPerVbyte': (string);
+  'satPerByte': (string);
   'sendAll': (boolean);
   'label': (string);
   'minConfs': (number);

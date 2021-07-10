@@ -5,6 +5,6 @@ export interface WalletAccountBalance {
     'unconfirmedBalance'?: (number | string | Long);
 }
 export interface WalletAccountBalance__Output {
-    'confirmedBalance': (Long);
-    'unconfirmedBalance': (Long);
+    'confirmedBalance': (string);
+    'unconfirmedBalance': (string);
 }

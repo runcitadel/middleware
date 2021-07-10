@@ -14,7 +14,7 @@ export interface ChanPointShim {
 }
 
 export interface ChanPointShim__Output {
-  'amt': (Long);
+  'amt': (string);
   'chanPoint': (_lnrpc_ChannelPoint__Output | null);
   'localKey': (_lnrpc_KeyDescriptor__Output | null);
   'remoteKey': (Buffer);

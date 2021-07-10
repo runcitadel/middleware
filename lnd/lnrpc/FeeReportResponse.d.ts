@@ -9,7 +9,7 @@ export interface FeeReportResponse {
 }
 export interface FeeReportResponse__Output {
     'channelFees': (_lnrpc_ChannelFeeReport__Output)[];
-    'dayFeeSum': (Long);
-    'weekFeeSum': (Long);
-    'monthFeeSum': (Long);
+    'dayFeeSum': (string);
+    'weekFeeSum': (string);
+    'monthFeeSum': (string);
 }

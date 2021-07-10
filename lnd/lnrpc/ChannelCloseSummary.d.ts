@@ -27,14 +27,14 @@ export interface ChannelCloseSummary {
 }
 export interface ChannelCloseSummary__Output {
     'channelPoint': (string);
-    'chanId': (Long);
+    'chanId': (string);
     'chainHash': (string);
     'closingTxHash': (string);
     'remotePubkey': (string);
-    'capacity': (Long);
+    'capacity': (string);
     'closeHeight': (number);
-    'settledBalance': (Long);
-    'timeLockedBalance': (Long);
+    'settledBalance': (string);
+    'timeLockedBalance': (string);
     'closeType': (_lnrpc_ChannelCloseSummary_ClosureType);
     'openInitiator': (_lnrpc_Initiator);
     'closeInitiator': (_lnrpc_Initiator);

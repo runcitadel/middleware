@@ -19,15 +19,15 @@ export interface InvoiceHTLC {
 }
 
 export interface InvoiceHTLC__Output {
-  'chanId': (Long);
-  'htlcIndex': (Long);
-  'amtMsat': (Long);
+  'chanId': (string);
+  'htlcIndex': (string);
+  'amtMsat': (string);
   'acceptHeight': (number);
-  'acceptTime': (Long);
-  'resolveTime': (Long);
+  'acceptTime': (string);
+  'resolveTime': (string);
   'expiryHeight': (number);
   'state': (_lnrpc_InvoiceHTLCState);
   'customRecords': ({[key: number]: Buffer});
-  'mppTotalAmtMsat': (Long);
+  'mppTotalAmtMsat': (string);
   'amp': (_lnrpc_AMP__Output | null);
 }

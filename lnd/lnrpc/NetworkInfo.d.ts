@@ -19,10 +19,10 @@ export interface NetworkInfo__Output {
     'maxOutDegree': (number);
     'numNodes': (number);
     'numChannels': (number);
-    'totalNetworkCapacity': (Long);
+    'totalNetworkCapacity': (string);
     'avgChannelSize': (number);
-    'minChannelSize': (Long);
-    'maxChannelSize': (Long);
-    'medianChannelSizeSat': (Long);
-    'numZombieChans': (Long);
+    'minChannelSize': (string);
+    'maxChannelSize': (string);
+    'medianChannelSizeSat': (string);
+    'numZombieChans': (string);
 }

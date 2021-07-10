@@ -5,6 +5,6 @@ export interface InvoiceSubscription {
     'settleIndex'?: (number | string | Long);
 }
 export interface InvoiceSubscription__Output {
-    'addIndex': (Long);
-    'settleIndex': (Long);
+    'addIndex': (string);
+    'settleIndex': (string);
 }

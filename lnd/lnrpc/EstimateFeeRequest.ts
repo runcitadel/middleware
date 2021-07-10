@@ -10,7 +10,7 @@ export interface EstimateFeeRequest {
 }
 
 export interface EstimateFeeRequest__Output {
-  'AddrToAmount': ({[key: string]: Long});
+  'AddrToAmount': ({[key: string]: string});
   'targetConf': (number);
   'minConfs': (number);
   'spendUnconfirmed': (boolean);

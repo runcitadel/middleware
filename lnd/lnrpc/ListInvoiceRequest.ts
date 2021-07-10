@@ -11,7 +11,7 @@ export interface ListInvoiceRequest {
 
 export interface ListInvoiceRequest__Output {
   'pendingOnly': (boolean);
-  'indexOffset': (Long);
-  'numMaxInvoices': (Long);
+  'indexOffset': (string);
+  'numMaxInvoices': (string);
   'reversed': (boolean);
 }

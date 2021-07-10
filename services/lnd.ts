@@ -1,79 +1,80 @@
-/* eslint-disable camelcase, max-lines */
-const camelizeKeys = require('camelize-keys');
+import * as fs from "fs/promises";
+import * as grpc from "@grpc/grpc-js";
+import * as protoLoader from "@grpc/proto-loader";
+import * as path from "path";
 
-const diskService = require('services/disk');
-const LndError = require('models/errors.js').LndError;
+import type { ProtoGrpcType as LndMainProto } from "../lnd/rpc";
+import type { ProtoGrpcType as LndWalletUnlockerProto } from "../lnd/walletunlocker";
+import type { ProtoGrpcType as LndStateServiceProto } from "../lnd/stateservice";
+import { WalletState } from '../lnd/lnrpc/WalletState.js';
+import type { GetStateResponse__Output } from '../lnd/lnrpc/GetStateResponse';
+import type { AddInvoiceResponse__Output } from '../lnd/lnrpc/AddInvoiceResponse';
+import type { PayReqString__Output } from '../lnd/lnrpc/PayReqString';
+import type { PolicyUpdateRequest } from '../lnd/lnrpc/PolicyUpdateRequest';
+import type { OpenChannelRequest } from '../lnd/lnrpc/OpenChannelRequest';
+import type { SendCoinsRequest } from '../lnd/lnrpc/SendCoinsRequest';
+import type { EstimateFeeResponse__Output } from '../lnd/lnrpc/EstimateFeeResponse';
+
+import {LndError} from '../models/errors.js';
+
+type useLndApis = LndMainProto & LndWalletUnlockerProto & LndStateServiceProto;
+
+const loaderOptions = {
+  defaults: true,
+  longs: String,
+};
+
+const lndPackageDefinition = protoLoader.loadSync([
+  "./resources/rpc.proto",
+  "./resources/walletunlocker.proto",
+  "./resources/stateservice.proto",
+], loaderOptions);
+
+
+const lnrpcProto = grpc.loadPackageDefinition(
+  lndPackageDefinition
+) as unknown as useLndApis;
+
+const lnrpc = lnrpcProto.lnrpc;
+const WalletUnlocker = lnrpc.WalletUnlocker;
+const StateService = lnrpc.State;
+
+type RpcClientInfo = {
+  Lightning?: InstanceType<useLndApis["lnrpc"]["Lightning"]>
+  WalletUnlocker: InstanceType<useLndApis["lnrpc"]["WalletUnlocker"]>
+  State: InstanceType<useLndApis["lnrpc"]["State"]>,
+  state: WalletState
+}
+
+type RpcClientWithLightningForSure = {
+  Lightning: InstanceType<useLndApis["lnrpc"]["Lightning"]>
+  WalletUnlocker: InstanceType<useLndApis["lnrpc"]["WalletUnlocker"]>
+  State: InstanceType<useLndApis["lnrpc"]["State"]>,
+  state: WalletState
+}
 
 const LND_HOST = process.env.LND_HOST || '127.0.0.1';
-const TLS_FILE = process.env.TLS_FILE || '/lnd/tls.cert';
-const PROTO_FILE = process.env.PROTO_FILE || './resources/rpc.proto';
-const LND_PORT = process.env.LND_PORT || 10009; // eslint-disable-line no-magic-numbers
+const LND_DIR = process.env.LND_DIR || '/lnd';
+const LND_PORT = process.env.LND_PORT || 10009;
 const LND_NETWORK = process.env.LND_NETWORK || 'mainnet'; 
+
+const DEFAULT_RECOVERY_WINDOW = 250;
 
 // LND changed the macaroon path to ~/.lnd/data/chain/{chain}/{network}/admin.macaroon. We are currently only
 // supporting bitcoind and have that hard coded. However, we are leaving the ability to switch between testnet and
 // mainnet. This can be done with the /reset route. LND_NETWORK will be defaulted in /usr/local/casa/applications/.env.
 // LND_NETWORK will be overwritten in the settings file.
-let MACAROON_FILE = '/lnd/data/chain/bitcoin/' + LND_NETWORK + '/admin.macaroon';
+let TLS_FILE = path.join(LND_DIR, 'tls.cert');
+let MACAROON_FILE = path.join(LND_DIR, 'data', 'chain', 'bitcoin', LND_NETWORK + 'admin.macaroon');
 
-// Developers should overwrite MACAROON_DIR in their .env file or ide. We recommend 'os.homedir() + /lightning-node/'.
-if (process.env.MACAROON_DIR) {
-  MACAROON_FILE = process.env.MACAROON_DIR + 'admin.macaroon';
-}
-
-import * as grpc from '@grpc/grpc-js';
-import * as protoLoader from '@grpc/proto-loader';
-import { ProtoGrpcType } from '../lnd/rpc';
-
-const packageDefinition = protoLoader.loadSync('./proto/example.proto');
-const proto = (grpc.loadPackageDefinition(
-  packageDefinition
-) as unknown) as ProtoGrpcType;
-const lnrpc = proto.lnrpc;
-
-const DEFAULT_RECOVERY_WINDOW = 250;
-
-// Initialize RPC client will attempt to connect to the lnd rpc with a tls.cert and admin.macaroon. If the wallet has
-// not bee created yet, then the client will only be initialized with the tls.cert. There may be times when lnd wallet
-// is reset and the tls.cert and admin.macaroon will change.
-async function initializeRPCClient() {
-  return diskService.readFile(TLS_FILE)
-    .then(lndCert => {
-      const sslCreds = grpc.credentials.createSsl(lndCert);
-
-      return diskService.readFile(MACAROON_FILE)
-        .then(macaroon => {
-          // build meta data credentials
-          const metadata = new grpc.Metadata();
-          metadata.add('macaroon', macaroon.toString('hex'));
-          const macaroonCreds = grpc.credentials.createFromMetadataGenerator((_args, callback) => {
-            callback(null, metadata);
-          });
-
-          // combine the cert credentials and the macaroon auth credentials
-          // such that every call is properly encrypted and authenticated
-          return {
-            credentials: grpc.credentials.combineChannelCredentials(sslCreds, macaroonCreds),
-            state: true
-          };
-        })
-        .catch(() => ({ credentials: sslCreds, state: 'WALLET_CREATION_ONLY' }));
-    })
-    .then(({ credentials, state }) => ({
-      lightning: new lnrpc.Lightning(LND_HOST + ':' + LND_PORT, credentials),
-      walletUnlocker: new lnrpc.WalletUnlocker(LND_HOST + ':' + LND_PORT, credentials),
-      state: state // eslint-disable-line object-shorthand
-    }));
-}
-
-async function promiseify(rpcObj, rpcFn, payload, description) {
+export async function promiseify(rpcObj: unknown, rpcFn: Function, payload: unknown, description: string): Promise<any> {
   return new Promise((resolve, reject) => {
     try {
-      rpcFn.call(rpcObj, payload, (error, grpcResponse) => {
+      rpcFn.call(rpcObj, payload, (error: unknown, grpcResponse: unknown) => {
         if (error) {
           reject(new LndError(`Unable to ${description}`, error));
         } else {
-          resolve(camelizeKeys(grpcResponse, '_'));
+          resolve(grpcResponse);
         }
       });
     } catch (error) {
@@ -81,18 +82,65 @@ async function promiseify(rpcObj, rpcFn, payload, description) {
     }
   });
 }
+export async function initializeRPCClient(): Promise<RpcClientInfo> {
+  // Create credentials
+  const lndCert = await fs.readFile(TLS_FILE);
+  const sslCreds = grpc.credentials.createSsl(lndCert);
+  const stateService = new StateService(`${LND_HOST}:${LND_PORT}`, sslCreds);
+  const walletUnlocker = new WalletUnlocker(`${LND_HOST}:${LND_PORT}`, sslCreds);
+  const walletState: GetStateResponse__Output = await promiseify(stateService, stateService.getState, {}, "get wallet state");
+
+  // WAIING_TO_START will be used in the future
+  // https://github.com/Lightningnetwork/lnd/blob/bb5c3f3b51c7c58296d120d5afe4ed0640d5751e/docs/leader_election.md
+  if(walletState.state == WalletState.NON_EXISTING || walletState.state == WalletState.LOCKED || walletState.state == WalletState.WAITING_TO_START) {
+    return {
+      WalletUnlocker: walletUnlocker,
+      State: stateService,
+      state: walletState.state
+    }
+  } else if(walletState.state == WalletState.RPC_ACTIVE) {
+    // Read macaroons, they should exist in this state
+    const macaroon = await fs.readFile(MACAROON_FILE);
+  
+    // build credentials from macaroons
+    const metadata = new grpc.Metadata();
+    metadata.add('macaroon', macaroon.toString('hex'));
+    const macaroonCreds = grpc.credentials.createFromMetadataGenerator((_args, callback) => {
+      callback(null, metadata);
+    });
+    const fullCredentials = grpc.credentials.combineChannelCredentials(sslCreds, macaroonCreds);
+    
+    return {
+      WalletUnlocker: walletUnlocker,
+      State: stateService,
+      Lightning: new lnrpc.Lightning(`${LND_HOST}:${LND_PORT}`, fullCredentials),
+      state: walletState.state
+    }
+  } else {
+    throw new LndError("Unexpected LND state!", undefined, 500);
+  }
+}
+
+export async function expectWalletToExist(): Promise<RpcClientWithLightningForSure> {
+  const client = await initializeRPCClient();
+  if(!client.Lightning) throw new LndError("Error: Wallet not ready");
+  return client as RpcClientWithLightningForSure;
+}
 
 // an amount, an options memo, and can only be paid to node that created it.
-async function addInvoice(amount, memo) {
+export async function addInvoice(amount: number | string, memo: string): Promise<{
+  rHash: Buffer,
+  paymentRequest: string,
+}> {
   const rpcPayload = {
     value: amount,
-    memo: memo, // eslint-disable-line object-shorthand
-    expiry: 3600 // Should we make this ENV specific for ease of testing?
+    memo,
+    expiry: 3600
   };
 
-  const conn = await initializeRPCClient();
+  const conn = await expectWalletToExist();
 
-  const grpcResponse = await promiseify(conn.lightning, conn.lightning.addInvoice, rpcPayload, 'create new invoice');
+  const grpcResponse = await promiseify(conn.Lightning, conn.Lightning.addInvoice, rpcPayload, 'create new invoice') as AddInvoiceResponse__Output;
 
   if (grpcResponse && grpcResponse.paymentRequest) {
     return {
@@ -104,37 +152,22 @@ async function addInvoice(amount, memo) {
   }
 }
 
-// Change your lnd password.
-async function changePassword(currentPassword, newPassword) {
-
-  const currentPasswordBuff = Buffer.from(currentPassword, 'utf8');
-  const newPasswordBuff = Buffer.from(newPassword, 'utf8');
-
+export async function closeChannel(fundingTxId: string, index: number, force: boolean): Promise<void> {
   const rpcPayload = {
-    current_password: currentPasswordBuff,
-    new_password: newPasswordBuff,
-  };
-
-  const conn = await initializeRPCClient();
-
-  return await promiseify(conn.walletUnlocker, conn.walletUnlocker.changePassword, rpcPayload, 'change password');
-}
-
-function closeChannel(fundingTxId, index, force) {
-  const rpcPayload = {
-    channel_point: {
-      funding_txid_str: fundingTxId,
-      output_index: index
+    channelPoint: {
+      fundingTxidStr: fundingTxId,
+      outputIndex: index
     },
-    force: force // eslint-disable-line object-shorthand
+    force
   };
 
-  return initializeRPCClient().then(({ lightning }) => new Promise((resolve, reject) => {
+  const { Lightning } = await expectWalletToExist();
+  return await new Promise((resolve, reject) => {
     try {
-      const call = lightning.CloseChannel(rpcPayload);
+      const call = Lightning.CloseChannel(rpcPayload);
 
       call.on('data', chan => {
-        if (chan.update === 'close_pending') {
+        if (chan.update === 'closePending') {
           resolve();
         }
       });
@@ -142,316 +175,276 @@ function closeChannel(fundingTxId, index, force) {
       call.on('error', error => {
         reject(new LndError('Unable to close channel', error));
       });
-    } catch (error) {
-      reject(error);
+    } catch (error_1) {
+      reject(error_1);
     }
-  }));
+  });
 }
 
 // Connects this lnd node to a peer.
-function connectToPeer(pubKey, ip, port) {
+export async function connectToPeer(pubKey: string, ip: string, port: number | string) {
   const rpcPayload = {
     addr: {
       pubkey: pubKey,
-      host: ip + ':' + port
+      host: `${ip}:${port}`,
     }
   };
 
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.ConnectPeer, rpcPayload, 'connect to peer'));
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.ConnectPeer, rpcPayload, 'connect to peer');
 }
 
-function decodePaymentRequest(paymentRequest) {
-  const rpcPayload = {
-    pay_req: paymentRequest
+export async function decodePaymentRequest(paymentRequest: string) {
+  const rpcPayload: PayReqString__Output = {
+    payReq: paymentRequest
   };
 
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.decodePayReq, rpcPayload, 'decode payment request'))
-    .then(invoice => {
-      // add on payment request for extra details
-      invoice.paymentRequest = paymentRequest;
-
-      return invoice;
-    });
+  const { Lightning } = await expectWalletToExist();
+  const invoice = await promiseify(Lightning, Lightning.decodePayReq, rpcPayload, 'decode payment request');
+  // add on payment request for extra details
+  invoice.paymentRequest = paymentRequest;
+  return invoice;
 }
 
-async function estimateFee(address, amt, confTarget) {
-  const addrToAmount = {};
+export async function estimateFee(address: string, amt: string | number, confTarget: number): Promise<EstimateFeeResponse__Output> {
+  const addrToAmount: Record<string, unknown> = {};
   addrToAmount[address] = amt;
 
   const rpcPayload = {
     AddrToAmount: addrToAmount,
-    target_conf: confTarget,
+    targetConf: confTarget,
   };
 
-  const conn = await initializeRPCClient();
+  const conn = await expectWalletToExist();
 
-  return await promiseify(conn.lightning, conn.lightning.estimateFee, rpcPayload, 'estimate fee request');
+  return await promiseify(conn.Lightning, conn.Lightning.estimateFee, rpcPayload, 'estimate fee request');
 }
 
-async function generateAddress() {
+export async function generateAddress() {
   const rpcPayload = {
     type: 0
   };
 
-  const conn = await initializeRPCClient();
+  const conn = await expectWalletToExist();
 
-  return await promiseify(conn.lightning, conn.lightning.NewAddress, rpcPayload, 'generate address');
+  return await promiseify(conn.Lightning, conn.Lightning.NewAddress, rpcPayload, 'generate address');
 }
 
-function generateSeed() {
-  return initializeRPCClient().then(({ walletUnlocker, state }) => {
-    if (state === true) {
-      throw new LndError('Macaroon exists, therefore wallet already exists');
-    }
-
-    return promiseify(walletUnlocker, walletUnlocker.GenSeed, {}, 'generate seed');
-  });
+export async function generateSeed() {
+  const { WalletUnlocker, state } = await initializeRPCClient();
+  if (state !== WalletState.NON_EXISTING) {
+    throw new LndError('Wallet already exists');
+  }
+  return await promiseify(WalletUnlocker, WalletUnlocker.GenSeed, {}, 'generate seed');
 }
 
-function getChannelBalance() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.ChannelBalance, {}, 'get channel balance'));
+export async function getChannelBalance() {
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.ChannelBalance, {}, 'get channel balance');
 }
 
-function getFeeReport() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.FeeReport, {}, 'get fee report'));
+export async function getFeeReport() {
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.FeeReport, {}, 'get fee report');
 }
 
-function getForwardingEvents(startTime, endTime, indexOffset) {
+export async function getForwardingEvents(startTime: number | string, endTime: number | string, indexOffset: number) {
   const rpcPayload = {
-    start_time: startTime,
-    end_time: endTime,
-    index_offset: indexOffset,
+    startTime,
+    endTime,
+    indexOffset,
   };
 
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.ForwardingHistory, rpcPayload, 'get forwarding events'));
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.ForwardingHistory, rpcPayload, 'get forwarding events');
 }
 
-function getInfo() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.GetInfo, {}, 'get lnd information'));
+export async function getInfo() {
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.GetInfo, {}, 'get lnd information');
 }
 
-function getNodeInfo(pubkey, includeChannels) {
+export async function getNodeInfo(pubkey: string, includeChannels: boolean) {
   const rpcPayload = {
-    pub_key: pubkey,
-    include_channels: includeChannels
+    pubKey: pubkey,
+    includeChannels
   };
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.GetNodeInfo, rpcPayload, 'get node information'));
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.GetNodeInfo, rpcPayload, 'get node information');
 }
 
 // Returns a list of lnd's currently open channels. Channels are considered open by this node and it's directly
 // connected peer after three confirmation. After six confirmations, the channel is broadcasted by this node and it's
-// directly connected peer to the broader lightning network.
-function getOpenChannels() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.ListChannels, {}, 'list channels'))
-    .then(grpcResponse => grpcResponse.channels);
+// directly connected peer to the broader Lightning network.
+export async function getOpenChannels() {
+  const { Lightning } = await expectWalletToExist();
+  const grpcResponse = await promiseify(Lightning, Lightning.ListChannels, {}, 'list channels');
+  return grpcResponse.channels;
 }
 
-function getClosedChannels() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.ClosedChannels, {}, 'closed channels'))
-    .then(grpcResponse => grpcResponse.channels);
+export async function getClosedChannels() {
+  const { Lightning } = await expectWalletToExist();
+  const grpcResponse = await promiseify(Lightning, Lightning.ClosedChannels, {}, 'closed channels');
+  return grpcResponse.channels;
 }
 
 // Returns a list of all outgoing payments.
-function getPayments() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.ListPayments, {}, 'get payments'));
+export async function getPayments() {
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.ListPayments, {}, 'get payments');
 }
 
 // Returns a list of all lnd's currently connected and active peers.
-function getPeers() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.ListPeers, {}, 'get peer information'))
-    .then(grpcResponse => {
-      if (grpcResponse && grpcResponse.peers) {
-        return grpcResponse.peers;
-      } else {
-        throw new LndError('Unable to parse peer information');
-      }
-    });
+export async function getPeers() {
+  const { Lightning } = await expectWalletToExist();
+  const grpcResponse = await promiseify(Lightning, Lightning.ListPeers, {}, 'get peer information');
+  if (grpcResponse && grpcResponse.peers) {
+    return grpcResponse.peers;
+  } else {
+    throw new LndError('Unable to parse peer information');
+  }
 }
 
 // Returns a list of lnd's currently pending channels. Pending channels include, channels that are in the process of
 // being opened, but have not reached three confirmations. Channels that are pending closed, but have not reached
 // one confirmation. Forced close channels that require potentially hundreds of confirmations.
-function getPendingChannels() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.PendingChannels, {}, 'list pending channels'));
+export async function getPendingChannels() {
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.PendingChannels, {}, 'list pending channels');
 }
 
-function getWalletBalance() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.WalletBalance, {}, 'get wallet balance'));
+export async function getWalletBalance() {
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.WalletBalance, {}, 'get wallet balance');
 }
 
-function initWallet(options) {
+export async function initWallet(options: {
+  mnemonic: string[],
+  password: string
+}) {
   const passwordBuff = Buffer.from(options.password, 'utf8');
 
   const rpcPayload = {
-    wallet_password: passwordBuff,
-    cipher_seed_mnemonic: options.mnemonic,
-    recovery_window: DEFAULT_RECOVERY_WINDOW
+    walletPassword: passwordBuff,
+    cipherSeedMnemonic: options.mnemonic,
+    recoveryWindow: DEFAULT_RECOVERY_WINDOW
   };
 
-  return initializeRPCClient().then(({ walletUnlocker, state }) => {
-    if (state === true) {
-      throw new LndError('Macaroon exists, therefore wallet already exists');
-    }
-
-    return promiseify(walletUnlocker, walletUnlocker.InitWallet, rpcPayload, 'initialize wallet')
-      .then(() => options.mnemonic);
-  });
+  const { WalletUnlocker, state } = await initializeRPCClient();
+  if (state !== WalletState.NON_EXISTING) {
+    throw new LndError('Wallet already exists');
+  }
+  await promiseify(WalletUnlocker, WalletUnlocker.InitWallet, rpcPayload, 'initialize wallet');
+  return options.mnemonic;
 }
 
 // Returns a list of all invoices.
-function getInvoices() {
+export async function getInvoices() {
   const rpcPayload = {
     reversed: true, // Returns most recent
     num_max_invoices: 100,
   };
 
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.ListInvoices, rpcPayload, 'list invoices'));
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.ListInvoices, rpcPayload, 'list invoices');
 }
 
 // Returns a list of all on chain transactions.
-function getOnChainTransactions() {
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.GetTransactions, {}, 'list on-chain transactions'))
-    .then(grpcResponse => grpcResponse.transactions);
+export async function getOnChainTransactions() {
+  const { Lightning } = await expectWalletToExist();
+  const grpcResponse = await promiseify(Lightning, Lightning.GetTransactions, {}, 'list on-chain transactions');
+  return grpcResponse.transactions;
 }
 
-async function listUnspent() {
+export async function listUnspent() {
   const rpcPayload = {
     min_confs: 1,
     max_confs: 10000000, // Use arbitrarily high maximum confirmation limit.
   };
 
-  const conn = await initializeRPCClient();
+  const { Lightning } = await expectWalletToExist();
 
-  return await promiseify(conn.lightning, conn.lightning.listUnspent, rpcPayload, 'estimate fee request');
+  return await promiseify(Lightning, Lightning.listUnspent, rpcPayload, 'estimate fee request');
 }
 
-function openChannel(pubKey, amt, satPerByte) {
-  const rpcPayload = {
-    node_pubkey_string: pubKey,
-    local_funding_amount: amt,
+export async function openChannel(pubKey: string, amt: string | number, satPerByte: string | number) {
+  const rpcPayload: OpenChannelRequest = {
+    nodePubkeyString: pubKey,
+    localFundingAmount: amt,
   };
 
   if (satPerByte) {
-    rpcPayload.sat_per_byte = satPerByte;
+    rpcPayload.satPerByte = satPerByte;
   } else {
-    rpcPayload.target_conf = 6;
+    rpcPayload.targetConf = 6;
   }
 
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.OpenChannelSync, rpcPayload, 'open channel'));
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.OpenChannelSync, rpcPayload, 'open channel');
 }
 
-function sendCoins(addr, amt, satPerByte, sendAll) {
-  const rpcPayload = {
-    addr: addr, // eslint-disable-line object-shorthand
+export async function sendCoins(addr: string, amt: string | number | undefined, satPerByte: string, sendAll: boolean) {
+  const rpcPayload: SendCoinsRequest = {
+    addr,
     amount: amt,
-    send_all: sendAll,
+    sendAll,
   };
 
   if (satPerByte) {
-    rpcPayload.sat_per_byte = satPerByte;
+    rpcPayload.satPerByte = satPerByte;
   } else {
-    rpcPayload.target_conf = 6;
+    rpcPayload.targetConf = 6;
   }
 
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.SendCoins, rpcPayload, 'send coins'));
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.SendCoins, rpcPayload, 'send coins');
 }
 
-function sendPaymentSync(paymentRequest, amt) {
+export async function sendPaymentSync(paymentRequest: string, amt: string | number) {
   const rpcPayload = {
-    payment_request: paymentRequest,
-    amt: amt, // eslint-disable-line object-shorthand
+    paymentRequest,
+    amt,
   };
 
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.SendPaymentSync, rpcPayload, 'send lightning payment'))
-    .then(response => {
-      // sometimes the error comes in on the response...
-      if (response.paymentError) {
-        throw new LndError(`Unable to send lightning payment: ${response.paymentError}`);
-      }
-
-      return response;
-    });
+  const { Lightning } = await expectWalletToExist();
+  const response = await promiseify(Lightning, Lightning.SendPaymentSync, rpcPayload, 'send Lightning payment');
+  // sometimes the error comes in on the response...
+  if (response.paymentError) {
+    throw new LndError(`Unable to send Lightning payment: ${response.paymentError}`);
+  }
+  return response;
 }
 
-function unlockWallet(password) {
+export async function unlockWallet(password: string) {
   const passwordBuff = Buffer.from(password, 'utf8');
 
   const rpcPayload = {
     wallet_password: passwordBuff
   };
 
-  // TODO how to determine if wallet is already unlocked?
-  // This will throw code 12 unimplemented, which is not very helpful
-  return initializeRPCClient()
-    .then(({ walletUnlocker }) => promiseify(walletUnlocker, walletUnlocker.UnlockWallet, rpcPayload, 'unlock wallet'));
+  const { WalletUnlocker, state } = await initializeRPCClient();
+  if(state == WalletState.UNLOCKED || state == WalletState.RPC_ACTIVE) return;
+  return await promiseify(WalletUnlocker, WalletUnlocker.UnlockWallet, rpcPayload, 'unlock wallet');
 }
 
-function updateChannelPolicy(global, fundingTxid, outputIndex, baseFeeMsat, feeRate, timeLockDelta) {
-  const rpcPayload = {
-    base_fee_msat: baseFeeMsat,
-    fee_rate: feeRate,
-    time_lock_delta: timeLockDelta,
+export async function updateChannelPolicy(global: boolean, fundingTxid: string, outputIndex: number, baseFeeMsat: string, feeRate: number, timeLockDelta: number) {
+  const rpcPayload: PolicyUpdateRequest = {
+    baseFeeMsat,
+    feeRate,
+    timeLockDelta,
+    minHtlcMsatSpecified: false
   };
 
   if (global) {
     rpcPayload.global = global;
   } else {
-    rpcPayload.chan_point = {
-      funding_txid_str: fundingTxid,
-      output_index: outputIndex,
+    rpcPayload.chanPoint = {
+      fundingTxidStr: fundingTxid,
+      outputIndex,
     };
   }
 
-  return initializeRPCClient()
-    .then(({ lightning }) => promiseify(lightning, lightning.UpdateChannelPolicy, rpcPayload,
-      'update channel policy coins'));
+  const { Lightning } = await expectWalletToExist();
+  return await promiseify(Lightning, Lightning.UpdateChannelPolicy, rpcPayload,
+    'update channel policy coins');
 }
-
-module.exports = {
-  addInvoice,
-  changePassword,
-  closeChannel,
-  connectToPeer,
-  decodePaymentRequest,
-  estimateFee,
-  getChannelBalance,
-  getClosedChannels,
-  getFeeReport,
-  getForwardingEvents,
-  getInfo,
-  getNodeInfo,
-  getInvoices,
-  getOpenChannels,
-  getPayments,
-  getPeers,
-  getPendingChannels,
-  getWalletBalance,
-  generateAddress,
-  generateSeed,
-  getOnChainTransactions,
-  initWallet,
-  listUnspent,
-  openChannel,
-  sendCoins,
-  sendPaymentSync,
-  unlockWallet,
-  updateChannelPolicy,
-};

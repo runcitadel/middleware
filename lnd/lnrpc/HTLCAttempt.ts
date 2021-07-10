@@ -25,9 +25,9 @@ export interface HTLCAttempt {
 export interface HTLCAttempt__Output {
   'status': (_lnrpc_HTLCAttempt_HTLCStatus);
   'route': (_lnrpc_Route__Output | null);
-  'attemptTimeNs': (Long);
-  'resolveTimeNs': (Long);
+  'attemptTimeNs': (string);
+  'resolveTimeNs': (string);
   'failure': (_lnrpc_Failure__Output | null);
   'preimage': (Buffer);
-  'attemptId': (Long);
+  'attemptId': (string);
 }

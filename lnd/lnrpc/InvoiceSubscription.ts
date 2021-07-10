@@ -8,6 +8,6 @@ export interface InvoiceSubscription {
 }
 
 export interface InvoiceSubscription__Output {
-  'addIndex': (Long);
-  'settleIndex': (Long);
+  'addIndex': (string);
+  'settleIndex': (string);
 }

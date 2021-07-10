@@ -1,130 +1,43 @@
-const RpcClient = require('bitcoind-rpc');
-const camelizeKeys = require('camelize-keys');
-
+import { Client as RpcClient } from 'bitcoin-simple-rpc';
 const BitcoindError = require('models/errors.js').BitcoindError;
-
-const BITCOIND_RPC_PORT = process.env.RPC_PORT || 8332; // eslint-disable-line no-magic-numbers, max-len
+const BITCOIND_RPC_PORT = parseInt(process.env.RPC_PORT || "8332") || 8332; // eslint-disable-line no-magic-numbers, max-len
 const BITCOIND_HOST = process.env.BITCOIN_HOST || '127.0.0.1';
-const BITCOIND_RPC_USER = process.env.RPC_USER;
-const BITCOIND_RPC_PASSWORD = process.env.RPC_PASSWORD;
-
+const BITCOIND_RPC_USER = process.env.RPC_USER || "";
+const BITCOIND_RPC_PASSWORD = process.env.RPC_PASSWORD || "";
 const rpcClient = new RpcClient({
-  protocol: 'http',
-  user: BITCOIND_RPC_USER, // eslint-disable-line object-shorthand
-  pass: BITCOIND_RPC_PASSWORD, // eslint-disable-line object-shorthand
-  host: BITCOIND_HOST,
-  port: BITCOIND_RPC_PORT,
+    auth: {
+        username: BITCOIND_RPC_USER,
+        password: BITCOIND_RPC_PASSWORD,
+    },
+    baseURL: `${BITCOIND_HOST}:${BITCOIND_RPC_PORT}/`,
 });
-
-function promiseify(rpcObj, rpcFn, what) {
-  return new Promise((resolve, reject) => {
-    try {
-      rpcFn.call(rpcObj, (err, info) => {
-        if (err) {
-          reject(new BitcoindError(`Unable to obtain ${what}`, err));
-        } else {
-          resolve(camelizeKeys(info, '_'));
-        }
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
+export async function getBestBlockHash() {
+    return await rpcClient.getBestBlockHash();
 }
-
-function promiseifyParam(rpcObj, rpcFn, param, what) {
-  return new Promise((resolve, reject) => {
-    try {
-      rpcFn.call(rpcObj, param, (err, info) => {
-        if (err) {
-          reject(new BitcoindError(`Unable to obtain ${what}`, err));
-        } else {
-          resolve(camelizeKeys(info, '_'));
-        }
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
+export async function getBlockHash(height) {
+    return await rpcClient.getBlockHash(height);
 }
-
-function promiseifyParamTwo(rpcObj, rpcFn, param1, param2, what) {
-  return new Promise((resolve, reject) => {
-    try {
-      rpcFn.call(rpcObj, param1, param2, (err, info) => {
-        if (err) {
-          reject(new BitcoindError(`Unable to obtain ${what}`, err));
-        } else {
-          resolve(camelizeKeys(info, '_'));
-        }
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
+export async function getBlock(hash) {
+    return rpcClient.getBlock(hash, 2);
 }
-
-function getBestBlockHash() {
-  return promiseify(rpcClient, rpcClient.getBestBlockHash, 'best block hash');
+export async function getTransaction(txid) {
+    return await rpcClient.getRawTransaction(txid, true);
 }
-
-function getBlockHash(height) {
-  return promiseifyParam(rpcClient, rpcClient.getBlockHash, height, 'block height');
+export async function getBlockChainInfo() {
+    return await rpcClient.getBlockchainInfo();
 }
-
-function getBlock(hash) {
-  return promiseifyParam(rpcClient, rpcClient.getBlock, hash, 'block info');
+export async function getPeerInfo() {
+    return await rpcClient.getPeerInfo();
 }
-
-function getTransaction(txid) {
-  return promiseifyParamTwo(rpcClient, rpcClient.getRawTransaction, txid, 1, 'transaction info');
+export async function getBlockCount() {
+    return await rpcClient.getBlockCount();
 }
-
-function getBlockChainInfo() {
-  return promiseify(rpcClient, rpcClient.getBlockchainInfo, 'blockchain info');
+export async function getMempoolInfo() {
+    return await rpcClient.getMempoolInfo();
 }
-
-function getPeerInfo() {
-  return promiseify(rpcClient, rpcClient.getPeerInfo, 'peer info');
+export async function getNetworkInfo() {
+    return await rpcClient.getNetworkInfo();
 }
-
-function getBlockCount() {
-  return promiseify(rpcClient, rpcClient.getBlockCount, 'block count');
+export async function getMiningInfo() {
+    return await rpcClient.getMiningInfo();
 }
-
-function getMempoolInfo() {
-  return promiseify(rpcClient, rpcClient.getMemPoolInfo, 'get mempool info');
-}
-
-function getNetworkInfo() {
-  return promiseify(rpcClient, rpcClient.getNetworkInfo, 'network info');
-}
-
-function getMiningInfo() {
-  return promiseify(rpcClient, rpcClient.getMiningInfo, 'mining info');
-}
-function help() {
-  // TODO: missing from the library, but can add it not sure how to package.
-  // rpc.uptime(function (err, res) {
-  //     if (err) {
-  //         deferred.reject({status: 'offline'});
-  //     } else {
-  //         deferred.resolve({status: 'online'});
-  //     }
-  // });
-  return promiseify(rpcClient, rpcClient.help, 'help data');
-}
-
-module.exports = {
-  getMiningInfo,
-  getBestBlockHash,
-  getBlockHash,
-  getBlock,
-  getTransaction,
-  getBlockChainInfo,
-  getBlockCount,
-  getPeerInfo,
-  getMempoolInfo,
-  getNetworkInfo,
-  help,
-};

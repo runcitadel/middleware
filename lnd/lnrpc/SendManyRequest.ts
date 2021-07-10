@@ -13,10 +13,10 @@ export interface SendManyRequest {
 }
 
 export interface SendManyRequest__Output {
-  'AddrToAmount': ({[key: string]: Long});
+  'AddrToAmount': ({[key: string]: string});
   'targetConf': (number);
-  'satPerVbyte': (Long);
-  'satPerByte': (Long);
+  'satPerVbyte': (string);
+  'satPerByte': (string);
   'label': (string);
   'minConfs': (number);
   'spendUnconfirmed': (boolean);

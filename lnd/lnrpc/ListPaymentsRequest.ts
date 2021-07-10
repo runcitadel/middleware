@@ -11,7 +11,7 @@ export interface ListPaymentsRequest {
 
 export interface ListPaymentsRequest__Output {
   'includeIncomplete': (boolean);
-  'indexOffset': (Long);
-  'maxPayments': (Long);
+  'indexOffset': (string);
+  'maxPayments': (string);
   'reversed': (boolean);
 }

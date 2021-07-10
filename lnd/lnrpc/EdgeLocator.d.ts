@@ -5,6 +5,6 @@ export interface EdgeLocator {
     'directionReverse'?: (boolean);
 }
 export interface EdgeLocator__Output {
-    'channelId': (Long);
+    'channelId': (string);
     'directionReverse': (boolean);
 }

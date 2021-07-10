@@ -20,13 +20,13 @@ export interface Hop {
     'ampRecord'?: (_lnrpc_AMPRecord | null);
 }
 export interface Hop__Output {
-    'chanId': (Long);
-    'chanCapacity': (Long);
-    'amtToForward': (Long);
-    'fee': (Long);
+    'chanId': (string);
+    'chanCapacity': (string);
+    'amtToForward': (string);
+    'fee': (string);
     'expiry': (number);
-    'amtToForwardMsat': (Long);
-    'feeMsat': (Long);
+    'amtToForwardMsat': (string);
+    'feeMsat': (string);
     'pubKey': (string);
     'tlvPayload': (boolean);
     'mppRecord': (_lnrpc_MPPRecord__Output | null);

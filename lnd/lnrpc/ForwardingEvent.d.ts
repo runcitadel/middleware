@@ -13,14 +13,14 @@ export interface ForwardingEvent {
     'timestampNs'?: (number | string | Long);
 }
 export interface ForwardingEvent__Output {
-    'timestamp': (Long);
-    'chanIdIn': (Long);
-    'chanIdOut': (Long);
-    'amtIn': (Long);
-    'amtOut': (Long);
-    'fee': (Long);
-    'feeMsat': (Long);
-    'amtInMsat': (Long);
-    'amtOutMsat': (Long);
-    'timestampNs': (Long);
+    'timestamp': (string);
+    'chanIdIn': (string);
+    'chanIdOut': (string);
+    'amtIn': (string);
+    'amtOut': (string);
+    'fee': (string);
+    'feeMsat': (string);
+    'amtInMsat': (string);
+    'amtOutMsat': (string);
+    'timestampNs': (string);
 }

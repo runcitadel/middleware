@@ -12,10 +12,10 @@ export interface HTLC {
 }
 export interface HTLC__Output {
     'incoming': (boolean);
-    'amount': (Long);
+    'amount': (string);
     'hashLock': (Buffer);
     'expirationHeight': (number);
-    'htlcIndex': (Long);
-    'forwardingChannel': (Long);
-    'forwardingHtlcIndex': (Long);
+    'htlcIndex': (string);
+    'forwardingChannel': (string);
+    'forwardingHtlcIndex': (string);
 }

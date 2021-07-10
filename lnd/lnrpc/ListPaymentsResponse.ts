@@ -11,6 +11,6 @@ export interface ListPaymentsResponse {
 
 export interface ListPaymentsResponse__Output {
   'payments': (_lnrpc_Payment__Output)[];
-  'firstIndexOffset': (Long);
-  'lastIndexOffset': (Long);
+  'firstIndexOffset': (string);
+  'lastIndexOffset': (string);
 }

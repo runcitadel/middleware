@@ -11,9 +11,9 @@ export interface ChannelEdgeUpdate {
     'connectingNode'?: (string);
 }
 export interface ChannelEdgeUpdate__Output {
-    'chanId': (Long);
+    'chanId': (string);
     'chanPoint': (_lnrpc_ChannelPoint__Output | null);
-    'capacity': (Long);
+    'capacity': (string);
     'routingPolicy': (_lnrpc_RoutingPolicy__Output | null);
     'advertisingNode': (string);
     'connectingNode': (string);

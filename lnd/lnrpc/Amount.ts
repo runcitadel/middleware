@@ -8,6 +8,6 @@ export interface Amount {
 }
 
 export interface Amount__Output {
-  'sat': (Long);
-  'msat': (Long);
+  'sat': (string);
+  'msat': (string);
 }

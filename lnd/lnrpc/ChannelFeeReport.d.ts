@@ -9,8 +9,8 @@ export interface ChannelFeeReport {
 }
 export interface ChannelFeeReport__Output {
     'channelPoint': (string);
-    'baseFeeMsat': (Long);
-    'feePerMil': (Long);
+    'baseFeeMsat': (string);
+    'feePerMil': (string);
     'feeRate': (number);
-    'chanId': (Long);
+    'chanId': (string);
 }

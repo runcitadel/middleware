@@ -4,5 +4,5 @@ export interface ListMacaroonIDsResponse {
     'rootKeyIds'?: (number | string | Long)[];
 }
 export interface ListMacaroonIDsResponse__Output {
-    'rootKeyIds': (Long)[];
+    'rootKeyIds': (string)[];
 }

@@ -10,6 +10,6 @@ export interface ReadyForPsbtFunding {
 
 export interface ReadyForPsbtFunding__Output {
   'fundingAddress': (string);
-  'fundingAmount': (Long);
+  'fundingAmount': (string);
   'psbt': (Buffer);
 }

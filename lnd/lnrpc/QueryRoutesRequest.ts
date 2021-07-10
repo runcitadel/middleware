@@ -28,7 +28,7 @@ export interface QueryRoutesRequest {
 
 export interface QueryRoutesRequest__Output {
   'pubKey': (string);
-  'amt': (Long);
+  'amt': (string);
   'finalCltvDelta': (number);
   'feeLimit': (_lnrpc_FeeLimit__Output | null);
   'ignoredNodes': (Buffer)[];
@@ -37,9 +37,9 @@ export interface QueryRoutesRequest__Output {
   'useMissionControl': (boolean);
   'ignoredPairs': (_lnrpc_NodePair__Output)[];
   'cltvLimit': (number);
-  'amtMsat': (Long);
+  'amtMsat': (string);
   'destCustomRecords': ({[key: number]: Buffer});
-  'outgoingChanId': (Long);
+  'outgoingChanId': (string);
   'lastHopPubkey': (Buffer);
   'routeHints': (_lnrpc_RouteHint__Output)[];
   'destFeatures': (_lnrpc_FeatureBit)[];

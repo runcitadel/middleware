@@ -11,6 +11,6 @@ export interface ListInvoiceResponse {
 
 export interface ListInvoiceResponse__Output {
   'invoices': (_lnrpc_Invoice__Output)[];
-  'lastIndexOffset': (Long);
-  'firstIndexOffset': (Long);
+  'lastIndexOffset': (string);
+  'firstIndexOffset': (string);
 }

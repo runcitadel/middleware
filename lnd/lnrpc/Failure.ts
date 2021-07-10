@@ -50,7 +50,7 @@ export interface Failure {
 export interface Failure__Output {
   'code': (_lnrpc_Failure_FailureCode);
   'channelUpdate': (_lnrpc_ChannelUpdate__Output | null);
-  'htlcMsat': (Long);
+  'htlcMsat': (string);
   'onionSha_256': (Buffer);
   'cltvExpiry': (number);
   'flags': (number);

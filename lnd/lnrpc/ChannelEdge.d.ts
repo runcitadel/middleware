@@ -12,12 +12,12 @@ export interface ChannelEdge {
     'node2Policy'?: (_lnrpc_RoutingPolicy | null);
 }
 export interface ChannelEdge__Output {
-    'channelId': (Long);
+    'channelId': (string);
     'chanPoint': (string);
     'lastUpdate': (number);
     'node1Pub': (string);
     'node2Pub': (string);
-    'capacity': (Long);
+    'capacity': (string);
     'node1Policy': (_lnrpc_RoutingPolicy__Output | null);
     'node2Policy': (_lnrpc_RoutingPolicy__Output | null);
 }

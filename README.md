@@ -1,16 +1,4 @@
-[![Umbrel Middleware](https://static.getumbrel.com/github/github-banner-umbrel-middleware.svg)](https://github.com/getumbrel/umbrel-middleware)
-
-[![Version](https://img.shields.io/github/v/release/getumbrel/umbrel-middleware?color=%235351FB&label=version)](https://github.com/getumbrel/umbrel-middleware/releases)
-[![Docker Build](https://img.shields.io/github/workflow/status/getumbrel/umbrel-middleware/Docker%20build%20on%20push?color=%235351FB)](https://github.com/getumbrel/umbrel-middleware/actions?query=workflow%3A"Docker+build+on+push")
-[![Docker Pulls](https://img.shields.io/docker/pulls/getumbrel/middleware?color=%235351FB)](https://hub.docker.com/repository/registry-1.docker.io/getumbrel/middleware/tags?page=1)
-[![Community Chat](https://img.shields.io/badge/community%20chat-telegram-%235351FB)](https://t.me/getumbrel)
-[![Developer Chat](https://img.shields.io/badge/dev%20chat-keybase-%235351FB)](https://keybase.io/team/getumbrel)
-
-[![Twitter](https://img.shields.io/twitter/follow/getumbrel?style=social)](https://twitter.com/getumbrel)
-[![Reddit](https://img.shields.io/reddit/subreddit-subscribers/getumbrel?label=Subscribe%20%2Fr%2Fgetumbrel&style=social)](https://reddit.com/r/getumbrel)
-
-
-# ☂️ middleware
+# middleware
 
 Middleware runs by-default on [Umbrel OS](https://github.com/getumbrel/umbrel-os) as a containerized service. It wraps [Bitcoin Core](https://github.com/bitcoin/bitcoin)'s RPC and [LND](https://github.com/lightningnetwork/lnd)'s gRPC, and exposes them via a RESTful API.
 
@@ -43,7 +31,6 @@ Set the following environment variables directly or by placing them in `.env` fi
 | `TLS_FILE` | Path to `lnd`'s TLS certificate | `/lnd/tls.cert` |
 | `LND_PORT` | Port where `lnd` RPC is listening | `10009` |
 | `LND_NETWORK` | The chain `bitcoind` is running on (mainnet, testnet, regtest, simnet) | `mainnet` |
-| `LND_WALLET_PASSWORD` | The password for the LND wallet which will be automatically unlocked on boot | ` ` |
 | `MACAROON_DIR` | Path to `lnd`'s macaroon directory | `/lnd/data/chain/bitcoin/mainnet/` |
 | `JWT_PUBLIC_KEY_FILE` | Path to the JWT public key created by [`umbrel-manager`](https://github.com/getumbrel/umbrel-manager) | `/jwt-public-key/jwt.pem` |
 

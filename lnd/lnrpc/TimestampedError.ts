@@ -8,6 +8,6 @@ export interface TimestampedError {
 }
 
 export interface TimestampedError__Output {
-  'timestamp': (Long);
+  'timestamp': (string);
   'error': (string);
 }

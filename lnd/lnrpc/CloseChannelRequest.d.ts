@@ -13,7 +13,7 @@ export interface CloseChannelRequest__Output {
     'channelPoint': (_lnrpc_ChannelPoint__Output | null);
     'force': (boolean);
     'targetConf': (number);
-    'satPerByte': (Long);
+    'satPerByte': (string);
     'deliveryAddress': (string);
-    'satPerVbyte': (Long);
+    'satPerVbyte': (string);
 }

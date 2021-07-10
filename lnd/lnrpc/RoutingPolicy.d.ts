@@ -11,10 +11,10 @@ export interface RoutingPolicy {
 }
 export interface RoutingPolicy__Output {
     'timeLockDelta': (number);
-    'minHtlc': (Long);
-    'feeBaseMsat': (Long);
-    'feeRateMilliMsat': (Long);
+    'minHtlc': (string);
+    'feeBaseMsat': (string);
+    'feeRateMilliMsat': (string);
     'disabled': (boolean);
-    'maxHtlcMsat': (Long);
+    'maxHtlcMsat': (string);
     'lastUpdate': (number);
 }

@@ -28,9 +28,9 @@ export interface _lnrpc_PendingChannelsResponse_Commitments__Output {
     'localTxid': (string);
     'remoteTxid': (string);
     'remotePendingTxid': (string);
-    'localCommitFeeSat': (Long);
-    'remoteCommitFeeSat': (Long);
-    'remotePendingCommitFeeSat': (Long);
+    'localCommitFeeSat': (string);
+    'remoteCommitFeeSat': (string);
+    'remotePendingCommitFeeSat': (string);
 }
 export interface _lnrpc_PendingChannelsResponse_ForceClosedChannel {
     'channel'?: (_lnrpc_PendingChannelsResponse_PendingChannel | null);
@@ -45,10 +45,10 @@ export interface _lnrpc_PendingChannelsResponse_ForceClosedChannel {
 export interface _lnrpc_PendingChannelsResponse_ForceClosedChannel__Output {
     'channel': (_lnrpc_PendingChannelsResponse_PendingChannel__Output | null);
     'closingTxid': (string);
-    'limboBalance': (Long);
+    'limboBalance': (string);
     'maturityHeight': (number);
     'blocksTilMaturity': (number);
-    'recoveredBalance': (Long);
+    'recoveredBalance': (string);
     'pendingHtlcs': (_lnrpc_PendingHTLC__Output)[];
     'anchor': (_lnrpc_PendingChannelsResponse_ForceClosedChannel_AnchorState);
 }
@@ -66,11 +66,11 @@ export interface _lnrpc_PendingChannelsResponse_PendingChannel {
 export interface _lnrpc_PendingChannelsResponse_PendingChannel__Output {
     'remoteNodePub': (string);
     'channelPoint': (string);
-    'capacity': (Long);
-    'localBalance': (Long);
-    'remoteBalance': (Long);
-    'localChanReserveSat': (Long);
-    'remoteChanReserveSat': (Long);
+    'capacity': (string);
+    'localBalance': (string);
+    'remoteBalance': (string);
+    'localChanReserveSat': (string);
+    'remoteChanReserveSat': (string);
     'initiator': (_lnrpc_Initiator);
     'commitmentType': (_lnrpc_CommitmentType);
 }
@@ -84,9 +84,9 @@ export interface _lnrpc_PendingChannelsResponse_PendingOpenChannel {
 export interface _lnrpc_PendingChannelsResponse_PendingOpenChannel__Output {
     'channel': (_lnrpc_PendingChannelsResponse_PendingChannel__Output | null);
     'confirmationHeight': (number);
-    'commitFee': (Long);
-    'commitWeight': (Long);
-    'feePerKw': (Long);
+    'commitFee': (string);
+    'commitWeight': (string);
+    'feePerKw': (string);
 }
 export interface _lnrpc_PendingChannelsResponse_WaitingCloseChannel {
     'channel'?: (_lnrpc_PendingChannelsResponse_PendingChannel | null);
@@ -95,7 +95,7 @@ export interface _lnrpc_PendingChannelsResponse_WaitingCloseChannel {
 }
 export interface _lnrpc_PendingChannelsResponse_WaitingCloseChannel__Output {
     'channel': (_lnrpc_PendingChannelsResponse_PendingChannel__Output | null);
-    'limboBalance': (Long);
+    'limboBalance': (string);
     'commitments': (_lnrpc_PendingChannelsResponse_Commitments__Output | null);
 }
 export interface PendingChannelsResponse {
@@ -106,7 +106,7 @@ export interface PendingChannelsResponse {
     'waitingCloseChannels'?: (_lnrpc_PendingChannelsResponse_WaitingCloseChannel)[];
 }
 export interface PendingChannelsResponse__Output {
-    'totalLimboBalance': (Long);
+    'totalLimboBalance': (string);
     'pendingOpenChannels': (_lnrpc_PendingChannelsResponse_PendingOpenChannel__Output)[];
     'pendingClosingChannels': (_lnrpc_PendingChannelsResponse_ClosedChannel__Output)[];
     'pendingForceClosingChannels': (_lnrpc_PendingChannelsResponse_ForceClosedChannel__Output)[];

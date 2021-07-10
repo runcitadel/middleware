@@ -13,9 +13,9 @@ export interface ChannelConstraints {
 
 export interface ChannelConstraints__Output {
   'csvDelay': (number);
-  'chanReserveSat': (Long);
-  'dustLimitSat': (Long);
-  'maxPendingAmtMsat': (Long);
-  'minHtlcMsat': (Long);
+  'chanReserveSat': (string);
+  'dustLimitSat': (string);
+  'maxPendingAmtMsat': (string);
+  'minHtlcMsat': (string);
   'maxAcceptedHtlcs': (number);
 }

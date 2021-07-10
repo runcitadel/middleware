@@ -33,18 +33,18 @@ export interface Payment {
 
 export interface Payment__Output {
   'paymentHash': (string);
-  'value': (Long);
-  'creationDate': (Long);
-  'fee': (Long);
+  'value': (string);
+  'creationDate': (string);
+  'fee': (string);
   'paymentPreimage': (string);
-  'valueSat': (Long);
-  'valueMsat': (Long);
+  'valueSat': (string);
+  'valueMsat': (string);
   'paymentRequest': (string);
   'status': (_lnrpc_Payment_PaymentStatus);
-  'feeSat': (Long);
-  'feeMsat': (Long);
-  'creationTimeNs': (Long);
+  'feeSat': (string);
+  'feeMsat': (string);
+  'creationTimeNs': (string);
   'htlcs': (_lnrpc_HTLCAttempt__Output)[];
-  'paymentIndex': (Long);
+  'paymentIndex': (string);
   'failureReason': (_lnrpc_PaymentFailureReason);
 }

@@ -17,12 +17,12 @@ export interface Transaction {
 
 export interface Transaction__Output {
   'txHash': (string);
-  'amount': (Long);
+  'amount': (string);
   'numConfirmations': (number);
   'blockHash': (string);
   'blockHeight': (number);
-  'timeStamp': (Long);
-  'totalFees': (Long);
+  'timeStamp': (string);
+  'totalFees': (string);
   'destAddresses': (string)[];
   'rawTxHex': (string);
   'label': (string);

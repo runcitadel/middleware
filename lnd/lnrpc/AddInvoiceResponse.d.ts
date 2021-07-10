@@ -10,6 +10,6 @@ export interface AddInvoiceResponse {
 export interface AddInvoiceResponse__Output {
     'rHash': (Buffer);
     'paymentRequest': (string);
-    'addIndex': (Long);
+    'addIndex': (string);
     'paymentAddr': (Buffer);
 }

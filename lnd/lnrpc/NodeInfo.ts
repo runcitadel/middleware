@@ -14,6 +14,6 @@ export interface NodeInfo {
 export interface NodeInfo__Output {
   'node': (_lnrpc_LightningNode__Output | null);
   'numChannels': (number);
-  'totalCapacity': (Long);
+  'totalCapacity': (string);
   'channels': (_lnrpc_ChannelEdge__Output)[];
 }

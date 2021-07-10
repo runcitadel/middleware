@@ -23,16 +23,16 @@ export interface PayReq {
 export interface PayReq__Output {
     'destination': (string);
     'paymentHash': (string);
-    'numSatoshis': (Long);
-    'timestamp': (Long);
-    'expiry': (Long);
+    'numSatoshis': (string);
+    'timestamp': (string);
+    'expiry': (string);
     'description': (string);
     'descriptionHash': (string);
     'fallbackAddr': (string);
-    'cltvExpiry': (Long);
+    'cltvExpiry': (string);
     'routeHints': (_lnrpc_RouteHint__Output)[];
     'paymentAddr': (Buffer);
-    'numMsat': (Long);
+    'numMsat': (string);
     'features': ({
         [key: number]: _lnrpc_Feature__Output;
     });

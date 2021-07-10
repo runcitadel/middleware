@@ -8,6 +8,6 @@ export interface WalletAccountBalance {
 }
 
 export interface WalletAccountBalance__Output {
-  'confirmedBalance': (Long);
-  'unconfirmedBalance': (Long);
+  'confirmedBalance': (string);
+  'unconfirmedBalance': (string);
 }

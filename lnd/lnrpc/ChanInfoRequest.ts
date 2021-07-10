@@ -7,5 +7,5 @@ export interface ChanInfoRequest {
 }
 
 export interface ChanInfoRequest__Output {
-  'chanId': (Long);
+  'chanId': (string);
 }

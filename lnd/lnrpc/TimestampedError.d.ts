@@ -5,6 +5,6 @@ export interface TimestampedError {
     'error'?: (string);
 }
 export interface TimestampedError__Output {
-    'timestamp': (Long);
+    'timestamp': (string);
     'error': (string);
 }

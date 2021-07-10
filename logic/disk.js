@@ -1,16 +1,5 @@
-const constants = require('utils/const.js');
-const diskService = require('services/disk');
-
-function readManagedChannelsFile() {
-  return diskService.readJsonFile(constants.MANAGED_CHANNELS_FILE)
-    .catch(() => Promise.resolve({}));
+import constants from '../utils/const.js';
+import * as diskService from '../services/disk.js';
+export function readJWTPublicKeyFile() {
+    return diskService.readUtf8File(constants.JWT_PUBLIC_KEY_FILE);
 }
-
-function writeManagedChannelsFile(data) {
-  return diskService.writeJsonFile(constants.MANAGED_CHANNELS_FILE, data);
-}
-
-module.exports = {
-  readManagedChannelsFile,
-  writeManagedChannelsFile,
-};

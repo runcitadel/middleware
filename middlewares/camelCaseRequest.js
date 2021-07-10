@@ -1,12 +1,26 @@
-const camelizeKeys = require('camelize-keys');
-
-function camelCaseRequest(req, res, next) {
-  if (req && req.body) {
-    req.body = camelizeKeys(req.body, '_');
-  }
-  next();
-}
-
-module.exports = {
-  camelCaseRequest,
+const toCamel = (s) => {
+    return s.replace(/([-_][a-z])/ig, ($1) => {
+        return $1.toUpperCase()
+            .replace('-', '')
+            .replace('_', '');
+    });
 };
+function camelize(object) {
+    if (typeof object === 'string')
+        return toCamel(object);
+    if (typeof object !== "object")
+        return object;
+    return Object
+        .entries(object)
+        .reduce((carry, [key, value]) => {
+        // @ts-expect-error
+        carry[toCamel(key)] = value;
+        return carry;
+    }, {});
+}
+export function camelCaseRequest(request, res, next) {
+    if (request && request.body) {
+        request.body = camelize(request.body);
+    }
+    next();
+}

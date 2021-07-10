@@ -6,6 +6,6 @@ export interface MPPRecord {
     'paymentAddr'?: (Buffer | Uint8Array | string);
 }
 export interface MPPRecord__Output {
-    'totalAmtMsat': (Long);
+    'totalAmtMsat': (string);
     'paymentAddr': (Buffer);
 }

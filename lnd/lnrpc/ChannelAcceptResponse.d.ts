@@ -19,9 +19,9 @@ export interface ChannelAcceptResponse__Output {
     'error': (string);
     'upfrontShutdown': (string);
     'csvDelay': (number);
-    'reserveSat': (Long);
-    'inFlightMaxMsat': (Long);
+    'reserveSat': (string);
+    'inFlightMaxMsat': (string);
     'maxHtlcCount': (number);
-    'minHtlcIn': (Long);
+    'minHtlcIn': (string);
     'minAcceptDepth': (number);
 }

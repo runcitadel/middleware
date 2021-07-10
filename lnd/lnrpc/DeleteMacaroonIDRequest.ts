@@ -7,5 +7,5 @@ export interface DeleteMacaroonIDRequest {
 }
 
 export interface DeleteMacaroonIDRequest__Output {
-  'rootKeyId': (Long);
+  'rootKeyId': (string);
 }

@@ -1,9 +1,7 @@
-const express = require('express');
-const pjson = require('../package.json');
-const router = express.Router();
-
+import { Router } from 'express';
+import * as pjson from '../package.json';
+const router = Router();
 router.get('/', function (req, res) {
-  res.json({ version: 'umbrel-middleware-' + pjson.version });
+    res.json({ version: 'middleware-' + pjson.version });
 });
-
-module.exports = router;
+export default router;

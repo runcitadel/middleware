@@ -26,18 +26,18 @@ export interface SendRequest {
 export interface SendRequest__Output {
     'dest': (Buffer);
     'destString': (string);
-    'amt': (Long);
+    'amt': (string);
     'paymentHash': (Buffer);
     'paymentHashString': (string);
     'paymentRequest': (string);
     'finalCltvDelta': (number);
     'feeLimit': (_lnrpc_FeeLimit__Output | null);
-    'outgoingChanId': (Long);
+    'outgoingChanId': (string);
     'cltvLimit': (number);
     'destCustomRecords': ({
         [key: number]: Buffer;
     });
-    'amtMsat': (Long);
+    'amtMsat': (string);
     'lastHopPubkey': (Buffer);
     'allowSelfPayment': (boolean);
     'destFeatures': (_lnrpc_FeatureBit)[];
