@@ -1,10 +1,10 @@
 import { Router } from 'express';
 const router = Router();
 import * as bitcoind from '../../../logic/bitcoind.js';
-const auth = require('middlewares/auth.js');
-const safeHandler = require('utils/safeHandler');
+import * as auth from '../../../middlewares/auth.js';
+import { safeHandler } from '../../../utils/safeHandler.js';
 router.get('/mempool', auth.jwt, safeHandler((req, res) => bitcoind.getMempoolInfo()
-    .then(mempool => res.json(mempool.result))));
+    .then(mempool => res.json(mempool))));
 router.get('/blockcount', auth.jwt, safeHandler((req, res) => bitcoind.getBlockCount()
     .then(blockCount => res.json(blockCount))));
 router.get('/connections', auth.jwt, safeHandler((req, res) => bitcoind.getConnectionsCount()
@@ -27,7 +27,7 @@ router.get('/block', auth.jwt, safeHandler((req, res) => {
             .then(blockhash => res.json(blockhash));
     }
     else if (req.query.height !== undefined && req.query.height !== null) {
-        bitcoind.getBlockHash(req.query.height)
+        bitcoind.getBlockHash(parseInt(req.query.height))
             .then(blockhash => res.json(blockhash));
     }
 }));

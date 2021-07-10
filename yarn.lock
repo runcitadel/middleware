@@ -400,6 +400,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^8.3.1":
+  version: 8.3.1
+  resolution: "@types/uuid@npm:8.3.1"
+  checksum: b41bdc5e86c6f0f1899306be10455636da0f2168c9489b869edd6837ddeb7c0e501b1ff7d857402462986bada2a379125743dd895fa801d03437cd632116a373
+  languageName: node
+  linkType: hard
+
 "@types/validator@npm:^13.6.3":
   version: 13.6.3
   resolution: "@types/validator@npm:13.6.3"
@@ -2020,6 +2027,7 @@ __metadata:
     "@types/node": ^16.0.1
     "@types/passport": ^1.0.7
     "@types/passport-jwt": ^3.0.6
+    "@types/uuid": ^8.3.1
     "@types/validator": ^13.6.3
     "@typescript-eslint/eslint-plugin": ^4.28.2
     "@typescript-eslint/parser": ^4.28.2
