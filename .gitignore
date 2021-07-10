@@ -17,7 +17,7 @@ coverage
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
-lnd/**/*.js
+*.js
 tsconfig.tsbuildinfo
 *.d.ts
 !lnd/**/*.d.ts

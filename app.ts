@@ -46,7 +46,7 @@ app.use(camelCaseRequest);
 app.use(morgan(<any>logger.morganConfiguration));
 
 // Handles CORS
-app.use(cors(corsOptions));
+app.use(cors(<any>corsOptions));
 
 app.use('/v1/bitcoind/info', bitcoind);
 app.use('/v1/lnd/address', address);
