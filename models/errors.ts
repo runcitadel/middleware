@@ -1,7 +1,7 @@
 /* eslint-disable no-magic-numbers */
 export class NodeError extends Error {
   statusCode?: number;
-  constructor (message: string, statusCode?: number) {
+  constructor(message: string, statusCode?: number) {
       super(message);
       Error.captureStackTrace(this, this.constructor);
       this.name = this.constructor.name;
@@ -12,7 +12,7 @@ export class NodeError extends Error {
 
 export class ValidationError extends Error {
   statusCode?: number;
-  constructor (message: string, statusCode?: number) {
+  constructor(message: string, statusCode?: number) {
       super(message);
       Error.captureStackTrace(this, this.constructor);
       this.name = this.constructor.name;
@@ -24,7 +24,11 @@ export class ValidationError extends Error {
 export class BitcoindError extends Error {
   statusCode?: number;
   error: unknown = undefined;
-  constructor (message: string, error: unknown = undefined, statusCode?: number) {
+  constructor(
+      message: string,
+      error: unknown = undefined,
+      statusCode?: number
+  ) {
       super(message);
       Error.captureStackTrace(this, this.constructor);
       this.name = this.constructor.name;
@@ -37,7 +41,11 @@ export class BitcoindError extends Error {
 export class LndError extends Error {
   statusCode?: number;
   error: unknown = undefined;
-  constructor (message: string, error: unknown = undefined, statusCode?: number) {
+  constructor(
+      message: string,
+      error: unknown = undefined,
+      statusCode?: number
+  ) {
       super(message);
       Error.captureStackTrace(this, this.constructor);
       this.name = this.constructor.name;

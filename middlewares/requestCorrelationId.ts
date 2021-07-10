@@ -1,8 +1,8 @@
-import { v4 as createUUID } from 'uuid';
-import constants from '../utils/const.js';
-import {createNamespace} from 'continuation-local-storage';
+import { v4 as createUUID } from "uuid";
+import constants from "../utils/const.js";
+import { createNamespace } from "continuation-local-storage";
 const apiRequest = createNamespace(constants.REQUEST_CORRELATION_NAMESPACE_KEY);
-import { Request, NextFunction, Response } from 'express';
+import { Request, NextFunction, Response } from "express";
 
 function addCorrelationId(request: Request, res: Response, next: NextFunction) {
     apiRequest.bindEmitter(<any>request);

@@ -1,16 +1,21 @@
 // Source from https://github.com/richardschneider/bitcoin-convert/
-import Big from 'big.js';
+import Big from "big.js";
 
 const units: Record<string, Big> = {
     btc: new Big(1),
-    'mBTC': new Big(0.001),
-    'μBTC': new Big(0.000001),
-    'bit': new Big(0.000001),
-    'Satoshi': new Big(0.00000001),
-    'sat': new Big(0.00000001)
+    mBTC: new Big(0.001),
+    μBTC: new Big(0.000001),
+    bit: new Big(0.000001),
+    Satoshi: new Big(0.00000001),
+    sat: new Big(0.00000001),
 };
 
-function convert(from: string | number | Big, fromUnit: string, toUnit: string, representation: string): string | number | Big {
+function convert(
+    from: string | number | Big,
+    fromUnit: string,
+    toUnit: string,
+    representation: string
+): string | number | Big {
     const fromFactor = units[fromUnit];
     if (fromFactor === undefined) {
         throw new Error(`'${fromUnit}' is not a bitcoin unit`);
@@ -22,15 +27,15 @@ function convert(from: string | number | Big, fromUnit: string, toUnit: string, 
     }
 
     if (Number.isNaN(from)) {
-        if (!representation || representation === 'Number') {
+        if (!representation || representation === "Number") {
             return from;
         }
 
-        if (representation === 'Big') {
+        if (representation === "Big") {
             return new Big(from); // Throws BigError
         }
 
-        if (representation === 'String') {
+        if (representation === "String") {
             return from.toString();
         }
 
@@ -39,15 +44,15 @@ function convert(from: string | number | Big, fromUnit: string, toUnit: string, 
 
     const result = new Big(from).times(fromFactor).div(toFactor);
 
-    if (!representation || representation === 'Number') {
+    if (!representation || representation === "Number") {
         return Number(result);
     }
 
-    if (representation === 'Big') {
+    if (representation === "Big") {
         return result;
     }
 
-    if (representation === 'String') {
+    if (representation === "String") {
         return result.toString();
     }
 
@@ -62,7 +67,9 @@ convert.addUnit = function addUnit(unit: string, factor: number) {
     const bigFactor = new Big(factor);
     const existing = units[unit];
     if (existing && !existing.eq(bigFactor)) {
-        throw new Error(`'${unit}' already exists with a different conversion factor`);
+        throw new Error(
+            `'${unit}' already exists with a different conversion factor`
+        );
     }
 
     units[unit] = bigFactor;

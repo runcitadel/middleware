@@ -265,10 +265,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/cors@npm:^2.8.11":
-  version: 2.8.11
-  resolution: "@types/cors@npm:2.8.11"
-  checksum: 2669997ea3d4920eb6f9f31aa492b75b817f2f129d5f7de26447a69c8840895f315ae0985e4263005658e0496fa2cde79d1aa9369ac8fa1613a4f8fb193265b4
+"@types/cors@npm:^2.8.12":
+  version: 2.8.12
+  resolution: "@types/cors@npm:2.8.12"
+  checksum: 8c45f112c7d1d2d831b4b266f2e6ed33a1887a35dcbfe2a18b28370751fababb7cd045e745ef84a523c33a25932678097bf79afaa367c6cb3fa0daa7a6438257
   languageName: node
   linkType: hard
 
@@ -334,24 +334,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*":
-  version: 14.0.25
-  resolution: "@types/node@npm:14.0.25"
-  checksum: 26787ccd69a6c097999e9e48f6de89b4816d92b51613716d366e1c7199f33dfe8727b3d1b2cde18a1942d98c6954a63c30fc770dfb15c9e692a3535b22e08987
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
-  version: 16.0.0
-  resolution: "@types/node@npm:16.0.0"
-  checksum: 57e5731ba8d64d9a6434c69f1153186b7fc1b0f58ae54f3eb8c32cd122e87e9aca35947f62e92e1902027994dac97b5bff7cce4d9c56cb319f07f694fe55d012
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^16.0.1":
-  version: 16.0.1
-  resolution: "@types/node@npm:16.0.1"
-  checksum: f25d861d1bc36cbcce34516f800472d3e7b5980ce4d72399b094bd5cd3636e20cd8e143f5b4615c9385c04ef5ddbf61a181612ab658ef95a6f641dbce911bf92
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.3.1":
+  version: 16.3.1
+  resolution: "@types/node@npm:16.3.1"
+  checksum: 2a9d69db32540157827a06893a80dcbc9c86a6287dace38e1ff27490f34ec4b4164426165f2c4146c412eca451bf1b782be17d5ce57a935b1fd1e7c5fae89f43
   languageName: node
   linkType: hard
 
@@ -981,16 +967,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.0.1":
-  version: 4.1.1
-  resolution: "debug@npm:4.1.1"
-  dependencies:
-    ms: ^2.1.1
-  checksum: 1e681f5cce94ba10f8dde74b20b42e4d8cf0d2a6700f4c165bb3bb6885565ef5ca5885bf07e704974a835f2415ff095a63164f539988a1f07e8a69fe8b1d65ad
-  languageName: node
-  linkType: hard
-
-"debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2":
+"debug@npm:^4.0.1, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2":
   version: 4.3.2
   resolution: "debug@npm:4.3.2"
   dependencies:
@@ -1142,6 +1119,17 @@ __metadata:
   version: 4.0.0
   resolution: "escape-string-regexp@npm:4.0.0"
   checksum: 98b48897d93060f2322108bf29db0feba7dd774be96cd069458d1453347b25ce8682ecc39859d4bca2203cc0ab19c237bcc71755eff49a0f8d90beadeeba5cc5
+  languageName: node
+  linkType: hard
+
+"eslint-config-prettier@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "eslint-config-prettier@npm:8.3.0"
+  peerDependencies:
+    eslint: ">=7.0.0"
+  bin:
+    eslint-config-prettier: bin/cli.js
+  checksum: df4cea3032671995bb5ab07e016169072f7fa59f44a53251664d9ca60951b66cdc872683b5c6a3729c91497c11490ca44a79654b395dd6756beb0c3903a37196
   languageName: node
   linkType: hard
 
@@ -1300,14 +1288,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"estraverse@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "estraverse@npm:5.1.0"
-  checksum: e572477b02991b9a02cd335428856da0d984974c46cfcf7730f9a8113d3e2141cd90f6b1d25b9931fd60800456352b288630f5064fe597fa8cf6c7f725ba802b
-  languageName: node
-  linkType: hard
-
-"estraverse@npm:^5.2.0":
+"estraverse@npm:^5.1.0, estraverse@npm:^5.2.0":
   version: 5.2.0
   resolution: "estraverse@npm:5.2.0"
   checksum: ec11b70d946bf5d7f76f91db38ef6f08109ac1b36cda293a26e678e58df4719f57f67b9ec87042afdd1f0267cee91865be3aa48d2161765a93defab5431be7b8
@@ -1659,17 +1640,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"import-fresh@npm:^3.0.0":
-  version: 3.2.1
-  resolution: "import-fresh@npm:3.2.1"
-  dependencies:
-    parent-module: ^1.0.0
-    resolve-from: ^4.0.0
-  checksum: caef42418a087c3951fb676943a7f21ba8971aa07f9b622dff4af7edcef4160e1b172dccd85a88d7eb109cf41406a4592f70259e6b3b33aeafd042bb61f81d96
-  languageName: node
-  linkType: hard
-
-"import-fresh@npm:^3.2.1":
+"import-fresh@npm:^3.0.0, import-fresh@npm:^3.2.1":
   version: 3.3.0
   resolution: "import-fresh@npm:3.3.0"
   dependencies:
@@ -2030,11 +2001,11 @@ __metadata:
     "@grpc/proto-loader": ^0.6.4
     "@types/big.js": ^6.1.1
     "@types/continuation-local-storage": ^3.2.3
-    "@types/cors": ^2.8.11
+    "@types/cors": ^2.8.12
     "@types/express": ^4.17.13
     "@types/jsonwebtoken": ^8.5.4
     "@types/morgan": ^1.9.3
-    "@types/node": ^16.0.1
+    "@types/node": ^16.3.1
     "@types/passport": ^1.0.7
     "@types/passport-jwt": ^3.0.6
     "@types/uuid": ^8.3.1
@@ -2050,6 +2021,7 @@ __metadata:
     debug: ^4.3.2
     dotenv: ^10.0.0
     eslint: ^7.30.0
+    eslint-config-prettier: ^8.3.0
     eslint-plugin-prettier: ^3.4.0
     express: ^4.17.1
     long: ^4.0.0
@@ -2059,7 +2031,7 @@ __metadata:
     passport: ^0.4.1
     passport-jwt: ^4.0.0
     prettier: ^2.3.2
-    ts-node: ^10.0.0
+    ts-node: ^10.1.0
     typescript: ^4.3.5
     uuid: ^8.3.2
     validator: ^13.6.0
@@ -2798,9 +2770,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^10.0.0":
-  version: 10.0.0
-  resolution: "ts-node@npm:10.0.0"
+"ts-node@npm:^10.1.0":
+  version: 10.1.0
+  resolution: "ts-node@npm:10.1.0"
   dependencies:
     "@tsconfig/node10": ^1.0.7
     "@tsconfig/node12": ^1.0.7
@@ -2813,8 +2785,8 @@ __metadata:
     source-map-support: ^0.5.17
     yn: 3.1.1
   peerDependencies:
-    "@swc/core": ">=1.2.45"
-    "@swc/wasm": ">=1.2.45"
+    "@swc/core": ">=1.2.50"
+    "@swc/wasm": ">=1.2.50"
     "@types/node": "*"
     typescript: ">=2.7"
   peerDependenciesMeta:
@@ -2828,7 +2800,7 @@ __metadata:
     ts-node-script: dist/bin-script.js
     ts-node-transpile-only: dist/bin-transpile.js
     ts-script: dist/bin-script-deprecated.js
-  checksum: 96d633774e13eb90ad49d644f397e99f5da72818e36040bf5b6bd66d0ab369dbb4348e499193c0fa45071f8e9559bb7724174139389e56bb562db36a3842484e
+  checksum: 96979e9a81f801733195fbfe2db540e7d223f1b0affbd29c9c2d346ef3879a8c3c562cab9ef712b96b624905b9a0f31b12fd5b6f9e087fcd6038df253b104cf2
   languageName: node
   linkType: hard
 
