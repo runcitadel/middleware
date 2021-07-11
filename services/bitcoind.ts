@@ -1,6 +1,5 @@
 import { Client as RpcClient } from "bitcoin-simple-rpc";
-
-const BitcoindError = require("models/errors.js").BitcoindError;
+import type { Block, FetchedRawTransaction } from "bitcoin-simple-rpc";
 
 const BITCOIND_RPC_PORT: number =
   parseInt(process.env.RPC_PORT || "8332") || 8332; // eslint-disable-line no-magic-numbers, max-len
@@ -16,42 +15,18 @@ const rpcClient = new RpcClient({
   baseURL: `${BITCOIND_HOST}:${BITCOIND_RPC_PORT}/`,
 });
 
-export async function getBestBlockHash() {
-  return await rpcClient.getBestBlockHash();
+export async function getBlock(hash: string): Promise<Block> {
+  return await rpcClient.getBlock(hash, 2) as Block;
+}
+export async function getTransaction(txid: string): Promise<FetchedRawTransaction> {
+  return await rpcClient.getRawTransaction(txid, true) as FetchedRawTransaction;
 }
 
-export async function getBlockHash(height: number) {
-  return await rpcClient.getBlockHash(height);
-}
-
-export async function getBlock(hash: string) {
-  return rpcClient.getBlock(hash, 2);
-}
-
-export async function getTransaction(txid: string) {
-  return await rpcClient.getRawTransaction(txid, true);
-}
-
-export async function getBlockChainInfo() {
-  return await rpcClient.getBlockchainInfo();
-}
-
-export async function getPeerInfo() {
-  return await rpcClient.getPeerInfo();
-}
-
-export async function getBlockCount() {
-  return await rpcClient.getBlockCount();
-}
-
-export async function getMempoolInfo() {
-  return await rpcClient.getMempoolInfo();
-}
-
-export async function getNetworkInfo() {
-  return await rpcClient.getNetworkInfo();
-}
-
-export async function getMiningInfo() {
-  return await rpcClient.getMiningInfo();
-}
+export const getBestBlockHash = rpcClient.getBestBlockHash;
+export const getBlockHash = rpcClient.getBlockHash;
+export const getBlockChainInfo = rpcClient.getBlockchainInfo;
+export const getPeerInfo = rpcClient.getPeerInfo;
+export const getBlockCount = rpcClient.getBlockCount;
+export const getMempoolInfo = rpcClient.getMempoolInfo;
+export const getNetworkInfo = rpcClient.getNetworkInfo;
+export const getMiningInfo = rpcClient.getMiningInfo;

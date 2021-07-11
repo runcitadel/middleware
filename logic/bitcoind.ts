@@ -1,5 +1,5 @@
 import * as bitcoindService from "../services/bitcoind.js";
-import { BitcoindError } from "../models/errors.js";
+import { BitcoindError } from "@runcitadel/utils";
 
 export async function getBlockCount() {
   const blockCount = await bitcoindService.getBlockCount();
@@ -102,13 +102,20 @@ export async function getVersion() {
   return { version: version }; // eslint-disable-line object-shorthand
 }
 
-export async function getTransaction(txid: string) {
+export async function getTransaction(txid: string): Promise<{
+  txid: string,
+  timestamp: number,
+  confirmations: number,
+  blockhash: string,
+  size: number,
+  input: string,
+  utxo: unknown,
+  rawtx: string,
+}> {
   const transactionObj = await bitcoindService.getTransaction(txid);
-  if (typeof transactionObj === "string")
-    throw new BitcoindError("Received unexpected data from Bitcoin Core");
-  // @ts-expect-error
   const vintxid: string = Array.isArray(transactionObj.vin)
     ? transactionObj.vin[0].txid
+    // @ts-expect-error This can happen sometims
     : transactionObj.vin.txid;
   const vouttx: unknown = Array.isArray(transactionObj.vout)
     ? transactionObj.vout[0]
@@ -125,11 +132,7 @@ export async function getTransaction(txid: string) {
   };
 }
 
-export async function getNetworkInfo() {
-  const networkInfo = await bitcoindService.getNetworkInfo();
-
-  return networkInfo; // eslint-disable-line object-shorthand
-}
+export const getNetworkInfo = bitcoindService.getNetworkInfo;
 
 export async function getBlock(hash: string) {
   const blockObj = await bitcoindService.getBlock(hash);
