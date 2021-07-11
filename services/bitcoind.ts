@@ -16,10 +16,15 @@ const rpcClient = new RpcClient({
 });
 
 export async function getBlock(hash: string): Promise<Block> {
-  return await rpcClient.getBlock(hash, 2) as Block;
+  return (await rpcClient.getBlock(hash, 2)) as Block;
 }
-export async function getTransaction(txid: string): Promise<FetchedRawTransaction> {
-  return await rpcClient.getRawTransaction(txid, true) as FetchedRawTransaction;
+export async function getTransaction(
+  txid: string
+): Promise<FetchedRawTransaction> {
+  return (await rpcClient.getRawTransaction(
+    txid,
+    true
+  )) as FetchedRawTransaction;
 }
 
 export const getBestBlockHash = rpcClient.getBestBlockHash;

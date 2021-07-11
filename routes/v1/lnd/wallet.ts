@@ -31,12 +31,10 @@ router.post(
     safeHandler((req: Request, res: Response) => {
         const seed: string[] = req.body.seed;
 
+      // eslint-disable-next-line no-magic-numbers
         if (seed.length !== 24) {
-      // eslint-disable-line no-magic-numbers
             throw new Error("Invalid seed length");
         }
-
-        // TODO validate password requirements
 
         return lightningLogic
       .initializeWallet(seed)

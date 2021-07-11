@@ -15,7 +15,10 @@ export function readJsonFile(filePath: string): Promise<unknown> {
   return readUtf8File(filePath).then(JSON.parse);
 }
 
-export async function writeJsonFile(filePath: string, obj: unknown): Promise<void> {
+export async function writeJsonFile(
+  filePath: string,
+  obj: unknown
+): Promise<void> {
   const tempFileName = `${filePath}.${crypto
     .randomBytes(uint32Bytes)
     .readUInt32LE(0)}`;

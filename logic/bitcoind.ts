@@ -103,20 +103,20 @@ export async function getVersion() {
 }
 
 export async function getTransaction(txid: string): Promise<{
-  txid: string,
-  timestamp: number,
-  confirmations: number,
-  blockhash: string,
-  size: number,
-  input: string,
-  utxo: unknown,
-  rawtx: string,
+  txid: string;
+  timestamp: number;
+  confirmations: number;
+  blockhash: string;
+  size: number;
+  input: string;
+  utxo: unknown;
+  rawtx: string;
 }> {
   const transactionObj = await bitcoindService.getTransaction(txid);
   const vintxid: string = Array.isArray(transactionObj.vin)
     ? transactionObj.vin[0].txid
-    // @ts-expect-error This can happen sometims
-    : transactionObj.vin.txid;
+    : // @ts-expect-error This can happen sometims
+      transactionObj.vin.txid;
   const vouttx: unknown = Array.isArray(transactionObj.vout)
     ? transactionObj.vout[0]
     : transactionObj.vout;
