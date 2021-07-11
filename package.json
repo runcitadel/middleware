@@ -4,6 +4,7 @@
   "description": "Middleware for Bitcoin Nodes",
   "author": "Umbrel",
   "scripts": {
+    "build": "tsc",
     "lint": "eslint --fix . && prettier -w .",
     "start": "node ./bin/www",
     "build-types": "proto-loader-gen-types --longs String --defaults -O lnd --grpcLib=@grpc/grpc-js resources/rpc.proto resources/walletunlocker.proto resources/stateservice.proto"
