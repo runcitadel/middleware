@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint --fix . && prettier -w .",
-    "start": "node ./bin/www",
+    "start": "node --experimental-json-modules ./bin/www.esm",
     "build-types": "proto-loader-gen-types --longs String --defaults -O lnd --grpcLib=@grpc/grpc-js resources/rpc.proto resources/walletunlocker.proto resources/stateservice.proto"
   },
   "dependencies": {
