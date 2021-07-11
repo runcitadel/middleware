@@ -854,7 +854,7 @@ export async function getStatus() {
     };
   } catch (error) {
     return {
-      operational: false,
+      operational: lndService.isOperational(),
       unlocked: false,
     };
   }

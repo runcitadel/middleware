@@ -72,6 +72,7 @@ type RpcClientInfo = {
   WalletUnlocker: InstanceType<useLndApis["lnrpc"]["WalletUnlocker"]>;
   State: InstanceType<useLndApis["lnrpc"]["State"]>;
   state: WalletState;
+  offline?: boolean;
 };
 
 type RpcClientWithLightningForSure = {
@@ -131,12 +132,22 @@ export async function initializeRPCClient(): Promise<RpcClientInfo> {
     `${LND_HOST}:${LND_PORT}`,
     sslCreds
   );
-  const walletState: GetStateResponse__Output = (await promiseify(
-    stateService,
-    stateService.getState,
-    {},
-    "get wallet state"
-  )) as GetStateResponse__Output;
+  let walletState: GetStateResponse__Output;
+  try {
+    walletState = (await promiseify(
+      stateService,
+      stateService.getState,
+      {},
+      "get wallet state"
+    )) as GetStateResponse__Output;
+  } catch {
+    return {
+      WalletUnlocker: walletUnlocker,
+      State: stateService,
+      state: WalletState.NON_EXISTING,
+      offline: true,
+    };
+  }
 
   // WAIING_TO_START will be used in the future
   // https://github.com/Lightningnetwork/lnd/blob/bb5c3f3b51c7c58296d120d5afe4ed0640d5751e/docs/leader_election.md
@@ -384,6 +395,10 @@ export async function getForwardingEvents(
     rpcPayload,
     "get forwarding events"
   )) as ForwardingHistoryResponse__Output;
+}
+
+export async function isOperational(): Promise<boolean> {
+  return !(await initializeRPCClient()).offline;
 }
 
 export async function getInfo(): Promise<GetInfoResponse__Output> {
