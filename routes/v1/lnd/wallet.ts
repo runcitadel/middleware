@@ -19,21 +19,9 @@ router.get(
 router.post(
     "/changePassword",
     auth.jwt,
-    safeHandler(async (req, res, next) => {
-        const currentPassword = req.body.currentPassword;
-        const newPassword = req.body.newPassword;
-
-        try {
-            validator.isString(currentPassword);
-            validator.isMinPasswordLength(currentPassword);
-      validator.isString(newPassword);
-            validator.isMinPasswordLength(newPassword);
-        } catch (error) {
-            return next(error);
-        }
-
+    async (req, res, next) => {
         return res.status(constants.STATUS_CODES.OK).json();
-    })
+    }
 );
 
 // Should not include auth because the user isn't registered yet. Once the user initializes a wallet, that wallet is
