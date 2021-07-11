@@ -2,9 +2,8 @@ import { Router } from "express";
 const router = Router();
 
 import * as auth from "../../../middlewares/auth.js";
-import { safeHandler } from "../../../utils/safeHandler.js";
+import { validator, safeHandler } from "@runcitadel/utils";
 
-import * as validator from "../../../utils/validator.js";
 import * as lightningLogic from "../../../logic/lightning.js";
 
 router.get(

@@ -2,11 +2,9 @@ import { Router } from "express";
 const router = Router();
 
 import * as auth from "../../../middlewares/auth.js";
-import { safeHandler } from "../../../utils/safeHandler.js";
 
-import * as validator from "../../../utils/validator.js";
+import {validator, safeHandler, ValidationError} from "@runcitadel/utils";
 import * as lightningLogic from "../../../logic/lightning.js";
-import { ValidationError } from "../../../models/errors.js";
 
 const DEFAULT_TIME_LOCK_DELTA = 144; // eslint-disable-line no-magic-numbers
 
@@ -28,7 +26,7 @@ router.get(
 
         try {
             validator.isPositiveIntegerOrZero(confTarget);
-      validator.isPositiveInteger(amt);
+            validator.isPositiveInteger(amt);
         } catch (error) {
             return next(error);
         }
@@ -37,8 +35,7 @@ router.get(
       .estimateChannelOpenFee(
         parseInt(amt, 10),
         parseInt(confTarget, 10),
-        sweep
-            .then(response => res.json(response));
+        sweep).then(response => res.json(response));
     })
 );
 
@@ -167,14 +164,12 @@ router.post(
             if (satPerByte) {
                 validator.isPositiveInteger(satPerByte);
       }
-            validator.isAlphanumericAndSpaces(name);
-      validator.isAlphanumericAndSpaces(purpose);
         } catch (error) {
       return next(error);
         }
 
         return lightningLogic
-      .openChannel(pubKey, ip, port, amt, satPerByte, name, purpose)
+      .openChannel(pubKey, ip, port, amt, satPerByte)
             .then(channel => res.json(channel));
     })
 );

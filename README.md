@@ -13,28 +13,31 @@ If you are looking to run Umbrel on your hardware, you do not need to run this s
 Make sure a [`bitcoind`](https://github.com/bitcoin/bitcoin) and [`lnd`](https://github.com/lightningnetwork/lnd) instance is running and available on the same machine.
 
 ### Step 1. Install dependencies
+
 ```sh
 yarn
 ```
 
 ### Step 2. Set environment variables
+
 Set the following environment variables directly or by placing them in `.env` file of project's root.
 
-| Variable | Description | Default |
-| ------------- | ------------- | ------------- |
-| `PORT` | Port where middleware should listen for requests | `3005` |
-| `DEVICE_HOSTS` | Comma separated list of IPs or domain names to whitelist for CORS | `http://umbrel.local` |
-| `BITCOIN_HOST` | IP or domain where `bitcoind` RPC is listening | `127.0.0.1` |
-| `RPC_USER` | `bitcoind` RPC username  |  |
-| `RPC_PASSWORD` | `bitcoind` RPC password |  |
-| `LND_HOST` | IP or domain where `lnd` RPC is listening | `127.0.0.1` |
-| `TLS_FILE` | Path to `lnd`'s TLS certificate | `/lnd/tls.cert` |
-| `LND_PORT` | Port where `lnd` RPC is listening | `10009` |
-| `LND_NETWORK` | The chain `bitcoind` is running on (mainnet, testnet, regtest, simnet) | `mainnet` |
-| `MACAROON_DIR` | Path to `lnd`'s macaroon directory | `/lnd/data/chain/bitcoin/mainnet/` |
-| `JWT_PUBLIC_KEY_FILE` | Path to the JWT public key created by [`umbrel-manager`](https://github.com/getumbrel/umbrel-manager) | `/jwt-public-key/jwt.pem` |
+| Variable              | Description                                                                                           | Default                            |
+| --------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------- |
+| `PORT`                | Port where middleware should listen for requests                                                      | `3005`                             |
+| `DEVICE_HOSTS`        | Comma separated list of IPs or domain names to whitelist for CORS                                     | `http://umbrel.local`              |
+| `BITCOIN_HOST`        | IP or domain where `bitcoind` RPC is listening                                                        | `127.0.0.1`                        |
+| `RPC_USER`            | `bitcoind` RPC username                                                                               |                                    |
+| `RPC_PASSWORD`        | `bitcoind` RPC password                                                                               |                                    |
+| `LND_HOST`            | IP or domain where `lnd` RPC is listening                                                             | `127.0.0.1`                        |
+| `TLS_FILE`            | Path to `lnd`'s TLS certificate                                                                       | `/lnd/tls.cert`                    |
+| `LND_PORT`            | Port where `lnd` RPC is listening                                                                     | `10009`                            |
+| `LND_NETWORK`         | The chain `bitcoind` is running on (mainnet, testnet, regtest, simnet)                                | `mainnet`                          |
+| `MACAROON_DIR`        | Path to `lnd`'s macaroon directory                                                                    | `/lnd/data/chain/bitcoin/mainnet/` |
+| `JWT_PUBLIC_KEY_FILE` | Path to the JWT public key created by [`umbrel-manager`](https://github.com/getumbrel/umbrel-manager) | `/jwt-public-key/jwt.pem`          |
 
 ### Step 3. Run middleware
+
 ```sh
 yarn start
 ```
@@ -45,7 +48,7 @@ You can browse through the available API endpoints [here](https://github.com/get
 
 ### ⚡️ Don't be too reckless
 
-> Umbrel is still in an early stage and things are expected to break every now and then. We **DO NOT** recommend running it on the mainnet with real money just yet, unless you want to be really *#reckless*.
+> Umbrel is still in an early stage and things are expected to break every now and then. We **DO NOT** recommend running it on the mainnet with real money just yet, unless you want to be really _#reckless_.
 
 ## ❤️ Contributing
 

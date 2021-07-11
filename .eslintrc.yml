@@ -1,15 +1,15 @@
 env:
   node: true
 extends:
-  - 'prettier'
-  - 'plugin:@typescript-eslint/eslint-recommended'
-  - 'plugin:@typescript-eslint/recommended'
-parser: '@typescript-eslint/parser'
+  - "prettier"
+  - "plugin:@typescript-eslint/eslint-recommended"
+  - "plugin:@typescript-eslint/recommended"
+parser: "@typescript-eslint/parser"
 parserOptions:
   ecmaVersion: 2020
 plugins:
-  - '@typescript-eslint'
-  - 'prettier'
+  - "@typescript-eslint"
+  - "prettier"
 
-rules: 
-  indent: 2
+rules:
+  indent: "off"

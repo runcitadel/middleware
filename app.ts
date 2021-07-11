@@ -23,17 +23,17 @@ import pages from "./routes/v1/pages.js";
 import ping from "./routes/ping.js";
 
 // Keep requestCorrelationId middleware as the first middleware. Otherwise we risk losing logs.
-import requestCorrelationMiddleware from "./middlewares/requestCorrelationId.js"; // eslint-disable-line id-length
-import { camelCaseRequest } from "./middlewares/camelCaseRequest.js";
+import requestCorrelationMiddleware from "./middlewares/requestCorrelationId.js";
 import { corsOptions } from "./middlewares/cors.js";
-import handleError from "./middlewares/errorHandling.js";
+import { handleError, camelCaseMiddleware } from "@runcitadel/utils";
 
 import * as logger from "./utils/logger.js";
 
 const app = express();
 
 // Handles CORS
-app.use(cors(<any>corsOptions));
+// @ts-expect-error Do this unsafely
+app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -42,11 +42,9 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 app.use(requestCorrelationMiddleware);
-app.use(camelCaseRequest);
-app.use(morgan(<any>logger.morganConfiguration));
-
-// Handles CORS
-app.use(cors(<any>corsOptions));
+app.use(camelCaseMiddleware);
+// @ts-expect-error Do this unsafely
+app.use(morgan(logger.morganConfiguration));
 
 app.use("/v1/bitcoind/info", bitcoind);
 app.use("/v1/lnd/address", address);
@@ -62,7 +60,7 @@ app.use("/ping", ping);
 app.use(handleError);
 
 app.use((req: Request, res: Response) => {
-    res.status(404).json(); // eslint-disable-line no-magic-numbers
+  res.status(404).json(); // eslint-disable-line no-magic-numbers
 });
 
 export default app;

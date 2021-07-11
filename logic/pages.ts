@@ -1,28 +1,26 @@
 import * as lightningLogic from "./lightning.js";
+import type { ChannelBalanceResponse__Output } from "../lnd/lnrpc/ChannelBalanceResponse";
+import type { WalletBalanceResponse__Output } from "../lnd/lnrpc/WalletBalanceResponse";
+import type { Channel__Output } from "../lnd/lnrpc/Channel";
+import { GetInfoResponse__Output } from "../lnd/lnrpc/GetInfoResponse.js";
 
-export async function lndDetails() {
-    const calls = [
-        lightningLogic.getChannelBalance(),
-        lightningLogic.getWalletBalance(),
-        lightningLogic.getChannels(),
-        lightningLogic.getGeneralInfo(),
-    ];
-
-    // prevent fail fast, ux will expect a null on failed calls
-    const [externalIP, channelBalance, walletBalance, channels, lightningInfo] =
-    = await Promise.all(calls.map(p => p.catch(err => null))); // eslint-disable-line
-
-    return {
-        externalIP: externalIP, // eslint-disable-line object-shorthand
-        balance: {
-            wallet: walletBalance,
-            channel: channelBalance,
-        },
-        channels: channels, // eslint-disable-line object-shorthand
-        lightningInfo: lightningInfo, // eslint-disable-line object-shorthand
-    };
-}
-
-module.exports = {
-    lndDetails,
+type LndBalance = {
+  wallet: WalletBalanceResponse__Output;
+  channel: ChannelBalanceResponse__Output;
 };
+type LndDetails = {
+  balance: LndBalance;
+  channels: Channel__Output[];
+  lightningInfo: GetInfoResponse__Output;
+};
+
+export async function lndDetails(): Promise<LndDetails> {
+  return {
+    balance: {
+      wallet: await lightningLogic.getWalletBalance(),
+      channel: await lightningLogic.getChannelBalance(),
+    },
+    channels: await lightningLogic.getChannels(),
+    lightningInfo: await lightningLogic.getGeneralInfo(),
+  };
+}
