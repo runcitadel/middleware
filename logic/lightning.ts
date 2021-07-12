@@ -14,9 +14,13 @@ import constants from "../utils/const.js";
 import type { EstimateFeeResponse__Output } from "../lnd/lnrpc/EstimateFeeResponse";
 import type { Channel__Output } from "../lnd/lnrpc/Channel";
 import type { ServiceError } from "@grpc/grpc-js";
-import { _lnrpc_PendingChannelsResponse_WaitingCloseChannel__Output as PendingChannelsResponse_WaitingCloseChannel__Output } from "../lnd/lnrpc/PendingChannelsResponse.js";
 import { Transaction__Output } from "../lnd/lnrpc/Transaction.js";
 import { Invoice__Output } from "../lnd/lnrpc/Invoice.js";
+import { ChannelFeeReport__Output } from "../lnd/lnrpc/ChannelFeeReport.js";
+import { Payment__Output } from "../lnd/lnrpc/Payment.js";
+import { _lnrpc_PendingChannelsResponse_PendingChannel__Output } from "../lnd/lnrpc/PendingChannelsResponse.js";
+import { SendResponse__Output } from "../lnd/lnrpc/SendResponse.js";
+import { SendCoinsResponse__Output } from "../lnd/lnrpc/SendCoinsResponse.js";
 
 const PENDING_OPEN_CHANNELS = "pendingOpenChannels";
 const PENDING_CLOSING_CHANNELS = "pendingClosingChannels";
@@ -28,6 +32,8 @@ const PENDING_CHANNEL_TYPES = [
   PENDING_FORCE_CLOSING_CHANNELS,
   WAITING_CLOSE_CHANNELS,
 ];
+
+type pendingChannelTypes = "pendingOpenChannels" | "pendingClosingChannels" | "pendingForceClosingChannels" | "waitingCloseChannels";
 
 const MAINNET_GENESIS_BLOCK_TIMESTAMP = 1231035305;
 const TESTNET_GENESIS_BLOCK_TIMESTAMP = 1296717402;
@@ -397,7 +403,7 @@ export function getChannelCount(): Promise<{count: number}> {
     .then((response) => ({ count: response.length }));
 }
 
-export function getChannelPolicy() {
+export function getChannelPolicy(): Promise<ChannelFeeReport__Output[]> {
   return lndService.getFeeReport().then((feeReport) => feeReport.channelFees);
 }
 
@@ -597,10 +603,6 @@ export async function getChannels(): Promise<Channel__Output_extended[]> {
     allChannels.push(channel);
   }
 
-  // Add additional managed channel data if it exists
-  // Call this async, because it reads from disk
-  // const managedChannels = await managedChannelsCall;
-
   if (chainTxnCall !== null) {
     const chainTxnList = await chainTxnCall;
 
@@ -657,7 +659,7 @@ export async function getChannels(): Promise<Channel__Output_extended[]> {
     }
 
     // Fetch remote node alias and set it
-    const { alias } = await getNodeAlias(channel.remotePubkey);
+    const alias = await getNodeAlias(channel.remotePubkey);
     channel.remoteAlias = alias || "";
   }
 
@@ -665,7 +667,7 @@ export async function getChannels(): Promise<Channel__Output_extended[]> {
 }
 
 // Returns a list of all outgoing payments.
-export async function getPayments() {
+export async function getPayments(): Promise<Payment__Output[]> {
   const payments = await lndService.getPayments();
 
   const reversedPayments = [];
@@ -678,17 +680,15 @@ export async function getPayments() {
 
 // Returns the full channel details of a pending channel.
 export async function getPendingChannelDetails(
-  channelType: string,
+  channelType: pendingChannelTypes,
   pubKey: string
-) {
+): Promise<_lnrpc_PendingChannelsResponse_PendingChannel__Output> {
   const pendingChannels = await getPendingChannels();
 
   // make sure correct type is used
   if (!PENDING_CHANNEL_TYPES.includes(channelType)) {
     throw Error("unknown pending channel type: " + channelType);
   }
-
-  // @ts-expect-error ...
   const typePendingChannel = pendingChannels[channelType];
 
   for (let index = 0; index < typePendingChannel.length; index++) {
@@ -808,7 +808,7 @@ export async function openChannel(
 }
 
 // Pays the given invoice.
-export async function payInvoice(paymentRequest: string, amt: number | string) {
+export async function payInvoice(paymentRequest: string, amt: number | string): Promise<SendResponse__Output> {
   const invoice = await decodePaymentRequest(paymentRequest);
 
   if (invoice.numSatoshis !== "0" && amt) {
@@ -832,7 +832,7 @@ export function sendCoins(
   amt: string | number,
   satPerByte: string,
   sendAll: boolean
-) {
+): Promise<SendCoinsResponse__Output> {
   // Lnd requires we ignore amt if sendAll is true.
   if (sendAll) {
     return lndService.sendCoins(addr, undefined, satPerByte, sendAll);
@@ -842,7 +842,10 @@ export function sendCoins(
 }
 
 // Returns if lnd is operation and if the wallet is unlocked.
-export async function getStatus() {
+export async function getStatus(): Promise<{
+  operational: boolean,
+  unlocked: boolean,
+}> {
   try {
     // The getInfo function requires that the wallet be unlocked in order to succeed. Lnd requires this for all
     // encrypted wallets.
@@ -854,31 +857,31 @@ export async function getStatus() {
     };
   } catch (error) {
     return {
-      operational: lndService.isOperational(),
+      operational: await lndService.isOperational(),
       unlocked: false,
     };
   }
 }
 
-export async function getVersion() {
+export async function getVersion(): Promise<string> {
   const info = await lndService.getInfo();
   const unformattedVersion = info.version;
 
   // Remove all beta/commit info. Fragile, LND may one day GA.
   const version = unformattedVersion.split("-", 1)[0];
 
-  return { version: version };
+  return version;
 }
 
-export async function getNodeAlias(pubkey: string) {
+export async function getNodeAlias(pubkey: string): Promise<string> {
   const includeChannels = false;
   let nodeInfo;
   try {
     nodeInfo = await lndService.getNodeInfo(pubkey, includeChannels);
   } catch (error) {
-    return { alias: "" };
+    return "";
   }
-  return { alias: nodeInfo.node?.alias };
+  return nodeInfo.node?.alias ||"";
 }
 
 export const updateChannelPolicy = lndService.updateChannelPolicy;

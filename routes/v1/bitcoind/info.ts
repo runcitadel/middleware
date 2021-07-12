@@ -51,7 +51,7 @@ router.get(
   "/version",
   auth.jwt,
   safeHandler((req: Request, res: Response) =>
-    bitcoind.getVersion().then((version) => res.json(version))
+    bitcoind.getVersion().then((version) => res.json({version}))
   )
 );
 

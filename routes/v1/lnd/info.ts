@@ -51,7 +51,7 @@ router.get(
             return next(error);
         }
 
-        return lightningLogic.getNodeAlias(pubkey).then((alias) => res.json(alias));
+        return lightningLogic.getNodeAlias(pubkey).then((alias) => res.json({alias}));
     })
 );
 
