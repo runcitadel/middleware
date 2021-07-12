@@ -77,7 +77,7 @@ container.add(LOCAL, {
 export const morganConfiguration = {
   stream: {
     write(message: string): void {
-      info(message, "umbrel-manager", "");
+      info(message, "middleware", "");
     },
   },
 };

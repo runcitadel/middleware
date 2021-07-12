@@ -25,7 +25,7 @@ Set the following environment variables directly or by placing them in `.env` fi
 | Variable              | Description                                                                                           | Default                            |
 | --------------------- | ----------------------------------------------------------------------------------------------------- | ---------------------------------- |
 | `PORT`                | Port where middleware should listen for requests                                                      | `3005`                             |
-| `DEVICE_HOSTS`        | Comma separated list of IPs or domain names to whitelist for CORS                                     | `http://umbrel.local`              |
+| `DEVICE_HOSTS`        | Comma separated list of IPs or domain names to whitelist for CORS                                     | `http://citadel.local`              |
 | `BITCOIN_HOST`        | IP or domain where `bitcoind` RPC is listening                                                        | `127.0.0.1`                        |
 | `RPC_USER`            | `bitcoind` RPC username                                                                               |                                    |
 | `RPC_PASSWORD`        | `bitcoind` RPC password                                                                               |                                    |
