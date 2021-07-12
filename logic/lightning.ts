@@ -391,7 +391,7 @@ export async function generateSeed(): Promise<{ seed: string[] }> {
 export const getChannelBalance = lndService.getChannelBalance;
 
 // Returns a count of all open channels.
-export function getChannelCount() {
+export function getChannelCount(): Promise<{count: number}> {
   return lndService
     .getOpenChannels()
     .then((response) => ({ count: response.length }));
