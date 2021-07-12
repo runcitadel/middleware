@@ -89,17 +89,14 @@ const LND_NETWORK = process.env.LND_NETWORK || "mainnet";
 
 const DEFAULT_RECOVERY_WINDOW = 250;
 
-// LND changed the macaroon path to ~/.lnd/data/chain/{chain}/{network}/admin.macaroon. We are currently only
-// supporting bitcoind and have that hard coded. However, we are leaving the ability to switch between testnet and
-// mainnet. This can be done with the /reset route. LND_NETWORK will be defaulted in /usr/local/casa/applications/.env.
-// LND_NETWORK will be overwritten in the settings file.
 const TLS_FILE = path.join(LND_DIR, "tls.cert");
 const MACAROON_FILE = path.join(
   LND_DIR,
   "data",
   "chain",
   "bitcoin",
-  LND_NETWORK + "admin.macaroon"
+  LND_NETWORK,
+  "admin.macaroon"
 );
 
 export async function promiseify(
