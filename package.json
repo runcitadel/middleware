@@ -10,7 +10,7 @@
     "build-types": "proto-loader-gen-types --longs String --defaults -O lnd --grpcLib=@grpc/grpc-js resources/rpc.proto resources/walletunlocker.proto resources/stateservice.proto"
   },
   "dependencies": {
-    "@grpc/grpc-js": "^1.3.4",
+    "@grpc/grpc-js": "^1.3.5",
     "@grpc/proto-loader": "^0.6.4",
     "@runcitadel/utils": "^0.1.1",
     "big.js": "^6.1.1",
