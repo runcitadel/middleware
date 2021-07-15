@@ -42,6 +42,11 @@ import { ConnectPeerResponse__Output } from "../lnd/lnrpc/ConnectPeerResponse";
 import { FeeReportResponse__Output } from "../lnd/lnrpc/FeeReportResponse";
 import { ForwardingHistoryResponse__Output } from "../lnd/lnrpc/ForwardingHistoryResponse";
 import { ListUnspentResponse__Output } from "../lnd/lnrpc/ListUnspentResponse";
+import { EstimateFeeRequest__Output } from "../lnd/lnrpc/EstimateFeeRequest";
+import { ForwardingHistoryRequest__Output } from "../lnd/lnrpc/ForwardingHistoryRequest";
+import { NodeInfoRequest__Output } from "../lnd/lnrpc/NodeInfoRequest";
+import { InitWalletRequest } from "../lnd/lnrpc/InitWalletRequest";
+import { Invoice } from "../lnd/lnrpc/Invoice";
 
 type useLndApis = LndMainProto & LndWalletUnlockerProto & LndStateServiceProto;
 
@@ -146,8 +151,10 @@ export async function initializeRPCClient(): Promise<RpcClientInfo> {
     };
   }
 
-  // WAIING_TO_START will be used in the future
-  // https://github.com/Lightningnetwork/lnd/blob/bb5c3f3b51c7c58296d120d5afe4ed0640d5751e/docs/leader_election.md
+  /* WAIING_TO_START will be used in the future
+   * https://github.com/Lightningnetwork/lnd/blob/bb5c3f3b51c7c58296d120d5afe4ed0640d5751e/docs/leader_election.md
+   * Once we have stuff like that implemented on the Citadel dashboard
+   */
   if (
     walletState.state == WalletState.NON_EXISTING ||
     walletState.state == WalletState.LOCKED ||
@@ -203,10 +210,11 @@ export async function addInvoice(
   rHash: Buffer;
   paymentRequest: string;
 }> {
-  const rpcPayload = {
+  if(typeof amount === "number") amount = amount.toString();
+  const rpcPayload: Invoice = {
     value: amount,
     memo,
-    expiry: 3600,
+    expiry: "3600",
   };
 
   const conn = await expectWalletToExist();
@@ -308,12 +316,17 @@ export async function estimateFee(
   amt: string | number,
   confTarget: number
 ): Promise<EstimateFeeResponse__Output> {
-  const addrToAmount: Record<string, unknown> = {};
+  const addrToAmount: ({[key: string]: string}) = {};
+  if(typeof amt === "number") amt = amt.toString();
   addrToAmount[address] = amt;
 
-  const rpcPayload = {
+  const rpcPayload: EstimateFeeRequest__Output = {
     AddrToAmount: addrToAmount,
     targetConf: confTarget,
+    // TODO: Optimize this
+    minConfs: confTarget,
+    // TODO: Make this dynamic
+    spendUnconfirmed: false,
   };
 
   const conn = await expectWalletToExist();
@@ -379,10 +392,14 @@ export async function getForwardingEvents(
   endTime: number | string,
   indexOffset: number
 ): Promise<ForwardingHistoryResponse__Output> {
-  const rpcPayload = {
+  if(typeof startTime === "number") startTime = startTime.toString();
+  if(typeof endTime === "number") endTime = endTime.toString();
+  const rpcPayload: ForwardingHistoryRequest__Output = {
     startTime,
     endTime,
     indexOffset,
+    // TODO: Probably make this dynamic and reduce the default
+    numMaxEvents: 5000,
   };
 
   const { Lightning } = await expectWalletToExist();
@@ -409,11 +426,11 @@ export async function getInfo(): Promise<GetInfoResponse__Output> {
 }
 
 export async function getNodeInfo(
-  pubkey: string,
+  pubKey: string,
   includeChannels: boolean
 ): Promise<NodeInfo__Output> {
-  const rpcPayload = {
-    pubKey: pubkey,
+  const rpcPayload: NodeInfoRequest__Output = {
+    pubKey,
     includeChannels,
   };
   const { Lightning } = await expectWalletToExist();
@@ -505,7 +522,7 @@ export async function getWalletBalance(): Promise<WalletBalanceResponse__Output>
 export async function initWallet(mnemonic: string[]): Promise<string[]> {
   const passwordBuff = Buffer.from("moneyprintergobrrr", "utf8");
 
-  const rpcPayload = {
+  const rpcPayload: InitWalletRequest = {
     walletPassword: passwordBuff,
     cipherSeedMnemonic: mnemonic,
     recoveryWindow: DEFAULT_RECOVERY_WINDOW,
@@ -528,7 +545,7 @@ export async function initWallet(mnemonic: string[]): Promise<string[]> {
 export async function getInvoices(): Promise<ListInvoiceResponse__Output> {
   const rpcPayload = {
     reversed: true, // Returns most recent
-    num_max_invoices: 100,
+    numMaxInvoices: 100,
   };
 
   const { Lightning } = await expectWalletToExist();
@@ -554,8 +571,8 @@ export async function getOnChainTransactions(): Promise<Transaction__Output[]> {
 
 export async function listUnspent(): Promise<ListUnspentResponse__Output> {
   const rpcPayload = {
-    min_confs: 1,
-    max_confs: 10000000, // Use arbitrarily high maximum confirmation limit.
+    minConfs: 1,
+    maxConfs: 10000000, // Use arbitrarily high maximum confirmation limit.
   };
 
   const { Lightning } = await expectWalletToExist();

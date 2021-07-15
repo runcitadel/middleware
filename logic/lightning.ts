@@ -33,7 +33,11 @@ const PENDING_CHANNEL_TYPES = [
   WAITING_CLOSE_CHANNELS,
 ];
 
-type pendingChannelTypes = "pendingOpenChannels" | "pendingClosingChannels" | "pendingForceClosingChannels" | "waitingCloseChannels";
+type pendingChannelTypes =
+  | "pendingOpenChannels"
+  | "pendingClosingChannels"
+  | "pendingForceClosingChannels"
+  | "waitingCloseChannels";
 
 const MAINNET_GENESIS_BLOCK_TIMESTAMP = 1231035305;
 const TESTNET_GENESIS_BLOCK_TIMESTAMP = 1296717402;
@@ -210,7 +214,7 @@ export async function estimateFeeSweep(
 ): Promise<EstimateFeeResponseExtended> {
   const amtToEstimate =
     parseInt(<string>l) +
-    Math.floor((parseInt(<string>r) - parseInt(<string>l)) / 2); // eslint-disable-line no-magic-numbers
+    Math.floor((parseInt(<string>r) - parseInt(<string>l)) / 2);
 
   try {
     const successfulEstimate: EstimateFeeResponseExtended =
@@ -397,7 +401,7 @@ export async function generateSeed(): Promise<{ seed: string[] }> {
 export const getChannelBalance = lndService.getChannelBalance;
 
 // Returns a count of all open channels.
-export function getChannelCount(): Promise<{count: number}> {
+export function getChannelCount(): Promise<{ count: number }> {
   return lndService
     .getOpenChannels()
     .then((response) => ({ count: response.length }));
@@ -735,27 +739,24 @@ export async function getSyncStatus(): Promise<{
 
     const currentTime = Math.floor(new Date().getTime() / 1000); // eslint-disable-line no-magic-numbers
 
-    percentSynced = (
+    percentSynced =
       (parseInt(info.bestHeaderTimestamp) - genesisTimestamp) /
-      (currentTime - genesisTimestamp)
-    ).toFixed(4); // eslint-disable-line no-magic-numbers
+      (currentTime - genesisTimestamp);
 
     // let's not return a value over the 100% or when processedBlocks > blockHeight
-    // @ts-expect-error ...
     if (percentSynced < 1.0) {
-      // @ts-expect-error ...
       processedBlocks = Math.floor(percentSynced * info.blockHeight);
     } else {
       processedBlocks = info.blockHeight;
-      percentSynced = (1).toFixed(4);
+      percentSynced = 1;
     }
   } else {
-    percentSynced = (1).toFixed(4); // eslint-disable-line no-magic-numbers
+    percentSynced = 1;
     processedBlocks = info.blockHeight;
   }
 
   return {
-    percent: percentSynced,
+    percent: percentSynced.toFixed(4),
     knownBlockCount: info.blockHeight,
     processedBlocks: processedBlocks,
   };
@@ -808,7 +809,10 @@ export async function openChannel(
 }
 
 // Pays the given invoice.
-export async function payInvoice(paymentRequest: string, amt: number | string): Promise<SendResponse__Output> {
+export async function payInvoice(
+  paymentRequest: string,
+  amt: number | string
+): Promise<SendResponse__Output> {
   const invoice = await decodePaymentRequest(paymentRequest);
 
   if (invoice.numSatoshis !== "0" && amt) {
@@ -843,8 +847,8 @@ export function sendCoins(
 
 // Returns if lnd is operation and if the wallet is unlocked.
 export async function getStatus(): Promise<{
-  operational: boolean,
-  unlocked: boolean,
+  operational: boolean;
+  unlocked: boolean;
 }> {
   try {
     // The getInfo function requires that the wallet be unlocked in order to succeed. Lnd requires this for all
@@ -881,7 +885,7 @@ export async function getNodeAlias(pubkey: string): Promise<string> {
   } catch (error) {
     return "";
   }
-  return nodeInfo.node?.alias ||"";
+  return nodeInfo.node?.alias || "";
 }
 
 export const updateChannelPolicy = lndService.updateChannelPolicy;
