@@ -20,4 +20,3 @@ coverage
 *.js
 tsconfig.tsbuildinfo
 *.d.ts
-!lnd/**/*.d.ts
