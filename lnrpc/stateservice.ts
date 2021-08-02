@@ -1,6 +1,6 @@
 /* eslint-disable */
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import * as Long from "long";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
 export const protobufPackage = "lnrpc";
 
@@ -69,12 +69,18 @@ export interface GetStateResponse {
 const baseSubscribeStateRequest: object = {};
 
 export const SubscribeStateRequest = {
-  encode(_: SubscribeStateRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    _: SubscribeStateRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): SubscribeStateRequest {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): SubscribeStateRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseSubscribeStateRequest } as SubscribeStateRequest;
     while (reader.pos < end) {
@@ -109,16 +115,19 @@ const baseSubscribeStateResponse: object = { state: 0 };
 export const SubscribeStateResponse = {
   encode(
     message: SubscribeStateResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): SubscribeStateResponse {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): SubscribeStateResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseSubscribeStateResponse } as SubscribeStateResponse;
     while (reader.pos < end) {
@@ -168,12 +177,15 @@ export const SubscribeStateResponse = {
 const baseGetStateRequest: object = {};
 
 export const GetStateRequest = {
-  encode(_: GetStateRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    _: GetStateRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): GetStateRequest {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetStateRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGetStateRequest } as GetStateRequest;
     while (reader.pos < end) {
@@ -206,15 +218,18 @@ export const GetStateRequest = {
 const baseGetStateResponse: object = { state: 0 };
 
 export const GetStateResponse = {
-  encode(message: GetStateResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: GetStateResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): GetStateResponse {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetStateResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGetStateResponse } as GetStateResponse;
     while (reader.pos < end) {
@@ -312,9 +327,7 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
-// If you get a compile-error about 'Constructor<Long> and ... have no overlap',
-// add '--ts_proto_opt=esModuleInterop=true' as a flag when calling 'protoc'.
-if (util.Long !== Long) {
-  util.Long = Long as any;
-  configure();
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
 }

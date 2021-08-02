@@ -1,7 +1,8 @@
 /* eslint-disable */
-import { util, configure, Writer, Reader } from "protobufjs/minimal";
-import * as Long from "long";
-import { ChanBackupSnapshot } from "./rpc";
+import Long from "long";
+import _m0 from "protobufjs/minimal";
+// Manually patched with the extension
+import { ChanBackupSnapshot } from "./rpc.js";
 
 export const protobufPackage = "lnrpc";
 
@@ -167,7 +168,10 @@ export interface ChangePasswordResponse {
 const baseGenSeedRequest: object = {};
 
 export const GenSeedRequest = {
-  encode(message: GenSeedRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: GenSeedRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.aezeedPassphrase.length !== 0) {
       writer.uint32(10).bytes(message.aezeedPassphrase);
     }
@@ -177,8 +181,8 @@ export const GenSeedRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): GenSeedRequest {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): GenSeedRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenSeedRequest } as GenSeedRequest;
     message.aezeedPassphrase = new Uint8Array();
@@ -255,7 +259,10 @@ export const GenSeedRequest = {
 const baseGenSeedResponse: object = { cipherSeedMnemonic: "" };
 
 export const GenSeedResponse = {
-  encode(message: GenSeedResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: GenSeedResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     for (const v of message.cipherSeedMnemonic) {
       writer.uint32(10).string(v!);
     }
@@ -265,8 +272,8 @@ export const GenSeedResponse = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): GenSeedResponse {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): GenSeedResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseGenSeedResponse } as GenSeedResponse;
     message.cipherSeedMnemonic = [];
@@ -349,7 +356,10 @@ const baseInitWalletRequest: object = {
 };
 
 export const InitWalletRequest = {
-  encode(message: InitWalletRequest, writer: Writer = Writer.create()): Writer {
+  encode(
+    message: InitWalletRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.walletPassword.length !== 0) {
       writer.uint32(10).bytes(message.walletPassword);
     }
@@ -374,8 +384,8 @@ export const InitWalletRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): InitWalletRequest {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): InitWalletRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseInitWalletRequest } as InitWalletRequest;
     message.cipherSeedMnemonic = [];
@@ -535,16 +545,16 @@ const baseInitWalletResponse: object = {};
 export const InitWalletResponse = {
   encode(
     message: InitWalletResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.adminMacaroon.length !== 0) {
       writer.uint32(10).bytes(message.adminMacaroon);
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): InitWalletResponse {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): InitWalletResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseInitWalletResponse } as InitWalletResponse;
     message.adminMacaroon = new Uint8Array();
@@ -601,8 +611,8 @@ const baseUnlockWalletRequest: object = {
 export const UnlockWalletRequest = {
   encode(
     message: UnlockWalletRequest,
-    writer: Writer = Writer.create()
-  ): Writer {
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.walletPassword.length !== 0) {
       writer.uint32(10).bytes(message.walletPassword);
     }
@@ -621,8 +631,8 @@ export const UnlockWalletRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): UnlockWalletRequest {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(input: _m0.Reader | Uint8Array, length?: number): UnlockWalletRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseUnlockWalletRequest } as UnlockWalletRequest;
     message.walletPassword = new Uint8Array();
@@ -728,12 +738,18 @@ export const UnlockWalletRequest = {
 const baseUnlockWalletResponse: object = {};
 
 export const UnlockWalletResponse = {
-  encode(_: UnlockWalletResponse, writer: Writer = Writer.create()): Writer {
+  encode(
+    _: UnlockWalletResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): UnlockWalletResponse {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): UnlockWalletResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseUnlockWalletResponse } as UnlockWalletResponse;
     while (reader.pos < end) {
@@ -771,8 +787,8 @@ const baseChangePasswordRequest: object = {
 export const ChangePasswordRequest = {
   encode(
     message: ChangePasswordRequest,
-    writer: Writer = Writer.create()
-  ): Writer {
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.currentPassword.length !== 0) {
       writer.uint32(10).bytes(message.currentPassword);
     }
@@ -788,8 +804,11 @@ export const ChangePasswordRequest = {
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): ChangePasswordRequest {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): ChangePasswordRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseChangePasswordRequest } as ChangePasswordRequest;
     message.currentPassword = new Uint8Array();
@@ -906,16 +925,19 @@ const baseChangePasswordResponse: object = {};
 export const ChangePasswordResponse = {
   encode(
     message: ChangePasswordResponse,
-    writer: Writer = Writer.create()
-  ): Writer {
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
     if (message.adminMacaroon.length !== 0) {
       writer.uint32(10).bytes(message.adminMacaroon);
     }
     return writer;
   },
 
-  decode(input: Reader | Uint8Array, length?: number): ChangePasswordResponse {
-    const reader = input instanceof Reader ? input : new Reader(input);
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): ChangePasswordResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...baseChangePasswordResponse } as ChangePasswordResponse;
     message.adminMacaroon = new Uint8Array();
@@ -1094,9 +1116,7 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
-// If you get a compile-error about 'Constructor<Long> and ... have no overlap',
-// add '--ts_proto_opt=esModuleInterop=true' as a flag when calling 'protoc'.
-if (util.Long !== Long) {
-  util.Long = Long as any;
-  configure();
+if (_m0.util.Long !== Long) {
+  _m0.util.Long = Long as any;
+  _m0.configure();
 }

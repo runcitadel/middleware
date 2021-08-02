@@ -7,7 +7,7 @@
     "build": "tsc",
     "lint": "eslint --fix . && prettier -w .",
     "start": "node --experimental-json-modules ./bin/www.mjs",
-    "build-types": "cd resources && protoc --plugin=../node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=../lnrpc --ts_proto_opt=outputServices=generic-definitions rpc.proto walletunlocker.proto stateservice.proto"
+    "build-types": "cd resources && protoc --plugin=../node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=../lnrpc --ts_proto_opt=esModuleInterop=true --ts_proto_opt=outputServices=generic-definitions rpc.proto walletunlocker.proto stateservice.proto"
   },
   "dependencies": {
     "@runcitadel/utils": "^0.3.0",
