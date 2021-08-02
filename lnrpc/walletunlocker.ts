@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal";
+// Manually patched with the extension
+import _m0 from "protobufjs/minimal.js";
 // Manually patched with the extension
 import { ChanBackupSnapshot } from "./rpc.js";
 
