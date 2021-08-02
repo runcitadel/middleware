@@ -47,7 +47,7 @@ router.get(
         }
 
         return lightningLogic
-      .getForwardingEvents(startTime, endTime, parseInt(indexOffset))
+      .getForwardingEvents(parseInt(startTime), parseInt(endTime), parseInt(indexOffset))
             .then((events) => res.json(events));
     })
 );

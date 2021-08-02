@@ -1,90 +1,22 @@
 import * as fs from "fs/promises";
-import * as grpc from "@grpc/grpc-js";
-import * as protoLoader from "@grpc/proto-loader";
 import * as path from "path";
-
-import type { ProtoGrpcType as LndMainProto } from "../lnd/rpc";
-import type { ProtoGrpcType as LndWalletUnlockerProto } from "../lnd/walletunlocker";
-import type { ProtoGrpcType as LndStateServiceProto } from "../lnd/stateservice";
-import { WalletState } from "../lnd/lnrpc/WalletState.js";
-import type { GetStateResponse__Output } from "../lnd/lnrpc/GetStateResponse";
-import type { AddInvoiceResponse__Output } from "../lnd/lnrpc/AddInvoiceResponse";
-import type { PayReqString__Output } from "../lnd/lnrpc/PayReqString";
-import type { PolicyUpdateRequest } from "../lnd/lnrpc/PolicyUpdateRequest";
-import type { OpenChannelRequest } from "../lnd/lnrpc/OpenChannelRequest";
-import type { SendCoinsRequest } from "../lnd/lnrpc/SendCoinsRequest";
-import type { EstimateFeeResponse__Output } from "../lnd/lnrpc/EstimateFeeResponse";
-import type { ChannelBalanceResponse__Output } from "../lnd/lnrpc/ChannelBalanceResponse";
-import type { WalletBalanceResponse__Output } from "../lnd/lnrpc/WalletBalanceResponse";
-
 import { LndError } from "@runcitadel/utils";
-import { GetInfoResponse__Output } from "../lnd/lnrpc/GetInfoResponse";
-import { GenSeedResponse__Output } from "../lnd/lnrpc/GenSeedResponse";
-import { PayReq__Output } from "../lnd/lnrpc/PayReq";
-import { NewAddressResponse__Output } from "../lnd/lnrpc/NewAddressResponse";
-import { NodeInfo__Output } from "../lnd/lnrpc/NodeInfo";
-import { Channel__Output } from "../lnd/lnrpc/Channel";
-import { ListChannelsResponse__Output } from "../lnd/lnrpc/ListChannelsResponse";
-import { ClosedChannelsResponse__Output } from "../lnd/lnrpc/ClosedChannelsResponse";
-import { ChannelCloseSummary__Output } from "../lnd/lnrpc/ChannelCloseSummary";
-import { ListPaymentsResponse__Output } from "../lnd/lnrpc/ListPaymentsResponse";
-import { ListPeersResponse__Output } from "../lnd/lnrpc/ListPeersResponse";
-import { Peer__Output } from "../lnd/lnrpc/Peer";
-import { PendingChannelsResponse__Output } from "../lnd/lnrpc/PendingChannelsResponse";
-import { ListInvoiceResponse__Output } from "../lnd/lnrpc/ListInvoiceResponse";
-import { TransactionDetails__Output } from "../lnd/lnrpc/TransactionDetails";
-import { Transaction__Output } from "../lnd/lnrpc/Transaction";
-import { ChannelPoint__Output } from "../lnd/lnrpc/ChannelPoint";
-import { SendCoinsResponse__Output } from "../lnd/lnrpc/SendCoinsResponse";
-import { SendResponse__Output } from "../lnd/lnrpc/SendResponse";
-import { PolicyUpdateResponse__Output } from "../lnd/lnrpc/PolicyUpdateResponse";
-import { ConnectPeerResponse__Output } from "../lnd/lnrpc/ConnectPeerResponse";
-import { FeeReportResponse__Output } from "../lnd/lnrpc/FeeReportResponse";
-import { ForwardingHistoryResponse__Output } from "../lnd/lnrpc/ForwardingHistoryResponse";
-import { ListUnspentResponse__Output } from "../lnd/lnrpc/ListUnspentResponse";
-import { EstimateFeeRequest__Output } from "../lnd/lnrpc/EstimateFeeRequest";
-import { ForwardingHistoryRequest__Output } from "../lnd/lnrpc/ForwardingHistoryRequest";
-import { NodeInfoRequest__Output } from "../lnd/lnrpc/NodeInfoRequest";
-import { InitWalletRequest } from "../lnd/lnrpc/InitWalletRequest";
-import { Invoice } from "../lnd/lnrpc/Invoice";
 
-type useLndApis = LndMainProto & LndWalletUnlockerProto & LndStateServiceProto;
-
-const loaderOptions = {
-  defaults: true,
-  longs: String,
-};
-
-const lndPackageDefinition = protoLoader.loadSync(
-  [
-    "./resources/rpc.proto",
-    "./resources/walletunlocker.proto",
-    "./resources/stateservice.proto",
-  ],
-  loaderOptions
-);
-
-const lnrpcProto = grpc.loadPackageDefinition(
-  lndPackageDefinition
-) as unknown as useLndApis;
-
-const lnrpc = lnrpcProto.lnrpc;
-const WalletUnlocker = lnrpc.WalletUnlocker;
-const StateService = lnrpc.State;
-
+import {createChannel, createClient, Client} from 'nice-grpc';
+import {Channel, ChannelBalanceResponse, ChannelCloseSummary, ChannelPoint, ConnectPeerResponse, EstimateFeeResponse, FeeReportResponse, ForwardingHistoryResponse, GetInfoResponse, LightningDefinition, ListInvoiceResponse, ListPaymentsResponse, ListUnspentResponse, NewAddressResponse, NodeInfo, OpenChannelRequest, PayReq, Peer, PendingChannelsResponse, PolicyUpdateRequest, PolicyUpdateResponse, SendCoinsRequest, SendCoinsResponse, SendResponse, Transaction, WalletBalanceResponse} from '../lnrpc/rpc.js';
+import {GenSeedResponse, WalletUnlockerDefinition} from '../lnrpc/walletunlocker.js';
+import {StateDefinition, WalletState} from '../lnrpc/stateservice.js';
+import * as grpc from '@grpc/grpc-js';
 type RpcClientInfo = {
-  Lightning?: InstanceType<useLndApis["lnrpc"]["Lightning"]>;
-  WalletUnlocker: InstanceType<useLndApis["lnrpc"]["WalletUnlocker"]>;
-  State: InstanceType<useLndApis["lnrpc"]["State"]>;
+  Lightning?: Client<typeof LightningDefinition>;
+  WalletUnlocker: Client<typeof WalletUnlockerDefinition>;
+  State: Client<typeof StateDefinition>;
   state: WalletState;
   offline?: boolean;
 };
 
-type RpcClientWithLightningForSure = {
-  Lightning: InstanceType<useLndApis["lnrpc"]["Lightning"]>;
-  WalletUnlocker: InstanceType<useLndApis["lnrpc"]["WalletUnlocker"]>;
-  State: InstanceType<useLndApis["lnrpc"]["State"]>;
-  state: WalletState;
+type RpcClientWithLightningForSure = RpcClientInfo & {
+  Lightning: Client<typeof LightningDefinition>;
 };
 
 const LND_HOST = process.env.LND_HOST || "127.0.0.1";
@@ -104,44 +36,25 @@ const MACAROON_FILE = path.join(
   "admin.macaroon"
 );
 
-export async function promiseify(
-  rpcObj: unknown,
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  rpcFn: (...args: any[]) => unknown,
-  payload: unknown,
-  description: string
-): Promise<unknown> {
-  return new Promise((resolve, reject) => {
-    try {
-      rpcFn.call(rpcObj, payload, (error: unknown, grpcResponse: unknown) => {
-        if (error) {
-          reject(new LndError(`Unable to ${description}`, error));
-        } else {
-          resolve(grpcResponse);
-        }
-      });
-    } catch (error) {
-      reject(error);
-    }
-  });
-}
 export async function initializeRPCClient(): Promise<RpcClientInfo> {
   // Create credentials
   const lndCert = await fs.readFile(TLS_FILE);
-  const sslCreds = grpc.credentials.createSsl(lndCert);
-  const stateService = new StateService(`${LND_HOST}:${LND_PORT}`, sslCreds);
-  const walletUnlocker = new WalletUnlocker(
-    `${LND_HOST}:${LND_PORT}`,
-    sslCreds
+  const tlsCredentials = grpc.credentials.createSsl(lndCert);
+  const channel = createChannel(`${LND_HOST}:${LND_PORT}`, tlsCredentials);
+
+  const walletUnlocker: Client<typeof WalletUnlockerDefinition> = createClient(
+    WalletUnlockerDefinition,
+    channel,
   );
-  let walletState: GetStateResponse__Output;
+
+  const stateService: Client<typeof StateDefinition> = createClient(
+    StateDefinition,
+    channel,
+  );
+
+  let walletState;
   try {
-    walletState = (await promiseify(
-      stateService,
-      stateService.getState,
-      {},
-      "get wallet state"
-    )) as GetStateResponse__Output;
+    walletState = await stateService.getState({});
   } catch {
     return {
       WalletUnlocker: walletUnlocker,
@@ -178,17 +91,20 @@ export async function initializeRPCClient(): Promise<RpcClientInfo> {
       }
     );
     const fullCredentials = grpc.credentials.combineChannelCredentials(
-      sslCreds,
+      tlsCredentials,
       macaroonCreds
+    );
+
+    const authenticatedChannel = createChannel(LND_HOST, fullCredentials);
+    const LightningClient: Client<typeof LightningDefinition> = createClient(
+      LightningDefinition,
+      authenticatedChannel,
     );
 
     return {
       WalletUnlocker: walletUnlocker,
       State: stateService,
-      Lightning: new lnrpc.Lightning(
-        `${LND_HOST}:${LND_PORT}`,
-        fullCredentials
-      ),
+      Lightning: LightningClient,
       state: walletState.state,
     };
   } else {
@@ -207,24 +123,19 @@ export async function addInvoice(
   amount: number | string,
   memo: string
 ): Promise<{
-  rHash: Buffer;
+  rHash: Uint8Array;
   paymentRequest: string;
 }> {
-  if(typeof amount === "number") amount = amount.toString();
-  const rpcPayload: Invoice = {
+  if(typeof amount === "string") amount = parseInt(amount);
+  const rpcPayload = {
     value: amount,
     memo,
-    expiry: "3600",
+    expiry: 3600,
   };
 
   const conn = await expectWalletToExist();
 
-  const grpcResponse = (await promiseify(
-    conn.Lightning,
-    conn.Lightning.addInvoice,
-    rpcPayload,
-    "create new invoice"
-  )) as AddInvoiceResponse__Output;
+  const grpcResponse = await conn.Lightning.addInvoice(rpcPayload);
 
   if (grpcResponse && grpcResponse.paymentRequest) {
     return {
@@ -250,23 +161,12 @@ export async function closeChannel(
   };
 
   const { Lightning } = await expectWalletToExist();
-  return await new Promise((resolve, reject) => {
-    try {
-      const call = Lightning.CloseChannel(rpcPayload);
-
-      call.on("data", (chan) => {
-        if (chan.update === "closePending") {
-          resolve();
-        }
-      });
-
-      call.on("error", (error) => {
-        reject(new LndError("Unable to close channel", error));
-      });
-    } catch (error_1) {
-      reject(error_1);
+  const call = Lightning.closeChannel(rpcPayload);
+  for await (const data of call) {
+    if (data.closePending) {
+      return;
     }
-  });
+  } 
 }
 
 // Connects this lnd node to a peer.
@@ -274,7 +174,7 @@ export async function connectToPeer(
   pubKey: string,
   ip: string,
   port: number | string
-): Promise<ConnectPeerResponse__Output> {
+): Promise<ConnectPeerResponse> {
   const rpcPayload = {
     addr: {
       pubkey: pubKey,
@@ -283,29 +183,19 @@ export async function connectToPeer(
   };
 
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.ConnectPeer,
-    rpcPayload,
-    "connect to peer"
-  )) as ConnectPeerResponse__Output;
+  return await Lightning.connectPeer(rpcPayload);
 }
 
-type extendedPaymentRequest = PayReq__Output & { paymentRequest?: string };
+type extendedPaymentRequest = PayReq & { paymentRequest?: string };
 export async function decodePaymentRequest(
   paymentRequest: string
 ): Promise<extendedPaymentRequest> {
-  const rpcPayload: PayReqString__Output = {
+  const rpcPayload = {
     payReq: paymentRequest,
   };
 
   const { Lightning } = await expectWalletToExist();
-  const invoice = (await promiseify(
-    Lightning,
-    Lightning.decodePayReq,
-    rpcPayload,
-    "decode payment request"
-  )) as extendedPaymentRequest;
+  const invoice: extendedPaymentRequest = await Lightning.decodePayReq(rpcPayload);
   // add on payment request for extra details
   invoice.paymentRequest = paymentRequest;
   return invoice;
@@ -313,88 +203,56 @@ export async function decodePaymentRequest(
 
 export async function estimateFee(
   address: string,
-  amt: string | number,
+  amt: number,
   confTarget: number
-): Promise<EstimateFeeResponse__Output> {
-  const addrToAmount: ({[key: string]: string}) = {};
-  if(typeof amt === "number") amt = amt.toString();
+): Promise<EstimateFeeResponse> {
+  const addrToAmount: ({[key: string]: number}) = {};
   addrToAmount[address] = amt;
 
-  const rpcPayload: EstimateFeeRequest__Output = {
+  const rpcPayload = {
     AddrToAmount: addrToAmount,
     targetConf: confTarget,
-    // TODO: Optimize this
-    minConfs: confTarget,
-    // TODO: Make this dynamic
-    spendUnconfirmed: false,
   };
 
   const conn = await expectWalletToExist();
 
-  return (await promiseify(
-    conn.Lightning,
-    conn.Lightning.estimateFee,
-    rpcPayload,
-    "estimate fee request"
-  )) as EstimateFeeResponse__Output;
+  return await conn.Lightning.estimateFee(rpcPayload);
 }
 
-export async function generateAddress(): Promise<NewAddressResponse__Output> {
+export async function generateAddress(): Promise<NewAddressResponse> {
   const rpcPayload = {
     type: 0,
   };
 
   const conn = await expectWalletToExist();
 
-  return (await promiseify(
-    conn.Lightning,
-    conn.Lightning.NewAddress,
-    rpcPayload,
-    "generate address"
-  )) as NewAddressResponse__Output;
+  return await conn.Lightning.newAddress(rpcPayload);
 }
 
-export async function generateSeed(): Promise<GenSeedResponse__Output> {
+export async function generateSeed(): Promise<GenSeedResponse> {
   const { WalletUnlocker, state } = await initializeRPCClient();
   if (state !== WalletState.NON_EXISTING) {
     throw new LndError("Wallet already exists");
   }
-  return (await promiseify(
-    WalletUnlocker,
-    WalletUnlocker.GenSeed,
-    {},
-    "generate seed"
-  )) as GenSeedResponse__Output;
+  return await WalletUnlocker.genSeed({});
 }
 
-export async function getChannelBalance(): Promise<ChannelBalanceResponse__Output> {
+export async function getChannelBalance(): Promise<ChannelBalanceResponse> {
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.ChannelBalance,
-    {},
-    "get channel balance"
-  )) as ChannelBalanceResponse__Output;
+  return Lightning.channelBalance({});
 }
 
-export async function getFeeReport(): Promise<FeeReportResponse__Output> {
+export async function getFeeReport(): Promise<FeeReportResponse> {
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.FeeReport,
-    {},
-    "get fee report"
-  )) as FeeReportResponse__Output;
+  return await Lightning.feeReport({});
 }
 
 export async function getForwardingEvents(
-  startTime: number | string,
-  endTime: number | string,
+  startTime: number,
+  endTime: number,
   indexOffset: number
-): Promise<ForwardingHistoryResponse__Output> {
-  if(typeof startTime === "number") startTime = startTime.toString();
-  if(typeof endTime === "number") endTime = endTime.toString();
-  const rpcPayload: ForwardingHistoryRequest__Output = {
+): Promise<ForwardingHistoryResponse> {
+  const rpcPayload = {
     startTime,
     endTime,
     indexOffset,
@@ -403,92 +261,57 @@ export async function getForwardingEvents(
   };
 
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.ForwardingHistory,
-    rpcPayload,
-    "get forwarding events"
-  )) as ForwardingHistoryResponse__Output;
+  return await Lightning.forwardingHistory(rpcPayload);
 }
 
 export async function isOperational(): Promise<boolean> {
   return !(await initializeRPCClient()).offline;
 }
 
-export async function getInfo(): Promise<GetInfoResponse__Output> {
+export async function getInfo(): Promise<GetInfoResponse> {
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.GetInfo,
-    {},
-    "get lnd information"
-  )) as GetInfoResponse__Output;
+  return await Lightning.getInfo({});
 }
 
 export async function getNodeInfo(
   pubKey: string,
   includeChannels: boolean
-): Promise<NodeInfo__Output> {
-  const rpcPayload: NodeInfoRequest__Output = {
+): Promise<NodeInfo> {
+  const rpcPayload = {
     pubKey,
     includeChannels,
   };
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.GetNodeInfo,
-    rpcPayload,
-    "get node information"
-  )) as NodeInfo__Output;
+  return await Lightning.getNodeInfo(rpcPayload);
 }
 
 // Returns a list of lnd's currently open channels. Channels are considered open by this node and it's directly
 // connected peer after three confirmation. After six confirmations, the channel is broadcasted by this node and it's
 // directly connected peer to the broader Lightning network.
-export async function getOpenChannels(): Promise<Channel__Output[]> {
+export async function getOpenChannels(): Promise<Channel[]> {
   const { Lightning } = await expectWalletToExist();
-  const grpcResponse = (await promiseify(
-    Lightning,
-    Lightning.ListChannels,
-    {},
-    "list channels"
-  )) as ListChannelsResponse__Output;
+  const grpcResponse = await Lightning.listChannels({});
   return grpcResponse.channels;
 }
 
 export async function getClosedChannels(): Promise<
-  ChannelCloseSummary__Output[]
+  ChannelCloseSummary[]
 > {
   const { Lightning } = await expectWalletToExist();
-  const grpcResponse = (await promiseify(
-    Lightning,
-    Lightning.ClosedChannels,
-    {},
-    "closed channels"
-  )) as ClosedChannelsResponse__Output;
+  const grpcResponse = await Lightning.closedChannels({});
   return grpcResponse.channels;
 }
 
 // Returns a list of all outgoing payments.
-export async function getPayments(): Promise<ListPaymentsResponse__Output> {
+export async function getPayments(): Promise<ListPaymentsResponse> {
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.ListPayments,
-    {},
-    "get payments"
-  )) as ListPaymentsResponse__Output;
+  return await Lightning.listPayments({});
 }
 
 // Returns a list of all lnd's currently connected and active peers.
-export async function getPeers(): Promise<Peer__Output[]> {
+export async function getPeers(): Promise<Peer[]> {
   const { Lightning } = await expectWalletToExist();
-  const grpcResponse = (await promiseify(
-    Lightning,
-    Lightning.ListPeers,
-    {},
-    "get peer information"
-  )) as ListPeersResponse__Output;
+  const grpcResponse = await Lightning.listPeers({});
   if (grpcResponse && grpcResponse.peers) {
     return grpcResponse.peers;
   } else {
@@ -499,30 +322,20 @@ export async function getPeers(): Promise<Peer__Output[]> {
 // Returns a list of lnd's currently pending channels. Pending channels include, channels that are in the process of
 // being opened, but have not reached three confirmations. Channels that are pending closed, but have not reached
 // one confirmation. Forced close channels that require potentially hundreds of confirmations.
-export async function getPendingChannels(): Promise<PendingChannelsResponse__Output> {
+export async function getPendingChannels(): Promise<PendingChannelsResponse> {
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.PendingChannels,
-    {},
-    "list pending channels"
-  )) as PendingChannelsResponse__Output;
+  return await Lightning.pendingChannels({});
 }
 
-export async function getWalletBalance(): Promise<WalletBalanceResponse__Output> {
+export async function getWalletBalance(): Promise<WalletBalanceResponse> {
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.WalletBalance,
-    {},
-    "get wallet balance"
-  )) as WalletBalanceResponse__Output;
+  return await Lightning.walletBalance({});
 }
 
 export async function initWallet(mnemonic: string[]): Promise<string[]> {
   const passwordBuff = Buffer.from("moneyprintergobrrr", "utf8");
 
-  const rpcPayload: InitWalletRequest = {
+  const rpcPayload = {
     walletPassword: passwordBuff,
     cipherSeedMnemonic: mnemonic,
     recoveryWindow: DEFAULT_RECOVERY_WINDOW,
@@ -532,44 +345,29 @@ export async function initWallet(mnemonic: string[]): Promise<string[]> {
   if (state !== WalletState.NON_EXISTING) {
     throw new LndError("Wallet already exists");
   }
-  await promiseify(
-    WalletUnlocker,
-    WalletUnlocker.InitWallet,
-    rpcPayload,
-    "initialize wallet"
-  );
+  await WalletUnlocker.initWallet(rpcPayload);
   return mnemonic;
 }
 
 // Returns a list of all invoices.
-export async function getInvoices(): Promise<ListInvoiceResponse__Output> {
+export async function getInvoices(): Promise<ListInvoiceResponse> {
   const rpcPayload = {
     reversed: true, // Returns most recent
     numMaxInvoices: 100,
   };
 
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.ListInvoices,
-    rpcPayload,
-    "list invoices"
-  )) as ListInvoiceResponse__Output;
+  return await Lightning.listInvoices(rpcPayload);
 }
 
 // Returns a list of all on chain transactions.
-export async function getOnChainTransactions(): Promise<Transaction__Output[]> {
+export async function getOnChainTransactions(): Promise<Transaction[]> {
   const { Lightning } = await expectWalletToExist();
-  const grpcResponse = (await promiseify(
-    Lightning,
-    Lightning.GetTransactions,
-    {},
-    "list on-chain transactions"
-  )) as TransactionDetails__Output;
+  const grpcResponse = await Lightning.getTransactions({});
   return grpcResponse.transactions;
 }
 
-export async function listUnspent(): Promise<ListUnspentResponse__Output> {
+export async function listUnspent(): Promise<ListUnspentResponse> {
   const rpcPayload = {
     minConfs: 1,
     maxConfs: 10000000, // Use arbitrarily high maximum confirmation limit.
@@ -577,82 +375,63 @@ export async function listUnspent(): Promise<ListUnspentResponse__Output> {
 
   const { Lightning } = await expectWalletToExist();
 
-  return (await promiseify(
-    Lightning,
-    Lightning.listUnspent,
-    rpcPayload,
-    "estimate fee request"
-  )) as ListUnspentResponse__Output;
+  return await Lightning.listUnspent(rpcPayload);
 }
 
 export async function openChannel(
   pubKey: string,
-  amt: string | number,
-  satPerByte: string | number
-): Promise<ChannelPoint__Output> {
-  const rpcPayload: OpenChannelRequest = {
+  amt: number,
+  satPerByte: number | undefined
+): Promise<ChannelPoint> {
+  const rpcPayload: OpenChannelRequest = <OpenChannelRequest>{
     nodePubkeyString: pubKey,
     localFundingAmount: amt,
   };
 
   if (satPerByte) {
-    rpcPayload.satPerByte = satPerByte;
+    // Make the dashboard still believe it's satPerByte, but actually use satPerVByte
+    rpcPayload.satPerVbyte = satPerByte;
   } else {
     rpcPayload.targetConf = 6;
   }
 
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.OpenChannelSync,
-    rpcPayload,
-    "open channel"
-  )) as ChannelPoint__Output;
+  return await Lightning.openChannelSync(rpcPayload);
 }
 
 export async function sendCoins(
   addr: string,
-  amt: string | number | undefined,
-  satPerByte: string,
+  amt: number | undefined,
+  satPerByte: number,
   sendAll: boolean
-): Promise<SendCoinsResponse__Output> {
-  const rpcPayload: SendCoinsRequest = {
+): Promise<SendCoinsResponse> {
+  const rpcPayload: SendCoinsRequest = <SendCoinsRequest>{
     addr,
     amount: amt,
     sendAll,
   };
 
   if (satPerByte) {
-    rpcPayload.satPerByte = satPerByte;
+    rpcPayload.satPerVbyte = satPerByte;
   } else {
     rpcPayload.targetConf = 6;
   }
 
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.SendCoins,
-    rpcPayload,
-    "send coins"
-  )) as SendCoinsResponse__Output;
+  return await Lightning.sendCoins(rpcPayload);
 }
 
 export async function sendPaymentSync(
   paymentRequest: string,
-  amt: string | number
-): Promise<SendResponse__Output> {
+  amt: number
+): Promise<SendResponse> {
   const rpcPayload = {
     paymentRequest,
     amt,
   };
 
   const { Lightning } = await expectWalletToExist();
-  const response = (await promiseify(
-    Lightning,
-    Lightning.SendPaymentSync,
-    rpcPayload,
-    "send Lightning payment"
-  )) as SendResponse__Output;
+  const response = await Lightning.sendPaymentSync(rpcPayload);
   // sometimes the error comes in on the response...
   if (response.paymentError) {
     throw new LndError(
@@ -666,11 +445,11 @@ export async function updateChannelPolicy(
   global: boolean,
   fundingTxid: string,
   outputIndex: number,
-  baseFeeMsat: string,
+  baseFeeMsat: number,
   feeRate: number,
   timeLockDelta: number
-): Promise<PolicyUpdateResponse__Output> {
-  const rpcPayload: PolicyUpdateRequest = {
+): Promise<PolicyUpdateResponse> {
+  const rpcPayload: PolicyUpdateRequest = <PolicyUpdateRequest>{
     baseFeeMsat,
     feeRate,
     timeLockDelta,
@@ -680,17 +459,12 @@ export async function updateChannelPolicy(
   if (global) {
     rpcPayload.global = global;
   } else {
-    rpcPayload.chanPoint = {
+    rpcPayload.chanPoint = <ChannelPoint>{
       fundingTxidStr: fundingTxid,
       outputIndex,
     };
   }
 
   const { Lightning } = await expectWalletToExist();
-  return (await promiseify(
-    Lightning,
-    Lightning.UpdateChannelPolicy,
-    rpcPayload,
-    "update channel policy coins"
-  )) as PolicyUpdateResponse__Output;
+  return await Lightning.updateChannelPolicy(rpcPayload);
 }

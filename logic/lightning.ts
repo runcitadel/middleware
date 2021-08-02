@@ -10,17 +10,8 @@ import * as lndService from "../services/lnd.js";
 import * as bitcoindLogic from "../logic/bitcoind.js";
 
 import constants from "../utils/const.js";
-
-import type { EstimateFeeResponse__Output } from "../lnd/lnrpc/EstimateFeeResponse";
-import type { Channel__Output } from "../lnd/lnrpc/Channel";
-import type { ServiceError } from "@grpc/grpc-js";
-import { Transaction__Output } from "../lnd/lnrpc/Transaction.js";
-import { Invoice__Output } from "../lnd/lnrpc/Invoice.js";
-import { ChannelFeeReport__Output } from "../lnd/lnrpc/ChannelFeeReport.js";
-import { Payment__Output } from "../lnd/lnrpc/Payment.js";
-import { _lnrpc_PendingChannelsResponse_PendingChannel__Output } from "../lnd/lnrpc/PendingChannelsResponse.js";
-import { SendResponse__Output } from "../lnd/lnrpc/SendResponse.js";
-import { SendCoinsResponse__Output } from "../lnd/lnrpc/SendCoinsResponse.js";
+import { Channel, ChannelFeeReport, EstimateFeeResponse, Invoice, Payment, PendingChannelsResponse_ForceClosedChannel, PendingChannelsResponse_PendingChannel, PendingChannelsResponse_PendingOpenChannel, PendingChannelsResponse_WaitingCloseChannel, SendCoinsResponse, SendResponse, Transaction } from "../lnrpc/rpc.js";
+import { ServiceError } from "@grpc/grpc-js";
 
 const PENDING_OPEN_CHANNELS = "pendingOpenChannels";
 const PENDING_CLOSING_CHANNELS = "pendingClosingChannels";
@@ -115,14 +106,14 @@ export async function estimateChannelOpenFee(
   amt: number | string,
   confTarget: number,
   sweep: boolean
-): Promise<EstimateFeeResponse__Output> {
+): Promise<EstimateFeeResponseExtended | Record<string, EstimateFeeResponseExtended>> {
   const address = (await generateAddress()).address;
-  const baseFeeEstimate = (await estimateFee(
+  const baseFeeEstimate = await estimateFee(
     address,
     amt,
     confTarget,
     sweep
-  )) as EstimateFeeResponse__Output;
+  );
 
   if (confTarget === 0) {
     const keys = Object.keys(baseFeeEstimate);
@@ -137,19 +128,14 @@ export async function estimateChannelOpenFee(
         );
       }
     }
-  } else if (baseFeeEstimate.feeSat) {
-    baseFeeEstimate.feeSat = String(
-      parseInt(baseFeeEstimate.feeSat, 10) +
-        OPEN_CHANNEL_EXTRA_WEIGHT * parseInt(baseFeeEstimate.feerateSatPerByte)
-    );
   }
 
   return baseFeeEstimate;
 }
 
 type EstimateFeeResponseExtended =
-  | (EstimateFeeResponse__Output & { sweepAmount?: number })
-  | { code: string; text: string };
+  | (EstimateFeeResponse & { sweepAmount?: number })
+  | { code: string; text: string; feeSat?: string };
 
 // Estimate an on chain transaction fee.
 export async function estimateFee(
@@ -158,15 +144,12 @@ export async function estimateFee(
   confTarget: number,
   sweep: boolean
 ): Promise<
-  EstimateFeeResponseExtended | Record<string, EstimateFeeResponseExtended>
+EstimateFeeResponseExtended | Record<string, EstimateFeeResponseExtended>
 > {
   const mempoolInfo = await bitcoindLogic.getMempoolInfo();
 
   if (sweep) {
-    const balance = parseInt(
-      (await lndService.getWalletBalance()).confirmedBalance,
-      10
-    );
+    const balance = (await lndService.getWalletBalance()).confirmedBalance;
     const amtToEstimate = balance;
 
     if (confTarget === 0) {
@@ -225,7 +208,7 @@ export async function estimateFeeSweep(
       successfulEstimate.sweepAmount = amtToEstimate;
 
       const estimatedFeeSatPerKiloByte =
-        parseInt(successfulEstimate.feerateSatPerByte) * 1000;
+        successfulEstimate.satPerVbyte * 1000;
 
       if (
         estimatedFeeSatPerKiloByte <
@@ -319,11 +302,12 @@ export async function estimateFeeWrapper(
   amt: number | string,
   mempoolMinFee: number,
   confTarget: number
-): Promise<EstimateFeeResponseExtended> {
+): Promise<EstimateFeeResponse> {
+  if(typeof amt === "string") amt = parseInt(amt, 10);
   const estimate = await lndService.estimateFee(address, amt, confTarget);
 
   const estimatedFeeSatPerKiloByte =
-    parseInt(estimate.feerateSatPerByte) * 1000;
+    estimate.satPerVbyte * 1000;
 
   if (
     estimatedFeeSatPerKiloByte < convert(mempoolMinFee, "btc", "sat", "Number")
@@ -359,9 +343,9 @@ export async function estimateFeeGroup(
 }
 
 export function handleEstimateFeeError(error: ServiceError): {
-  code: string;
-  text: string;
-} {
+  code: string,
+  text: string,
+ } {
   let realError = error;
   // @ts-expect-error This works
   if (error.error) realError = error.error;
@@ -407,14 +391,14 @@ export function getChannelCount(): Promise<{ count: number }> {
     .then((response) => ({ count: response.length }));
 }
 
-export function getChannelPolicy(): Promise<ChannelFeeReport__Output[]> {
+export function getChannelPolicy(): Promise<ChannelFeeReport[]> {
   return lndService.getFeeReport().then((feeReport) => feeReport.channelFees);
 }
 
 export const getForwardingEvents = lndService.getForwardingEvents;
 
 // Returns a list of all invoices.
-export async function getInvoices(): Promise<Invoice__Output[]> {
+export async function getInvoices(): Promise<Invoice[]> {
   const invoices = await lndService.getInvoices();
 
   const reversedInvoices = [];
@@ -425,16 +409,16 @@ export async function getInvoices(): Promise<Invoice__Output[]> {
   return reversedInvoices;
 }
 
-type Transaction__Output_extended = Transaction__Output & {
+type Transaction_extended = Transaction & {
   type?: string;
 };
 
 // Returns a list of all on chain transactions.
 export async function getOnChainTransactions(): Promise<
-  Transaction__Output_extended[]
+  Transaction_extended[]
 > {
   const transactions =
-    (await lndService.getOnChainTransactions()) as Transaction__Output_extended[];
+    (await lndService.getOnChainTransactions()) as Transaction_extended[];
   const openChannels = await lndService.getOpenChannels();
   const closedChannels = await lndService.getClosedChannels();
   const pendingChannelRPC = await lndService.getPendingChannels();
@@ -449,7 +433,6 @@ export async function getOnChainTransactions(): Promise<
 
   const pendingClosingChannelTransactions = [];
   for (const pendingGroup of [
-    pendingChannelRPC.pendingClosingChannels,
     pendingChannelRPC.pendingForceClosingChannels,
     pendingChannelRPC.waitingCloseChannels,
   ]) {
@@ -489,10 +472,10 @@ export async function getOnChainTransactions(): Promise<
       transaction.type = "PENDING_OPEN";
     } else if (pendingClosingChannelTransactions.includes(txHash)) {
       transaction.type = "PENDING_CLOSE";
-    } else if (parseInt(transaction.amount) < 0) {
+    } else if (transaction.amount < 0) {
       transaction.type = "ON_CHAIN_TRANSACTION_SENT";
     } else if (
-      parseInt(transaction.amount) > 0 &&
+      transaction.amount > 0 &&
       transaction.destAddresses.length > 0
     ) {
       transaction.type = "ON_CHAIN_TRANSACTION_RECEIVED";
@@ -501,7 +484,7 @@ export async function getOnChainTransactions(): Promise<
       // until the transaction has at least one confirmation. Then a WaitingCloseChannel will become a pending Closing
       // channel and will have an associated tx id.
     } else if (
-      parseInt(transaction.amount) > 0 &&
+      transaction.amount > 0 &&
       transaction.destAddresses.length === 0
     ) {
       transaction.type = "PENDING_CLOSE";
@@ -519,12 +502,25 @@ export function getTxnHashFromChannelPoint(channelPoint: string): string {
   return channelPoint.split(":")[0];
 }
 
-type Channel__Output_extended = Channel__Output & {
+type Channel_extended = Channel & {
   type?: string;
 };
 
+type WaitingCloseChannel_extended = PendingChannelsResponse_WaitingCloseChannel & {
+  type?: string;
+};
+
+type PendingForceClosedChannel_extended = PendingChannelsResponse_ForceClosedChannel & {
+  type?: string;
+};
+
+type PendingOpenChannel_extended = PendingChannelsResponse_PendingOpenChannel & {
+  type?: string;
+  initiator?: boolean;
+};
+
 // Returns a list of all open channels.
-export async function getChannels(): Promise<Channel__Output_extended[]> {
+export async function getChannels(): Promise<Channel_extended[]> {
   const openChannelsCall = lndService.getOpenChannels();
   const pendingChannels = await lndService.getPendingChannels();
 
@@ -532,47 +528,35 @@ export async function getChannels(): Promise<Channel__Output_extended[]> {
 
   // Combine all pending channel types
   for (const channel of pendingChannels.waitingCloseChannels) {
-    (<Channel__Output_extended>(<unknown>channel)).type =
+    (<WaitingCloseChannel_extended>channel).type =
       "WAITING_CLOSING_CHANNEL";
     allChannels.push(channel);
   }
 
   for (const channel of pendingChannels.pendingForceClosingChannels) {
-    (<Channel__Output_extended>(<unknown>channel)).type =
+    (<PendingForceClosedChannel_extended>channel).type =
       "FORCE_CLOSING_CHANNEL";
     allChannels.push(channel);
   }
 
-  for (const channel of pendingChannels.pendingClosingChannels) {
-    (<Channel__Output_extended>(<unknown>channel)).type =
-      "PENDING_CLOSING_CHANNEL";
-    allChannels.push(channel);
-  }
-
   for (const channel of pendingChannels.pendingOpenChannels) {
-    (<Channel__Output_extended>(<unknown>channel)).type =
+    (<PendingOpenChannel_extended>channel).type =
       "PENDING_OPEN_CHANNEL";
 
     // Make our best guess as to if this channel was created by us.
-    if (channel.channel?.remoteBalance === "0") {
-      (<Channel__Output_extended>(<unknown>channel)).initiator = true;
+    if (channel.channel?.remoteBalance === 0) {
+      (<PendingOpenChannel_extended>channel).initiator = true;
     } else {
-      (<Channel__Output_extended>(<unknown>channel)).initiator = false;
+      (<PendingOpenChannel_extended>channel).initiator = false;
     }
 
     // Include commitFee in balance. This helps us avoid the leaky sats issue by making balances more consistent.
-    if ((<Channel__Output_extended>(<unknown>channel)).initiator) {
+    if ((<PendingOpenChannel_extended>channel).initiator) {
       // @ts-expect-error This could be undefined
-      channel.channel.localBalance = String(
-        parseInt(channel.channel?.localBalance || "0", 10) +
-          parseInt(channel.commitFee, 10)
-      );
+      channel.channel.localBalance = (channel.channel?.localBalance || 0) + channel.commitFee
     } else {
       // @ts-expect-error This could be undefined
-      channel.channel.remoteBalance = String(
-        parseInt(channel.channel?.remoteBalance || "0", 10) +
-          parseInt(channel.commitFee, 10)
-      );
+      channel.channel.remoteBalance = channel.channel?.remoteBalance + channel.commitFee
     }
 
     allChannels.push(channel);
@@ -588,20 +572,16 @@ export async function getChannels(): Promise<Channel__Output_extended[]> {
   }
 
   // Combine open channels
-  const openChannels = (await openChannelsCall) as Channel__Output_extended[];
+  const openChannels = (await openChannelsCall) as Channel_extended[];
 
   for (const channel of openChannels) {
     channel.type = "OPEN";
 
     // Include commitFee in balance. This helps us avoid the leaky sats issue by making balances more consistent.
     if (channel.initiator) {
-      channel.localBalance = String(
-        parseInt(channel.localBalance, 10) + parseInt(channel.commitFee, 10)
-      );
+      channel.localBalance = channel.localBalance + channel.commitFee
     } else {
-      channel.remoteBalance = String(
-        parseInt(channel.remoteBalance, 10) + parseInt(channel.commitFee, 10)
-      );
+      channel.remoteBalance = channel.remoteBalance + channel.commitFee
     }
 
     allChannels.push(channel);
@@ -667,11 +647,11 @@ export async function getChannels(): Promise<Channel__Output_extended[]> {
     channel.remoteAlias = alias || "";
   }
 
-  return allChannels as unknown as Channel__Output_extended[];
+  return allChannels as unknown as Channel_extended[];
 }
 
 // Returns a list of all outgoing payments.
-export async function getPayments(): Promise<Payment__Output[]> {
+export async function getPayments(): Promise<Payment[]> {
   const payments = await lndService.getPayments();
 
   const reversedPayments = [];
@@ -686,7 +666,7 @@ export async function getPayments(): Promise<Payment__Output[]> {
 export async function getPendingChannelDetails(
   channelType: pendingChannelTypes,
   pubKey: string
-): Promise<_lnrpc_PendingChannelsResponse_PendingChannel__Output> {
+): Promise<PendingChannelsResponse_PendingChannel> {
   const pendingChannels = await getPendingChannels();
 
   // make sure correct type is used
@@ -740,7 +720,7 @@ export async function getSyncStatus(): Promise<{
     const currentTime = Math.floor(new Date().getTime() / 1000); // eslint-disable-line no-magic-numbers
 
     percentSynced =
-      (parseInt(info.bestHeaderTimestamp) - genesisTimestamp) /
+      (info.bestHeaderTimestamp - genesisTimestamp) /
       (currentTime - genesisTimestamp);
 
     // let's not return a value over the 100% or when processedBlocks > blockHeight
@@ -800,6 +780,7 @@ export async function openChannel(
     await lndService.connectToPeer(pubKey, ip, port);
   }
 
+  if(typeof amt === "string") amt = parseInt(amt);
   // only returns a transactions id
   const channel = await (
     await lndService.openChannel(pubKey, amt, satPerByte)
@@ -812,21 +793,22 @@ export async function openChannel(
 export async function payInvoice(
   paymentRequest: string,
   amt: number | string
-): Promise<SendResponse__Output> {
+): Promise<SendResponse> {
   const invoice = await decodePaymentRequest(paymentRequest);
 
-  if (invoice.numSatoshis !== "0" && amt) {
+  if (invoice.numSatoshis !== 0 && amt) {
     // numSatoshis is returned from lnd as a string
-    throw Error("Payment Request with non zero amount and amt value supplied.");
+    throw new LndError("Payment Request with non zero amount and amt value supplied.");
   }
 
-  if (invoice.numSatoshis === "0" && !amt) {
+  if (invoice.numSatoshis === 0 && !amt) {
     // numSatoshis is returned from lnd as a string
-    throw Error(
+    throw new LndError(
       "Payment Request with zero amount requires an amt value supplied."
     );
   }
 
+  if(typeof amt === "string") amt = parseInt(amt);
   return await lndService.sendPaymentSync(paymentRequest, amt);
 }
 
@@ -834,14 +816,16 @@ export async function payInvoice(
 export function sendCoins(
   addr: string,
   amt: string | number,
-  satPerByte: string,
+  satPerByte: string |number,
   sendAll: boolean
-): Promise<SendCoinsResponse__Output> {
+): Promise<SendCoinsResponse> {
+  if(typeof satPerByte === "string") satPerByte = parseInt(satPerByte);
   // Lnd requires we ignore amt if sendAll is true.
   if (sendAll) {
     return lndService.sendCoins(addr, undefined, satPerByte, sendAll);
   }
 
+  if(typeof amt === "string") amt = parseInt(amt);
   return lndService.sendCoins(addr, amt, satPerByte, sendAll);
 }
 

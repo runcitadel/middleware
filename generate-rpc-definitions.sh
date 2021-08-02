@@ -6,6 +6,11 @@ echo "Downloading LND's proto files..."
 curl "https://raw.githubusercontent.com/lightningnetwork/lnd/${VERSION}/lnrpc/rpc.proto" > resources/rpc.proto
 curl "https://raw.githubusercontent.com/lightningnetwork/lnd/${VERSION}/lnrpc/stateservice.proto" > resources/stateservice.proto
 curl "https://raw.githubusercontent.com/lightningnetwork/lnd/${VERSION}/lnrpc/walletunlocker.proto" > resources/walletunlocker.proto
+# Check if protoc is present
+if ! command -v protoc >/dev/null 2>&1; then
+    echo "protoc is not present, please install it and try again"
+    exit 1
+fi
 echo "Generating TypeScript definitions..."
 yarn build-types
 echo "Done"
