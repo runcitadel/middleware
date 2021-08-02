@@ -342,14 +342,15 @@ export async function estimateFeeGroup(
   };
 }
 
-export function handleEstimateFeeError(error: ServiceError): {
+export function handleEstimateFeeError(error: unknown): {
   code: string,
   text: string,
  } {
-  let realError = error;
+  error = <ServiceError>error;
+  let realError: ServiceError = <ServiceError>error;
   // @ts-expect-error This works
   if (error.error) realError = error.error;
-  if (error.message === "FEE_RATE_TOO_LOW") {
+  if ((<ServiceError>error).message === "FEE_RATE_TOO_LOW") {
     return FEE_RATE_TOO_LOW_ERROR;
   } else if (realError.details === "transaction output is dust") {
     return OUTPUT_IS_DUST_ERROR;
