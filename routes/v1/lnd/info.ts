@@ -35,7 +35,7 @@ router.get(
     "/version",
     auth.jwt,
     safeHandler((req, res) =>
-        lightningLogic.getVersion().then((version) => res.json(version))
+        lightningLogic.getVersion().then((version) => res.json({version}))
     )
 );
 

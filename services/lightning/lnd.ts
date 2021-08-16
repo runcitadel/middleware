@@ -27,14 +27,14 @@ import {
   SendResponse,
   Transaction,
   WalletBalanceResponse,
-} from "../lnrpc/rpc.js";
+} from "../../lnrpc/rpc.js";
 import {
   GenSeedResponse,
   WalletUnlockerDefinition,
-} from "../lnrpc/walletunlocker.js";
-import { StateDefinition, WalletState } from "../lnrpc/stateservice.js";
+} from "../../lnrpc/walletunlocker.js";
+import { StateDefinition, WalletState } from "../../lnrpc/stateservice.js";
 import * as grpc from "@grpc/grpc-js";
-import LightningImpl, { extendedPaymentRequest } from "./lightning/abstract.js";
+import ILightningClient, { extendedPaymentRequest } from "./abstract.js";
 type RpcClientInfo = {
   Lightning?: Client<typeof LightningDefinition>;
   WalletUnlocker: Client<typeof WalletUnlockerDefinition>;
@@ -49,11 +49,14 @@ type RpcClientWithLightningForSure = RpcClientInfo & {
 
 const DEFAULT_RECOVERY_WINDOW = 250;
 
-export default class LNDService extends LightningImpl {
+export default class LNDService implements ILightningClient {
   private macaroonFile: string;
+  private connectionUrl: string;
+  private cert: Buffer;
 
   constructor(connectionUrl: string, cert: Buffer, macaroonFile: string) {
-    super(connectionUrl, cert);
+    this.connectionUrl = connectionUrl;
+    this.cert = cert;
     this.macaroonFile = macaroonFile;
   }
   async initializeRPCClient(): Promise<RpcClientInfo> {
@@ -484,5 +487,10 @@ export default class LNDService extends LightningImpl {
 
     const { Lightning } = await this.expectWalletToExist();
     await Lightning.updateChannelPolicy(rpcPayload);
+  }
+
+  async getVersion(): Promise<string> {
+    const info = await this.getInfo();
+    return info.version;
   }
 }

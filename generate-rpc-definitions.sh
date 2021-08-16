@@ -3,6 +3,7 @@
 VERSION="${1:-master}"
 
 echo "Downloading LND's proto files..."
+# For LND 0.14.0 and above, rpc.proto has been renamed to lightning.proto
 curl "https://raw.githubusercontent.com/lightningnetwork/lnd/${VERSION}/lnrpc/rpc.proto" > resources/rpc.proto
 curl "https://raw.githubusercontent.com/lightningnetwork/lnd/${VERSION}/lnrpc/stateservice.proto" > resources/stateservice.proto
 curl "https://raw.githubusercontent.com/lightningnetwork/lnd/${VERSION}/lnrpc/walletunlocker.proto" > resources/walletunlocker.proto

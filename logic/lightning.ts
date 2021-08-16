@@ -76,7 +76,7 @@ type invoice = {
   rHashStr: string;
 };
 
-const lndService = await getLightning();
+const lndService = getLightning();
 // Creates a new invoice; more commonly known as a payment request.
 export async function addInvoice(
   amt: number | string,
@@ -854,13 +854,7 @@ export async function getStatus(): Promise<{
 }
 
 export async function getVersion(): Promise<string> {
-  const info = await lndService.getInfo();
-  const unformattedVersion = info.version;
-
-  // Remove all beta/commit info. Fragile, LND may one day GA.
-  const version = unformattedVersion.split("-", 1)[0];
-
-  return version;
+  return await lndService.getVersion();
 }
 
 export async function getNodeAlias(pubkey: string): Promise<string> {

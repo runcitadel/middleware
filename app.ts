@@ -1,15 +1,10 @@
 import { config } from "dotenv";
 config();
-import * as path from "path";
 import express from "express";
 import morgan from "morgan";
 import passport from "passport";
 import cors from "cors";
-import { dirname } from "path";
-import { fileURLToPath } from "url";
 import type { Request, Response } from "express";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
 
 import bitcoind from "./routes/v1/bitcoind/info.js";
 import address from "./routes/v1/lnd/address.js";
@@ -37,7 +32,6 @@ app.use(cors(corsOptions));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, "public")));
 app.use(passport.initialize());
 app.use(passport.session());
 

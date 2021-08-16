@@ -1,7 +1,7 @@
 import * as path from "path";
-import * as fs from "fs/promises";
-import LightningImpl from "./lightning/abstract";
-import LNDService from "./lnd";
+import * as fs from "fs";
+import ILightningClient from "./lightning/abstract.js";
+import LNDService from "./lightning/lnd.js";
 
 
 const LND_HOST = process.env.LND_HOST || "127.0.0.1";
@@ -19,11 +19,11 @@ const MACAROON_FILE = path.join(
   "admin.macaroon"
 );
 
-export default async function getLightning(): Promise<LightningImpl> {
+export default function getLightning(): ILightningClient {
   switch(process.env.LIGHTNING_IMPL) {
     case "lnd":
     case undefined:
-      return new LNDService(`${LND_HOST}:${LND_PORT}`, await fs.readFile(TLS_FILE), MACAROON_FILE);
+      return new LNDService(`${LND_HOST}:${LND_PORT}`, fs.readFileSync(TLS_FILE), MACAROON_FILE);
     default:
       throw new Error(`Unknown lightning implementation: ${process.env.LIGHTNING_IMPL}`);
   }

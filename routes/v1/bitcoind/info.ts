@@ -18,7 +18,7 @@ router.get(
   "/blockcount",
   auth.jwt,
   safeHandler((req: Request, res: Response) =>
-    bitcoind.getBlockCount().then((blockCount) => res.json(blockCount))
+    bitcoind.getBlockCount().then((blockCount) => res.json({ blockCount }))
   )
 );
 
@@ -84,7 +84,7 @@ router.get(
     } else if (req.query.height !== undefined && req.query.height !== null) {
       bitcoind
         .getBlockHash(parseInt(<string>req.query.height))
-        .then((blockhash) => res.json(blockhash));
+        .then((hash) => res.json({ hash }));
     }
   })
 );
@@ -94,7 +94,7 @@ router.get(
   "/block/:id",
   auth.jwt,
   safeHandler((req: Request, res: Response) =>
-    bitcoind.getBlock(req.params.id).then((blockhash) => res.json(blockhash))
+    bitcoind.getBlock(req.params.id).then((block) => res.json(block))
   )
 );
 
@@ -104,7 +104,7 @@ router.get(
   safeHandler((req: Request, res: Response) => {
     const fromHeight = parseInt(<string>req.query.from);
     const toHeight = parseInt(<string>req.query.to);
-    bitcoind.getBlocks(fromHeight, toHeight).then((blocks) => res.json(blocks));
+    bitcoind.getBlocks(fromHeight, toHeight).then((blocks) => res.json({blocks}));
   })
 );
 
