@@ -27,7 +27,6 @@ import * as logger from "./utils/logger.js";
 const app = express();
 
 // Handles CORS
-// @ts-expect-error Do this unsafely
 app.use(cors(corsOptions));
 
 app.use(express.json());
@@ -37,8 +36,7 @@ app.use(passport.session());
 
 app.use(requestCorrelationMiddleware);
 app.use(camelCaseMiddleware);
-// @ts-expect-error Do this unsafely
-app.use(morgan(logger.morganConfiguration));
+app.use(morgan("combined", logger.morganConfiguration));
 
 app.use("/v1/bitcoind/info", bitcoind);
 app.use("/v1/lnd/address", address);

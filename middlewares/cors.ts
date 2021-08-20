@@ -1,8 +1,10 @@
+type StaticOrigin = boolean | string | RegExp | (boolean | string | RegExp)[];
+
 export const corsOptions = {
   origin: (
-    origin: string,
-    callback: (...args: unknown[]) => unknown
-  ): unknown => {
+    origin: string | undefined,
+    callback: (err: Error | null, origin?: StaticOrigin) => void
+  ): void => {
     const allowList = [
       "http://localhost:3000",
       "http://localhost:8080",
@@ -11,6 +13,7 @@ export const corsOptions = {
       ...(<string>process.env.DEVICE_HOSTS).split(","),
     ];
 
+    if (!origin) return callback(new Error("Not allowed by CORS"));
     if (allowList.includes(origin) || !origin) {
       return callback(null, true);
     }
