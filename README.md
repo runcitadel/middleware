@@ -4,7 +4,6 @@ Middleware wraps [Bitcoin Core](https://github.com/bitcoin/bitcoin)'s RPC and [L
 
 It is part of Citadel's effort to create an open source, easy to use, and secure Bitcoin full node, and also build a free libre open source backend for Umbrel.
 
-
 ## 🚀 Getting started
 
 Middleware will soon be part of the full Citadel project. For now, you can install it on your own machine manually.

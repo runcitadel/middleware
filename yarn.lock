@@ -187,9 +187,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@runcitadel/utils@npm:^0.3.1":
-  version: 0.3.1
-  resolution: "@runcitadel/utils@npm:0.3.1"
+"@runcitadel/utils@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "@runcitadel/utils@npm:0.4.0"
   dependencies:
     "@types/big.js": ^6.1.1
     "@types/express": ^4.17.13
@@ -197,7 +197,7 @@ __metadata:
     big.js: ^6.1.1
     validator: ^13.6.0
     yaml: ^1.10.2
-  checksum: ba835a0069de0cb56ad261d12adb4431ed83e4c2dd06d8f538a603121c89ccd0e6619aa5c15694ffce119649782108fbe23e7708dc4bea9a9f3a14b47c4a924d
+  checksum: 9df09d8b801395b9e09cef20de3da4570528c9baee2021d4333bff79525e50a47d19e761edf02edb339ad1b6b74794f7cf1d97dd3f0fdd6ec90b1a32d0be9586
   languageName: node
   linkType: hard
 
@@ -305,10 +305,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.6.2":
-  version: 16.6.2
-  resolution: "@types/node@npm:16.6.2"
-  checksum: 2245e50058ac49ab3d76af5ded7fc655d783a88a800139dad6caaf962f15c909287853012c9461b49600741bcc2b09042f94ce734f0440b6ad444d838e62904a
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.7.1":
+  version: 16.7.1
+  resolution: "@types/node@npm:16.7.1"
+  checksum: fcf1a2c7b1f19c2201574b2110176b49c6efd824a39b2ed8ac3e6688740e2a35bef95a3334dfa345f4bd4873fd8b79d8ac8cfcc9fcd3d2f4f8f993c2c37ce4ab
   languageName: node
   linkType: hard
 
@@ -1072,9 +1072,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^3.4.0":
-  version: 3.4.0
-  resolution: "eslint-plugin-prettier@npm:3.4.0"
+"eslint-plugin-prettier@npm:^3.4.1":
+  version: 3.4.1
+  resolution: "eslint-plugin-prettier@npm:3.4.1"
   dependencies:
     prettier-linter-helpers: ^1.0.0
   peerDependencies:
@@ -1083,7 +1083,7 @@ __metadata:
   peerDependenciesMeta:
     eslint-config-prettier:
       optional: true
-  checksum: 30a07e8d12637d2988e371f6a20ff4c86fd7fdc3596d1d18d62c0367804f38e06a65052d0281234aeb2552e4d1908dcb2de20543413e038251a2717a46400a9d
+  checksum: fa6a89f0d7cba1cc87064352f5a4a68dc3739448dd279bec2bced1bfa3b704467e603d13b69dcec853f8fa30b286b8b715912898e9da776e1b016cf0ee48bd99
   languageName: node
   linkType: hard
 
@@ -1922,12 +1922,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "middleware@workspace:."
   dependencies:
-    "@runcitadel/utils": ^0.3.1
+    "@runcitadel/utils": ^0.4.0
     "@types/continuation-local-storage": ^3.2.3
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.13
     "@types/morgan": ^1.9.3
-    "@types/node": ^16.6.2
+    "@types/node": ^16.7.1
     "@types/passport": ^1.0.7
     "@types/passport-jwt": ^3.0.6
     "@types/uuid": ^8.3.1
@@ -1942,7 +1942,7 @@ __metadata:
     dotenv: ^10.0.0
     eslint: ^7.32.0
     eslint-config-prettier: ^8.3.0
-    eslint-plugin-prettier: ^3.4.0
+    eslint-plugin-prettier: ^3.4.1
     express: ^4.17.1
     long: ^4.0.0
     morgan: ^1.10.0
@@ -1953,7 +1953,7 @@ __metadata:
     prettier: ^2.3.2
     protobufjs: ^6.11.2
     ts-proto: ^1.82.5
-    typescript: ^4.4.0-dev.20210802
+    typescript: ^4.4.1-rc
     uuid: ^8.3.2
     validator: ^13.6.0
     winston: ^3.3.3
@@ -2790,23 +2790,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-typescript@^4.4.0-dev.20210802:
-  version: 4.4.0-insiders.20210805
-  resolution: "typescript@npm:4.4.0-insiders.20210805"
+typescript@^4.4.1-rc:
+  version: 4.4.1-rc
+  resolution: "typescript@npm:4.4.1-rc"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 7b111b6fdf0b2c5412df2ec900753861e13b3104cebad3245cbe5c7a848ddeb3c7d2e7d7395adeb6766b7af79e5ef7a3b75cf43015b9a2fcf2038deed8a50523
+  checksum: 14a64cd01ccbd8d31cc4f22a756cd1ce54c8cba7e30a77e005ea623a187b7baa20b784acf60a3e71b5227961ff70bd275657f809703185a0c265220060bf3c53
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.4.0-dev.20210802#~builtin<compat/typescript>":
-  version: 4.4.0-insiders.20210805
-  resolution: "typescript@patch:typescript@npm%3A4.4.0-insiders.20210805#~builtin<compat/typescript>::version=4.4.0-insiders.20210805&hash=d8b4e7"
+"typescript@patch:typescript@^4.4.1-rc#~builtin<compat/typescript>":
+  version: 4.4.1-rc
+  resolution: "typescript@patch:typescript@npm%3A4.4.1-rc#~builtin<compat/typescript>::version=4.4.1-rc&hash=d8b4e7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 050cac21061dcca0603b9f05af822665bb0d8e3ca5a662cd0c5580de4f6bb92f602f743b704725047f751472540bc2d91db36c8b3212e396adfdeb53d8348096
+  checksum: 204addf74c590b142703075b40ea650d2afe080b9a2f218a29c2b2ddd92cb143560b4d4905d082ff38bfc64c50f2cb9fc72a5415ba6a3aed97cd6fdc830e255a
   languageName: node
   linkType: hard
 
