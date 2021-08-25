@@ -15,7 +15,7 @@
 set -e
 
 
-host="$1"
+export HOST="$1"
 shift
 cmd="$@"
 
