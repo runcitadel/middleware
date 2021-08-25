@@ -762,7 +762,7 @@ export async function openChannel(
   ip: string,
   port: number | string,
   amt: string | number,
-  satPerByte: number
+  satPerByte: number | undefined
 ): Promise<string> {
   const peers = await lndService.getPeers();
 
