@@ -1,4 +1,4 @@
-FROM node:16-buster-slim as build-dependencies-helper
+FROM node:16-bullseye-slim as build-dependencies-helper
 
 # Create app directory
 WORKDIR /app
@@ -28,7 +28,7 @@ RUN yarn build
 RUN rm -rf node_modules tsconfig.tsbuildinfo *.ts **/*.ts .eslint* .git* .prettier* .vscode* tsconfig.json
 
 # Final image
-FROM node:16-buster-slim AS middleware
+FROM node:16-bullseye-slim AS middleware
 
 # Copy built code from build stage to '/app' directory
 COPY --from=middleware-builder /app /app
