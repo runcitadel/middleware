@@ -3,18 +3,16 @@ const router = Router();
 
 import * as auth from "../../../middlewares/auth.js";
 import { safeHandler } from "@runcitadel/utils";
-import * as applicationLogic from "../../../logic/application.js";
+import constants from "../../../utils/const.js";
 
 import type { Request, Response } from "express";
 
 router.get(
     "/download-channel-backup",
     auth.jwt,
-    safeHandler((req: Request, res: Response) =>
-        applicationLogic
-      .lndChannnelBackup()
-            .then((backupFile) => res.download(backupFile, "channel.backup"))
-    )
+    safeHandler((req: Request, res: Response) => {
+        res.download(constants.CHANNEL_BACKUP_FILE, "channel.backup");
+    })
 );
 
 export default router;
