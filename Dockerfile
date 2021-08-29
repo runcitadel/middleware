@@ -3,20 +3,17 @@ FROM node:16-bullseye-slim as build-dependencies-helper
 # Create app directory
 WORKDIR /app
 
-# Copy 'yarn.lock' and 'package.json'
-COPY yarn.lock package.json ./
+# The current working directory
+COPY . . 
 
 # Install dependencies
-RUN yarn install --production
+RUN yarn workspaces focus -A --production
 
 # TS Build Stage
 FROM build-dependencies-helper as middleware-builder
 
 # Change directory to '/app'
 WORKDIR /app
-
-# Copy project files and folders to the current working directory (i.e. '/app')
-COPY . .
 
 # Install dependencies
 RUN yarn install
@@ -25,7 +22,7 @@ RUN yarn install
 RUN yarn build
 
 # Delete everyhing we don't need in the next stage
-RUN rm -rf node_modules tsconfig.tsbuildinfo *.ts **/*.ts .eslint* .git* .prettier* .vscode* tsconfig.json
+RUN rm -rf node_modules tsconfig.tsbuildinfo *.ts **/*.ts .eslint* .git* .prettier* .vscode* tsconfig.json .yarn* yarn.lock
 
 # Final image
 FROM node:16-bullseye-slim AS middleware
