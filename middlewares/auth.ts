@@ -15,38 +15,42 @@ passport.serializeUser(function (user, done) {
   return done(null, user.id);
 });
 
-async function createJwtOptions() {
+async function createJwtOptions(): Promise<{
+  jwtFromRequest: passportJWT.JwtFromRequestFunction;
+  secretOrKey: string;
+  algorithm: string;
+}> {
   const pubKey = await fs.readFile(constants.JWT_PUBLIC_KEY_FILE);
   return {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme("jwt"),
-    secretOrKey: pubKey,
+    secretOrKey: pubKey.toString("utf-8"),
     algorithm: "RS256",
   };
 }
 
-createJwtOptions().then(function (data) {
-  const jwtOptions = data;
+const jwtOptions = await createJwtOptions();
 
-  passport.use(
-    JWT_AUTH,
-    new JwtStrategy(jwtOptions, function (jwtPayload, done) {
-      return done(null, { id: jwtPayload.id });
-    })
-  );
-});
+passport.use(
+  JWT_AUTH,
+  new JwtStrategy(jwtOptions, (jwtPayload, done) => {
+    done(null, { id: jwtPayload.id });
+  })
+);
 
 export function jwt(req: Request, res: Response, next: NextFunction): void {
-  passport.authenticate(JWT_AUTH, { session: false }, function (error, user) {
+  passport.authenticate(JWT_AUTH, { session: false }, (error, user) => {
     if (error || user === false) {
-      return next(new NodeError("Invalid JWT", 401)); // eslint-disable-line no-magic-numbers
+      next(new NodeError("Invalid JWT", 401));
+      return;
     }
-    req.logIn(user, function (err) {
+
+    req.logIn(user, (err) => {
       if (err) {
-        return next(new NodeError("Unable to authenticate", 401)); // eslint-disable-line no-magic-numbers
+        next(new NodeError("Unable to authenticate", 401));
+        return;
       }
 
-      // @ts-expect-error Next accepts user, even though TypeScript thinks it doesn't
-      return next(null, user);
+      (next as (error: unknown, user: unknown) => void)(null, user);
     });
   })(req, res, next);
 }
