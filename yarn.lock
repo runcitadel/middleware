@@ -305,10 +305,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.7.2":
-  version: 16.7.2
-  resolution: "@types/node@npm:16.7.2"
-  checksum: aef77c109e2fd93b5dc6ec0a57a0878aaaa58adf0e63d9618d67b116ad3f2a3eb2589a99deaf9fda4a0805068b2533e3d2cf8e8dc3572251c498ec3dc929a76c
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.7.5":
+  version: 16.7.5
+  resolution: "@types/node@npm:16.7.5"
+  checksum: 19765a6e2fea3269f627045a4e07a33f57dc567b5437c7bb18e585944a6c76a23e4b43969e586eac7d92247f424000992c1c8cbfd33faeae4676095aad4a2b61
   languageName: node
   linkType: hard
 
@@ -1927,7 +1927,7 @@ __metadata:
     "@types/cors": ^2.8.12
     "@types/express": ^4.17.13
     "@types/morgan": ^1.9.3
-    "@types/node": ^16.7.2
+    "@types/node": ^16.7.5
     "@types/passport": ^1.0.7
     "@types/passport-jwt": ^3.0.6
     "@types/uuid": ^8.3.1
@@ -1953,7 +1953,7 @@ __metadata:
     prettier: ^2.3.2
     protobufjs: ^6.11.2
     ts-proto: ^1.82.5
-    typescript: ^4.4.1-rc
+    typescript: ^4.4.2
     uuid: ^8.3.2
     validator: ^13.6.0
     winston: ^3.3.3
@@ -2790,23 +2790,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-typescript@^4.4.1-rc:
-  version: 4.4.1-rc
-  resolution: "typescript@npm:4.4.1-rc"
+typescript@^4.4.2:
+  version: 4.4.2
+  resolution: "typescript@npm:4.4.2"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 14a64cd01ccbd8d31cc4f22a756cd1ce54c8cba7e30a77e005ea623a187b7baa20b784acf60a3e71b5227961ff70bd275657f809703185a0c265220060bf3c53
+  checksum: 194e08e9d1971d667d6fd1a0554616b7022312a2319d70e81a64e502a265992061ee7817ed9a69b52bbabe7a9b85e7938cb8c11c433e40a516b277f8c4dacd51
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.4.1-rc#~builtin<compat/typescript>":
-  version: 4.4.1-rc
-  resolution: "typescript@patch:typescript@npm%3A4.4.1-rc#~builtin<compat/typescript>::version=4.4.1-rc&hash=d8b4e7"
+"typescript@patch:typescript@^4.4.2#~builtin<compat/typescript>":
+  version: 4.4.2
+  resolution: "typescript@patch:typescript@npm%3A4.4.2#~builtin<compat/typescript>::version=4.4.2&hash=d8b4e7"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 204addf74c590b142703075b40ea650d2afe080b9a2f218a29c2b2ddd92cb143560b4d4905d082ff38bfc64c50f2cb9fc72a5415ba6a3aed97cd6fdc830e255a
+  checksum: 11d6ab6e868117908c388401e2ac06d503c5c8709115ab80ee69a1a6352c1f98471d1e595636bfe6a2d6b20b03a44df6bb2d3d198cea97c0c328968cd18d2b70
   languageName: node
   linkType: hard
 
