@@ -348,6 +348,8 @@ export default class LNDService implements ILightningClient {
   }
 
   async getWalletBalance(): Promise<WalletBalanceResponse> {
+    console.log(this);
+    console.log(this.expectWalletToExist);
     const { Lightning } = await this.expectWalletToExist();
     return await Lightning.walletBalance({});
   }

@@ -150,8 +150,8 @@ EstimateFeeResponseExtended | Record<string, EstimateFeeResponseExtended>
   const mempoolInfo = await bitcoindLogic.getMempoolInfo();
 
   if (sweep) {
-    const balance = (await lndService.getWalletBalance()).confirmedBalance;
-    const amtToEstimate = balance;
+    const balance = await lndService.getWalletBalance();
+    const amtToEstimate = balance.confirmedBalance;
 
     if (confTarget === 0) {
       return await estimateFeeGroupSweep(
