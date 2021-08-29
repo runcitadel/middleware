@@ -147,7 +147,9 @@ export async function getTransaction(txid: string): Promise<{
   };
 }
 
-export const getNetworkInfo = bitcoinClient.getNetworkInfo;
+export async function getNetworkInfo(): Promise<NetworkInfo> {
+  return await bitcoinClient.getNetworkInfo();
+}
 
 export async function getBlock(hash: string): Promise<{
   block: string;
