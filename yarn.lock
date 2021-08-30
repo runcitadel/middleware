@@ -187,6 +187,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@runcitadel/bitcoin-rpc@npm:^0.0.3":
+  version: 0.0.3
+  resolution: "@runcitadel/bitcoin-rpc@npm:0.0.3"
+  dependencies:
+    axios: ^0.21.1
+  checksum: f8b7cc0d1fa9c6c89606a37d9528f7bc4f2287e62a504e5c31138fe40ac30d5ab2127dc57b89c5152096e5c3df3a7118222c3f4cbd534585fe575b0235be53a6
+  languageName: node
+  linkType: hard
+
 "@runcitadel/utils@npm:^0.4.2":
   version: 0.4.2
   resolution: "@runcitadel/utils@npm:0.4.2"
@@ -662,15 +671,6 @@ __metadata:
   version: 6.1.1
   resolution: "big.js@npm:6.1.1"
   checksum: ba5db278e7d6700d7f92b7421e851bb65b6336d90b882869696c50574623c6be31f81500c3195fb1b391045163ffe62745e1c2bc30b35cb15e1b3e3ed135266b
-  languageName: node
-  linkType: hard
-
-"bitcoin-simple-rpc@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "bitcoin-simple-rpc@npm:0.0.3"
-  dependencies:
-    axios: ^0.19.2
-  checksum: ebb58ce45ca001121f82293fbf575f78dbf7f00677cf29a82bbead82aca160066fb721f32a978491d8dc0c50aa037023dbce8389d0351d8574659ac187b27162
   languageName: node
   linkType: hard
 
@@ -1922,6 +1922,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "middleware@workspace:."
   dependencies:
+    "@runcitadel/bitcoin-rpc": ^0.0.3
     "@runcitadel/utils": ^0.4.2
     "@types/continuation-local-storage": ^3.2.3
     "@types/cors": ^2.8.12
@@ -1935,7 +1936,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^4.29.3
     "@typescript-eslint/parser": ^4.29.3
     big.js: ^6.1.1
-    bitcoin-simple-rpc: ^0.0.3
     continuation-local-storage: ^3.2.1
     cors: ^2.8.5
     debug: ^4.3.2

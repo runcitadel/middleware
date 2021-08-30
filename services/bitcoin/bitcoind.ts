@@ -1,5 +1,5 @@
-import { Client as RpcClient } from "bitcoin-simple-rpc";
-import type { Block } from "bitcoin-simple-rpc";
+import { Client as RpcClient } from "@runcitadel/bitcoin-rpc";
+import type { Block } from "@runcitadel/bitcoin-rpc";
 import { IBitcoinClient, FetchedRawTransaction } from "./abstract.js";
 
 export default class BitcoindClient
