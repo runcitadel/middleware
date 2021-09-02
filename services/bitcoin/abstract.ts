@@ -175,8 +175,8 @@ export type TxOut = {
 };
 
 export interface IBitcoinClient {
-  getBlockDetails(hash: string): Promise<Block>;
-  getRawTransactionVerbose(txid: string): Promise<FetchedRawTransaction>;
+  getBlock(hash: string): Promise<Block>;
+  getRawTransaction(txid: string): Promise<FetchedRawTransaction>;
   getBlockchainInfo(): Promise<ChainInfo>;
   getPeerInfo(): Promise<PeerInfo[]>;
   getMempoolInfo(): Promise<MempoolInfo>;
