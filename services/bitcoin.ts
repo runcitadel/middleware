@@ -10,13 +10,7 @@ export default function getClient(): IBitcoinClient {
   switch (process.env.BITCOIN_IMPL) {
     case "bitcoind":
     case undefined:
-      return new BitcoindClient({
-        auth: {
-          username: BITCOIND_RPC_USER,
-          password: BITCOIND_RPC_PASSWORD,
-        },
-        baseURL: `${BITCOIND_HOST}:${BITCOIND_RPC_PORT}/`,
-      });
+      return new BitcoindClient(BITCOIND_RPC_USER, BITCOIND_RPC_PASSWORD, BITCOIND_HOST, BITCOIND_RPC_PORT);
     default:
       throw new Error(
         `Unknown bitcoin implementation: ${process.env.BITCOIN_IMPL}`
