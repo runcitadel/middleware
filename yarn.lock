@@ -187,12 +187,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@runcitadel/bitcoin-rpc@npm:^0.0.3":
-  version: 0.0.3
-  resolution: "@runcitadel/bitcoin-rpc@npm:0.0.3"
+"@runcitadel/bitcoin-rpc@npm:^0.0.4":
+  version: 0.0.4
+  resolution: "@runcitadel/bitcoin-rpc@npm:0.0.4"
   dependencies:
     axios: ^0.21.1
-  checksum: f8b7cc0d1fa9c6c89606a37d9528f7bc4f2287e62a504e5c31138fe40ac30d5ab2127dc57b89c5152096e5c3df3a7118222c3f4cbd534585fe575b0235be53a6
+  checksum: b9b9a67548c59a0ca3e2be24f5f8174bd1931736476db0701649bebfae2577883b374e4637a2ed6ffb0cb53f533833e462206498eb8ab3e1866c7b9cb87540a5
   languageName: node
   linkType: hard
 
@@ -1922,7 +1922,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "middleware@workspace:."
   dependencies:
-    "@runcitadel/bitcoin-rpc": ^0.0.3
+    "@runcitadel/bitcoin-rpc": ^0.0.4
     "@runcitadel/utils": ^0.4.2
     "@types/continuation-local-storage": ^3.2.3
     "@types/cors": ^2.8.12
