@@ -17,12 +17,8 @@ import wallet from "./routes/v1/lnd/wallet.js";
 import pages from "./routes/v1/pages.js";
 import ping from "./routes/ping.js";
 
-// Keep requestCorrelationId middleware as the first middleware. Otherwise we risk losing logs.
-import requestCorrelationMiddleware from "./middlewares/requestCorrelationId.js";
 import { corsOptions } from "./middlewares/cors.js";
 import { handleError, camelCaseMiddleware } from "@runcitadel/utils";
-
-import * as logger from "./utils/logger.js";
 
 const app = express();
 
@@ -34,9 +30,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(requestCorrelationMiddleware);
 app.use(camelCaseMiddleware);
-app.use(morgan("combined", logger.morganConfiguration));
+app.use(morgan("combined"));
 
 app.use("/v1/bitcoind/info", bitcoind);
 app.use("/v1/lnd/address", address);
@@ -52,7 +47,7 @@ app.use("/ping", ping);
 app.use(handleError);
 
 app.use((req: Request, res: Response) => {
-  res.status(404).json(); // eslint-disable-line no-magic-numbers
+  res.status(404).json();
 });
 
 export default app;
