@@ -128,7 +128,7 @@ export async function getTransaction(txid: string): Promise<{
   utxo: unknown;
   rawtx: string;
 }> {
-  const transactionObj = await bitcoinClient.getRawTransactionVerbose(txid);
+  const transactionObj = await bitcoinClient.getRawTransaction(txid);
   const vintxid: string = Array.isArray(transactionObj.vin)
     ? transactionObj.vin[0].txid
     : (<TxIn>(<unknown>transactionObj.vin)).txid;
@@ -161,7 +161,7 @@ export async function getBlock(hash: string): Promise<{
   nextblock: string | undefined;
   transactions: string | Transaction[];
 }> {
-  const blockObj = await bitcoinClient.getBlockDetails(hash);
+  const blockObj = await bitcoinClient.getBlock(hash);
   return {
     block: hash,
     confirmations: blockObj.confirmations,
@@ -209,10 +209,7 @@ export async function getBlocks(
     currentHeight >= fromHeight;
     currentHeight--
   ) {
-    const blockRaw = await bitcoinClient.getBlockDetails(currentHash);
-    const block = blockRaw;
-    if (typeof block === "string")
-      throw new BitcoindError("Received unexpected data from Bitcoin Core");
+    const block = await bitcoinClient.getBlock(currentHash);
 
     const formattedBlock = {
       hash: block.hash,
