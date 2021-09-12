@@ -18,12 +18,13 @@ export default class BitcoindClient implements IBitcoinClient {
     host: string,
     port: string | number
   ) {
+    console.log(`Initializing Bitcoin RPC for http://${host}:${port}/`);
     this.client = new RpcClient({
       auth: {
         username,
         password,
       },
-      baseURL: `${host}:${port}/`,
+      baseURL: `http://${host}:${port}/`,
     });
   }
 
