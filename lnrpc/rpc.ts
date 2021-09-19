@@ -1,5 +1,6 @@
 /* eslint-disable */
 import Long from "long";
+// Manually patched with the extension
 import _m0 from "protobufjs/minimal.js";
 
 export const protobufPackage = "lnrpc";
@@ -609,20 +610,20 @@ export interface Utxo {
   /** The address */
   address: string;
   /** The value of the unspent coin in satoshis */
-  amountSat: number;
+  amountSat: string;
   /** The pkscript in hex */
   pkScript: string;
   /** The outpoint in format txid:n */
   outpoint: OutPoint | undefined;
   /** The number of confirmations for the Utxo */
-  confirmations: number;
+  confirmations: string;
 }
 
 export interface Transaction {
   /** The transaction hash */
   txHash: string;
   /** The transaction amount, denominated in satoshis */
-  amount: number;
+  amount: string;
   /** The number of confirmations */
   numConfirmations: number;
   /** The hash of the block this transaction was included in */
@@ -630,9 +631,9 @@ export interface Transaction {
   /** The height of the block this transaction was included in */
   blockHeight: number;
   /** Timestamp of this transaction */
-  timeStamp: number;
+  timeStamp: string;
   /** Fees paid for this transaction */
-  totalFees: number;
+  totalFees: string;
   /** Addresses that received funds for this transaction */
   destAddresses: string[];
   /** The raw transaction hex. */
@@ -670,15 +671,15 @@ export interface FeeLimit {
    *
    * The fields fixed and fixed_msat are mutually exclusive.
    */
-  fixed: number | undefined;
+  fixed: string | undefined;
   /**
    * The fee limit expressed as a fixed amount of millisatoshis.
    *
    * The fields fixed and fixed_msat are mutually exclusive.
    */
-  fixedMsat: number | undefined;
+  fixedMsat: string | undefined;
   /** The fee limit expressed as a percentage of the payment amount. */
-  percent: number | undefined;
+  percent: string | undefined;
 }
 
 export interface SendRequest {
@@ -699,13 +700,13 @@ export interface SendRequest {
    *
    * The fields amt and amt_msat are mutually exclusive.
    */
-  amt: number;
+  amt: string;
   /**
    * The amount to send expressed in millisatoshis.
    *
    * The fields amt and amt_msat are mutually exclusive.
    */
-  amtMsat: number;
+  amtMsat: string;
   /**
    * The hash to use within the payment's HTLC. When using REST, this field
    * must be encoded as base64.
@@ -740,7 +741,7 @@ export interface SendRequest {
    * The channel id of the channel that must be taken to the first hop. If zero,
    * any channel may be used.
    */
-  outgoingChanId: number;
+  outgoingChanId: string;
   /** The pubkey of the last hop of the route. If empty, any hop may be used. */
   lastHopPubkey: Uint8Array;
   /**
@@ -756,7 +757,7 @@ export interface SendRequest {
    * required to be in the custom range >= 65536. When using REST, the values
    * must be encoded as base64.
    */
-  destCustomRecords: { [key: number]: Uint8Array };
+  destCustomRecords: { [key: string]: Uint8Array };
   /** If set, circular payments to self are permitted. */
   allowSelfPayment: boolean;
   /**
@@ -772,7 +773,7 @@ export interface SendRequest {
 }
 
 export interface SendRequest_DestCustomRecordsEntry {
-  key: number;
+  key: string;
   value: Uint8Array;
 }
 
@@ -811,28 +812,28 @@ export interface ChannelAcceptRequest {
    * The funding amount in satoshis that initiator wishes to use in the
    * channel.
    */
-  fundingAmt: number;
+  fundingAmt: string;
   /** The push amount of the proposed channel in millisatoshis. */
-  pushAmt: number;
+  pushAmt: string;
   /** The dust limit of the initiator's commitment tx. */
-  dustLimit: number;
+  dustLimit: string;
   /**
    * The maximum amount of coins in millisatoshis that can be pending in this
    * channel.
    */
-  maxValueInFlight: number;
+  maxValueInFlight: string;
   /**
    * The minimum amount of satoshis the initiator requires us to have at all
    * times.
    */
-  channelReserve: number;
+  channelReserve: string;
   /** The smallest HTLC in millisatoshis that the initiator will accept. */
-  minHtlc: number;
+  minHtlc: string;
   /**
    * The initial fee rate that the initiator suggests for both commitment
    * transactions.
    */
-  feePerKw: number;
+  feePerKw: string;
   /**
    * The number of blocks to use for the relative time lock in the pay-to-self
    * output of both commitment transactions.
@@ -876,16 +877,16 @@ export interface ChannelAcceptResponse {
    * them so that there is always a disincentive to broadcast old state (if they
    * hold 0 sats on their side of the channel, there is nothing to lose).
    */
-  reserveSat: number;
+  reserveSat: string;
   /**
    * The maximum amount of funds in millisatoshis that we allow the remote peer
    * to have in outstanding htlcs.
    */
-  inFlightMaxMsat: number;
+  inFlightMaxMsat: string;
   /** The maximum number of htlcs that the remote peer can offer us. */
   maxHtlcCount: number;
   /** The minimum value in millisatoshis for incoming htlcs on the channel. */
-  minHtlcIn: number;
+  minHtlcIn: string;
   /** The number of confirmations we require before we consider the channel open. */
   minAcceptDepth: number;
 }
@@ -926,7 +927,7 @@ export interface LightningAddress {
 
 export interface EstimateFeeRequest {
   /** The map from addresses to amounts for the transaction. */
-  AddrToAmount: { [key: string]: number };
+  AddrToAmount: { [key: string]: string };
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -943,26 +944,26 @@ export interface EstimateFeeRequest {
 
 export interface EstimateFeeRequest_AddrToAmountEntry {
   key: string;
-  value: number;
+  value: string;
 }
 
 export interface EstimateFeeResponse {
   /** The total fee in satoshis. */
-  feeSat: number;
+  feeSat: string;
   /**
    * Deprecated, use sat_per_vbyte.
    * The fee rate in satoshi/vbyte.
    *
    * @deprecated
    */
-  feerateSatPerByte: number;
+  feerateSatPerByte: string;
   /** The fee rate in satoshi/vbyte. */
-  satPerVbyte: number;
+  satPerVbyte: string;
 }
 
 export interface SendManyRequest {
   /** The map from addresses to amounts */
-  AddrToAmount: { [key: string]: number };
+  AddrToAmount: { [key: string]: string };
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -972,7 +973,7 @@ export interface SendManyRequest {
    * A manual fee rate set in sat/vbyte that should be used when crafting the
    * transaction.
    */
-  satPerVbyte: number;
+  satPerVbyte: string;
   /**
    * Deprecated, use sat_per_vbyte.
    * A manual fee rate set in sat/vbyte that should be used when crafting the
@@ -980,7 +981,7 @@ export interface SendManyRequest {
    *
    * @deprecated
    */
-  satPerByte: number;
+  satPerByte: string;
   /** An optional label for the transaction, limited to 500 characters. */
   label: string;
   /**
@@ -994,7 +995,7 @@ export interface SendManyRequest {
 
 export interface SendManyRequest_AddrToAmountEntry {
   key: string;
-  value: number;
+  value: string;
 }
 
 export interface SendManyResponse {
@@ -1006,7 +1007,7 @@ export interface SendCoinsRequest {
   /** The address to send coins to */
   addr: string;
   /** The amount in satoshis to send */
-  amount: number;
+  amount: string;
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -1016,7 +1017,7 @@ export interface SendCoinsRequest {
    * A manual fee rate set in sat/vbyte that should be used when crafting the
    * transaction.
    */
-  satPerVbyte: number;
+  satPerVbyte: string;
   /**
    * Deprecated, use sat_per_vbyte.
    * A manual fee rate set in sat/vbyte that should be used when crafting the
@@ -1024,7 +1025,7 @@ export interface SendCoinsRequest {
    *
    * @deprecated
    */
-  satPerByte: number;
+  satPerByte: string;
   /**
    * If set, then the amount field will be ignored, and lnd will attempt to
    * send all the coins under control of the internal wallet to the specified
@@ -1118,7 +1119,7 @@ export interface ConnectPeerRequest {
    * The connection timeout value (in seconds) for this request. It won't affect
    * other requests.
    */
-  timeout: number;
+  timeout: string;
 }
 
 export interface ConnectPeerResponse {}
@@ -1132,11 +1133,11 @@ export interface DisconnectPeerResponse {}
 
 export interface HTLC {
   incoming: boolean;
-  amount: number;
+  amount: string;
   hashLock: Uint8Array;
   expirationHeight: number;
   /** Index identifying the htlc on the channel. */
-  htlcIndex: number;
+  htlcIndex: string;
   /**
    * If this HTLC is involved in a forwarding operation, this field indicates
    * the forwarding channel. For an outgoing htlc, it is the incoming channel.
@@ -1146,9 +1147,9 @@ export interface HTLC {
    * for htlcs that need to be forwarded but don't have a forwarding decision
    * persisted yet.
    */
-  forwardingChannel: number;
+  forwardingChannel: string;
   /** Index identifying the htlc on the forwarding channel. */
-  forwardingHtlcIndex: number;
+  forwardingHtlcIndex: string;
 }
 
 export interface ChannelConstraints {
@@ -1158,16 +1159,16 @@ export interface ChannelConstraints {
    */
   csvDelay: number;
   /** The minimum satoshis this node is required to reserve in its balance. */
-  chanReserveSat: number;
+  chanReserveSat: string;
   /** The dust limit (in satoshis) of the initiator's commitment tx. */
-  dustLimitSat: number;
+  dustLimitSat: string;
   /**
    * The maximum amount of coins in millisatoshis that can be pending in this
    * channel.
    */
-  maxPendingAmtMsat: number;
+  maxPendingAmtMsat: string;
   /** The smallest HTLC in millisatoshis that the initiator will accept. */
-  minHtlcMsat: number;
+  minHtlcMsat: string;
   /** The total number of incoming HTLC's that the initiator will accept. */
   maxAcceptedHtlcs: number;
 }
@@ -1188,36 +1189,36 @@ export interface Channel {
    * height, the next 3 the index within the block, and the last 2 bytes are the
    * output index for the channel.
    */
-  chanId: number;
+  chanId: string;
   /** The total amount of funds held in this channel */
-  capacity: number;
+  capacity: string;
   /** This node's current balance in this channel */
-  localBalance: number;
+  localBalance: string;
   /** The counterparty's current balance in this channel */
-  remoteBalance: number;
+  remoteBalance: string;
   /**
    * The amount calculated to be paid in fees for the current set of commitment
    * transactions. The fee amount is persisted with the channel in order to
    * allow the fee amount to be removed and recalculated with each channel state
    * update, including updates that happen after a system restart.
    */
-  commitFee: number;
+  commitFee: string;
   /** The weight of the commitment transaction */
-  commitWeight: number;
+  commitWeight: string;
   /**
    * The required number of satoshis per kilo-weight that the requester will pay
    * at all times, for both the funding transaction and commitment transaction.
    * This value can later be updated once the channel is open.
    */
-  feePerKw: number;
+  feePerKw: string;
   /** The unsettled balance in this channel */
-  unsettledBalance: number;
+  unsettledBalance: string;
   /** The total number of satoshis we've sent within this channel. */
-  totalSatoshisSent: number;
+  totalSatoshisSent: string;
   /** The total number of satoshis we've received within this channel. */
-  totalSatoshisReceived: number;
+  totalSatoshisReceived: string;
   /** The total number of updates conducted within this channel. */
-  numUpdates: number;
+  numUpdates: string;
   /** The list of active, uncleared HTLCs currently pending within the channel. */
   pendingHtlcs: HTLC[];
   /**
@@ -1240,14 +1241,14 @@ export interface Channel {
    *
    * @deprecated
    */
-  localChanReserveSat: number;
+  localChanReserveSat: string;
   /**
    * Deprecated. The minimum satoshis the other node is required to reserve in
    * its balance.
    *
    * @deprecated
    */
-  remoteChanReserveSat: number;
+  remoteChanReserveSat: string;
   /**
    * Deprecated. Use commitment_type.
    *
@@ -1261,13 +1262,13 @@ export interface Channel {
    * scoring system. Scores are currently not persisted, so this value may be
    * less than the lifetime of the channel [EXPERIMENTAL].
    */
-  lifetime: number;
+  lifetime: string;
   /**
    * The number of seconds that the remote peer has been observed as being online
    * by the channel scoring system over the lifetime of the channel
    * [EXPERIMENTAL].
    */
-  uptime: number;
+  uptime: string;
   /**
    * Close address is the address that we will enforce payout to on cooperative
    * close if the channel was opened utilizing option upfront shutdown. This
@@ -1283,7 +1284,7 @@ export interface Channel {
    * pushed this amount to our peer, if it is false, the remote peer pushed this
    * amount to us.
    */
-  pushAmountSat: number;
+  pushAmountSat: string;
   /**
    * This uint32 indicates if this channel is to be considered 'frozen'. A
    * frozen channel doest not allow a cooperative channel close by the
@@ -1321,7 +1322,7 @@ export interface ChannelCloseSummary {
   /** The outpoint (txid:index) of the funding transaction. */
   channelPoint: string;
   /** The unique channel ID for the channel. */
-  chanId: number;
+  chanId: string;
   /** The hash of the genesis block that this channel resides within. */
   chainHash: string;
   /** The txid of the transaction which ultimately closed this channel. */
@@ -1329,13 +1330,13 @@ export interface ChannelCloseSummary {
   /** Public key of the remote peer that we formerly had a channel with. */
   remotePubkey: string;
   /** Total capacity of the channel. */
-  capacity: number;
+  capacity: string;
   /** Height at which the funding transaction was spent. */
   closeHeight: number;
   /** Settled balance at the time of channel closure */
-  settledBalance: number;
+  settledBalance: string;
   /** The sum of all the time-locked outputs at the time of channel closure */
-  timeLockedBalance: number;
+  timeLockedBalance: string;
   /** Details on how the channel was closed. */
   closeType: ChannelCloseSummary_ClosureType;
   /**
@@ -1423,7 +1424,7 @@ export interface Resolution {
   /** The outpoint that was spent by the resolution. */
   outpoint: OutPoint | undefined;
   /** The amount that was claimed by the resolution. */
-  amountSat: number;
+  amountSat: string;
   /**
    * The hex-encoded transaction ID of the sweep transaction that spent the
    * output.
@@ -1450,17 +1451,17 @@ export interface Peer {
   /** Network address of the peer; eg `127.0.0.1:10011` */
   address: string;
   /** Bytes of data transmitted to this peer */
-  bytesSent: number;
+  bytesSent: string;
   /** Bytes of data transmitted from this peer */
-  bytesRecv: number;
+  bytesRecv: string;
   /** Satoshis sent to this peer */
-  satSent: number;
+  satSent: string;
   /** Satoshis received from this peer */
-  satRecv: number;
+  satRecv: string;
   /** A channel is inbound if the counterparty initiated the channel */
   inbound: boolean;
   /** Ping time to this peer */
-  pingTime: number;
+  pingTime: string;
   /** The type of sync we are currently performing with this peer. */
   syncType: Peer_SyncType;
   /** Features advertised by the remote peer in their init message. */
@@ -1484,7 +1485,7 @@ export interface Peer {
    * The timestamp of the last flap we observed for this peer. If this value is
    * zero, we have not observed any flaps for this peer.
    */
-  lastFlapNs: number;
+  lastFlapNs: string;
 }
 
 export enum Peer_SyncType {
@@ -1542,7 +1543,7 @@ export interface Peer_FeaturesEntry {
 
 export interface TimestampedError {
   /** The unix timestamp in seconds when the error occurred. */
-  timestamp: number;
+  timestamp: string;
   /** The string representation of the error sent by our peer. */
   error: string;
 }
@@ -1627,7 +1628,7 @@ export interface GetInfoResponse {
   /** The node's current view of the hash of the best block */
   blockHash: string;
   /** Timestamp of the block best known to the wallet */
-  bestHeaderTimestamp: number;
+  bestHeaderTimestamp: string;
   /** Whether the wallet's view is synced to the main chain */
   syncedToChain: boolean;
   /** Whether we consider ourselves synced with the public channel graph. */
@@ -1712,7 +1713,7 @@ export interface CloseChannelRequest {
    *
    * @deprecated
    */
-  satPerByte: number;
+  satPerByte: string;
   /**
    * An optional address to send funds to in the case of a cooperative close.
    * If the channel was opened with an upfront shutdown script and this field
@@ -1724,7 +1725,7 @@ export interface CloseChannelRequest {
    * A manual fee rate set in sat/vbyte that should be used when crafting the
    * closure transaction.
    */
-  satPerVbyte: number;
+  satPerVbyte: string;
 }
 
 export interface CloseStatusUpdate {
@@ -1747,7 +1748,7 @@ export interface ReadyForPsbtFunding {
    * The exact amount in satoshis that needs to be sent to the above address to
    * fund the pending channel.
    */
-  fundingAmount: number;
+  fundingAmount: string;
   /**
    * A raw PSBT that contains the pending channel output. If a base PSBT was
    * provided in the PsbtShim, this is the base PSBT with one additional output.
@@ -1762,7 +1763,7 @@ export interface OpenChannelRequest {
    * A manual fee rate set in sat/vbyte that should be used when crafting the
    * funding transaction.
    */
-  satPerVbyte: number;
+  satPerVbyte: string;
   /**
    * The pubkey of the node to open a channel with. When using REST, this field
    * must be encoded as base64.
@@ -1776,12 +1777,12 @@ export interface OpenChannelRequest {
    */
   nodePubkeyString: string;
   /** The number of satoshis the wallet should commit to the channel */
-  localFundingAmount: number;
+  localFundingAmount: string;
   /**
    * The number of satoshis to push to the remote side as part of the initial
    * commitment state
    */
-  pushSat: number;
+  pushSat: string;
   /**
    * The target number of blocks that the funding transaction should be
    * confirmed by.
@@ -1794,7 +1795,7 @@ export interface OpenChannelRequest {
    *
    * @deprecated
    */
-  satPerByte: number;
+  satPerByte: string;
   /**
    * Whether this channel should be private, not announced to the greater
    * network.
@@ -1804,7 +1805,7 @@ export interface OpenChannelRequest {
    * The minimum value in millisatoshi we will require for incoming HTLCs on
    * the channel.
    */
-  minHtlcMsat: number;
+  minHtlcMsat: string;
   /**
    * The delay we require on the remote's commitment transaction. If this is
    * not set, it will be scaled automatically with the channel size.
@@ -1843,7 +1844,7 @@ export interface OpenChannelRequest {
    * The maximum amount of coins in millisatoshi that can be pending within
    * the channel. It only applies to the remote party.
    */
-  remoteMaxValueInFlightMsat: number;
+  remoteMaxValueInFlightMsat: string;
   /**
    * The maximum number of concurrent HTLCs we will allow the remote party to add
    * to the commitment transaction.
@@ -1898,7 +1899,7 @@ export interface ChanPointShim {
    * The size of the pre-crafted output to be used as the channel point for this
    * channel funding.
    */
-  amt: number;
+  amt: string;
   /** The target channel point to refrence in created commitment transactions. */
   chanPoint: ChannelPoint | undefined;
   /** Our local key to use when creating the multi-sig output. */
@@ -2021,7 +2022,7 @@ export interface PendingHTLC {
   /** The direction within the channel that the htlc was sent */
   incoming: boolean;
   /** The total value of the htlc */
-  amount: number;
+  amount: string;
   /** The final output to be swept back to the user's wallet */
   outpoint: string;
   /** The next block height at which we can spend the current stage */
@@ -2040,7 +2041,7 @@ export interface PendingChannelsRequest {}
 
 export interface PendingChannelsResponse {
   /** The balance in satoshis encumbered in pending channels */
-  totalLimboBalance: number;
+  totalLimboBalance: string;
   /** Channels pending opening */
   pendingOpenChannels: PendingChannelsResponse_PendingOpenChannel[];
   /**
@@ -2060,19 +2061,19 @@ export interface PendingChannelsResponse {
 export interface PendingChannelsResponse_PendingChannel {
   remoteNodePub: string;
   channelPoint: string;
-  capacity: number;
-  localBalance: number;
-  remoteBalance: number;
+  capacity: string;
+  localBalance: string;
+  remoteBalance: string;
   /**
    * The minimum satoshis this node is required to reserve in its
    * balance.
    */
-  localChanReserveSat: number;
+  localChanReserveSat: string;
   /**
    * The minimum satoshis the other node is required to reserve in its
    * balance.
    */
-  remoteChanReserveSat: number;
+  remoteChanReserveSat: string;
   /** The party that initiated opening the channel. */
   initiator: Initiator;
   /** The commitment type used by this channel. */
@@ -2091,22 +2092,22 @@ export interface PendingChannelsResponse_PendingOpenChannel {
    * each channel state update, including updates that happen after a system
    * restart.
    */
-  commitFee: number;
+  commitFee: string;
   /** The weight of the commitment transaction */
-  commitWeight: number;
+  commitWeight: string;
   /**
    * The required number of satoshis per kilo-weight that the requester will
    * pay at all times, for both the funding transaction and commitment
    * transaction. This value can later be updated once the channel is open.
    */
-  feePerKw: number;
+  feePerKw: string;
 }
 
 export interface PendingChannelsResponse_WaitingCloseChannel {
   /** The pending channel waiting for closing tx to confirm */
   channel: PendingChannelsResponse_PendingChannel | undefined;
   /** The balance in satoshis encumbered in this channel */
-  limboBalance: number;
+  limboBalance: string;
   /**
    * A list of valid commitment transactions. Any of these can confirm at
    * this point.
@@ -2125,17 +2126,17 @@ export interface PendingChannelsResponse_Commitments {
    * The amount in satoshis calculated to be paid in fees for the local
    * commitment.
    */
-  localCommitFeeSat: number;
+  localCommitFeeSat: string;
   /**
    * The amount in satoshis calculated to be paid in fees for the remote
    * commitment.
    */
-  remoteCommitFeeSat: number;
+  remoteCommitFeeSat: string;
   /**
    * The amount in satoshis calculated to be paid in fees for the remote
    * pending commitment.
    */
-  remotePendingCommitFeeSat: number;
+  remotePendingCommitFeeSat: string;
 }
 
 export interface PendingChannelsResponse_ClosedChannel {
@@ -2151,7 +2152,7 @@ export interface PendingChannelsResponse_ForceClosedChannel {
   /** The transaction id of the closing transaction */
   closingTxid: string;
   /** The balance in satoshis encumbered in this pending channel */
-  limboBalance: number;
+  limboBalance: string;
   /** The height at which funds can be swept into the wallet */
   maturityHeight: number;
   /**
@@ -2161,7 +2162,7 @@ export interface PendingChannelsResponse_ForceClosedChannel {
    */
   blocksTilMaturity: number;
   /** The total value of funds successfully recovered from this channel */
-  recoveredBalance: number;
+  recoveredBalance: string;
   pendingHtlcs: PendingHTLC[];
   anchor: PendingChannelsResponse_ForceClosedChannel_AnchorState;
 }
@@ -2275,20 +2276,20 @@ export function channelEventUpdate_UpdateTypeToJSON(
 
 export interface WalletAccountBalance {
   /** The confirmed balance of the account (with >= 1 confirmations). */
-  confirmedBalance: number;
+  confirmedBalance: string;
   /** The unconfirmed balance of the account (with 0 confirmations). */
-  unconfirmedBalance: number;
+  unconfirmedBalance: string;
 }
 
 export interface WalletBalanceRequest {}
 
 export interface WalletBalanceResponse {
   /** The balance of the wallet */
-  totalBalance: number;
+  totalBalance: string;
   /** The confirmed balance of a wallet(with >= 1 confirmations) */
-  confirmedBalance: number;
+  confirmedBalance: string;
   /** The unconfirmed balance of a wallet(with 0 confirmations) */
-  unconfirmedBalance: number;
+  unconfirmedBalance: string;
   /** A mapping of each wallet account's name to its balance. */
   accountBalance: { [key: string]: WalletAccountBalance };
 }
@@ -2300,9 +2301,9 @@ export interface WalletBalanceResponse_AccountBalanceEntry {
 
 export interface Amount {
   /** Value denominated in satoshis. */
-  sat: number;
+  sat: string;
   /** Value denominated in milli-satoshis. */
-  msat: number;
+  msat: string;
 }
 
 export interface ChannelBalanceRequest {}
@@ -2313,13 +2314,13 @@ export interface ChannelBalanceResponse {
    *
    * @deprecated
    */
-  balance: number;
+  balance: string;
   /**
    * Deprecated. Sum of channels pending balances denominated in satoshis
    *
    * @deprecated
    */
-  pendingOpenBalance: number;
+  pendingOpenBalance: string;
   /** Sum of channels local balances. */
   localBalance: Amount | undefined;
   /** Sum of channels remote balances. */
@@ -2342,13 +2343,13 @@ export interface QueryRoutesRequest {
    *
    * The fields amt and amt_msat are mutually exclusive.
    */
-  amt: number;
+  amt: string;
   /**
    * The amount to send expressed in millisatoshis.
    *
    * The fields amt and amt_msat are mutually exclusive.
    */
-  amtMsat: number;
+  amtMsat: string;
   /**
    * An optional CLTV delta from the current height that should be used for the
    * timelock of the final hop. Note that unlike SendPayment, QueryRoutes does
@@ -2401,12 +2402,12 @@ export interface QueryRoutesRequest {
    * Record types are required to be in the custom range >= 65536. When using
    * REST, the values must be encoded as base64.
    */
-  destCustomRecords: { [key: number]: Uint8Array };
+  destCustomRecords: { [key: string]: Uint8Array };
   /**
    * The channel id of the channel that must be taken to the first hop. If zero,
    * any channel may be used.
    */
-  outgoingChanId: number;
+  outgoingChanId: string;
   /** The pubkey of the last hop of the route. If empty, any hop may be used. */
   lastHopPubkey: Uint8Array;
   /** Optional route hints to reach the destination through private channels. */
@@ -2422,7 +2423,7 @@ export interface QueryRoutesRequest {
 }
 
 export interface QueryRoutesRequest_DestCustomRecordsEntry {
-  key: number;
+  key: string;
   value: Uint8Array;
 }
 
@@ -2441,7 +2442,7 @@ export interface NodePair {
 
 export interface EdgeLocator {
   /** The short channel id of this edge. */
-  channelId: number;
+  channelId: string;
   /**
    * The direction of this edge. If direction_reverse is false, the direction
    * of this edge is from the channel endpoint with the lexicographically smaller
@@ -2470,16 +2471,16 @@ export interface Hop {
    * height, the next 3 the index within the block, and the last 2 bytes are the
    * output index for the channel.
    */
-  chanId: number;
+  chanId: string;
   /** @deprecated */
-  chanCapacity: number;
+  chanCapacity: string;
   /** @deprecated */
-  amtToForward: number;
+  amtToForward: string;
   /** @deprecated */
-  fee: number;
+  fee: string;
   expiry: number;
-  amtToForwardMsat: number;
-  feeMsat: number;
+  amtToForwardMsat: string;
+  feeMsat: string;
   /**
    * An optional public key of the hop. If the public key is given, the payment
    * can be executed without relying on a copy of the channel graph.
@@ -2512,11 +2513,11 @@ export interface Hop {
    * of the SendToRoute call as it allows callers to specify arbitrary K-V pairs
    * to drop off at each hop within the onion.
    */
-  customRecords: { [key: number]: Uint8Array };
+  customRecords: { [key: string]: Uint8Array };
 }
 
 export interface Hop_CustomRecordsEntry {
-  key: number;
+  key: string;
   value: Uint8Array;
 }
 
@@ -2534,7 +2535,7 @@ export interface MPPRecord {
    * and payment_hash sum exactly to total_amt_msat. The same
    * total_amt_msat must be used on all subpayments.
    */
-  totalAmtMsat: number;
+  totalAmtMsat: string;
 }
 
 export interface AMPRecord {
@@ -2565,7 +2566,7 @@ export interface Route {
    *
    * @deprecated
    */
-  totalFees: number;
+  totalFees: string;
   /**
    * The total amount of funds required to complete a payment over this route.
    * This value includes the cumulative fees at each hop. As a result, the HTLC
@@ -2575,13 +2576,13 @@ export interface Route {
    *
    * @deprecated
    */
-  totalAmt: number;
+  totalAmt: string;
   /** Contains details concerning the specific forwarding details at each hop. */
   hops: Hop[];
   /** The total fees in millisatoshis. */
-  totalFeesMsat: number;
+  totalFeesMsat: string;
   /** The total amount in millisatoshis. */
-  totalAmtMsat: number;
+  totalAmtMsat: string;
 }
 
 export interface NodeInfoRequest {
@@ -2602,7 +2603,7 @@ export interface NodeInfo {
   /** The total number of channels for the node. */
   numChannels: number;
   /** The sum of all channels capacity for the node, denominated in satoshis. */
-  totalCapacity: number;
+  totalCapacity: string;
   /** A list of all public channels for the node. */
   channels: ChannelEdge[];
 }
@@ -2634,11 +2635,11 @@ export interface NodeAddress {
 
 export interface RoutingPolicy {
   timeLockDelta: number;
-  minHtlc: number;
-  feeBaseMsat: number;
-  feeRateMilliMsat: number;
+  minHtlc: string;
+  feeBaseMsat: string;
+  feeRateMilliMsat: string;
   disabled: boolean;
-  maxHtlcMsat: number;
+  maxHtlcMsat: string;
   lastUpdate: number;
 }
 
@@ -2655,13 +2656,13 @@ export interface ChannelEdge {
    * height, the next 3 the index within the block, and the last 2 bytes are the
    * output index for the channel.
    */
-  channelId: number;
+  channelId: string;
   chanPoint: string;
   /** @deprecated */
   lastUpdate: number;
   node1Pub: string;
   node2Pub: string;
-  capacity: number;
+  capacity: string;
   node1Policy: RoutingPolicy | undefined;
   node2Policy: RoutingPolicy | undefined;
 }
@@ -2717,7 +2718,7 @@ export interface ChanInfoRequest {
    * height, the next 3 the index within the block, and the last 2 bytes are the
    * output index for the channel.
    */
-  chanId: number;
+  chanId: string;
 }
 
 export interface NetworkInfoRequest {}
@@ -2728,13 +2729,13 @@ export interface NetworkInfo {
   maxOutDegree: number;
   numNodes: number;
   numChannels: number;
-  totalNetworkCapacity: number;
+  totalNetworkCapacity: string;
   avgChannelSize: number;
-  minChannelSize: number;
-  maxChannelSize: number;
-  medianChannelSizeSat: number;
+  minChannelSize: string;
+  maxChannelSize: string;
+  medianChannelSizeSat: string;
   /** The number of edges marked as zombies. */
-  numZombieChans: number;
+  numZombieChans: string;
 }
 
 export interface StopRequest {}
@@ -2784,9 +2785,9 @@ export interface ChannelEdgeUpdate {
    * height, the next 3 the index within the block, and the last 2 bytes are the
    * output index for the channel.
    */
-  chanId: number;
+  chanId: string;
   chanPoint: ChannelPoint | undefined;
-  capacity: number;
+  capacity: string;
   routingPolicy: RoutingPolicy | undefined;
   advertisingNode: string;
   connectingNode: string;
@@ -2798,8 +2799,8 @@ export interface ClosedChannelUpdate {
    * height, the next 3 the index within the block, and the last 2 bytes are the
    * output index for the channel.
    */
-  chanId: number;
-  capacity: number;
+  chanId: string;
+  capacity: string;
   closedHeight: number;
   chanPoint: ChannelPoint | undefined;
 }
@@ -2808,7 +2809,7 @@ export interface HopHint {
   /** The public key of the node at the start of the channel. */
   nodeId: string;
   /** The unique identifier of the channel. */
-  chanId: number;
+  chanId: string;
   /** The base fee of the channel denominated in millisatoshis. */
   feeBaseMsat: number;
   /**
@@ -2852,13 +2853,13 @@ export interface Invoice {
    *
    * The fields value and value_msat are mutually exclusive.
    */
-  value: number;
+  value: string;
   /**
    * The value of this invoice in millisatoshis
    *
    * The fields value and value_msat are mutually exclusive.
    */
-  valueMsat: number;
+  valueMsat: string;
   /**
    * Whether this invoice has been fulfilled
    *
@@ -2866,9 +2867,9 @@ export interface Invoice {
    */
   settled: boolean;
   /** When this invoice was created */
-  creationDate: number;
+  creationDate: string;
   /** When this invoice was settled */
-  settleDate: number;
+  settleDate: string;
   /**
    * A bare-bones invoice for a payment within the Lightning Network. With the
    * details of the invoice, the sender has all the data necessary to send a
@@ -2883,11 +2884,11 @@ export interface Invoice {
    */
   descriptionHash: Uint8Array;
   /** Payment request expiry time in seconds. Default is 3600 (1 hour). */
-  expiry: number;
+  expiry: string;
   /** Fallback on-chain address. */
   fallbackAddr: string;
   /** Delta to use for the time-lock of the CLTV extended to the final hop. */
-  cltvExpiry: number;
+  cltvExpiry: string;
   /**
    * Route hints that can each be individually used to assist in reaching the
    * invoice's destination.
@@ -2901,20 +2902,20 @@ export interface Invoice {
    * SubscribeInvoices call can use this to instantly get notified of all added
    * invoices with an add_index greater than this one.
    */
-  addIndex: number;
+  addIndex: string;
   /**
    * The "settle" index of this invoice. Each newly settled invoice will
    * increment this index making it monotonically increasing. Callers to the
    * SubscribeInvoices call can use this to instantly get notified of all
    * settled invoices with an settle_index greater than this one.
    */
-  settleIndex: number;
+  settleIndex: string;
   /**
    * Deprecated, use amt_paid_sat or amt_paid_msat.
    *
    * @deprecated
    */
-  amtPaid: number;
+  amtPaid: string;
   /**
    * The amount that was accepted for this invoice, in satoshis. This will ONLY
    * be set if this invoice has been settled. We provide this field as if the
@@ -2923,7 +2924,7 @@ export interface Invoice {
    * MORE that was specified in the original invoice. So we'll record that here
    * as well.
    */
-  amtPaidSat: number;
+  amtPaidSat: string;
   /**
    * The amount that was accepted for this invoice, in millisatoshis. This will
    * ONLY be set if this invoice has been settled. We provide this field as if
@@ -2932,7 +2933,7 @@ export interface Invoice {
    * paid MORE that was specified in the original invoice. So we'll record that
    * here as well.
    */
-  amtPaidMsat: number;
+  amtPaidMsat: string;
   /** The state the invoice is in. */
   state: Invoice_InvoiceState;
   /** List of HTLCs paying to this invoice [EXPERIMENTAL]. */
@@ -3010,31 +3011,31 @@ export interface Invoice_FeaturesEntry {
 /** Details of an HTLC that paid to an invoice */
 export interface InvoiceHTLC {
   /** Short channel id over which the htlc was received. */
-  chanId: number;
+  chanId: string;
   /** Index identifying the htlc on the channel. */
-  htlcIndex: number;
+  htlcIndex: string;
   /** The amount of the htlc in msat. */
-  amtMsat: number;
+  amtMsat: string;
   /** Block height at which this htlc was accepted. */
   acceptHeight: number;
   /** Time at which this htlc was accepted. */
-  acceptTime: number;
+  acceptTime: string;
   /** Time at which this htlc was settled or canceled. */
-  resolveTime: number;
+  resolveTime: string;
   /** Block height at which this htlc expires. */
   expiryHeight: number;
   /** Current state the htlc is in. */
   state: InvoiceHTLCState;
   /** Custom tlv records. */
-  customRecords: { [key: number]: Uint8Array };
+  customRecords: { [key: string]: Uint8Array };
   /** The total amount of the mpp payment in msat. */
-  mppTotalAmtMsat: number;
+  mppTotalAmtMsat: string;
   /** Details relevant to AMP HTLCs, only populated if this is an AMP HTLC. */
   amp: AMP | undefined;
 }
 
 export interface InvoiceHTLC_CustomRecordsEntry {
-  key: number;
+  key: string;
   value: Uint8Array;
 }
 
@@ -3076,7 +3077,7 @@ export interface AddInvoiceResponse {
    * SubscribeInvoices call can use this to instantly get notified of all added
    * invoices with an add_index greater than this one.
    */
-  addIndex: number;
+  addIndex: string;
   /**
    * The payment address of the generated invoice. This value should be used
    * in all payments for this invoice as we require it for end to end
@@ -3112,9 +3113,9 @@ export interface ListInvoiceRequest {
    * The index of an invoice that will be used as either the start or end of a
    * query to determine which invoices should be returned in the response.
    */
-  indexOffset: number;
+  indexOffset: string;
   /** The max number of invoices to return in the response to this query. */
-  numMaxInvoices: number;
+  numMaxInvoices: string;
   /**
    * If set, the invoices returned will result from seeking backwards from the
    * specified index offset. This can be used to paginate backwards.
@@ -3132,12 +3133,12 @@ export interface ListInvoiceResponse {
    * The index of the last item in the set of returned invoices. This can be used
    * to seek further, pagination style.
    */
-  lastIndexOffset: number;
+  lastIndexOffset: string;
   /**
    * The index of the last item in the set of returned invoices. This can be used
    * to seek backwards, pagination style.
    */
-  firstIndexOffset: number;
+  firstIndexOffset: string;
 }
 
 export interface InvoiceSubscription {
@@ -3147,14 +3148,14 @@ export interface InvoiceSubscription {
    * value. This allows callers to catch up on any events they missed while they
    * weren't connected to the streaming RPC.
    */
-  addIndex: number;
+  addIndex: string;
   /**
    * If specified (non-zero), then we'll first start by sending out
    * notifications for all settled indexes with an settle_index greater than
    * this value. This allows callers to catch up on any events they missed while
    * they weren't connected to the streaming RPC.
    */
-  settleIndex: number;
+  settleIndex: string;
 }
 
 export interface Payment {
@@ -3165,35 +3166,35 @@ export interface Payment {
    *
    * @deprecated
    */
-  value: number;
+  value: string;
   /**
    * Deprecated, use creation_time_ns
    *
    * @deprecated
    */
-  creationDate: number;
+  creationDate: string;
   /**
    * Deprecated, use fee_sat or fee_msat.
    *
    * @deprecated
    */
-  fee: number;
+  fee: string;
   /** The payment preimage */
   paymentPreimage: string;
   /** The value of the payment in satoshis */
-  valueSat: number;
+  valueSat: string;
   /** The value of the payment in milli-satoshis */
-  valueMsat: number;
+  valueMsat: string;
   /** The optional payment request being fulfilled. */
   paymentRequest: string;
   /** The status of the payment. */
   status: Payment_PaymentStatus;
   /** The fee paid for this payment in satoshis */
-  feeSat: number;
+  feeSat: string;
   /** The fee paid for this payment in milli-satoshis */
-  feeMsat: number;
+  feeMsat: string;
   /** The time in UNIX nanoseconds at which the payment was created. */
-  creationTimeNs: number;
+  creationTimeNs: string;
   /** The HTLCs made in attempt to settle the payment. */
   htlcs: HTLCAttempt[];
   /**
@@ -3201,7 +3202,7 @@ export interface Payment {
    * by this index, which may not strictly increment by 1 for payments made in
    * older versions of lnd.
    */
-  paymentIndex: number;
+  paymentIndex: string;
   failureReason: PaymentFailureReason;
 }
 
@@ -3255,18 +3256,18 @@ export function payment_PaymentStatusToJSON(
 
 export interface HTLCAttempt {
   /** The unique ID that is used for this attempt. */
-  attemptId: number;
+  attemptId: string;
   /** The status of the HTLC. */
   status: HTLCAttempt_HTLCStatus;
   /** The route taken by this HTLC. */
   route: Route | undefined;
   /** The time in UNIX nanoseconds at which this HTLC was sent. */
-  attemptTimeNs: number;
+  attemptTimeNs: string;
   /**
    * The time in UNIX nanoseconds at which this HTLC was settled or failed.
    * This value will not be set if the HTLC is still IN_FLIGHT.
    */
-  resolveTimeNs: number;
+  resolveTimeNs: string;
   /** Detailed htlc failure info. */
   failure: Failure | undefined;
   /** The preimage that was used to settle the HTLC. */
@@ -3330,9 +3331,9 @@ export interface ListPaymentsRequest {
    * will start with the oldest payment when paginating forwards, or will end
    * with the most recent payment when paginating backwards.
    */
-  indexOffset: number;
+  indexOffset: string;
   /** The maximal number of payments returned in the response to this query. */
-  maxPayments: number;
+  maxPayments: string;
   /**
    * If set, the payments returned will result from seeking backwards from the
    * specified index offset. This can be used to paginate backwards. The order
@@ -3348,12 +3349,12 @@ export interface ListPaymentsResponse {
    * The index of the first item in the set of returned payments. This can be
    * used as the index_offset to continue seeking backwards in the next request.
    */
-  firstIndexOffset: number;
+  firstIndexOffset: string;
   /**
    * The index of the last item in the set of returned payments. This can be used
    * as the index_offset to continue seeking forwards in the next request.
    */
-  lastIndexOffset: number;
+  lastIndexOffset: string;
 }
 
 export interface DeleteAllPaymentsRequest {
@@ -3395,16 +3396,16 @@ export interface PayReqString {
 export interface PayReq {
   destination: string;
   paymentHash: string;
-  numSatoshis: number;
-  timestamp: number;
-  expiry: number;
+  numSatoshis: string;
+  timestamp: string;
+  expiry: string;
   description: string;
   descriptionHash: string;
   fallbackAddr: string;
-  cltvExpiry: number;
+  cltvExpiry: string;
   routeHints: RouteHint[];
   paymentAddr: Uint8Array;
-  numMsat: number;
+  numMsat: string;
   features: { [key: number]: Feature };
 }
 
@@ -3423,16 +3424,16 @@ export interface FeeReportRequest {}
 
 export interface ChannelFeeReport {
   /** The short channel id that this fee report belongs to. */
-  chanId: number;
+  chanId: string;
   /** The channel that this fee report belongs to. */
   channelPoint: string;
   /** The base fee charged regardless of the number of milli-satoshis sent. */
-  baseFeeMsat: number;
+  baseFeeMsat: string;
   /**
    * The amount charged per milli-satoshis transferred expressed in
    * millionths of a satoshi.
    */
-  feePerMil: number;
+  feePerMil: string;
   /**
    * The effective fee rate in milli-satoshis. Computed by dividing the
    * fee_per_mil value by 1 million.
@@ -3450,17 +3451,17 @@ export interface FeeReportResponse {
    * The total amount of fee revenue (in satoshis) the switch has collected
    * over the past 24 hrs.
    */
-  dayFeeSum: number;
+  dayFeeSum: string;
   /**
    * The total amount of fee revenue (in satoshis) the switch has collected
    * over the past 1 week.
    */
-  weekFeeSum: number;
+  weekFeeSum: string;
   /**
    * The total amount of fee revenue (in satoshis) the switch has collected
    * over the past 1 month.
    */
-  monthFeeSum: number;
+  monthFeeSum: string;
 }
 
 export interface PolicyUpdateRequest {
@@ -3469,7 +3470,7 @@ export interface PolicyUpdateRequest {
   /** If set, this update will target a specific channel. */
   chanPoint: ChannelPoint | undefined;
   /** The base fee charged regardless of the number of milli-satoshis sent. */
-  baseFeeMsat: number;
+  baseFeeMsat: string;
   /**
    * The effective fee rate in milli-satoshis. The precision of this value
    * goes up to 6 decimal places, so 1e-6.
@@ -3481,12 +3482,12 @@ export interface PolicyUpdateRequest {
    * If set, the maximum HTLC size in milli-satoshis. If unset, the maximum
    * HTLC will be unchanged.
    */
-  maxHtlcMsat: number;
+  maxHtlcMsat: string;
   /**
    * The minimum HTLC size in milli-satoshis. Only applied if
    * min_htlc_msat_specified is true.
    */
-  minHtlcMsat: number;
+  minHtlcMsat: string;
   /** If true, min_htlc_msat is applied. */
   minHtlcMsatSpecified: boolean;
 }
@@ -3499,13 +3500,13 @@ export interface ForwardingHistoryRequest {
    * records beyond this point will be included, respecting the end time, and
    * the index offset.
    */
-  startTime: number;
+  startTime: string;
   /**
    * End time is the end point of the forwarding history request. The
    * response will carry at most 50k records between the start time and the
    * end time. The index offset can be used to implement pagination.
    */
-  endTime: number;
+  endTime: string;
   /**
    * Index offset is the offset in the time series to start at. As each
    * response can only contain 50k records, callers can use this to skip
@@ -3523,43 +3524,43 @@ export interface ForwardingEvent {
    *
    * @deprecated
    */
-  timestamp: number;
+  timestamp: string;
   /** The incoming channel ID that carried the HTLC that created the circuit. */
-  chanIdIn: number;
+  chanIdIn: string;
   /**
    * The outgoing channel ID that carried the preimage that completed the
    * circuit.
    */
-  chanIdOut: number;
+  chanIdOut: string;
   /**
    * The total amount (in satoshis) of the incoming HTLC that created half
    * the circuit.
    */
-  amtIn: number;
+  amtIn: string;
   /**
    * The total amount (in satoshis) of the outgoing HTLC that created the
    * second half of the circuit.
    */
-  amtOut: number;
+  amtOut: string;
   /** The total fee (in satoshis) that this payment circuit carried. */
-  fee: number;
+  fee: string;
   /** The total fee (in milli-satoshis) that this payment circuit carried. */
-  feeMsat: number;
+  feeMsat: string;
   /**
    * The total amount (in milli-satoshis) of the incoming HTLC that created
    * half the circuit.
    */
-  amtInMsat: number;
+  amtInMsat: string;
   /**
    * The total amount (in milli-satoshis) of the outgoing HTLC that created
    * the second half of the circuit.
    */
-  amtOutMsat: number;
+  amtOutMsat: string;
   /**
    * The number of nanoseconds elapsed since January 1, 1970 UTC when this
    * circuit was completed.
    */
-  timestampNs: number;
+  timestampNs: string;
 }
 
 export interface ForwardingHistoryResponse {
@@ -3651,7 +3652,7 @@ export interface BakeMacaroonRequest {
   /** The list of permissions the new macaroon should grant. */
   permissions: MacaroonPermission[];
   /** The root key ID used to create the macaroon, must be a positive integer. */
-  rootKeyId: number;
+  rootKeyId: string;
 }
 
 export interface BakeMacaroonResponse {
@@ -3663,12 +3664,12 @@ export interface ListMacaroonIDsRequest {}
 
 export interface ListMacaroonIDsResponse {
   /** The list of root key IDs that are in use. */
-  rootKeyIds: number[];
+  rootKeyIds: string[];
 }
 
 export interface DeleteMacaroonIDRequest {
   /** The root key ID to be removed. */
-  rootKeyId: number;
+  rootKeyId: string;
 }
 
 export interface DeleteMacaroonIDResponse {
@@ -3702,7 +3703,7 @@ export interface Failure {
   /** An optional channel update message. */
   channelUpdate: ChannelUpdate | undefined;
   /** A failure type-dependent htlc value. */
-  htlcMsat: number;
+  htlcMsat: string;
   /** The sha256 sum of the onion payload. */
   onionSha256: Uint8Array;
   /** A failure type-dependent cltv expiry value. */
@@ -3931,7 +3932,7 @@ export interface ChannelUpdate {
    */
   chainHash: Uint8Array;
   /** The unique description of the funding transaction. */
-  chanId: number;
+  chanId: string;
   /**
    * A timestamp that allows ordering in the case of multiple announcements.
    * We should ignore the message if timestamp is not greater than the
@@ -3960,7 +3961,7 @@ export interface ChannelUpdate {
    */
   timeLockDelta: number;
   /** The minimum HTLC value which will be accepted. */
-  htlcMinimumMsat: number;
+  htlcMinimumMsat: string;
   /**
    * The base fee that must be used for incoming HTLC's to this particular
    * channel. This value will be tacked onto the required for a payment
@@ -3970,7 +3971,7 @@ export interface ChannelUpdate {
   /** The fee rate that will be charged per millionth of a satoshi. */
   feeRate: number;
   /** The maximum HTLC value which will be accepted. */
-  htlcMaximumMsat: number;
+  htlcMaximumMsat: string;
   /**
    * The set of data that was appended to this message, some of which we may
    * not actually know how to iterate or parse. By holding onto this data, we
@@ -3995,9 +3996,9 @@ export interface Op {
 const baseUtxo: object = {
   addressType: 0,
   address: "",
-  amountSat: 0,
+  amountSat: "0",
   pkScript: "",
-  confirmations: 0,
+  confirmations: "0",
 };
 
 export const Utxo = {
@@ -4008,7 +4009,7 @@ export const Utxo = {
     if (message.address !== "") {
       writer.uint32(18).string(message.address);
     }
-    if (message.amountSat !== 0) {
+    if (message.amountSat !== "0") {
       writer.uint32(24).int64(message.amountSat);
     }
     if (message.pkScript !== "") {
@@ -4017,7 +4018,7 @@ export const Utxo = {
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(42).fork()).ldelim();
     }
-    if (message.confirmations !== 0) {
+    if (message.confirmations !== "0") {
       writer.uint32(48).int64(message.confirmations);
     }
     return writer;
@@ -4037,7 +4038,7 @@ export const Utxo = {
           message.address = reader.string();
           break;
         case 3:
-          message.amountSat = longToNumber(reader.int64() as Long);
+          message.amountSat = longToString(reader.int64() as Long);
           break;
         case 4:
           message.pkScript = reader.string();
@@ -4046,7 +4047,7 @@ export const Utxo = {
           message.outpoint = OutPoint.decode(reader, reader.uint32());
           break;
         case 6:
-          message.confirmations = longToNumber(reader.int64() as Long);
+          message.confirmations = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4069,9 +4070,9 @@ export const Utxo = {
       message.address = "";
     }
     if (object.amountSat !== undefined && object.amountSat !== null) {
-      message.amountSat = Number(object.amountSat);
+      message.amountSat = String(object.amountSat);
     } else {
-      message.amountSat = 0;
+      message.amountSat = "0";
     }
     if (object.pkScript !== undefined && object.pkScript !== null) {
       message.pkScript = String(object.pkScript);
@@ -4084,9 +4085,9 @@ export const Utxo = {
       message.outpoint = undefined;
     }
     if (object.confirmations !== undefined && object.confirmations !== null) {
-      message.confirmations = Number(object.confirmations);
+      message.confirmations = String(object.confirmations);
     } else {
-      message.confirmations = 0;
+      message.confirmations = "0";
     }
     return message;
   },
@@ -4122,7 +4123,7 @@ export const Utxo = {
     if (object.amountSat !== undefined && object.amountSat !== null) {
       message.amountSat = object.amountSat;
     } else {
-      message.amountSat = 0;
+      message.amountSat = "0";
     }
     if (object.pkScript !== undefined && object.pkScript !== null) {
       message.pkScript = object.pkScript;
@@ -4137,7 +4138,7 @@ export const Utxo = {
     if (object.confirmations !== undefined && object.confirmations !== null) {
       message.confirmations = object.confirmations;
     } else {
-      message.confirmations = 0;
+      message.confirmations = "0";
     }
     return message;
   },
@@ -4145,12 +4146,12 @@ export const Utxo = {
 
 const baseTransaction: object = {
   txHash: "",
-  amount: 0,
+  amount: "0",
   numConfirmations: 0,
   blockHash: "",
   blockHeight: 0,
-  timeStamp: 0,
-  totalFees: 0,
+  timeStamp: "0",
+  totalFees: "0",
   destAddresses: "",
   rawTxHex: "",
   label: "",
@@ -4164,7 +4165,7 @@ export const Transaction = {
     if (message.txHash !== "") {
       writer.uint32(10).string(message.txHash);
     }
-    if (message.amount !== 0) {
+    if (message.amount !== "0") {
       writer.uint32(16).int64(message.amount);
     }
     if (message.numConfirmations !== 0) {
@@ -4176,10 +4177,10 @@ export const Transaction = {
     if (message.blockHeight !== 0) {
       writer.uint32(40).int32(message.blockHeight);
     }
-    if (message.timeStamp !== 0) {
+    if (message.timeStamp !== "0") {
       writer.uint32(48).int64(message.timeStamp);
     }
-    if (message.totalFees !== 0) {
+    if (message.totalFees !== "0") {
       writer.uint32(56).int64(message.totalFees);
     }
     for (const v of message.destAddresses) {
@@ -4206,7 +4207,7 @@ export const Transaction = {
           message.txHash = reader.string();
           break;
         case 2:
-          message.amount = longToNumber(reader.int64() as Long);
+          message.amount = longToString(reader.int64() as Long);
           break;
         case 3:
           message.numConfirmations = reader.int32();
@@ -4218,10 +4219,10 @@ export const Transaction = {
           message.blockHeight = reader.int32();
           break;
         case 6:
-          message.timeStamp = longToNumber(reader.int64() as Long);
+          message.timeStamp = longToString(reader.int64() as Long);
           break;
         case 7:
-          message.totalFees = longToNumber(reader.int64() as Long);
+          message.totalFees = longToString(reader.int64() as Long);
           break;
         case 8:
           message.destAddresses.push(reader.string());
@@ -4249,9 +4250,9 @@ export const Transaction = {
       message.txHash = "";
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = Number(object.amount);
+      message.amount = String(object.amount);
     } else {
-      message.amount = 0;
+      message.amount = "0";
     }
     if (
       object.numConfirmations !== undefined &&
@@ -4272,14 +4273,14 @@ export const Transaction = {
       message.blockHeight = 0;
     }
     if (object.timeStamp !== undefined && object.timeStamp !== null) {
-      message.timeStamp = Number(object.timeStamp);
+      message.timeStamp = String(object.timeStamp);
     } else {
-      message.timeStamp = 0;
+      message.timeStamp = "0";
     }
     if (object.totalFees !== undefined && object.totalFees !== null) {
-      message.totalFees = Number(object.totalFees);
+      message.totalFees = String(object.totalFees);
     } else {
-      message.totalFees = 0;
+      message.totalFees = "0";
     }
     if (object.destAddresses !== undefined && object.destAddresses !== null) {
       for (const e of object.destAddresses) {
@@ -4331,7 +4332,7 @@ export const Transaction = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = object.amount;
     } else {
-      message.amount = 0;
+      message.amount = "0";
     }
     if (
       object.numConfirmations !== undefined &&
@@ -4354,12 +4355,12 @@ export const Transaction = {
     if (object.timeStamp !== undefined && object.timeStamp !== null) {
       message.timeStamp = object.timeStamp;
     } else {
-      message.timeStamp = 0;
+      message.timeStamp = "0";
     }
     if (object.totalFees !== undefined && object.totalFees !== null) {
       message.totalFees = object.totalFees;
     } else {
-      message.totalFees = 0;
+      message.totalFees = "0";
     }
     if (object.destAddresses !== undefined && object.destAddresses !== null) {
       for (const e of object.destAddresses) {
@@ -4578,13 +4579,13 @@ export const FeeLimit = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.fixed = longToNumber(reader.int64() as Long);
+          message.fixed = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.fixedMsat = longToNumber(reader.int64() as Long);
+          message.fixedMsat = longToString(reader.int64() as Long);
           break;
         case 2:
-          message.percent = longToNumber(reader.int64() as Long);
+          message.percent = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -4597,17 +4598,17 @@ export const FeeLimit = {
   fromJSON(object: any): FeeLimit {
     const message = { ...baseFeeLimit } as FeeLimit;
     if (object.fixed !== undefined && object.fixed !== null) {
-      message.fixed = Number(object.fixed);
+      message.fixed = String(object.fixed);
     } else {
       message.fixed = undefined;
     }
     if (object.fixedMsat !== undefined && object.fixedMsat !== null) {
-      message.fixedMsat = Number(object.fixedMsat);
+      message.fixedMsat = String(object.fixedMsat);
     } else {
       message.fixedMsat = undefined;
     }
     if (object.percent !== undefined && object.percent !== null) {
-      message.percent = Number(object.percent);
+      message.percent = String(object.percent);
     } else {
       message.percent = undefined;
     }
@@ -4645,12 +4646,12 @@ export const FeeLimit = {
 
 const baseSendRequest: object = {
   destString: "",
-  amt: 0,
-  amtMsat: 0,
+  amt: "0",
+  amtMsat: "0",
   paymentHashString: "",
   paymentRequest: "",
   finalCltvDelta: 0,
-  outgoingChanId: 0,
+  outgoingChanId: "0",
   cltvLimit: 0,
   allowSelfPayment: false,
   destFeatures: 0,
@@ -4667,10 +4668,10 @@ export const SendRequest = {
     if (message.destString !== "") {
       writer.uint32(18).string(message.destString);
     }
-    if (message.amt !== 0) {
+    if (message.amt !== "0") {
       writer.uint32(24).int64(message.amt);
     }
-    if (message.amtMsat !== 0) {
+    if (message.amtMsat !== "0") {
       writer.uint32(96).int64(message.amtMsat);
     }
     if (message.paymentHash.length !== 0) {
@@ -4688,7 +4689,7 @@ export const SendRequest = {
     if (message.feeLimit !== undefined) {
       FeeLimit.encode(message.feeLimit, writer.uint32(66).fork()).ldelim();
     }
-    if (message.outgoingChanId !== 0) {
+    if (message.outgoingChanId !== "0") {
       writer.uint32(72).uint64(message.outgoingChanId);
     }
     if (message.lastHopPubkey.length !== 0) {
@@ -4737,10 +4738,10 @@ export const SendRequest = {
           message.destString = reader.string();
           break;
         case 3:
-          message.amt = longToNumber(reader.int64() as Long);
+          message.amt = longToString(reader.int64() as Long);
           break;
         case 12:
-          message.amtMsat = longToNumber(reader.int64() as Long);
+          message.amtMsat = longToString(reader.int64() as Long);
           break;
         case 4:
           message.paymentHash = reader.bytes();
@@ -4758,7 +4759,7 @@ export const SendRequest = {
           message.feeLimit = FeeLimit.decode(reader, reader.uint32());
           break;
         case 9:
-          message.outgoingChanId = longToNumber(reader.uint64() as Long);
+          message.outgoingChanId = longToString(reader.uint64() as Long);
           break;
         case 13:
           message.lastHopPubkey = reader.bytes();
@@ -4816,14 +4817,14 @@ export const SendRequest = {
       message.destString = "";
     }
     if (object.amt !== undefined && object.amt !== null) {
-      message.amt = Number(object.amt);
+      message.amt = String(object.amt);
     } else {
-      message.amt = 0;
+      message.amt = "0";
     }
     if (object.amtMsat !== undefined && object.amtMsat !== null) {
-      message.amtMsat = Number(object.amtMsat);
+      message.amtMsat = String(object.amtMsat);
     } else {
-      message.amtMsat = 0;
+      message.amtMsat = "0";
     }
     if (object.paymentHash !== undefined && object.paymentHash !== null) {
       message.paymentHash = bytesFromBase64(object.paymentHash);
@@ -4852,9 +4853,9 @@ export const SendRequest = {
       message.feeLimit = undefined;
     }
     if (object.outgoingChanId !== undefined && object.outgoingChanId !== null) {
-      message.outgoingChanId = Number(object.outgoingChanId);
+      message.outgoingChanId = String(object.outgoingChanId);
     } else {
-      message.outgoingChanId = 0;
+      message.outgoingChanId = "0";
     }
     if (object.lastHopPubkey !== undefined && object.lastHopPubkey !== null) {
       message.lastHopPubkey = bytesFromBase64(object.lastHopPubkey);
@@ -4869,9 +4870,7 @@ export const SendRequest = {
       object.destCustomRecords !== null
     ) {
       Object.entries(object.destCustomRecords).forEach(([key, value]) => {
-        message.destCustomRecords[Number(key)] = bytesFromBase64(
-          value as string
-        );
+        message.destCustomRecords[key] = bytesFromBase64(value as string);
       });
     }
     if (
@@ -4966,12 +4965,12 @@ export const SendRequest = {
     if (object.amt !== undefined && object.amt !== null) {
       message.amt = object.amt;
     } else {
-      message.amt = 0;
+      message.amt = "0";
     }
     if (object.amtMsat !== undefined && object.amtMsat !== null) {
       message.amtMsat = object.amtMsat;
     } else {
-      message.amtMsat = 0;
+      message.amtMsat = "0";
     }
     if (object.paymentHash !== undefined && object.paymentHash !== null) {
       message.paymentHash = object.paymentHash;
@@ -5004,7 +5003,7 @@ export const SendRequest = {
     if (object.outgoingChanId !== undefined && object.outgoingChanId !== null) {
       message.outgoingChanId = object.outgoingChanId;
     } else {
-      message.outgoingChanId = 0;
+      message.outgoingChanId = "0";
     }
     if (object.lastHopPubkey !== undefined && object.lastHopPubkey !== null) {
       message.lastHopPubkey = object.lastHopPubkey;
@@ -5022,7 +5021,7 @@ export const SendRequest = {
     ) {
       Object.entries(object.destCustomRecords).forEach(([key, value]) => {
         if (value !== undefined) {
-          message.destCustomRecords[Number(key)] = value;
+          message.destCustomRecords[key] = value;
         }
       });
     }
@@ -5048,14 +5047,14 @@ export const SendRequest = {
   },
 };
 
-const baseSendRequest_DestCustomRecordsEntry: object = { key: 0 };
+const baseSendRequest_DestCustomRecordsEntry: object = { key: "0" };
 
 export const SendRequest_DestCustomRecordsEntry = {
   encode(
     message: SendRequest_DestCustomRecordsEntry,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.key !== 0) {
+    if (message.key !== "0") {
       writer.uint32(8).uint64(message.key);
     }
     if (message.value.length !== 0) {
@@ -5078,7 +5077,7 @@ export const SendRequest_DestCustomRecordsEntry = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.key = longToNumber(reader.uint64() as Long);
+          message.key = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.value = reader.bytes();
@@ -5097,9 +5096,9 @@ export const SendRequest_DestCustomRecordsEntry = {
     } as SendRequest_DestCustomRecordsEntry;
     message.value = new Uint8Array();
     if (object.key !== undefined && object.key !== null) {
-      message.key = Number(object.key);
+      message.key = String(object.key);
     } else {
-      message.key = 0;
+      message.key = "0";
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = bytesFromBase64(object.value);
@@ -5126,7 +5125,7 @@ export const SendRequest_DestCustomRecordsEntry = {
     if (object.key !== undefined && object.key !== null) {
       message.key = object.key;
     } else {
-      message.key = 0;
+      message.key = "0";
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = object.value;
@@ -5372,13 +5371,13 @@ export const SendToRouteRequest = {
 };
 
 const baseChannelAcceptRequest: object = {
-  fundingAmt: 0,
-  pushAmt: 0,
-  dustLimit: 0,
-  maxValueInFlight: 0,
-  channelReserve: 0,
-  minHtlc: 0,
-  feePerKw: 0,
+  fundingAmt: "0",
+  pushAmt: "0",
+  dustLimit: "0",
+  maxValueInFlight: "0",
+  channelReserve: "0",
+  minHtlc: "0",
+  feePerKw: "0",
   csvDelay: 0,
   maxAcceptedHtlcs: 0,
   channelFlags: 0,
@@ -5398,25 +5397,25 @@ export const ChannelAcceptRequest = {
     if (message.pendingChanId.length !== 0) {
       writer.uint32(26).bytes(message.pendingChanId);
     }
-    if (message.fundingAmt !== 0) {
+    if (message.fundingAmt !== "0") {
       writer.uint32(32).uint64(message.fundingAmt);
     }
-    if (message.pushAmt !== 0) {
+    if (message.pushAmt !== "0") {
       writer.uint32(40).uint64(message.pushAmt);
     }
-    if (message.dustLimit !== 0) {
+    if (message.dustLimit !== "0") {
       writer.uint32(48).uint64(message.dustLimit);
     }
-    if (message.maxValueInFlight !== 0) {
+    if (message.maxValueInFlight !== "0") {
       writer.uint32(56).uint64(message.maxValueInFlight);
     }
-    if (message.channelReserve !== 0) {
+    if (message.channelReserve !== "0") {
       writer.uint32(64).uint64(message.channelReserve);
     }
-    if (message.minHtlc !== 0) {
+    if (message.minHtlc !== "0") {
       writer.uint32(72).uint64(message.minHtlc);
     }
-    if (message.feePerKw !== 0) {
+    if (message.feePerKw !== "0") {
       writer.uint32(80).uint64(message.feePerKw);
     }
     if (message.csvDelay !== 0) {
@@ -5454,25 +5453,25 @@ export const ChannelAcceptRequest = {
           message.pendingChanId = reader.bytes();
           break;
         case 4:
-          message.fundingAmt = longToNumber(reader.uint64() as Long);
+          message.fundingAmt = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.pushAmt = longToNumber(reader.uint64() as Long);
+          message.pushAmt = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.dustLimit = longToNumber(reader.uint64() as Long);
+          message.dustLimit = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.maxValueInFlight = longToNumber(reader.uint64() as Long);
+          message.maxValueInFlight = longToString(reader.uint64() as Long);
           break;
         case 8:
-          message.channelReserve = longToNumber(reader.uint64() as Long);
+          message.channelReserve = longToString(reader.uint64() as Long);
           break;
         case 9:
-          message.minHtlc = longToNumber(reader.uint64() as Long);
+          message.minHtlc = longToString(reader.uint64() as Long);
           break;
         case 10:
-          message.feePerKw = longToNumber(reader.uint64() as Long);
+          message.feePerKw = longToString(reader.uint64() as Long);
           break;
         case 11:
           message.csvDelay = reader.uint32();
@@ -5506,42 +5505,42 @@ export const ChannelAcceptRequest = {
       message.pendingChanId = bytesFromBase64(object.pendingChanId);
     }
     if (object.fundingAmt !== undefined && object.fundingAmt !== null) {
-      message.fundingAmt = Number(object.fundingAmt);
+      message.fundingAmt = String(object.fundingAmt);
     } else {
-      message.fundingAmt = 0;
+      message.fundingAmt = "0";
     }
     if (object.pushAmt !== undefined && object.pushAmt !== null) {
-      message.pushAmt = Number(object.pushAmt);
+      message.pushAmt = String(object.pushAmt);
     } else {
-      message.pushAmt = 0;
+      message.pushAmt = "0";
     }
     if (object.dustLimit !== undefined && object.dustLimit !== null) {
-      message.dustLimit = Number(object.dustLimit);
+      message.dustLimit = String(object.dustLimit);
     } else {
-      message.dustLimit = 0;
+      message.dustLimit = "0";
     }
     if (
       object.maxValueInFlight !== undefined &&
       object.maxValueInFlight !== null
     ) {
-      message.maxValueInFlight = Number(object.maxValueInFlight);
+      message.maxValueInFlight = String(object.maxValueInFlight);
     } else {
-      message.maxValueInFlight = 0;
+      message.maxValueInFlight = "0";
     }
     if (object.channelReserve !== undefined && object.channelReserve !== null) {
-      message.channelReserve = Number(object.channelReserve);
+      message.channelReserve = String(object.channelReserve);
     } else {
-      message.channelReserve = 0;
+      message.channelReserve = "0";
     }
     if (object.minHtlc !== undefined && object.minHtlc !== null) {
-      message.minHtlc = Number(object.minHtlc);
+      message.minHtlc = String(object.minHtlc);
     } else {
-      message.minHtlc = 0;
+      message.minHtlc = "0";
     }
     if (object.feePerKw !== undefined && object.feePerKw !== null) {
-      message.feePerKw = Number(object.feePerKw);
+      message.feePerKw = String(object.feePerKw);
     } else {
-      message.feePerKw = 0;
+      message.feePerKw = "0";
     }
     if (object.csvDelay !== undefined && object.csvDelay !== null) {
       message.csvDelay = Number(object.csvDelay);
@@ -5617,17 +5616,17 @@ export const ChannelAcceptRequest = {
     if (object.fundingAmt !== undefined && object.fundingAmt !== null) {
       message.fundingAmt = object.fundingAmt;
     } else {
-      message.fundingAmt = 0;
+      message.fundingAmt = "0";
     }
     if (object.pushAmt !== undefined && object.pushAmt !== null) {
       message.pushAmt = object.pushAmt;
     } else {
-      message.pushAmt = 0;
+      message.pushAmt = "0";
     }
     if (object.dustLimit !== undefined && object.dustLimit !== null) {
       message.dustLimit = object.dustLimit;
     } else {
-      message.dustLimit = 0;
+      message.dustLimit = "0";
     }
     if (
       object.maxValueInFlight !== undefined &&
@@ -5635,22 +5634,22 @@ export const ChannelAcceptRequest = {
     ) {
       message.maxValueInFlight = object.maxValueInFlight;
     } else {
-      message.maxValueInFlight = 0;
+      message.maxValueInFlight = "0";
     }
     if (object.channelReserve !== undefined && object.channelReserve !== null) {
       message.channelReserve = object.channelReserve;
     } else {
-      message.channelReserve = 0;
+      message.channelReserve = "0";
     }
     if (object.minHtlc !== undefined && object.minHtlc !== null) {
       message.minHtlc = object.minHtlc;
     } else {
-      message.minHtlc = 0;
+      message.minHtlc = "0";
     }
     if (object.feePerKw !== undefined && object.feePerKw !== null) {
       message.feePerKw = object.feePerKw;
     } else {
-      message.feePerKw = 0;
+      message.feePerKw = "0";
     }
     if (object.csvDelay !== undefined && object.csvDelay !== null) {
       message.csvDelay = object.csvDelay;
@@ -5679,10 +5678,10 @@ const baseChannelAcceptResponse: object = {
   error: "",
   upfrontShutdown: "",
   csvDelay: 0,
-  reserveSat: 0,
-  inFlightMaxMsat: 0,
+  reserveSat: "0",
+  inFlightMaxMsat: "0",
   maxHtlcCount: 0,
-  minHtlcIn: 0,
+  minHtlcIn: "0",
   minAcceptDepth: 0,
 };
 
@@ -5706,16 +5705,16 @@ export const ChannelAcceptResponse = {
     if (message.csvDelay !== 0) {
       writer.uint32(40).uint32(message.csvDelay);
     }
-    if (message.reserveSat !== 0) {
+    if (message.reserveSat !== "0") {
       writer.uint32(48).uint64(message.reserveSat);
     }
-    if (message.inFlightMaxMsat !== 0) {
+    if (message.inFlightMaxMsat !== "0") {
       writer.uint32(56).uint64(message.inFlightMaxMsat);
     }
     if (message.maxHtlcCount !== 0) {
       writer.uint32(64).uint32(message.maxHtlcCount);
     }
-    if (message.minHtlcIn !== 0) {
+    if (message.minHtlcIn !== "0") {
       writer.uint32(72).uint64(message.minHtlcIn);
     }
     if (message.minAcceptDepth !== 0) {
@@ -5751,16 +5750,16 @@ export const ChannelAcceptResponse = {
           message.csvDelay = reader.uint32();
           break;
         case 6:
-          message.reserveSat = longToNumber(reader.uint64() as Long);
+          message.reserveSat = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.inFlightMaxMsat = longToNumber(reader.uint64() as Long);
+          message.inFlightMaxMsat = longToString(reader.uint64() as Long);
           break;
         case 8:
           message.maxHtlcCount = reader.uint32();
           break;
         case 9:
-          message.minHtlcIn = longToNumber(reader.uint64() as Long);
+          message.minHtlcIn = longToString(reader.uint64() as Long);
           break;
         case 10:
           message.minAcceptDepth = reader.uint32();
@@ -5803,17 +5802,17 @@ export const ChannelAcceptResponse = {
       message.csvDelay = 0;
     }
     if (object.reserveSat !== undefined && object.reserveSat !== null) {
-      message.reserveSat = Number(object.reserveSat);
+      message.reserveSat = String(object.reserveSat);
     } else {
-      message.reserveSat = 0;
+      message.reserveSat = "0";
     }
     if (
       object.inFlightMaxMsat !== undefined &&
       object.inFlightMaxMsat !== null
     ) {
-      message.inFlightMaxMsat = Number(object.inFlightMaxMsat);
+      message.inFlightMaxMsat = String(object.inFlightMaxMsat);
     } else {
-      message.inFlightMaxMsat = 0;
+      message.inFlightMaxMsat = "0";
     }
     if (object.maxHtlcCount !== undefined && object.maxHtlcCount !== null) {
       message.maxHtlcCount = Number(object.maxHtlcCount);
@@ -5821,9 +5820,9 @@ export const ChannelAcceptResponse = {
       message.maxHtlcCount = 0;
     }
     if (object.minHtlcIn !== undefined && object.minHtlcIn !== null) {
-      message.minHtlcIn = Number(object.minHtlcIn);
+      message.minHtlcIn = String(object.minHtlcIn);
     } else {
-      message.minHtlcIn = 0;
+      message.minHtlcIn = "0";
     }
     if (object.minAcceptDepth !== undefined && object.minAcceptDepth !== null) {
       message.minAcceptDepth = Number(object.minAcceptDepth);
@@ -5892,7 +5891,7 @@ export const ChannelAcceptResponse = {
     if (object.reserveSat !== undefined && object.reserveSat !== null) {
       message.reserveSat = object.reserveSat;
     } else {
-      message.reserveSat = 0;
+      message.reserveSat = "0";
     }
     if (
       object.inFlightMaxMsat !== undefined &&
@@ -5900,7 +5899,7 @@ export const ChannelAcceptResponse = {
     ) {
       message.inFlightMaxMsat = object.inFlightMaxMsat;
     } else {
-      message.inFlightMaxMsat = 0;
+      message.inFlightMaxMsat = "0";
     }
     if (object.maxHtlcCount !== undefined && object.maxHtlcCount !== null) {
       message.maxHtlcCount = object.maxHtlcCount;
@@ -5910,7 +5909,7 @@ export const ChannelAcceptResponse = {
     if (object.minHtlcIn !== undefined && object.minHtlcIn !== null) {
       message.minHtlcIn = object.minHtlcIn;
     } else {
-      message.minHtlcIn = 0;
+      message.minHtlcIn = "0";
     }
     if (object.minAcceptDepth !== undefined && object.minAcceptDepth !== null) {
       message.minAcceptDepth = object.minAcceptDepth;
@@ -6262,7 +6261,7 @@ export const EstimateFeeRequest = {
     message.AddrToAmount = {};
     if (object.AddrToAmount !== undefined && object.AddrToAmount !== null) {
       Object.entries(object.AddrToAmount).forEach(([key, value]) => {
-        message.AddrToAmount[key] = Number(value);
+        message.AddrToAmount[key] = String(value);
       });
     }
     if (object.targetConf !== undefined && object.targetConf !== null) {
@@ -6307,7 +6306,7 @@ export const EstimateFeeRequest = {
     if (object.AddrToAmount !== undefined && object.AddrToAmount !== null) {
       Object.entries(object.AddrToAmount).forEach(([key, value]) => {
         if (value !== undefined) {
-          message.AddrToAmount[key] = Number(value);
+          message.AddrToAmount[key] = String(value);
         }
       });
     }
@@ -6333,7 +6332,10 @@ export const EstimateFeeRequest = {
   },
 };
 
-const baseEstimateFeeRequest_AddrToAmountEntry: object = { key: "", value: 0 };
+const baseEstimateFeeRequest_AddrToAmountEntry: object = {
+  key: "",
+  value: "0",
+};
 
 export const EstimateFeeRequest_AddrToAmountEntry = {
   encode(
@@ -6343,7 +6345,7 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== 0) {
+    if (message.value !== "0") {
       writer.uint32(16).int64(message.value);
     }
     return writer;
@@ -6365,7 +6367,7 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
           message.key = reader.string();
           break;
         case 2:
-          message.value = longToNumber(reader.int64() as Long);
+          message.value = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6385,9 +6387,9 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
       message.key = "";
     }
     if (object.value !== undefined && object.value !== null) {
-      message.value = Number(object.value);
+      message.value = String(object.value);
     } else {
-      message.value = 0;
+      message.value = "0";
     }
     return message;
   },
@@ -6413,16 +6415,16 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
     if (object.value !== undefined && object.value !== null) {
       message.value = object.value;
     } else {
-      message.value = 0;
+      message.value = "0";
     }
     return message;
   },
 };
 
 const baseEstimateFeeResponse: object = {
-  feeSat: 0,
-  feerateSatPerByte: 0,
-  satPerVbyte: 0,
+  feeSat: "0",
+  feerateSatPerByte: "0",
+  satPerVbyte: "0",
 };
 
 export const EstimateFeeResponse = {
@@ -6430,13 +6432,13 @@ export const EstimateFeeResponse = {
     message: EstimateFeeResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.feeSat !== 0) {
+    if (message.feeSat !== "0") {
       writer.uint32(8).int64(message.feeSat);
     }
-    if (message.feerateSatPerByte !== 0) {
+    if (message.feerateSatPerByte !== "0") {
       writer.uint32(16).int64(message.feerateSatPerByte);
     }
-    if (message.satPerVbyte !== 0) {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(24).uint64(message.satPerVbyte);
     }
     return writer;
@@ -6450,13 +6452,13 @@ export const EstimateFeeResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.feeSat = longToNumber(reader.int64() as Long);
+          message.feeSat = longToString(reader.int64() as Long);
           break;
         case 2:
-          message.feerateSatPerByte = longToNumber(reader.int64() as Long);
+          message.feerateSatPerByte = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.satPerVbyte = longToNumber(reader.uint64() as Long);
+          message.satPerVbyte = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6469,22 +6471,22 @@ export const EstimateFeeResponse = {
   fromJSON(object: any): EstimateFeeResponse {
     const message = { ...baseEstimateFeeResponse } as EstimateFeeResponse;
     if (object.feeSat !== undefined && object.feeSat !== null) {
-      message.feeSat = Number(object.feeSat);
+      message.feeSat = String(object.feeSat);
     } else {
-      message.feeSat = 0;
+      message.feeSat = "0";
     }
     if (
       object.feerateSatPerByte !== undefined &&
       object.feerateSatPerByte !== null
     ) {
-      message.feerateSatPerByte = Number(object.feerateSatPerByte);
+      message.feerateSatPerByte = String(object.feerateSatPerByte);
     } else {
-      message.feerateSatPerByte = 0;
+      message.feerateSatPerByte = "0";
     }
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
-      message.satPerVbyte = Number(object.satPerVbyte);
+      message.satPerVbyte = String(object.satPerVbyte);
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     return message;
   },
@@ -6504,7 +6506,7 @@ export const EstimateFeeResponse = {
     if (object.feeSat !== undefined && object.feeSat !== null) {
       message.feeSat = object.feeSat;
     } else {
-      message.feeSat = 0;
+      message.feeSat = "0";
     }
     if (
       object.feerateSatPerByte !== undefined &&
@@ -6512,12 +6514,12 @@ export const EstimateFeeResponse = {
     ) {
       message.feerateSatPerByte = object.feerateSatPerByte;
     } else {
-      message.feerateSatPerByte = 0;
+      message.feerateSatPerByte = "0";
     }
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
       message.satPerVbyte = object.satPerVbyte;
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     return message;
   },
@@ -6525,8 +6527,8 @@ export const EstimateFeeResponse = {
 
 const baseSendManyRequest: object = {
   targetConf: 0,
-  satPerVbyte: 0,
-  satPerByte: 0,
+  satPerVbyte: "0",
+  satPerByte: "0",
   label: "",
   minConfs: 0,
   spendUnconfirmed: false,
@@ -6546,10 +6548,10 @@ export const SendManyRequest = {
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerVbyte !== 0) {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(32).uint64(message.satPerVbyte);
     }
-    if (message.satPerByte !== 0) {
+    if (message.satPerByte !== "0") {
       writer.uint32(40).int64(message.satPerByte);
     }
     if (message.label !== "") {
@@ -6585,10 +6587,10 @@ export const SendManyRequest = {
           message.targetConf = reader.int32();
           break;
         case 4:
-          message.satPerVbyte = longToNumber(reader.uint64() as Long);
+          message.satPerVbyte = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.satPerByte = longToNumber(reader.int64() as Long);
+          message.satPerByte = longToString(reader.int64() as Long);
           break;
         case 6:
           message.label = reader.string();
@@ -6612,7 +6614,7 @@ export const SendManyRequest = {
     message.AddrToAmount = {};
     if (object.AddrToAmount !== undefined && object.AddrToAmount !== null) {
       Object.entries(object.AddrToAmount).forEach(([key, value]) => {
-        message.AddrToAmount[key] = Number(value);
+        message.AddrToAmount[key] = String(value);
       });
     }
     if (object.targetConf !== undefined && object.targetConf !== null) {
@@ -6621,14 +6623,14 @@ export const SendManyRequest = {
       message.targetConf = 0;
     }
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
-      message.satPerVbyte = Number(object.satPerVbyte);
+      message.satPerVbyte = String(object.satPerVbyte);
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     if (object.satPerByte !== undefined && object.satPerByte !== null) {
-      message.satPerByte = Number(object.satPerByte);
+      message.satPerByte = String(object.satPerByte);
     } else {
-      message.satPerByte = 0;
+      message.satPerByte = "0";
     }
     if (object.label !== undefined && object.label !== null) {
       message.label = String(object.label);
@@ -6676,7 +6678,7 @@ export const SendManyRequest = {
     if (object.AddrToAmount !== undefined && object.AddrToAmount !== null) {
       Object.entries(object.AddrToAmount).forEach(([key, value]) => {
         if (value !== undefined) {
-          message.AddrToAmount[key] = Number(value);
+          message.AddrToAmount[key] = String(value);
         }
       });
     }
@@ -6688,12 +6690,12 @@ export const SendManyRequest = {
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
       message.satPerVbyte = object.satPerVbyte;
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     if (object.satPerByte !== undefined && object.satPerByte !== null) {
       message.satPerByte = object.satPerByte;
     } else {
-      message.satPerByte = 0;
+      message.satPerByte = "0";
     }
     if (object.label !== undefined && object.label !== null) {
       message.label = object.label;
@@ -6717,7 +6719,7 @@ export const SendManyRequest = {
   },
 };
 
-const baseSendManyRequest_AddrToAmountEntry: object = { key: "", value: 0 };
+const baseSendManyRequest_AddrToAmountEntry: object = { key: "", value: "0" };
 
 export const SendManyRequest_AddrToAmountEntry = {
   encode(
@@ -6727,7 +6729,7 @@ export const SendManyRequest_AddrToAmountEntry = {
     if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== 0) {
+    if (message.value !== "0") {
       writer.uint32(16).int64(message.value);
     }
     return writer;
@@ -6749,7 +6751,7 @@ export const SendManyRequest_AddrToAmountEntry = {
           message.key = reader.string();
           break;
         case 2:
-          message.value = longToNumber(reader.int64() as Long);
+          message.value = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -6769,9 +6771,9 @@ export const SendManyRequest_AddrToAmountEntry = {
       message.key = "";
     }
     if (object.value !== undefined && object.value !== null) {
-      message.value = Number(object.value);
+      message.value = String(object.value);
     } else {
-      message.value = 0;
+      message.value = "0";
     }
     return message;
   },
@@ -6797,7 +6799,7 @@ export const SendManyRequest_AddrToAmountEntry = {
     if (object.value !== undefined && object.value !== null) {
       message.value = object.value;
     } else {
-      message.value = 0;
+      message.value = "0";
     }
     return message;
   },
@@ -6863,10 +6865,10 @@ export const SendManyResponse = {
 
 const baseSendCoinsRequest: object = {
   addr: "",
-  amount: 0,
+  amount: "0",
   targetConf: 0,
-  satPerVbyte: 0,
-  satPerByte: 0,
+  satPerVbyte: "0",
+  satPerByte: "0",
   sendAll: false,
   label: "",
   minConfs: 0,
@@ -6881,16 +6883,16 @@ export const SendCoinsRequest = {
     if (message.addr !== "") {
       writer.uint32(10).string(message.addr);
     }
-    if (message.amount !== 0) {
+    if (message.amount !== "0") {
       writer.uint32(16).int64(message.amount);
     }
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerVbyte !== 0) {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(32).uint64(message.satPerVbyte);
     }
-    if (message.satPerByte !== 0) {
+    if (message.satPerByte !== "0") {
       writer.uint32(40).int64(message.satPerByte);
     }
     if (message.sendAll === true) {
@@ -6919,16 +6921,16 @@ export const SendCoinsRequest = {
           message.addr = reader.string();
           break;
         case 2:
-          message.amount = longToNumber(reader.int64() as Long);
+          message.amount = longToString(reader.int64() as Long);
           break;
         case 3:
           message.targetConf = reader.int32();
           break;
         case 4:
-          message.satPerVbyte = longToNumber(reader.uint64() as Long);
+          message.satPerVbyte = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.satPerByte = longToNumber(reader.int64() as Long);
+          message.satPerByte = longToString(reader.int64() as Long);
           break;
         case 6:
           message.sendAll = reader.bool();
@@ -6958,9 +6960,9 @@ export const SendCoinsRequest = {
       message.addr = "";
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = Number(object.amount);
+      message.amount = String(object.amount);
     } else {
-      message.amount = 0;
+      message.amount = "0";
     }
     if (object.targetConf !== undefined && object.targetConf !== null) {
       message.targetConf = Number(object.targetConf);
@@ -6968,14 +6970,14 @@ export const SendCoinsRequest = {
       message.targetConf = 0;
     }
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
-      message.satPerVbyte = Number(object.satPerVbyte);
+      message.satPerVbyte = String(object.satPerVbyte);
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     if (object.satPerByte !== undefined && object.satPerByte !== null) {
-      message.satPerByte = Number(object.satPerByte);
+      message.satPerByte = String(object.satPerByte);
     } else {
-      message.satPerByte = 0;
+      message.satPerByte = "0";
     }
     if (object.sendAll !== undefined && object.sendAll !== null) {
       message.sendAll = Boolean(object.sendAll);
@@ -7029,7 +7031,7 @@ export const SendCoinsRequest = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = object.amount;
     } else {
-      message.amount = 0;
+      message.amount = "0";
     }
     if (object.targetConf !== undefined && object.targetConf !== null) {
       message.targetConf = object.targetConf;
@@ -7039,12 +7041,12 @@ export const SendCoinsRequest = {
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
       message.satPerVbyte = object.satPerVbyte;
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     if (object.satPerByte !== undefined && object.satPerByte !== null) {
       message.satPerByte = object.satPerByte;
     } else {
-      message.satPerByte = 0;
+      message.satPerByte = "0";
     }
     if (object.sendAll !== undefined && object.sendAll !== null) {
       message.sendAll = object.sendAll;
@@ -7705,7 +7707,7 @@ export const VerifyMessageResponse = {
   },
 };
 
-const baseConnectPeerRequest: object = { perm: false, timeout: 0 };
+const baseConnectPeerRequest: object = { perm: false, timeout: "0" };
 
 export const ConnectPeerRequest = {
   encode(
@@ -7718,7 +7720,7 @@ export const ConnectPeerRequest = {
     if (message.perm === true) {
       writer.uint32(16).bool(message.perm);
     }
-    if (message.timeout !== 0) {
+    if (message.timeout !== "0") {
       writer.uint32(24).uint64(message.timeout);
     }
     return writer;
@@ -7738,7 +7740,7 @@ export const ConnectPeerRequest = {
           message.perm = reader.bool();
           break;
         case 3:
-          message.timeout = longToNumber(reader.uint64() as Long);
+          message.timeout = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -7761,9 +7763,9 @@ export const ConnectPeerRequest = {
       message.perm = false;
     }
     if (object.timeout !== undefined && object.timeout !== null) {
-      message.timeout = Number(object.timeout);
+      message.timeout = String(object.timeout);
     } else {
-      message.timeout = 0;
+      message.timeout = "0";
     }
     return message;
   },
@@ -7794,7 +7796,7 @@ export const ConnectPeerRequest = {
     if (object.timeout !== undefined && object.timeout !== null) {
       message.timeout = object.timeout;
     } else {
-      message.timeout = 0;
+      message.timeout = "0";
     }
     return message;
   },
@@ -7950,11 +7952,11 @@ export const DisconnectPeerResponse = {
 
 const baseHTLC: object = {
   incoming: false,
-  amount: 0,
+  amount: "0",
   expirationHeight: 0,
-  htlcIndex: 0,
-  forwardingChannel: 0,
-  forwardingHtlcIndex: 0,
+  htlcIndex: "0",
+  forwardingChannel: "0",
+  forwardingHtlcIndex: "0",
 };
 
 export const HTLC = {
@@ -7962,7 +7964,7 @@ export const HTLC = {
     if (message.incoming === true) {
       writer.uint32(8).bool(message.incoming);
     }
-    if (message.amount !== 0) {
+    if (message.amount !== "0") {
       writer.uint32(16).int64(message.amount);
     }
     if (message.hashLock.length !== 0) {
@@ -7971,13 +7973,13 @@ export const HTLC = {
     if (message.expirationHeight !== 0) {
       writer.uint32(32).uint32(message.expirationHeight);
     }
-    if (message.htlcIndex !== 0) {
+    if (message.htlcIndex !== "0") {
       writer.uint32(40).uint64(message.htlcIndex);
     }
-    if (message.forwardingChannel !== 0) {
+    if (message.forwardingChannel !== "0") {
       writer.uint32(48).uint64(message.forwardingChannel);
     }
-    if (message.forwardingHtlcIndex !== 0) {
+    if (message.forwardingHtlcIndex !== "0") {
       writer.uint32(56).uint64(message.forwardingHtlcIndex);
     }
     return writer;
@@ -7995,7 +7997,7 @@ export const HTLC = {
           message.incoming = reader.bool();
           break;
         case 2:
-          message.amount = longToNumber(reader.int64() as Long);
+          message.amount = longToString(reader.int64() as Long);
           break;
         case 3:
           message.hashLock = reader.bytes();
@@ -8004,13 +8006,13 @@ export const HTLC = {
           message.expirationHeight = reader.uint32();
           break;
         case 5:
-          message.htlcIndex = longToNumber(reader.uint64() as Long);
+          message.htlcIndex = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.forwardingChannel = longToNumber(reader.uint64() as Long);
+          message.forwardingChannel = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.forwardingHtlcIndex = longToNumber(reader.uint64() as Long);
+          message.forwardingHtlcIndex = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -8029,9 +8031,9 @@ export const HTLC = {
       message.incoming = false;
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = Number(object.amount);
+      message.amount = String(object.amount);
     } else {
-      message.amount = 0;
+      message.amount = "0";
     }
     if (object.hashLock !== undefined && object.hashLock !== null) {
       message.hashLock = bytesFromBase64(object.hashLock);
@@ -8045,25 +8047,25 @@ export const HTLC = {
       message.expirationHeight = 0;
     }
     if (object.htlcIndex !== undefined && object.htlcIndex !== null) {
-      message.htlcIndex = Number(object.htlcIndex);
+      message.htlcIndex = String(object.htlcIndex);
     } else {
-      message.htlcIndex = 0;
+      message.htlcIndex = "0";
     }
     if (
       object.forwardingChannel !== undefined &&
       object.forwardingChannel !== null
     ) {
-      message.forwardingChannel = Number(object.forwardingChannel);
+      message.forwardingChannel = String(object.forwardingChannel);
     } else {
-      message.forwardingChannel = 0;
+      message.forwardingChannel = "0";
     }
     if (
       object.forwardingHtlcIndex !== undefined &&
       object.forwardingHtlcIndex !== null
     ) {
-      message.forwardingHtlcIndex = Number(object.forwardingHtlcIndex);
+      message.forwardingHtlcIndex = String(object.forwardingHtlcIndex);
     } else {
-      message.forwardingHtlcIndex = 0;
+      message.forwardingHtlcIndex = "0";
     }
     return message;
   },
@@ -8096,7 +8098,7 @@ export const HTLC = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = object.amount;
     } else {
-      message.amount = 0;
+      message.amount = "0";
     }
     if (object.hashLock !== undefined && object.hashLock !== null) {
       message.hashLock = object.hashLock;
@@ -8114,7 +8116,7 @@ export const HTLC = {
     if (object.htlcIndex !== undefined && object.htlcIndex !== null) {
       message.htlcIndex = object.htlcIndex;
     } else {
-      message.htlcIndex = 0;
+      message.htlcIndex = "0";
     }
     if (
       object.forwardingChannel !== undefined &&
@@ -8122,7 +8124,7 @@ export const HTLC = {
     ) {
       message.forwardingChannel = object.forwardingChannel;
     } else {
-      message.forwardingChannel = 0;
+      message.forwardingChannel = "0";
     }
     if (
       object.forwardingHtlcIndex !== undefined &&
@@ -8130,7 +8132,7 @@ export const HTLC = {
     ) {
       message.forwardingHtlcIndex = object.forwardingHtlcIndex;
     } else {
-      message.forwardingHtlcIndex = 0;
+      message.forwardingHtlcIndex = "0";
     }
     return message;
   },
@@ -8138,10 +8140,10 @@ export const HTLC = {
 
 const baseChannelConstraints: object = {
   csvDelay: 0,
-  chanReserveSat: 0,
-  dustLimitSat: 0,
-  maxPendingAmtMsat: 0,
-  minHtlcMsat: 0,
+  chanReserveSat: "0",
+  dustLimitSat: "0",
+  maxPendingAmtMsat: "0",
+  minHtlcMsat: "0",
   maxAcceptedHtlcs: 0,
 };
 
@@ -8153,16 +8155,16 @@ export const ChannelConstraints = {
     if (message.csvDelay !== 0) {
       writer.uint32(8).uint32(message.csvDelay);
     }
-    if (message.chanReserveSat !== 0) {
+    if (message.chanReserveSat !== "0") {
       writer.uint32(16).uint64(message.chanReserveSat);
     }
-    if (message.dustLimitSat !== 0) {
+    if (message.dustLimitSat !== "0") {
       writer.uint32(24).uint64(message.dustLimitSat);
     }
-    if (message.maxPendingAmtMsat !== 0) {
+    if (message.maxPendingAmtMsat !== "0") {
       writer.uint32(32).uint64(message.maxPendingAmtMsat);
     }
-    if (message.minHtlcMsat !== 0) {
+    if (message.minHtlcMsat !== "0") {
       writer.uint32(40).uint64(message.minHtlcMsat);
     }
     if (message.maxAcceptedHtlcs !== 0) {
@@ -8182,16 +8184,16 @@ export const ChannelConstraints = {
           message.csvDelay = reader.uint32();
           break;
         case 2:
-          message.chanReserveSat = longToNumber(reader.uint64() as Long);
+          message.chanReserveSat = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.dustLimitSat = longToNumber(reader.uint64() as Long);
+          message.dustLimitSat = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.maxPendingAmtMsat = longToNumber(reader.uint64() as Long);
+          message.maxPendingAmtMsat = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.minHtlcMsat = longToNumber(reader.uint64() as Long);
+          message.minHtlcMsat = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.maxAcceptedHtlcs = reader.uint32();
@@ -8212,27 +8214,27 @@ export const ChannelConstraints = {
       message.csvDelay = 0;
     }
     if (object.chanReserveSat !== undefined && object.chanReserveSat !== null) {
-      message.chanReserveSat = Number(object.chanReserveSat);
+      message.chanReserveSat = String(object.chanReserveSat);
     } else {
-      message.chanReserveSat = 0;
+      message.chanReserveSat = "0";
     }
     if (object.dustLimitSat !== undefined && object.dustLimitSat !== null) {
-      message.dustLimitSat = Number(object.dustLimitSat);
+      message.dustLimitSat = String(object.dustLimitSat);
     } else {
-      message.dustLimitSat = 0;
+      message.dustLimitSat = "0";
     }
     if (
       object.maxPendingAmtMsat !== undefined &&
       object.maxPendingAmtMsat !== null
     ) {
-      message.maxPendingAmtMsat = Number(object.maxPendingAmtMsat);
+      message.maxPendingAmtMsat = String(object.maxPendingAmtMsat);
     } else {
-      message.maxPendingAmtMsat = 0;
+      message.maxPendingAmtMsat = "0";
     }
     if (object.minHtlcMsat !== undefined && object.minHtlcMsat !== null) {
-      message.minHtlcMsat = Number(object.minHtlcMsat);
+      message.minHtlcMsat = String(object.minHtlcMsat);
     } else {
-      message.minHtlcMsat = 0;
+      message.minHtlcMsat = "0";
     }
     if (
       object.maxAcceptedHtlcs !== undefined &&
@@ -8271,12 +8273,12 @@ export const ChannelConstraints = {
     if (object.chanReserveSat !== undefined && object.chanReserveSat !== null) {
       message.chanReserveSat = object.chanReserveSat;
     } else {
-      message.chanReserveSat = 0;
+      message.chanReserveSat = "0";
     }
     if (object.dustLimitSat !== undefined && object.dustLimitSat !== null) {
       message.dustLimitSat = object.dustLimitSat;
     } else {
-      message.dustLimitSat = 0;
+      message.dustLimitSat = "0";
     }
     if (
       object.maxPendingAmtMsat !== undefined &&
@@ -8284,12 +8286,12 @@ export const ChannelConstraints = {
     ) {
       message.maxPendingAmtMsat = object.maxPendingAmtMsat;
     } else {
-      message.maxPendingAmtMsat = 0;
+      message.maxPendingAmtMsat = "0";
     }
     if (object.minHtlcMsat !== undefined && object.minHtlcMsat !== null) {
       message.minHtlcMsat = object.minHtlcMsat;
     } else {
-      message.minHtlcMsat = 0;
+      message.minHtlcMsat = "0";
     }
     if (
       object.maxAcceptedHtlcs !== undefined &&
@@ -8307,29 +8309,29 @@ const baseChannel: object = {
   active: false,
   remotePubkey: "",
   channelPoint: "",
-  chanId: 0,
-  capacity: 0,
-  localBalance: 0,
-  remoteBalance: 0,
-  commitFee: 0,
-  commitWeight: 0,
-  feePerKw: 0,
-  unsettledBalance: 0,
-  totalSatoshisSent: 0,
-  totalSatoshisReceived: 0,
-  numUpdates: 0,
+  chanId: "0",
+  capacity: "0",
+  localBalance: "0",
+  remoteBalance: "0",
+  commitFee: "0",
+  commitWeight: "0",
+  feePerKw: "0",
+  unsettledBalance: "0",
+  totalSatoshisSent: "0",
+  totalSatoshisReceived: "0",
+  numUpdates: "0",
   csvDelay: 0,
   private: false,
   initiator: false,
   chanStatusFlags: "",
-  localChanReserveSat: 0,
-  remoteChanReserveSat: 0,
+  localChanReserveSat: "0",
+  remoteChanReserveSat: "0",
   staticRemoteKey: false,
   commitmentType: 0,
-  lifetime: 0,
-  uptime: 0,
+  lifetime: "0",
+  uptime: "0",
   closeAddress: "",
-  pushAmountSat: 0,
+  pushAmountSat: "0",
   thawHeight: 0,
 };
 
@@ -8347,37 +8349,37 @@ export const Channel = {
     if (message.channelPoint !== "") {
       writer.uint32(26).string(message.channelPoint);
     }
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(32).uint64(message.chanId);
     }
-    if (message.capacity !== 0) {
+    if (message.capacity !== "0") {
       writer.uint32(40).int64(message.capacity);
     }
-    if (message.localBalance !== 0) {
+    if (message.localBalance !== "0") {
       writer.uint32(48).int64(message.localBalance);
     }
-    if (message.remoteBalance !== 0) {
+    if (message.remoteBalance !== "0") {
       writer.uint32(56).int64(message.remoteBalance);
     }
-    if (message.commitFee !== 0) {
+    if (message.commitFee !== "0") {
       writer.uint32(64).int64(message.commitFee);
     }
-    if (message.commitWeight !== 0) {
+    if (message.commitWeight !== "0") {
       writer.uint32(72).int64(message.commitWeight);
     }
-    if (message.feePerKw !== 0) {
+    if (message.feePerKw !== "0") {
       writer.uint32(80).int64(message.feePerKw);
     }
-    if (message.unsettledBalance !== 0) {
+    if (message.unsettledBalance !== "0") {
       writer.uint32(88).int64(message.unsettledBalance);
     }
-    if (message.totalSatoshisSent !== 0) {
+    if (message.totalSatoshisSent !== "0") {
       writer.uint32(96).int64(message.totalSatoshisSent);
     }
-    if (message.totalSatoshisReceived !== 0) {
+    if (message.totalSatoshisReceived !== "0") {
       writer.uint32(104).int64(message.totalSatoshisReceived);
     }
-    if (message.numUpdates !== 0) {
+    if (message.numUpdates !== "0") {
       writer.uint32(112).uint64(message.numUpdates);
     }
     for (const v of message.pendingHtlcs) {
@@ -8395,10 +8397,10 @@ export const Channel = {
     if (message.chanStatusFlags !== "") {
       writer.uint32(154).string(message.chanStatusFlags);
     }
-    if (message.localChanReserveSat !== 0) {
+    if (message.localChanReserveSat !== "0") {
       writer.uint32(160).int64(message.localChanReserveSat);
     }
-    if (message.remoteChanReserveSat !== 0) {
+    if (message.remoteChanReserveSat !== "0") {
       writer.uint32(168).int64(message.remoteChanReserveSat);
     }
     if (message.staticRemoteKey === true) {
@@ -8407,16 +8409,16 @@ export const Channel = {
     if (message.commitmentType !== 0) {
       writer.uint32(208).int32(message.commitmentType);
     }
-    if (message.lifetime !== 0) {
+    if (message.lifetime !== "0") {
       writer.uint32(184).int64(message.lifetime);
     }
-    if (message.uptime !== 0) {
+    if (message.uptime !== "0") {
       writer.uint32(192).int64(message.uptime);
     }
     if (message.closeAddress !== "") {
       writer.uint32(202).string(message.closeAddress);
     }
-    if (message.pushAmountSat !== 0) {
+    if (message.pushAmountSat !== "0") {
       writer.uint32(216).uint64(message.pushAmountSat);
     }
     if (message.thawHeight !== 0) {
@@ -8455,37 +8457,37 @@ export const Channel = {
           message.channelPoint = reader.string();
           break;
         case 4:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.capacity = longToNumber(reader.int64() as Long);
+          message.capacity = longToString(reader.int64() as Long);
           break;
         case 6:
-          message.localBalance = longToNumber(reader.int64() as Long);
+          message.localBalance = longToString(reader.int64() as Long);
           break;
         case 7:
-          message.remoteBalance = longToNumber(reader.int64() as Long);
+          message.remoteBalance = longToString(reader.int64() as Long);
           break;
         case 8:
-          message.commitFee = longToNumber(reader.int64() as Long);
+          message.commitFee = longToString(reader.int64() as Long);
           break;
         case 9:
-          message.commitWeight = longToNumber(reader.int64() as Long);
+          message.commitWeight = longToString(reader.int64() as Long);
           break;
         case 10:
-          message.feePerKw = longToNumber(reader.int64() as Long);
+          message.feePerKw = longToString(reader.int64() as Long);
           break;
         case 11:
-          message.unsettledBalance = longToNumber(reader.int64() as Long);
+          message.unsettledBalance = longToString(reader.int64() as Long);
           break;
         case 12:
-          message.totalSatoshisSent = longToNumber(reader.int64() as Long);
+          message.totalSatoshisSent = longToString(reader.int64() as Long);
           break;
         case 13:
-          message.totalSatoshisReceived = longToNumber(reader.int64() as Long);
+          message.totalSatoshisReceived = longToString(reader.int64() as Long);
           break;
         case 14:
-          message.numUpdates = longToNumber(reader.uint64() as Long);
+          message.numUpdates = longToString(reader.uint64() as Long);
           break;
         case 15:
           message.pendingHtlcs.push(HTLC.decode(reader, reader.uint32()));
@@ -8503,10 +8505,10 @@ export const Channel = {
           message.chanStatusFlags = reader.string();
           break;
         case 20:
-          message.localChanReserveSat = longToNumber(reader.int64() as Long);
+          message.localChanReserveSat = longToString(reader.int64() as Long);
           break;
         case 21:
-          message.remoteChanReserveSat = longToNumber(reader.int64() as Long);
+          message.remoteChanReserveSat = longToString(reader.int64() as Long);
           break;
         case 22:
           message.staticRemoteKey = reader.bool();
@@ -8515,16 +8517,16 @@ export const Channel = {
           message.commitmentType = reader.int32() as any;
           break;
         case 23:
-          message.lifetime = longToNumber(reader.int64() as Long);
+          message.lifetime = longToString(reader.int64() as Long);
           break;
         case 24:
-          message.uptime = longToNumber(reader.int64() as Long);
+          message.uptime = longToString(reader.int64() as Long);
           break;
         case 25:
           message.closeAddress = reader.string();
           break;
         case 27:
-          message.pushAmountSat = longToNumber(reader.uint64() as Long);
+          message.pushAmountSat = longToString(reader.uint64() as Long);
           break;
         case 28:
           message.thawHeight = reader.uint32();
@@ -8568,68 +8570,68 @@ export const Channel = {
       message.channelPoint = "";
     }
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.capacity !== undefined && object.capacity !== null) {
-      message.capacity = Number(object.capacity);
+      message.capacity = String(object.capacity);
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.localBalance !== undefined && object.localBalance !== null) {
-      message.localBalance = Number(object.localBalance);
+      message.localBalance = String(object.localBalance);
     } else {
-      message.localBalance = 0;
+      message.localBalance = "0";
     }
     if (object.remoteBalance !== undefined && object.remoteBalance !== null) {
-      message.remoteBalance = Number(object.remoteBalance);
+      message.remoteBalance = String(object.remoteBalance);
     } else {
-      message.remoteBalance = 0;
+      message.remoteBalance = "0";
     }
     if (object.commitFee !== undefined && object.commitFee !== null) {
-      message.commitFee = Number(object.commitFee);
+      message.commitFee = String(object.commitFee);
     } else {
-      message.commitFee = 0;
+      message.commitFee = "0";
     }
     if (object.commitWeight !== undefined && object.commitWeight !== null) {
-      message.commitWeight = Number(object.commitWeight);
+      message.commitWeight = String(object.commitWeight);
     } else {
-      message.commitWeight = 0;
+      message.commitWeight = "0";
     }
     if (object.feePerKw !== undefined && object.feePerKw !== null) {
-      message.feePerKw = Number(object.feePerKw);
+      message.feePerKw = String(object.feePerKw);
     } else {
-      message.feePerKw = 0;
+      message.feePerKw = "0";
     }
     if (
       object.unsettledBalance !== undefined &&
       object.unsettledBalance !== null
     ) {
-      message.unsettledBalance = Number(object.unsettledBalance);
+      message.unsettledBalance = String(object.unsettledBalance);
     } else {
-      message.unsettledBalance = 0;
+      message.unsettledBalance = "0";
     }
     if (
       object.totalSatoshisSent !== undefined &&
       object.totalSatoshisSent !== null
     ) {
-      message.totalSatoshisSent = Number(object.totalSatoshisSent);
+      message.totalSatoshisSent = String(object.totalSatoshisSent);
     } else {
-      message.totalSatoshisSent = 0;
+      message.totalSatoshisSent = "0";
     }
     if (
       object.totalSatoshisReceived !== undefined &&
       object.totalSatoshisReceived !== null
     ) {
-      message.totalSatoshisReceived = Number(object.totalSatoshisReceived);
+      message.totalSatoshisReceived = String(object.totalSatoshisReceived);
     } else {
-      message.totalSatoshisReceived = 0;
+      message.totalSatoshisReceived = "0";
     }
     if (object.numUpdates !== undefined && object.numUpdates !== null) {
-      message.numUpdates = Number(object.numUpdates);
+      message.numUpdates = String(object.numUpdates);
     } else {
-      message.numUpdates = 0;
+      message.numUpdates = "0";
     }
     if (object.pendingHtlcs !== undefined && object.pendingHtlcs !== null) {
       for (const e of object.pendingHtlcs) {
@@ -8663,17 +8665,17 @@ export const Channel = {
       object.localChanReserveSat !== undefined &&
       object.localChanReserveSat !== null
     ) {
-      message.localChanReserveSat = Number(object.localChanReserveSat);
+      message.localChanReserveSat = String(object.localChanReserveSat);
     } else {
-      message.localChanReserveSat = 0;
+      message.localChanReserveSat = "0";
     }
     if (
       object.remoteChanReserveSat !== undefined &&
       object.remoteChanReserveSat !== null
     ) {
-      message.remoteChanReserveSat = Number(object.remoteChanReserveSat);
+      message.remoteChanReserveSat = String(object.remoteChanReserveSat);
     } else {
-      message.remoteChanReserveSat = 0;
+      message.remoteChanReserveSat = "0";
     }
     if (
       object.staticRemoteKey !== undefined &&
@@ -8689,14 +8691,14 @@ export const Channel = {
       message.commitmentType = 0;
     }
     if (object.lifetime !== undefined && object.lifetime !== null) {
-      message.lifetime = Number(object.lifetime);
+      message.lifetime = String(object.lifetime);
     } else {
-      message.lifetime = 0;
+      message.lifetime = "0";
     }
     if (object.uptime !== undefined && object.uptime !== null) {
-      message.uptime = Number(object.uptime);
+      message.uptime = String(object.uptime);
     } else {
-      message.uptime = 0;
+      message.uptime = "0";
     }
     if (object.closeAddress !== undefined && object.closeAddress !== null) {
       message.closeAddress = String(object.closeAddress);
@@ -8704,9 +8706,9 @@ export const Channel = {
       message.closeAddress = "";
     }
     if (object.pushAmountSat !== undefined && object.pushAmountSat !== null) {
-      message.pushAmountSat = Number(object.pushAmountSat);
+      message.pushAmountSat = String(object.pushAmountSat);
     } else {
-      message.pushAmountSat = 0;
+      message.pushAmountSat = "0";
     }
     if (object.thawHeight !== undefined && object.thawHeight !== null) {
       message.thawHeight = Number(object.thawHeight);
@@ -8819,37 +8821,37 @@ export const Channel = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.capacity !== undefined && object.capacity !== null) {
       message.capacity = object.capacity;
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.localBalance !== undefined && object.localBalance !== null) {
       message.localBalance = object.localBalance;
     } else {
-      message.localBalance = 0;
+      message.localBalance = "0";
     }
     if (object.remoteBalance !== undefined && object.remoteBalance !== null) {
       message.remoteBalance = object.remoteBalance;
     } else {
-      message.remoteBalance = 0;
+      message.remoteBalance = "0";
     }
     if (object.commitFee !== undefined && object.commitFee !== null) {
       message.commitFee = object.commitFee;
     } else {
-      message.commitFee = 0;
+      message.commitFee = "0";
     }
     if (object.commitWeight !== undefined && object.commitWeight !== null) {
       message.commitWeight = object.commitWeight;
     } else {
-      message.commitWeight = 0;
+      message.commitWeight = "0";
     }
     if (object.feePerKw !== undefined && object.feePerKw !== null) {
       message.feePerKw = object.feePerKw;
     } else {
-      message.feePerKw = 0;
+      message.feePerKw = "0";
     }
     if (
       object.unsettledBalance !== undefined &&
@@ -8857,7 +8859,7 @@ export const Channel = {
     ) {
       message.unsettledBalance = object.unsettledBalance;
     } else {
-      message.unsettledBalance = 0;
+      message.unsettledBalance = "0";
     }
     if (
       object.totalSatoshisSent !== undefined &&
@@ -8865,7 +8867,7 @@ export const Channel = {
     ) {
       message.totalSatoshisSent = object.totalSatoshisSent;
     } else {
-      message.totalSatoshisSent = 0;
+      message.totalSatoshisSent = "0";
     }
     if (
       object.totalSatoshisReceived !== undefined &&
@@ -8873,12 +8875,12 @@ export const Channel = {
     ) {
       message.totalSatoshisReceived = object.totalSatoshisReceived;
     } else {
-      message.totalSatoshisReceived = 0;
+      message.totalSatoshisReceived = "0";
     }
     if (object.numUpdates !== undefined && object.numUpdates !== null) {
       message.numUpdates = object.numUpdates;
     } else {
-      message.numUpdates = 0;
+      message.numUpdates = "0";
     }
     if (object.pendingHtlcs !== undefined && object.pendingHtlcs !== null) {
       for (const e of object.pendingHtlcs) {
@@ -8914,7 +8916,7 @@ export const Channel = {
     ) {
       message.localChanReserveSat = object.localChanReserveSat;
     } else {
-      message.localChanReserveSat = 0;
+      message.localChanReserveSat = "0";
     }
     if (
       object.remoteChanReserveSat !== undefined &&
@@ -8922,7 +8924,7 @@ export const Channel = {
     ) {
       message.remoteChanReserveSat = object.remoteChanReserveSat;
     } else {
-      message.remoteChanReserveSat = 0;
+      message.remoteChanReserveSat = "0";
     }
     if (
       object.staticRemoteKey !== undefined &&
@@ -8940,12 +8942,12 @@ export const Channel = {
     if (object.lifetime !== undefined && object.lifetime !== null) {
       message.lifetime = object.lifetime;
     } else {
-      message.lifetime = 0;
+      message.lifetime = "0";
     }
     if (object.uptime !== undefined && object.uptime !== null) {
       message.uptime = object.uptime;
     } else {
-      message.uptime = 0;
+      message.uptime = "0";
     }
     if (object.closeAddress !== undefined && object.closeAddress !== null) {
       message.closeAddress = object.closeAddress;
@@ -8955,7 +8957,7 @@ export const Channel = {
     if (object.pushAmountSat !== undefined && object.pushAmountSat !== null) {
       message.pushAmountSat = object.pushAmountSat;
     } else {
-      message.pushAmountSat = 0;
+      message.pushAmountSat = "0";
     }
     if (object.thawHeight !== undefined && object.thawHeight !== null) {
       message.thawHeight = object.thawHeight;
@@ -9194,14 +9196,14 @@ export const ListChannelsResponse = {
 
 const baseChannelCloseSummary: object = {
   channelPoint: "",
-  chanId: 0,
+  chanId: "0",
   chainHash: "",
   closingTxHash: "",
   remotePubkey: "",
-  capacity: 0,
+  capacity: "0",
   closeHeight: 0,
-  settledBalance: 0,
-  timeLockedBalance: 0,
+  settledBalance: "0",
+  timeLockedBalance: "0",
   closeType: 0,
   openInitiator: 0,
   closeInitiator: 0,
@@ -9215,7 +9217,7 @@ export const ChannelCloseSummary = {
     if (message.channelPoint !== "") {
       writer.uint32(10).string(message.channelPoint);
     }
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(16).uint64(message.chanId);
     }
     if (message.chainHash !== "") {
@@ -9227,16 +9229,16 @@ export const ChannelCloseSummary = {
     if (message.remotePubkey !== "") {
       writer.uint32(42).string(message.remotePubkey);
     }
-    if (message.capacity !== 0) {
+    if (message.capacity !== "0") {
       writer.uint32(48).int64(message.capacity);
     }
     if (message.closeHeight !== 0) {
       writer.uint32(56).uint32(message.closeHeight);
     }
-    if (message.settledBalance !== 0) {
+    if (message.settledBalance !== "0") {
       writer.uint32(64).int64(message.settledBalance);
     }
-    if (message.timeLockedBalance !== 0) {
+    if (message.timeLockedBalance !== "0") {
       writer.uint32(72).int64(message.timeLockedBalance);
     }
     if (message.closeType !== 0) {
@@ -9266,7 +9268,7 @@ export const ChannelCloseSummary = {
           message.channelPoint = reader.string();
           break;
         case 2:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.chainHash = reader.string();
@@ -9278,16 +9280,16 @@ export const ChannelCloseSummary = {
           message.remotePubkey = reader.string();
           break;
         case 6:
-          message.capacity = longToNumber(reader.int64() as Long);
+          message.capacity = longToString(reader.int64() as Long);
           break;
         case 7:
           message.closeHeight = reader.uint32();
           break;
         case 8:
-          message.settledBalance = longToNumber(reader.int64() as Long);
+          message.settledBalance = longToString(reader.int64() as Long);
           break;
         case 9:
-          message.timeLockedBalance = longToNumber(reader.int64() as Long);
+          message.timeLockedBalance = longToString(reader.int64() as Long);
           break;
         case 10:
           message.closeType = reader.int32() as any;
@@ -9318,9 +9320,9 @@ export const ChannelCloseSummary = {
       message.channelPoint = "";
     }
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.chainHash !== undefined && object.chainHash !== null) {
       message.chainHash = String(object.chainHash);
@@ -9338,9 +9340,9 @@ export const ChannelCloseSummary = {
       message.remotePubkey = "";
     }
     if (object.capacity !== undefined && object.capacity !== null) {
-      message.capacity = Number(object.capacity);
+      message.capacity = String(object.capacity);
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.closeHeight !== undefined && object.closeHeight !== null) {
       message.closeHeight = Number(object.closeHeight);
@@ -9348,17 +9350,17 @@ export const ChannelCloseSummary = {
       message.closeHeight = 0;
     }
     if (object.settledBalance !== undefined && object.settledBalance !== null) {
-      message.settledBalance = Number(object.settledBalance);
+      message.settledBalance = String(object.settledBalance);
     } else {
-      message.settledBalance = 0;
+      message.settledBalance = "0";
     }
     if (
       object.timeLockedBalance !== undefined &&
       object.timeLockedBalance !== null
     ) {
-      message.timeLockedBalance = Number(object.timeLockedBalance);
+      message.timeLockedBalance = String(object.timeLockedBalance);
     } else {
-      message.timeLockedBalance = 0;
+      message.timeLockedBalance = "0";
     }
     if (object.closeType !== undefined && object.closeType !== null) {
       message.closeType = channelCloseSummary_ClosureTypeFromJSON(
@@ -9431,7 +9433,7 @@ export const ChannelCloseSummary = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.chainHash !== undefined && object.chainHash !== null) {
       message.chainHash = object.chainHash;
@@ -9451,7 +9453,7 @@ export const ChannelCloseSummary = {
     if (object.capacity !== undefined && object.capacity !== null) {
       message.capacity = object.capacity;
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.closeHeight !== undefined && object.closeHeight !== null) {
       message.closeHeight = object.closeHeight;
@@ -9461,7 +9463,7 @@ export const ChannelCloseSummary = {
     if (object.settledBalance !== undefined && object.settledBalance !== null) {
       message.settledBalance = object.settledBalance;
     } else {
-      message.settledBalance = 0;
+      message.settledBalance = "0";
     }
     if (
       object.timeLockedBalance !== undefined &&
@@ -9469,7 +9471,7 @@ export const ChannelCloseSummary = {
     ) {
       message.timeLockedBalance = object.timeLockedBalance;
     } else {
-      message.timeLockedBalance = 0;
+      message.timeLockedBalance = "0";
     }
     if (object.closeType !== undefined && object.closeType !== null) {
       message.closeType = object.closeType;
@@ -9498,7 +9500,7 @@ export const ChannelCloseSummary = {
 const baseResolution: object = {
   resolutionType: 0,
   outcome: 0,
-  amountSat: 0,
+  amountSat: "0",
   sweepTxid: "",
 };
 
@@ -9516,7 +9518,7 @@ export const Resolution = {
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(26).fork()).ldelim();
     }
-    if (message.amountSat !== 0) {
+    if (message.amountSat !== "0") {
       writer.uint32(32).uint64(message.amountSat);
     }
     if (message.sweepTxid !== "") {
@@ -9542,7 +9544,7 @@ export const Resolution = {
           message.outpoint = OutPoint.decode(reader, reader.uint32());
           break;
         case 4:
-          message.amountSat = longToNumber(reader.uint64() as Long);
+          message.amountSat = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.sweepTxid = reader.string();
@@ -9573,9 +9575,9 @@ export const Resolution = {
       message.outpoint = undefined;
     }
     if (object.amountSat !== undefined && object.amountSat !== null) {
-      message.amountSat = Number(object.amountSat);
+      message.amountSat = String(object.amountSat);
     } else {
-      message.amountSat = 0;
+      message.amountSat = "0";
     }
     if (object.sweepTxid !== undefined && object.sweepTxid !== null) {
       message.sweepTxid = String(object.sweepTxid);
@@ -9620,7 +9622,7 @@ export const Resolution = {
     if (object.amountSat !== undefined && object.amountSat !== null) {
       message.amountSat = object.amountSat;
     } else {
-      message.amountSat = 0;
+      message.amountSat = "0";
     }
     if (object.sweepTxid !== undefined && object.sweepTxid !== null) {
       message.sweepTxid = object.sweepTxid;
@@ -9872,15 +9874,15 @@ export const ClosedChannelsResponse = {
 const basePeer: object = {
   pubKey: "",
   address: "",
-  bytesSent: 0,
-  bytesRecv: 0,
-  satSent: 0,
-  satRecv: 0,
+  bytesSent: "0",
+  bytesRecv: "0",
+  satSent: "0",
+  satRecv: "0",
   inbound: false,
-  pingTime: 0,
+  pingTime: "0",
   syncType: 0,
   flapCount: 0,
-  lastFlapNs: 0,
+  lastFlapNs: "0",
 };
 
 export const Peer = {
@@ -9891,22 +9893,22 @@ export const Peer = {
     if (message.address !== "") {
       writer.uint32(26).string(message.address);
     }
-    if (message.bytesSent !== 0) {
+    if (message.bytesSent !== "0") {
       writer.uint32(32).uint64(message.bytesSent);
     }
-    if (message.bytesRecv !== 0) {
+    if (message.bytesRecv !== "0") {
       writer.uint32(40).uint64(message.bytesRecv);
     }
-    if (message.satSent !== 0) {
+    if (message.satSent !== "0") {
       writer.uint32(48).int64(message.satSent);
     }
-    if (message.satRecv !== 0) {
+    if (message.satRecv !== "0") {
       writer.uint32(56).int64(message.satRecv);
     }
     if (message.inbound === true) {
       writer.uint32(64).bool(message.inbound);
     }
-    if (message.pingTime !== 0) {
+    if (message.pingTime !== "0") {
       writer.uint32(72).int64(message.pingTime);
     }
     if (message.syncType !== 0) {
@@ -9924,7 +9926,7 @@ export const Peer = {
     if (message.flapCount !== 0) {
       writer.uint32(104).int32(message.flapCount);
     }
-    if (message.lastFlapNs !== 0) {
+    if (message.lastFlapNs !== "0") {
       writer.uint32(112).int64(message.lastFlapNs);
     }
     return writer;
@@ -9946,22 +9948,22 @@ export const Peer = {
           message.address = reader.string();
           break;
         case 4:
-          message.bytesSent = longToNumber(reader.uint64() as Long);
+          message.bytesSent = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.bytesRecv = longToNumber(reader.uint64() as Long);
+          message.bytesRecv = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.satSent = longToNumber(reader.int64() as Long);
+          message.satSent = longToString(reader.int64() as Long);
           break;
         case 7:
-          message.satRecv = longToNumber(reader.int64() as Long);
+          message.satRecv = longToString(reader.int64() as Long);
           break;
         case 8:
           message.inbound = reader.bool();
           break;
         case 9:
-          message.pingTime = longToNumber(reader.int64() as Long);
+          message.pingTime = longToString(reader.int64() as Long);
           break;
         case 10:
           message.syncType = reader.int32() as any;
@@ -9979,7 +9981,7 @@ export const Peer = {
           message.flapCount = reader.int32();
           break;
         case 14:
-          message.lastFlapNs = longToNumber(reader.int64() as Long);
+          message.lastFlapNs = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -10004,24 +10006,24 @@ export const Peer = {
       message.address = "";
     }
     if (object.bytesSent !== undefined && object.bytesSent !== null) {
-      message.bytesSent = Number(object.bytesSent);
+      message.bytesSent = String(object.bytesSent);
     } else {
-      message.bytesSent = 0;
+      message.bytesSent = "0";
     }
     if (object.bytesRecv !== undefined && object.bytesRecv !== null) {
-      message.bytesRecv = Number(object.bytesRecv);
+      message.bytesRecv = String(object.bytesRecv);
     } else {
-      message.bytesRecv = 0;
+      message.bytesRecv = "0";
     }
     if (object.satSent !== undefined && object.satSent !== null) {
-      message.satSent = Number(object.satSent);
+      message.satSent = String(object.satSent);
     } else {
-      message.satSent = 0;
+      message.satSent = "0";
     }
     if (object.satRecv !== undefined && object.satRecv !== null) {
-      message.satRecv = Number(object.satRecv);
+      message.satRecv = String(object.satRecv);
     } else {
-      message.satRecv = 0;
+      message.satRecv = "0";
     }
     if (object.inbound !== undefined && object.inbound !== null) {
       message.inbound = Boolean(object.inbound);
@@ -10029,9 +10031,9 @@ export const Peer = {
       message.inbound = false;
     }
     if (object.pingTime !== undefined && object.pingTime !== null) {
-      message.pingTime = Number(object.pingTime);
+      message.pingTime = String(object.pingTime);
     } else {
-      message.pingTime = 0;
+      message.pingTime = "0";
     }
     if (object.syncType !== undefined && object.syncType !== null) {
       message.syncType = peer_SyncTypeFromJSON(object.syncType);
@@ -10054,9 +10056,9 @@ export const Peer = {
       message.flapCount = 0;
     }
     if (object.lastFlapNs !== undefined && object.lastFlapNs !== null) {
-      message.lastFlapNs = Number(object.lastFlapNs);
+      message.lastFlapNs = String(object.lastFlapNs);
     } else {
-      message.lastFlapNs = 0;
+      message.lastFlapNs = "0";
     }
     return message;
   },
@@ -10108,22 +10110,22 @@ export const Peer = {
     if (object.bytesSent !== undefined && object.bytesSent !== null) {
       message.bytesSent = object.bytesSent;
     } else {
-      message.bytesSent = 0;
+      message.bytesSent = "0";
     }
     if (object.bytesRecv !== undefined && object.bytesRecv !== null) {
       message.bytesRecv = object.bytesRecv;
     } else {
-      message.bytesRecv = 0;
+      message.bytesRecv = "0";
     }
     if (object.satSent !== undefined && object.satSent !== null) {
       message.satSent = object.satSent;
     } else {
-      message.satSent = 0;
+      message.satSent = "0";
     }
     if (object.satRecv !== undefined && object.satRecv !== null) {
       message.satRecv = object.satRecv;
     } else {
-      message.satRecv = 0;
+      message.satRecv = "0";
     }
     if (object.inbound !== undefined && object.inbound !== null) {
       message.inbound = object.inbound;
@@ -10133,7 +10135,7 @@ export const Peer = {
     if (object.pingTime !== undefined && object.pingTime !== null) {
       message.pingTime = object.pingTime;
     } else {
-      message.pingTime = 0;
+      message.pingTime = "0";
     }
     if (object.syncType !== undefined && object.syncType !== null) {
       message.syncType = object.syncType;
@@ -10160,7 +10162,7 @@ export const Peer = {
     if (object.lastFlapNs !== undefined && object.lastFlapNs !== null) {
       message.lastFlapNs = object.lastFlapNs;
     } else {
-      message.lastFlapNs = 0;
+      message.lastFlapNs = "0";
     }
     return message;
   },
@@ -10242,14 +10244,14 @@ export const Peer_FeaturesEntry = {
   },
 };
 
-const baseTimestampedError: object = { timestamp: 0, error: "" };
+const baseTimestampedError: object = { timestamp: "0", error: "" };
 
 export const TimestampedError = {
   encode(
     message: TimestampedError,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.timestamp !== 0) {
+    if (message.timestamp !== "0") {
       writer.uint32(8).uint64(message.timestamp);
     }
     if (message.error !== "") {
@@ -10266,7 +10268,7 @@ export const TimestampedError = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.timestamp = longToNumber(reader.uint64() as Long);
+          message.timestamp = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.error = reader.string();
@@ -10282,9 +10284,9 @@ export const TimestampedError = {
   fromJSON(object: any): TimestampedError {
     const message = { ...baseTimestampedError } as TimestampedError;
     if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Number(object.timestamp);
+      message.timestamp = String(object.timestamp);
     } else {
-      message.timestamp = 0;
+      message.timestamp = "0";
     }
     if (object.error !== undefined && object.error !== null) {
       message.error = String(object.error);
@@ -10306,7 +10308,7 @@ export const TimestampedError = {
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = object.timestamp;
     } else {
-      message.timestamp = 0;
+      message.timestamp = "0";
     }
     if (object.error !== undefined && object.error !== null) {
       message.error = object.error;
@@ -10614,7 +10616,7 @@ const baseGetInfoResponse: object = {
   numPeers: 0,
   blockHeight: 0,
   blockHash: "",
-  bestHeaderTimestamp: 0,
+  bestHeaderTimestamp: "0",
   syncedToChain: false,
   syncedToGraph: false,
   testnet: false,
@@ -10659,7 +10661,7 @@ export const GetInfoResponse = {
     if (message.blockHash !== "") {
       writer.uint32(66).string(message.blockHash);
     }
-    if (message.bestHeaderTimestamp !== 0) {
+    if (message.bestHeaderTimestamp !== "0") {
       writer.uint32(104).int64(message.bestHeaderTimestamp);
     }
     if (message.syncedToChain === true) {
@@ -10730,7 +10732,7 @@ export const GetInfoResponse = {
           message.blockHash = reader.string();
           break;
         case 13:
-          message.bestHeaderTimestamp = longToNumber(reader.int64() as Long);
+          message.bestHeaderTimestamp = longToString(reader.int64() as Long);
           break;
         case 9:
           message.syncedToChain = reader.bool();
@@ -10837,9 +10839,9 @@ export const GetInfoResponse = {
       object.bestHeaderTimestamp !== undefined &&
       object.bestHeaderTimestamp !== null
     ) {
-      message.bestHeaderTimestamp = Number(object.bestHeaderTimestamp);
+      message.bestHeaderTimestamp = String(object.bestHeaderTimestamp);
     } else {
-      message.bestHeaderTimestamp = 0;
+      message.bestHeaderTimestamp = "0";
     }
     if (object.syncedToChain !== undefined && object.syncedToChain !== null) {
       message.syncedToChain = Boolean(object.syncedToChain);
@@ -10993,7 +10995,7 @@ export const GetInfoResponse = {
     ) {
       message.bestHeaderTimestamp = object.bestHeaderTimestamp;
     } else {
-      message.bestHeaderTimestamp = 0;
+      message.bestHeaderTimestamp = "0";
     }
     if (object.syncedToChain !== undefined && object.syncedToChain !== null) {
       message.syncedToChain = object.syncedToChain;
@@ -11593,9 +11595,9 @@ export const ChannelCloseUpdate = {
 const baseCloseChannelRequest: object = {
   force: false,
   targetConf: 0,
-  satPerByte: 0,
+  satPerByte: "0",
   deliveryAddress: "",
-  satPerVbyte: 0,
+  satPerVbyte: "0",
 };
 
 export const CloseChannelRequest = {
@@ -11615,13 +11617,13 @@ export const CloseChannelRequest = {
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerByte !== 0) {
+    if (message.satPerByte !== "0") {
       writer.uint32(32).int64(message.satPerByte);
     }
     if (message.deliveryAddress !== "") {
       writer.uint32(42).string(message.deliveryAddress);
     }
-    if (message.satPerVbyte !== 0) {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(48).uint64(message.satPerVbyte);
     }
     return writer;
@@ -11644,13 +11646,13 @@ export const CloseChannelRequest = {
           message.targetConf = reader.int32();
           break;
         case 4:
-          message.satPerByte = longToNumber(reader.int64() as Long);
+          message.satPerByte = longToString(reader.int64() as Long);
           break;
         case 5:
           message.deliveryAddress = reader.string();
           break;
         case 6:
-          message.satPerVbyte = longToNumber(reader.uint64() as Long);
+          message.satPerVbyte = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -11678,9 +11680,9 @@ export const CloseChannelRequest = {
       message.targetConf = 0;
     }
     if (object.satPerByte !== undefined && object.satPerByte !== null) {
-      message.satPerByte = Number(object.satPerByte);
+      message.satPerByte = String(object.satPerByte);
     } else {
-      message.satPerByte = 0;
+      message.satPerByte = "0";
     }
     if (
       object.deliveryAddress !== undefined &&
@@ -11691,9 +11693,9 @@ export const CloseChannelRequest = {
       message.deliveryAddress = "";
     }
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
-      message.satPerVbyte = Number(object.satPerVbyte);
+      message.satPerVbyte = String(object.satPerVbyte);
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     return message;
   },
@@ -11734,7 +11736,7 @@ export const CloseChannelRequest = {
     if (object.satPerByte !== undefined && object.satPerByte !== null) {
       message.satPerByte = object.satPerByte;
     } else {
-      message.satPerByte = 0;
+      message.satPerByte = "0";
     }
     if (
       object.deliveryAddress !== undefined &&
@@ -11747,7 +11749,7 @@ export const CloseChannelRequest = {
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
       message.satPerVbyte = object.satPerVbyte;
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     return message;
   },
@@ -11924,7 +11926,7 @@ export const PendingUpdate = {
 
 const baseReadyForPsbtFunding: object = {
   fundingAddress: "",
-  fundingAmount: 0,
+  fundingAmount: "0",
 };
 
 export const ReadyForPsbtFunding = {
@@ -11935,7 +11937,7 @@ export const ReadyForPsbtFunding = {
     if (message.fundingAddress !== "") {
       writer.uint32(10).string(message.fundingAddress);
     }
-    if (message.fundingAmount !== 0) {
+    if (message.fundingAmount !== "0") {
       writer.uint32(16).int64(message.fundingAmount);
     }
     if (message.psbt.length !== 0) {
@@ -11956,7 +11958,7 @@ export const ReadyForPsbtFunding = {
           message.fundingAddress = reader.string();
           break;
         case 2:
-          message.fundingAmount = longToNumber(reader.int64() as Long);
+          message.fundingAmount = longToString(reader.int64() as Long);
           break;
         case 3:
           message.psbt = reader.bytes();
@@ -11978,9 +11980,9 @@ export const ReadyForPsbtFunding = {
       message.fundingAddress = "";
     }
     if (object.fundingAmount !== undefined && object.fundingAmount !== null) {
-      message.fundingAmount = Number(object.fundingAmount);
+      message.fundingAmount = String(object.fundingAmount);
     } else {
-      message.fundingAmount = 0;
+      message.fundingAmount = "0";
     }
     if (object.psbt !== undefined && object.psbt !== null) {
       message.psbt = bytesFromBase64(object.psbt);
@@ -12011,7 +12013,7 @@ export const ReadyForPsbtFunding = {
     if (object.fundingAmount !== undefined && object.fundingAmount !== null) {
       message.fundingAmount = object.fundingAmount;
     } else {
-      message.fundingAmount = 0;
+      message.fundingAmount = "0";
     }
     if (object.psbt !== undefined && object.psbt !== null) {
       message.psbt = object.psbt;
@@ -12023,19 +12025,19 @@ export const ReadyForPsbtFunding = {
 };
 
 const baseOpenChannelRequest: object = {
-  satPerVbyte: 0,
+  satPerVbyte: "0",
   nodePubkeyString: "",
-  localFundingAmount: 0,
-  pushSat: 0,
+  localFundingAmount: "0",
+  pushSat: "0",
   targetConf: 0,
-  satPerByte: 0,
+  satPerByte: "0",
   private: false,
-  minHtlcMsat: 0,
+  minHtlcMsat: "0",
   remoteCsvDelay: 0,
   minConfs: 0,
   spendUnconfirmed: false,
   closeAddress: "",
-  remoteMaxValueInFlightMsat: 0,
+  remoteMaxValueInFlightMsat: "0",
   remoteMaxHtlcs: 0,
   maxLocalCsv: 0,
 };
@@ -12045,7 +12047,7 @@ export const OpenChannelRequest = {
     message: OpenChannelRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.satPerVbyte !== 0) {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(8).uint64(message.satPerVbyte);
     }
     if (message.nodePubkey.length !== 0) {
@@ -12054,22 +12056,22 @@ export const OpenChannelRequest = {
     if (message.nodePubkeyString !== "") {
       writer.uint32(26).string(message.nodePubkeyString);
     }
-    if (message.localFundingAmount !== 0) {
+    if (message.localFundingAmount !== "0") {
       writer.uint32(32).int64(message.localFundingAmount);
     }
-    if (message.pushSat !== 0) {
+    if (message.pushSat !== "0") {
       writer.uint32(40).int64(message.pushSat);
     }
     if (message.targetConf !== 0) {
       writer.uint32(48).int32(message.targetConf);
     }
-    if (message.satPerByte !== 0) {
+    if (message.satPerByte !== "0") {
       writer.uint32(56).int64(message.satPerByte);
     }
     if (message.private === true) {
       writer.uint32(64).bool(message.private);
     }
-    if (message.minHtlcMsat !== 0) {
+    if (message.minHtlcMsat !== "0") {
       writer.uint32(72).int64(message.minHtlcMsat);
     }
     if (message.remoteCsvDelay !== 0) {
@@ -12090,7 +12092,7 @@ export const OpenChannelRequest = {
         writer.uint32(114).fork()
       ).ldelim();
     }
-    if (message.remoteMaxValueInFlightMsat !== 0) {
+    if (message.remoteMaxValueInFlightMsat !== "0") {
       writer.uint32(120).uint64(message.remoteMaxValueInFlightMsat);
     }
     if (message.remoteMaxHtlcs !== 0) {
@@ -12111,7 +12113,7 @@ export const OpenChannelRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.satPerVbyte = longToNumber(reader.uint64() as Long);
+          message.satPerVbyte = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.nodePubkey = reader.bytes();
@@ -12120,22 +12122,22 @@ export const OpenChannelRequest = {
           message.nodePubkeyString = reader.string();
           break;
         case 4:
-          message.localFundingAmount = longToNumber(reader.int64() as Long);
+          message.localFundingAmount = longToString(reader.int64() as Long);
           break;
         case 5:
-          message.pushSat = longToNumber(reader.int64() as Long);
+          message.pushSat = longToString(reader.int64() as Long);
           break;
         case 6:
           message.targetConf = reader.int32();
           break;
         case 7:
-          message.satPerByte = longToNumber(reader.int64() as Long);
+          message.satPerByte = longToString(reader.int64() as Long);
           break;
         case 8:
           message.private = reader.bool();
           break;
         case 9:
-          message.minHtlcMsat = longToNumber(reader.int64() as Long);
+          message.minHtlcMsat = longToString(reader.int64() as Long);
           break;
         case 10:
           message.remoteCsvDelay = reader.uint32();
@@ -12153,7 +12155,7 @@ export const OpenChannelRequest = {
           message.fundingShim = FundingShim.decode(reader, reader.uint32());
           break;
         case 15:
-          message.remoteMaxValueInFlightMsat = longToNumber(
+          message.remoteMaxValueInFlightMsat = longToString(
             reader.uint64() as Long
           );
           break;
@@ -12175,9 +12177,9 @@ export const OpenChannelRequest = {
     const message = { ...baseOpenChannelRequest } as OpenChannelRequest;
     message.nodePubkey = new Uint8Array();
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
-      message.satPerVbyte = Number(object.satPerVbyte);
+      message.satPerVbyte = String(object.satPerVbyte);
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     if (object.nodePubkey !== undefined && object.nodePubkey !== null) {
       message.nodePubkey = bytesFromBase64(object.nodePubkey);
@@ -12194,14 +12196,14 @@ export const OpenChannelRequest = {
       object.localFundingAmount !== undefined &&
       object.localFundingAmount !== null
     ) {
-      message.localFundingAmount = Number(object.localFundingAmount);
+      message.localFundingAmount = String(object.localFundingAmount);
     } else {
-      message.localFundingAmount = 0;
+      message.localFundingAmount = "0";
     }
     if (object.pushSat !== undefined && object.pushSat !== null) {
-      message.pushSat = Number(object.pushSat);
+      message.pushSat = String(object.pushSat);
     } else {
-      message.pushSat = 0;
+      message.pushSat = "0";
     }
     if (object.targetConf !== undefined && object.targetConf !== null) {
       message.targetConf = Number(object.targetConf);
@@ -12209,9 +12211,9 @@ export const OpenChannelRequest = {
       message.targetConf = 0;
     }
     if (object.satPerByte !== undefined && object.satPerByte !== null) {
-      message.satPerByte = Number(object.satPerByte);
+      message.satPerByte = String(object.satPerByte);
     } else {
-      message.satPerByte = 0;
+      message.satPerByte = "0";
     }
     if (object.private !== undefined && object.private !== null) {
       message.private = Boolean(object.private);
@@ -12219,9 +12221,9 @@ export const OpenChannelRequest = {
       message.private = false;
     }
     if (object.minHtlcMsat !== undefined && object.minHtlcMsat !== null) {
-      message.minHtlcMsat = Number(object.minHtlcMsat);
+      message.minHtlcMsat = String(object.minHtlcMsat);
     } else {
-      message.minHtlcMsat = 0;
+      message.minHtlcMsat = "0";
     }
     if (object.remoteCsvDelay !== undefined && object.remoteCsvDelay !== null) {
       message.remoteCsvDelay = Number(object.remoteCsvDelay);
@@ -12255,11 +12257,11 @@ export const OpenChannelRequest = {
       object.remoteMaxValueInFlightMsat !== undefined &&
       object.remoteMaxValueInFlightMsat !== null
     ) {
-      message.remoteMaxValueInFlightMsat = Number(
+      message.remoteMaxValueInFlightMsat = String(
         object.remoteMaxValueInFlightMsat
       );
     } else {
-      message.remoteMaxValueInFlightMsat = 0;
+      message.remoteMaxValueInFlightMsat = "0";
     }
     if (object.remoteMaxHtlcs !== undefined && object.remoteMaxHtlcs !== null) {
       message.remoteMaxHtlcs = Number(object.remoteMaxHtlcs);
@@ -12317,7 +12319,7 @@ export const OpenChannelRequest = {
     if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
       message.satPerVbyte = object.satPerVbyte;
     } else {
-      message.satPerVbyte = 0;
+      message.satPerVbyte = "0";
     }
     if (object.nodePubkey !== undefined && object.nodePubkey !== null) {
       message.nodePubkey = object.nodePubkey;
@@ -12338,12 +12340,12 @@ export const OpenChannelRequest = {
     ) {
       message.localFundingAmount = object.localFundingAmount;
     } else {
-      message.localFundingAmount = 0;
+      message.localFundingAmount = "0";
     }
     if (object.pushSat !== undefined && object.pushSat !== null) {
       message.pushSat = object.pushSat;
     } else {
-      message.pushSat = 0;
+      message.pushSat = "0";
     }
     if (object.targetConf !== undefined && object.targetConf !== null) {
       message.targetConf = object.targetConf;
@@ -12353,7 +12355,7 @@ export const OpenChannelRequest = {
     if (object.satPerByte !== undefined && object.satPerByte !== null) {
       message.satPerByte = object.satPerByte;
     } else {
-      message.satPerByte = 0;
+      message.satPerByte = "0";
     }
     if (object.private !== undefined && object.private !== null) {
       message.private = object.private;
@@ -12363,7 +12365,7 @@ export const OpenChannelRequest = {
     if (object.minHtlcMsat !== undefined && object.minHtlcMsat !== null) {
       message.minHtlcMsat = object.minHtlcMsat;
     } else {
-      message.minHtlcMsat = 0;
+      message.minHtlcMsat = "0";
     }
     if (object.remoteCsvDelay !== undefined && object.remoteCsvDelay !== null) {
       message.remoteCsvDelay = object.remoteCsvDelay;
@@ -12399,7 +12401,7 @@ export const OpenChannelRequest = {
     ) {
       message.remoteMaxValueInFlightMsat = object.remoteMaxValueInFlightMsat;
     } else {
-      message.remoteMaxValueInFlightMsat = 0;
+      message.remoteMaxValueInFlightMsat = "0";
     }
     if (object.remoteMaxHtlcs !== undefined && object.remoteMaxHtlcs !== null) {
       message.remoteMaxHtlcs = object.remoteMaxHtlcs;
@@ -12708,14 +12710,14 @@ export const KeyDescriptor = {
   },
 };
 
-const baseChanPointShim: object = { amt: 0, thawHeight: 0 };
+const baseChanPointShim: object = { amt: "0", thawHeight: 0 };
 
 export const ChanPointShim = {
   encode(
     message: ChanPointShim,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.amt !== 0) {
+    if (message.amt !== "0") {
       writer.uint32(8).int64(message.amt);
     }
     if (message.chanPoint !== undefined) {
@@ -12746,7 +12748,7 @@ export const ChanPointShim = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.amt = longToNumber(reader.int64() as Long);
+          message.amt = longToString(reader.int64() as Long);
           break;
         case 2:
           message.chanPoint = ChannelPoint.decode(reader, reader.uint32());
@@ -12776,9 +12778,9 @@ export const ChanPointShim = {
     message.remoteKey = new Uint8Array();
     message.pendingChanId = new Uint8Array();
     if (object.amt !== undefined && object.amt !== null) {
-      message.amt = Number(object.amt);
+      message.amt = String(object.amt);
     } else {
-      message.amt = 0;
+      message.amt = "0";
     }
     if (object.chanPoint !== undefined && object.chanPoint !== null) {
       message.chanPoint = ChannelPoint.fromJSON(object.chanPoint);
@@ -12834,7 +12836,7 @@ export const ChanPointShim = {
     if (object.amt !== undefined && object.amt !== null) {
       message.amt = object.amt;
     } else {
-      message.amt = 0;
+      message.amt = "0";
     }
     if (object.chanPoint !== undefined && object.chanPoint !== null) {
       message.chanPoint = ChannelPoint.fromPartial(object.chanPoint);
@@ -13491,7 +13493,7 @@ export const FundingStateStepResp = {
 
 const basePendingHTLC: object = {
   incoming: false,
-  amount: 0,
+  amount: "0",
   outpoint: "",
   maturityHeight: 0,
   blocksTilMaturity: 0,
@@ -13506,7 +13508,7 @@ export const PendingHTLC = {
     if (message.incoming === true) {
       writer.uint32(8).bool(message.incoming);
     }
-    if (message.amount !== 0) {
+    if (message.amount !== "0") {
       writer.uint32(16).int64(message.amount);
     }
     if (message.outpoint !== "") {
@@ -13535,7 +13537,7 @@ export const PendingHTLC = {
           message.incoming = reader.bool();
           break;
         case 2:
-          message.amount = longToNumber(reader.int64() as Long);
+          message.amount = longToString(reader.int64() as Long);
           break;
         case 3:
           message.outpoint = reader.string();
@@ -13565,9 +13567,9 @@ export const PendingHTLC = {
       message.incoming = false;
     }
     if (object.amount !== undefined && object.amount !== null) {
-      message.amount = Number(object.amount);
+      message.amount = String(object.amount);
     } else {
-      message.amount = 0;
+      message.amount = "0";
     }
     if (object.outpoint !== undefined && object.outpoint !== null) {
       message.outpoint = String(object.outpoint);
@@ -13618,7 +13620,7 @@ export const PendingHTLC = {
     if (object.amount !== undefined && object.amount !== null) {
       message.amount = object.amount;
     } else {
-      message.amount = 0;
+      message.amount = "0";
     }
     if (object.outpoint !== undefined && object.outpoint !== null) {
       message.outpoint = object.outpoint;
@@ -13691,14 +13693,14 @@ export const PendingChannelsRequest = {
   },
 };
 
-const basePendingChannelsResponse: object = { totalLimboBalance: 0 };
+const basePendingChannelsResponse: object = { totalLimboBalance: "0" };
 
 export const PendingChannelsResponse = {
   encode(
     message: PendingChannelsResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.totalLimboBalance !== 0) {
+    if (message.totalLimboBalance !== "0") {
       writer.uint32(8).int64(message.totalLimboBalance);
     }
     for (const v of message.pendingOpenChannels) {
@@ -13745,7 +13747,7 @@ export const PendingChannelsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.totalLimboBalance = longToNumber(reader.int64() as Long);
+          message.totalLimboBalance = longToString(reader.int64() as Long);
           break;
         case 2:
           message.pendingOpenChannels.push(
@@ -13799,9 +13801,9 @@ export const PendingChannelsResponse = {
       object.totalLimboBalance !== undefined &&
       object.totalLimboBalance !== null
     ) {
-      message.totalLimboBalance = Number(object.totalLimboBalance);
+      message.totalLimboBalance = String(object.totalLimboBalance);
     } else {
-      message.totalLimboBalance = 0;
+      message.totalLimboBalance = "0";
     }
     if (
       object.pendingOpenChannels !== undefined &&
@@ -13898,7 +13900,7 @@ export const PendingChannelsResponse = {
     ) {
       message.totalLimboBalance = object.totalLimboBalance;
     } else {
-      message.totalLimboBalance = 0;
+      message.totalLimboBalance = "0";
     }
     if (
       object.pendingOpenChannels !== undefined &&
@@ -13947,11 +13949,11 @@ export const PendingChannelsResponse = {
 const basePendingChannelsResponse_PendingChannel: object = {
   remoteNodePub: "",
   channelPoint: "",
-  capacity: 0,
-  localBalance: 0,
-  remoteBalance: 0,
-  localChanReserveSat: 0,
-  remoteChanReserveSat: 0,
+  capacity: "0",
+  localBalance: "0",
+  remoteBalance: "0",
+  localChanReserveSat: "0",
+  remoteChanReserveSat: "0",
   initiator: 0,
   commitmentType: 0,
 };
@@ -13967,19 +13969,19 @@ export const PendingChannelsResponse_PendingChannel = {
     if (message.channelPoint !== "") {
       writer.uint32(18).string(message.channelPoint);
     }
-    if (message.capacity !== 0) {
+    if (message.capacity !== "0") {
       writer.uint32(24).int64(message.capacity);
     }
-    if (message.localBalance !== 0) {
+    if (message.localBalance !== "0") {
       writer.uint32(32).int64(message.localBalance);
     }
-    if (message.remoteBalance !== 0) {
+    if (message.remoteBalance !== "0") {
       writer.uint32(40).int64(message.remoteBalance);
     }
-    if (message.localChanReserveSat !== 0) {
+    if (message.localChanReserveSat !== "0") {
       writer.uint32(48).int64(message.localChanReserveSat);
     }
-    if (message.remoteChanReserveSat !== 0) {
+    if (message.remoteChanReserveSat !== "0") {
       writer.uint32(56).int64(message.remoteChanReserveSat);
     }
     if (message.initiator !== 0) {
@@ -14010,19 +14012,19 @@ export const PendingChannelsResponse_PendingChannel = {
           message.channelPoint = reader.string();
           break;
         case 3:
-          message.capacity = longToNumber(reader.int64() as Long);
+          message.capacity = longToString(reader.int64() as Long);
           break;
         case 4:
-          message.localBalance = longToNumber(reader.int64() as Long);
+          message.localBalance = longToString(reader.int64() as Long);
           break;
         case 5:
-          message.remoteBalance = longToNumber(reader.int64() as Long);
+          message.remoteBalance = longToString(reader.int64() as Long);
           break;
         case 6:
-          message.localChanReserveSat = longToNumber(reader.int64() as Long);
+          message.localChanReserveSat = longToString(reader.int64() as Long);
           break;
         case 7:
-          message.remoteChanReserveSat = longToNumber(reader.int64() as Long);
+          message.remoteChanReserveSat = longToString(reader.int64() as Long);
           break;
         case 8:
           message.initiator = reader.int32() as any;
@@ -14053,35 +14055,35 @@ export const PendingChannelsResponse_PendingChannel = {
       message.channelPoint = "";
     }
     if (object.capacity !== undefined && object.capacity !== null) {
-      message.capacity = Number(object.capacity);
+      message.capacity = String(object.capacity);
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.localBalance !== undefined && object.localBalance !== null) {
-      message.localBalance = Number(object.localBalance);
+      message.localBalance = String(object.localBalance);
     } else {
-      message.localBalance = 0;
+      message.localBalance = "0";
     }
     if (object.remoteBalance !== undefined && object.remoteBalance !== null) {
-      message.remoteBalance = Number(object.remoteBalance);
+      message.remoteBalance = String(object.remoteBalance);
     } else {
-      message.remoteBalance = 0;
+      message.remoteBalance = "0";
     }
     if (
       object.localChanReserveSat !== undefined &&
       object.localChanReserveSat !== null
     ) {
-      message.localChanReserveSat = Number(object.localChanReserveSat);
+      message.localChanReserveSat = String(object.localChanReserveSat);
     } else {
-      message.localChanReserveSat = 0;
+      message.localChanReserveSat = "0";
     }
     if (
       object.remoteChanReserveSat !== undefined &&
       object.remoteChanReserveSat !== null
     ) {
-      message.remoteChanReserveSat = Number(object.remoteChanReserveSat);
+      message.remoteChanReserveSat = String(object.remoteChanReserveSat);
     } else {
-      message.remoteChanReserveSat = 0;
+      message.remoteChanReserveSat = "0";
     }
     if (object.initiator !== undefined && object.initiator !== null) {
       message.initiator = initiatorFromJSON(object.initiator);
@@ -14137,17 +14139,17 @@ export const PendingChannelsResponse_PendingChannel = {
     if (object.capacity !== undefined && object.capacity !== null) {
       message.capacity = object.capacity;
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.localBalance !== undefined && object.localBalance !== null) {
       message.localBalance = object.localBalance;
     } else {
-      message.localBalance = 0;
+      message.localBalance = "0";
     }
     if (object.remoteBalance !== undefined && object.remoteBalance !== null) {
       message.remoteBalance = object.remoteBalance;
     } else {
-      message.remoteBalance = 0;
+      message.remoteBalance = "0";
     }
     if (
       object.localChanReserveSat !== undefined &&
@@ -14155,7 +14157,7 @@ export const PendingChannelsResponse_PendingChannel = {
     ) {
       message.localChanReserveSat = object.localChanReserveSat;
     } else {
-      message.localChanReserveSat = 0;
+      message.localChanReserveSat = "0";
     }
     if (
       object.remoteChanReserveSat !== undefined &&
@@ -14163,7 +14165,7 @@ export const PendingChannelsResponse_PendingChannel = {
     ) {
       message.remoteChanReserveSat = object.remoteChanReserveSat;
     } else {
-      message.remoteChanReserveSat = 0;
+      message.remoteChanReserveSat = "0";
     }
     if (object.initiator !== undefined && object.initiator !== null) {
       message.initiator = object.initiator;
@@ -14181,9 +14183,9 @@ export const PendingChannelsResponse_PendingChannel = {
 
 const basePendingChannelsResponse_PendingOpenChannel: object = {
   confirmationHeight: 0,
-  commitFee: 0,
-  commitWeight: 0,
-  feePerKw: 0,
+  commitFee: "0",
+  commitWeight: "0",
+  feePerKw: "0",
 };
 
 export const PendingChannelsResponse_PendingOpenChannel = {
@@ -14200,13 +14202,13 @@ export const PendingChannelsResponse_PendingOpenChannel = {
     if (message.confirmationHeight !== 0) {
       writer.uint32(16).uint32(message.confirmationHeight);
     }
-    if (message.commitFee !== 0) {
+    if (message.commitFee !== "0") {
       writer.uint32(32).int64(message.commitFee);
     }
-    if (message.commitWeight !== 0) {
+    if (message.commitWeight !== "0") {
       writer.uint32(40).int64(message.commitWeight);
     }
-    if (message.feePerKw !== 0) {
+    if (message.feePerKw !== "0") {
       writer.uint32(48).int64(message.feePerKw);
     }
     return writer;
@@ -14234,13 +14236,13 @@ export const PendingChannelsResponse_PendingOpenChannel = {
           message.confirmationHeight = reader.uint32();
           break;
         case 4:
-          message.commitFee = longToNumber(reader.int64() as Long);
+          message.commitFee = longToString(reader.int64() as Long);
           break;
         case 5:
-          message.commitWeight = longToNumber(reader.int64() as Long);
+          message.commitWeight = longToString(reader.int64() as Long);
           break;
         case 6:
-          message.feePerKw = longToNumber(reader.int64() as Long);
+          message.feePerKw = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -14270,19 +14272,19 @@ export const PendingChannelsResponse_PendingOpenChannel = {
       message.confirmationHeight = 0;
     }
     if (object.commitFee !== undefined && object.commitFee !== null) {
-      message.commitFee = Number(object.commitFee);
+      message.commitFee = String(object.commitFee);
     } else {
-      message.commitFee = 0;
+      message.commitFee = "0";
     }
     if (object.commitWeight !== undefined && object.commitWeight !== null) {
-      message.commitWeight = Number(object.commitWeight);
+      message.commitWeight = String(object.commitWeight);
     } else {
-      message.commitWeight = 0;
+      message.commitWeight = "0";
     }
     if (object.feePerKw !== undefined && object.feePerKw !== null) {
-      message.feePerKw = Number(object.feePerKw);
+      message.feePerKw = String(object.feePerKw);
     } else {
-      message.feePerKw = 0;
+      message.feePerKw = "0";
     }
     return message;
   },
@@ -14326,24 +14328,24 @@ export const PendingChannelsResponse_PendingOpenChannel = {
     if (object.commitFee !== undefined && object.commitFee !== null) {
       message.commitFee = object.commitFee;
     } else {
-      message.commitFee = 0;
+      message.commitFee = "0";
     }
     if (object.commitWeight !== undefined && object.commitWeight !== null) {
       message.commitWeight = object.commitWeight;
     } else {
-      message.commitWeight = 0;
+      message.commitWeight = "0";
     }
     if (object.feePerKw !== undefined && object.feePerKw !== null) {
       message.feePerKw = object.feePerKw;
     } else {
-      message.feePerKw = 0;
+      message.feePerKw = "0";
     }
     return message;
   },
 };
 
 const basePendingChannelsResponse_WaitingCloseChannel: object = {
-  limboBalance: 0,
+  limboBalance: "0",
 };
 
 export const PendingChannelsResponse_WaitingCloseChannel = {
@@ -14357,7 +14359,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
         writer.uint32(10).fork()
       ).ldelim();
     }
-    if (message.limboBalance !== 0) {
+    if (message.limboBalance !== "0") {
       writer.uint32(16).int64(message.limboBalance);
     }
     if (message.commitments !== undefined) {
@@ -14388,7 +14390,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
           );
           break;
         case 2:
-          message.limboBalance = longToNumber(reader.int64() as Long);
+          message.limboBalance = longToString(reader.int64() as Long);
           break;
         case 3:
           message.commitments = PendingChannelsResponse_Commitments.decode(
@@ -14416,9 +14418,9 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
       message.channel = undefined;
     }
     if (object.limboBalance !== undefined && object.limboBalance !== null) {
-      message.limboBalance = Number(object.limboBalance);
+      message.limboBalance = String(object.limboBalance);
     } else {
-      message.limboBalance = 0;
+      message.limboBalance = "0";
     }
     if (object.commitments !== undefined && object.commitments !== null) {
       message.commitments = PendingChannelsResponse_Commitments.fromJSON(
@@ -14461,7 +14463,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
     if (object.limboBalance !== undefined && object.limboBalance !== null) {
       message.limboBalance = object.limboBalance;
     } else {
-      message.limboBalance = 0;
+      message.limboBalance = "0";
     }
     if (object.commitments !== undefined && object.commitments !== null) {
       message.commitments = PendingChannelsResponse_Commitments.fromPartial(
@@ -14478,9 +14480,9 @@ const basePendingChannelsResponse_Commitments: object = {
   localTxid: "",
   remoteTxid: "",
   remotePendingTxid: "",
-  localCommitFeeSat: 0,
-  remoteCommitFeeSat: 0,
-  remotePendingCommitFeeSat: 0,
+  localCommitFeeSat: "0",
+  remoteCommitFeeSat: "0",
+  remotePendingCommitFeeSat: "0",
 };
 
 export const PendingChannelsResponse_Commitments = {
@@ -14497,13 +14499,13 @@ export const PendingChannelsResponse_Commitments = {
     if (message.remotePendingTxid !== "") {
       writer.uint32(26).string(message.remotePendingTxid);
     }
-    if (message.localCommitFeeSat !== 0) {
+    if (message.localCommitFeeSat !== "0") {
       writer.uint32(32).uint64(message.localCommitFeeSat);
     }
-    if (message.remoteCommitFeeSat !== 0) {
+    if (message.remoteCommitFeeSat !== "0") {
       writer.uint32(40).uint64(message.remoteCommitFeeSat);
     }
-    if (message.remotePendingCommitFeeSat !== 0) {
+    if (message.remotePendingCommitFeeSat !== "0") {
       writer.uint32(48).uint64(message.remotePendingCommitFeeSat);
     }
     return writer;
@@ -14531,13 +14533,13 @@ export const PendingChannelsResponse_Commitments = {
           message.remotePendingTxid = reader.string();
           break;
         case 4:
-          message.localCommitFeeSat = longToNumber(reader.uint64() as Long);
+          message.localCommitFeeSat = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.remoteCommitFeeSat = longToNumber(reader.uint64() as Long);
+          message.remoteCommitFeeSat = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.remotePendingCommitFeeSat = longToNumber(
+          message.remotePendingCommitFeeSat = longToString(
             reader.uint64() as Long
           );
           break;
@@ -14575,27 +14577,27 @@ export const PendingChannelsResponse_Commitments = {
       object.localCommitFeeSat !== undefined &&
       object.localCommitFeeSat !== null
     ) {
-      message.localCommitFeeSat = Number(object.localCommitFeeSat);
+      message.localCommitFeeSat = String(object.localCommitFeeSat);
     } else {
-      message.localCommitFeeSat = 0;
+      message.localCommitFeeSat = "0";
     }
     if (
       object.remoteCommitFeeSat !== undefined &&
       object.remoteCommitFeeSat !== null
     ) {
-      message.remoteCommitFeeSat = Number(object.remoteCommitFeeSat);
+      message.remoteCommitFeeSat = String(object.remoteCommitFeeSat);
     } else {
-      message.remoteCommitFeeSat = 0;
+      message.remoteCommitFeeSat = "0";
     }
     if (
       object.remotePendingCommitFeeSat !== undefined &&
       object.remotePendingCommitFeeSat !== null
     ) {
-      message.remotePendingCommitFeeSat = Number(
+      message.remotePendingCommitFeeSat = String(
         object.remotePendingCommitFeeSat
       );
     } else {
-      message.remotePendingCommitFeeSat = 0;
+      message.remotePendingCommitFeeSat = "0";
     }
     return message;
   },
@@ -14645,7 +14647,7 @@ export const PendingChannelsResponse_Commitments = {
     ) {
       message.localCommitFeeSat = object.localCommitFeeSat;
     } else {
-      message.localCommitFeeSat = 0;
+      message.localCommitFeeSat = "0";
     }
     if (
       object.remoteCommitFeeSat !== undefined &&
@@ -14653,7 +14655,7 @@ export const PendingChannelsResponse_Commitments = {
     ) {
       message.remoteCommitFeeSat = object.remoteCommitFeeSat;
     } else {
-      message.remoteCommitFeeSat = 0;
+      message.remoteCommitFeeSat = "0";
     }
     if (
       object.remotePendingCommitFeeSat !== undefined &&
@@ -14661,7 +14663,7 @@ export const PendingChannelsResponse_Commitments = {
     ) {
       message.remotePendingCommitFeeSat = object.remotePendingCommitFeeSat;
     } else {
-      message.remotePendingCommitFeeSat = 0;
+      message.remotePendingCommitFeeSat = "0";
     }
     return message;
   },
@@ -14769,10 +14771,10 @@ export const PendingChannelsResponse_ClosedChannel = {
 
 const basePendingChannelsResponse_ForceClosedChannel: object = {
   closingTxid: "",
-  limboBalance: 0,
+  limboBalance: "0",
   maturityHeight: 0,
   blocksTilMaturity: 0,
-  recoveredBalance: 0,
+  recoveredBalance: "0",
   anchor: 0,
 };
 
@@ -14790,7 +14792,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     if (message.closingTxid !== "") {
       writer.uint32(18).string(message.closingTxid);
     }
-    if (message.limboBalance !== 0) {
+    if (message.limboBalance !== "0") {
       writer.uint32(24).int64(message.limboBalance);
     }
     if (message.maturityHeight !== 0) {
@@ -14799,7 +14801,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     if (message.blocksTilMaturity !== 0) {
       writer.uint32(40).int32(message.blocksTilMaturity);
     }
-    if (message.recoveredBalance !== 0) {
+    if (message.recoveredBalance !== "0") {
       writer.uint32(48).int64(message.recoveredBalance);
     }
     for (const v of message.pendingHtlcs) {
@@ -14834,7 +14836,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
           message.closingTxid = reader.string();
           break;
         case 3:
-          message.limboBalance = longToNumber(reader.int64() as Long);
+          message.limboBalance = longToString(reader.int64() as Long);
           break;
         case 4:
           message.maturityHeight = reader.uint32();
@@ -14843,7 +14845,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
           message.blocksTilMaturity = reader.int32();
           break;
         case 6:
-          message.recoveredBalance = longToNumber(reader.int64() as Long);
+          message.recoveredBalance = longToString(reader.int64() as Long);
           break;
         case 8:
           message.pendingHtlcs.push(
@@ -14879,9 +14881,9 @@ export const PendingChannelsResponse_ForceClosedChannel = {
       message.closingTxid = "";
     }
     if (object.limboBalance !== undefined && object.limboBalance !== null) {
-      message.limboBalance = Number(object.limboBalance);
+      message.limboBalance = String(object.limboBalance);
     } else {
-      message.limboBalance = 0;
+      message.limboBalance = "0";
     }
     if (object.maturityHeight !== undefined && object.maturityHeight !== null) {
       message.maturityHeight = Number(object.maturityHeight);
@@ -14900,9 +14902,9 @@ export const PendingChannelsResponse_ForceClosedChannel = {
       object.recoveredBalance !== undefined &&
       object.recoveredBalance !== null
     ) {
-      message.recoveredBalance = Number(object.recoveredBalance);
+      message.recoveredBalance = String(object.recoveredBalance);
     } else {
-      message.recoveredBalance = 0;
+      message.recoveredBalance = "0";
     }
     if (object.pendingHtlcs !== undefined && object.pendingHtlcs !== null) {
       for (const e of object.pendingHtlcs) {
@@ -14973,7 +14975,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     if (object.limboBalance !== undefined && object.limboBalance !== null) {
       message.limboBalance = object.limboBalance;
     } else {
-      message.limboBalance = 0;
+      message.limboBalance = "0";
     }
     if (object.maturityHeight !== undefined && object.maturityHeight !== null) {
       message.maturityHeight = object.maturityHeight;
@@ -14994,7 +14996,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     ) {
       message.recoveredBalance = object.recoveredBalance;
     } else {
-      message.recoveredBalance = 0;
+      message.recoveredBalance = "0";
     }
     if (object.pendingHtlcs !== undefined && object.pendingHtlcs !== null) {
       for (const e of object.pendingHtlcs) {
@@ -15265,8 +15267,8 @@ export const ChannelEventUpdate = {
 };
 
 const baseWalletAccountBalance: object = {
-  confirmedBalance: 0,
-  unconfirmedBalance: 0,
+  confirmedBalance: "0",
+  unconfirmedBalance: "0",
 };
 
 export const WalletAccountBalance = {
@@ -15274,10 +15276,10 @@ export const WalletAccountBalance = {
     message: WalletAccountBalance,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.confirmedBalance !== 0) {
+    if (message.confirmedBalance !== "0") {
       writer.uint32(8).int64(message.confirmedBalance);
     }
-    if (message.unconfirmedBalance !== 0) {
+    if (message.unconfirmedBalance !== "0") {
       writer.uint32(16).int64(message.unconfirmedBalance);
     }
     return writer;
@@ -15294,10 +15296,10 @@ export const WalletAccountBalance = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.confirmedBalance = longToNumber(reader.int64() as Long);
+          message.confirmedBalance = longToString(reader.int64() as Long);
           break;
         case 2:
-          message.unconfirmedBalance = longToNumber(reader.int64() as Long);
+          message.unconfirmedBalance = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -15313,17 +15315,17 @@ export const WalletAccountBalance = {
       object.confirmedBalance !== undefined &&
       object.confirmedBalance !== null
     ) {
-      message.confirmedBalance = Number(object.confirmedBalance);
+      message.confirmedBalance = String(object.confirmedBalance);
     } else {
-      message.confirmedBalance = 0;
+      message.confirmedBalance = "0";
     }
     if (
       object.unconfirmedBalance !== undefined &&
       object.unconfirmedBalance !== null
     ) {
-      message.unconfirmedBalance = Number(object.unconfirmedBalance);
+      message.unconfirmedBalance = String(object.unconfirmedBalance);
     } else {
-      message.unconfirmedBalance = 0;
+      message.unconfirmedBalance = "0";
     }
     return message;
   },
@@ -15345,7 +15347,7 @@ export const WalletAccountBalance = {
     ) {
       message.confirmedBalance = object.confirmedBalance;
     } else {
-      message.confirmedBalance = 0;
+      message.confirmedBalance = "0";
     }
     if (
       object.unconfirmedBalance !== undefined &&
@@ -15353,7 +15355,7 @@ export const WalletAccountBalance = {
     ) {
       message.unconfirmedBalance = object.unconfirmedBalance;
     } else {
-      message.unconfirmedBalance = 0;
+      message.unconfirmedBalance = "0";
     }
     return message;
   },
@@ -15404,9 +15406,9 @@ export const WalletBalanceRequest = {
 };
 
 const baseWalletBalanceResponse: object = {
-  totalBalance: 0,
-  confirmedBalance: 0,
-  unconfirmedBalance: 0,
+  totalBalance: "0",
+  confirmedBalance: "0",
+  unconfirmedBalance: "0",
 };
 
 export const WalletBalanceResponse = {
@@ -15414,13 +15416,13 @@ export const WalletBalanceResponse = {
     message: WalletBalanceResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.totalBalance !== 0) {
+    if (message.totalBalance !== "0") {
       writer.uint32(8).int64(message.totalBalance);
     }
-    if (message.confirmedBalance !== 0) {
+    if (message.confirmedBalance !== "0") {
       writer.uint32(16).int64(message.confirmedBalance);
     }
-    if (message.unconfirmedBalance !== 0) {
+    if (message.unconfirmedBalance !== "0") {
       writer.uint32(24).int64(message.unconfirmedBalance);
     }
     Object.entries(message.accountBalance).forEach(([key, value]) => {
@@ -15444,13 +15446,13 @@ export const WalletBalanceResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.totalBalance = longToNumber(reader.int64() as Long);
+          message.totalBalance = longToString(reader.int64() as Long);
           break;
         case 2:
-          message.confirmedBalance = longToNumber(reader.int64() as Long);
+          message.confirmedBalance = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.unconfirmedBalance = longToNumber(reader.int64() as Long);
+          message.unconfirmedBalance = longToString(reader.int64() as Long);
           break;
         case 4:
           const entry4 = WalletBalanceResponse_AccountBalanceEntry.decode(
@@ -15473,25 +15475,25 @@ export const WalletBalanceResponse = {
     const message = { ...baseWalletBalanceResponse } as WalletBalanceResponse;
     message.accountBalance = {};
     if (object.totalBalance !== undefined && object.totalBalance !== null) {
-      message.totalBalance = Number(object.totalBalance);
+      message.totalBalance = String(object.totalBalance);
     } else {
-      message.totalBalance = 0;
+      message.totalBalance = "0";
     }
     if (
       object.confirmedBalance !== undefined &&
       object.confirmedBalance !== null
     ) {
-      message.confirmedBalance = Number(object.confirmedBalance);
+      message.confirmedBalance = String(object.confirmedBalance);
     } else {
-      message.confirmedBalance = 0;
+      message.confirmedBalance = "0";
     }
     if (
       object.unconfirmedBalance !== undefined &&
       object.unconfirmedBalance !== null
     ) {
-      message.unconfirmedBalance = Number(object.unconfirmedBalance);
+      message.unconfirmedBalance = String(object.unconfirmedBalance);
     } else {
-      message.unconfirmedBalance = 0;
+      message.unconfirmedBalance = "0";
     }
     if (object.accountBalance !== undefined && object.accountBalance !== null) {
       Object.entries(object.accountBalance).forEach(([key, value]) => {
@@ -15526,7 +15528,7 @@ export const WalletBalanceResponse = {
     if (object.totalBalance !== undefined && object.totalBalance !== null) {
       message.totalBalance = object.totalBalance;
     } else {
-      message.totalBalance = 0;
+      message.totalBalance = "0";
     }
     if (
       object.confirmedBalance !== undefined &&
@@ -15534,7 +15536,7 @@ export const WalletBalanceResponse = {
     ) {
       message.confirmedBalance = object.confirmedBalance;
     } else {
-      message.confirmedBalance = 0;
+      message.confirmedBalance = "0";
     }
     if (
       object.unconfirmedBalance !== undefined &&
@@ -15542,7 +15544,7 @@ export const WalletBalanceResponse = {
     ) {
       message.unconfirmedBalance = object.unconfirmedBalance;
     } else {
-      message.unconfirmedBalance = 0;
+      message.unconfirmedBalance = "0";
     }
     if (object.accountBalance !== undefined && object.accountBalance !== null) {
       Object.entries(object.accountBalance).forEach(([key, value]) => {
@@ -15647,17 +15649,17 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
   },
 };
 
-const baseAmount: object = { sat: 0, msat: 0 };
+const baseAmount: object = { sat: "0", msat: "0" };
 
 export const Amount = {
   encode(
     message: Amount,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.sat !== 0) {
+    if (message.sat !== "0") {
       writer.uint32(8).uint64(message.sat);
     }
-    if (message.msat !== 0) {
+    if (message.msat !== "0") {
       writer.uint32(16).uint64(message.msat);
     }
     return writer;
@@ -15671,10 +15673,10 @@ export const Amount = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.sat = longToNumber(reader.uint64() as Long);
+          message.sat = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.msat = longToNumber(reader.uint64() as Long);
+          message.msat = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -15687,14 +15689,14 @@ export const Amount = {
   fromJSON(object: any): Amount {
     const message = { ...baseAmount } as Amount;
     if (object.sat !== undefined && object.sat !== null) {
-      message.sat = Number(object.sat);
+      message.sat = String(object.sat);
     } else {
-      message.sat = 0;
+      message.sat = "0";
     }
     if (object.msat !== undefined && object.msat !== null) {
-      message.msat = Number(object.msat);
+      message.msat = String(object.msat);
     } else {
-      message.msat = 0;
+      message.msat = "0";
     }
     return message;
   },
@@ -15711,12 +15713,12 @@ export const Amount = {
     if (object.sat !== undefined && object.sat !== null) {
       message.sat = object.sat;
     } else {
-      message.sat = 0;
+      message.sat = "0";
     }
     if (object.msat !== undefined && object.msat !== null) {
       message.msat = object.msat;
     } else {
-      message.msat = 0;
+      message.msat = "0";
     }
     return message;
   },
@@ -15767,8 +15769,8 @@ export const ChannelBalanceRequest = {
 };
 
 const baseChannelBalanceResponse: object = {
-  balance: 0,
-  pendingOpenBalance: 0,
+  balance: "0",
+  pendingOpenBalance: "0",
 };
 
 export const ChannelBalanceResponse = {
@@ -15776,10 +15778,10 @@ export const ChannelBalanceResponse = {
     message: ChannelBalanceResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.balance !== 0) {
+    if (message.balance !== "0") {
       writer.uint32(8).int64(message.balance);
     }
-    if (message.pendingOpenBalance !== 0) {
+    if (message.pendingOpenBalance !== "0") {
       writer.uint32(16).int64(message.pendingOpenBalance);
     }
     if (message.localBalance !== undefined) {
@@ -15826,10 +15828,10 @@ export const ChannelBalanceResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.balance = longToNumber(reader.int64() as Long);
+          message.balance = longToString(reader.int64() as Long);
           break;
         case 2:
-          message.pendingOpenBalance = longToNumber(reader.int64() as Long);
+          message.pendingOpenBalance = longToString(reader.int64() as Long);
           break;
         case 3:
           message.localBalance = Amount.decode(reader, reader.uint32());
@@ -15872,17 +15874,17 @@ export const ChannelBalanceResponse = {
   fromJSON(object: any): ChannelBalanceResponse {
     const message = { ...baseChannelBalanceResponse } as ChannelBalanceResponse;
     if (object.balance !== undefined && object.balance !== null) {
-      message.balance = Number(object.balance);
+      message.balance = String(object.balance);
     } else {
-      message.balance = 0;
+      message.balance = "0";
     }
     if (
       object.pendingOpenBalance !== undefined &&
       object.pendingOpenBalance !== null
     ) {
-      message.pendingOpenBalance = Number(object.pendingOpenBalance);
+      message.pendingOpenBalance = String(object.pendingOpenBalance);
     } else {
-      message.pendingOpenBalance = 0;
+      message.pendingOpenBalance = "0";
     }
     if (object.localBalance !== undefined && object.localBalance !== null) {
       message.localBalance = Amount.fromJSON(object.localBalance);
@@ -15976,7 +15978,7 @@ export const ChannelBalanceResponse = {
     if (object.balance !== undefined && object.balance !== null) {
       message.balance = object.balance;
     } else {
-      message.balance = 0;
+      message.balance = "0";
     }
     if (
       object.pendingOpenBalance !== undefined &&
@@ -15984,7 +15986,7 @@ export const ChannelBalanceResponse = {
     ) {
       message.pendingOpenBalance = object.pendingOpenBalance;
     } else {
-      message.pendingOpenBalance = 0;
+      message.pendingOpenBalance = "0";
     }
     if (object.localBalance !== undefined && object.localBalance !== null) {
       message.localBalance = Amount.fromPartial(object.localBalance);
@@ -16042,13 +16044,13 @@ export const ChannelBalanceResponse = {
 
 const baseQueryRoutesRequest: object = {
   pubKey: "",
-  amt: 0,
-  amtMsat: 0,
+  amt: "0",
+  amtMsat: "0",
   finalCltvDelta: 0,
   sourcePubKey: "",
   useMissionControl: false,
   cltvLimit: 0,
-  outgoingChanId: 0,
+  outgoingChanId: "0",
   destFeatures: 0,
 };
 
@@ -16060,10 +16062,10 @@ export const QueryRoutesRequest = {
     if (message.pubKey !== "") {
       writer.uint32(10).string(message.pubKey);
     }
-    if (message.amt !== 0) {
+    if (message.amt !== "0") {
       writer.uint32(16).int64(message.amt);
     }
-    if (message.amtMsat !== 0) {
+    if (message.amtMsat !== "0") {
       writer.uint32(96).int64(message.amtMsat);
     }
     if (message.finalCltvDelta !== 0) {
@@ -16096,7 +16098,7 @@ export const QueryRoutesRequest = {
         writer.uint32(106).fork()
       ).ldelim();
     });
-    if (message.outgoingChanId !== 0) {
+    if (message.outgoingChanId !== "0") {
       writer.uint32(112).uint64(message.outgoingChanId);
     }
     if (message.lastHopPubkey.length !== 0) {
@@ -16131,10 +16133,10 @@ export const QueryRoutesRequest = {
           message.pubKey = reader.string();
           break;
         case 2:
-          message.amt = longToNumber(reader.int64() as Long);
+          message.amt = longToString(reader.int64() as Long);
           break;
         case 12:
-          message.amtMsat = longToNumber(reader.int64() as Long);
+          message.amtMsat = longToString(reader.int64() as Long);
           break;
         case 4:
           message.finalCltvDelta = reader.int32();
@@ -16172,7 +16174,7 @@ export const QueryRoutesRequest = {
           }
           break;
         case 14:
-          message.outgoingChanId = longToNumber(reader.uint64() as Long);
+          message.outgoingChanId = longToString(reader.uint64() as Long);
           break;
         case 15:
           message.lastHopPubkey = reader.bytes();
@@ -16213,14 +16215,14 @@ export const QueryRoutesRequest = {
       message.pubKey = "";
     }
     if (object.amt !== undefined && object.amt !== null) {
-      message.amt = Number(object.amt);
+      message.amt = String(object.amt);
     } else {
-      message.amt = 0;
+      message.amt = "0";
     }
     if (object.amtMsat !== undefined && object.amtMsat !== null) {
-      message.amtMsat = Number(object.amtMsat);
+      message.amtMsat = String(object.amtMsat);
     } else {
-      message.amtMsat = 0;
+      message.amtMsat = "0";
     }
     if (object.finalCltvDelta !== undefined && object.finalCltvDelta !== null) {
       message.finalCltvDelta = Number(object.finalCltvDelta);
@@ -16270,15 +16272,13 @@ export const QueryRoutesRequest = {
       object.destCustomRecords !== null
     ) {
       Object.entries(object.destCustomRecords).forEach(([key, value]) => {
-        message.destCustomRecords[Number(key)] = bytesFromBase64(
-          value as string
-        );
+        message.destCustomRecords[key] = bytesFromBase64(value as string);
       });
     }
     if (object.outgoingChanId !== undefined && object.outgoingChanId !== null) {
-      message.outgoingChanId = Number(object.outgoingChanId);
+      message.outgoingChanId = String(object.outgoingChanId);
     } else {
-      message.outgoingChanId = 0;
+      message.outgoingChanId = "0";
     }
     if (object.lastHopPubkey !== undefined && object.lastHopPubkey !== null) {
       message.lastHopPubkey = bytesFromBase64(object.lastHopPubkey);
@@ -16378,12 +16378,12 @@ export const QueryRoutesRequest = {
     if (object.amt !== undefined && object.amt !== null) {
       message.amt = object.amt;
     } else {
-      message.amt = 0;
+      message.amt = "0";
     }
     if (object.amtMsat !== undefined && object.amtMsat !== null) {
       message.amtMsat = object.amtMsat;
     } else {
-      message.amtMsat = 0;
+      message.amtMsat = "0";
     }
     if (object.finalCltvDelta !== undefined && object.finalCltvDelta !== null) {
       message.finalCltvDelta = object.finalCltvDelta;
@@ -16434,14 +16434,14 @@ export const QueryRoutesRequest = {
     ) {
       Object.entries(object.destCustomRecords).forEach(([key, value]) => {
         if (value !== undefined) {
-          message.destCustomRecords[Number(key)] = value;
+          message.destCustomRecords[key] = value;
         }
       });
     }
     if (object.outgoingChanId !== undefined && object.outgoingChanId !== null) {
       message.outgoingChanId = object.outgoingChanId;
     } else {
-      message.outgoingChanId = 0;
+      message.outgoingChanId = "0";
     }
     if (object.lastHopPubkey !== undefined && object.lastHopPubkey !== null) {
       message.lastHopPubkey = object.lastHopPubkey;
@@ -16462,14 +16462,14 @@ export const QueryRoutesRequest = {
   },
 };
 
-const baseQueryRoutesRequest_DestCustomRecordsEntry: object = { key: 0 };
+const baseQueryRoutesRequest_DestCustomRecordsEntry: object = { key: "0" };
 
 export const QueryRoutesRequest_DestCustomRecordsEntry = {
   encode(
     message: QueryRoutesRequest_DestCustomRecordsEntry,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.key !== 0) {
+    if (message.key !== "0") {
       writer.uint32(8).uint64(message.key);
     }
     if (message.value.length !== 0) {
@@ -16492,7 +16492,7 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.key = longToNumber(reader.uint64() as Long);
+          message.key = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.value = reader.bytes();
@@ -16511,9 +16511,9 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
     } as QueryRoutesRequest_DestCustomRecordsEntry;
     message.value = new Uint8Array();
     if (object.key !== undefined && object.key !== null) {
-      message.key = Number(object.key);
+      message.key = String(object.key);
     } else {
-      message.key = 0;
+      message.key = "0";
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = bytesFromBase64(object.value);
@@ -16540,7 +16540,7 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
     if (object.key !== undefined && object.key !== null) {
       message.key = object.key;
     } else {
-      message.key = 0;
+      message.key = "0";
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = object.value;
@@ -16632,14 +16632,14 @@ export const NodePair = {
   },
 };
 
-const baseEdgeLocator: object = { channelId: 0, directionReverse: false };
+const baseEdgeLocator: object = { channelId: "0", directionReverse: false };
 
 export const EdgeLocator = {
   encode(
     message: EdgeLocator,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.channelId !== 0) {
+    if (message.channelId !== "0") {
       writer.uint32(8).uint64(message.channelId);
     }
     if (message.directionReverse === true) {
@@ -16656,7 +16656,7 @@ export const EdgeLocator = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channelId = longToNumber(reader.uint64() as Long);
+          message.channelId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.directionReverse = reader.bool();
@@ -16672,9 +16672,9 @@ export const EdgeLocator = {
   fromJSON(object: any): EdgeLocator {
     const message = { ...baseEdgeLocator } as EdgeLocator;
     if (object.channelId !== undefined && object.channelId !== null) {
-      message.channelId = Number(object.channelId);
+      message.channelId = String(object.channelId);
     } else {
-      message.channelId = 0;
+      message.channelId = "0";
     }
     if (
       object.directionReverse !== undefined &&
@@ -16700,7 +16700,7 @@ export const EdgeLocator = {
     if (object.channelId !== undefined && object.channelId !== null) {
       message.channelId = object.channelId;
     } else {
-      message.channelId = 0;
+      message.channelId = "0";
     }
     if (
       object.directionReverse !== undefined &&
@@ -16798,38 +16798,38 @@ export const QueryRoutesResponse = {
 };
 
 const baseHop: object = {
-  chanId: 0,
-  chanCapacity: 0,
-  amtToForward: 0,
-  fee: 0,
+  chanId: "0",
+  chanCapacity: "0",
+  amtToForward: "0",
+  fee: "0",
   expiry: 0,
-  amtToForwardMsat: 0,
-  feeMsat: 0,
+  amtToForwardMsat: "0",
+  feeMsat: "0",
   pubKey: "",
   tlvPayload: false,
 };
 
 export const Hop = {
   encode(message: Hop, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.chanCapacity !== 0) {
+    if (message.chanCapacity !== "0") {
       writer.uint32(16).int64(message.chanCapacity);
     }
-    if (message.amtToForward !== 0) {
+    if (message.amtToForward !== "0") {
       writer.uint32(24).int64(message.amtToForward);
     }
-    if (message.fee !== 0) {
+    if (message.fee !== "0") {
       writer.uint32(32).int64(message.fee);
     }
     if (message.expiry !== 0) {
       writer.uint32(40).uint32(message.expiry);
     }
-    if (message.amtToForwardMsat !== 0) {
+    if (message.amtToForwardMsat !== "0") {
       writer.uint32(48).int64(message.amtToForwardMsat);
     }
-    if (message.feeMsat !== 0) {
+    if (message.feeMsat !== "0") {
       writer.uint32(56).int64(message.feeMsat);
     }
     if (message.pubKey !== "") {
@@ -16862,25 +16862,25 @@ export const Hop = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chanCapacity = longToNumber(reader.int64() as Long);
+          message.chanCapacity = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.amtToForward = longToNumber(reader.int64() as Long);
+          message.amtToForward = longToString(reader.int64() as Long);
           break;
         case 4:
-          message.fee = longToNumber(reader.int64() as Long);
+          message.fee = longToString(reader.int64() as Long);
           break;
         case 5:
           message.expiry = reader.uint32();
           break;
         case 6:
-          message.amtToForwardMsat = longToNumber(reader.int64() as Long);
+          message.amtToForwardMsat = longToString(reader.int64() as Long);
           break;
         case 7:
-          message.feeMsat = longToNumber(reader.int64() as Long);
+          message.feeMsat = longToString(reader.int64() as Long);
           break;
         case 8:
           message.pubKey = reader.string();
@@ -16915,24 +16915,24 @@ export const Hop = {
     const message = { ...baseHop } as Hop;
     message.customRecords = {};
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.chanCapacity !== undefined && object.chanCapacity !== null) {
-      message.chanCapacity = Number(object.chanCapacity);
+      message.chanCapacity = String(object.chanCapacity);
     } else {
-      message.chanCapacity = 0;
+      message.chanCapacity = "0";
     }
     if (object.amtToForward !== undefined && object.amtToForward !== null) {
-      message.amtToForward = Number(object.amtToForward);
+      message.amtToForward = String(object.amtToForward);
     } else {
-      message.amtToForward = 0;
+      message.amtToForward = "0";
     }
     if (object.fee !== undefined && object.fee !== null) {
-      message.fee = Number(object.fee);
+      message.fee = String(object.fee);
     } else {
-      message.fee = 0;
+      message.fee = "0";
     }
     if (object.expiry !== undefined && object.expiry !== null) {
       message.expiry = Number(object.expiry);
@@ -16943,14 +16943,14 @@ export const Hop = {
       object.amtToForwardMsat !== undefined &&
       object.amtToForwardMsat !== null
     ) {
-      message.amtToForwardMsat = Number(object.amtToForwardMsat);
+      message.amtToForwardMsat = String(object.amtToForwardMsat);
     } else {
-      message.amtToForwardMsat = 0;
+      message.amtToForwardMsat = "0";
     }
     if (object.feeMsat !== undefined && object.feeMsat !== null) {
-      message.feeMsat = Number(object.feeMsat);
+      message.feeMsat = String(object.feeMsat);
     } else {
-      message.feeMsat = 0;
+      message.feeMsat = "0";
     }
     if (object.pubKey !== undefined && object.pubKey !== null) {
       message.pubKey = String(object.pubKey);
@@ -16974,7 +16974,7 @@ export const Hop = {
     }
     if (object.customRecords !== undefined && object.customRecords !== null) {
       Object.entries(object.customRecords).forEach(([key, value]) => {
-        message.customRecords[Number(key)] = bytesFromBase64(value as string);
+        message.customRecords[key] = bytesFromBase64(value as string);
       });
     }
     return message;
@@ -17017,22 +17017,22 @@ export const Hop = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.chanCapacity !== undefined && object.chanCapacity !== null) {
       message.chanCapacity = object.chanCapacity;
     } else {
-      message.chanCapacity = 0;
+      message.chanCapacity = "0";
     }
     if (object.amtToForward !== undefined && object.amtToForward !== null) {
       message.amtToForward = object.amtToForward;
     } else {
-      message.amtToForward = 0;
+      message.amtToForward = "0";
     }
     if (object.fee !== undefined && object.fee !== null) {
       message.fee = object.fee;
     } else {
-      message.fee = 0;
+      message.fee = "0";
     }
     if (object.expiry !== undefined && object.expiry !== null) {
       message.expiry = object.expiry;
@@ -17045,12 +17045,12 @@ export const Hop = {
     ) {
       message.amtToForwardMsat = object.amtToForwardMsat;
     } else {
-      message.amtToForwardMsat = 0;
+      message.amtToForwardMsat = "0";
     }
     if (object.feeMsat !== undefined && object.feeMsat !== null) {
       message.feeMsat = object.feeMsat;
     } else {
-      message.feeMsat = 0;
+      message.feeMsat = "0";
     }
     if (object.pubKey !== undefined && object.pubKey !== null) {
       message.pubKey = object.pubKey;
@@ -17075,7 +17075,7 @@ export const Hop = {
     if (object.customRecords !== undefined && object.customRecords !== null) {
       Object.entries(object.customRecords).forEach(([key, value]) => {
         if (value !== undefined) {
-          message.customRecords[Number(key)] = value;
+          message.customRecords[key] = value;
         }
       });
     }
@@ -17083,14 +17083,14 @@ export const Hop = {
   },
 };
 
-const baseHop_CustomRecordsEntry: object = { key: 0 };
+const baseHop_CustomRecordsEntry: object = { key: "0" };
 
 export const Hop_CustomRecordsEntry = {
   encode(
     message: Hop_CustomRecordsEntry,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.key !== 0) {
+    if (message.key !== "0") {
       writer.uint32(8).uint64(message.key);
     }
     if (message.value.length !== 0) {
@@ -17111,7 +17111,7 @@ export const Hop_CustomRecordsEntry = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.key = longToNumber(reader.uint64() as Long);
+          message.key = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.value = reader.bytes();
@@ -17128,9 +17128,9 @@ export const Hop_CustomRecordsEntry = {
     const message = { ...baseHop_CustomRecordsEntry } as Hop_CustomRecordsEntry;
     message.value = new Uint8Array();
     if (object.key !== undefined && object.key !== null) {
-      message.key = Number(object.key);
+      message.key = String(object.key);
     } else {
-      message.key = 0;
+      message.key = "0";
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = bytesFromBase64(object.value);
@@ -17155,7 +17155,7 @@ export const Hop_CustomRecordsEntry = {
     if (object.key !== undefined && object.key !== null) {
       message.key = object.key;
     } else {
-      message.key = 0;
+      message.key = "0";
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = object.value;
@@ -17166,7 +17166,7 @@ export const Hop_CustomRecordsEntry = {
   },
 };
 
-const baseMPPRecord: object = { totalAmtMsat: 0 };
+const baseMPPRecord: object = { totalAmtMsat: "0" };
 
 export const MPPRecord = {
   encode(
@@ -17176,7 +17176,7 @@ export const MPPRecord = {
     if (message.paymentAddr.length !== 0) {
       writer.uint32(90).bytes(message.paymentAddr);
     }
-    if (message.totalAmtMsat !== 0) {
+    if (message.totalAmtMsat !== "0") {
       writer.uint32(80).int64(message.totalAmtMsat);
     }
     return writer;
@@ -17194,7 +17194,7 @@ export const MPPRecord = {
           message.paymentAddr = reader.bytes();
           break;
         case 10:
-          message.totalAmtMsat = longToNumber(reader.int64() as Long);
+          message.totalAmtMsat = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -17211,9 +17211,9 @@ export const MPPRecord = {
       message.paymentAddr = bytesFromBase64(object.paymentAddr);
     }
     if (object.totalAmtMsat !== undefined && object.totalAmtMsat !== null) {
-      message.totalAmtMsat = Number(object.totalAmtMsat);
+      message.totalAmtMsat = String(object.totalAmtMsat);
     } else {
-      message.totalAmtMsat = 0;
+      message.totalAmtMsat = "0";
     }
     return message;
   },
@@ -17241,7 +17241,7 @@ export const MPPRecord = {
     if (object.totalAmtMsat !== undefined && object.totalAmtMsat !== null) {
       message.totalAmtMsat = object.totalAmtMsat;
     } else {
-      message.totalAmtMsat = 0;
+      message.totalAmtMsat = "0";
     }
     return message;
   },
@@ -17347,10 +17347,10 @@ export const AMPRecord = {
 
 const baseRoute: object = {
   totalTimeLock: 0,
-  totalFees: 0,
-  totalAmt: 0,
-  totalFeesMsat: 0,
-  totalAmtMsat: 0,
+  totalFees: "0",
+  totalAmt: "0",
+  totalFeesMsat: "0",
+  totalAmtMsat: "0",
 };
 
 export const Route = {
@@ -17358,19 +17358,19 @@ export const Route = {
     if (message.totalTimeLock !== 0) {
       writer.uint32(8).uint32(message.totalTimeLock);
     }
-    if (message.totalFees !== 0) {
+    if (message.totalFees !== "0") {
       writer.uint32(16).int64(message.totalFees);
     }
-    if (message.totalAmt !== 0) {
+    if (message.totalAmt !== "0") {
       writer.uint32(24).int64(message.totalAmt);
     }
     for (const v of message.hops) {
       Hop.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.totalFeesMsat !== 0) {
+    if (message.totalFeesMsat !== "0") {
       writer.uint32(40).int64(message.totalFeesMsat);
     }
-    if (message.totalAmtMsat !== 0) {
+    if (message.totalAmtMsat !== "0") {
       writer.uint32(48).int64(message.totalAmtMsat);
     }
     return writer;
@@ -17388,19 +17388,19 @@ export const Route = {
           message.totalTimeLock = reader.uint32();
           break;
         case 2:
-          message.totalFees = longToNumber(reader.int64() as Long);
+          message.totalFees = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.totalAmt = longToNumber(reader.int64() as Long);
+          message.totalAmt = longToString(reader.int64() as Long);
           break;
         case 4:
           message.hops.push(Hop.decode(reader, reader.uint32()));
           break;
         case 5:
-          message.totalFeesMsat = longToNumber(reader.int64() as Long);
+          message.totalFeesMsat = longToString(reader.int64() as Long);
           break;
         case 6:
-          message.totalAmtMsat = longToNumber(reader.int64() as Long);
+          message.totalAmtMsat = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -17419,14 +17419,14 @@ export const Route = {
       message.totalTimeLock = 0;
     }
     if (object.totalFees !== undefined && object.totalFees !== null) {
-      message.totalFees = Number(object.totalFees);
+      message.totalFees = String(object.totalFees);
     } else {
-      message.totalFees = 0;
+      message.totalFees = "0";
     }
     if (object.totalAmt !== undefined && object.totalAmt !== null) {
-      message.totalAmt = Number(object.totalAmt);
+      message.totalAmt = String(object.totalAmt);
     } else {
-      message.totalAmt = 0;
+      message.totalAmt = "0";
     }
     if (object.hops !== undefined && object.hops !== null) {
       for (const e of object.hops) {
@@ -17434,14 +17434,14 @@ export const Route = {
       }
     }
     if (object.totalFeesMsat !== undefined && object.totalFeesMsat !== null) {
-      message.totalFeesMsat = Number(object.totalFeesMsat);
+      message.totalFeesMsat = String(object.totalFeesMsat);
     } else {
-      message.totalFeesMsat = 0;
+      message.totalFeesMsat = "0";
     }
     if (object.totalAmtMsat !== undefined && object.totalAmtMsat !== null) {
-      message.totalAmtMsat = Number(object.totalAmtMsat);
+      message.totalAmtMsat = String(object.totalAmtMsat);
     } else {
-      message.totalAmtMsat = 0;
+      message.totalAmtMsat = "0";
     }
     return message;
   },
@@ -17475,12 +17475,12 @@ export const Route = {
     if (object.totalFees !== undefined && object.totalFees !== null) {
       message.totalFees = object.totalFees;
     } else {
-      message.totalFees = 0;
+      message.totalFees = "0";
     }
     if (object.totalAmt !== undefined && object.totalAmt !== null) {
       message.totalAmt = object.totalAmt;
     } else {
-      message.totalAmt = 0;
+      message.totalAmt = "0";
     }
     if (object.hops !== undefined && object.hops !== null) {
       for (const e of object.hops) {
@@ -17490,12 +17490,12 @@ export const Route = {
     if (object.totalFeesMsat !== undefined && object.totalFeesMsat !== null) {
       message.totalFeesMsat = object.totalFeesMsat;
     } else {
-      message.totalFeesMsat = 0;
+      message.totalFeesMsat = "0";
     }
     if (object.totalAmtMsat !== undefined && object.totalAmtMsat !== null) {
       message.totalAmtMsat = object.totalAmtMsat;
     } else {
-      message.totalAmtMsat = 0;
+      message.totalAmtMsat = "0";
     }
     return message;
   },
@@ -17583,7 +17583,7 @@ export const NodeInfoRequest = {
   },
 };
 
-const baseNodeInfo: object = { numChannels: 0, totalCapacity: 0 };
+const baseNodeInfo: object = { numChannels: 0, totalCapacity: "0" };
 
 export const NodeInfo = {
   encode(
@@ -17596,7 +17596,7 @@ export const NodeInfo = {
     if (message.numChannels !== 0) {
       writer.uint32(16).uint32(message.numChannels);
     }
-    if (message.totalCapacity !== 0) {
+    if (message.totalCapacity !== "0") {
       writer.uint32(24).int64(message.totalCapacity);
     }
     for (const v of message.channels) {
@@ -17620,7 +17620,7 @@ export const NodeInfo = {
           message.numChannels = reader.uint32();
           break;
         case 3:
-          message.totalCapacity = longToNumber(reader.int64() as Long);
+          message.totalCapacity = longToString(reader.int64() as Long);
           break;
         case 4:
           message.channels.push(ChannelEdge.decode(reader, reader.uint32()));
@@ -17647,9 +17647,9 @@ export const NodeInfo = {
       message.numChannels = 0;
     }
     if (object.totalCapacity !== undefined && object.totalCapacity !== null) {
-      message.totalCapacity = Number(object.totalCapacity);
+      message.totalCapacity = String(object.totalCapacity);
     } else {
-      message.totalCapacity = 0;
+      message.totalCapacity = "0";
     }
     if (object.channels !== undefined && object.channels !== null) {
       for (const e of object.channels) {
@@ -17695,7 +17695,7 @@ export const NodeInfo = {
     if (object.totalCapacity !== undefined && object.totalCapacity !== null) {
       message.totalCapacity = object.totalCapacity;
     } else {
-      message.totalCapacity = 0;
+      message.totalCapacity = "0";
     }
     if (object.channels !== undefined && object.channels !== null) {
       for (const e of object.channels) {
@@ -18046,11 +18046,11 @@ export const NodeAddress = {
 
 const baseRoutingPolicy: object = {
   timeLockDelta: 0,
-  minHtlc: 0,
-  feeBaseMsat: 0,
-  feeRateMilliMsat: 0,
+  minHtlc: "0",
+  feeBaseMsat: "0",
+  feeRateMilliMsat: "0",
   disabled: false,
-  maxHtlcMsat: 0,
+  maxHtlcMsat: "0",
   lastUpdate: 0,
 };
 
@@ -18062,19 +18062,19 @@ export const RoutingPolicy = {
     if (message.timeLockDelta !== 0) {
       writer.uint32(8).uint32(message.timeLockDelta);
     }
-    if (message.minHtlc !== 0) {
+    if (message.minHtlc !== "0") {
       writer.uint32(16).int64(message.minHtlc);
     }
-    if (message.feeBaseMsat !== 0) {
+    if (message.feeBaseMsat !== "0") {
       writer.uint32(24).int64(message.feeBaseMsat);
     }
-    if (message.feeRateMilliMsat !== 0) {
+    if (message.feeRateMilliMsat !== "0") {
       writer.uint32(32).int64(message.feeRateMilliMsat);
     }
     if (message.disabled === true) {
       writer.uint32(40).bool(message.disabled);
     }
-    if (message.maxHtlcMsat !== 0) {
+    if (message.maxHtlcMsat !== "0") {
       writer.uint32(48).uint64(message.maxHtlcMsat);
     }
     if (message.lastUpdate !== 0) {
@@ -18094,19 +18094,19 @@ export const RoutingPolicy = {
           message.timeLockDelta = reader.uint32();
           break;
         case 2:
-          message.minHtlc = longToNumber(reader.int64() as Long);
+          message.minHtlc = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.feeBaseMsat = longToNumber(reader.int64() as Long);
+          message.feeBaseMsat = longToString(reader.int64() as Long);
           break;
         case 4:
-          message.feeRateMilliMsat = longToNumber(reader.int64() as Long);
+          message.feeRateMilliMsat = longToString(reader.int64() as Long);
           break;
         case 5:
           message.disabled = reader.bool();
           break;
         case 6:
-          message.maxHtlcMsat = longToNumber(reader.uint64() as Long);
+          message.maxHtlcMsat = longToString(reader.uint64() as Long);
           break;
         case 7:
           message.lastUpdate = reader.uint32();
@@ -18127,22 +18127,22 @@ export const RoutingPolicy = {
       message.timeLockDelta = 0;
     }
     if (object.minHtlc !== undefined && object.minHtlc !== null) {
-      message.minHtlc = Number(object.minHtlc);
+      message.minHtlc = String(object.minHtlc);
     } else {
-      message.minHtlc = 0;
+      message.minHtlc = "0";
     }
     if (object.feeBaseMsat !== undefined && object.feeBaseMsat !== null) {
-      message.feeBaseMsat = Number(object.feeBaseMsat);
+      message.feeBaseMsat = String(object.feeBaseMsat);
     } else {
-      message.feeBaseMsat = 0;
+      message.feeBaseMsat = "0";
     }
     if (
       object.feeRateMilliMsat !== undefined &&
       object.feeRateMilliMsat !== null
     ) {
-      message.feeRateMilliMsat = Number(object.feeRateMilliMsat);
+      message.feeRateMilliMsat = String(object.feeRateMilliMsat);
     } else {
-      message.feeRateMilliMsat = 0;
+      message.feeRateMilliMsat = "0";
     }
     if (object.disabled !== undefined && object.disabled !== null) {
       message.disabled = Boolean(object.disabled);
@@ -18150,9 +18150,9 @@ export const RoutingPolicy = {
       message.disabled = false;
     }
     if (object.maxHtlcMsat !== undefined && object.maxHtlcMsat !== null) {
-      message.maxHtlcMsat = Number(object.maxHtlcMsat);
+      message.maxHtlcMsat = String(object.maxHtlcMsat);
     } else {
-      message.maxHtlcMsat = 0;
+      message.maxHtlcMsat = "0";
     }
     if (object.lastUpdate !== undefined && object.lastUpdate !== null) {
       message.lastUpdate = Number(object.lastUpdate);
@@ -18188,12 +18188,12 @@ export const RoutingPolicy = {
     if (object.minHtlc !== undefined && object.minHtlc !== null) {
       message.minHtlc = object.minHtlc;
     } else {
-      message.minHtlc = 0;
+      message.minHtlc = "0";
     }
     if (object.feeBaseMsat !== undefined && object.feeBaseMsat !== null) {
       message.feeBaseMsat = object.feeBaseMsat;
     } else {
-      message.feeBaseMsat = 0;
+      message.feeBaseMsat = "0";
     }
     if (
       object.feeRateMilliMsat !== undefined &&
@@ -18201,7 +18201,7 @@ export const RoutingPolicy = {
     ) {
       message.feeRateMilliMsat = object.feeRateMilliMsat;
     } else {
-      message.feeRateMilliMsat = 0;
+      message.feeRateMilliMsat = "0";
     }
     if (object.disabled !== undefined && object.disabled !== null) {
       message.disabled = object.disabled;
@@ -18211,7 +18211,7 @@ export const RoutingPolicy = {
     if (object.maxHtlcMsat !== undefined && object.maxHtlcMsat !== null) {
       message.maxHtlcMsat = object.maxHtlcMsat;
     } else {
-      message.maxHtlcMsat = 0;
+      message.maxHtlcMsat = "0";
     }
     if (object.lastUpdate !== undefined && object.lastUpdate !== null) {
       message.lastUpdate = object.lastUpdate;
@@ -18223,12 +18223,12 @@ export const RoutingPolicy = {
 };
 
 const baseChannelEdge: object = {
-  channelId: 0,
+  channelId: "0",
   chanPoint: "",
   lastUpdate: 0,
   node1Pub: "",
   node2Pub: "",
-  capacity: 0,
+  capacity: "0",
 };
 
 export const ChannelEdge = {
@@ -18236,7 +18236,7 @@ export const ChannelEdge = {
     message: ChannelEdge,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.channelId !== 0) {
+    if (message.channelId !== "0") {
       writer.uint32(8).uint64(message.channelId);
     }
     if (message.chanPoint !== "") {
@@ -18251,7 +18251,7 @@ export const ChannelEdge = {
     if (message.node2Pub !== "") {
       writer.uint32(42).string(message.node2Pub);
     }
-    if (message.capacity !== 0) {
+    if (message.capacity !== "0") {
       writer.uint32(48).int64(message.capacity);
     }
     if (message.node1Policy !== undefined) {
@@ -18277,7 +18277,7 @@ export const ChannelEdge = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channelId = longToNumber(reader.uint64() as Long);
+          message.channelId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.chanPoint = reader.string();
@@ -18292,7 +18292,7 @@ export const ChannelEdge = {
           message.node2Pub = reader.string();
           break;
         case 6:
-          message.capacity = longToNumber(reader.int64() as Long);
+          message.capacity = longToString(reader.int64() as Long);
           break;
         case 7:
           message.node1Policy = RoutingPolicy.decode(reader, reader.uint32());
@@ -18311,9 +18311,9 @@ export const ChannelEdge = {
   fromJSON(object: any): ChannelEdge {
     const message = { ...baseChannelEdge } as ChannelEdge;
     if (object.channelId !== undefined && object.channelId !== null) {
-      message.channelId = Number(object.channelId);
+      message.channelId = String(object.channelId);
     } else {
-      message.channelId = 0;
+      message.channelId = "0";
     }
     if (object.chanPoint !== undefined && object.chanPoint !== null) {
       message.chanPoint = String(object.chanPoint);
@@ -18336,9 +18336,9 @@ export const ChannelEdge = {
       message.node2Pub = "";
     }
     if (object.capacity !== undefined && object.capacity !== null) {
-      message.capacity = Number(object.capacity);
+      message.capacity = String(object.capacity);
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.node1Policy !== undefined && object.node1Policy !== null) {
       message.node1Policy = RoutingPolicy.fromJSON(object.node1Policy);
@@ -18377,7 +18377,7 @@ export const ChannelEdge = {
     if (object.channelId !== undefined && object.channelId !== null) {
       message.channelId = object.channelId;
     } else {
-      message.channelId = 0;
+      message.channelId = "0";
     }
     if (object.chanPoint !== undefined && object.chanPoint !== null) {
       message.chanPoint = object.chanPoint;
@@ -18402,7 +18402,7 @@ export const ChannelEdge = {
     if (object.capacity !== undefined && object.capacity !== null) {
       message.capacity = object.capacity;
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.node1Policy !== undefined && object.node1Policy !== null) {
       message.node1Policy = RoutingPolicy.fromPartial(object.node1Policy);
@@ -18904,14 +18904,14 @@ export const FloatMetric = {
   },
 };
 
-const baseChanInfoRequest: object = { chanId: 0 };
+const baseChanInfoRequest: object = { chanId: "0" };
 
 export const ChanInfoRequest = {
   encode(
     message: ChanInfoRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
     return writer;
@@ -18925,7 +18925,7 @@ export const ChanInfoRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -18938,9 +18938,9 @@ export const ChanInfoRequest = {
   fromJSON(object: any): ChanInfoRequest {
     const message = { ...baseChanInfoRequest } as ChanInfoRequest;
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     return message;
   },
@@ -18956,7 +18956,7 @@ export const ChanInfoRequest = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     return message;
   },
@@ -19009,12 +19009,12 @@ const baseNetworkInfo: object = {
   maxOutDegree: 0,
   numNodes: 0,
   numChannels: 0,
-  totalNetworkCapacity: 0,
+  totalNetworkCapacity: "0",
   avgChannelSize: 0,
-  minChannelSize: 0,
-  maxChannelSize: 0,
-  medianChannelSizeSat: 0,
-  numZombieChans: 0,
+  minChannelSize: "0",
+  maxChannelSize: "0",
+  medianChannelSizeSat: "0",
+  numZombieChans: "0",
 };
 
 export const NetworkInfo = {
@@ -19037,22 +19037,22 @@ export const NetworkInfo = {
     if (message.numChannels !== 0) {
       writer.uint32(40).uint32(message.numChannels);
     }
-    if (message.totalNetworkCapacity !== 0) {
+    if (message.totalNetworkCapacity !== "0") {
       writer.uint32(48).int64(message.totalNetworkCapacity);
     }
     if (message.avgChannelSize !== 0) {
       writer.uint32(57).double(message.avgChannelSize);
     }
-    if (message.minChannelSize !== 0) {
+    if (message.minChannelSize !== "0") {
       writer.uint32(64).int64(message.minChannelSize);
     }
-    if (message.maxChannelSize !== 0) {
+    if (message.maxChannelSize !== "0") {
       writer.uint32(72).int64(message.maxChannelSize);
     }
-    if (message.medianChannelSizeSat !== 0) {
+    if (message.medianChannelSizeSat !== "0") {
       writer.uint32(80).int64(message.medianChannelSizeSat);
     }
-    if (message.numZombieChans !== 0) {
+    if (message.numZombieChans !== "0") {
       writer.uint32(88).uint64(message.numZombieChans);
     }
     return writer;
@@ -19081,22 +19081,22 @@ export const NetworkInfo = {
           message.numChannels = reader.uint32();
           break;
         case 6:
-          message.totalNetworkCapacity = longToNumber(reader.int64() as Long);
+          message.totalNetworkCapacity = longToString(reader.int64() as Long);
           break;
         case 7:
           message.avgChannelSize = reader.double();
           break;
         case 8:
-          message.minChannelSize = longToNumber(reader.int64() as Long);
+          message.minChannelSize = longToString(reader.int64() as Long);
           break;
         case 9:
-          message.maxChannelSize = longToNumber(reader.int64() as Long);
+          message.maxChannelSize = longToString(reader.int64() as Long);
           break;
         case 10:
-          message.medianChannelSizeSat = longToNumber(reader.int64() as Long);
+          message.medianChannelSizeSat = longToString(reader.int64() as Long);
           break;
         case 11:
-          message.numZombieChans = longToNumber(reader.uint64() as Long);
+          message.numZombieChans = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -19137,9 +19137,9 @@ export const NetworkInfo = {
       object.totalNetworkCapacity !== undefined &&
       object.totalNetworkCapacity !== null
     ) {
-      message.totalNetworkCapacity = Number(object.totalNetworkCapacity);
+      message.totalNetworkCapacity = String(object.totalNetworkCapacity);
     } else {
-      message.totalNetworkCapacity = 0;
+      message.totalNetworkCapacity = "0";
     }
     if (object.avgChannelSize !== undefined && object.avgChannelSize !== null) {
       message.avgChannelSize = Number(object.avgChannelSize);
@@ -19147,27 +19147,27 @@ export const NetworkInfo = {
       message.avgChannelSize = 0;
     }
     if (object.minChannelSize !== undefined && object.minChannelSize !== null) {
-      message.minChannelSize = Number(object.minChannelSize);
+      message.minChannelSize = String(object.minChannelSize);
     } else {
-      message.minChannelSize = 0;
+      message.minChannelSize = "0";
     }
     if (object.maxChannelSize !== undefined && object.maxChannelSize !== null) {
-      message.maxChannelSize = Number(object.maxChannelSize);
+      message.maxChannelSize = String(object.maxChannelSize);
     } else {
-      message.maxChannelSize = 0;
+      message.maxChannelSize = "0";
     }
     if (
       object.medianChannelSizeSat !== undefined &&
       object.medianChannelSizeSat !== null
     ) {
-      message.medianChannelSizeSat = Number(object.medianChannelSizeSat);
+      message.medianChannelSizeSat = String(object.medianChannelSizeSat);
     } else {
-      message.medianChannelSizeSat = 0;
+      message.medianChannelSizeSat = "0";
     }
     if (object.numZombieChans !== undefined && object.numZombieChans !== null) {
-      message.numZombieChans = Number(object.numZombieChans);
+      message.numZombieChans = String(object.numZombieChans);
     } else {
-      message.numZombieChans = 0;
+      message.numZombieChans = "0";
     }
     return message;
   },
@@ -19231,7 +19231,7 @@ export const NetworkInfo = {
     ) {
       message.totalNetworkCapacity = object.totalNetworkCapacity;
     } else {
-      message.totalNetworkCapacity = 0;
+      message.totalNetworkCapacity = "0";
     }
     if (object.avgChannelSize !== undefined && object.avgChannelSize !== null) {
       message.avgChannelSize = object.avgChannelSize;
@@ -19241,12 +19241,12 @@ export const NetworkInfo = {
     if (object.minChannelSize !== undefined && object.minChannelSize !== null) {
       message.minChannelSize = object.minChannelSize;
     } else {
-      message.minChannelSize = 0;
+      message.minChannelSize = "0";
     }
     if (object.maxChannelSize !== undefined && object.maxChannelSize !== null) {
       message.maxChannelSize = object.maxChannelSize;
     } else {
-      message.maxChannelSize = 0;
+      message.maxChannelSize = "0";
     }
     if (
       object.medianChannelSizeSat !== undefined &&
@@ -19254,12 +19254,12 @@ export const NetworkInfo = {
     ) {
       message.medianChannelSizeSat = object.medianChannelSizeSat;
     } else {
-      message.medianChannelSizeSat = 0;
+      message.medianChannelSizeSat = "0";
     }
     if (object.numZombieChans !== undefined && object.numZombieChans !== null) {
       message.numZombieChans = object.numZombieChans;
     } else {
-      message.numZombieChans = 0;
+      message.numZombieChans = "0";
     }
     return message;
   },
@@ -19815,8 +19815,8 @@ export const NodeUpdate_FeaturesEntry = {
 };
 
 const baseChannelEdgeUpdate: object = {
-  chanId: 0,
-  capacity: 0,
+  chanId: "0",
+  capacity: "0",
   advertisingNode: "",
   connectingNode: "",
 };
@@ -19826,13 +19826,13 @@ export const ChannelEdgeUpdate = {
     message: ChannelEdgeUpdate,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-    if (message.capacity !== 0) {
+    if (message.capacity !== "0") {
       writer.uint32(24).int64(message.capacity);
     }
     if (message.routingPolicy !== undefined) {
@@ -19858,13 +19858,13 @@ export const ChannelEdgeUpdate = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.chanPoint = ChannelPoint.decode(reader, reader.uint32());
           break;
         case 3:
-          message.capacity = longToNumber(reader.int64() as Long);
+          message.capacity = longToString(reader.int64() as Long);
           break;
         case 4:
           message.routingPolicy = RoutingPolicy.decode(reader, reader.uint32());
@@ -19886,9 +19886,9 @@ export const ChannelEdgeUpdate = {
   fromJSON(object: any): ChannelEdgeUpdate {
     const message = { ...baseChannelEdgeUpdate } as ChannelEdgeUpdate;
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.chanPoint !== undefined && object.chanPoint !== null) {
       message.chanPoint = ChannelPoint.fromJSON(object.chanPoint);
@@ -19896,9 +19896,9 @@ export const ChannelEdgeUpdate = {
       message.chanPoint = undefined;
     }
     if (object.capacity !== undefined && object.capacity !== null) {
-      message.capacity = Number(object.capacity);
+      message.capacity = String(object.capacity);
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.routingPolicy !== undefined && object.routingPolicy !== null) {
       message.routingPolicy = RoutingPolicy.fromJSON(object.routingPolicy);
@@ -19945,7 +19945,7 @@ export const ChannelEdgeUpdate = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.chanPoint !== undefined && object.chanPoint !== null) {
       message.chanPoint = ChannelPoint.fromPartial(object.chanPoint);
@@ -19955,7 +19955,7 @@ export const ChannelEdgeUpdate = {
     if (object.capacity !== undefined && object.capacity !== null) {
       message.capacity = object.capacity;
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.routingPolicy !== undefined && object.routingPolicy !== null) {
       message.routingPolicy = RoutingPolicy.fromPartial(object.routingPolicy);
@@ -19980,8 +19980,8 @@ export const ChannelEdgeUpdate = {
 };
 
 const baseClosedChannelUpdate: object = {
-  chanId: 0,
-  capacity: 0,
+  chanId: "0",
+  capacity: "0",
   closedHeight: 0,
 };
 
@@ -19990,10 +19990,10 @@ export const ClosedChannelUpdate = {
     message: ClosedChannelUpdate,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.capacity !== 0) {
+    if (message.capacity !== "0") {
       writer.uint32(16).int64(message.capacity);
     }
     if (message.closedHeight !== 0) {
@@ -20013,10 +20013,10 @@ export const ClosedChannelUpdate = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.capacity = longToNumber(reader.int64() as Long);
+          message.capacity = longToString(reader.int64() as Long);
           break;
         case 3:
           message.closedHeight = reader.uint32();
@@ -20035,14 +20035,14 @@ export const ClosedChannelUpdate = {
   fromJSON(object: any): ClosedChannelUpdate {
     const message = { ...baseClosedChannelUpdate } as ClosedChannelUpdate;
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.capacity !== undefined && object.capacity !== null) {
-      message.capacity = Number(object.capacity);
+      message.capacity = String(object.capacity);
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.closedHeight !== undefined && object.closedHeight !== null) {
       message.closedHeight = Number(object.closedHeight);
@@ -20075,12 +20075,12 @@ export const ClosedChannelUpdate = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.capacity !== undefined && object.capacity !== null) {
       message.capacity = object.capacity;
     } else {
-      message.capacity = 0;
+      message.capacity = "0";
     }
     if (object.closedHeight !== undefined && object.closedHeight !== null) {
       message.closedHeight = object.closedHeight;
@@ -20098,7 +20098,7 @@ export const ClosedChannelUpdate = {
 
 const baseHopHint: object = {
   nodeId: "",
-  chanId: 0,
+  chanId: "0",
   feeBaseMsat: 0,
   feeProportionalMillionths: 0,
   cltvExpiryDelta: 0,
@@ -20112,7 +20112,7 @@ export const HopHint = {
     if (message.nodeId !== "") {
       writer.uint32(10).string(message.nodeId);
     }
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(16).uint64(message.chanId);
     }
     if (message.feeBaseMsat !== 0) {
@@ -20138,7 +20138,7 @@ export const HopHint = {
           message.nodeId = reader.string();
           break;
         case 2:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.feeBaseMsat = reader.uint32();
@@ -20165,9 +20165,9 @@ export const HopHint = {
       message.nodeId = "";
     }
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.feeBaseMsat !== undefined && object.feeBaseMsat !== null) {
       message.feeBaseMsat = Number(object.feeBaseMsat);
@@ -20218,7 +20218,7 @@ export const HopHint = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.feeBaseMsat !== undefined && object.feeBaseMsat !== null) {
       message.feeBaseMsat = object.feeBaseMsat;
@@ -20314,21 +20314,21 @@ export const RouteHint = {
 
 const baseInvoice: object = {
   memo: "",
-  value: 0,
-  valueMsat: 0,
+  value: "0",
+  valueMsat: "0",
   settled: false,
-  creationDate: 0,
-  settleDate: 0,
+  creationDate: "0",
+  settleDate: "0",
   paymentRequest: "",
-  expiry: 0,
+  expiry: "0",
   fallbackAddr: "",
-  cltvExpiry: 0,
+  cltvExpiry: "0",
   private: false,
-  addIndex: 0,
-  settleIndex: 0,
-  amtPaid: 0,
-  amtPaidSat: 0,
-  amtPaidMsat: 0,
+  addIndex: "0",
+  settleIndex: "0",
+  amtPaid: "0",
+  amtPaidSat: "0",
+  amtPaidMsat: "0",
   state: 0,
   isKeysend: false,
   isAmp: false,
@@ -20348,19 +20348,19 @@ export const Invoice = {
     if (message.rHash.length !== 0) {
       writer.uint32(34).bytes(message.rHash);
     }
-    if (message.value !== 0) {
+    if (message.value !== "0") {
       writer.uint32(40).int64(message.value);
     }
-    if (message.valueMsat !== 0) {
+    if (message.valueMsat !== "0") {
       writer.uint32(184).int64(message.valueMsat);
     }
     if (message.settled === true) {
       writer.uint32(48).bool(message.settled);
     }
-    if (message.creationDate !== 0) {
+    if (message.creationDate !== "0") {
       writer.uint32(56).int64(message.creationDate);
     }
-    if (message.settleDate !== 0) {
+    if (message.settleDate !== "0") {
       writer.uint32(64).int64(message.settleDate);
     }
     if (message.paymentRequest !== "") {
@@ -20369,13 +20369,13 @@ export const Invoice = {
     if (message.descriptionHash.length !== 0) {
       writer.uint32(82).bytes(message.descriptionHash);
     }
-    if (message.expiry !== 0) {
+    if (message.expiry !== "0") {
       writer.uint32(88).int64(message.expiry);
     }
     if (message.fallbackAddr !== "") {
       writer.uint32(98).string(message.fallbackAddr);
     }
-    if (message.cltvExpiry !== 0) {
+    if (message.cltvExpiry !== "0") {
       writer.uint32(104).uint64(message.cltvExpiry);
     }
     for (const v of message.routeHints) {
@@ -20384,19 +20384,19 @@ export const Invoice = {
     if (message.private === true) {
       writer.uint32(120).bool(message.private);
     }
-    if (message.addIndex !== 0) {
+    if (message.addIndex !== "0") {
       writer.uint32(128).uint64(message.addIndex);
     }
-    if (message.settleIndex !== 0) {
+    if (message.settleIndex !== "0") {
       writer.uint32(136).uint64(message.settleIndex);
     }
-    if (message.amtPaid !== 0) {
+    if (message.amtPaid !== "0") {
       writer.uint32(144).int64(message.amtPaid);
     }
-    if (message.amtPaidSat !== 0) {
+    if (message.amtPaidSat !== "0") {
       writer.uint32(152).int64(message.amtPaidSat);
     }
-    if (message.amtPaidMsat !== 0) {
+    if (message.amtPaidMsat !== "0") {
       writer.uint32(160).int64(message.amtPaidMsat);
     }
     if (message.state !== 0) {
@@ -20447,19 +20447,19 @@ export const Invoice = {
           message.rHash = reader.bytes();
           break;
         case 5:
-          message.value = longToNumber(reader.int64() as Long);
+          message.value = longToString(reader.int64() as Long);
           break;
         case 23:
-          message.valueMsat = longToNumber(reader.int64() as Long);
+          message.valueMsat = longToString(reader.int64() as Long);
           break;
         case 6:
           message.settled = reader.bool();
           break;
         case 7:
-          message.creationDate = longToNumber(reader.int64() as Long);
+          message.creationDate = longToString(reader.int64() as Long);
           break;
         case 8:
-          message.settleDate = longToNumber(reader.int64() as Long);
+          message.settleDate = longToString(reader.int64() as Long);
           break;
         case 9:
           message.paymentRequest = reader.string();
@@ -20468,13 +20468,13 @@ export const Invoice = {
           message.descriptionHash = reader.bytes();
           break;
         case 11:
-          message.expiry = longToNumber(reader.int64() as Long);
+          message.expiry = longToString(reader.int64() as Long);
           break;
         case 12:
           message.fallbackAddr = reader.string();
           break;
         case 13:
-          message.cltvExpiry = longToNumber(reader.uint64() as Long);
+          message.cltvExpiry = longToString(reader.uint64() as Long);
           break;
         case 14:
           message.routeHints.push(RouteHint.decode(reader, reader.uint32()));
@@ -20483,19 +20483,19 @@ export const Invoice = {
           message.private = reader.bool();
           break;
         case 16:
-          message.addIndex = longToNumber(reader.uint64() as Long);
+          message.addIndex = longToString(reader.uint64() as Long);
           break;
         case 17:
-          message.settleIndex = longToNumber(reader.uint64() as Long);
+          message.settleIndex = longToString(reader.uint64() as Long);
           break;
         case 18:
-          message.amtPaid = longToNumber(reader.int64() as Long);
+          message.amtPaid = longToString(reader.int64() as Long);
           break;
         case 19:
-          message.amtPaidSat = longToNumber(reader.int64() as Long);
+          message.amtPaidSat = longToString(reader.int64() as Long);
           break;
         case 20:
-          message.amtPaidMsat = longToNumber(reader.int64() as Long);
+          message.amtPaidMsat = longToString(reader.int64() as Long);
           break;
         case 21:
           message.state = reader.int32() as any;
@@ -20547,14 +20547,14 @@ export const Invoice = {
       message.rHash = bytesFromBase64(object.rHash);
     }
     if (object.value !== undefined && object.value !== null) {
-      message.value = Number(object.value);
+      message.value = String(object.value);
     } else {
-      message.value = 0;
+      message.value = "0";
     }
     if (object.valueMsat !== undefined && object.valueMsat !== null) {
-      message.valueMsat = Number(object.valueMsat);
+      message.valueMsat = String(object.valueMsat);
     } else {
-      message.valueMsat = 0;
+      message.valueMsat = "0";
     }
     if (object.settled !== undefined && object.settled !== null) {
       message.settled = Boolean(object.settled);
@@ -20562,14 +20562,14 @@ export const Invoice = {
       message.settled = false;
     }
     if (object.creationDate !== undefined && object.creationDate !== null) {
-      message.creationDate = Number(object.creationDate);
+      message.creationDate = String(object.creationDate);
     } else {
-      message.creationDate = 0;
+      message.creationDate = "0";
     }
     if (object.settleDate !== undefined && object.settleDate !== null) {
-      message.settleDate = Number(object.settleDate);
+      message.settleDate = String(object.settleDate);
     } else {
-      message.settleDate = 0;
+      message.settleDate = "0";
     }
     if (object.paymentRequest !== undefined && object.paymentRequest !== null) {
       message.paymentRequest = String(object.paymentRequest);
@@ -20583,9 +20583,9 @@ export const Invoice = {
       message.descriptionHash = bytesFromBase64(object.descriptionHash);
     }
     if (object.expiry !== undefined && object.expiry !== null) {
-      message.expiry = Number(object.expiry);
+      message.expiry = String(object.expiry);
     } else {
-      message.expiry = 0;
+      message.expiry = "0";
     }
     if (object.fallbackAddr !== undefined && object.fallbackAddr !== null) {
       message.fallbackAddr = String(object.fallbackAddr);
@@ -20593,9 +20593,9 @@ export const Invoice = {
       message.fallbackAddr = "";
     }
     if (object.cltvExpiry !== undefined && object.cltvExpiry !== null) {
-      message.cltvExpiry = Number(object.cltvExpiry);
+      message.cltvExpiry = String(object.cltvExpiry);
     } else {
-      message.cltvExpiry = 0;
+      message.cltvExpiry = "0";
     }
     if (object.routeHints !== undefined && object.routeHints !== null) {
       for (const e of object.routeHints) {
@@ -20608,29 +20608,29 @@ export const Invoice = {
       message.private = false;
     }
     if (object.addIndex !== undefined && object.addIndex !== null) {
-      message.addIndex = Number(object.addIndex);
+      message.addIndex = String(object.addIndex);
     } else {
-      message.addIndex = 0;
+      message.addIndex = "0";
     }
     if (object.settleIndex !== undefined && object.settleIndex !== null) {
-      message.settleIndex = Number(object.settleIndex);
+      message.settleIndex = String(object.settleIndex);
     } else {
-      message.settleIndex = 0;
+      message.settleIndex = "0";
     }
     if (object.amtPaid !== undefined && object.amtPaid !== null) {
-      message.amtPaid = Number(object.amtPaid);
+      message.amtPaid = String(object.amtPaid);
     } else {
-      message.amtPaid = 0;
+      message.amtPaid = "0";
     }
     if (object.amtPaidSat !== undefined && object.amtPaidSat !== null) {
-      message.amtPaidSat = Number(object.amtPaidSat);
+      message.amtPaidSat = String(object.amtPaidSat);
     } else {
-      message.amtPaidSat = 0;
+      message.amtPaidSat = "0";
     }
     if (object.amtPaidMsat !== undefined && object.amtPaidMsat !== null) {
-      message.amtPaidMsat = Number(object.amtPaidMsat);
+      message.amtPaidMsat = String(object.amtPaidMsat);
     } else {
-      message.amtPaidMsat = 0;
+      message.amtPaidMsat = "0";
     }
     if (object.state !== undefined && object.state !== null) {
       message.state = invoice_InvoiceStateFromJSON(object.state);
@@ -20756,12 +20756,12 @@ export const Invoice = {
     if (object.value !== undefined && object.value !== null) {
       message.value = object.value;
     } else {
-      message.value = 0;
+      message.value = "0";
     }
     if (object.valueMsat !== undefined && object.valueMsat !== null) {
       message.valueMsat = object.valueMsat;
     } else {
-      message.valueMsat = 0;
+      message.valueMsat = "0";
     }
     if (object.settled !== undefined && object.settled !== null) {
       message.settled = object.settled;
@@ -20771,12 +20771,12 @@ export const Invoice = {
     if (object.creationDate !== undefined && object.creationDate !== null) {
       message.creationDate = object.creationDate;
     } else {
-      message.creationDate = 0;
+      message.creationDate = "0";
     }
     if (object.settleDate !== undefined && object.settleDate !== null) {
       message.settleDate = object.settleDate;
     } else {
-      message.settleDate = 0;
+      message.settleDate = "0";
     }
     if (object.paymentRequest !== undefined && object.paymentRequest !== null) {
       message.paymentRequest = object.paymentRequest;
@@ -20794,7 +20794,7 @@ export const Invoice = {
     if (object.expiry !== undefined && object.expiry !== null) {
       message.expiry = object.expiry;
     } else {
-      message.expiry = 0;
+      message.expiry = "0";
     }
     if (object.fallbackAddr !== undefined && object.fallbackAddr !== null) {
       message.fallbackAddr = object.fallbackAddr;
@@ -20804,7 +20804,7 @@ export const Invoice = {
     if (object.cltvExpiry !== undefined && object.cltvExpiry !== null) {
       message.cltvExpiry = object.cltvExpiry;
     } else {
-      message.cltvExpiry = 0;
+      message.cltvExpiry = "0";
     }
     if (object.routeHints !== undefined && object.routeHints !== null) {
       for (const e of object.routeHints) {
@@ -20819,27 +20819,27 @@ export const Invoice = {
     if (object.addIndex !== undefined && object.addIndex !== null) {
       message.addIndex = object.addIndex;
     } else {
-      message.addIndex = 0;
+      message.addIndex = "0";
     }
     if (object.settleIndex !== undefined && object.settleIndex !== null) {
       message.settleIndex = object.settleIndex;
     } else {
-      message.settleIndex = 0;
+      message.settleIndex = "0";
     }
     if (object.amtPaid !== undefined && object.amtPaid !== null) {
       message.amtPaid = object.amtPaid;
     } else {
-      message.amtPaid = 0;
+      message.amtPaid = "0";
     }
     if (object.amtPaidSat !== undefined && object.amtPaidSat !== null) {
       message.amtPaidSat = object.amtPaidSat;
     } else {
-      message.amtPaidSat = 0;
+      message.amtPaidSat = "0";
     }
     if (object.amtPaidMsat !== undefined && object.amtPaidMsat !== null) {
       message.amtPaidMsat = object.amtPaidMsat;
     } else {
-      message.amtPaidMsat = 0;
+      message.amtPaidMsat = "0";
     }
     if (object.state !== undefined && object.state !== null) {
       message.state = object.state;
@@ -20959,15 +20959,15 @@ export const Invoice_FeaturesEntry = {
 };
 
 const baseInvoiceHTLC: object = {
-  chanId: 0,
-  htlcIndex: 0,
-  amtMsat: 0,
+  chanId: "0",
+  htlcIndex: "0",
+  amtMsat: "0",
   acceptHeight: 0,
-  acceptTime: 0,
-  resolveTime: 0,
+  acceptTime: "0",
+  resolveTime: "0",
   expiryHeight: 0,
   state: 0,
-  mppTotalAmtMsat: 0,
+  mppTotalAmtMsat: "0",
 };
 
 export const InvoiceHTLC = {
@@ -20975,22 +20975,22 @@ export const InvoiceHTLC = {
     message: InvoiceHTLC,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.htlcIndex !== 0) {
+    if (message.htlcIndex !== "0") {
       writer.uint32(16).uint64(message.htlcIndex);
     }
-    if (message.amtMsat !== 0) {
+    if (message.amtMsat !== "0") {
       writer.uint32(24).uint64(message.amtMsat);
     }
     if (message.acceptHeight !== 0) {
       writer.uint32(32).int32(message.acceptHeight);
     }
-    if (message.acceptTime !== 0) {
+    if (message.acceptTime !== "0") {
       writer.uint32(40).int64(message.acceptTime);
     }
-    if (message.resolveTime !== 0) {
+    if (message.resolveTime !== "0") {
       writer.uint32(48).int64(message.resolveTime);
     }
     if (message.expiryHeight !== 0) {
@@ -21005,7 +21005,7 @@ export const InvoiceHTLC = {
         writer.uint32(74).fork()
       ).ldelim();
     });
-    if (message.mppTotalAmtMsat !== 0) {
+    if (message.mppTotalAmtMsat !== "0") {
       writer.uint32(80).uint64(message.mppTotalAmtMsat);
     }
     if (message.amp !== undefined) {
@@ -21023,22 +21023,22 @@ export const InvoiceHTLC = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.htlcIndex = longToNumber(reader.uint64() as Long);
+          message.htlcIndex = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.amtMsat = longToNumber(reader.uint64() as Long);
+          message.amtMsat = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.acceptHeight = reader.int32();
           break;
         case 5:
-          message.acceptTime = longToNumber(reader.int64() as Long);
+          message.acceptTime = longToString(reader.int64() as Long);
           break;
         case 6:
-          message.resolveTime = longToNumber(reader.int64() as Long);
+          message.resolveTime = longToString(reader.int64() as Long);
           break;
         case 7:
           message.expiryHeight = reader.int32();
@@ -21056,7 +21056,7 @@ export const InvoiceHTLC = {
           }
           break;
         case 10:
-          message.mppTotalAmtMsat = longToNumber(reader.uint64() as Long);
+          message.mppTotalAmtMsat = longToString(reader.uint64() as Long);
           break;
         case 11:
           message.amp = AMP.decode(reader, reader.uint32());
@@ -21073,19 +21073,19 @@ export const InvoiceHTLC = {
     const message = { ...baseInvoiceHTLC } as InvoiceHTLC;
     message.customRecords = {};
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.htlcIndex !== undefined && object.htlcIndex !== null) {
-      message.htlcIndex = Number(object.htlcIndex);
+      message.htlcIndex = String(object.htlcIndex);
     } else {
-      message.htlcIndex = 0;
+      message.htlcIndex = "0";
     }
     if (object.amtMsat !== undefined && object.amtMsat !== null) {
-      message.amtMsat = Number(object.amtMsat);
+      message.amtMsat = String(object.amtMsat);
     } else {
-      message.amtMsat = 0;
+      message.amtMsat = "0";
     }
     if (object.acceptHeight !== undefined && object.acceptHeight !== null) {
       message.acceptHeight = Number(object.acceptHeight);
@@ -21093,14 +21093,14 @@ export const InvoiceHTLC = {
       message.acceptHeight = 0;
     }
     if (object.acceptTime !== undefined && object.acceptTime !== null) {
-      message.acceptTime = Number(object.acceptTime);
+      message.acceptTime = String(object.acceptTime);
     } else {
-      message.acceptTime = 0;
+      message.acceptTime = "0";
     }
     if (object.resolveTime !== undefined && object.resolveTime !== null) {
-      message.resolveTime = Number(object.resolveTime);
+      message.resolveTime = String(object.resolveTime);
     } else {
-      message.resolveTime = 0;
+      message.resolveTime = "0";
     }
     if (object.expiryHeight !== undefined && object.expiryHeight !== null) {
       message.expiryHeight = Number(object.expiryHeight);
@@ -21114,16 +21114,16 @@ export const InvoiceHTLC = {
     }
     if (object.customRecords !== undefined && object.customRecords !== null) {
       Object.entries(object.customRecords).forEach(([key, value]) => {
-        message.customRecords[Number(key)] = bytesFromBase64(value as string);
+        message.customRecords[key] = bytesFromBase64(value as string);
       });
     }
     if (
       object.mppTotalAmtMsat !== undefined &&
       object.mppTotalAmtMsat !== null
     ) {
-      message.mppTotalAmtMsat = Number(object.mppTotalAmtMsat);
+      message.mppTotalAmtMsat = String(object.mppTotalAmtMsat);
     } else {
-      message.mppTotalAmtMsat = 0;
+      message.mppTotalAmtMsat = "0";
     }
     if (object.amp !== undefined && object.amp !== null) {
       message.amp = AMP.fromJSON(object.amp);
@@ -21166,17 +21166,17 @@ export const InvoiceHTLC = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.htlcIndex !== undefined && object.htlcIndex !== null) {
       message.htlcIndex = object.htlcIndex;
     } else {
-      message.htlcIndex = 0;
+      message.htlcIndex = "0";
     }
     if (object.amtMsat !== undefined && object.amtMsat !== null) {
       message.amtMsat = object.amtMsat;
     } else {
-      message.amtMsat = 0;
+      message.amtMsat = "0";
     }
     if (object.acceptHeight !== undefined && object.acceptHeight !== null) {
       message.acceptHeight = object.acceptHeight;
@@ -21186,12 +21186,12 @@ export const InvoiceHTLC = {
     if (object.acceptTime !== undefined && object.acceptTime !== null) {
       message.acceptTime = object.acceptTime;
     } else {
-      message.acceptTime = 0;
+      message.acceptTime = "0";
     }
     if (object.resolveTime !== undefined && object.resolveTime !== null) {
       message.resolveTime = object.resolveTime;
     } else {
-      message.resolveTime = 0;
+      message.resolveTime = "0";
     }
     if (object.expiryHeight !== undefined && object.expiryHeight !== null) {
       message.expiryHeight = object.expiryHeight;
@@ -21206,7 +21206,7 @@ export const InvoiceHTLC = {
     if (object.customRecords !== undefined && object.customRecords !== null) {
       Object.entries(object.customRecords).forEach(([key, value]) => {
         if (value !== undefined) {
-          message.customRecords[Number(key)] = value;
+          message.customRecords[key] = value;
         }
       });
     }
@@ -21216,7 +21216,7 @@ export const InvoiceHTLC = {
     ) {
       message.mppTotalAmtMsat = object.mppTotalAmtMsat;
     } else {
-      message.mppTotalAmtMsat = 0;
+      message.mppTotalAmtMsat = "0";
     }
     if (object.amp !== undefined && object.amp !== null) {
       message.amp = AMP.fromPartial(object.amp);
@@ -21227,14 +21227,14 @@ export const InvoiceHTLC = {
   },
 };
 
-const baseInvoiceHTLC_CustomRecordsEntry: object = { key: 0 };
+const baseInvoiceHTLC_CustomRecordsEntry: object = { key: "0" };
 
 export const InvoiceHTLC_CustomRecordsEntry = {
   encode(
     message: InvoiceHTLC_CustomRecordsEntry,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.key !== 0) {
+    if (message.key !== "0") {
       writer.uint32(8).uint64(message.key);
     }
     if (message.value.length !== 0) {
@@ -21257,7 +21257,7 @@ export const InvoiceHTLC_CustomRecordsEntry = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.key = longToNumber(reader.uint64() as Long);
+          message.key = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.value = reader.bytes();
@@ -21276,9 +21276,9 @@ export const InvoiceHTLC_CustomRecordsEntry = {
     } as InvoiceHTLC_CustomRecordsEntry;
     message.value = new Uint8Array();
     if (object.key !== undefined && object.key !== null) {
-      message.key = Number(object.key);
+      message.key = String(object.key);
     } else {
-      message.key = 0;
+      message.key = "0";
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = bytesFromBase64(object.value);
@@ -21305,7 +21305,7 @@ export const InvoiceHTLC_CustomRecordsEntry = {
     if (object.key !== undefined && object.key !== null) {
       message.key = object.key;
     } else {
-      message.key = 0;
+      message.key = "0";
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = object.value;
@@ -21451,7 +21451,7 @@ export const AMP = {
   },
 };
 
-const baseAddInvoiceResponse: object = { paymentRequest: "", addIndex: 0 };
+const baseAddInvoiceResponse: object = { paymentRequest: "", addIndex: "0" };
 
 export const AddInvoiceResponse = {
   encode(
@@ -21464,7 +21464,7 @@ export const AddInvoiceResponse = {
     if (message.paymentRequest !== "") {
       writer.uint32(18).string(message.paymentRequest);
     }
-    if (message.addIndex !== 0) {
+    if (message.addIndex !== "0") {
       writer.uint32(128).uint64(message.addIndex);
     }
     if (message.paymentAddr.length !== 0) {
@@ -21489,7 +21489,7 @@ export const AddInvoiceResponse = {
           message.paymentRequest = reader.string();
           break;
         case 16:
-          message.addIndex = longToNumber(reader.uint64() as Long);
+          message.addIndex = longToString(reader.uint64() as Long);
           break;
         case 17:
           message.paymentAddr = reader.bytes();
@@ -21515,9 +21515,9 @@ export const AddInvoiceResponse = {
       message.paymentRequest = "";
     }
     if (object.addIndex !== undefined && object.addIndex !== null) {
-      message.addIndex = Number(object.addIndex);
+      message.addIndex = String(object.addIndex);
     } else {
-      message.addIndex = 0;
+      message.addIndex = "0";
     }
     if (object.paymentAddr !== undefined && object.paymentAddr !== null) {
       message.paymentAddr = bytesFromBase64(object.paymentAddr);
@@ -21558,7 +21558,7 @@ export const AddInvoiceResponse = {
     if (object.addIndex !== undefined && object.addIndex !== null) {
       message.addIndex = object.addIndex;
     } else {
-      message.addIndex = 0;
+      message.addIndex = "0";
     }
     if (object.paymentAddr !== undefined && object.paymentAddr !== null) {
       message.paymentAddr = object.paymentAddr;
@@ -21649,8 +21649,8 @@ export const PaymentHash = {
 
 const baseListInvoiceRequest: object = {
   pendingOnly: false,
-  indexOffset: 0,
-  numMaxInvoices: 0,
+  indexOffset: "0",
+  numMaxInvoices: "0",
   reversed: false,
 };
 
@@ -21662,10 +21662,10 @@ export const ListInvoiceRequest = {
     if (message.pendingOnly === true) {
       writer.uint32(8).bool(message.pendingOnly);
     }
-    if (message.indexOffset !== 0) {
+    if (message.indexOffset !== "0") {
       writer.uint32(32).uint64(message.indexOffset);
     }
-    if (message.numMaxInvoices !== 0) {
+    if (message.numMaxInvoices !== "0") {
       writer.uint32(40).uint64(message.numMaxInvoices);
     }
     if (message.reversed === true) {
@@ -21685,10 +21685,10 @@ export const ListInvoiceRequest = {
           message.pendingOnly = reader.bool();
           break;
         case 4:
-          message.indexOffset = longToNumber(reader.uint64() as Long);
+          message.indexOffset = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.numMaxInvoices = longToNumber(reader.uint64() as Long);
+          message.numMaxInvoices = longToString(reader.uint64() as Long);
           break;
         case 6:
           message.reversed = reader.bool();
@@ -21709,14 +21709,14 @@ export const ListInvoiceRequest = {
       message.pendingOnly = false;
     }
     if (object.indexOffset !== undefined && object.indexOffset !== null) {
-      message.indexOffset = Number(object.indexOffset);
+      message.indexOffset = String(object.indexOffset);
     } else {
-      message.indexOffset = 0;
+      message.indexOffset = "0";
     }
     if (object.numMaxInvoices !== undefined && object.numMaxInvoices !== null) {
-      message.numMaxInvoices = Number(object.numMaxInvoices);
+      message.numMaxInvoices = String(object.numMaxInvoices);
     } else {
-      message.numMaxInvoices = 0;
+      message.numMaxInvoices = "0";
     }
     if (object.reversed !== undefined && object.reversed !== null) {
       message.reversed = Boolean(object.reversed);
@@ -21748,12 +21748,12 @@ export const ListInvoiceRequest = {
     if (object.indexOffset !== undefined && object.indexOffset !== null) {
       message.indexOffset = object.indexOffset;
     } else {
-      message.indexOffset = 0;
+      message.indexOffset = "0";
     }
     if (object.numMaxInvoices !== undefined && object.numMaxInvoices !== null) {
       message.numMaxInvoices = object.numMaxInvoices;
     } else {
-      message.numMaxInvoices = 0;
+      message.numMaxInvoices = "0";
     }
     if (object.reversed !== undefined && object.reversed !== null) {
       message.reversed = object.reversed;
@@ -21765,8 +21765,8 @@ export const ListInvoiceRequest = {
 };
 
 const baseListInvoiceResponse: object = {
-  lastIndexOffset: 0,
-  firstIndexOffset: 0,
+  lastIndexOffset: "0",
+  firstIndexOffset: "0",
 };
 
 export const ListInvoiceResponse = {
@@ -21777,10 +21777,10 @@ export const ListInvoiceResponse = {
     for (const v of message.invoices) {
       Invoice.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.lastIndexOffset !== 0) {
+    if (message.lastIndexOffset !== "0") {
       writer.uint32(16).uint64(message.lastIndexOffset);
     }
-    if (message.firstIndexOffset !== 0) {
+    if (message.firstIndexOffset !== "0") {
       writer.uint32(24).uint64(message.firstIndexOffset);
     }
     return writer;
@@ -21798,10 +21798,10 @@ export const ListInvoiceResponse = {
           message.invoices.push(Invoice.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.lastIndexOffset = longToNumber(reader.uint64() as Long);
+          message.lastIndexOffset = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.firstIndexOffset = longToNumber(reader.uint64() as Long);
+          message.firstIndexOffset = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -21823,17 +21823,17 @@ export const ListInvoiceResponse = {
       object.lastIndexOffset !== undefined &&
       object.lastIndexOffset !== null
     ) {
-      message.lastIndexOffset = Number(object.lastIndexOffset);
+      message.lastIndexOffset = String(object.lastIndexOffset);
     } else {
-      message.lastIndexOffset = 0;
+      message.lastIndexOffset = "0";
     }
     if (
       object.firstIndexOffset !== undefined &&
       object.firstIndexOffset !== null
     ) {
-      message.firstIndexOffset = Number(object.firstIndexOffset);
+      message.firstIndexOffset = String(object.firstIndexOffset);
     } else {
-      message.firstIndexOffset = 0;
+      message.firstIndexOffset = "0";
     }
     return message;
   },
@@ -21868,7 +21868,7 @@ export const ListInvoiceResponse = {
     ) {
       message.lastIndexOffset = object.lastIndexOffset;
     } else {
-      message.lastIndexOffset = 0;
+      message.lastIndexOffset = "0";
     }
     if (
       object.firstIndexOffset !== undefined &&
@@ -21876,23 +21876,23 @@ export const ListInvoiceResponse = {
     ) {
       message.firstIndexOffset = object.firstIndexOffset;
     } else {
-      message.firstIndexOffset = 0;
+      message.firstIndexOffset = "0";
     }
     return message;
   },
 };
 
-const baseInvoiceSubscription: object = { addIndex: 0, settleIndex: 0 };
+const baseInvoiceSubscription: object = { addIndex: "0", settleIndex: "0" };
 
 export const InvoiceSubscription = {
   encode(
     message: InvoiceSubscription,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.addIndex !== 0) {
+    if (message.addIndex !== "0") {
       writer.uint32(8).uint64(message.addIndex);
     }
-    if (message.settleIndex !== 0) {
+    if (message.settleIndex !== "0") {
       writer.uint32(16).uint64(message.settleIndex);
     }
     return writer;
@@ -21906,10 +21906,10 @@ export const InvoiceSubscription = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.addIndex = longToNumber(reader.uint64() as Long);
+          message.addIndex = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.settleIndex = longToNumber(reader.uint64() as Long);
+          message.settleIndex = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -21922,14 +21922,14 @@ export const InvoiceSubscription = {
   fromJSON(object: any): InvoiceSubscription {
     const message = { ...baseInvoiceSubscription } as InvoiceSubscription;
     if (object.addIndex !== undefined && object.addIndex !== null) {
-      message.addIndex = Number(object.addIndex);
+      message.addIndex = String(object.addIndex);
     } else {
-      message.addIndex = 0;
+      message.addIndex = "0";
     }
     if (object.settleIndex !== undefined && object.settleIndex !== null) {
-      message.settleIndex = Number(object.settleIndex);
+      message.settleIndex = String(object.settleIndex);
     } else {
-      message.settleIndex = 0;
+      message.settleIndex = "0";
     }
     return message;
   },
@@ -21947,12 +21947,12 @@ export const InvoiceSubscription = {
     if (object.addIndex !== undefined && object.addIndex !== null) {
       message.addIndex = object.addIndex;
     } else {
-      message.addIndex = 0;
+      message.addIndex = "0";
     }
     if (object.settleIndex !== undefined && object.settleIndex !== null) {
       message.settleIndex = object.settleIndex;
     } else {
-      message.settleIndex = 0;
+      message.settleIndex = "0";
     }
     return message;
   },
@@ -21960,18 +21960,18 @@ export const InvoiceSubscription = {
 
 const basePayment: object = {
   paymentHash: "",
-  value: 0,
-  creationDate: 0,
-  fee: 0,
+  value: "0",
+  creationDate: "0",
+  fee: "0",
   paymentPreimage: "",
-  valueSat: 0,
-  valueMsat: 0,
+  valueSat: "0",
+  valueMsat: "0",
   paymentRequest: "",
   status: 0,
-  feeSat: 0,
-  feeMsat: 0,
-  creationTimeNs: 0,
-  paymentIndex: 0,
+  feeSat: "0",
+  feeMsat: "0",
+  creationTimeNs: "0",
+  paymentIndex: "0",
   failureReason: 0,
 };
 
@@ -21983,22 +21983,22 @@ export const Payment = {
     if (message.paymentHash !== "") {
       writer.uint32(10).string(message.paymentHash);
     }
-    if (message.value !== 0) {
+    if (message.value !== "0") {
       writer.uint32(16).int64(message.value);
     }
-    if (message.creationDate !== 0) {
+    if (message.creationDate !== "0") {
       writer.uint32(24).int64(message.creationDate);
     }
-    if (message.fee !== 0) {
+    if (message.fee !== "0") {
       writer.uint32(40).int64(message.fee);
     }
     if (message.paymentPreimage !== "") {
       writer.uint32(50).string(message.paymentPreimage);
     }
-    if (message.valueSat !== 0) {
+    if (message.valueSat !== "0") {
       writer.uint32(56).int64(message.valueSat);
     }
-    if (message.valueMsat !== 0) {
+    if (message.valueMsat !== "0") {
       writer.uint32(64).int64(message.valueMsat);
     }
     if (message.paymentRequest !== "") {
@@ -22007,19 +22007,19 @@ export const Payment = {
     if (message.status !== 0) {
       writer.uint32(80).int32(message.status);
     }
-    if (message.feeSat !== 0) {
+    if (message.feeSat !== "0") {
       writer.uint32(88).int64(message.feeSat);
     }
-    if (message.feeMsat !== 0) {
+    if (message.feeMsat !== "0") {
       writer.uint32(96).int64(message.feeMsat);
     }
-    if (message.creationTimeNs !== 0) {
+    if (message.creationTimeNs !== "0") {
       writer.uint32(104).int64(message.creationTimeNs);
     }
     for (const v of message.htlcs) {
       HTLCAttempt.encode(v!, writer.uint32(114).fork()).ldelim();
     }
-    if (message.paymentIndex !== 0) {
+    if (message.paymentIndex !== "0") {
       writer.uint32(120).uint64(message.paymentIndex);
     }
     if (message.failureReason !== 0) {
@@ -22040,22 +22040,22 @@ export const Payment = {
           message.paymentHash = reader.string();
           break;
         case 2:
-          message.value = longToNumber(reader.int64() as Long);
+          message.value = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.creationDate = longToNumber(reader.int64() as Long);
+          message.creationDate = longToString(reader.int64() as Long);
           break;
         case 5:
-          message.fee = longToNumber(reader.int64() as Long);
+          message.fee = longToString(reader.int64() as Long);
           break;
         case 6:
           message.paymentPreimage = reader.string();
           break;
         case 7:
-          message.valueSat = longToNumber(reader.int64() as Long);
+          message.valueSat = longToString(reader.int64() as Long);
           break;
         case 8:
-          message.valueMsat = longToNumber(reader.int64() as Long);
+          message.valueMsat = longToString(reader.int64() as Long);
           break;
         case 9:
           message.paymentRequest = reader.string();
@@ -22064,19 +22064,19 @@ export const Payment = {
           message.status = reader.int32() as any;
           break;
         case 11:
-          message.feeSat = longToNumber(reader.int64() as Long);
+          message.feeSat = longToString(reader.int64() as Long);
           break;
         case 12:
-          message.feeMsat = longToNumber(reader.int64() as Long);
+          message.feeMsat = longToString(reader.int64() as Long);
           break;
         case 13:
-          message.creationTimeNs = longToNumber(reader.int64() as Long);
+          message.creationTimeNs = longToString(reader.int64() as Long);
           break;
         case 14:
           message.htlcs.push(HTLCAttempt.decode(reader, reader.uint32()));
           break;
         case 15:
-          message.paymentIndex = longToNumber(reader.uint64() as Long);
+          message.paymentIndex = longToString(reader.uint64() as Long);
           break;
         case 16:
           message.failureReason = reader.int32() as any;
@@ -22098,19 +22098,19 @@ export const Payment = {
       message.paymentHash = "";
     }
     if (object.value !== undefined && object.value !== null) {
-      message.value = Number(object.value);
+      message.value = String(object.value);
     } else {
-      message.value = 0;
+      message.value = "0";
     }
     if (object.creationDate !== undefined && object.creationDate !== null) {
-      message.creationDate = Number(object.creationDate);
+      message.creationDate = String(object.creationDate);
     } else {
-      message.creationDate = 0;
+      message.creationDate = "0";
     }
     if (object.fee !== undefined && object.fee !== null) {
-      message.fee = Number(object.fee);
+      message.fee = String(object.fee);
     } else {
-      message.fee = 0;
+      message.fee = "0";
     }
     if (
       object.paymentPreimage !== undefined &&
@@ -22121,14 +22121,14 @@ export const Payment = {
       message.paymentPreimage = "";
     }
     if (object.valueSat !== undefined && object.valueSat !== null) {
-      message.valueSat = Number(object.valueSat);
+      message.valueSat = String(object.valueSat);
     } else {
-      message.valueSat = 0;
+      message.valueSat = "0";
     }
     if (object.valueMsat !== undefined && object.valueMsat !== null) {
-      message.valueMsat = Number(object.valueMsat);
+      message.valueMsat = String(object.valueMsat);
     } else {
-      message.valueMsat = 0;
+      message.valueMsat = "0";
     }
     if (object.paymentRequest !== undefined && object.paymentRequest !== null) {
       message.paymentRequest = String(object.paymentRequest);
@@ -22141,19 +22141,19 @@ export const Payment = {
       message.status = 0;
     }
     if (object.feeSat !== undefined && object.feeSat !== null) {
-      message.feeSat = Number(object.feeSat);
+      message.feeSat = String(object.feeSat);
     } else {
-      message.feeSat = 0;
+      message.feeSat = "0";
     }
     if (object.feeMsat !== undefined && object.feeMsat !== null) {
-      message.feeMsat = Number(object.feeMsat);
+      message.feeMsat = String(object.feeMsat);
     } else {
-      message.feeMsat = 0;
+      message.feeMsat = "0";
     }
     if (object.creationTimeNs !== undefined && object.creationTimeNs !== null) {
-      message.creationTimeNs = Number(object.creationTimeNs);
+      message.creationTimeNs = String(object.creationTimeNs);
     } else {
-      message.creationTimeNs = 0;
+      message.creationTimeNs = "0";
     }
     if (object.htlcs !== undefined && object.htlcs !== null) {
       for (const e of object.htlcs) {
@@ -22161,9 +22161,9 @@ export const Payment = {
       }
     }
     if (object.paymentIndex !== undefined && object.paymentIndex !== null) {
-      message.paymentIndex = Number(object.paymentIndex);
+      message.paymentIndex = String(object.paymentIndex);
     } else {
-      message.paymentIndex = 0;
+      message.paymentIndex = "0";
     }
     if (object.failureReason !== undefined && object.failureReason !== null) {
       message.failureReason = paymentFailureReasonFromJSON(
@@ -22220,17 +22220,17 @@ export const Payment = {
     if (object.value !== undefined && object.value !== null) {
       message.value = object.value;
     } else {
-      message.value = 0;
+      message.value = "0";
     }
     if (object.creationDate !== undefined && object.creationDate !== null) {
       message.creationDate = object.creationDate;
     } else {
-      message.creationDate = 0;
+      message.creationDate = "0";
     }
     if (object.fee !== undefined && object.fee !== null) {
       message.fee = object.fee;
     } else {
-      message.fee = 0;
+      message.fee = "0";
     }
     if (
       object.paymentPreimage !== undefined &&
@@ -22243,12 +22243,12 @@ export const Payment = {
     if (object.valueSat !== undefined && object.valueSat !== null) {
       message.valueSat = object.valueSat;
     } else {
-      message.valueSat = 0;
+      message.valueSat = "0";
     }
     if (object.valueMsat !== undefined && object.valueMsat !== null) {
       message.valueMsat = object.valueMsat;
     } else {
-      message.valueMsat = 0;
+      message.valueMsat = "0";
     }
     if (object.paymentRequest !== undefined && object.paymentRequest !== null) {
       message.paymentRequest = object.paymentRequest;
@@ -22263,17 +22263,17 @@ export const Payment = {
     if (object.feeSat !== undefined && object.feeSat !== null) {
       message.feeSat = object.feeSat;
     } else {
-      message.feeSat = 0;
+      message.feeSat = "0";
     }
     if (object.feeMsat !== undefined && object.feeMsat !== null) {
       message.feeMsat = object.feeMsat;
     } else {
-      message.feeMsat = 0;
+      message.feeMsat = "0";
     }
     if (object.creationTimeNs !== undefined && object.creationTimeNs !== null) {
       message.creationTimeNs = object.creationTimeNs;
     } else {
-      message.creationTimeNs = 0;
+      message.creationTimeNs = "0";
     }
     if (object.htlcs !== undefined && object.htlcs !== null) {
       for (const e of object.htlcs) {
@@ -22283,7 +22283,7 @@ export const Payment = {
     if (object.paymentIndex !== undefined && object.paymentIndex !== null) {
       message.paymentIndex = object.paymentIndex;
     } else {
-      message.paymentIndex = 0;
+      message.paymentIndex = "0";
     }
     if (object.failureReason !== undefined && object.failureReason !== null) {
       message.failureReason = object.failureReason;
@@ -22295,10 +22295,10 @@ export const Payment = {
 };
 
 const baseHTLCAttempt: object = {
-  attemptId: 0,
+  attemptId: "0",
   status: 0,
-  attemptTimeNs: 0,
-  resolveTimeNs: 0,
+  attemptTimeNs: "0",
+  resolveTimeNs: "0",
 };
 
 export const HTLCAttempt = {
@@ -22306,7 +22306,7 @@ export const HTLCAttempt = {
     message: HTLCAttempt,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.attemptId !== 0) {
+    if (message.attemptId !== "0") {
       writer.uint32(56).uint64(message.attemptId);
     }
     if (message.status !== 0) {
@@ -22315,10 +22315,10 @@ export const HTLCAttempt = {
     if (message.route !== undefined) {
       Route.encode(message.route, writer.uint32(18).fork()).ldelim();
     }
-    if (message.attemptTimeNs !== 0) {
+    if (message.attemptTimeNs !== "0") {
       writer.uint32(24).int64(message.attemptTimeNs);
     }
-    if (message.resolveTimeNs !== 0) {
+    if (message.resolveTimeNs !== "0") {
       writer.uint32(32).int64(message.resolveTimeNs);
     }
     if (message.failure !== undefined) {
@@ -22339,7 +22339,7 @@ export const HTLCAttempt = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 7:
-          message.attemptId = longToNumber(reader.uint64() as Long);
+          message.attemptId = longToString(reader.uint64() as Long);
           break;
         case 1:
           message.status = reader.int32() as any;
@@ -22348,10 +22348,10 @@ export const HTLCAttempt = {
           message.route = Route.decode(reader, reader.uint32());
           break;
         case 3:
-          message.attemptTimeNs = longToNumber(reader.int64() as Long);
+          message.attemptTimeNs = longToString(reader.int64() as Long);
           break;
         case 4:
-          message.resolveTimeNs = longToNumber(reader.int64() as Long);
+          message.resolveTimeNs = longToString(reader.int64() as Long);
           break;
         case 5:
           message.failure = Failure.decode(reader, reader.uint32());
@@ -22371,9 +22371,9 @@ export const HTLCAttempt = {
     const message = { ...baseHTLCAttempt } as HTLCAttempt;
     message.preimage = new Uint8Array();
     if (object.attemptId !== undefined && object.attemptId !== null) {
-      message.attemptId = Number(object.attemptId);
+      message.attemptId = String(object.attemptId);
     } else {
-      message.attemptId = 0;
+      message.attemptId = "0";
     }
     if (object.status !== undefined && object.status !== null) {
       message.status = hTLCAttempt_HTLCStatusFromJSON(object.status);
@@ -22386,14 +22386,14 @@ export const HTLCAttempt = {
       message.route = undefined;
     }
     if (object.attemptTimeNs !== undefined && object.attemptTimeNs !== null) {
-      message.attemptTimeNs = Number(object.attemptTimeNs);
+      message.attemptTimeNs = String(object.attemptTimeNs);
     } else {
-      message.attemptTimeNs = 0;
+      message.attemptTimeNs = "0";
     }
     if (object.resolveTimeNs !== undefined && object.resolveTimeNs !== null) {
-      message.resolveTimeNs = Number(object.resolveTimeNs);
+      message.resolveTimeNs = String(object.resolveTimeNs);
     } else {
-      message.resolveTimeNs = 0;
+      message.resolveTimeNs = "0";
     }
     if (object.failure !== undefined && object.failure !== null) {
       message.failure = Failure.fromJSON(object.failure);
@@ -22433,7 +22433,7 @@ export const HTLCAttempt = {
     if (object.attemptId !== undefined && object.attemptId !== null) {
       message.attemptId = object.attemptId;
     } else {
-      message.attemptId = 0;
+      message.attemptId = "0";
     }
     if (object.status !== undefined && object.status !== null) {
       message.status = object.status;
@@ -22448,12 +22448,12 @@ export const HTLCAttempt = {
     if (object.attemptTimeNs !== undefined && object.attemptTimeNs !== null) {
       message.attemptTimeNs = object.attemptTimeNs;
     } else {
-      message.attemptTimeNs = 0;
+      message.attemptTimeNs = "0";
     }
     if (object.resolveTimeNs !== undefined && object.resolveTimeNs !== null) {
       message.resolveTimeNs = object.resolveTimeNs;
     } else {
-      message.resolveTimeNs = 0;
+      message.resolveTimeNs = "0";
     }
     if (object.failure !== undefined && object.failure !== null) {
       message.failure = Failure.fromPartial(object.failure);
@@ -22471,8 +22471,8 @@ export const HTLCAttempt = {
 
 const baseListPaymentsRequest: object = {
   includeIncomplete: false,
-  indexOffset: 0,
-  maxPayments: 0,
+  indexOffset: "0",
+  maxPayments: "0",
   reversed: false,
 };
 
@@ -22484,10 +22484,10 @@ export const ListPaymentsRequest = {
     if (message.includeIncomplete === true) {
       writer.uint32(8).bool(message.includeIncomplete);
     }
-    if (message.indexOffset !== 0) {
+    if (message.indexOffset !== "0") {
       writer.uint32(16).uint64(message.indexOffset);
     }
-    if (message.maxPayments !== 0) {
+    if (message.maxPayments !== "0") {
       writer.uint32(24).uint64(message.maxPayments);
     }
     if (message.reversed === true) {
@@ -22507,10 +22507,10 @@ export const ListPaymentsRequest = {
           message.includeIncomplete = reader.bool();
           break;
         case 2:
-          message.indexOffset = longToNumber(reader.uint64() as Long);
+          message.indexOffset = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.maxPayments = longToNumber(reader.uint64() as Long);
+          message.maxPayments = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.reversed = reader.bool();
@@ -22534,14 +22534,14 @@ export const ListPaymentsRequest = {
       message.includeIncomplete = false;
     }
     if (object.indexOffset !== undefined && object.indexOffset !== null) {
-      message.indexOffset = Number(object.indexOffset);
+      message.indexOffset = String(object.indexOffset);
     } else {
-      message.indexOffset = 0;
+      message.indexOffset = "0";
     }
     if (object.maxPayments !== undefined && object.maxPayments !== null) {
-      message.maxPayments = Number(object.maxPayments);
+      message.maxPayments = String(object.maxPayments);
     } else {
-      message.maxPayments = 0;
+      message.maxPayments = "0";
     }
     if (object.reversed !== undefined && object.reversed !== null) {
       message.reversed = Boolean(object.reversed);
@@ -22576,12 +22576,12 @@ export const ListPaymentsRequest = {
     if (object.indexOffset !== undefined && object.indexOffset !== null) {
       message.indexOffset = object.indexOffset;
     } else {
-      message.indexOffset = 0;
+      message.indexOffset = "0";
     }
     if (object.maxPayments !== undefined && object.maxPayments !== null) {
       message.maxPayments = object.maxPayments;
     } else {
-      message.maxPayments = 0;
+      message.maxPayments = "0";
     }
     if (object.reversed !== undefined && object.reversed !== null) {
       message.reversed = object.reversed;
@@ -22593,8 +22593,8 @@ export const ListPaymentsRequest = {
 };
 
 const baseListPaymentsResponse: object = {
-  firstIndexOffset: 0,
-  lastIndexOffset: 0,
+  firstIndexOffset: "0",
+  lastIndexOffset: "0",
 };
 
 export const ListPaymentsResponse = {
@@ -22605,10 +22605,10 @@ export const ListPaymentsResponse = {
     for (const v of message.payments) {
       Payment.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.firstIndexOffset !== 0) {
+    if (message.firstIndexOffset !== "0") {
       writer.uint32(16).uint64(message.firstIndexOffset);
     }
-    if (message.lastIndexOffset !== 0) {
+    if (message.lastIndexOffset !== "0") {
       writer.uint32(24).uint64(message.lastIndexOffset);
     }
     return writer;
@@ -22629,10 +22629,10 @@ export const ListPaymentsResponse = {
           message.payments.push(Payment.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.firstIndexOffset = longToNumber(reader.uint64() as Long);
+          message.firstIndexOffset = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.lastIndexOffset = longToNumber(reader.uint64() as Long);
+          message.lastIndexOffset = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -22654,17 +22654,17 @@ export const ListPaymentsResponse = {
       object.firstIndexOffset !== undefined &&
       object.firstIndexOffset !== null
     ) {
-      message.firstIndexOffset = Number(object.firstIndexOffset);
+      message.firstIndexOffset = String(object.firstIndexOffset);
     } else {
-      message.firstIndexOffset = 0;
+      message.firstIndexOffset = "0";
     }
     if (
       object.lastIndexOffset !== undefined &&
       object.lastIndexOffset !== null
     ) {
-      message.lastIndexOffset = Number(object.lastIndexOffset);
+      message.lastIndexOffset = String(object.lastIndexOffset);
     } else {
-      message.lastIndexOffset = 0;
+      message.lastIndexOffset = "0";
     }
     return message;
   },
@@ -22699,7 +22699,7 @@ export const ListPaymentsResponse = {
     ) {
       message.firstIndexOffset = object.firstIndexOffset;
     } else {
-      message.firstIndexOffset = 0;
+      message.firstIndexOffset = "0";
     }
     if (
       object.lastIndexOffset !== undefined &&
@@ -22707,7 +22707,7 @@ export const ListPaymentsResponse = {
     ) {
       message.lastIndexOffset = object.lastIndexOffset;
     } else {
-      message.lastIndexOffset = 0;
+      message.lastIndexOffset = "0";
     }
     return message;
   },
@@ -23226,14 +23226,14 @@ export const PayReqString = {
 const basePayReq: object = {
   destination: "",
   paymentHash: "",
-  numSatoshis: 0,
-  timestamp: 0,
-  expiry: 0,
+  numSatoshis: "0",
+  timestamp: "0",
+  expiry: "0",
   description: "",
   descriptionHash: "",
   fallbackAddr: "",
-  cltvExpiry: 0,
-  numMsat: 0,
+  cltvExpiry: "0",
+  numMsat: "0",
 };
 
 export const PayReq = {
@@ -23247,13 +23247,13 @@ export const PayReq = {
     if (message.paymentHash !== "") {
       writer.uint32(18).string(message.paymentHash);
     }
-    if (message.numSatoshis !== 0) {
+    if (message.numSatoshis !== "0") {
       writer.uint32(24).int64(message.numSatoshis);
     }
-    if (message.timestamp !== 0) {
+    if (message.timestamp !== "0") {
       writer.uint32(32).int64(message.timestamp);
     }
-    if (message.expiry !== 0) {
+    if (message.expiry !== "0") {
       writer.uint32(40).int64(message.expiry);
     }
     if (message.description !== "") {
@@ -23265,7 +23265,7 @@ export const PayReq = {
     if (message.fallbackAddr !== "") {
       writer.uint32(66).string(message.fallbackAddr);
     }
-    if (message.cltvExpiry !== 0) {
+    if (message.cltvExpiry !== "0") {
       writer.uint32(72).int64(message.cltvExpiry);
     }
     for (const v of message.routeHints) {
@@ -23274,7 +23274,7 @@ export const PayReq = {
     if (message.paymentAddr.length !== 0) {
       writer.uint32(90).bytes(message.paymentAddr);
     }
-    if (message.numMsat !== 0) {
+    if (message.numMsat !== "0") {
       writer.uint32(96).int64(message.numMsat);
     }
     Object.entries(message.features).forEach(([key, value]) => {
@@ -23303,13 +23303,13 @@ export const PayReq = {
           message.paymentHash = reader.string();
           break;
         case 3:
-          message.numSatoshis = longToNumber(reader.int64() as Long);
+          message.numSatoshis = longToString(reader.int64() as Long);
           break;
         case 4:
-          message.timestamp = longToNumber(reader.int64() as Long);
+          message.timestamp = longToString(reader.int64() as Long);
           break;
         case 5:
-          message.expiry = longToNumber(reader.int64() as Long);
+          message.expiry = longToString(reader.int64() as Long);
           break;
         case 6:
           message.description = reader.string();
@@ -23321,7 +23321,7 @@ export const PayReq = {
           message.fallbackAddr = reader.string();
           break;
         case 9:
-          message.cltvExpiry = longToNumber(reader.int64() as Long);
+          message.cltvExpiry = longToString(reader.int64() as Long);
           break;
         case 10:
           message.routeHints.push(RouteHint.decode(reader, reader.uint32()));
@@ -23330,7 +23330,7 @@ export const PayReq = {
           message.paymentAddr = reader.bytes();
           break;
         case 12:
-          message.numMsat = longToNumber(reader.int64() as Long);
+          message.numMsat = longToString(reader.int64() as Long);
           break;
         case 13:
           const entry13 = PayReq_FeaturesEntry.decode(reader, reader.uint32());
@@ -23362,19 +23362,19 @@ export const PayReq = {
       message.paymentHash = "";
     }
     if (object.numSatoshis !== undefined && object.numSatoshis !== null) {
-      message.numSatoshis = Number(object.numSatoshis);
+      message.numSatoshis = String(object.numSatoshis);
     } else {
-      message.numSatoshis = 0;
+      message.numSatoshis = "0";
     }
     if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Number(object.timestamp);
+      message.timestamp = String(object.timestamp);
     } else {
-      message.timestamp = 0;
+      message.timestamp = "0";
     }
     if (object.expiry !== undefined && object.expiry !== null) {
-      message.expiry = Number(object.expiry);
+      message.expiry = String(object.expiry);
     } else {
-      message.expiry = 0;
+      message.expiry = "0";
     }
     if (object.description !== undefined && object.description !== null) {
       message.description = String(object.description);
@@ -23395,9 +23395,9 @@ export const PayReq = {
       message.fallbackAddr = "";
     }
     if (object.cltvExpiry !== undefined && object.cltvExpiry !== null) {
-      message.cltvExpiry = Number(object.cltvExpiry);
+      message.cltvExpiry = String(object.cltvExpiry);
     } else {
-      message.cltvExpiry = 0;
+      message.cltvExpiry = "0";
     }
     if (object.routeHints !== undefined && object.routeHints !== null) {
       for (const e of object.routeHints) {
@@ -23408,9 +23408,9 @@ export const PayReq = {
       message.paymentAddr = bytesFromBase64(object.paymentAddr);
     }
     if (object.numMsat !== undefined && object.numMsat !== null) {
-      message.numMsat = Number(object.numMsat);
+      message.numMsat = String(object.numMsat);
     } else {
-      message.numMsat = 0;
+      message.numMsat = "0";
     }
     if (object.features !== undefined && object.features !== null) {
       Object.entries(object.features).forEach(([key, value]) => {
@@ -23477,17 +23477,17 @@ export const PayReq = {
     if (object.numSatoshis !== undefined && object.numSatoshis !== null) {
       message.numSatoshis = object.numSatoshis;
     } else {
-      message.numSatoshis = 0;
+      message.numSatoshis = "0";
     }
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = object.timestamp;
     } else {
-      message.timestamp = 0;
+      message.timestamp = "0";
     }
     if (object.expiry !== undefined && object.expiry !== null) {
       message.expiry = object.expiry;
     } else {
-      message.expiry = 0;
+      message.expiry = "0";
     }
     if (object.description !== undefined && object.description !== null) {
       message.description = object.description;
@@ -23510,7 +23510,7 @@ export const PayReq = {
     if (object.cltvExpiry !== undefined && object.cltvExpiry !== null) {
       message.cltvExpiry = object.cltvExpiry;
     } else {
-      message.cltvExpiry = 0;
+      message.cltvExpiry = "0";
     }
     if (object.routeHints !== undefined && object.routeHints !== null) {
       for (const e of object.routeHints) {
@@ -23525,7 +23525,7 @@ export const PayReq = {
     if (object.numMsat !== undefined && object.numMsat !== null) {
       message.numMsat = object.numMsat;
     } else {
-      message.numMsat = 0;
+      message.numMsat = "0";
     }
     if (object.features !== undefined && object.features !== null) {
       Object.entries(object.features).forEach(([key, value]) => {
@@ -23751,10 +23751,10 @@ export const FeeReportRequest = {
 };
 
 const baseChannelFeeReport: object = {
-  chanId: 0,
+  chanId: "0",
   channelPoint: "",
-  baseFeeMsat: 0,
-  feePerMil: 0,
+  baseFeeMsat: "0",
+  feePerMil: "0",
   feeRate: 0,
 };
 
@@ -23763,16 +23763,16 @@ export const ChannelFeeReport = {
     message: ChannelFeeReport,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(40).uint64(message.chanId);
     }
     if (message.channelPoint !== "") {
       writer.uint32(10).string(message.channelPoint);
     }
-    if (message.baseFeeMsat !== 0) {
+    if (message.baseFeeMsat !== "0") {
       writer.uint32(16).int64(message.baseFeeMsat);
     }
-    if (message.feePerMil !== 0) {
+    if (message.feePerMil !== "0") {
       writer.uint32(24).int64(message.feePerMil);
     }
     if (message.feeRate !== 0) {
@@ -23789,16 +23789,16 @@ export const ChannelFeeReport = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 5:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 1:
           message.channelPoint = reader.string();
           break;
         case 2:
-          message.baseFeeMsat = longToNumber(reader.int64() as Long);
+          message.baseFeeMsat = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.feePerMil = longToNumber(reader.int64() as Long);
+          message.feePerMil = longToString(reader.int64() as Long);
           break;
         case 4:
           message.feeRate = reader.double();
@@ -23814,9 +23814,9 @@ export const ChannelFeeReport = {
   fromJSON(object: any): ChannelFeeReport {
     const message = { ...baseChannelFeeReport } as ChannelFeeReport;
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.channelPoint !== undefined && object.channelPoint !== null) {
       message.channelPoint = String(object.channelPoint);
@@ -23824,14 +23824,14 @@ export const ChannelFeeReport = {
       message.channelPoint = "";
     }
     if (object.baseFeeMsat !== undefined && object.baseFeeMsat !== null) {
-      message.baseFeeMsat = Number(object.baseFeeMsat);
+      message.baseFeeMsat = String(object.baseFeeMsat);
     } else {
-      message.baseFeeMsat = 0;
+      message.baseFeeMsat = "0";
     }
     if (object.feePerMil !== undefined && object.feePerMil !== null) {
-      message.feePerMil = Number(object.feePerMil);
+      message.feePerMil = String(object.feePerMil);
     } else {
-      message.feePerMil = 0;
+      message.feePerMil = "0";
     }
     if (object.feeRate !== undefined && object.feeRate !== null) {
       message.feeRate = Number(object.feeRate);
@@ -23858,7 +23858,7 @@ export const ChannelFeeReport = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.channelPoint !== undefined && object.channelPoint !== null) {
       message.channelPoint = object.channelPoint;
@@ -23868,12 +23868,12 @@ export const ChannelFeeReport = {
     if (object.baseFeeMsat !== undefined && object.baseFeeMsat !== null) {
       message.baseFeeMsat = object.baseFeeMsat;
     } else {
-      message.baseFeeMsat = 0;
+      message.baseFeeMsat = "0";
     }
     if (object.feePerMil !== undefined && object.feePerMil !== null) {
       message.feePerMil = object.feePerMil;
     } else {
-      message.feePerMil = 0;
+      message.feePerMil = "0";
     }
     if (object.feeRate !== undefined && object.feeRate !== null) {
       message.feeRate = object.feeRate;
@@ -23885,9 +23885,9 @@ export const ChannelFeeReport = {
 };
 
 const baseFeeReportResponse: object = {
-  dayFeeSum: 0,
-  weekFeeSum: 0,
-  monthFeeSum: 0,
+  dayFeeSum: "0",
+  weekFeeSum: "0",
+  monthFeeSum: "0",
 };
 
 export const FeeReportResponse = {
@@ -23898,13 +23898,13 @@ export const FeeReportResponse = {
     for (const v of message.channelFees) {
       ChannelFeeReport.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.dayFeeSum !== 0) {
+    if (message.dayFeeSum !== "0") {
       writer.uint32(16).uint64(message.dayFeeSum);
     }
-    if (message.weekFeeSum !== 0) {
+    if (message.weekFeeSum !== "0") {
       writer.uint32(24).uint64(message.weekFeeSum);
     }
-    if (message.monthFeeSum !== 0) {
+    if (message.monthFeeSum !== "0") {
       writer.uint32(32).uint64(message.monthFeeSum);
     }
     return writer;
@@ -23924,13 +23924,13 @@ export const FeeReportResponse = {
           );
           break;
         case 2:
-          message.dayFeeSum = longToNumber(reader.uint64() as Long);
+          message.dayFeeSum = longToString(reader.uint64() as Long);
           break;
         case 3:
-          message.weekFeeSum = longToNumber(reader.uint64() as Long);
+          message.weekFeeSum = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.monthFeeSum = longToNumber(reader.uint64() as Long);
+          message.monthFeeSum = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -23949,19 +23949,19 @@ export const FeeReportResponse = {
       }
     }
     if (object.dayFeeSum !== undefined && object.dayFeeSum !== null) {
-      message.dayFeeSum = Number(object.dayFeeSum);
+      message.dayFeeSum = String(object.dayFeeSum);
     } else {
-      message.dayFeeSum = 0;
+      message.dayFeeSum = "0";
     }
     if (object.weekFeeSum !== undefined && object.weekFeeSum !== null) {
-      message.weekFeeSum = Number(object.weekFeeSum);
+      message.weekFeeSum = String(object.weekFeeSum);
     } else {
-      message.weekFeeSum = 0;
+      message.weekFeeSum = "0";
     }
     if (object.monthFeeSum !== undefined && object.monthFeeSum !== null) {
-      message.monthFeeSum = Number(object.monthFeeSum);
+      message.monthFeeSum = String(object.monthFeeSum);
     } else {
-      message.monthFeeSum = 0;
+      message.monthFeeSum = "0";
     }
     return message;
   },
@@ -23993,28 +23993,28 @@ export const FeeReportResponse = {
     if (object.dayFeeSum !== undefined && object.dayFeeSum !== null) {
       message.dayFeeSum = object.dayFeeSum;
     } else {
-      message.dayFeeSum = 0;
+      message.dayFeeSum = "0";
     }
     if (object.weekFeeSum !== undefined && object.weekFeeSum !== null) {
       message.weekFeeSum = object.weekFeeSum;
     } else {
-      message.weekFeeSum = 0;
+      message.weekFeeSum = "0";
     }
     if (object.monthFeeSum !== undefined && object.monthFeeSum !== null) {
       message.monthFeeSum = object.monthFeeSum;
     } else {
-      message.monthFeeSum = 0;
+      message.monthFeeSum = "0";
     }
     return message;
   },
 };
 
 const basePolicyUpdateRequest: object = {
-  baseFeeMsat: 0,
+  baseFeeMsat: "0",
   feeRate: 0,
   timeLockDelta: 0,
-  maxHtlcMsat: 0,
-  minHtlcMsat: 0,
+  maxHtlcMsat: "0",
+  minHtlcMsat: "0",
   minHtlcMsatSpecified: false,
 };
 
@@ -24029,7 +24029,7 @@ export const PolicyUpdateRequest = {
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-    if (message.baseFeeMsat !== 0) {
+    if (message.baseFeeMsat !== "0") {
       writer.uint32(24).int64(message.baseFeeMsat);
     }
     if (message.feeRate !== 0) {
@@ -24038,10 +24038,10 @@ export const PolicyUpdateRequest = {
     if (message.timeLockDelta !== 0) {
       writer.uint32(40).uint32(message.timeLockDelta);
     }
-    if (message.maxHtlcMsat !== 0) {
+    if (message.maxHtlcMsat !== "0") {
       writer.uint32(48).uint64(message.maxHtlcMsat);
     }
-    if (message.minHtlcMsat !== 0) {
+    if (message.minHtlcMsat !== "0") {
       writer.uint32(56).uint64(message.minHtlcMsat);
     }
     if (message.minHtlcMsatSpecified === true) {
@@ -24064,7 +24064,7 @@ export const PolicyUpdateRequest = {
           message.chanPoint = ChannelPoint.decode(reader, reader.uint32());
           break;
         case 3:
-          message.baseFeeMsat = longToNumber(reader.int64() as Long);
+          message.baseFeeMsat = longToString(reader.int64() as Long);
           break;
         case 4:
           message.feeRate = reader.double();
@@ -24073,10 +24073,10 @@ export const PolicyUpdateRequest = {
           message.timeLockDelta = reader.uint32();
           break;
         case 6:
-          message.maxHtlcMsat = longToNumber(reader.uint64() as Long);
+          message.maxHtlcMsat = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.minHtlcMsat = longToNumber(reader.uint64() as Long);
+          message.minHtlcMsat = longToString(reader.uint64() as Long);
           break;
         case 8:
           message.minHtlcMsatSpecified = reader.bool();
@@ -24102,9 +24102,9 @@ export const PolicyUpdateRequest = {
       message.chanPoint = undefined;
     }
     if (object.baseFeeMsat !== undefined && object.baseFeeMsat !== null) {
-      message.baseFeeMsat = Number(object.baseFeeMsat);
+      message.baseFeeMsat = String(object.baseFeeMsat);
     } else {
-      message.baseFeeMsat = 0;
+      message.baseFeeMsat = "0";
     }
     if (object.feeRate !== undefined && object.feeRate !== null) {
       message.feeRate = Number(object.feeRate);
@@ -24117,14 +24117,14 @@ export const PolicyUpdateRequest = {
       message.timeLockDelta = 0;
     }
     if (object.maxHtlcMsat !== undefined && object.maxHtlcMsat !== null) {
-      message.maxHtlcMsat = Number(object.maxHtlcMsat);
+      message.maxHtlcMsat = String(object.maxHtlcMsat);
     } else {
-      message.maxHtlcMsat = 0;
+      message.maxHtlcMsat = "0";
     }
     if (object.minHtlcMsat !== undefined && object.minHtlcMsat !== null) {
-      message.minHtlcMsat = Number(object.minHtlcMsat);
+      message.minHtlcMsat = String(object.minHtlcMsat);
     } else {
-      message.minHtlcMsat = 0;
+      message.minHtlcMsat = "0";
     }
     if (
       object.minHtlcMsatSpecified !== undefined &&
@@ -24173,7 +24173,7 @@ export const PolicyUpdateRequest = {
     if (object.baseFeeMsat !== undefined && object.baseFeeMsat !== null) {
       message.baseFeeMsat = object.baseFeeMsat;
     } else {
-      message.baseFeeMsat = 0;
+      message.baseFeeMsat = "0";
     }
     if (object.feeRate !== undefined && object.feeRate !== null) {
       message.feeRate = object.feeRate;
@@ -24188,12 +24188,12 @@ export const PolicyUpdateRequest = {
     if (object.maxHtlcMsat !== undefined && object.maxHtlcMsat !== null) {
       message.maxHtlcMsat = object.maxHtlcMsat;
     } else {
-      message.maxHtlcMsat = 0;
+      message.maxHtlcMsat = "0";
     }
     if (object.minHtlcMsat !== undefined && object.minHtlcMsat !== null) {
       message.minHtlcMsat = object.minHtlcMsat;
     } else {
-      message.minHtlcMsat = 0;
+      message.minHtlcMsat = "0";
     }
     if (
       object.minHtlcMsatSpecified !== undefined &&
@@ -24252,8 +24252,8 @@ export const PolicyUpdateResponse = {
 };
 
 const baseForwardingHistoryRequest: object = {
-  startTime: 0,
-  endTime: 0,
+  startTime: "0",
+  endTime: "0",
   indexOffset: 0,
   numMaxEvents: 0,
 };
@@ -24263,10 +24263,10 @@ export const ForwardingHistoryRequest = {
     message: ForwardingHistoryRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.startTime !== 0) {
+    if (message.startTime !== "0") {
       writer.uint32(8).uint64(message.startTime);
     }
-    if (message.endTime !== 0) {
+    if (message.endTime !== "0") {
       writer.uint32(16).uint64(message.endTime);
     }
     if (message.indexOffset !== 0) {
@@ -24291,10 +24291,10 @@ export const ForwardingHistoryRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.startTime = longToNumber(reader.uint64() as Long);
+          message.startTime = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.endTime = longToNumber(reader.uint64() as Long);
+          message.endTime = longToString(reader.uint64() as Long);
           break;
         case 3:
           message.indexOffset = reader.uint32();
@@ -24315,14 +24315,14 @@ export const ForwardingHistoryRequest = {
       ...baseForwardingHistoryRequest,
     } as ForwardingHistoryRequest;
     if (object.startTime !== undefined && object.startTime !== null) {
-      message.startTime = Number(object.startTime);
+      message.startTime = String(object.startTime);
     } else {
-      message.startTime = 0;
+      message.startTime = "0";
     }
     if (object.endTime !== undefined && object.endTime !== null) {
-      message.endTime = Number(object.endTime);
+      message.endTime = String(object.endTime);
     } else {
-      message.endTime = 0;
+      message.endTime = "0";
     }
     if (object.indexOffset !== undefined && object.indexOffset !== null) {
       message.indexOffset = Number(object.indexOffset);
@@ -24357,12 +24357,12 @@ export const ForwardingHistoryRequest = {
     if (object.startTime !== undefined && object.startTime !== null) {
       message.startTime = object.startTime;
     } else {
-      message.startTime = 0;
+      message.startTime = "0";
     }
     if (object.endTime !== undefined && object.endTime !== null) {
       message.endTime = object.endTime;
     } else {
-      message.endTime = 0;
+      message.endTime = "0";
     }
     if (object.indexOffset !== undefined && object.indexOffset !== null) {
       message.indexOffset = object.indexOffset;
@@ -24379,16 +24379,16 @@ export const ForwardingHistoryRequest = {
 };
 
 const baseForwardingEvent: object = {
-  timestamp: 0,
-  chanIdIn: 0,
-  chanIdOut: 0,
-  amtIn: 0,
-  amtOut: 0,
-  fee: 0,
-  feeMsat: 0,
-  amtInMsat: 0,
-  amtOutMsat: 0,
-  timestampNs: 0,
+  timestamp: "0",
+  chanIdIn: "0",
+  chanIdOut: "0",
+  amtIn: "0",
+  amtOut: "0",
+  fee: "0",
+  feeMsat: "0",
+  amtInMsat: "0",
+  amtOutMsat: "0",
+  timestampNs: "0",
 };
 
 export const ForwardingEvent = {
@@ -24396,34 +24396,34 @@ export const ForwardingEvent = {
     message: ForwardingEvent,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.timestamp !== 0) {
+    if (message.timestamp !== "0") {
       writer.uint32(8).uint64(message.timestamp);
     }
-    if (message.chanIdIn !== 0) {
+    if (message.chanIdIn !== "0") {
       writer.uint32(16).uint64(message.chanIdIn);
     }
-    if (message.chanIdOut !== 0) {
+    if (message.chanIdOut !== "0") {
       writer.uint32(32).uint64(message.chanIdOut);
     }
-    if (message.amtIn !== 0) {
+    if (message.amtIn !== "0") {
       writer.uint32(40).uint64(message.amtIn);
     }
-    if (message.amtOut !== 0) {
+    if (message.amtOut !== "0") {
       writer.uint32(48).uint64(message.amtOut);
     }
-    if (message.fee !== 0) {
+    if (message.fee !== "0") {
       writer.uint32(56).uint64(message.fee);
     }
-    if (message.feeMsat !== 0) {
+    if (message.feeMsat !== "0") {
       writer.uint32(64).uint64(message.feeMsat);
     }
-    if (message.amtInMsat !== 0) {
+    if (message.amtInMsat !== "0") {
       writer.uint32(72).uint64(message.amtInMsat);
     }
-    if (message.amtOutMsat !== 0) {
+    if (message.amtOutMsat !== "0") {
       writer.uint32(80).uint64(message.amtOutMsat);
     }
-    if (message.timestampNs !== 0) {
+    if (message.timestampNs !== "0") {
       writer.uint32(88).uint64(message.timestampNs);
     }
     return writer;
@@ -24437,34 +24437,34 @@ export const ForwardingEvent = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.timestamp = longToNumber(reader.uint64() as Long);
+          message.timestamp = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.chanIdIn = longToNumber(reader.uint64() as Long);
+          message.chanIdIn = longToString(reader.uint64() as Long);
           break;
         case 4:
-          message.chanIdOut = longToNumber(reader.uint64() as Long);
+          message.chanIdOut = longToString(reader.uint64() as Long);
           break;
         case 5:
-          message.amtIn = longToNumber(reader.uint64() as Long);
+          message.amtIn = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.amtOut = longToNumber(reader.uint64() as Long);
+          message.amtOut = longToString(reader.uint64() as Long);
           break;
         case 7:
-          message.fee = longToNumber(reader.uint64() as Long);
+          message.fee = longToString(reader.uint64() as Long);
           break;
         case 8:
-          message.feeMsat = longToNumber(reader.uint64() as Long);
+          message.feeMsat = longToString(reader.uint64() as Long);
           break;
         case 9:
-          message.amtInMsat = longToNumber(reader.uint64() as Long);
+          message.amtInMsat = longToString(reader.uint64() as Long);
           break;
         case 10:
-          message.amtOutMsat = longToNumber(reader.uint64() as Long);
+          message.amtOutMsat = longToString(reader.uint64() as Long);
           break;
         case 11:
-          message.timestampNs = longToNumber(reader.uint64() as Long);
+          message.timestampNs = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -24477,54 +24477,54 @@ export const ForwardingEvent = {
   fromJSON(object: any): ForwardingEvent {
     const message = { ...baseForwardingEvent } as ForwardingEvent;
     if (object.timestamp !== undefined && object.timestamp !== null) {
-      message.timestamp = Number(object.timestamp);
+      message.timestamp = String(object.timestamp);
     } else {
-      message.timestamp = 0;
+      message.timestamp = "0";
     }
     if (object.chanIdIn !== undefined && object.chanIdIn !== null) {
-      message.chanIdIn = Number(object.chanIdIn);
+      message.chanIdIn = String(object.chanIdIn);
     } else {
-      message.chanIdIn = 0;
+      message.chanIdIn = "0";
     }
     if (object.chanIdOut !== undefined && object.chanIdOut !== null) {
-      message.chanIdOut = Number(object.chanIdOut);
+      message.chanIdOut = String(object.chanIdOut);
     } else {
-      message.chanIdOut = 0;
+      message.chanIdOut = "0";
     }
     if (object.amtIn !== undefined && object.amtIn !== null) {
-      message.amtIn = Number(object.amtIn);
+      message.amtIn = String(object.amtIn);
     } else {
-      message.amtIn = 0;
+      message.amtIn = "0";
     }
     if (object.amtOut !== undefined && object.amtOut !== null) {
-      message.amtOut = Number(object.amtOut);
+      message.amtOut = String(object.amtOut);
     } else {
-      message.amtOut = 0;
+      message.amtOut = "0";
     }
     if (object.fee !== undefined && object.fee !== null) {
-      message.fee = Number(object.fee);
+      message.fee = String(object.fee);
     } else {
-      message.fee = 0;
+      message.fee = "0";
     }
     if (object.feeMsat !== undefined && object.feeMsat !== null) {
-      message.feeMsat = Number(object.feeMsat);
+      message.feeMsat = String(object.feeMsat);
     } else {
-      message.feeMsat = 0;
+      message.feeMsat = "0";
     }
     if (object.amtInMsat !== undefined && object.amtInMsat !== null) {
-      message.amtInMsat = Number(object.amtInMsat);
+      message.amtInMsat = String(object.amtInMsat);
     } else {
-      message.amtInMsat = 0;
+      message.amtInMsat = "0";
     }
     if (object.amtOutMsat !== undefined && object.amtOutMsat !== null) {
-      message.amtOutMsat = Number(object.amtOutMsat);
+      message.amtOutMsat = String(object.amtOutMsat);
     } else {
-      message.amtOutMsat = 0;
+      message.amtOutMsat = "0";
     }
     if (object.timestampNs !== undefined && object.timestampNs !== null) {
-      message.timestampNs = Number(object.timestampNs);
+      message.timestampNs = String(object.timestampNs);
     } else {
-      message.timestampNs = 0;
+      message.timestampNs = "0";
     }
     return message;
   },
@@ -24550,52 +24550,52 @@ export const ForwardingEvent = {
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = object.timestamp;
     } else {
-      message.timestamp = 0;
+      message.timestamp = "0";
     }
     if (object.chanIdIn !== undefined && object.chanIdIn !== null) {
       message.chanIdIn = object.chanIdIn;
     } else {
-      message.chanIdIn = 0;
+      message.chanIdIn = "0";
     }
     if (object.chanIdOut !== undefined && object.chanIdOut !== null) {
       message.chanIdOut = object.chanIdOut;
     } else {
-      message.chanIdOut = 0;
+      message.chanIdOut = "0";
     }
     if (object.amtIn !== undefined && object.amtIn !== null) {
       message.amtIn = object.amtIn;
     } else {
-      message.amtIn = 0;
+      message.amtIn = "0";
     }
     if (object.amtOut !== undefined && object.amtOut !== null) {
       message.amtOut = object.amtOut;
     } else {
-      message.amtOut = 0;
+      message.amtOut = "0";
     }
     if (object.fee !== undefined && object.fee !== null) {
       message.fee = object.fee;
     } else {
-      message.fee = 0;
+      message.fee = "0";
     }
     if (object.feeMsat !== undefined && object.feeMsat !== null) {
       message.feeMsat = object.feeMsat;
     } else {
-      message.feeMsat = 0;
+      message.feeMsat = "0";
     }
     if (object.amtInMsat !== undefined && object.amtInMsat !== null) {
       message.amtInMsat = object.amtInMsat;
     } else {
-      message.amtInMsat = 0;
+      message.amtInMsat = "0";
     }
     if (object.amtOutMsat !== undefined && object.amtOutMsat !== null) {
       message.amtOutMsat = object.amtOutMsat;
     } else {
-      message.amtOutMsat = 0;
+      message.amtOutMsat = "0";
     }
     if (object.timestampNs !== undefined && object.timestampNs !== null) {
       message.timestampNs = object.timestampNs;
     } else {
-      message.timestampNs = 0;
+      message.timestampNs = "0";
     }
     return message;
   },
@@ -25516,7 +25516,7 @@ export const MacaroonPermission = {
   },
 };
 
-const baseBakeMacaroonRequest: object = { rootKeyId: 0 };
+const baseBakeMacaroonRequest: object = { rootKeyId: "0" };
 
 export const BakeMacaroonRequest = {
   encode(
@@ -25526,7 +25526,7 @@ export const BakeMacaroonRequest = {
     for (const v of message.permissions) {
       MacaroonPermission.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.rootKeyId !== 0) {
+    if (message.rootKeyId !== "0") {
       writer.uint32(16).uint64(message.rootKeyId);
     }
     return writer;
@@ -25546,7 +25546,7 @@ export const BakeMacaroonRequest = {
           );
           break;
         case 2:
-          message.rootKeyId = longToNumber(reader.uint64() as Long);
+          message.rootKeyId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -25565,9 +25565,9 @@ export const BakeMacaroonRequest = {
       }
     }
     if (object.rootKeyId !== undefined && object.rootKeyId !== null) {
-      message.rootKeyId = Number(object.rootKeyId);
+      message.rootKeyId = String(object.rootKeyId);
     } else {
-      message.rootKeyId = 0;
+      message.rootKeyId = "0";
     }
     return message;
   },
@@ -25596,7 +25596,7 @@ export const BakeMacaroonRequest = {
     if (object.rootKeyId !== undefined && object.rootKeyId !== null) {
       message.rootKeyId = object.rootKeyId;
     } else {
-      message.rootKeyId = 0;
+      message.rootKeyId = "0";
     }
     return message;
   },
@@ -25707,7 +25707,7 @@ export const ListMacaroonIDsRequest = {
   },
 };
 
-const baseListMacaroonIDsResponse: object = { rootKeyIds: 0 };
+const baseListMacaroonIDsResponse: object = { rootKeyIds: "0" };
 
 export const ListMacaroonIDsResponse = {
   encode(
@@ -25739,10 +25739,10 @@ export const ListMacaroonIDsResponse = {
           if ((tag & 7) === 2) {
             const end2 = reader.uint32() + reader.pos;
             while (reader.pos < end2) {
-              message.rootKeyIds.push(longToNumber(reader.uint64() as Long));
+              message.rootKeyIds.push(longToString(reader.uint64() as Long));
             }
           } else {
-            message.rootKeyIds.push(longToNumber(reader.uint64() as Long));
+            message.rootKeyIds.push(longToString(reader.uint64() as Long));
           }
           break;
         default:
@@ -25760,7 +25760,7 @@ export const ListMacaroonIDsResponse = {
     message.rootKeyIds = [];
     if (object.rootKeyIds !== undefined && object.rootKeyIds !== null) {
       for (const e of object.rootKeyIds) {
-        message.rootKeyIds.push(Number(e));
+        message.rootKeyIds.push(String(e));
       }
     }
     return message;
@@ -25792,14 +25792,14 @@ export const ListMacaroonIDsResponse = {
   },
 };
 
-const baseDeleteMacaroonIDRequest: object = { rootKeyId: 0 };
+const baseDeleteMacaroonIDRequest: object = { rootKeyId: "0" };
 
 export const DeleteMacaroonIDRequest = {
   encode(
     message: DeleteMacaroonIDRequest,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
-    if (message.rootKeyId !== 0) {
+    if (message.rootKeyId !== "0") {
       writer.uint32(8).uint64(message.rootKeyId);
     }
     return writer;
@@ -25818,7 +25818,7 @@ export const DeleteMacaroonIDRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.rootKeyId = longToNumber(reader.uint64() as Long);
+          message.rootKeyId = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -25833,9 +25833,9 @@ export const DeleteMacaroonIDRequest = {
       ...baseDeleteMacaroonIDRequest,
     } as DeleteMacaroonIDRequest;
     if (object.rootKeyId !== undefined && object.rootKeyId !== null) {
-      message.rootKeyId = Number(object.rootKeyId);
+      message.rootKeyId = String(object.rootKeyId);
     } else {
-      message.rootKeyId = 0;
+      message.rootKeyId = "0";
     }
     return message;
   },
@@ -25855,7 +25855,7 @@ export const DeleteMacaroonIDRequest = {
     if (object.rootKeyId !== undefined && object.rootKeyId !== null) {
       message.rootKeyId = object.rootKeyId;
     } else {
-      message.rootKeyId = 0;
+      message.rootKeyId = "0";
     }
     return message;
   },
@@ -26240,7 +26240,7 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
 
 const baseFailure: object = {
   code: 0,
-  htlcMsat: 0,
+  htlcMsat: "0",
   cltvExpiry: 0,
   flags: 0,
   failureSourceIndex: 0,
@@ -26261,7 +26261,7 @@ export const Failure = {
         writer.uint32(26).fork()
       ).ldelim();
     }
-    if (message.htlcMsat !== 0) {
+    if (message.htlcMsat !== "0") {
       writer.uint32(32).uint64(message.htlcMsat);
     }
     if (message.onionSha256.length !== 0) {
@@ -26297,7 +26297,7 @@ export const Failure = {
           message.channelUpdate = ChannelUpdate.decode(reader, reader.uint32());
           break;
         case 4:
-          message.htlcMsat = longToNumber(reader.uint64() as Long);
+          message.htlcMsat = longToString(reader.uint64() as Long);
           break;
         case 5:
           message.onionSha256 = reader.bytes();
@@ -26336,9 +26336,9 @@ export const Failure = {
       message.channelUpdate = undefined;
     }
     if (object.htlcMsat !== undefined && object.htlcMsat !== null) {
-      message.htlcMsat = Number(object.htlcMsat);
+      message.htlcMsat = String(object.htlcMsat);
     } else {
-      message.htlcMsat = 0;
+      message.htlcMsat = "0";
     }
     if (object.onionSha256 !== undefined && object.onionSha256 !== null) {
       message.onionSha256 = bytesFromBase64(object.onionSha256);
@@ -26407,7 +26407,7 @@ export const Failure = {
     if (object.htlcMsat !== undefined && object.htlcMsat !== null) {
       message.htlcMsat = object.htlcMsat;
     } else {
-      message.htlcMsat = 0;
+      message.htlcMsat = "0";
     }
     if (object.onionSha256 !== undefined && object.onionSha256 !== null) {
       message.onionSha256 = object.onionSha256;
@@ -26442,15 +26442,15 @@ export const Failure = {
 };
 
 const baseChannelUpdate: object = {
-  chanId: 0,
+  chanId: "0",
   timestamp: 0,
   messageFlags: 0,
   channelFlags: 0,
   timeLockDelta: 0,
-  htlcMinimumMsat: 0,
+  htlcMinimumMsat: "0",
   baseFee: 0,
   feeRate: 0,
-  htlcMaximumMsat: 0,
+  htlcMaximumMsat: "0",
 };
 
 export const ChannelUpdate = {
@@ -26464,7 +26464,7 @@ export const ChannelUpdate = {
     if (message.chainHash.length !== 0) {
       writer.uint32(18).bytes(message.chainHash);
     }
-    if (message.chanId !== 0) {
+    if (message.chanId !== "0") {
       writer.uint32(24).uint64(message.chanId);
     }
     if (message.timestamp !== 0) {
@@ -26479,7 +26479,7 @@ export const ChannelUpdate = {
     if (message.timeLockDelta !== 0) {
       writer.uint32(48).uint32(message.timeLockDelta);
     }
-    if (message.htlcMinimumMsat !== 0) {
+    if (message.htlcMinimumMsat !== "0") {
       writer.uint32(56).uint64(message.htlcMinimumMsat);
     }
     if (message.baseFee !== 0) {
@@ -26488,7 +26488,7 @@ export const ChannelUpdate = {
     if (message.feeRate !== 0) {
       writer.uint32(72).uint32(message.feeRate);
     }
-    if (message.htlcMaximumMsat !== 0) {
+    if (message.htlcMaximumMsat !== "0") {
       writer.uint32(88).uint64(message.htlcMaximumMsat);
     }
     if (message.extraOpaqueData.length !== 0) {
@@ -26514,7 +26514,7 @@ export const ChannelUpdate = {
           message.chainHash = reader.bytes();
           break;
         case 3:
-          message.chanId = longToNumber(reader.uint64() as Long);
+          message.chanId = longToString(reader.uint64() as Long);
           break;
         case 4:
           message.timestamp = reader.uint32();
@@ -26529,7 +26529,7 @@ export const ChannelUpdate = {
           message.timeLockDelta = reader.uint32();
           break;
         case 7:
-          message.htlcMinimumMsat = longToNumber(reader.uint64() as Long);
+          message.htlcMinimumMsat = longToString(reader.uint64() as Long);
           break;
         case 8:
           message.baseFee = reader.uint32();
@@ -26538,7 +26538,7 @@ export const ChannelUpdate = {
           message.feeRate = reader.uint32();
           break;
         case 11:
-          message.htlcMaximumMsat = longToNumber(reader.uint64() as Long);
+          message.htlcMaximumMsat = longToString(reader.uint64() as Long);
           break;
         case 12:
           message.extraOpaqueData = reader.bytes();
@@ -26563,9 +26563,9 @@ export const ChannelUpdate = {
       message.chainHash = bytesFromBase64(object.chainHash);
     }
     if (object.chanId !== undefined && object.chanId !== null) {
-      message.chanId = Number(object.chanId);
+      message.chanId = String(object.chanId);
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = Number(object.timestamp);
@@ -26591,9 +26591,9 @@ export const ChannelUpdate = {
       object.htlcMinimumMsat !== undefined &&
       object.htlcMinimumMsat !== null
     ) {
-      message.htlcMinimumMsat = Number(object.htlcMinimumMsat);
+      message.htlcMinimumMsat = String(object.htlcMinimumMsat);
     } else {
-      message.htlcMinimumMsat = 0;
+      message.htlcMinimumMsat = "0";
     }
     if (object.baseFee !== undefined && object.baseFee !== null) {
       message.baseFee = Number(object.baseFee);
@@ -26609,9 +26609,9 @@ export const ChannelUpdate = {
       object.htlcMaximumMsat !== undefined &&
       object.htlcMaximumMsat !== null
     ) {
-      message.htlcMaximumMsat = Number(object.htlcMaximumMsat);
+      message.htlcMaximumMsat = String(object.htlcMaximumMsat);
     } else {
-      message.htlcMaximumMsat = 0;
+      message.htlcMaximumMsat = "0";
     }
     if (
       object.extraOpaqueData !== undefined &&
@@ -26670,7 +26670,7 @@ export const ChannelUpdate = {
     if (object.chanId !== undefined && object.chanId !== null) {
       message.chanId = object.chanId;
     } else {
-      message.chanId = 0;
+      message.chanId = "0";
     }
     if (object.timestamp !== undefined && object.timestamp !== null) {
       message.timestamp = object.timestamp;
@@ -26698,7 +26698,7 @@ export const ChannelUpdate = {
     ) {
       message.htlcMinimumMsat = object.htlcMinimumMsat;
     } else {
-      message.htlcMinimumMsat = 0;
+      message.htlcMinimumMsat = "0";
     }
     if (object.baseFee !== undefined && object.baseFee !== null) {
       message.baseFee = object.baseFee;
@@ -26716,7 +26716,7 @@ export const ChannelUpdate = {
     ) {
       message.htlcMaximumMsat = object.htlcMaximumMsat;
     } else {
-      message.htlcMaximumMsat = 0;
+      message.htlcMaximumMsat = "0";
     }
     if (
       object.extraOpaqueData !== undefined &&
@@ -27795,6 +27795,7 @@ export const LightningDefinition = {
 
 declare var self: any | undefined;
 declare var window: any | undefined;
+declare var global: any | undefined;
 var globalThis: any = (() => {
   if (typeof globalThis !== "undefined") return globalThis;
   if (typeof self !== "undefined") return self;
@@ -27844,11 +27845,8 @@ export type DeepPartial<T> = T extends Builtin
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
-function longToNumber(long: Long): number {
-  if (long.gt(Number.MAX_SAFE_INTEGER)) {
-    throw new globalThis.Error("Value is larger than Number.MAX_SAFE_INTEGER");
-  }
-  return long.toNumber();
+function longToString(long: Long) {
+  return long.toString();
 }
 
 if (_m0.util.Long !== Long) {

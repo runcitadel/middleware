@@ -1,5 +1,5 @@
 import * as path from "path";
-import * as fs from "fs";
+import {fs} from "@runcitadel/utils";
 import ILightningClient from "./lightning/abstract.js";
 import LNDService from "./lightning/lnd.js";
 

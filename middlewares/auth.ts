@@ -1,8 +1,7 @@
 import passport from "passport";
 import passportJWT from "passport-jwt";
 import constants from "../utils/const.js";
-import { NodeError } from "@runcitadel/utils";
-import * as fs from "fs/promises";
+import { NodeError, fs } from "@runcitadel/utils";
 import type { NextFunction, Request, Response } from "express";
 
 const JwtStrategy = passportJWT.Strategy;

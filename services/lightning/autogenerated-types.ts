@@ -117,29 +117,29 @@ export interface Utxo {
     /** The address */
     address: string;
     /** The value of the unspent coin in satoshis */
-    amountSat: number;
+    amountSat: number | string;
     /** The pkscript in hex */
     pkScript: string;
     /** The outpoint in format txid:n */
     outpoint: OutPoint | undefined;
     /** The number of confirmations for the Utxo */
-    confirmations: number;
+    confirmations: number | string;
 }
 export interface Transaction {
     /** The transaction hash */
     txHash: string;
     /** The transaction amount, denominated in satoshis */
-    amount: number;
+    amount: number | string;
     /** The number of confirmations */
-    numConfirmations: number;
+    numConfirmations: number | string;
     /** The hash of the block this transaction was included in */
     blockHash: string;
     /** The height of the block this transaction was included in */
-    blockHeight: number;
+    blockHeight: number | string;
     /** Timestamp of this transaction */
-    timeStamp: number;
+    timeStamp: number | string;
     /** Fees paid for this transaction */
-    totalFees: number;
+    totalFees: number | string;
     /** Addresses that received funds for this transaction */
     destAddresses: string[];
     /** The raw transaction hex. */
@@ -165,7 +165,7 @@ export interface ChannelPoint {
      */
     fundingTxidStr: string | undefined;
     /** The index of the output of the funding transaction */
-    outputIndex: number;
+    outputIndex: number | string;
 }
 export interface OutPoint {
     /** Raw bytes representing the transaction id. */
@@ -173,13 +173,13 @@ export interface OutPoint {
     /** Reversed, hex-encoded string representing the transaction id. */
     txidStr: string;
     /** The index of the output on the transaction. */
-    outputIndex: number;
+    outputIndex: number | string;
 }
 export interface EstimateFeeResponse {
     /** The total fee in satoshis. */
-    feeSat: number;
+    feeSat: number | string;
     /** The fee rate in satoshi/vbyte. */
-    satPerVbyte: number;
+    satPerVbyte: number | string;
 }
 export interface ListUnspentResponse {
     /** A list of utxos */
@@ -193,11 +193,11 @@ export interface NewAddressResponse {
 export interface ConnectPeerResponse {}
 export interface HTLC {
     incoming: boolean;
-    amount: number;
+    amount: number | string;
     hashLock: Uint8Array;
-    expirationHeight: number;
+    expirationHeight: number | string;
     /** Index identifying the htlc on the channel. */
-    htlcIndex: number;
+    htlcIndex: number | string;
     /**
      * If this HTLC is involved in a forwarding operation, this field indicates
      * the forwarding channel. For an outgoing htlc, it is the incoming channel.
@@ -207,29 +207,29 @@ export interface HTLC {
      * for htlcs that need to be forwarded but don't have a forwarding decision
      * persisted yet.
      */
-    forwardingChannel: number;
+    forwardingChannel: number | string;
     /** Index identifying the htlc on the forwarding channel. */
-    forwardingHtlcIndex: number;
+    forwardingHtlcIndex: number | string;
 }
 export interface ChannelConstraints {
     /**
      * The CSV delay expressed in relative blocks. If the channel is force closed,
      * we will need to wait for this many blocks before we can regain our funds.
      */
-    csvDelay: number;
+    csvDelay: number | string;
     /** The minimum satoshis this node is required to reserve in its balance. */
-    chanReserveSat: number;
+    chanReserveSat: number | string;
     /** The dust limit (in satoshis) of the initiator's commitment tx. */
-    dustLimitSat: number;
+    dustLimitSat: number | string;
     /**
      * The maximum amount of coins in millisatoshis that can be pending in this
      * channel.
      */
-    maxPendingAmtMsat: number;
+    maxPendingAmtMsat: number | string;
     /** The smallest HTLC in millisatoshis that the initiator will accept. */
-    minHtlcMsat: number;
+    minHtlcMsat: number | string;
     /** The total number of incoming HTLC's that the initiator will accept. */
-    maxAcceptedHtlcs: number;
+    maxAcceptedHtlcs: number | string;
 }
 export interface Channel {
     /** Whether this channel is active or not */
@@ -247,36 +247,36 @@ export interface Channel {
      * height, the next 3 the index within the block, and the last 2 bytes are the
      * output index for the channel.
      */
-    chanId: number;
+    chanId: number | string;
     /** The total amount of funds held in this channel */
-    capacity: number;
+    capacity: number | string;
     /** This node's current balance in this channel */
-    localBalance: number;
+    localBalance: number | string;
     /** The counterparty's current balance in this channel */
-    remoteBalance: number;
+    remoteBalance: number | string;
     /**
      * The amount calculated to be paid in fees for the current set of commitment
      * transactions. The fee amount is persisted with the channel in order to
      * allow the fee amount to be removed and recalculated with each channel state
      * update, including updates that happen after a system restart.
      */
-    commitFee: number;
+    commitFee: number | string;
     /** The weight of the commitment transaction */
-    commitWeight: number;
+    commitWeight: number | string;
     /**
      * The required number of satoshis per kilo-weight that the requester will pay
      * at all times, for both the funding transaction and commitment transaction.
      * This value can later be updated once the channel is open.
      */
-    feePerKw: number;
+    feePerKw: number | string;
     /** The unsettled balance in this channel */
-    unsettledBalance: number;
+    unsettledBalance: number | string;
     /** The total number of satoshis we've sent within this channel. */
-    totalSatoshisSent: number;
+    totalSatoshisSent: number | string;
     /** The total number of satoshis we've received within this channel. */
-    totalSatoshisReceived: number;
+    totalSatoshisReceived: number | string;
     /** The total number of updates conducted within this channel. */
-    numUpdates: number;
+    numUpdates: number | string;
     /** The list of active, uncleared HTLCs currently pending within the channel. */
     pendingHtlcs: HTLC[];
     /** Whether this channel is advertised to the network or not. */
@@ -292,13 +292,13 @@ export interface Channel {
      * scoring system. Scores are currently not persisted, so this value may be
      * less than the lifetime of the channel [EXPERIMENTAL].
      */
-    lifetime: number;
+    lifetime: number | string;
     /**
      * The number of seconds that the remote peer has been observed as being online
      * by the channel scoring system over the lifetime of the channel
      * [EXPERIMENTAL].
      */
-    uptime: number;
+    uptime: number | string;
     /**
      * Close address is the address that we will enforce payout to on cooperative
      * close if the channel was opened utilizing option upfront shutdown. This
@@ -314,7 +314,7 @@ export interface Channel {
      * pushed this amount to our peer, if it is false, the remote peer pushed this
      * amount to us.
      */
-    pushAmountSat: number;
+    pushAmountSat: number | string;
     /**
      * This uint32 indicates if this channel is to be considered 'frozen'. A
      * frozen channel doest not allow a cooperative channel close by the
@@ -324,7 +324,7 @@ export interface Channel {
      * height can be interpreted in two ways: as a relative height if the value is
      * less than 500,000, or as an absolute height otherwise.
      */
-    thawHeight: number;
+    thawHeight: number | string;
     /** List constraints for the local node. */
     localConstraints: ChannelConstraints | undefined;
     /** List constraints for the remote node. */
@@ -334,7 +334,7 @@ export interface ChannelCloseSummary {
     /** The outpoint (txid:index) of the funding transaction. */
     channelPoint: string;
     /** The unique channel ID for the channel. */
-    chanId: number;
+    chanId: number | string;
     /** The hash of the genesis block that this channel resides within. */
     chainHash: string;
     /** The txid of the transaction which ultimately closed this channel. */
@@ -342,13 +342,13 @@ export interface ChannelCloseSummary {
     /** Public key of the remote peer that we formerly had a channel with. */
     remotePubkey: string;
     /** Total capacity of the channel. */
-    capacity: number;
+    capacity: number | string;
     /** Height at which the funding transaction was spent. */
-    closeHeight: number;
+    closeHeight: number | string;
     /** Settled balance at the time of channel closure */
-    settledBalance: number;
+    settledBalance: number | string;
     /** The sum of all the time-locked outputs at the time of channel closure */
-    timeLockedBalance: number;
+    timeLockedBalance: number | string;
     /** Details on how the channel was closed. */
     closeType: ChannelCloseSummary_ClosureType;
     /**
@@ -384,7 +384,7 @@ export interface Resolution {
     /** The outpoint that was spent by the resolution. */
     outpoint: OutPoint | undefined;
     /** The amount that was claimed by the resolution. */
-    amountSat: number;
+    amountSat: number | string;
     /**
      * The hex-encoded transaction ID of the sweep transaction that spent the
      * output.
@@ -397,17 +397,17 @@ export interface Peer {
     /** Network address of the peer; eg `127.0.0.1:10011` */
     address: string;
     /** Bytes of data transmitted to this peer */
-    bytesSent: number;
+    bytesSent: number | string;
     /** Bytes of data transmitted from this peer */
-    bytesRecv: number;
+    bytesRecv: number | string;
     /** Satoshis sent to this peer */
-    satSent: number;
+    satSent: number | string;
     /** Satoshis received from this peer */
-    satRecv: number;
+    satRecv: number | string;
     /** A channel is inbound if the counterparty initiated the channel */
     inbound: boolean;
     /** Ping time to this peer */
-    pingTime: number;
+    pingTime: number | string;
     /** The type of sync we are currently performing with this peer. */
     syncType: Peer_SyncType;
     /** Features advertised by the remote peer in their init message. */
@@ -428,12 +428,12 @@ export interface Peer {
      * time if the peer has not recently flapped, so that we can forgive peers
      * with historically high flap counts.
      */
-    flapCount: number;
+    flapCount: number | string;
     /**
      * The timestamp of the last flap we observed for this peer. If this value is
      * zero, we have not observed any flaps for this peer.
      */
-    lastFlapNs: number;
+    lastFlapNs: number | string;
 }
 export enum Peer_SyncType {
     /** UNKNOWN_SYNC - Denotes that we cannot determine the peer's current sync type. */
@@ -448,7 +448,7 @@ export enum Peer_SyncType {
 }
 export interface TimestampedError {
     /** The unix timestamp in seconds when the error occurred. */
-    timestamp: number;
+    timestamp: number | string;
     /** The string representation of the error sent by our peer. */
     error: string;
 }
@@ -464,19 +464,19 @@ export interface GetInfoResponse {
     /** The color of the current node in hex code format */
     color: string;
     /** Number of pending channels */
-    numPendingChannels: number;
+    numPendingChannels: number | string;
     /** Number of active channels */
-    numActiveChannels: number;
+    numActiveChannels: number | string;
     /** Number of inactive channels */
-    numInactiveChannels: number;
+    numInactiveChannels: number | string;
     /** Number of peers */
-    numPeers: number;
+    numPeers: number | string;
     /** The node's current view of the height of the best block */
-    blockHeight: number;
+    blockHeight: number | string;
     /** The node's current view of the hash of the best block */
     blockHash: string;
     /** Timestamp of the block best known to the wallet */
-    bestHeaderTimestamp: number;
+    bestHeaderTimestamp: number | string;
     /** Whether the wallet's view is synced to the main chain */
     syncedToChain: boolean;
     /** Whether we consider ourselves synced with the public channel graph. */
@@ -504,23 +504,23 @@ export interface PendingHTLC {
     /** The direction within the channel that the htlc was sent */
     incoming: boolean;
     /** The total value of the htlc */
-    amount: number;
+    amount: number | string;
     /** The final output to be swept back to the user's wallet */
     outpoint: string;
     /** The next block height at which we can spend the current stage */
-    maturityHeight: number;
+    maturityHeight: number | string;
     /**
      * The number of blocks remaining until the current stage can be swept.
      * Negative values indicate how many blocks have passed since becoming
      * mature.
      */
-    blocksTilMaturity: number;
+    blocksTilMaturity: number | string;
     /** Indicates whether the htlc is in its first or second stage of recovery */
-    stage: number;
+    stage: number | string;
 }
 export interface PendingChannelsResponse {
     /** The balance in satoshis encumbered in pending channels */
-    totalLimboBalance: number;
+    totalLimboBalance: number | string;
     /** Channels pending opening */
     pendingOpenChannels: PendingChannelsResponse_PendingOpenChannel[];
     /** Channels pending force closing */
@@ -531,19 +531,19 @@ export interface PendingChannelsResponse {
 export interface PendingChannelsResponse_PendingChannel {
     remoteNodePub: string;
     channelPoint: string;
-    capacity: number;
-    localBalance: number;
-    remoteBalance: number;
+    capacity: number | string;
+    localBalance: number | string;
+    remoteBalance: number | string;
     /**
      * The minimum satoshis this node is required to reserve in its
      * balance.
      */
-    localChanReserveSat: number;
+    localChanReserveSat: number | string;
     /**
      * The minimum satoshis the other node is required to reserve in its
      * balance.
      */
-    remoteChanReserveSat: number;
+    remoteChanReserveSat: number | string;
     /** The party that initiated opening the channel. */
     initiator: Initiator;
     /** The commitment type used by this channel. */
@@ -553,7 +553,7 @@ export interface PendingChannelsResponse_PendingOpenChannel {
     /** The pending channel */
     channel: PendingChannelsResponse_PendingChannel | undefined;
     /** The height at which this channel will be confirmed */
-    confirmationHeight: number;
+    confirmationHeight: number | string;
     /**
      * The amount calculated to be paid in fees for the current set of
      * commitment transactions. The fee amount is persisted with the channel
@@ -561,21 +561,21 @@ export interface PendingChannelsResponse_PendingOpenChannel {
      * each channel state update, including updates that happen after a system
      * restart.
      */
-    commitFee: number;
+    commitFee: number | string;
     /** The weight of the commitment transaction */
-    commitWeight: number;
+    commitWeight: number | string;
     /**
      * The required number of satoshis per kilo-weight that the requester will
      * pay at all times, for both the funding transaction and commitment
      * transaction. This value can later be updated once the channel is open.
      */
-    feePerKw: number;
+    feePerKw: number | string;
 }
 export interface PendingChannelsResponse_WaitingCloseChannel {
     /** The pending channel waiting for closing tx to confirm */
     channel: PendingChannelsResponse_PendingChannel | undefined;
     /** The balance in satoshis encumbered in this channel */
-    limboBalance: number;
+    limboBalance: number | string;
     /**
      * A list of valid commitment transactions. Any of these can confirm at
      * this point.
@@ -593,17 +593,17 @@ export interface PendingChannelsResponse_Commitments {
      * The amount in satoshis calculated to be paid in fees for the local
      * commitment.
      */
-    localCommitFeeSat: number;
+    localCommitFeeSat: number | string;
     /**
      * The amount in satoshis calculated to be paid in fees for the remote
      * commitment.
      */
-    remoteCommitFeeSat: number;
+    remoteCommitFeeSat: number | string;
     /**
      * The amount in satoshis calculated to be paid in fees for the remote
      * pending commitment.
      */
-    remotePendingCommitFeeSat: number;
+    remotePendingCommitFeeSat: number | string;
 }
 
 export interface PendingChannelsResponse_ForceClosedChannel {
@@ -612,17 +612,17 @@ export interface PendingChannelsResponse_ForceClosedChannel {
     /** The transaction id of the closing transaction */
     closingTxid: string;
     /** The balance in satoshis encumbered in this pending channel */
-    limboBalance: number;
+    limboBalance: number | string;
     /** The height at which funds can be swept into the wallet */
-    maturityHeight: number;
+    maturityHeight: number | string;
     /**
      * Remaining # of blocks until the commitment output can be swept.
      * Negative values indicate how many blocks have passed since becoming
      * mature.
      */
-    blocksTilMaturity: number;
+    blocksTilMaturity: number | string;
     /** The total value of funds successfully recovered from this channel */
-    recoveredBalance: number;
+    recoveredBalance: number | string;
     pendingHtlcs: PendingHTLC[];
     anchor: PendingChannelsResponse_ForceClosedChannel_AnchorState;
 }
@@ -634,17 +634,17 @@ export enum PendingChannelsResponse_ForceClosedChannel_AnchorState {
 }
 export interface WalletAccountBalance {
     /** The confirmed balance of the account (with >= 1 confirmations). */
-    confirmedBalance: number;
+    confirmedBalance: number | string;
     /** The unconfirmed balance of the account (with 0 confirmations). */
-    unconfirmedBalance: number;
+    unconfirmedBalance: number | string;
 }
 export interface WalletBalanceResponse {
     /** The balance of the wallet */
-    totalBalance: number;
+    totalBalance: number | string;
     /** The confirmed balance of a wallet(with >= 1 confirmations) */
-    confirmedBalance: number;
+    confirmedBalance: number | string;
     /** The unconfirmed balance of a wallet(with 0 confirmations) */
-    unconfirmedBalance: number;
+    unconfirmedBalance: number | string;
     /** A mapping of each wallet account's name to its balance. */
     accountBalance: {
         [key: string]: WalletAccountBalance;
@@ -652,9 +652,9 @@ export interface WalletBalanceResponse {
 }
 export interface Amount {
     /** Value denominated in satoshis. */
-    sat: number;
+    sat: number | string;
     /** Value denominated in milli-satoshis. */
-    msat: number;
+    msat: number | string;
 }
 export interface ChannelBalanceResponse {
     /** Sum of channels local balances. */
@@ -676,10 +676,10 @@ export interface Hop {
      * height, the next 3 the index within the block, and the last 2 bytes are the
      * output index for the channel.
      */
-    chanId: number;
-    expiry: number;
-    amtToForwardMsat: number;
-    feeMsat: number;
+    chanId: number | string;
+    expiry: number | string;
+    amtToForwardMsat: number | string;
+    feeMsat: number | string;
     /**
      * An optional public key of the hop. If the public key is given, the payment
      * can be executed without relying on a copy of the channel graph.
@@ -730,12 +730,12 @@ export interface MPPRecord {
      * and payment_hash sum exactly to total_amt_msat. The same
      * total_amt_msat must be used on all subpayments.
      */
-    totalAmtMsat: number;
+    totalAmtMsat: number | string;
 }
 export interface AMPRecord {
     rootShare: Uint8Array;
     setId: Uint8Array;
-    childIndex: number;
+    childIndex: number | string;
 }
 /**
  * A path through the channel graph which runs over one or more channels in
@@ -751,13 +751,13 @@ export interface Route {
      * will decrement the time-lock as advertised, leaving enough time for all
      * hops to wait for or present the payment preimage to complete the payment.
      */
-    totalTimeLock: number;
+    totalTimeLock: number | string;
     /** Contains details concerning the specific forwarding details at each hop. */
     hops: Hop[];
     /** The total fees in millisatoshis. */
-    totalFeesMsat: number;
+    totalFeesMsat: number | string;
     /** The total amount in millisatoshis. */
-    totalAmtMsat: number;
+    totalAmtMsat: number | string;
 }
 export interface NodeInfo {
     /**
@@ -768,9 +768,9 @@ export interface NodeInfo {
      */
     node: LightningNode | undefined;
     /** The total number of channels for the node. */
-    numChannels: number;
+    numChannels: number | string;
     /** The sum of all channels capacity for the node, denominated in satoshis. */
-    totalCapacity: number;
+    totalCapacity: number | string;
     /** A list of all public channels for the node. */
     channels: ChannelEdge[];
 }
@@ -781,7 +781,7 @@ export interface NodeInfo {
  * each outgoing edge.
  */
 export interface LightningNode {
-    lastUpdate: number;
+    lastUpdate: number | string;
     pubKey: string;
     alias: string;
     addresses: NodeAddress[];
@@ -795,13 +795,13 @@ export interface NodeAddress {
     addr: string;
 }
 export interface RoutingPolicy {
-    timeLockDelta: number;
-    minHtlc: number;
-    feeBaseMsat: number;
-    feeRateMilliMsat: number;
+    timeLockDelta: number | string;
+    minHtlc: number | string;
+    feeBaseMsat: number | string;
+    feeRateMilliMsat: number | string;
     disabled: boolean;
-    maxHtlcMsat: number;
-    lastUpdate: number;
+    maxHtlcMsat: number | string;
+    lastUpdate: number | string;
 }
 /**
  * A fully authenticated channel along with all its unique attributes.
@@ -816,11 +816,11 @@ export interface ChannelEdge {
      * height, the next 3 the index within the block, and the last 2 bytes are the
      * output index for the channel.
      */
-    channelId: number;
+    channelId: number | string;
     chanPoint: string;
     node1Pub: string;
     node2Pub: string;
-    capacity: number;
+    capacity: number | string;
     node1Policy: RoutingPolicy | undefined;
     node2Policy: RoutingPolicy | undefined;
 }
@@ -828,16 +828,16 @@ export interface HopHint {
     /** The public key of the node at the start of the channel. */
     nodeId: string;
     /** The unique identifier of the channel. */
-    chanId: number;
+    chanId: number | string;
     /** The base fee of the channel denominated in millisatoshis. */
-    feeBaseMsat: number;
+    feeBaseMsat: number | string;
     /**
      * The fee rate of the channel for sending one satoshi across it denominated in
      * millionths of a satoshi.
      */
-    feeProportionalMillionths: number;
+    feeProportionalMillionths: number | string;
     /** The time-lock delta of the channel. */
-    cltvExpiryDelta: number;
+    cltvExpiryDelta: number | string;
 }
 export interface RouteHint {
     /**
@@ -870,17 +870,17 @@ export interface Invoice {
      *
      * The fields value and value_msat are mutually exclusive.
      */
-    value: number;
+    value: number | string;
     /**
      * The value of this invoice in millisatoshis
      *
      * The fields value and value_msat are mutually exclusive.
      */
-    valueMsat: number;
+    valueMsat: number | string;
     /** When this invoice was created */
-    creationDate: number;
+    creationDate: number | string;
     /** When this invoice was settled */
-    settleDate: number;
+    settleDate: number | string;
     /**
      * A bare-bones invoice for a payment within the Lightning Network. With the
      * details of the invoice, the sender has all the data necessary to send a
@@ -895,11 +895,11 @@ export interface Invoice {
      */
     descriptionHash: Uint8Array;
     /** Payment request expiry time in seconds. Default is 3600 (1 hour). */
-    expiry: number;
+    expiry: number | string;
     /** Fallback on-chain address. */
     fallbackAddr: string;
     /** Delta to use for the time-lock of the CLTV extended to the final hop. */
-    cltvExpiry: number;
+    cltvExpiry: number | string;
     /**
      * Route hints that can each be individually used to assist in reaching the
      * invoice's destination.
@@ -913,14 +913,14 @@ export interface Invoice {
      * SubscribeInvoices call can use this to instantly get notified of all added
      * invoices with an add_index greater than this one.
      */
-    addIndex: number;
+    addIndex: number | string;
     /**
      * The "settle" index of this invoice. Each newly settled invoice will
      * increment this index making it monotonically increasing. Callers to the
      * SubscribeInvoices call can use this to instantly get notified of all
      * settled invoices with an settle_index greater than this one.
      */
-    settleIndex: number;
+    settleIndex: number | string;
     /**
      * The amount that was accepted for this invoice, in satoshis. This will ONLY
      * be set if this invoice has been settled. We provide this field as if the
@@ -929,7 +929,7 @@ export interface Invoice {
      * MORE that was specified in the original invoice. So we'll record that here
      * as well.
      */
-    amtPaidSat: number;
+    amtPaidSat: number | string;
     /**
      * The amount that was accepted for this invoice, in millisatoshis. This will
      * ONLY be set if this invoice has been settled. We provide this field as if
@@ -938,7 +938,7 @@ export interface Invoice {
      * paid MORE that was specified in the original invoice. So we'll record that
      * here as well.
      */
-    amtPaidMsat: number;
+    amtPaidMsat: number | string;
     /** The state the invoice is in. */
     state: Invoice_InvoiceState;
     /** List of HTLCs paying to this invoice [EXPERIMENTAL]. */
@@ -971,19 +971,19 @@ export enum Invoice_InvoiceState {
 /** Details of an HTLC that paid to an invoice */
 export interface InvoiceHTLC {
     /** Short channel id over which the htlc was received. */
-    chanId: number;
+    chanId: number | string;
     /** Index identifying the htlc on the channel. */
-    htlcIndex: number;
+    htlcIndex: number | string;
     /** The amount of the htlc in msat. */
-    amtMsat: number;
+    amtMsat: number | string;
     /** Block height at which this htlc was accepted. */
-    acceptHeight: number;
+    acceptHeight: number | string;
     /** Time at which this htlc was accepted. */
-    acceptTime: number;
+    acceptTime: number | string;
     /** Time at which this htlc was settled or canceled. */
-    resolveTime: number;
+    resolveTime: number | string;
     /** Block height at which this htlc expires. */
-    expiryHeight: number;
+    expiryHeight: number | string;
     /** Current state the htlc is in. */
     state: InvoiceHTLCState;
     /** Custom tlv records. */
@@ -991,7 +991,7 @@ export interface InvoiceHTLC {
         [key: number]: Uint8Array;
     };
     /** The total amount of the mpp payment in msat. */
-    mppTotalAmtMsat: number;
+    mppTotalAmtMsat: number | string;
     /** Details relevant to AMP HTLCs, only populated if this is an AMP HTLC. */
     amp: AMP | undefined;
 }
@@ -1008,7 +1008,7 @@ export interface AMP {
      * A nonce used to randomize the child preimage and child hash from a given
      * root_share.
      */
-    childIndex: number;
+    childIndex: number | string;
     /** The payment hash of the AMP HTLC. */
     hash: Uint8Array;
     /**
@@ -1028,12 +1028,12 @@ export interface ListInvoiceResponse {
      * The index of the last item in the set of returned invoices. This can be used
      * to seek further, pagination style.
      */
-    lastIndexOffset: number;
+    lastIndexOffset: number | string;
     /**
      * The index of the last item in the set of returned invoices. This can be used
      * to seek backwards, pagination style.
      */
-    firstIndexOffset: number;
+    firstIndexOffset: number | string;
 }
 export interface Payment {
     /** The payment hash */
@@ -1041,19 +1041,19 @@ export interface Payment {
     /** The payment preimage */
     paymentPreimage: string;
     /** The value of the payment in satoshis */
-    valueSat: number;
+    valueSat: number | string;
     /** The value of the payment in milli-satoshis */
-    valueMsat: number;
+    valueMsat: number | string;
     /** The optional payment request being fulfilled. */
     paymentRequest: string;
     /** The status of the payment. */
     status: Payment_PaymentStatus;
     /** The fee paid for this payment in satoshis */
-    feeSat: number;
+    feeSat: number | string;
     /** The fee paid for this payment in milli-satoshis */
-    feeMsat: number;
+    feeMsat: number | string;
     /** The time in UNIX nanoseconds at which the payment was created. */
-    creationTimeNs: number;
+    creationTimeNs: number | string;
     /** The HTLCs made in attempt to settle the payment. */
     htlcs: HTLCAttempt[];
     /**
@@ -1061,7 +1061,7 @@ export interface Payment {
      * by this index, which may not strictly increment by 1 for payments made in
      * older versions of lnd.
      */
-    paymentIndex: number;
+    paymentIndex: number | string;
     failureReason: PaymentFailureReason;
 }
 export enum Payment_PaymentStatus {
@@ -1073,18 +1073,18 @@ export enum Payment_PaymentStatus {
 }
 export interface HTLCAttempt {
     /** The unique ID that is used for this attempt. */
-    attemptId: number;
+    attemptId: number | string;
     /** The status of the HTLC. */
     status: HTLCAttempt_HTLCStatus;
     /** The route taken by this HTLC. */
     route: Route | undefined;
     /** The time in UNIX nanoseconds at which this HTLC was sent. */
-    attemptTimeNs: number;
+    attemptTimeNs: number | string;
     /**
      * The time in UNIX nanoseconds at which this HTLC was settled or failed.
      * This value will not be set if the HTLC is still IN_FLIGHT.
      */
-    resolveTimeNs: number;
+    resolveTimeNs: number | string;
     /** Detailed htlc failure info. */
     failure: Failure | undefined;
     /** The preimage that was used to settle the HTLC. */
@@ -1103,27 +1103,27 @@ export interface ListPaymentsResponse {
      * The index of the first item in the set of returned payments. This can be
      * used as the index_offset to continue seeking backwards in the next request.
      */
-    firstIndexOffset: number;
+    firstIndexOffset: number | string;
     /**
      * The index of the last item in the set of returned payments. This can be used
      * as the index_offset to continue seeking forwards in the next request.
      */
-    lastIndexOffset: number;
+    lastIndexOffset: number | string;
 }
 
 export interface PayReq {
     destination: string;
     paymentHash: string;
-    numSatoshis: number;
-    timestamp: number;
-    expiry: number;
+    numSatoshis: number | string;
+    timestamp: number | string;
+    expiry: number | string;
     description: string;
     descriptionHash: string;
     fallbackAddr: string;
-    cltvExpiry: number;
+    cltvExpiry: number | string;
     routeHints: RouteHint[];
     paymentAddr: Uint8Array;
-    numMsat: number;
+    numMsat: number | string;
     features: {
         [key: number]: Feature;
     };
@@ -1135,21 +1135,21 @@ export interface Feature {
 }
 export interface ChannelFeeReport {
     /** The short channel id that this fee report belongs to. */
-    chanId: number;
+    chanId: number | string;
     /** The channel that this fee report belongs to. */
     channelPoint: string;
     /** The base fee charged regardless of the number of milli-satoshis sent. */
-    baseFeeMsat: number;
+    baseFeeMsat: number | string;
     /**
      * The amount charged per milli-satoshis transferred expressed in
      * millionths of a satoshi.
      */
-    feePerMil: number;
+    feePerMil: number | string;
     /**
      * The effective fee rate in milli-satoshis. Computed by dividing the
      * fee_per_mil value by 1 million.
      */
-    feeRate: number;
+    feeRate: number | string;
 }
 export interface FeeReportResponse {
     /**
@@ -1161,55 +1161,55 @@ export interface FeeReportResponse {
      * The total amount of fee revenue (in satoshis) the switch has collected
      * over the past 24 hrs.
      */
-    dayFeeSum: number;
+    dayFeeSum: number | string;
     /**
      * The total amount of fee revenue (in satoshis) the switch has collected
      * over the past 1 week.
      */
-    weekFeeSum: number;
+    weekFeeSum: number | string;
     /**
      * The total amount of fee revenue (in satoshis) the switch has collected
      * over the past 1 month.
      */
-    monthFeeSum: number;
+    monthFeeSum: number | string;
 }
 export interface ForwardingEvent {
     /** The incoming channel ID that carried the HTLC that created the circuit. */
-    chanIdIn: number;
+    chanIdIn: number | string;
     /**
      * The outgoing channel ID that carried the preimage that completed the
      * circuit.
      */
-    chanIdOut: number;
+    chanIdOut: number | string;
     /**
      * The total amount (in satoshis) of the incoming HTLC that created half
      * the circuit.
      */
-    amtIn: number;
+    amtIn: number | string;
     /**
      * The total amount (in satoshis) of the outgoing HTLC that created the
      * second half of the circuit.
      */
-    amtOut: number;
+    amtOut: number | string;
     /** The total fee (in satoshis) that this payment circuit carried. */
-    fee: number;
+    fee: number | string;
     /** The total fee (in milli-satoshis) that this payment circuit carried. */
-    feeMsat: number;
+    feeMsat: number | string;
     /**
      * The total amount (in milli-satoshis) of the incoming HTLC that created
      * half the circuit.
      */
-    amtInMsat: number;
+    amtInMsat: number | string;
     /**
      * The total amount (in milli-satoshis) of the outgoing HTLC that created
      * the second half of the circuit.
      */
-    amtOutMsat: number;
+    amtOutMsat: number | string;
     /**
      * The number of nanoseconds elapsed since January 1, 1970 UTC when this
      * circuit was completed.
      */
-    timestampNs: number;
+    timestampNs: number | string;
 }
 export interface ForwardingHistoryResponse {
     /**
@@ -1221,7 +1221,7 @@ export interface ForwardingHistoryResponse {
      * The index of the last time in the set of returned forwarding events. Can
      * be used to seek further, pagination style.
      */
-    lastOffsetIndex: number;
+    lastOffsetIndex: number | string;
 }
 
 export interface Failure {
@@ -1230,20 +1230,20 @@ export interface Failure {
     /** An optional channel update message. */
     channelUpdate: ChannelUpdate | undefined;
     /** A failure type-dependent htlc value. */
-    htlcMsat: number;
+    htlcMsat: number | string;
     /** The sha256 sum of the onion payload. */
     onionSha256: Uint8Array;
     /** A failure type-dependent cltv expiry value. */
-    cltvExpiry: number;
+    cltvExpiry: number | string;
     /** A failure type-dependent flags value. */
-    flags: number;
+    flags: number | string;
     /**
      * The position in the path of the intermediate or final node that generated
      * the failure message. Position zero is the sender node.
      */
-    failureSourceIndex: number;
+    failureSourceIndex: number | string;
     /** A failure type-dependent block height. */
-    height: number;
+    height: number | string;
 }
 export enum Failure_FailureCode {
     /**
@@ -1302,19 +1302,19 @@ export interface ChannelUpdate {
      */
     chainHash: Uint8Array;
     /** The unique description of the funding transaction. */
-    chanId: number;
+    chanId: number | string;
     /**
      * A timestamp that allows ordering in the case of multiple announcements.
      * We should ignore the message if timestamp is not greater than the
      * last-received.
      */
-    timestamp: number;
+    timestamp: number | string;
     /**
      * The bitfield that describes whether optional fields are present in this
      * update. Currently, the least-significant bit must be set to 1 if the
      * optional field MaxHtlc is present.
      */
-    messageFlags: number;
+    messageFlags: number | string;
     /**
      * The bitfield that describes additional meta-data concerning how the
      * update is to be interpreted. Currently, the least-significant bit must be
@@ -1322,26 +1322,26 @@ export interface ChannelUpdate {
      * previously sent channel announcement and 1 otherwise. If the second bit
      * is set, then the channel is set to be disabled.
      */
-    channelFlags: number;
+    channelFlags: number | string;
     /**
      * The minimum number of blocks this node requires to be added to the expiry
      * of HTLCs. This is a security parameter determined by the node operator.
      * This value represents the required gap between the time locks of the
      * incoming and outgoing HTLC's set to this node.
      */
-    timeLockDelta: number;
+    timeLockDelta: number | string;
     /** The minimum HTLC value which will be accepted. */
-    htlcMinimumMsat: number;
+    htlcMinimumMsat: number | string;
     /**
      * The base fee that must be used for incoming HTLC's to this particular
      * channel. This value will be tacked onto the required for a payment
      * independent of the size of the payment.
      */
-    baseFee: number;
+    baseFee: number | string;
     /** The fee rate that will be charged per millionth of a satoshi. */
-    feeRate: number;
+    feeRate: number | string;
     /** The maximum HTLC value which will be accepted. */
-    htlcMaximumMsat: number;
+    htlcMaximumMsat: number | string;
     /**
      * The set of data that was appended to this message, some of which we may
      * not actually know how to iterate or parse. By holding onto this data, we

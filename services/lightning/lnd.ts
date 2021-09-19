@@ -1,5 +1,4 @@
-import * as fs from "fs/promises";
-import { LndError } from "@runcitadel/utils";
+import { LndError, fs } from "@runcitadel/utils";
 
 import { createChannel, createClient, Client } from "nice-grpc";
 import {
@@ -116,7 +115,10 @@ export default class LNDService implements ILightningClient {
         macaroonCreds
       );
 
-      const authenticatedChannel = createChannel(this.connectionUrl, fullCredentials);
+      const authenticatedChannel = createChannel(
+        this.connectionUrl,
+        fullCredentials
+      );
       const LightningClient: Client<typeof LightningDefinition> = createClient(
         LightningDefinition,
         authenticatedChannel
@@ -147,11 +149,11 @@ export default class LNDService implements ILightningClient {
     rHash: Uint8Array;
     paymentRequest: string;
   }> {
-    if (typeof amount === "string") amount = parseInt(amount);
+    amount = amount.toString();
     const rpcPayload = {
       value: amount,
       memo,
-      expiry: 3600,
+      expiry: "3600",
     };
 
     const conn = await this.expectWalletToExist();
@@ -225,11 +227,11 @@ export default class LNDService implements ILightningClient {
 
   async estimateFee(
     address: string,
-    amt: number,
+    amt: number | string,
     confTarget: number
   ): Promise<EstimateFeeResponse> {
-    const addrToAmount: { [key: string]: number } = {};
-    addrToAmount[address] = amt;
+    const addrToAmount: { [key: string]: string } = {};
+    addrToAmount[address] = amt.toString();
 
     const rpcPayload = {
       AddrToAmount: addrToAmount,
@@ -270,13 +272,13 @@ export default class LNDService implements ILightningClient {
   }
 
   async getForwardingEvents(
-    startTime: number,
-    endTime: number,
+    startTime: number | string,
+    endTime: number | string,
     indexOffset: number
   ): Promise<ForwardingHistoryResponse> {
     const rpcPayload = {
-      startTime,
-      endTime,
+      startTime: startTime.toString(),
+      endTime: endTime.toString(),
       indexOffset,
       // TODO: Probably make this dynamic and reduce the default
       numMaxEvents: 5000,
@@ -375,7 +377,7 @@ export default class LNDService implements ILightningClient {
   async getInvoices(): Promise<ListInvoiceResponse> {
     const rpcPayload = {
       reversed: true, // Returns most recent
-      numMaxInvoices: 100,
+      numMaxInvoices: "100",
     };
 
     const { Lightning } = await this.expectWalletToExist();
@@ -403,16 +405,15 @@ export default class LNDService implements ILightningClient {
   async openChannel(
     pubKey: string,
     amt: number,
-    satPerByte: number | undefined
+    satPerVbyte: number | undefined
   ): Promise<ChannelPoint> {
-    const rpcPayload: OpenChannelRequest = <OpenChannelRequest>{
+    const rpcPayload: OpenChannelRequest = {
       nodePubkeyString: pubKey,
-      localFundingAmount: amt,
-    };
+      localFundingAmount: amt.toString(),
+    } as OpenChannelRequest;
 
-    if (satPerByte) {
-      // Make the dashboard still believe it's satPerByte, but actually use satPerVByte
-      rpcPayload.satPerVbyte = satPerByte;
+    if (satPerVbyte) {
+      rpcPayload.satPerVbyte = satPerVbyte.toString();
     } else {
       rpcPayload.targetConf = 6;
     }
@@ -424,17 +425,17 @@ export default class LNDService implements ILightningClient {
   async sendCoins(
     addr: string,
     amt: number | undefined,
-    satPerByte: number,
+    satPerVbyte: number,
     sendAll: boolean
   ): Promise<SendCoinsResponse> {
-    const rpcPayload: SendCoinsRequest = <SendCoinsRequest>{
+    const rpcPayload: SendCoinsRequest = {
       addr,
-      amount: amt,
+      amount: amt?.toString(),
       sendAll,
-    };
+    } as SendCoinsRequest;
 
-    if (satPerByte) {
-      rpcPayload.satPerVbyte = satPerByte;
+    if (satPerVbyte) {
+      rpcPayload.satPerVbyte = satPerVbyte.toString();
     } else {
       rpcPayload.targetConf = 6;
     }
@@ -449,7 +450,7 @@ export default class LNDService implements ILightningClient {
   ): Promise<SendResponse> {
     const rpcPayload = {
       paymentRequest,
-      amt,
+      amt: amt.toString(),
     };
 
     const { Lightning } = await this.expectWalletToExist();
@@ -471,12 +472,12 @@ export default class LNDService implements ILightningClient {
     feeRate: number,
     timeLockDelta: number
   ): Promise<void> {
-    const rpcPayload: PolicyUpdateRequest = <PolicyUpdateRequest>{
-      baseFeeMsat,
+    const rpcPayload: PolicyUpdateRequest = {
+      baseFeeMsat: baseFeeMsat.toString(),
       feeRate,
       timeLockDelta,
       minHtlcMsatSpecified: false,
-    };
+    } as PolicyUpdateRequest;
 
     if (global) {
       rpcPayload.global = global;
