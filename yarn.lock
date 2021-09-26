@@ -467,7 +467,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/passport@npm:*, @types/passport@npm:^1.0.7":
+"@types/passport@npm:*":
   version: 1.0.7
   resolution: "@types/passport@npm:1.0.7"
   dependencies:
@@ -504,13 +504,6 @@ __metadata:
     "@types/mime": ^1
     "@types/node": "*"
   checksum: eaca858739483e3ded254cad7d7a679dc2c8b3f52c8bb0cd845b3b7eb1984bde0371fdcb0a5c83aa12e6daf61b6beb762545021f520f08a1fe882a3fa4ea5554
-  languageName: node
-  linkType: hard
-
-"@types/uuid@npm:^8.3.1":
-  version: 8.3.1
-  resolution: "@types/uuid@npm:8.3.1"
-  checksum: b41bdc5e86c6f0f1899306be10455636da0f2168c9489b869edd6837ddeb7c0e501b1ff7d857402462986bada2a379125743dd895fa801d03437cd632116a373
   languageName: node
   linkType: hard
 
@@ -1981,9 +1974,7 @@ __metadata:
     "@types/koa__router": ^8.0.8
     "@types/morgan": ^1.9.3
     "@types/node": ^16.10.1
-    "@types/passport": ^1.0.7
     "@types/passport-jwt": ^3.0.6
-    "@types/uuid": ^8.3.1
     "@types/validator": ^13.6.3
     "@typescript-eslint/eslint-plugin": ^4.31.2
     "@typescript-eslint/parser": ^4.31.2
@@ -2005,7 +1996,6 @@ __metadata:
     protobufjs: ^6.11.2
     ts-proto: ^1.83.1
     typescript: ^4.4.3
-    uuid: ^8.3.2
     validator: ^13.6.0
   languageName: unknown
   linkType: soft
@@ -2729,15 +2719,6 @@ typescript@^4.4.3:
   dependencies:
     punycode: ^2.1.0
   checksum: 7167432de6817fe8e9e0c9684f1d2de2bb688c94388f7569f7dbdb1587c9f4ca2a77962f134ec90be0cc4d004c939ff0d05acc9f34a0db39a3c797dada262633
-  languageName: node
-  linkType: hard
-
-"uuid@npm:^8.3.2":
-  version: 8.3.2
-  resolution: "uuid@npm:8.3.2"
-  bin:
-    uuid: dist/bin/uuid
-  checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
   languageName: node
   linkType: hard
 
