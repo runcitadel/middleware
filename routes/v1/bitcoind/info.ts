@@ -1,119 +1,129 @@
-import { Router } from "express";
-const router = Router();
+import Router from "@koa/router";
+const router = new Router({
+  prefix: "/v1/bitcoind"
+});
 import * as bitcoinLogic from "../../../logic/bitcoin.js";
 import * as auth from "../../../middlewares/auth.js";
-import { safeHandler } from "@runcitadel/utils";
 
-import type { Request, Response } from "express";
+import { errorHandler } from "@runcitadel/utils";
+
+router.use(errorHandler);
 
 router.get(
   "/mempool",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.getMempoolInfo().then((mempool) => res.json(mempool))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.getMempoolInfo();
+    await next();
+  }
 );
 
 router.get(
   "/blockcount",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.getBlockCount().then((blockCount) => res.json({ blockCount }))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.getBlockCount();
+    await next();
+  }
 );
 
 router.get(
   "/connections",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.getConnectionsCount().then((connections) => res.json(connections))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.getConnectionsCount();
+    await next();
+  }
 );
 
 //requires no authentication as it is used to fetch loading status
 //which could be fetched at login/signup page
 router.get(
   "/status",
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.getStatus().then((status) => res.json(status))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.getStatus();
+    await next();
+  }
 );
 
 router.get(
   "/sync",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.getSyncStatus().then((status) => res.json(status))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.getSyncStatus();
+    await next();
+  }
 );
 
 router.get(
   "/version",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.getVersion().then((version) => res.json({version}))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.getVersion();
+    await next();
+  }
 );
 
 router.get(
   "/statsDump",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.nodeStatusDump().then((statusdump) => res.json(statusdump))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.nodeStatusDump();
+    await next();
+  }
 );
 
 router.get(
   "/stats",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic
-      .nodeStatusSummary()
-      .then((statussumarry) => res.json(statussumarry))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.nodeStatusSummary();
+    await next();
+  }
 );
 
 router.get(
   "/block",
   auth.jwt,
-  safeHandler((req: Request, res: Response) => {
-    if (req.query.hash !== undefined && req.query.hash !== null) {
-      bitcoinLogic
-        .getBlock(<string>req.query.hash)
-        .then((blockhash) => res.json(blockhash));
-    } else if (req.query.height !== undefined && req.query.height !== null) {
-      bitcoinLogic
-        .getBlockHash(parseInt(<string>req.query.height))
-        .then((hash) => res.json({ hash }));
+  async (ctx, next) => {
+    if (ctx.request.query.hash !== undefined && ctx.request.query.hash !== null) {
+      ctx.body = await bitcoinLogic.getBlock(<string>ctx.request.query.hash);
+    } else if (ctx.request.query.height !== undefined && ctx.request.query.height !== null) {
+      ctx.body = {hash: await bitcoinLogic
+        .getBlockHash(parseInt(<string>ctx.request.query.height))};
     }
-  })
+    await next();
+  }
 );
 
 // /v1/bitcoind/info/block/<hash>
 router.get(
   "/block/:id",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.getBlock(req.params.id).then((block) => res.json(block))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.getBlock(ctx.params.id);
+    await next();
+  }
 );
 
 router.get(
   "/blocks",
   auth.jwt,
-  safeHandler((req: Request, res: Response) => {
-    const fromHeight = parseInt(<string>req.query.from);
-    const toHeight = parseInt(<string>req.query.to);
-    bitcoinLogic.getBlocks(fromHeight, toHeight).then((blocks) => res.json({blocks}));
-  })
+  async (ctx, next) => {
+    const fromHeight = parseInt(<string>ctx.request.query.from);
+    const toHeight = parseInt(<string>ctx.request.query.to);
+    ctx.body = await bitcoinLogic.getBlocks(fromHeight, toHeight);
+    await next();
+  }
 );
 
 router.get(
   "/txid/:id",
   auth.jwt,
-  safeHandler((req: Request, res: Response) =>
-    bitcoinLogic.getTransaction(req.params.id).then((txhash) => res.json(txhash))
-  )
+  async (ctx, next) => {
+    ctx.body = await bitcoinLogic.getTransaction(ctx.params.id);
+    await next();
+  }
 );
 
 export default router;

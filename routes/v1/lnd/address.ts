@@ -1,17 +1,22 @@
-import { Router } from "express";
-const router = Router();
+import Router from "@koa/router";
+const router = new Router({
+    prefix: "/v1/lnd/address"
+});
 
 import * as auth from "../../../middlewares/auth.js";
-import { safeHandler } from "@runcitadel/utils";
 
 import * as lightningLogic from "../../../logic/lightning.js";
+import { errorHandler } from "@runcitadel/utils";
+
+router.use(errorHandler);
 
 router.get(
     "/",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.generateAddress().then((address) => res.json(address))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.generateAddress();
+        await next();
+    }
 );
 
 export default router;

@@ -8,14 +8,18 @@ export default {
   JWT_PUBLIC_KEY_FILE: process.env.JWT_PUBLIC_KEY_FILE || "UNKNOWN",
   MANAGED_CHANNELS_FILE: "/channel-data/managedChannels.json",
   LND_WALLET_PASSWORD: process.env.LND_WALLET_PASSWORD || "moneyprintergobrrr",
-  REQUEST_CORRELATION_NAMESPACE_KEY: "middleware-request",
-  REQUEST_CORRELATION_ID_KEY: "reqId",
-  STATUS_CODES: {
-    BAD_GATEWAY: 502,
-    FORBIDDEN: 403,
-    OK: 200,
-  },
   CHANNEL_BACKUP_FILE:
     process.env.CHANNEL_BACKUP_FILE ||
     "/lnd/data/chain/bitcoin/" + process.env.LND_NETWORK + "/channel.backup",
 };
+
+export enum STATUS_CODES {
+  ACCEPTED = 202,
+  BAD_GATEWAY = 502,
+  CONFLICT = 409,
+  FORBIDDEN = 403,
+  NOT_FOUND = 404,
+  OK = 200,
+  UNAUTHORIZED = 401,
+  INTERNAL_SERVER_ERROR = 500,
+}

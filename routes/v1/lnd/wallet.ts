@@ -1,26 +1,29 @@
-import express from "express";
-const router = express.Router();
+import Router from "@koa/router";
+import { errorHandler } from "@runcitadel/utils";
+const router = new Router({
+    prefix: "/v1/lnd/wallet"
+});
 import * as lightningLogic from "../../../logic/lightning.js";
 import * as auth from "../../../middlewares/auth.js";
-import constants from "../../../utils/const.js";
-import { safeHandler, validator } from "@runcitadel/utils";
 
-import type { Request, Response } from "express";
+router.use(errorHandler);
 
 router.get(
     "/btc",
     auth.jwt,
-    safeHandler((req: Request, res: Response) =>
-        lightningLogic.getWalletBalance().then((balance) => res.json(balance))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getWalletBalance();
+        await next();
+    }
 );
 
 // Dummy endpoint
 router.post(
     "/changePassword",
     auth.jwt,
-    async (req, res, next) => {
-        return res.status(constants.STATUS_CODES.OK).json();
+    async (ctx, next) => {
+        ctx.status = 200;
+        await next();
     }
 );
 
@@ -28,35 +31,37 @@ router.post(
 // locked and cannot be updated unless a full system reset is initiated.
 router.post(
     "/init",
-    safeHandler((req: Request, res: Response) => {
-        const seed: string[] = req.body.seed;
+    async (ctx, next) => {
+        const seed: string[] = ctx.request.body.seed;
 
       // eslint-disable-next-line no-magic-numbers
         if (seed.length !== 24) {
             throw new Error("Invalid seed length");
         }
 
-        return lightningLogic
-      .initializeWallet(seed)
-            .then((response) => res.json(response));
-    })
+       ctx.body = await lightningLogic
+      .initializeWallet(seed);
+            await next();
+    }
 );
 
 router.get(
     "/lightning",
     auth.jwt,
-    safeHandler((req: Request, res: Response) =>
-        lightningLogic.getChannelBalance().then((balance) => res.json(balance))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getChannelBalance();
+        await next();
+    }
 );
 
 // Should not include auth because the user isn't registered yet. The user can get a seed phrase as many times as they
 // would like until the wallet has been initialized.
 router.get(
     "/seed",
-    safeHandler((req: Request, res: Response) =>
-        lightningLogic.generateSeed().then((seed) => res.json(seed))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.generateSeed();
+        await next();
+    }
 );
 
 export default router;

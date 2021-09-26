@@ -1,58 +1,63 @@
-import { Router } from "express";
-const router = Router();
+import Router from "@koa/router";
+const router = new Router({
+    prefix: "/v1/lnd/info"
+});
 
 import * as auth from "../../../middlewares/auth.js";
-import { validator, safeHandler } from "@runcitadel/utils";
+import { errorHandler, typeHelper } from "@runcitadel/utils";
+
+router.use(errorHandler);
 
 import * as lightningLogic from "../../../logic/lightning.js";
 
 router.get(
     "/uris",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getPublicUris().then((uris) => res.json(uris))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getPublicUris();
+        await next();
+    }
 );
 
 //requires no authentication as it is used to fetch loading status
 //which could be fetched at login/signup page
 router.get(
     "/status",
-    safeHandler((req, res) =>
-        lightningLogic.getStatus().then((status) => res.json(status))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getStatus();
+        await next();
+    }
 );
 
 router.get(
     "/sync",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getSyncStatus().then((status) => res.json(status))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getSyncStatus();
+        await next();
+    }
 );
 
 router.get(
     "/version",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getVersion().then((version) => res.json({version}))
-    )
+    async (ctx, next) => {
+        ctx.body = { version: await lightningLogic.getVersion() };
+        await next();
+    }
 );
 
 router.get(
     "/alias",
     auth.jwt,
-    safeHandler((req, res, next) => {
-        const pubkey = <string>req.query.pubkey;
+    async (ctx, next) => {
+        const pubkey = ctx.request.query.pubkey as string;
 
-        try {
-            validator.isAlphanumeric(pubkey);
-        } catch (error) {
-            return next(error);
-        }
-
-        return lightningLogic.getNodeAlias(pubkey).then((alias) => res.json({alias}));
-    })
+        typeHelper.isAlphanumeric(pubkey, ctx);
+        const alias = await lightningLogic.getNodeAlias(pubkey);
+        ctx.body = {alias};
+        await next();
+    }
 );
 
 export default router;

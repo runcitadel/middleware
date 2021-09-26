@@ -1,9 +1,13 @@
-import { Router } from "express";
-const router = Router();
+import Router from "@koa/router";
+const router = new Router({
+    prefix: "/v1/lnd/channel"
+});
 
 import * as auth from "../../../middlewares/auth.js";
 
-import {validator, safeHandler, ValidationError} from "@runcitadel/utils";
+router.use(errorHandler);
+
+import { errorHandler, typeHelper } from "@runcitadel/utils";
 import * as lightningLogic from "../../../logic/lightning.js";
 
 const DEFAULT_TIME_LOCK_DELTA = 144; // eslint-disable-line no-magic-numbers
@@ -11,167 +15,149 @@ const DEFAULT_TIME_LOCK_DELTA = 144; // eslint-disable-line no-magic-numbers
 router.get(
     "/",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getChannels().then((channels) => res.json(channels))
-    )
+    async (ctx, next) => {
+        ctx.boy = await lightningLogic.getChannels();
+        await next();
+    }
 );
 
 router.get(
     "/estimateFee",
     auth.jwt,
-    safeHandler(async (req, res, next) => {
-        const amt = <string>req.query.amt; // Denominated in Satoshi
-        const confTarget = <string>req.query.confTarget;
-        const sweep = req.query.sweep === "true";
+    async (ctx, next) => {
+        const amt = ctx.request.query.amt as string; // Denominated in Satoshi
+        const confTarget = ctx.request.query.confTarget as string;
+        const sweep = ctx.request.query.sweep === "true";
 
-        try {
-            validator.isPositiveIntegerOrZero(confTarget);
-            validator.isPositiveInteger(amt);
-        } catch (error) {
-            return next(error);
-        }
+        typeHelper.isPositiveIntegerOrZero(confTarget, ctx);
+        typeHelper.isPositiveInteger(amt, ctx);
 
-        return await lightningLogic
-      .estimateChannelOpenFee(
-        parseInt(amt, 10),
-        parseInt(confTarget, 10),
-        sweep).then(response => res.json(response));
-    })
+        ctx.body = await lightningLogic
+            .estimateChannelOpenFee(
+                parseInt(amt, 10),
+                parseInt(confTarget, 10),
+                sweep);
+    }
 );
 
 router.get(
     "/pending",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getPendingChannels().then((channels) => res.json(channels))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getPendingChannels();
+        await next();
+    }
 );
 
 router.get(
     "/policy",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getChannelPolicy().then((policies) => res.json(policies))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getChannelPolicy();
+        await next();
+    }
 );
 
 router.put(
     "/policy",
     auth.jwt,
-    safeHandler((req, res, next) => {
-        const global = req.body.global || false;
-        const chanPoint = req.body.chanPoint;
-        const baseFeeMsat = req.body.baseFeeMsat;
-        const feeRate = req.body.feeRate;
-        const timeLockDelta = req.body.timeLockDelta || DEFAULT_TIME_LOCK_DELTA;
+    async (ctx, next) => {
+        const global = ctx.request.body.global || false;
+        const chanPoint = ctx.request.body.chanPoint;
+        const baseFeeMsat = ctx.request.body.baseFeeMsat;
+        const feeRate = ctx.request.body.feeRate;
+        const timeLockDelta = ctx.request.body.timeLockDelta || DEFAULT_TIME_LOCK_DELTA;
         let fundingTxid;
         let outputIndex;
 
-        try {
-            validator.isBoolean(global);
+        typeHelper.isBoolean(global, ctx);
 
-            if (!global) {
-                [fundingTxid, outputIndex] = chanPoint.split(':');
+        if (!global) {
+            [fundingTxid, outputIndex] = chanPoint.split(':');
 
-                if (fundingTxid === undefined || outputIndex === undefined) {
-                    throw new ValidationError('Invalid channelPoint.');
-                }
-
-                validator.isAlphanumeric(fundingTxid);
-                validator.isPositiveIntegerOrZero(outputIndex);
+            if (fundingTxid === undefined || outputIndex === undefined) {
+                ctx.throw('Invalid channelPoint.');
             }
 
-      validator.isPositiveIntegerOrZero(baseFeeMsat);
-            validator.isDecimal(feeRate + '');
-            validator.isPositiveInteger(timeLockDelta);
-        } catch (error) {
-            return next(error);
+            typeHelper.isAlphanumeric(fundingTxid, ctx);
+            typeHelper.isPositiveIntegerOrZero(outputIndex, ctx);
         }
 
-        return (
-      lightningLogic
-        .updateChannelPolicy(
-          global,
-          fundingTxid,
-          parseInt(outputIndex, 10),
-          baseFeeMsat,
-          feeRate,
-            timeLockDelta)
-        // @ts-expect-error
-            .then(res.json())
-    );
-    })
+        typeHelper.isPositiveIntegerOrZero(baseFeeMsat, ctx);
+        typeHelper.isDecimal(feeRate + '', ctx);
+        typeHelper.isPositiveInteger(timeLockDelta, ctx);
+
+        ctx.body = await lightningLogic
+            .updateChannelPolicy(
+                global,
+                fundingTxid,
+                parseInt(outputIndex, 10),
+                baseFeeMsat,
+                feeRate,
+                timeLockDelta);
+        await next();
+    }
 );
 
 router.delete(
     "/close",
     auth.jwt,
-    safeHandler((req, res, next) => {
-        const channelPoint = req.body.channelPoint;
-        const force = req.body.force;
+    async (ctx, next) => {
+        const channelPoint = ctx.request.body.channelPoint;
+        const force = ctx.request.body.force;
 
         const parts = channelPoint.split(":");
 
-        if (parts.length !== 2) {
-      // eslint-disable-line no-magic-numbers
-            return next(new Error('Invalid channel point: ' + channelPoint));
-        }
+        if (parts.length !== 2) ctx.throw('Invalid channel point: ' + channelPoint);
 
         let fundingTxId;
         var index;
 
-        try {
-            // TODO: fundingTxId, index
-            fundingTxId = parts[0];
-            index = parseInt(parts[1], 10);
+        // TODO: fundingTxId, index
+        fundingTxId = parts[0];
+        index = parseInt(parts[1], 10);
 
-      validator.isBoolean(force);
-        } catch (error) {
-            return next(error);
-        }
-
-        return lightningLogic
-      .closeChannel(fundingTxId, index, force)
-            .then(channel => res.json(channel));
-    })
+        typeHelper.isBoolean(force, ctx);
+        ctx.body = await lightningLogic
+            .closeChannel(fundingTxId, index, force);
+        await next();
+    }
 );
 
 router.get(
     "/count",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getChannelCount().then((count) => res.json(count))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getChannelCount()
+        await next();
+    }
 );
 
 router.post(
     "/open",
     auth.jwt,
-    safeHandler((req, res, next) => {
-        const pubKey = req.body.pubKey;
-        const ip = req.body.ip || "127.0.0.1";
-        const port = req.body.port || 9735; // eslint-disable-line no-magic-numbers
-        const amt = req.body.amt;
-        const satPerByte = req.body.satPerByte;
-        const name = req.body.name;
-        const purpose = req.body.purpose;
+    async (ctx, next) => {
+        const pubKey = ctx.request.body.pubKey;
+        const ip = ctx.request.body.ip || "127.0.0.1";
+        const port = ctx.request.body.port || 9735; // eslint-disable-line no-magic-numbers
+        const amt = ctx.request.body.amt;
+        const satPerByte = ctx.request.body.satPerByte;
+        // TODO: Do something with these
+        const name = ctx.request.body.name;
+        const purpose = ctx.request.body.purpose;
 
-        try {
-      // TODO validate ip address as ip4 or ip6 address
-            validator.isAlphanumeric(pubKey);
-      validator.isPositiveInteger(port);
-            validator.isPositiveInteger(amt);
-            if (satPerByte) {
-                validator.isPositiveInteger(satPerByte);
-      }
-        } catch (error) {
-      return next(error);
+        // TODO validate ip address as ip4 or ip6 address
+        typeHelper.isAlphanumeric(pubKey, ctx);
+        typeHelper.isPositiveInteger(port, ctx);
+        typeHelper.isPositiveInteger(amt, ctx);
+        if (satPerByte) {
+            typeHelper.isPositiveInteger(satPerByte, ctx);
         }
 
-        return lightningLogic
-      .openChannel(pubKey, ip, port, amt, satPerByte)
-            .then(channel => res.json(channel));
-    })
+        ctx.body = await lightningLogic
+            .openChannel(pubKey, ip, port, amt, satPerByte);
+        await next();
+    }
 );
 
 export default router;

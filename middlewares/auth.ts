@@ -1,8 +1,8 @@
-import passport from "passport";
+import type {Next, Context} from 'koa';
+import passport from 'koa-passport';
 import passportJWT from "passport-jwt";
-import constants from "../utils/const.js";
-import { NodeError, fs } from "@runcitadel/utils";
-import type { NextFunction, Request, Response } from "express";
+import constants, { STATUS_CODES } from "../utils/const.js";
+import { fs } from "@runcitadel/utils";
 
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;
@@ -36,20 +36,25 @@ passport.use(
   })
 );
 
-export function jwt(req: Request, res: Response, next: NextFunction): void {
-  passport.authenticate(JWT_AUTH, { session: false }, (error, user) => {
-    if (error || user === false) {
-      next(new NodeError("Invalid JWT", 401));
-      return;
-    }
-
-    req.logIn(user, (err) => {
-      if (err) {
-        next(new NodeError("Unable to authenticate", 401));
-        return;
+export async function jwt(ctx: Context, next: Next): Promise<void> {
+  await passport.authenticate(
+    JWT_AUTH,
+    {session: false},
+    async (error, user) => {
+      if (error || user === false) {
+        ctx.throw(STATUS_CODES.UNAUTHORIZED, 'Invalid JWT');
       }
 
-      (next as (error: unknown, user: unknown) => void)(null, user);
-    });
-  })(req, res, next);
+      try {
+        await ctx.logIn(user);
+      } catch {
+        ctx.throw(
+          STATUS_CODES.INTERNAL_SERVER_ERROR,
+          'An internal error occured. Please contact the Citadel support team.',
+        );
+      }
+
+      await next();
+    },
+  )(ctx, next);
 }

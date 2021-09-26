@@ -1,9 +1,9 @@
-import { Router } from "express";
-import * as pjson from "../package.json";
-const router = Router();
+import Router from "@koa/router";
+const router = new Router();
 
-router.get("/", function (req, res) {
-  res.json({ version: "middleware-" + pjson.version });
+router.get("/", async function (ctx, next) {
+  ctx.body = { version: "Middleware by Citadel" };
+  await next();
 });
 
 export default router;

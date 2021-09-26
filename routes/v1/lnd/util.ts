@@ -1,18 +1,23 @@
-import { Router } from "express";
-const router = Router();
+import Router from "@koa/router";
+import { errorHandler, fs } from "@runcitadel/utils";
+const router = new Router({
+    prefix: "/v1/lnd/util",
+});
 
 import * as auth from "../../../middlewares/auth.js";
-import { safeHandler } from "@runcitadel/utils";
 import constants from "../../../utils/const.js";
 
-import type { Request, Response } from "express";
+router.use(errorHandler);
 
 router.get(
     "/download-channel-backup",
     auth.jwt,
-    safeHandler((req: Request, res: Response) => {
-        res.download(constants.CHANNEL_BACKUP_FILE, "channel.backup");
-    })
+    async (ctx, next) => {
+        ctx.set('Content-disposition', 'attachment; filename=channel.backup');
+        ctx.set('Content-type', 'application/octet-stream');
+        ctx.body = fs.createReadStream(constants.CHANNEL_BACKUP_FILE);
+        await next();
+    }
 );
 
 export default router;

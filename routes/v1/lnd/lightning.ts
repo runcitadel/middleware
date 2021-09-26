@@ -1,112 +1,103 @@
-import { Router } from "express";
-const router = Router();
+import Router from "@koa/router";
+const router = new Router({
+    prefix: "/v1/lnd/lightning"
+});
 
 import * as auth from "../../../middlewares/auth.js";
-import { safeHandler, validator } from "@runcitadel/utils";
+import { errorHandler, typeHelper } from "@runcitadel/utils";
 import * as lightningLogic from "../../../logic/lightning.js";
+
+router.use(errorHandler);
 
 router.post(
     "/addInvoice",
-    safeHandler(async (req, res, next) => {
-        const amt = req.body.amt; // Denominated in Satoshi
-        const memo = req.body.memo || "";
+    async (ctx, next) => {
+        const amt = ctx.request.body.amt; // Denominated in Satoshi
+        const memo = ctx.request.body.memo || "";
 
-        try {
-            validator.isPositiveIntegerOrZero(amt);
-      validator.isValidMemoLength(memo);
-        } catch (error) {
-      return next(error);
-        }
+        typeHelper.isPositiveIntegerOrZero(amt, ctx as any);
+        typeHelper.isValidMemoLength(memo, ctx as any);
 
-        return await lightningLogic
-      .addInvoice(amt, memo)
-            .then((invoice) => res.json(invoice));
-    })
+        ctx.body = await lightningLogic
+            .addInvoice(amt, memo);
+        await next();
+    }
 );
 
 router.get(
     "/forwardingEvents",
     auth.jwt,
-    safeHandler((req, res, next) => {
-        const startTime = <string>req.query.startTime;
-        const endTime = <string>req.query.endTime;
-        const indexOffset = <string>req.query.indexOffset;
+    async (ctx, next) => {
+        const startTime = <string>ctx.request.query.startTime;
+        const endTime = <string>ctx.request.query.endTime;
+        const indexOffset = <string>ctx.request.query.indexOffset;
 
-        try {
-            if (startTime) {
-                validator.isPositiveIntegerOrZero(startTime);
-            }
-            if (endTime) {
-                validator.isPositiveIntegerOrZero(endTime);
-      }
-            if (indexOffset) {
-        validator.isPositiveIntegerOrZero(indexOffset);
-            }
-        } catch (error) {
-            return next(error);
+        if (startTime) {
+            typeHelper.isPositiveIntegerOrZero(startTime, ctx);
+        }
+        if (endTime) {
+            typeHelper.isPositiveIntegerOrZero(endTime, ctx);
+        }
+        if (indexOffset) {
+            typeHelper.isPositiveIntegerOrZero(indexOffset, ctx);
         }
 
-        return lightningLogic
-      .getForwardingEvents(parseInt(startTime), parseInt(endTime), parseInt(indexOffset))
-            .then((events) => res.json(events));
-    })
+        ctx.body = await lightningLogic
+            .getForwardingEvents(parseInt(startTime), parseInt(endTime), parseInt(indexOffset));
+        await next();
+    }
 );
 
 router.get(
     "/invoice",
     auth.jwt,
-    safeHandler((req, res, next) => {
-        const paymentRequest = <string>req.query.paymentRequest;
+    async (ctx, next) => {
+        const paymentRequest = <string>ctx.request.query.paymentRequest;
 
-        try {
-            validator.isAlphanumeric(paymentRequest);
-        } catch (error) {
-            return next(error);
-        }
+        typeHelper.isAlphanumeric(paymentRequest, ctx);
 
-        return lightningLogic
-      .decodePaymentRequest(paymentRequest)
-            .then((invoice) => res.json(invoice));
-    })
+        ctx.body = await lightningLogic
+            .decodePaymentRequest(paymentRequest);
+        await next();
+    }
 );
 
 router.get(
     "/invoices",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getInvoices().then((invoices) => res.json(invoices))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic
+            .getInvoices();
+        await next();
+    }
 );
 
 router.post(
     "/payInvoice",
     auth.jwt,
-    safeHandler(async (req, res, next) => {
-        const paymentRequest = req.body.paymentRequest;
-        const amt = req.body.amt;
+    async (ctx, next) => {
+        const paymentRequest = ctx.request.body.paymentRequest;
+        const amt = ctx.request.body.amt;
 
-        try {
-            validator.isAlphanumeric(paymentRequest);
+        typeHelper.isAlphanumeric(paymentRequest, ctx);
 
-            if (amt) {
-                validator.isPositiveIntegerOrZero(amt);
-      }
-        } catch (error) {
-            return next(error);
+        if (amt) {
+            typeHelper.isPositiveIntegerOrZero(amt, ctx);
         }
 
-        return await lightningLogic
-      .payInvoice(paymentRequest, amt)
-            .then((invoice) => res.json(invoice));
-    })
+        ctx.body = await lightningLogic
+            .payInvoice(paymentRequest, amt);
+        await next();
+    }
 );
 
 router.get(
     "/payments",
     auth.jwt,
-    safeHandler((req, res) =>
-        lightningLogic.getPayments().then((payments) => res.json(payments))
-    )
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getPayments();
+        await next();
+    }
 );
 
 export default router;

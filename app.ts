@@ -1,10 +1,10 @@
 import { config } from "dotenv";
 config();
-import express from "express";
-import morgan from "morgan";
-import passport from "passport";
-import cors from "cors";
-import type { Request, Response } from "express";
+import App from "koa";
+import morgan from "koa-morgan";
+import passport from "koa-passport";
+import cors from "@koa/cors";
+import bodyParser from "koa-body";
 
 import bitcoind from "./routes/v1/bitcoind/info.js";
 import address from "./routes/v1/lnd/address.js";
@@ -18,36 +18,30 @@ import pages from "./routes/v1/pages.js";
 import ping from "./routes/ping.js";
 
 import { corsOptions } from "./middlewares/cors.js";
-import { handleError, camelCaseMiddleware } from "@runcitadel/utils";
+import { errorHandler } from "@runcitadel/utils";
 
-const app = express();
+const app = new App();
 
+app.use(errorHandler);
 // Handles CORS
 app.use(cors(corsOptions));
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+app.use(bodyParser);
+
 app.use(passport.initialize());
 app.use(passport.session());
 
-app.use(camelCaseMiddleware);
 app.use(morgan("combined"));
 
-app.use("/v1/bitcoind/info", bitcoind);
-app.use("/v1/lnd/address", address);
-app.use("/v1/lnd/channel", channel);
-app.use("/v1/lnd/info", info);
-app.use("/v1/lnd/lightning", lightning);
-app.use("/v1/lnd/transaction", transaction);
-app.use("/v1/lnd/wallet", wallet);
-app.use("/v1/lnd/util", util);
-app.use("/v1/pages", pages);
-app.use("/ping", ping);
-
-app.use(handleError);
-
-app.use((req: Request, res: Response) => {
-  res.status(404).json();
-});
+app.use(bitcoind.routes());
+app.use(address.routes());
+app.use(channel.routes());
+app.use(info.routes());
+app.use(lightning.routes());
+app.use(transaction.routes());
+app.use(wallet.routes());
+app.use(util.routes());
+app.use(pages.routes());
+app.use(ping.routes());
 
 export default app;

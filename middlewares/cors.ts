@@ -1,22 +1,38 @@
-type StaticOrigin = boolean | string | RegExp | (boolean | string | RegExp)[];
+import * as process from 'node:process';
+import {URL} from 'node:url';
+import type {Context} from 'koa';
 
 export const corsOptions = {
-  origin: (
-    origin: string | undefined,
-    callback: (err: Error | null, origin?: StaticOrigin) => void
-  ): void => {
+  origin: (ctx: Context): string => {
+    const origin =
+      ctx.headers.origin ?? ctx.request.headers.origin ?? ctx.origin;
     const allowList = [
-      "http://localhost:3000",
-      "http://localhost:8080",
-      "http://localhost",
-      "http://citadel.local",
-      ...(<string>process.env.DEVICE_HOSTS).split(","),
+      'http://localhost',
+      'http://umbrel.local',
+      ...(process.env.DEVICE_HOSTS ? process.env.DEVICE_HOSTS.split(',') : []),
     ];
 
-    if (allowList.includes(origin || "THISISNOTINTHEALLOWLIST") || !origin) {
-      return callback(null, true);
+    // Allowlist, but URL.parse every element, and only get the domain
+    const allowedDomains = [];
+    let url: string;
+    for (url of allowList) {
+      const parsed = new URL(url);
+      allowedDomains.push(parsed.hostname);
     }
 
-    return callback(new Error("Not allowed by CORS"));
+    if (!process.env.SAFE_MODE) {
+      try {
+        const parsed = new URL(origin);
+        if (allowedDomains.includes(parsed.hostname)) {
+          return parsed.origin;
+        }
+      } catch {
+        if (!origin) return '*';
+      }
+    }
+
+    if (allowList.includes(origin)) return origin;
+
+    throw new Error('Not allowed by CORS');
   },
 };

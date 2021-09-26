@@ -60,7 +60,14 @@ If you're looking for a bigger challenge, before opening a pull request please [
 
 ## 🙏 Acknowledgements
 
-The Citadel Middleware is built upon the work done by [Casa](https://github.com/casa) on its open-source [API](https://github.com/Casa/Casa-Node-API) and Umbrel's work on [their middleware](https://github.com/getumbrel/umbrel-middleware).
+Middleware is inspired by and built upon the work done by [Umbrel](https://github.com/getumbrel) on its open-source [API](https://github.com/getumbrel/umbrel-middleware).
+
+The original code we forked is licensed under
+
+```
+Copyright (c) 2018-2019 Casa, Inc. https://keys.casa/
+Copyright (c) 2020 Umbrel. https://getumbrel.com/
+```
 
 ---
 
