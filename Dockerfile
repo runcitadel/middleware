@@ -9,6 +9,9 @@ COPY . .
 # Install dependencies
 RUN yarn workspaces focus -A --production
 
+# Delete TypeScript code and markdown files to further reduce image size
+RUN rm -rf node_modules/**/*.ts node_modules/**/*.md
+
 # TS Build Stage
 FROM build-dependencies-helper as middleware-builder
 
