@@ -12,7 +12,7 @@ RUN yarn workspaces focus -A --production
 FROM build-dependencies-helper as production-dependencies
 
 # Delete TypeScript code and markdown files to further reduce image size
-RUN rm -rf /app/node_modules/**/*.ts /app/node_modules/**/*.md
+RUN find /app/node_modules | grep ".\.ts" | xargs rm
 
 # TS Build Stage
 FROM build-dependencies-helper as middleware-builder

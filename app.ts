@@ -33,6 +33,7 @@ app.use(passport.session());
 
 app.use(morgan("combined"));
 
+app.use(ping.routes());
 app.use(bitcoind.routes());
 app.use(address.routes());
 app.use(channel.routes());
@@ -42,6 +43,5 @@ app.use(transaction.routes());
 app.use(wallet.routes());
 app.use(util.routes());
 app.use(pages.routes());
-app.use(ping.routes());
 
 export default app;
