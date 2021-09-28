@@ -11,6 +11,15 @@ router.use(errorHandler);
 import * as lightningLogic from "../../../logic/lightning.js";
 
 router.get(
+    "/",
+    auth.jwt,
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.getGeneralInfo();
+        await next();
+    }
+);
+
+router.get(
     "/uris",
     auth.jwt,
     async (ctx, next) => {
