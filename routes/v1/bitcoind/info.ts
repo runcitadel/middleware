@@ -1,6 +1,6 @@
 import Router from "@koa/router";
 const router = new Router({
-  prefix: "/v1/bitcoind"
+  prefix: "/v1/bitcoind/info"
 });
 import * as bitcoinLogic from "../../../logic/bitcoin.js";
 import * as auth from "../../../middlewares/auth.js";
