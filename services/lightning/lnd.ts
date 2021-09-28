@@ -496,4 +496,12 @@ export default class LNDService implements ILightningClient {
     const info = await this.getInfo();
     return info.version;
   }
+
+  async signMessage(message: string): Promise<string> {
+    const { Lightning } = await this.expectWalletToExist();
+    // message as an Uint8Array
+    const msg = Uint8Array.from(Buffer.from(message, "utf8"));
+    const response = await Lightning.signMessage({ msg });
+    return response.signature;
+  }
 }

@@ -6,6 +6,7 @@ const router = new Router({
 
 import * as auth from "../../../middlewares/auth.js";
 import constants from "../../../utils/const.js";
+import * as lightningLogic from "../../../logic/lightning.js";
 
 router.use(errorHandler);
 
@@ -16,6 +17,15 @@ router.get(
         ctx.set('Content-disposition', 'attachment; filename=channel.backup');
         ctx.set('Content-type', 'application/octet-stream');
         ctx.body = fs.createReadStream(constants.CHANNEL_BACKUP_FILE);
+        await next();
+    }
+);
+
+router.post(
+    "/sign-message",
+    auth.jwt,
+    async (ctx, next) => {
+        ctx.body = { signature: lightningLogic.signMessage(ctx.request.body.message) };
         await next();
     }
 );

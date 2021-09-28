@@ -94,4 +94,5 @@ export default interface ILightningClient {
     timeLockDelta: number
   ): Promise<void>;
   getVersion(): Promise<string>;
+  signMessage(message: string): Promise<string>;
 }

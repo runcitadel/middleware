@@ -933,3 +933,7 @@ export async function updateChannelPolicy(
     timeLockDelta
   );
 }
+
+export async function signMessage(message: string): Promise<string> {
+  return await lndService.signMessage(message);
+}

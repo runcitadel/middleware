@@ -13,7 +13,7 @@ router.get(
     "/",
     auth.jwt,
     async (ctx, next) => {
-        ctx.body = await lightningLogic.getOnChainTransactions();;
+        ctx.body = await lightningLogic.getOnChainTransactions();
         await next();
     }
 );
