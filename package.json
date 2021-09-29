@@ -35,7 +35,7 @@
     "@types/koa-passport": "^4.0.2",
     "@types/koa__cors": "^3.0.3",
     "@types/morgan": "^1.9.3",
-    "@types/node": "^16.10.1",
+    "@types/node": "^16.10.2",
     "@types/passport-jwt": "^3.0.6",
     "@types/validator": "^13.6.3",
     "@typescript-eslint/eslint-plugin": "^4.31.2",
