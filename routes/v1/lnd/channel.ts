@@ -16,7 +16,7 @@ router.get(
     "/",
     auth.jwt,
     async (ctx, next) => {
-        ctx.boy = await lightningLogic.getChannels();
+        ctx.body = await lightningLogic.getChannels();
         await next();
     }
 );
@@ -37,6 +37,7 @@ router.get(
                 parseInt(amt, 10),
                 parseInt(confTarget, 10),
                 sweep);
+        await next();
     }
 );
 
