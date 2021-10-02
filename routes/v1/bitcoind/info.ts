@@ -112,7 +112,7 @@ router.get(
   async (ctx, next) => {
     const fromHeight = parseInt(<string>ctx.request.query.from);
     const toHeight = parseInt(<string>ctx.request.query.to);
-    ctx.body = await bitcoinLogic.getBlocks(fromHeight, toHeight);
+    ctx.body = { blocks: await bitcoinLogic.getBlocks(fromHeight, toHeight) };
     await next();
   }
 );
