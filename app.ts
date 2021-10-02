@@ -7,6 +7,7 @@ import cors from "@koa/cors";
 import bodyParser from "koa-body";
 
 import bitcoind from "./routes/v1/bitcoind/info.js";
+import bitcoin from "./routes/v2/bitcoin/info.js";
 import address from "./routes/v1/lnd/address.js";
 import channel from "./routes/v1/lnd/channel.js";
 import info from "./routes/v1/lnd/info.js";
@@ -43,5 +44,6 @@ app.use(transaction.routes());
 app.use(wallet.routes());
 app.use(util.routes());
 app.use(pages.routes());
+app.use(bitcoin.routes());
 
 export default app;

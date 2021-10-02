@@ -1,6 +1,6 @@
 import Router from "@koa/router";
 const router = new Router({
-  prefix: "/v1/bitcoind/info"
+  prefix: "/v2/bitcoin/info"
 });
 import * as bitcoinLogic from "../../../logic/bitcoin.js";
 import * as auth from "../../../middlewares/auth.js";
@@ -22,7 +22,9 @@ router.get(
   "/blockcount",
   auth.jwt,
   async (ctx, next) => {
-    ctx.body = await bitcoinLogic.getBlockCount();
+    ctx.body = {
+      count: await bitcoinLogic.getBlockCount()
+    };
     await next();
   }
 );
@@ -31,7 +33,9 @@ router.get(
   "/connections",
   auth.jwt,
   async (ctx, next) => {
-    ctx.body = await bitcoinLogic.getConnectionsCount();
+    ctx.body = {
+      count: await bitcoinLogic.getConnectionsCount()
+    };
     await next();
   }
 );
@@ -59,7 +63,9 @@ router.get(
   "/version",
   auth.jwt,
   async (ctx, next) => {
-    ctx.body = JSON.stringify(await bitcoinLogic.getVersion());
+    ctx.body = {
+      version: await bitcoinLogic.getVersion()
+    };
     await next();
   }
 );
@@ -96,7 +102,7 @@ router.get(
   }
 );
 
-// /v1/bitcoind/info/block/<hash>
+// /v1/bitcoin/info/block/<hash>
 router.get(
   "/block/:id",
   auth.jwt,
