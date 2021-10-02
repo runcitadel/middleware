@@ -102,16 +102,6 @@ router.get(
   }
 );
 
-// /v1/bitcoin/info/block/<hash>
-router.get(
-  "/block/:id",
-  auth.jwt,
-  async (ctx, next) => {
-    ctx.body = await bitcoinLogic.getBlock(ctx.params.id);
-    await next();
-  }
-);
-
 router.get(
   "/blocks",
   auth.jwt,
