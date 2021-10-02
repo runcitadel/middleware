@@ -4,7 +4,7 @@ const router = new Router({
 });
 
 router.get("/", async function (ctx, next) {
-  ctx.body = { version: "Middleware by Citadel" };
+  ctx.body = { version: "Middleware by Citadel", features: [], isCitadel: true };
   await next();
 });
 
