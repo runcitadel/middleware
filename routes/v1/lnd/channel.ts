@@ -161,4 +161,32 @@ router.post(
     }
 );
 
+router.post(
+    "/openChannel",
+    auth.jwt,
+    async (ctx, next) => {
+        const pubKey = ctx.request.body.pubKey;
+        const ip = ctx.request.body.ip || "127.0.0.1";
+        const port = ctx.request.body.port || 9735; // eslint-disable-line no-magic-numbers
+        const amt = ctx.request.body.amt;
+        const satPerByte = ctx.request.body.satPerByte;
+        // TODO: Do something with these
+        const name = ctx.request.body.name;
+        const purpose = ctx.request.body.purpose;
+
+        // TODO validate ip address as ip4 or ip6 address
+        typeHelper.isAlphanumeric(pubKey, ctx);
+        typeHelper.isPositiveInteger(port, ctx);
+        typeHelper.isPositiveInteger(amt, ctx);
+        if (satPerByte) {
+            typeHelper.isPositiveInteger(satPerByte, ctx);
+        }
+
+        ctx.body = {
+            fundingTxId: await lightningLogic.openChannel(pubKey, ip, port, amt, satPerByte)
+        };
+        await next();
+    }
+);
+
 export default router;
