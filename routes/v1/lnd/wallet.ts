@@ -39,8 +39,12 @@ router.post(
             throw new Error("Invalid seed length");
         }
 
-       ctx.body = await lightningLogic
+       await lightningLogic
       .initializeWallet(seed);
+      ctx.status = 200;
+        ctx.body = {
+            success: true
+        }
             await next();
     }
 );
