@@ -10,7 +10,7 @@ import type { Block } from "@runcitadel/bitcoin-rpc";
 import { IBitcoinClient, FetchedRawTransaction } from "./abstract.js";
 
 export default class BitcoindClient implements IBitcoinClient {
-  private client: RpcClient;
+  #client: RpcClient;
 
   constructor(
     username: string,
@@ -18,8 +18,7 @@ export default class BitcoindClient implements IBitcoinClient {
     host: string,
     port: string | number
   ) {
-    console.log(`Initializing Bitcoin RPC for http://${host}:${port}/`);
-    this.client = new RpcClient({
+    this.#client = new RpcClient({
       auth: {
         username,
         password,
@@ -29,47 +28,47 @@ export default class BitcoindClient implements IBitcoinClient {
   }
 
   public async getBlock(hash: string): Promise<Block> {
-    const block = await this.client.getBlock(hash, 2);
+    const block = await this.#client.getBlock(hash, 2);
     return <Block>block;
   }
 
   public async getRawTransaction(txid: string): Promise<FetchedRawTransaction> {
-    return (await this.client.getRawTransaction(
+    return (await this.#client.getRawTransaction(
       txid,
       true
     )) as FetchedRawTransaction;
   }
 
   public async getBlockchainInfo(): Promise<ChainInfo> {
-    return await this.client.getBlockchainInfo();
+    return await this.#client.getBlockchainInfo();
   }
 
   public async getPeerInfo(): Promise<PeerInfo[]> {
-    return await this.client.getPeerInfo();
+    return await this.#client.getPeerInfo();
   }
 
   public async getMempoolInfo(): Promise<MempoolInfo> {
-    return await this.client.getMempoolInfo();
+    return await this.#client.getMempoolInfo();
   }
 
   public async getNetworkInfo(): Promise<NetworkInfo> {
-    return await this.client.getNetworkInfo();
+    return await this.#client.getNetworkInfo();
   }
 
   public async getMiningInfo(): Promise<MiningInfo> {
-    return await this.client.getMiningInfo();
+    return await this.#client.getMiningInfo();
   }
 
   public async getBestBlockHash(): Promise<string> {
-    return await this.client.getBestBlockHash();
+    return await this.#client.getBestBlockHash();
   }
 
   public async getBlockHash(height: number): Promise<string> {
-    return await this.client.getBlockHash(height);
+    return await this.#client.getBlockHash(height);
   }
 
   public async getBlockCount(): Promise<number> {
-    return await this.client.getBlockCount();
+    return await this.#client.getBlockCount();
   }
 
   public async getVersion(): Promise<string> {

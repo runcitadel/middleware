@@ -7,7 +7,7 @@
 import { NodeError, convert } from "@runcitadel/utils";
 
 import getLightning from "../services/lightning.js";
-import * as bitcoindLogic from "../logic/bitcoin.js";
+import BitcoinLogic from "../logic/bitcoin.js";
 
 import constants from "../utils/const.js";
 import type {
@@ -78,6 +78,8 @@ const OUTPUT_IS_DUST_ERROR = {
   code: "OUTPUT_IS_DUST",
   text: "Transaction output is dust.",
 };
+
+const bitcoindLogic = new BitcoinLogic();
 
 // Converts a byte object into a hex string.
 export function toHexString(byteObject: Buffer): string {

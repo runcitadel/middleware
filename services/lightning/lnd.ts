@@ -50,28 +50,24 @@ type RpcClientWithLightningForSure = RpcClientInfo & {
 const DEFAULT_RECOVERY_WINDOW = 250;
 
 export default class LNDService implements ILightningClient {
-  private macaroonFile: string;
-  private connectionUrl: string;
-  private cert: Buffer;
+  #macaroonFile: string;
+  #connectionUrl: string;
+  #cert: Buffer;
 
   constructor(connectionUrl: string, cert: Buffer, macaroonFile: string) {
-    this.connectionUrl = connectionUrl;
-    this.cert = cert;
-    this.macaroonFile = macaroonFile;
+    this.#connectionUrl = connectionUrl;
+    this.#cert = cert;
+    this.#macaroonFile = macaroonFile;
   }
   async initializeRPCClient(): Promise<RpcClientInfo> {
     // Create credentials
-    const lndCert = await this.cert;
+    const lndCert = await this.#cert;
     const tlsCredentials = grpc.credentials.createSsl(lndCert);
-    const channel = createChannel(this.connectionUrl, tlsCredentials);
+    const channel = createChannel(this.#connectionUrl, tlsCredentials);
 
-    const walletUnlocker: Client<typeof WalletUnlockerDefinition> =
-      createClient(WalletUnlockerDefinition, channel);
+    const walletUnlocker = createClient(WalletUnlockerDefinition, channel);
 
-    const stateService: Client<typeof StateDefinition> = createClient(
-      StateDefinition,
-      channel
-    );
+    const stateService = createClient(StateDefinition, channel);
 
     let walletState;
     try {
@@ -101,7 +97,7 @@ export default class LNDService implements ILightningClient {
       };
     } else if (walletState.state == WalletState.RPC_ACTIVE) {
       // Read macaroons, they should exist in this state
-      const macaroon = await fs.readFile(this.macaroonFile);
+      const macaroon = await fs.readFile(this.#macaroonFile);
 
       // build credentials from macaroons
       const metadata = new grpc.Metadata();
@@ -117,7 +113,7 @@ export default class LNDService implements ILightningClient {
       );
 
       const authenticatedChannel = createChannel(
-        this.connectionUrl,
+        this.#connectionUrl,
         fullCredentials
       );
       const LightningClient: Client<typeof LightningDefinition> = createClient(
