@@ -111,12 +111,8 @@ router.delete(
 
         if (parts.length !== 2) ctx.throw('Invalid channel point: ' + channelPoint);
 
-        let fundingTxId;
-        var index;
-
-        // TODO: fundingTxId, index
-        fundingTxId = parts[0];
-        index = parseInt(parts[1], 10);
+        let fundingTxId = parts[0];
+        let index = parseInt(parts[1], 10);
 
         typeHelper.isBoolean(force, ctx);
         ctx.body = await lightningLogic
