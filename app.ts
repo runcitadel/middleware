@@ -18,8 +18,7 @@ import wallet from "./routes/v1/lnd/wallet.js";
 import pages from "./routes/v1/pages.js";
 import ping from "./routes/ping.js";
 
-import { corsOptions } from "./middlewares/cors.js";
-import { errorHandler } from "@runcitadel/utils";
+import { errorHandler, corsOptions } from "@runcitadel/utils";
 
 const app = new App();
 

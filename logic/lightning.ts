@@ -4,7 +4,7 @@
 
 /* eslint-disable id-length, max-lines, max-statements */
 
-import { LndError, NodeError, convert } from "@runcitadel/utils";
+import { NodeError, convert } from "@runcitadel/utils";
 
 import getLightning from "../services/lightning.js";
 import * as bitcoindLogic from "../logic/bitcoin.js";
@@ -404,7 +404,7 @@ export async function generateSeed(): Promise<{ seed: string[] }> {
     return { seed: response.cipherSeedMnemonic };
   }
 
-  throw new LndError(
+  throw new NodeError(
     "Lnd is not operational, therefore a seed cannot be created."
   );
 }
@@ -799,7 +799,7 @@ export async function initializeWallet(seed: string[]): Promise<void> {
     await lndService.initWallet(seed);
     return;
   } catch {
-    throw new LndError(
+    throw new NodeError(
       "Lnd is not operational, therefore a wallet cannot be created."
     );
   }
@@ -846,14 +846,14 @@ export async function payInvoice(
 
   if (invoice.numSatoshis !== 0 && amt) {
     // numSatoshis is returned from lnd as a string
-    throw new LndError(
+    throw new NodeError(
       "Payment Request with non zero amount and amt value supplied."
     );
   }
 
   if (invoice.numSatoshis === 0 && !amt) {
     // numSatoshis is returned from lnd as a string
-    throw new LndError(
+    throw new NodeError(
       "Payment Request with zero amount requires an amt value supplied."
     );
   }

@@ -1,5 +1,7 @@
 import Router from "@koa/router";
-import { errorHandler, fs } from "@runcitadel/utils";
+import { errorHandler } from "@runcitadel/utils";
+import * as fs from "@runcitadel/fs";
+
 const router = new Router({
     prefix: "/v1/lnd/util",
 });

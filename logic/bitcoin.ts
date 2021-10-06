@@ -7,7 +7,7 @@ import type {
   Transaction,
   TxIn,
 } from "../services/bitcoin/abstract";
-import { BitcoindError } from "@runcitadel/utils";
+import { NodeError } from "@runcitadel/utils";
 
 const bitcoinClient = getClient();
 
@@ -49,7 +49,7 @@ export async function getStatus(): Promise<{ operational: boolean; }> {
 
     return { operational: true };
   } catch (error) {
-    if (error instanceof BitcoindError) {
+    if (error instanceof NodeError) {
       return { operational: false };
     }
 
@@ -186,14 +186,14 @@ export async function getBlocks(
       time: number;
       size: number;
     }[]
-  | BitcoindError
+  | NodeError
 > {
   let startingBlockHashRaw;
 
   try {
     startingBlockHashRaw = await bitcoinClient.getBlockHash(toHeight);
   } catch (error) {
-    if (error instanceof BitcoindError) {
+    if (error instanceof NodeError) {
       return error;
     }
     throw error;

@@ -1,4 +1,5 @@
-import { LndError, fs } from "@runcitadel/utils";
+import * as fs from "@runcitadel/fs";
+import { NodeError } from "@runcitadel/utils";
 
 import { createChannel, createClient, Client } from "nice-grpc";
 import {
@@ -131,13 +132,13 @@ export default class LNDService implements ILightningClient {
         state: walletState.state,
       };
     } else {
-      throw new LndError("Unexpected LND state!", undefined, 500);
+      throw new NodeError("Unexpected LND state!", 500);
     }
   }
 
   async expectWalletToExist(): Promise<RpcClientWithLightningForSure> {
     const client = await this.initializeRPCClient();
-    if (!client.Lightning) throw new LndError("Error: Wallet not ready");
+    if (!client.Lightning) throw new NodeError("Error: Wallet not ready");
     return client as RpcClientWithLightningForSure;
   }
 
@@ -166,7 +167,7 @@ export default class LNDService implements ILightningClient {
         paymentRequest: grpcResponse.paymentRequest,
       };
     } else {
-      throw new LndError("Unable to parse invoice from lnd");
+      throw new NodeError("Unable to parse invoice from lnd");
     }
   }
 
@@ -256,7 +257,7 @@ export default class LNDService implements ILightningClient {
   async generateSeed(): Promise<GenSeedResponse> {
     const { WalletUnlocker, state } = await this.initializeRPCClient();
     if (state !== WalletState.NON_EXISTING) {
-      throw new LndError("Wallet already exists");
+      throw new NodeError("Wallet already exists");
     }
     return await WalletUnlocker.genSeed({});
   }
@@ -337,7 +338,7 @@ export default class LNDService implements ILightningClient {
     if (grpcResponse && grpcResponse.peers) {
       return grpcResponse.peers;
     } else {
-      throw new LndError("Unable to parse peer information");
+      throw new NodeError("Unable to parse peer information");
     }
   }
 
@@ -367,7 +368,7 @@ export default class LNDService implements ILightningClient {
 
     const { WalletUnlocker, state } = await this.initializeRPCClient();
     if (state !== WalletState.NON_EXISTING) {
-      throw new LndError("Wallet already exists");
+      throw new NodeError("Wallet already exists");
     }
     await WalletUnlocker.initWallet(rpcPayload);
     return mnemonic;
@@ -457,7 +458,7 @@ export default class LNDService implements ILightningClient {
     const response = await Lightning.sendPaymentSync(rpcPayload);
     // sometimes the error comes in on the response...
     if (response.paymentError) {
-      throw new LndError(
+      throw new NodeError(
         `Unable to send Lightning payment: ${response.paymentError}`
       );
     }

@@ -1,8 +1,9 @@
 import type {Next, Context} from 'koa';
 import passport from 'koa-passport';
 import passportJWT from "passport-jwt";
-import constants, { STATUS_CODES } from "../utils/const.js";
-import { fs } from "@runcitadel/utils";
+import constants from "../utils/const.js";
+import { STATUS_CODES } from "@runcitadel/utils";
+import * as fs from "@runcitadel/fs";
 
 const JwtStrategy = passportJWT.Strategy;
 const ExtractJwt = passportJWT.ExtractJwt;

@@ -207,6 +207,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@runcitadel/fs@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@runcitadel/fs@npm:1.0.0"
+  dependencies:
+    yaml: ^1.10.2
+  checksum: 96b3b9053b705524aff07b0d97a603108469b273df63583942b27d6b6997c9bca5ecf148e6daa8bc4e5440a9323fc62cee10ae7c22af16cc80d8c4c2c56c1ef0
+  languageName: node
+  linkType: hard
+
 "@runcitadel/utils@npm:^0.9.0":
   version: 0.9.0
   resolution: "@runcitadel/utils@npm:0.9.0"
@@ -1966,6 +1975,7 @@ __metadata:
     "@koa/cors": ^3.1.0
     "@koa/router": ^10.1.1
     "@runcitadel/bitcoin-rpc": ^0.0.4
+    "@runcitadel/fs": ^1.0.0
     "@runcitadel/utils": ^0.9.0
     "@types/koa": ^2.13.4
     "@types/koa-morgan": ^1.0.5
