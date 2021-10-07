@@ -490,7 +490,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.10.1":
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.10.3":
   version: 16.10.3
   resolution: "@types/node@npm:16.10.3"
   checksum: 3fd429bce8a4acb497dcc62b536782a5e87ccf7cd91d64a78b263ae5d66cb72bf84be9eeeff6f84ae0567b065a40b267caa66d311f9e094990a5847bbd168a29
@@ -572,7 +572,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typescript-eslint/eslint-plugin@npm:^4.31.2":
+"@typescript-eslint/eslint-plugin@npm:^4.33.0":
   version: 4.33.0
   resolution: "@typescript-eslint/eslint-plugin@npm:4.33.0"
   dependencies:
@@ -2642,10 +2642,10 @@ __metadata:
     "@types/koa__cors": ^3.0.3
     "@types/koa__router": ^8.0.8
     "@types/morgan": ^1.9.3
-    "@types/node": ^16.10.1
+    "@types/node": ^16.10.3
     "@types/passport-jwt": ^3.0.6
     "@types/validator": ^13.6.3
-    "@typescript-eslint/eslint-plugin": ^4.31.2
+    "@typescript-eslint/eslint-plugin": ^4.33.0
     "@typescript-eslint/parser": ^4.33.0
     bech32: ^2.0.0
     big.js: ^6.1.1
