@@ -30,8 +30,8 @@ router.get("/connections", auth.jwt, async (ctx, next) => {
   await next();
 });
 
-//requires no authentication as it is used to fetch loading status
-//which could be fetched at login/signup page
+// Requires no authentication as it is used to fetch loading status
+// which could be fetched at login/signup page
 router.get("/status", async (ctx, next) => {
   ctx.body = await bitcoinLogic.getStatus();
   await next();
