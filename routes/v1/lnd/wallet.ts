@@ -33,6 +33,7 @@ router.post(
     "/init",
     async (ctx, next) => {
         const seed: string[] = ctx.request.body.seed;
+        if(!Array.isArray(seed)) throw new Error("Invalid seed");
 
       // eslint-disable-next-line no-magic-numbers
         if (seed.length !== 24) {
