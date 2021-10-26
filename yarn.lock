@@ -250,12 +250,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@runcitadel/fs@npm:^1.0.0":
-  version: 1.0.0
-  resolution: "@runcitadel/fs@npm:1.0.0"
+"@runcitadel/fs@npm:^1.0.1":
+  version: 1.0.1
+  resolution: "@runcitadel/fs@npm:1.0.1"
   dependencies:
     yaml: ^1.10.2
-  checksum: 96b3b9053b705524aff07b0d97a603108469b273df63583942b27d6b6997c9bca5ecf148e6daa8bc4e5440a9323fc62cee10ae7c22af16cc80d8c4c2c56c1ef0
+  checksum: 81fa615b857173b03bff064569148ff985aba569e5dcbff71c99421657751be85e9e1661335d6ed563f973b3a31ddca7f34bfc0133fb61e58f6864ae704dff93
   languageName: node
   linkType: hard
 
@@ -507,9 +507,9 @@ __metadata:
   linkType: hard
 
 "@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^16.11.1":
-  version: 16.11.1
-  resolution: "@types/node@npm:16.11.1"
-  checksum: 22cea470b89292810733b8b9fc1b6a1873bc3ed4d4cdf2f25e777dc607994bd7c12e64166d1a66dd5924734192b0a891b6aeb6813aa935f731345f4086234375
+  version: 16.11.2
+  resolution: "@types/node@npm:16.11.2"
+  checksum: 1617b61160943121165ff89d72d3f7b4d55265a0129fd2ab6eb0ce81a3340ce9b3bd2ce8ec2d9f0f8b3702b434870596cd327ba472ba6e7d1faa5eedb8208e3a
   languageName: node
   linkType: hard
 
@@ -582,9 +582,9 @@ __metadata:
   linkType: hard
 
 "@types/validator@npm:^13.6.3":
-  version: 13.6.3
-  resolution: "@types/validator@npm:13.6.3"
-  checksum: b06b684d4d1ff4b59449a974cb8cdd96ccde4660958e541acf66711c8f60026912202e4d924ccd2016ec8bdd4e1f71e8122e5c568deefcdecffc04a73acff460
+  version: 13.6.4
+  resolution: "@types/validator@npm:13.6.4"
+  checksum: 7472382d93f1744589b7d9fdd27b349c645cf07a07b871c16c388cababa95fba2065fab3539a444393fdb25a4b757c5bb7ad85be031d9f4ff5507674048c61e5
   languageName: node
   linkType: hard
 
@@ -2668,7 +2668,7 @@ __metadata:
     "@koa/cors": ^3.1.0
     "@koa/router": ^10.1.1
     "@runcitadel/bitcoin-rpc": ^0.0.4
-    "@runcitadel/fs": ^1.0.0
+    "@runcitadel/fs": ^1.0.1
     "@runcitadel/utils": ^0.9.0
     "@types/crypto-js": ^4
     "@types/koa": ^2.13.4
