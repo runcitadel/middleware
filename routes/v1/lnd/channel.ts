@@ -106,6 +106,7 @@ router.delete(
     async (ctx, next) => {
         const channelPoint = ctx.request.body.channelPoint;
         const force = ctx.request.body.force;
+        if(typeof channelPoint !== "string") throw new Error("Channel point isn't a string");
 
         const parts = channelPoint.split(":");
 
