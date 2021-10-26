@@ -74,6 +74,7 @@ router.put(
         typeHelper.isBoolean(global, ctx);
 
         if (!global) {
+            if(typeof channelPoint !== "string") throw new Error("Channel point isn't a string");
             [fundingTxid, outputIndex] = chanPoint.split(':');
 
             if (fundingTxid === undefined || outputIndex === undefined) {
