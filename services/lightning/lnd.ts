@@ -35,6 +35,7 @@ import {
 import { StateDefinition, WalletState } from "../../lnrpc/stateservice.js";
 import * as grpc from "@grpc/grpc-js";
 import ILightningClient, { extendedPaymentRequest } from "./abstract.js";
+
 type RpcClientInfo = {
   Lightning?: Client<typeof LightningDefinition>;
   WalletUnlocker: Client<typeof WalletUnlockerDefinition>;
