@@ -929,8 +929,8 @@ export async function getNodeAlias(pubkey: string): Promise<string> {
 
 export async function updateChannelPolicy(
   global: boolean,
-  fundingTxid: string,
-  outputIndex: number,
+  fundingTxid: string | undefined,
+  outputIndex: number | undefined,
   baseFeeMsat: number,
   feeRate: number,
   timeLockDelta: number

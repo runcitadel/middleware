@@ -87,8 +87,8 @@ export default interface ILightningClient {
   sendPaymentSync(paymentRequest: string, amt: number): Promise<SendResponse>;
   updateChannelPolicy(
     global: boolean,
-    fundingTxid: string,
-    outputIndex: number | string,
+    fundingTxid: string | undefined,
+    outputIndex: number | string | undefined,
     baseFeeMsat: number | string,
     feeRate: number | string,
     timeLockDelta: number

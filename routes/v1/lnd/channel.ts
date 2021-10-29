@@ -74,7 +74,7 @@ router.put(
         typeHelper.isBoolean(global, ctx);
 
         if (!global) {
-            if(typeof channelPoint !== "string") throw new Error("Channel point isn't a string");
+            if(typeof chanPoint !== "string") throw new Error("Channel point isn't a string");
             [fundingTxid, outputIndex] = chanPoint.split(':');
 
             if (fundingTxid === undefined || outputIndex === undefined) {
@@ -93,7 +93,7 @@ router.put(
             .updateChannelPolicy(
                 global,
                 fundingTxid,
-                parseInt(outputIndex, 10),
+                parseInt(outputIndex || "0", 10),
                 baseFeeMsat,
                 feeRate,
                 timeLockDelta);
