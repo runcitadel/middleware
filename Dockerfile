@@ -9,16 +9,17 @@ COPY . .
 # Install dependencies
 RUN yarn workspaces focus -A --production
 
-FROM build-dependencies-helper as production-dependencies
-
 # Delete TypeScript code and markdown files to further reduce image size
 RUN find /app/node_modules | grep ".\.ts" | xargs rm
 
 # TS Build Stage
-FROM build-dependencies-helper as middleware-builder
+FROM amd64/node:16-bullseye-slim as middleware-builder
 
 # Change directory to '/app'
 WORKDIR /app
+
+# The current working directory
+COPY . . 
 
 # Install dependencies
 RUN yarn install
@@ -36,7 +37,7 @@ FROM node:16-bullseye-slim AS middleware
 COPY --from=middleware-builder /app /app
 
 # Copy node_modules
-COPY --from=production-dependencies /app/node_modules /app/node_modules
+COPY --from=build-dependencies-helper /app/node_modules /app/node_modules
 
 # Change directory to '/app'
 WORKDIR /app
