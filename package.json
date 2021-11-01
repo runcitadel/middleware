@@ -14,7 +14,7 @@
     "@koa/router": "^10.1.1",
     "@runcitadel/bitcoin-rpc": "^0.0.4",
     "@runcitadel/fs": "^1.0.1",
-    "@runcitadel/utils": "^0.9.0",
+    "@runcitadel/utils": "^0.9.1",
     "@types/koa__router": "^8.0.8",
     "bech32": "^2.0.0",
     "big.js": "^6.1.1",
