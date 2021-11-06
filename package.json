@@ -15,7 +15,7 @@
     "@runcitadel/bitcoin-rpc": "^0.0.4",
     "@runcitadel/fs": "^1.0.1",
     "@runcitadel/utils": "^0.9.0",
-    "@types/koa__router": "^8.0.8",
+    "@types/koa__router": "^8.0.9",
     "bech32": "^2.0.0",
     "big.js": "^6.1.1",
     "bolt11": "^1.3.2",
@@ -31,7 +31,7 @@
     "node-fetch": "3.0.0",
     "passport-jwt": "^4.0.0",
     "protobufjs": "^6.11.2",
-    "validator": "^13.6.0"
+    "validator": "^13.7.0"
   },
   "devDependencies": {
     "@types/crypto-js": "^4",
