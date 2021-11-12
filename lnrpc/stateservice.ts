@@ -10,6 +10,8 @@ export enum WalletState {
   LOCKED = 1,
   UNLOCKED = 2,
   RPC_ACTIVE = 3,
+  /** SERVER_ACTIVE - SERVER_ACTIVE means that the lnd server is ready to accept calls. */
+  SERVER_ACTIVE = 4,
   WAITING_TO_START = 255,
   UNRECOGNIZED = -1,
 }
@@ -28,6 +30,9 @@ export function walletStateFromJSON(object: any): WalletState {
     case 3:
     case "RPC_ACTIVE":
       return WalletState.RPC_ACTIVE;
+    case 4:
+    case "SERVER_ACTIVE":
+      return WalletState.SERVER_ACTIVE;
     case 255:
     case "WAITING_TO_START":
       return WalletState.WAITING_TO_START;
@@ -48,6 +53,8 @@ export function walletStateToJSON(object: WalletState): string {
       return "UNLOCKED";
     case WalletState.RPC_ACTIVE:
       return "RPC_ACTIVE";
+    case WalletState.SERVER_ACTIVE:
+      return "SERVER_ACTIVE";
     case WalletState.WAITING_TO_START:
       return "WAITING_TO_START";
     default:

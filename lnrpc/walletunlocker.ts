@@ -82,6 +82,39 @@ export interface InitWalletRequest {
    * RPC as otherwise all access to the daemon will be lost!
    */
   statelessInit: boolean;
+  /**
+   * extended_master_key is an alternative to specifying cipher_seed_mnemonic and
+   * aezeed_passphrase. Instead of deriving the master root key from the entropy
+   * of an aezeed cipher seed, the given extended master root key is used
+   * directly as the wallet's master key. This allows users to import/use a
+   * master key from another wallet. When doing so, lnd still uses its default
+   * SegWit only (BIP49/84) derivation paths and funds from custom/non-default
+   * derivation paths will not automatically appear in the on-chain wallet. Using
+   * an 'xprv' instead of an aezeed also has the disadvantage that the wallet's
+   * birthday is not known as that is an information that's only encoded in the
+   * aezeed, not the xprv. Therefore a birthday needs to be specified in
+   * extended_master_key_birthday_timestamp or a "safe" default value will be
+   * used.
+   */
+  extendedMasterKey: string;
+  /**
+   * extended_master_key_birthday_timestamp is the optional unix timestamp in
+   * seconds to use as the wallet's birthday when using an extended master key
+   * to restore the wallet. lnd will only start scanning for funds in blocks that
+   * are after the birthday which can speed up the process significantly. If the
+   * birthday is not known, this should be left at its default value of 0 in
+   * which case lnd will start scanning from the first SegWit block (481824 on
+   * mainnet).
+   */
+  extendedMasterKeyBirthdayTimestamp: string;
+  /**
+   * watch_only is the third option of initializing a wallet: by importing
+   * account xpubs only and therefore creating a watch-only wallet that does not
+   * contain any private keys. That means the wallet won't be able to sign for
+   * any of the keys and _needs_ to be run with a remote signer that has the
+   * corresponding private keys and can serve signing RPC requests.
+   */
+  watchOnly: WatchOnly | undefined;
 }
 
 export interface InitWalletResponse {
@@ -93,6 +126,56 @@ export interface InitWalletResponse {
    * daemon, together with other macaroon files.
    */
   adminMacaroon: Uint8Array;
+}
+
+export interface WatchOnly {
+  /**
+   * The unix timestamp in seconds of when the master key was created. lnd will
+   * only start scanning for funds in blocks that are after the birthday which
+   * can speed up the process significantly. If the birthday is not known, this
+   * should be left at its default value of 0 in which case lnd will start
+   * scanning from the first SegWit block (481824 on mainnet).
+   */
+  masterKeyBirthdayTimestamp: string;
+  /**
+   * The fingerprint of the root key (also known as the key with derivation path
+   * m/) from which the account public keys were derived from. This may be
+   * required by some hardware wallets for proper identification and signing. The
+   * bytes must be in big-endian order.
+   */
+  masterKeyFingerprint: Uint8Array;
+  /**
+   * The list of accounts to import. There _must_ be an account for all of lnd's
+   * main key scopes: BIP49/BIP84 (m/49'/0'/0', m/84'/0'/0', note that the
+   * coin type is always 0, even for testnet/regtest) and lnd's internal key
+   * scope (m/1017'/<coin_type>'/<account>'), where account is the key family as
+   * defined in `keychain/derivation.go` (currently indices 0 to 9).
+   */
+  accounts: WatchOnlyAccount[];
+}
+
+export interface WatchOnlyAccount {
+  /**
+   * Purpose is the first number in the derivation path, must be either 49, 84
+   * or 1017.
+   */
+  purpose: number;
+  /**
+   * Coin type is the second number in the derivation path, this is _always_ 0
+   * for purposes 49 and 84. It only needs to be set to 1 for purpose 1017 on
+   * testnet or regtest.
+   */
+  coinType: number;
+  /**
+   * Account is the third number in the derivation path. For purposes 49 and 84
+   * at least the default account (index 0) needs to be created but optional
+   * additional accounts are allowed. For purpose 1017 there needs to be exactly
+   * one account for each of the key families defined in `keychain/derivation.go`
+   * (currently indices 0 to 9)
+   */
+  account: number;
+  /** The extended public key at depth 3 for the given account. */
+  xpub: string;
 }
 
 export interface UnlockWalletRequest {
@@ -354,6 +437,8 @@ const baseInitWalletRequest: object = {
   cipherSeedMnemonic: "",
   recoveryWindow: 0,
   statelessInit: false,
+  extendedMasterKey: "",
+  extendedMasterKeyBirthdayTimestamp: "0",
 };
 
 export const InitWalletRequest = {
@@ -381,6 +466,15 @@ export const InitWalletRequest = {
     }
     if (message.statelessInit === true) {
       writer.uint32(48).bool(message.statelessInit);
+    }
+    if (message.extendedMasterKey !== "") {
+      writer.uint32(58).string(message.extendedMasterKey);
+    }
+    if (message.extendedMasterKeyBirthdayTimestamp !== "0") {
+      writer.uint32(64).uint64(message.extendedMasterKeyBirthdayTimestamp);
+    }
+    if (message.watchOnly !== undefined) {
+      WatchOnly.encode(message.watchOnly, writer.uint32(74).fork()).ldelim();
     }
     return writer;
   },
@@ -415,6 +509,17 @@ export const InitWalletRequest = {
           break;
         case 6:
           message.statelessInit = reader.bool();
+          break;
+        case 7:
+          message.extendedMasterKey = reader.string();
+          break;
+        case 8:
+          message.extendedMasterKeyBirthdayTimestamp = longToString(
+            reader.uint64() as Long
+          );
+          break;
+        case 9:
+          message.watchOnly = WatchOnly.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -463,6 +568,29 @@ export const InitWalletRequest = {
     } else {
       message.statelessInit = false;
     }
+    if (
+      object.extendedMasterKey !== undefined &&
+      object.extendedMasterKey !== null
+    ) {
+      message.extendedMasterKey = String(object.extendedMasterKey);
+    } else {
+      message.extendedMasterKey = "";
+    }
+    if (
+      object.extendedMasterKeyBirthdayTimestamp !== undefined &&
+      object.extendedMasterKeyBirthdayTimestamp !== null
+    ) {
+      message.extendedMasterKeyBirthdayTimestamp = String(
+        object.extendedMasterKeyBirthdayTimestamp
+      );
+    } else {
+      message.extendedMasterKeyBirthdayTimestamp = "0";
+    }
+    if (object.watchOnly !== undefined && object.watchOnly !== null) {
+      message.watchOnly = WatchOnly.fromJSON(object.watchOnly);
+    } else {
+      message.watchOnly = undefined;
+    }
     return message;
   },
 
@@ -493,6 +621,15 @@ export const InitWalletRequest = {
         : undefined);
     message.statelessInit !== undefined &&
       (obj.statelessInit = message.statelessInit);
+    message.extendedMasterKey !== undefined &&
+      (obj.extendedMasterKey = message.extendedMasterKey);
+    message.extendedMasterKeyBirthdayTimestamp !== undefined &&
+      (obj.extendedMasterKeyBirthdayTimestamp =
+        message.extendedMasterKeyBirthdayTimestamp);
+    message.watchOnly !== undefined &&
+      (obj.watchOnly = message.watchOnly
+        ? WatchOnly.toJSON(message.watchOnly)
+        : undefined);
     return obj;
   },
 
@@ -536,6 +673,28 @@ export const InitWalletRequest = {
       message.statelessInit = object.statelessInit;
     } else {
       message.statelessInit = false;
+    }
+    if (
+      object.extendedMasterKey !== undefined &&
+      object.extendedMasterKey !== null
+    ) {
+      message.extendedMasterKey = object.extendedMasterKey;
+    } else {
+      message.extendedMasterKey = "";
+    }
+    if (
+      object.extendedMasterKeyBirthdayTimestamp !== undefined &&
+      object.extendedMasterKeyBirthdayTimestamp !== null
+    ) {
+      message.extendedMasterKeyBirthdayTimestamp =
+        object.extendedMasterKeyBirthdayTimestamp;
+    } else {
+      message.extendedMasterKeyBirthdayTimestamp = "0";
+    }
+    if (object.watchOnly !== undefined && object.watchOnly !== null) {
+      message.watchOnly = WatchOnly.fromPartial(object.watchOnly);
+    } else {
+      message.watchOnly = undefined;
     }
     return message;
   },
@@ -599,6 +758,247 @@ export const InitWalletResponse = {
       message.adminMacaroon = object.adminMacaroon;
     } else {
       message.adminMacaroon = new Uint8Array();
+    }
+    return message;
+  },
+};
+
+const baseWatchOnly: object = { masterKeyBirthdayTimestamp: "0" };
+
+export const WatchOnly = {
+  encode(
+    message: WatchOnly,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.masterKeyBirthdayTimestamp !== "0") {
+      writer.uint32(8).uint64(message.masterKeyBirthdayTimestamp);
+    }
+    if (message.masterKeyFingerprint.length !== 0) {
+      writer.uint32(18).bytes(message.masterKeyFingerprint);
+    }
+    for (const v of message.accounts) {
+      WatchOnlyAccount.encode(v!, writer.uint32(26).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): WatchOnly {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseWatchOnly } as WatchOnly;
+    message.accounts = [];
+    message.masterKeyFingerprint = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.masterKeyBirthdayTimestamp = longToString(
+            reader.uint64() as Long
+          );
+          break;
+        case 2:
+          message.masterKeyFingerprint = reader.bytes();
+          break;
+        case 3:
+          message.accounts.push(
+            WatchOnlyAccount.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): WatchOnly {
+    const message = { ...baseWatchOnly } as WatchOnly;
+    message.accounts = [];
+    message.masterKeyFingerprint = new Uint8Array();
+    if (
+      object.masterKeyBirthdayTimestamp !== undefined &&
+      object.masterKeyBirthdayTimestamp !== null
+    ) {
+      message.masterKeyBirthdayTimestamp = String(
+        object.masterKeyBirthdayTimestamp
+      );
+    } else {
+      message.masterKeyBirthdayTimestamp = "0";
+    }
+    if (
+      object.masterKeyFingerprint !== undefined &&
+      object.masterKeyFingerprint !== null
+    ) {
+      message.masterKeyFingerprint = bytesFromBase64(
+        object.masterKeyFingerprint
+      );
+    }
+    if (object.accounts !== undefined && object.accounts !== null) {
+      for (const e of object.accounts) {
+        message.accounts.push(WatchOnlyAccount.fromJSON(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: WatchOnly): unknown {
+    const obj: any = {};
+    message.masterKeyBirthdayTimestamp !== undefined &&
+      (obj.masterKeyBirthdayTimestamp = message.masterKeyBirthdayTimestamp);
+    message.masterKeyFingerprint !== undefined &&
+      (obj.masterKeyFingerprint = base64FromBytes(
+        message.masterKeyFingerprint !== undefined
+          ? message.masterKeyFingerprint
+          : new Uint8Array()
+      ));
+    if (message.accounts) {
+      obj.accounts = message.accounts.map((e) =>
+        e ? WatchOnlyAccount.toJSON(e) : undefined
+      );
+    } else {
+      obj.accounts = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<WatchOnly>): WatchOnly {
+    const message = { ...baseWatchOnly } as WatchOnly;
+    message.accounts = [];
+    if (
+      object.masterKeyBirthdayTimestamp !== undefined &&
+      object.masterKeyBirthdayTimestamp !== null
+    ) {
+      message.masterKeyBirthdayTimestamp = object.masterKeyBirthdayTimestamp;
+    } else {
+      message.masterKeyBirthdayTimestamp = "0";
+    }
+    if (
+      object.masterKeyFingerprint !== undefined &&
+      object.masterKeyFingerprint !== null
+    ) {
+      message.masterKeyFingerprint = object.masterKeyFingerprint;
+    } else {
+      message.masterKeyFingerprint = new Uint8Array();
+    }
+    if (object.accounts !== undefined && object.accounts !== null) {
+      for (const e of object.accounts) {
+        message.accounts.push(WatchOnlyAccount.fromPartial(e));
+      }
+    }
+    return message;
+  },
+};
+
+const baseWatchOnlyAccount: object = {
+  purpose: 0,
+  coinType: 0,
+  account: 0,
+  xpub: "",
+};
+
+export const WatchOnlyAccount = {
+  encode(
+    message: WatchOnlyAccount,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.purpose !== 0) {
+      writer.uint32(8).uint32(message.purpose);
+    }
+    if (message.coinType !== 0) {
+      writer.uint32(16).uint32(message.coinType);
+    }
+    if (message.account !== 0) {
+      writer.uint32(24).uint32(message.account);
+    }
+    if (message.xpub !== "") {
+      writer.uint32(34).string(message.xpub);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): WatchOnlyAccount {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseWatchOnlyAccount } as WatchOnlyAccount;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.purpose = reader.uint32();
+          break;
+        case 2:
+          message.coinType = reader.uint32();
+          break;
+        case 3:
+          message.account = reader.uint32();
+          break;
+        case 4:
+          message.xpub = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): WatchOnlyAccount {
+    const message = { ...baseWatchOnlyAccount } as WatchOnlyAccount;
+    if (object.purpose !== undefined && object.purpose !== null) {
+      message.purpose = Number(object.purpose);
+    } else {
+      message.purpose = 0;
+    }
+    if (object.coinType !== undefined && object.coinType !== null) {
+      message.coinType = Number(object.coinType);
+    } else {
+      message.coinType = 0;
+    }
+    if (object.account !== undefined && object.account !== null) {
+      message.account = Number(object.account);
+    } else {
+      message.account = 0;
+    }
+    if (object.xpub !== undefined && object.xpub !== null) {
+      message.xpub = String(object.xpub);
+    } else {
+      message.xpub = "";
+    }
+    return message;
+  },
+
+  toJSON(message: WatchOnlyAccount): unknown {
+    const obj: any = {};
+    message.purpose !== undefined && (obj.purpose = message.purpose);
+    message.coinType !== undefined && (obj.coinType = message.coinType);
+    message.account !== undefined && (obj.account = message.account);
+    message.xpub !== undefined && (obj.xpub = message.xpub);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<WatchOnlyAccount>): WatchOnlyAccount {
+    const message = { ...baseWatchOnlyAccount } as WatchOnlyAccount;
+    if (object.purpose !== undefined && object.purpose !== null) {
+      message.purpose = object.purpose;
+    } else {
+      message.purpose = 0;
+    }
+    if (object.coinType !== undefined && object.coinType !== null) {
+      message.coinType = object.coinType;
+    } else {
+      message.coinType = 0;
+    }
+    if (object.account !== undefined && object.account !== null) {
+      message.account = object.account;
+    } else {
+      message.account = 0;
+    }
+    if (object.xpub !== undefined && object.xpub !== null) {
+      message.xpub = object.xpub;
+    } else {
+      message.xpub = "";
     }
     return message;
   },
@@ -1117,6 +1517,10 @@ export type DeepPartial<T> = T extends Builtin
   : T extends {}
   ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
+
+function longToString(long: Long) {
+  return long.toString();
+}
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;

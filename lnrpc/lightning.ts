@@ -56,43 +56,54 @@ export function addressTypeToJSON(object: AddressType): string {
 }
 
 export enum CommitmentType {
+  /** UNKNOWN_COMMITMENT_TYPE - Returned when the commitment type isn't known or unavailable. */
+  UNKNOWN_COMMITMENT_TYPE = 0,
   /**
    * LEGACY - A channel using the legacy commitment format having tweaked to_remote
    * keys.
    */
-  LEGACY = 0,
+  LEGACY = 1,
   /**
    * STATIC_REMOTE_KEY - A channel that uses the modern commitment format where the key in the
    * output of the remote party does not change each state. This makes back
    * up and recovery easier as when the channel is closed, the funds go
    * directly to that key.
    */
-  STATIC_REMOTE_KEY = 1,
+  STATIC_REMOTE_KEY = 2,
   /**
    * ANCHORS - A channel that uses a commitment format that has anchor outputs on the
    * commitments, allowing fee bumping after a force close transaction has
    * been broadcast.
    */
-  ANCHORS = 2,
-  /** UNKNOWN_COMMITMENT_TYPE - Returned when the commitment type isn't known or unavailable. */
-  UNKNOWN_COMMITMENT_TYPE = 999,
+  ANCHORS = 3,
+  /**
+   * SCRIPT_ENFORCED_LEASE - A channel that uses a commitment type that builds upon the anchors
+   * commitment format, but in addition requires a CLTV clause to spend outputs
+   * paying to the channel initiator. This is intended for use on leased channels
+   * to guarantee that the channel initiator has no incentives to close a leased
+   * channel before its maturity date.
+   */
+  SCRIPT_ENFORCED_LEASE = 4,
   UNRECOGNIZED = -1,
 }
 
 export function commitmentTypeFromJSON(object: any): CommitmentType {
   switch (object) {
     case 0:
-    case "LEGACY":
-      return CommitmentType.LEGACY;
-    case 1:
-    case "STATIC_REMOTE_KEY":
-      return CommitmentType.STATIC_REMOTE_KEY;
-    case 2:
-    case "ANCHORS":
-      return CommitmentType.ANCHORS;
-    case 999:
     case "UNKNOWN_COMMITMENT_TYPE":
       return CommitmentType.UNKNOWN_COMMITMENT_TYPE;
+    case 1:
+    case "LEGACY":
+      return CommitmentType.LEGACY;
+    case 2:
+    case "STATIC_REMOTE_KEY":
+      return CommitmentType.STATIC_REMOTE_KEY;
+    case 3:
+    case "ANCHORS":
+      return CommitmentType.ANCHORS;
+    case 4:
+    case "SCRIPT_ENFORCED_LEASE":
+      return CommitmentType.SCRIPT_ENFORCED_LEASE;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -102,14 +113,16 @@ export function commitmentTypeFromJSON(object: any): CommitmentType {
 
 export function commitmentTypeToJSON(object: CommitmentType): string {
   switch (object) {
+    case CommitmentType.UNKNOWN_COMMITMENT_TYPE:
+      return "UNKNOWN_COMMITMENT_TYPE";
     case CommitmentType.LEGACY:
       return "LEGACY";
     case CommitmentType.STATIC_REMOTE_KEY:
       return "STATIC_REMOTE_KEY";
     case CommitmentType.ANCHORS:
       return "ANCHORS";
-    case CommitmentType.UNKNOWN_COMMITMENT_TYPE:
-      return "UNKNOWN_COMMITMENT_TYPE";
+    case CommitmentType.SCRIPT_ENFORCED_LEASE:
+      return "SCRIPT_ENFORCED_LEASE";
     default:
       return "UNKNOWN";
   }
@@ -604,6 +617,78 @@ export function featureBitToJSON(object: FeatureBit): string {
   }
 }
 
+export enum UpdateFailure {
+  UPDATE_FAILURE_UNKNOWN = 0,
+  UPDATE_FAILURE_PENDING = 1,
+  UPDATE_FAILURE_NOT_FOUND = 2,
+  UPDATE_FAILURE_INTERNAL_ERR = 3,
+  UPDATE_FAILURE_INVALID_PARAMETER = 4,
+  UNRECOGNIZED = -1,
+}
+
+export function updateFailureFromJSON(object: any): UpdateFailure {
+  switch (object) {
+    case 0:
+    case "UPDATE_FAILURE_UNKNOWN":
+      return UpdateFailure.UPDATE_FAILURE_UNKNOWN;
+    case 1:
+    case "UPDATE_FAILURE_PENDING":
+      return UpdateFailure.UPDATE_FAILURE_PENDING;
+    case 2:
+    case "UPDATE_FAILURE_NOT_FOUND":
+      return UpdateFailure.UPDATE_FAILURE_NOT_FOUND;
+    case 3:
+    case "UPDATE_FAILURE_INTERNAL_ERR":
+      return UpdateFailure.UPDATE_FAILURE_INTERNAL_ERR;
+    case 4:
+    case "UPDATE_FAILURE_INVALID_PARAMETER":
+      return UpdateFailure.UPDATE_FAILURE_INVALID_PARAMETER;
+    case -1:
+    case "UNRECOGNIZED":
+    default:
+      return UpdateFailure.UNRECOGNIZED;
+  }
+}
+
+export function updateFailureToJSON(object: UpdateFailure): string {
+  switch (object) {
+    case UpdateFailure.UPDATE_FAILURE_UNKNOWN:
+      return "UPDATE_FAILURE_UNKNOWN";
+    case UpdateFailure.UPDATE_FAILURE_PENDING:
+      return "UPDATE_FAILURE_PENDING";
+    case UpdateFailure.UPDATE_FAILURE_NOT_FOUND:
+      return "UPDATE_FAILURE_NOT_FOUND";
+    case UpdateFailure.UPDATE_FAILURE_INTERNAL_ERR:
+      return "UPDATE_FAILURE_INTERNAL_ERR";
+    case UpdateFailure.UPDATE_FAILURE_INVALID_PARAMETER:
+      return "UPDATE_FAILURE_INVALID_PARAMETER";
+    default:
+      return "UNKNOWN";
+  }
+}
+
+export interface SubscribeCustomMessagesRequest {}
+
+export interface CustomMessage {
+  /** Peer from which the message originates */
+  peer: Uint8Array;
+  /** Message type. This value will be in the custom range (>= 32768). */
+  type: number;
+  /** Raw message data */
+  data: Uint8Array;
+}
+
+export interface SendCustomMessageRequest {
+  /** Peer to send the message to */
+  peer: Uint8Array;
+  /** Message type. This value needs to be in the custom range (>= 32768). */
+  type: number;
+  /** Raw message data. */
+  data: Uint8Array;
+}
+
+export interface SendCustomMessageResponse {}
+
 export interface Utxo {
   /** The type of address */
   addressType: AddressType;
@@ -846,6 +931,8 @@ export interface ChannelAcceptRequest {
    * behavior.
    */
   channelFlags: number;
+  /** The commitment type the initiator wishes to use for the proposed channel. */
+  commitmentType: CommitmentType;
 }
 
 export interface ChannelAcceptResponse {
@@ -1083,6 +1170,11 @@ export interface SignMessageRequest {
    * base64.
    */
   msg: Uint8Array;
+  /**
+   * Instead of the default double-SHA256 hashing of the message before signing,
+   * only use one round of hashing instead.
+   */
+  singleHash: boolean;
 }
 
 export interface SignMessageResponse {
@@ -1486,6 +1578,8 @@ export interface Peer {
    * zero, we have not observed any flaps for this peer.
    */
   lastFlapNs: string;
+  /** The last ping payload the peer has sent to us. */
+  lastPingPayload: Uint8Array;
 }
 
 export enum Peer_SyncType {
@@ -1758,6 +1852,89 @@ export interface ReadyForPsbtFunding {
   psbt: Uint8Array;
 }
 
+export interface BatchOpenChannelRequest {
+  /** The list of channels to open. */
+  channels: BatchOpenChannel[];
+  /**
+   * The target number of blocks that the funding transaction should be
+   * confirmed by.
+   */
+  targetConf: number;
+  /**
+   * A manual fee rate set in sat/vByte that should be used when crafting the
+   * funding transaction.
+   */
+  satPerVbyte: string;
+  /**
+   * The minimum number of confirmations each one of your outputs used for
+   * the funding transaction must satisfy.
+   */
+  minConfs: number;
+  /**
+   * Whether unconfirmed outputs should be used as inputs for the funding
+   * transaction.
+   */
+  spendUnconfirmed: boolean;
+  /** An optional label for the batch transaction, limited to 500 characters. */
+  label: string;
+}
+
+export interface BatchOpenChannel {
+  /**
+   * The pubkey of the node to open a channel with. When using REST, this
+   * field must be encoded as base64.
+   */
+  nodePubkey: Uint8Array;
+  /** The number of satoshis the wallet should commit to the channel. */
+  localFundingAmount: string;
+  /**
+   * The number of satoshis to push to the remote side as part of the initial
+   * commitment state.
+   */
+  pushSat: string;
+  /**
+   * Whether this channel should be private, not announced to the greater
+   * network.
+   */
+  private: boolean;
+  /**
+   * The minimum value in millisatoshi we will require for incoming HTLCs on
+   * the channel.
+   */
+  minHtlcMsat: string;
+  /**
+   * The delay we require on the remote's commitment transaction. If this is
+   * not set, it will be scaled automatically with the channel size.
+   */
+  remoteCsvDelay: number;
+  /**
+   * Close address is an optional address which specifies the address to which
+   * funds should be paid out to upon cooperative close. This field may only be
+   * set if the peer supports the option upfront feature bit (call listpeers
+   * to check). The remote peer will only accept cooperative closes to this
+   * address if it is set.
+   *
+   * Note: If this value is set on channel creation, you will *not* be able to
+   * cooperatively close out to a different address.
+   */
+  closeAddress: string;
+  /**
+   * An optional, unique identifier of 32 random bytes that will be used as the
+   * pending channel ID to identify the channel while it is in the pre-pending
+   * state.
+   */
+  pendingChanId: Uint8Array;
+  /**
+   * The explicit commitment type to use. Note this field will only be used if
+   * the remote peer supports explicit channel negotiation.
+   */
+  commitmentType: CommitmentType;
+}
+
+export interface BatchOpenChannelResponse {
+  pendingChannels: PendingUpdate[];
+}
+
 export interface OpenChannelRequest {
   /**
    * A manual fee rate set in sat/vbyte that should be used when crafting the
@@ -1855,6 +2032,11 @@ export interface OpenChannelRequest {
    * transaction.
    */
   maxLocalCsv: number;
+  /**
+   * The explicit commitment type to use. Note this field will only be used if
+   * the remote peer supports explicit channel negotiation.
+   */
+  commitmentType: CommitmentType;
 }
 
 export interface OpenStatusUpdate {
@@ -1973,6 +2155,19 @@ export interface FundingPsbtVerify {
   fundedPsbt: Uint8Array;
   /** The pending channel ID of the channel to get the PSBT for. */
   pendingChanId: Uint8Array;
+  /**
+   * Can only be used if the no_publish flag was set to true in the OpenChannel
+   * call meaning that the caller is solely responsible for publishing the final
+   * funding transaction. If skip_finalize is set to true then lnd will not wait
+   * for a FundingPsbtFinalize state step and instead assumes that a transaction
+   * with the same TXID as the passed in PSBT will eventually confirm.
+   * IT IS ABSOLUTELY IMPERATIVE that the TXID of the transaction that is
+   * eventually published does have the _same TXID_ as the verified PSBT. That
+   * means no inputs or outputs can change, only signatures can be added. If the
+   * TXID changes between this call and the publish step then the channel will
+   * never be created and the funds will be in limbo.
+   */
+  skipFinalize: boolean;
 }
 
 export interface FundingPsbtFinalize {
@@ -2078,6 +2273,8 @@ export interface PendingChannelsResponse_PendingChannel {
   initiator: Initiator;
   /** The commitment type used by this channel. */
   commitmentType: CommitmentType;
+  /** Total number of forwarding packages created in this channel. */
+  numForwardingPackages: string;
 }
 
 export interface PendingChannelsResponse_PendingOpenChannel {
@@ -2217,6 +2414,7 @@ export interface ChannelEventUpdate {
   activeChannel: ChannelPoint | undefined;
   inactiveChannel: ChannelPoint | undefined;
   pendingOpenChannel: PendingUpdate | undefined;
+  fullyResolvedChannel: ChannelPoint | undefined;
   type: ChannelEventUpdate_UpdateType;
 }
 
@@ -2226,6 +2424,7 @@ export enum ChannelEventUpdate_UpdateType {
   ACTIVE_CHANNEL = 2,
   INACTIVE_CHANNEL = 3,
   PENDING_OPEN_CHANNEL = 4,
+  FULLY_RESOLVED_CHANNEL = 5,
   UNRECOGNIZED = -1,
 }
 
@@ -2248,6 +2447,9 @@ export function channelEventUpdate_UpdateTypeFromJSON(
     case 4:
     case "PENDING_OPEN_CHANNEL":
       return ChannelEventUpdate_UpdateType.PENDING_OPEN_CHANNEL;
+    case 5:
+    case "FULLY_RESOLVED_CHANNEL":
+      return ChannelEventUpdate_UpdateType.FULLY_RESOLVED_CHANNEL;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -2269,6 +2471,8 @@ export function channelEventUpdate_UpdateTypeToJSON(
       return "INACTIVE_CHANNEL";
     case ChannelEventUpdate_UpdateType.PENDING_OPEN_CHANNEL:
       return "PENDING_OPEN_CHANNEL";
+    case ChannelEventUpdate_UpdateType.FULLY_RESOLVED_CHANNEL:
+      return "FULLY_RESOLVED_CHANNEL";
     default:
       return "UNKNOWN";
   }
@@ -2398,7 +2602,7 @@ export interface QueryRoutesRequest {
    * An optional field that can be used to pass an arbitrary set of TLV records
    * to a peer which understands the new records. This can be used to pass
    * application specific data during the payment attempt. If the destination
-   * does not support the specified recrods, and error will be returned.
+   * does not support the specified records, an error will be returned.
    * Record types are required to be in the custom range >= 65536. When using
    * REST, the values must be encoded as base64.
    */
@@ -2821,12 +3025,27 @@ export interface HopHint {
   cltvExpiryDelta: number;
 }
 
+export interface SetID {
+  setId: Uint8Array;
+}
+
 export interface RouteHint {
   /**
    * A list of hop hints that when chained together can assist in reaching a
    * specific destination.
    */
   hopHints: HopHint[];
+}
+
+export interface AMPInvoiceState {
+  /** The state the HTLCs associated with this setID are in. */
+  state: InvoiceHTLCState;
+  /** The settle index of this HTLC set, if the invoice state is settled. */
+  settleIndex: string;
+  /** The time this HTLC set was settled expressed in unix epoch. */
+  settleTime: string;
+  /** The total amount paid for the sub-invoice expressed in milli satoshis. */
+  amtPaidMsat: string;
 }
 
 export interface Invoice {
@@ -2947,12 +3166,21 @@ export interface Invoice {
   isKeysend: boolean;
   /**
    * The payment address of this invoice. This value will be used in MPP
-   * payments, and also for newer invoies that always require the MPP paylaod
+   * payments, and also for newer invoices that always require the MPP payload
    * for added end-to-end security.
    */
   paymentAddr: Uint8Array;
   /** Signals whether or not this is an AMP invoice. */
   isAmp: boolean;
+  /**
+   * [EXPERIMENTAL]:
+   *
+   * Maps a 32-byte hex-encoded set ID to the sub-invoice AMP state for the
+   * given set ID. This field is always populated for AMP invoices, and can be
+   * used along side LookupInvoice to obtain the HTLC information related to a
+   * given sub-invoice.
+   */
+  ampInvoiceState: { [key: string]: AMPInvoiceState };
 }
 
 export enum Invoice_InvoiceState {
@@ -3006,6 +3234,11 @@ export function invoice_InvoiceStateToJSON(
 export interface Invoice_FeaturesEntry {
   key: number;
   value: Feature | undefined;
+}
+
+export interface Invoice_AmpInvoiceStateEntry {
+  key: string;
+  value: AMPInvoiceState | undefined;
 }
 
 /** Details of an HTLC that paid to an invoice */
@@ -3357,12 +3590,21 @@ export interface ListPaymentsResponse {
   lastIndexOffset: string;
 }
 
+export interface DeletePaymentRequest {
+  /** Payment hash to delete. */
+  paymentHash: Uint8Array;
+  /** Only delete failed HTLCs from the payment, not the payment itself. */
+  failedHtlcsOnly: boolean;
+}
+
 export interface DeleteAllPaymentsRequest {
   /** Only delete failed payments. */
   failedPaymentsOnly: boolean;
   /** Only delete failed HTLCs from payments, not the payment itself. */
   failedHtlcsOnly: boolean;
 }
+
+export interface DeletePaymentResponse {}
 
 export interface DeleteAllPaymentsResponse {}
 
@@ -3492,7 +3734,19 @@ export interface PolicyUpdateRequest {
   minHtlcMsatSpecified: boolean;
 }
 
-export interface PolicyUpdateResponse {}
+export interface FailedUpdate {
+  /** The outpoint in format txid:n */
+  outpoint: OutPoint | undefined;
+  /** Reason for the policy update failure. */
+  reason: UpdateFailure;
+  /** A string representation of the policy update error. */
+  updateError: string;
+}
+
+export interface PolicyUpdateResponse {
+  /** List of failed policy updates. */
+  failedUpdates: FailedUpdate[];
+}
 
 export interface ForwardingHistoryRequest {
   /**
@@ -3653,6 +3907,11 @@ export interface BakeMacaroonRequest {
   permissions: MacaroonPermission[];
   /** The root key ID used to create the macaroon, must be a positive integer. */
   rootKeyId: string;
+  /**
+   * Informs the RPC on whether to allow external permissions that LND is not
+   * aware of.
+   */
+  allowExternalPermissions: boolean;
 }
 
 export interface BakeMacaroonResponse {
@@ -3992,6 +4251,491 @@ export interface Op {
   entity: string;
   actions: string[];
 }
+
+export interface CheckMacPermRequest {
+  macaroon: Uint8Array;
+  permissions: MacaroonPermission[];
+  fullMethod: string;
+}
+
+export interface CheckMacPermResponse {
+  valid: boolean;
+}
+
+export interface RPCMiddlewareRequest {
+  /**
+   * The unique ID of the intercepted original gRPC request. Useful for mapping
+   * request to response when implementing full duplex message interception. For
+   * streaming requests, this will be the same ID for all incoming and outgoing
+   * middleware intercept messages of the _same_ stream.
+   */
+  requestId: string;
+  /**
+   * The raw bytes of the complete macaroon as sent by the gRPC client in the
+   * original request. This might be empty for a request that doesn't require
+   * macaroons such as the wallet unlocker RPCs.
+   */
+  rawMacaroon: Uint8Array;
+  /**
+   * The parsed condition of the macaroon's custom caveat for convenient access.
+   * This field only contains the value of the custom caveat that the handling
+   * middleware has registered itself for. The condition _must_ be validated for
+   * messages of intercept_type stream_auth and request!
+   */
+  customCaveatCondition: string;
+  /**
+   * Intercept stream authentication: each new streaming RPC call that is
+   * initiated against lnd and contains the middleware's custom macaroon
+   * caveat can be approved or denied based upon the macaroon in the stream
+   * header. This message will only be sent for streaming RPCs, unary RPCs
+   * must handle the macaroon authentication in the request interception to
+   * avoid an additional message round trip between lnd and the middleware.
+   */
+  streamAuth: StreamAuth | undefined;
+  /**
+   * Intercept incoming gRPC client request message: all incoming messages,
+   * both on streaming and unary RPCs, are forwarded to the middleware for
+   * inspection. For unary RPC messages the middleware is also expected to
+   * validate the custom macaroon caveat of the request.
+   */
+  request: RPCMessage | undefined;
+  /**
+   * Intercept outgoing gRPC response message: all outgoing messages, both on
+   * streaming and unary RPCs, are forwarded to the middleware for inspection
+   * and amendment. The response in this message is the original response as
+   * it was generated by the main RPC server. It can either be accepted
+   * (=forwarded to the client), replaced/overwritten with a new message of
+   * the same type, or replaced by an error message.
+   */
+  response: RPCMessage | undefined;
+  /**
+   * The unique message ID of this middleware intercept message. There can be
+   * multiple middleware intercept messages per single gRPC request (one for the
+   * incoming request and one for the outgoing response) or gRPC stream (one for
+   * each incoming message and one for each outgoing response). This message ID
+   * must be referenced when responding (accepting/rejecting/modifying) to an
+   * intercept message.
+   */
+  msgId: string;
+}
+
+export interface StreamAuth {
+  /**
+   * The full URI (in the format /<rpcpackage>.<ServiceName>/MethodName, for
+   * example /lnrpc.Lightning/GetInfo) of the streaming RPC method that was just
+   * established.
+   */
+  methodFullUri: string;
+}
+
+export interface RPCMessage {
+  /**
+   * The full URI (in the format /<rpcpackage>.<ServiceName>/MethodName, for
+   * example /lnrpc.Lightning/GetInfo) of the RPC method the message was sent
+   * to/from.
+   */
+  methodFullUri: string;
+  /** Indicates whether the message was sent over a streaming RPC method or not. */
+  streamRpc: boolean;
+  /**
+   * The full canonical gRPC name of the message type (in the format
+   * <rpcpackage>.TypeName, for example lnrpc.GetInfoRequest).
+   */
+  typeName: string;
+  /**
+   * The full content of the gRPC message, serialized in the binary protobuf
+   * format.
+   */
+  serialized: Uint8Array;
+}
+
+export interface RPCMiddlewareResponse {
+  /**
+   * The request message ID this response refers to. Must always be set when
+   * giving feedback to an intercept but is ignored for the initial registration
+   * message.
+   */
+  refMsgId: string;
+  /**
+   * The registration message identifies the middleware that's being
+   * registered in lnd. The registration message must be sent immediately
+   * after initiating the RegisterRpcMiddleware stream, otherwise lnd will
+   * time out the attempt and terminate the request. NOTE: The middleware
+   * will only receive interception messages for requests that contain a
+   * macaroon with the custom caveat that the middleware declares it is
+   * responsible for handling in the registration message! As a security
+   * measure, _no_ middleware can intercept requests made with _unencumbered_
+   * macaroons!
+   */
+  register: MiddlewareRegistration | undefined;
+  /**
+   * The middleware received an interception request and gives feedback to
+   * it. The request_id indicates what message the feedback refers to.
+   */
+  feedback: InterceptFeedback | undefined;
+}
+
+export interface MiddlewareRegistration {
+  /**
+   * The name of the middleware to register. The name should be as informative
+   * as possible and is logged on registration.
+   */
+  middlewareName: string;
+  /**
+   * The name of the custom macaroon caveat that this middleware is responsible
+   * for. Only requests/responses that contain a macaroon with the registered
+   * custom caveat are forwarded for interception to the middleware. The
+   * exception being the read-only mode: All requests/responses are forwarded to
+   * a middleware that requests read-only access but such a middleware won't be
+   * allowed to _alter_ responses. As a security measure, _no_ middleware can
+   * change responses to requests made with _unencumbered_ macaroons!
+   * NOTE: Cannot be used at the same time as read_only_mode.
+   */
+  customMacaroonCaveatName: string;
+  /**
+   * Instead of defining a custom macaroon caveat name a middleware can register
+   * itself for read-only access only. In that mode all requests/responses are
+   * forwarded to the middleware but the middleware isn't allowed to alter any of
+   * the responses.
+   * NOTE: Cannot be used at the same time as custom_macaroon_caveat_name.
+   */
+  readOnlyMode: boolean;
+}
+
+export interface InterceptFeedback {
+  /**
+   * The error to return to the user. If this is non-empty, the incoming gRPC
+   * stream/request is aborted and the error is returned to the gRPC client. If
+   * this value is empty, it means the middleware accepts the stream/request/
+   * response and the processing of it can continue.
+   */
+  error: string;
+  /**
+   * A boolean indicating that the gRPC response should be replaced/overwritten.
+   * As its name suggests, this can only be used as a feedback to an intercepted
+   * response RPC message and is ignored for feedback on any other message. This
+   * boolean is needed because in protobuf an empty message is serialized as a
+   * 0-length or nil byte slice and we wouldn't be able to distinguish between
+   * an empty replacement message and the "don't replace anything" case.
+   */
+  replaceResponse: boolean;
+  /**
+   * If the replace_response field is set to true, this field must contain the
+   * binary serialized gRPC response message in the protobuf format.
+   */
+  replacementSerialized: Uint8Array;
+}
+
+const baseSubscribeCustomMessagesRequest: object = {};
+
+export const SubscribeCustomMessagesRequest = {
+  encode(
+    _: SubscribeCustomMessagesRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): SubscribeCustomMessagesRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseSubscribeCustomMessagesRequest,
+    } as SubscribeCustomMessagesRequest;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): SubscribeCustomMessagesRequest {
+    const message = {
+      ...baseSubscribeCustomMessagesRequest,
+    } as SubscribeCustomMessagesRequest;
+    return message;
+  },
+
+  toJSON(_: SubscribeCustomMessagesRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<SubscribeCustomMessagesRequest>
+  ): SubscribeCustomMessagesRequest {
+    const message = {
+      ...baseSubscribeCustomMessagesRequest,
+    } as SubscribeCustomMessagesRequest;
+    return message;
+  },
+};
+
+const baseCustomMessage: object = { type: 0 };
+
+export const CustomMessage = {
+  encode(
+    message: CustomMessage,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.peer.length !== 0) {
+      writer.uint32(10).bytes(message.peer);
+    }
+    if (message.type !== 0) {
+      writer.uint32(16).uint32(message.type);
+    }
+    if (message.data.length !== 0) {
+      writer.uint32(26).bytes(message.data);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CustomMessage {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseCustomMessage } as CustomMessage;
+    message.peer = new Uint8Array();
+    message.data = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.peer = reader.bytes();
+          break;
+        case 2:
+          message.type = reader.uint32();
+          break;
+        case 3:
+          message.data = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CustomMessage {
+    const message = { ...baseCustomMessage } as CustomMessage;
+    message.peer = new Uint8Array();
+    message.data = new Uint8Array();
+    if (object.peer !== undefined && object.peer !== null) {
+      message.peer = bytesFromBase64(object.peer);
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = Number(object.type);
+    } else {
+      message.type = 0;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
+  },
+
+  toJSON(message: CustomMessage): unknown {
+    const obj: any = {};
+    message.peer !== undefined &&
+      (obj.peer = base64FromBytes(
+        message.peer !== undefined ? message.peer : new Uint8Array()
+      ));
+    message.type !== undefined && (obj.type = message.type);
+    message.data !== undefined &&
+      (obj.data = base64FromBytes(
+        message.data !== undefined ? message.data : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<CustomMessage>): CustomMessage {
+    const message = { ...baseCustomMessage } as CustomMessage;
+    if (object.peer !== undefined && object.peer !== null) {
+      message.peer = object.peer;
+    } else {
+      message.peer = new Uint8Array();
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    } else {
+      message.type = 0;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = object.data;
+    } else {
+      message.data = new Uint8Array();
+    }
+    return message;
+  },
+};
+
+const baseSendCustomMessageRequest: object = { type: 0 };
+
+export const SendCustomMessageRequest = {
+  encode(
+    message: SendCustomMessageRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.peer.length !== 0) {
+      writer.uint32(10).bytes(message.peer);
+    }
+    if (message.type !== 0) {
+      writer.uint32(16).uint32(message.type);
+    }
+    if (message.data.length !== 0) {
+      writer.uint32(26).bytes(message.data);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): SendCustomMessageRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseSendCustomMessageRequest,
+    } as SendCustomMessageRequest;
+    message.peer = new Uint8Array();
+    message.data = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.peer = reader.bytes();
+          break;
+        case 2:
+          message.type = reader.uint32();
+          break;
+        case 3:
+          message.data = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): SendCustomMessageRequest {
+    const message = {
+      ...baseSendCustomMessageRequest,
+    } as SendCustomMessageRequest;
+    message.peer = new Uint8Array();
+    message.data = new Uint8Array();
+    if (object.peer !== undefined && object.peer !== null) {
+      message.peer = bytesFromBase64(object.peer);
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = Number(object.type);
+    } else {
+      message.type = 0;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = bytesFromBase64(object.data);
+    }
+    return message;
+  },
+
+  toJSON(message: SendCustomMessageRequest): unknown {
+    const obj: any = {};
+    message.peer !== undefined &&
+      (obj.peer = base64FromBytes(
+        message.peer !== undefined ? message.peer : new Uint8Array()
+      ));
+    message.type !== undefined && (obj.type = message.type);
+    message.data !== undefined &&
+      (obj.data = base64FromBytes(
+        message.data !== undefined ? message.data : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<SendCustomMessageRequest>
+  ): SendCustomMessageRequest {
+    const message = {
+      ...baseSendCustomMessageRequest,
+    } as SendCustomMessageRequest;
+    if (object.peer !== undefined && object.peer !== null) {
+      message.peer = object.peer;
+    } else {
+      message.peer = new Uint8Array();
+    }
+    if (object.type !== undefined && object.type !== null) {
+      message.type = object.type;
+    } else {
+      message.type = 0;
+    }
+    if (object.data !== undefined && object.data !== null) {
+      message.data = object.data;
+    } else {
+      message.data = new Uint8Array();
+    }
+    return message;
+  },
+};
+
+const baseSendCustomMessageResponse: object = {};
+
+export const SendCustomMessageResponse = {
+  encode(
+    _: SendCustomMessageResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): SendCustomMessageResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseSendCustomMessageResponse,
+    } as SendCustomMessageResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): SendCustomMessageResponse {
+    const message = {
+      ...baseSendCustomMessageResponse,
+    } as SendCustomMessageResponse;
+    return message;
+  },
+
+  toJSON(_: SendCustomMessageResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(
+    _: DeepPartial<SendCustomMessageResponse>
+  ): SendCustomMessageResponse {
+    const message = {
+      ...baseSendCustomMessageResponse,
+    } as SendCustomMessageResponse;
+    return message;
+  },
+};
 
 const baseUtxo: object = {
   addressType: 0,
@@ -5381,6 +6125,7 @@ const baseChannelAcceptRequest: object = {
   csvDelay: 0,
   maxAcceptedHtlcs: 0,
   channelFlags: 0,
+  commitmentType: 0,
 };
 
 export const ChannelAcceptRequest = {
@@ -5426,6 +6171,9 @@ export const ChannelAcceptRequest = {
     }
     if (message.channelFlags !== 0) {
       writer.uint32(104).uint32(message.channelFlags);
+    }
+    if (message.commitmentType !== 0) {
+      writer.uint32(112).int32(message.commitmentType);
     }
     return writer;
   },
@@ -5481,6 +6229,9 @@ export const ChannelAcceptRequest = {
           break;
         case 13:
           message.channelFlags = reader.uint32();
+          break;
+        case 14:
+          message.commitmentType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -5560,6 +6311,11 @@ export const ChannelAcceptRequest = {
     } else {
       message.channelFlags = 0;
     }
+    if (object.commitmentType !== undefined && object.commitmentType !== null) {
+      message.commitmentType = commitmentTypeFromJSON(object.commitmentType);
+    } else {
+      message.commitmentType = 0;
+    }
     return message;
   },
 
@@ -5593,6 +6349,8 @@ export const ChannelAcceptRequest = {
       (obj.maxAcceptedHtlcs = message.maxAcceptedHtlcs);
     message.channelFlags !== undefined &&
       (obj.channelFlags = message.channelFlags);
+    message.commitmentType !== undefined &&
+      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
     return obj;
   },
 
@@ -5668,6 +6426,11 @@ export const ChannelAcceptRequest = {
       message.channelFlags = object.channelFlags;
     } else {
       message.channelFlags = 0;
+    }
+    if (object.commitmentType !== undefined && object.commitmentType !== null) {
+      message.commitmentType = object.commitmentType;
+    } else {
+      message.commitmentType = 0;
     }
     return message;
   },
@@ -7427,7 +8190,7 @@ export const NewAddressResponse = {
   },
 };
 
-const baseSignMessageRequest: object = {};
+const baseSignMessageRequest: object = { singleHash: false };
 
 export const SignMessageRequest = {
   encode(
@@ -7436,6 +8199,9 @@ export const SignMessageRequest = {
   ): _m0.Writer {
     if (message.msg.length !== 0) {
       writer.uint32(10).bytes(message.msg);
+    }
+    if (message.singleHash === true) {
+      writer.uint32(16).bool(message.singleHash);
     }
     return writer;
   },
@@ -7451,6 +8217,9 @@ export const SignMessageRequest = {
         case 1:
           message.msg = reader.bytes();
           break;
+        case 2:
+          message.singleHash = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -7465,6 +8234,11 @@ export const SignMessageRequest = {
     if (object.msg !== undefined && object.msg !== null) {
       message.msg = bytesFromBase64(object.msg);
     }
+    if (object.singleHash !== undefined && object.singleHash !== null) {
+      message.singleHash = Boolean(object.singleHash);
+    } else {
+      message.singleHash = false;
+    }
     return message;
   },
 
@@ -7474,6 +8248,7 @@ export const SignMessageRequest = {
       (obj.msg = base64FromBytes(
         message.msg !== undefined ? message.msg : new Uint8Array()
       ));
+    message.singleHash !== undefined && (obj.singleHash = message.singleHash);
     return obj;
   },
 
@@ -7483,6 +8258,11 @@ export const SignMessageRequest = {
       message.msg = object.msg;
     } else {
       message.msg = new Uint8Array();
+    }
+    if (object.singleHash !== undefined && object.singleHash !== null) {
+      message.singleHash = object.singleHash;
+    } else {
+      message.singleHash = false;
     }
     return message;
   },
@@ -9929,6 +10709,9 @@ export const Peer = {
     if (message.lastFlapNs !== "0") {
       writer.uint32(112).int64(message.lastFlapNs);
     }
+    if (message.lastPingPayload.length !== 0) {
+      writer.uint32(122).bytes(message.lastPingPayload);
+    }
     return writer;
   },
 
@@ -9938,6 +10721,7 @@ export const Peer = {
     const message = { ...basePeer } as Peer;
     message.features = {};
     message.errors = [];
+    message.lastPingPayload = new Uint8Array();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -9983,6 +10767,9 @@ export const Peer = {
         case 14:
           message.lastFlapNs = longToString(reader.int64() as Long);
           break;
+        case 15:
+          message.lastPingPayload = reader.bytes();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -9995,6 +10782,7 @@ export const Peer = {
     const message = { ...basePeer } as Peer;
     message.features = {};
     message.errors = [];
+    message.lastPingPayload = new Uint8Array();
     if (object.pubKey !== undefined && object.pubKey !== null) {
       message.pubKey = String(object.pubKey);
     } else {
@@ -10060,6 +10848,12 @@ export const Peer = {
     } else {
       message.lastFlapNs = "0";
     }
+    if (
+      object.lastPingPayload !== undefined &&
+      object.lastPingPayload !== null
+    ) {
+      message.lastPingPayload = bytesFromBase64(object.lastPingPayload);
+    }
     return message;
   },
 
@@ -10090,6 +10884,12 @@ export const Peer = {
     }
     message.flapCount !== undefined && (obj.flapCount = message.flapCount);
     message.lastFlapNs !== undefined && (obj.lastFlapNs = message.lastFlapNs);
+    message.lastPingPayload !== undefined &&
+      (obj.lastPingPayload = base64FromBytes(
+        message.lastPingPayload !== undefined
+          ? message.lastPingPayload
+          : new Uint8Array()
+      ));
     return obj;
   },
 
@@ -10163,6 +10963,14 @@ export const Peer = {
       message.lastFlapNs = object.lastFlapNs;
     } else {
       message.lastFlapNs = "0";
+    }
+    if (
+      object.lastPingPayload !== undefined &&
+      object.lastPingPayload !== null
+    ) {
+      message.lastPingPayload = object.lastPingPayload;
+    } else {
+      message.lastPingPayload = new Uint8Array();
     }
     return message;
   },
@@ -12024,6 +12832,492 @@ export const ReadyForPsbtFunding = {
   },
 };
 
+const baseBatchOpenChannelRequest: object = {
+  targetConf: 0,
+  satPerVbyte: "0",
+  minConfs: 0,
+  spendUnconfirmed: false,
+  label: "",
+};
+
+export const BatchOpenChannelRequest = {
+  encode(
+    message: BatchOpenChannelRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.channels) {
+      BatchOpenChannel.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.targetConf !== 0) {
+      writer.uint32(16).int32(message.targetConf);
+    }
+    if (message.satPerVbyte !== "0") {
+      writer.uint32(24).int64(message.satPerVbyte);
+    }
+    if (message.minConfs !== 0) {
+      writer.uint32(32).int32(message.minConfs);
+    }
+    if (message.spendUnconfirmed === true) {
+      writer.uint32(40).bool(message.spendUnconfirmed);
+    }
+    if (message.label !== "") {
+      writer.uint32(50).string(message.label);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): BatchOpenChannelRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseBatchOpenChannelRequest,
+    } as BatchOpenChannelRequest;
+    message.channels = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.channels.push(
+            BatchOpenChannel.decode(reader, reader.uint32())
+          );
+          break;
+        case 2:
+          message.targetConf = reader.int32();
+          break;
+        case 3:
+          message.satPerVbyte = longToString(reader.int64() as Long);
+          break;
+        case 4:
+          message.minConfs = reader.int32();
+          break;
+        case 5:
+          message.spendUnconfirmed = reader.bool();
+          break;
+        case 6:
+          message.label = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BatchOpenChannelRequest {
+    const message = {
+      ...baseBatchOpenChannelRequest,
+    } as BatchOpenChannelRequest;
+    message.channels = [];
+    if (object.channels !== undefined && object.channels !== null) {
+      for (const e of object.channels) {
+        message.channels.push(BatchOpenChannel.fromJSON(e));
+      }
+    }
+    if (object.targetConf !== undefined && object.targetConf !== null) {
+      message.targetConf = Number(object.targetConf);
+    } else {
+      message.targetConf = 0;
+    }
+    if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
+      message.satPerVbyte = String(object.satPerVbyte);
+    } else {
+      message.satPerVbyte = "0";
+    }
+    if (object.minConfs !== undefined && object.minConfs !== null) {
+      message.minConfs = Number(object.minConfs);
+    } else {
+      message.minConfs = 0;
+    }
+    if (
+      object.spendUnconfirmed !== undefined &&
+      object.spendUnconfirmed !== null
+    ) {
+      message.spendUnconfirmed = Boolean(object.spendUnconfirmed);
+    } else {
+      message.spendUnconfirmed = false;
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = String(object.label);
+    } else {
+      message.label = "";
+    }
+    return message;
+  },
+
+  toJSON(message: BatchOpenChannelRequest): unknown {
+    const obj: any = {};
+    if (message.channels) {
+      obj.channels = message.channels.map((e) =>
+        e ? BatchOpenChannel.toJSON(e) : undefined
+      );
+    } else {
+      obj.channels = [];
+    }
+    message.targetConf !== undefined && (obj.targetConf = message.targetConf);
+    message.satPerVbyte !== undefined &&
+      (obj.satPerVbyte = message.satPerVbyte);
+    message.minConfs !== undefined && (obj.minConfs = message.minConfs);
+    message.spendUnconfirmed !== undefined &&
+      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    message.label !== undefined && (obj.label = message.label);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<BatchOpenChannelRequest>
+  ): BatchOpenChannelRequest {
+    const message = {
+      ...baseBatchOpenChannelRequest,
+    } as BatchOpenChannelRequest;
+    message.channels = [];
+    if (object.channels !== undefined && object.channels !== null) {
+      for (const e of object.channels) {
+        message.channels.push(BatchOpenChannel.fromPartial(e));
+      }
+    }
+    if (object.targetConf !== undefined && object.targetConf !== null) {
+      message.targetConf = object.targetConf;
+    } else {
+      message.targetConf = 0;
+    }
+    if (object.satPerVbyte !== undefined && object.satPerVbyte !== null) {
+      message.satPerVbyte = object.satPerVbyte;
+    } else {
+      message.satPerVbyte = "0";
+    }
+    if (object.minConfs !== undefined && object.minConfs !== null) {
+      message.minConfs = object.minConfs;
+    } else {
+      message.minConfs = 0;
+    }
+    if (
+      object.spendUnconfirmed !== undefined &&
+      object.spendUnconfirmed !== null
+    ) {
+      message.spendUnconfirmed = object.spendUnconfirmed;
+    } else {
+      message.spendUnconfirmed = false;
+    }
+    if (object.label !== undefined && object.label !== null) {
+      message.label = object.label;
+    } else {
+      message.label = "";
+    }
+    return message;
+  },
+};
+
+const baseBatchOpenChannel: object = {
+  localFundingAmount: "0",
+  pushSat: "0",
+  private: false,
+  minHtlcMsat: "0",
+  remoteCsvDelay: 0,
+  closeAddress: "",
+  commitmentType: 0,
+};
+
+export const BatchOpenChannel = {
+  encode(
+    message: BatchOpenChannel,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.nodePubkey.length !== 0) {
+      writer.uint32(10).bytes(message.nodePubkey);
+    }
+    if (message.localFundingAmount !== "0") {
+      writer.uint32(16).int64(message.localFundingAmount);
+    }
+    if (message.pushSat !== "0") {
+      writer.uint32(24).int64(message.pushSat);
+    }
+    if (message.private === true) {
+      writer.uint32(32).bool(message.private);
+    }
+    if (message.minHtlcMsat !== "0") {
+      writer.uint32(40).int64(message.minHtlcMsat);
+    }
+    if (message.remoteCsvDelay !== 0) {
+      writer.uint32(48).uint32(message.remoteCsvDelay);
+    }
+    if (message.closeAddress !== "") {
+      writer.uint32(58).string(message.closeAddress);
+    }
+    if (message.pendingChanId.length !== 0) {
+      writer.uint32(66).bytes(message.pendingChanId);
+    }
+    if (message.commitmentType !== 0) {
+      writer.uint32(72).int32(message.commitmentType);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): BatchOpenChannel {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseBatchOpenChannel } as BatchOpenChannel;
+    message.nodePubkey = new Uint8Array();
+    message.pendingChanId = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.nodePubkey = reader.bytes();
+          break;
+        case 2:
+          message.localFundingAmount = longToString(reader.int64() as Long);
+          break;
+        case 3:
+          message.pushSat = longToString(reader.int64() as Long);
+          break;
+        case 4:
+          message.private = reader.bool();
+          break;
+        case 5:
+          message.minHtlcMsat = longToString(reader.int64() as Long);
+          break;
+        case 6:
+          message.remoteCsvDelay = reader.uint32();
+          break;
+        case 7:
+          message.closeAddress = reader.string();
+          break;
+        case 8:
+          message.pendingChanId = reader.bytes();
+          break;
+        case 9:
+          message.commitmentType = reader.int32() as any;
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BatchOpenChannel {
+    const message = { ...baseBatchOpenChannel } as BatchOpenChannel;
+    message.nodePubkey = new Uint8Array();
+    message.pendingChanId = new Uint8Array();
+    if (object.nodePubkey !== undefined && object.nodePubkey !== null) {
+      message.nodePubkey = bytesFromBase64(object.nodePubkey);
+    }
+    if (
+      object.localFundingAmount !== undefined &&
+      object.localFundingAmount !== null
+    ) {
+      message.localFundingAmount = String(object.localFundingAmount);
+    } else {
+      message.localFundingAmount = "0";
+    }
+    if (object.pushSat !== undefined && object.pushSat !== null) {
+      message.pushSat = String(object.pushSat);
+    } else {
+      message.pushSat = "0";
+    }
+    if (object.private !== undefined && object.private !== null) {
+      message.private = Boolean(object.private);
+    } else {
+      message.private = false;
+    }
+    if (object.minHtlcMsat !== undefined && object.minHtlcMsat !== null) {
+      message.minHtlcMsat = String(object.minHtlcMsat);
+    } else {
+      message.minHtlcMsat = "0";
+    }
+    if (object.remoteCsvDelay !== undefined && object.remoteCsvDelay !== null) {
+      message.remoteCsvDelay = Number(object.remoteCsvDelay);
+    } else {
+      message.remoteCsvDelay = 0;
+    }
+    if (object.closeAddress !== undefined && object.closeAddress !== null) {
+      message.closeAddress = String(object.closeAddress);
+    } else {
+      message.closeAddress = "";
+    }
+    if (object.pendingChanId !== undefined && object.pendingChanId !== null) {
+      message.pendingChanId = bytesFromBase64(object.pendingChanId);
+    }
+    if (object.commitmentType !== undefined && object.commitmentType !== null) {
+      message.commitmentType = commitmentTypeFromJSON(object.commitmentType);
+    } else {
+      message.commitmentType = 0;
+    }
+    return message;
+  },
+
+  toJSON(message: BatchOpenChannel): unknown {
+    const obj: any = {};
+    message.nodePubkey !== undefined &&
+      (obj.nodePubkey = base64FromBytes(
+        message.nodePubkey !== undefined ? message.nodePubkey : new Uint8Array()
+      ));
+    message.localFundingAmount !== undefined &&
+      (obj.localFundingAmount = message.localFundingAmount);
+    message.pushSat !== undefined && (obj.pushSat = message.pushSat);
+    message.private !== undefined && (obj.private = message.private);
+    message.minHtlcMsat !== undefined &&
+      (obj.minHtlcMsat = message.minHtlcMsat);
+    message.remoteCsvDelay !== undefined &&
+      (obj.remoteCsvDelay = message.remoteCsvDelay);
+    message.closeAddress !== undefined &&
+      (obj.closeAddress = message.closeAddress);
+    message.pendingChanId !== undefined &&
+      (obj.pendingChanId = base64FromBytes(
+        message.pendingChanId !== undefined
+          ? message.pendingChanId
+          : new Uint8Array()
+      ));
+    message.commitmentType !== undefined &&
+      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<BatchOpenChannel>): BatchOpenChannel {
+    const message = { ...baseBatchOpenChannel } as BatchOpenChannel;
+    if (object.nodePubkey !== undefined && object.nodePubkey !== null) {
+      message.nodePubkey = object.nodePubkey;
+    } else {
+      message.nodePubkey = new Uint8Array();
+    }
+    if (
+      object.localFundingAmount !== undefined &&
+      object.localFundingAmount !== null
+    ) {
+      message.localFundingAmount = object.localFundingAmount;
+    } else {
+      message.localFundingAmount = "0";
+    }
+    if (object.pushSat !== undefined && object.pushSat !== null) {
+      message.pushSat = object.pushSat;
+    } else {
+      message.pushSat = "0";
+    }
+    if (object.private !== undefined && object.private !== null) {
+      message.private = object.private;
+    } else {
+      message.private = false;
+    }
+    if (object.minHtlcMsat !== undefined && object.minHtlcMsat !== null) {
+      message.minHtlcMsat = object.minHtlcMsat;
+    } else {
+      message.minHtlcMsat = "0";
+    }
+    if (object.remoteCsvDelay !== undefined && object.remoteCsvDelay !== null) {
+      message.remoteCsvDelay = object.remoteCsvDelay;
+    } else {
+      message.remoteCsvDelay = 0;
+    }
+    if (object.closeAddress !== undefined && object.closeAddress !== null) {
+      message.closeAddress = object.closeAddress;
+    } else {
+      message.closeAddress = "";
+    }
+    if (object.pendingChanId !== undefined && object.pendingChanId !== null) {
+      message.pendingChanId = object.pendingChanId;
+    } else {
+      message.pendingChanId = new Uint8Array();
+    }
+    if (object.commitmentType !== undefined && object.commitmentType !== null) {
+      message.commitmentType = object.commitmentType;
+    } else {
+      message.commitmentType = 0;
+    }
+    return message;
+  },
+};
+
+const baseBatchOpenChannelResponse: object = {};
+
+export const BatchOpenChannelResponse = {
+  encode(
+    message: BatchOpenChannelResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    for (const v of message.pendingChannels) {
+      PendingUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): BatchOpenChannelResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseBatchOpenChannelResponse,
+    } as BatchOpenChannelResponse;
+    message.pendingChannels = [];
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.pendingChannels.push(
+            PendingUpdate.decode(reader, reader.uint32())
+          );
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): BatchOpenChannelResponse {
+    const message = {
+      ...baseBatchOpenChannelResponse,
+    } as BatchOpenChannelResponse;
+    message.pendingChannels = [];
+    if (
+      object.pendingChannels !== undefined &&
+      object.pendingChannels !== null
+    ) {
+      for (const e of object.pendingChannels) {
+        message.pendingChannels.push(PendingUpdate.fromJSON(e));
+      }
+    }
+    return message;
+  },
+
+  toJSON(message: BatchOpenChannelResponse): unknown {
+    const obj: any = {};
+    if (message.pendingChannels) {
+      obj.pendingChannels = message.pendingChannels.map((e) =>
+        e ? PendingUpdate.toJSON(e) : undefined
+      );
+    } else {
+      obj.pendingChannels = [];
+    }
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<BatchOpenChannelResponse>
+  ): BatchOpenChannelResponse {
+    const message = {
+      ...baseBatchOpenChannelResponse,
+    } as BatchOpenChannelResponse;
+    message.pendingChannels = [];
+    if (
+      object.pendingChannels !== undefined &&
+      object.pendingChannels !== null
+    ) {
+      for (const e of object.pendingChannels) {
+        message.pendingChannels.push(PendingUpdate.fromPartial(e));
+      }
+    }
+    return message;
+  },
+};
+
 const baseOpenChannelRequest: object = {
   satPerVbyte: "0",
   nodePubkeyString: "",
@@ -12040,6 +13334,7 @@ const baseOpenChannelRequest: object = {
   remoteMaxValueInFlightMsat: "0",
   remoteMaxHtlcs: 0,
   maxLocalCsv: 0,
+  commitmentType: 0,
 };
 
 export const OpenChannelRequest = {
@@ -12100,6 +13395,9 @@ export const OpenChannelRequest = {
     }
     if (message.maxLocalCsv !== 0) {
       writer.uint32(136).uint32(message.maxLocalCsv);
+    }
+    if (message.commitmentType !== 0) {
+      writer.uint32(144).int32(message.commitmentType);
     }
     return writer;
   },
@@ -12164,6 +13462,9 @@ export const OpenChannelRequest = {
           break;
         case 17:
           message.maxLocalCsv = reader.uint32();
+          break;
+        case 18:
+          message.commitmentType = reader.int32() as any;
           break;
         default:
           reader.skipType(tag & 7);
@@ -12273,6 +13574,11 @@ export const OpenChannelRequest = {
     } else {
       message.maxLocalCsv = 0;
     }
+    if (object.commitmentType !== undefined && object.commitmentType !== null) {
+      message.commitmentType = commitmentTypeFromJSON(object.commitmentType);
+    } else {
+      message.commitmentType = 0;
+    }
     return message;
   },
 
@@ -12311,6 +13617,8 @@ export const OpenChannelRequest = {
       (obj.remoteMaxHtlcs = message.remoteMaxHtlcs);
     message.maxLocalCsv !== undefined &&
       (obj.maxLocalCsv = message.maxLocalCsv);
+    message.commitmentType !== undefined &&
+      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
     return obj;
   },
 
@@ -12412,6 +13720,11 @@ export const OpenChannelRequest = {
       message.maxLocalCsv = object.maxLocalCsv;
     } else {
       message.maxLocalCsv = 0;
+    }
+    if (object.commitmentType !== undefined && object.commitmentType !== null) {
+      message.commitmentType = object.commitmentType;
+    } else {
+      message.commitmentType = 0;
     }
     return message;
   },
@@ -13114,7 +14427,7 @@ export const FundingShimCancel = {
   },
 };
 
-const baseFundingPsbtVerify: object = {};
+const baseFundingPsbtVerify: object = { skipFinalize: false };
 
 export const FundingPsbtVerify = {
   encode(
@@ -13126,6 +14439,9 @@ export const FundingPsbtVerify = {
     }
     if (message.pendingChanId.length !== 0) {
       writer.uint32(18).bytes(message.pendingChanId);
+    }
+    if (message.skipFinalize === true) {
+      writer.uint32(24).bool(message.skipFinalize);
     }
     return writer;
   },
@@ -13145,6 +14461,9 @@ export const FundingPsbtVerify = {
         case 2:
           message.pendingChanId = reader.bytes();
           break;
+        case 3:
+          message.skipFinalize = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -13163,6 +14482,11 @@ export const FundingPsbtVerify = {
     if (object.pendingChanId !== undefined && object.pendingChanId !== null) {
       message.pendingChanId = bytesFromBase64(object.pendingChanId);
     }
+    if (object.skipFinalize !== undefined && object.skipFinalize !== null) {
+      message.skipFinalize = Boolean(object.skipFinalize);
+    } else {
+      message.skipFinalize = false;
+    }
     return message;
   },
 
@@ -13178,6 +14502,8 @@ export const FundingPsbtVerify = {
           ? message.pendingChanId
           : new Uint8Array()
       ));
+    message.skipFinalize !== undefined &&
+      (obj.skipFinalize = message.skipFinalize);
     return obj;
   },
 
@@ -13192,6 +14518,11 @@ export const FundingPsbtVerify = {
       message.pendingChanId = object.pendingChanId;
     } else {
       message.pendingChanId = new Uint8Array();
+    }
+    if (object.skipFinalize !== undefined && object.skipFinalize !== null) {
+      message.skipFinalize = object.skipFinalize;
+    } else {
+      message.skipFinalize = false;
     }
     return message;
   },
@@ -13956,6 +15287,7 @@ const basePendingChannelsResponse_PendingChannel: object = {
   remoteChanReserveSat: "0",
   initiator: 0,
   commitmentType: 0,
+  numForwardingPackages: "0",
 };
 
 export const PendingChannelsResponse_PendingChannel = {
@@ -13989,6 +15321,9 @@ export const PendingChannelsResponse_PendingChannel = {
     }
     if (message.commitmentType !== 0) {
       writer.uint32(72).int32(message.commitmentType);
+    }
+    if (message.numForwardingPackages !== "0") {
+      writer.uint32(80).int64(message.numForwardingPackages);
     }
     return writer;
   },
@@ -14031,6 +15366,9 @@ export const PendingChannelsResponse_PendingChannel = {
           break;
         case 9:
           message.commitmentType = reader.int32() as any;
+          break;
+        case 10:
+          message.numForwardingPackages = longToString(reader.int64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -14095,6 +15433,14 @@ export const PendingChannelsResponse_PendingChannel = {
     } else {
       message.commitmentType = 0;
     }
+    if (
+      object.numForwardingPackages !== undefined &&
+      object.numForwardingPackages !== null
+    ) {
+      message.numForwardingPackages = String(object.numForwardingPackages);
+    } else {
+      message.numForwardingPackages = "0";
+    }
     return message;
   },
 
@@ -14117,6 +15463,8 @@ export const PendingChannelsResponse_PendingChannel = {
       (obj.initiator = initiatorToJSON(message.initiator));
     message.commitmentType !== undefined &&
       (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.numForwardingPackages !== undefined &&
+      (obj.numForwardingPackages = message.numForwardingPackages);
     return obj;
   },
 
@@ -14176,6 +15524,14 @@ export const PendingChannelsResponse_PendingChannel = {
       message.commitmentType = object.commitmentType;
     } else {
       message.commitmentType = 0;
+    }
+    if (
+      object.numForwardingPackages !== undefined &&
+      object.numForwardingPackages !== null
+    ) {
+      message.numForwardingPackages = object.numForwardingPackages;
+    } else {
+      message.numForwardingPackages = "0";
     }
     return message;
   },
@@ -15098,6 +16454,12 @@ export const ChannelEventUpdate = {
         writer.uint32(50).fork()
       ).ldelim();
     }
+    if (message.fullyResolvedChannel !== undefined) {
+      ChannelPoint.encode(
+        message.fullyResolvedChannel,
+        writer.uint32(58).fork()
+      ).ldelim();
+    }
     if (message.type !== 0) {
       writer.uint32(40).int32(message.type);
     }
@@ -15131,6 +16493,12 @@ export const ChannelEventUpdate = {
           break;
         case 6:
           message.pendingOpenChannel = PendingUpdate.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        case 7:
+          message.fullyResolvedChannel = ChannelPoint.decode(
             reader,
             reader.uint32()
           );
@@ -15183,6 +16551,16 @@ export const ChannelEventUpdate = {
     } else {
       message.pendingOpenChannel = undefined;
     }
+    if (
+      object.fullyResolvedChannel !== undefined &&
+      object.fullyResolvedChannel !== null
+    ) {
+      message.fullyResolvedChannel = ChannelPoint.fromJSON(
+        object.fullyResolvedChannel
+      );
+    } else {
+      message.fullyResolvedChannel = undefined;
+    }
     if (object.type !== undefined && object.type !== null) {
       message.type = channelEventUpdate_UpdateTypeFromJSON(object.type);
     } else {
@@ -15212,6 +16590,10 @@ export const ChannelEventUpdate = {
     message.pendingOpenChannel !== undefined &&
       (obj.pendingOpenChannel = message.pendingOpenChannel
         ? PendingUpdate.toJSON(message.pendingOpenChannel)
+        : undefined);
+    message.fullyResolvedChannel !== undefined &&
+      (obj.fullyResolvedChannel = message.fullyResolvedChannel
+        ? ChannelPoint.toJSON(message.fullyResolvedChannel)
         : undefined);
     message.type !== undefined &&
       (obj.type = channelEventUpdate_UpdateTypeToJSON(message.type));
@@ -15256,6 +16638,16 @@ export const ChannelEventUpdate = {
       );
     } else {
       message.pendingOpenChannel = undefined;
+    }
+    if (
+      object.fullyResolvedChannel !== undefined &&
+      object.fullyResolvedChannel !== null
+    ) {
+      message.fullyResolvedChannel = ChannelPoint.fromPartial(
+        object.fullyResolvedChannel
+      );
+    } else {
+      message.fullyResolvedChannel = undefined;
     }
     if (object.type !== undefined && object.type !== null) {
       message.type = object.type;
@@ -20245,6 +21637,64 @@ export const HopHint = {
   },
 };
 
+const baseSetID: object = {};
+
+export const SetID = {
+  encode(message: SetID, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.setId.length !== 0) {
+      writer.uint32(10).bytes(message.setId);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): SetID {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseSetID } as SetID;
+    message.setId = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.setId = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): SetID {
+    const message = { ...baseSetID } as SetID;
+    message.setId = new Uint8Array();
+    if (object.setId !== undefined && object.setId !== null) {
+      message.setId = bytesFromBase64(object.setId);
+    }
+    return message;
+  },
+
+  toJSON(message: SetID): unknown {
+    const obj: any = {};
+    message.setId !== undefined &&
+      (obj.setId = base64FromBytes(
+        message.setId !== undefined ? message.setId : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<SetID>): SetID {
+    const message = { ...baseSetID } as SetID;
+    if (object.setId !== undefined && object.setId !== null) {
+      message.setId = object.setId;
+    } else {
+      message.setId = new Uint8Array();
+    }
+    return message;
+  },
+};
+
 const baseRouteHint: object = {};
 
 export const RouteHint = {
@@ -20307,6 +21757,123 @@ export const RouteHint = {
       for (const e of object.hopHints) {
         message.hopHints.push(HopHint.fromPartial(e));
       }
+    }
+    return message;
+  },
+};
+
+const baseAMPInvoiceState: object = {
+  state: 0,
+  settleIndex: "0",
+  settleTime: "0",
+  amtPaidMsat: "0",
+};
+
+export const AMPInvoiceState = {
+  encode(
+    message: AMPInvoiceState,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.state !== 0) {
+      writer.uint32(8).int32(message.state);
+    }
+    if (message.settleIndex !== "0") {
+      writer.uint32(16).uint64(message.settleIndex);
+    }
+    if (message.settleTime !== "0") {
+      writer.uint32(24).int64(message.settleTime);
+    }
+    if (message.amtPaidMsat !== "0") {
+      writer.uint32(40).int64(message.amtPaidMsat);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): AMPInvoiceState {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseAMPInvoiceState } as AMPInvoiceState;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.state = reader.int32() as any;
+          break;
+        case 2:
+          message.settleIndex = longToString(reader.uint64() as Long);
+          break;
+        case 3:
+          message.settleTime = longToString(reader.int64() as Long);
+          break;
+        case 5:
+          message.amtPaidMsat = longToString(reader.int64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AMPInvoiceState {
+    const message = { ...baseAMPInvoiceState } as AMPInvoiceState;
+    if (object.state !== undefined && object.state !== null) {
+      message.state = invoiceHTLCStateFromJSON(object.state);
+    } else {
+      message.state = 0;
+    }
+    if (object.settleIndex !== undefined && object.settleIndex !== null) {
+      message.settleIndex = String(object.settleIndex);
+    } else {
+      message.settleIndex = "0";
+    }
+    if (object.settleTime !== undefined && object.settleTime !== null) {
+      message.settleTime = String(object.settleTime);
+    } else {
+      message.settleTime = "0";
+    }
+    if (object.amtPaidMsat !== undefined && object.amtPaidMsat !== null) {
+      message.amtPaidMsat = String(object.amtPaidMsat);
+    } else {
+      message.amtPaidMsat = "0";
+    }
+    return message;
+  },
+
+  toJSON(message: AMPInvoiceState): unknown {
+    const obj: any = {};
+    message.state !== undefined &&
+      (obj.state = invoiceHTLCStateToJSON(message.state));
+    message.settleIndex !== undefined &&
+      (obj.settleIndex = message.settleIndex);
+    message.settleTime !== undefined && (obj.settleTime = message.settleTime);
+    message.amtPaidMsat !== undefined &&
+      (obj.amtPaidMsat = message.amtPaidMsat);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<AMPInvoiceState>): AMPInvoiceState {
+    const message = { ...baseAMPInvoiceState } as AMPInvoiceState;
+    if (object.state !== undefined && object.state !== null) {
+      message.state = object.state;
+    } else {
+      message.state = 0;
+    }
+    if (object.settleIndex !== undefined && object.settleIndex !== null) {
+      message.settleIndex = object.settleIndex;
+    } else {
+      message.settleIndex = "0";
+    }
+    if (object.settleTime !== undefined && object.settleTime !== null) {
+      message.settleTime = object.settleTime;
+    } else {
+      message.settleTime = "0";
+    }
+    if (object.amtPaidMsat !== undefined && object.amtPaidMsat !== null) {
+      message.amtPaidMsat = object.amtPaidMsat;
+    } else {
+      message.amtPaidMsat = "0";
     }
     return message;
   },
@@ -20420,6 +21987,12 @@ export const Invoice = {
     if (message.isAmp === true) {
       writer.uint32(216).bool(message.isAmp);
     }
+    Object.entries(message.ampInvoiceState).forEach(([key, value]) => {
+      Invoice_AmpInvoiceStateEntry.encode(
+        { key: key as any, value },
+        writer.uint32(226).fork()
+      ).ldelim();
+    });
     return writer;
   },
 
@@ -20430,6 +22003,7 @@ export const Invoice = {
     message.routeHints = [];
     message.htlcs = [];
     message.features = {};
+    message.ampInvoiceState = {};
     message.rPreimage = new Uint8Array();
     message.rHash = new Uint8Array();
     message.descriptionHash = new Uint8Array();
@@ -20518,6 +22092,15 @@ export const Invoice = {
         case 27:
           message.isAmp = reader.bool();
           break;
+        case 28:
+          const entry28 = Invoice_AmpInvoiceStateEntry.decode(
+            reader,
+            reader.uint32()
+          );
+          if (entry28.value !== undefined) {
+            message.ampInvoiceState[entry28.key] = entry28.value;
+          }
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -20531,6 +22114,7 @@ export const Invoice = {
     message.routeHints = [];
     message.htlcs = [];
     message.features = {};
+    message.ampInvoiceState = {};
     message.rPreimage = new Uint8Array();
     message.rHash = new Uint8Array();
     message.descriptionHash = new Uint8Array();
@@ -20660,6 +22244,14 @@ export const Invoice = {
     } else {
       message.isAmp = false;
     }
+    if (
+      object.ampInvoiceState !== undefined &&
+      object.ampInvoiceState !== null
+    ) {
+      Object.entries(object.ampInvoiceState).forEach(([key, value]) => {
+        message.ampInvoiceState[key] = AMPInvoiceState.fromJSON(value);
+      });
+    }
     return message;
   },
 
@@ -20730,6 +22322,12 @@ export const Invoice = {
           : new Uint8Array()
       ));
     message.isAmp !== undefined && (obj.isAmp = message.isAmp);
+    obj.ampInvoiceState = {};
+    if (message.ampInvoiceState) {
+      Object.entries(message.ampInvoiceState).forEach(([k, v]) => {
+        obj.ampInvoiceState[k] = AMPInvoiceState.toJSON(v);
+      });
+    }
     return obj;
   },
 
@@ -20738,6 +22336,7 @@ export const Invoice = {
     message.routeHints = [];
     message.htlcs = [];
     message.features = {};
+    message.ampInvoiceState = {};
     if (object.memo !== undefined && object.memo !== null) {
       message.memo = object.memo;
     } else {
@@ -20873,6 +22472,16 @@ export const Invoice = {
     } else {
       message.isAmp = false;
     }
+    if (
+      object.ampInvoiceState !== undefined &&
+      object.ampInvoiceState !== null
+    ) {
+      Object.entries(object.ampInvoiceState).forEach(([key, value]) => {
+        if (value !== undefined) {
+          message.ampInvoiceState[key] = AMPInvoiceState.fromPartial(value);
+        }
+      });
+    }
     return message;
   },
 };
@@ -20951,6 +22560,95 @@ export const Invoice_FeaturesEntry = {
     }
     if (object.value !== undefined && object.value !== null) {
       message.value = Feature.fromPartial(object.value);
+    } else {
+      message.value = undefined;
+    }
+    return message;
+  },
+};
+
+const baseInvoice_AmpInvoiceStateEntry: object = { key: "" };
+
+export const Invoice_AmpInvoiceStateEntry = {
+  encode(
+    message: Invoice_AmpInvoiceStateEntry,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.key !== "") {
+      writer.uint32(10).string(message.key);
+    }
+    if (message.value !== undefined) {
+      AMPInvoiceState.encode(message.value, writer.uint32(18).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): Invoice_AmpInvoiceStateEntry {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = {
+      ...baseInvoice_AmpInvoiceStateEntry,
+    } as Invoice_AmpInvoiceStateEntry;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.key = reader.string();
+          break;
+        case 2:
+          message.value = AMPInvoiceState.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): Invoice_AmpInvoiceStateEntry {
+    const message = {
+      ...baseInvoice_AmpInvoiceStateEntry,
+    } as Invoice_AmpInvoiceStateEntry;
+    if (object.key !== undefined && object.key !== null) {
+      message.key = String(object.key);
+    } else {
+      message.key = "";
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = AMPInvoiceState.fromJSON(object.value);
+    } else {
+      message.value = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: Invoice_AmpInvoiceStateEntry): unknown {
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined &&
+      (obj.value = message.value
+        ? AMPInvoiceState.toJSON(message.value)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<Invoice_AmpInvoiceStateEntry>
+  ): Invoice_AmpInvoiceStateEntry {
+    const message = {
+      ...baseInvoice_AmpInvoiceStateEntry,
+    } as Invoice_AmpInvoiceStateEntry;
+    if (object.key !== undefined && object.key !== null) {
+      message.key = object.key;
+    } else {
+      message.key = "";
+    }
+    if (object.value !== undefined && object.value !== null) {
+      message.value = AMPInvoiceState.fromPartial(object.value);
     } else {
       message.value = undefined;
     }
@@ -22713,6 +24411,96 @@ export const ListPaymentsResponse = {
   },
 };
 
+const baseDeletePaymentRequest: object = { failedHtlcsOnly: false };
+
+export const DeletePaymentRequest = {
+  encode(
+    message: DeletePaymentRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.paymentHash.length !== 0) {
+      writer.uint32(10).bytes(message.paymentHash);
+    }
+    if (message.failedHtlcsOnly === true) {
+      writer.uint32(16).bool(message.failedHtlcsOnly);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): DeletePaymentRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseDeletePaymentRequest } as DeletePaymentRequest;
+    message.paymentHash = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.paymentHash = reader.bytes();
+          break;
+        case 2:
+          message.failedHtlcsOnly = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): DeletePaymentRequest {
+    const message = { ...baseDeletePaymentRequest } as DeletePaymentRequest;
+    message.paymentHash = new Uint8Array();
+    if (object.paymentHash !== undefined && object.paymentHash !== null) {
+      message.paymentHash = bytesFromBase64(object.paymentHash);
+    }
+    if (
+      object.failedHtlcsOnly !== undefined &&
+      object.failedHtlcsOnly !== null
+    ) {
+      message.failedHtlcsOnly = Boolean(object.failedHtlcsOnly);
+    } else {
+      message.failedHtlcsOnly = false;
+    }
+    return message;
+  },
+
+  toJSON(message: DeletePaymentRequest): unknown {
+    const obj: any = {};
+    message.paymentHash !== undefined &&
+      (obj.paymentHash = base64FromBytes(
+        message.paymentHash !== undefined
+          ? message.paymentHash
+          : new Uint8Array()
+      ));
+    message.failedHtlcsOnly !== undefined &&
+      (obj.failedHtlcsOnly = message.failedHtlcsOnly);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<DeletePaymentRequest>): DeletePaymentRequest {
+    const message = { ...baseDeletePaymentRequest } as DeletePaymentRequest;
+    if (object.paymentHash !== undefined && object.paymentHash !== null) {
+      message.paymentHash = object.paymentHash;
+    } else {
+      message.paymentHash = new Uint8Array();
+    }
+    if (
+      object.failedHtlcsOnly !== undefined &&
+      object.failedHtlcsOnly !== null
+    ) {
+      message.failedHtlcsOnly = object.failedHtlcsOnly;
+    } else {
+      message.failedHtlcsOnly = false;
+    }
+    return message;
+  },
+};
+
 const baseDeleteAllPaymentsRequest: object = {
   failedPaymentsOnly: false,
   failedHtlcsOnly: false,
@@ -22812,6 +24600,50 @@ export const DeleteAllPaymentsRequest = {
     } else {
       message.failedHtlcsOnly = false;
     }
+    return message;
+  },
+};
+
+const baseDeletePaymentResponse: object = {};
+
+export const DeletePaymentResponse = {
+  encode(
+    _: DeletePaymentResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): DeletePaymentResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseDeletePaymentResponse } as DeletePaymentResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): DeletePaymentResponse {
+    const message = { ...baseDeletePaymentResponse } as DeletePaymentResponse;
+    return message;
+  },
+
+  toJSON(_: DeletePaymentResponse): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<DeletePaymentResponse>): DeletePaymentResponse {
+    const message = { ...baseDeletePaymentResponse } as DeletePaymentResponse;
     return message;
   },
 };
@@ -24207,13 +26039,113 @@ export const PolicyUpdateRequest = {
   },
 };
 
+const baseFailedUpdate: object = { reason: 0, updateError: "" };
+
+export const FailedUpdate = {
+  encode(
+    message: FailedUpdate,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.outpoint !== undefined) {
+      OutPoint.encode(message.outpoint, writer.uint32(10).fork()).ldelim();
+    }
+    if (message.reason !== 0) {
+      writer.uint32(16).int32(message.reason);
+    }
+    if (message.updateError !== "") {
+      writer.uint32(26).string(message.updateError);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): FailedUpdate {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseFailedUpdate } as FailedUpdate;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.outpoint = OutPoint.decode(reader, reader.uint32());
+          break;
+        case 2:
+          message.reason = reader.int32() as any;
+          break;
+        case 3:
+          message.updateError = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): FailedUpdate {
+    const message = { ...baseFailedUpdate } as FailedUpdate;
+    if (object.outpoint !== undefined && object.outpoint !== null) {
+      message.outpoint = OutPoint.fromJSON(object.outpoint);
+    } else {
+      message.outpoint = undefined;
+    }
+    if (object.reason !== undefined && object.reason !== null) {
+      message.reason = updateFailureFromJSON(object.reason);
+    } else {
+      message.reason = 0;
+    }
+    if (object.updateError !== undefined && object.updateError !== null) {
+      message.updateError = String(object.updateError);
+    } else {
+      message.updateError = "";
+    }
+    return message;
+  },
+
+  toJSON(message: FailedUpdate): unknown {
+    const obj: any = {};
+    message.outpoint !== undefined &&
+      (obj.outpoint = message.outpoint
+        ? OutPoint.toJSON(message.outpoint)
+        : undefined);
+    message.reason !== undefined &&
+      (obj.reason = updateFailureToJSON(message.reason));
+    message.updateError !== undefined &&
+      (obj.updateError = message.updateError);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<FailedUpdate>): FailedUpdate {
+    const message = { ...baseFailedUpdate } as FailedUpdate;
+    if (object.outpoint !== undefined && object.outpoint !== null) {
+      message.outpoint = OutPoint.fromPartial(object.outpoint);
+    } else {
+      message.outpoint = undefined;
+    }
+    if (object.reason !== undefined && object.reason !== null) {
+      message.reason = object.reason;
+    } else {
+      message.reason = 0;
+    }
+    if (object.updateError !== undefined && object.updateError !== null) {
+      message.updateError = object.updateError;
+    } else {
+      message.updateError = "";
+    }
+    return message;
+  },
+};
+
 const basePolicyUpdateResponse: object = {};
 
 export const PolicyUpdateResponse = {
   encode(
-    _: PolicyUpdateResponse,
+    message: PolicyUpdateResponse,
     writer: _m0.Writer = _m0.Writer.create()
   ): _m0.Writer {
+    for (const v of message.failedUpdates) {
+      FailedUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
     return writer;
   },
 
@@ -24224,9 +26156,15 @@ export const PolicyUpdateResponse = {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = { ...basePolicyUpdateResponse } as PolicyUpdateResponse;
+    message.failedUpdates = [];
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
+        case 1:
+          message.failedUpdates.push(
+            FailedUpdate.decode(reader, reader.uint32())
+          );
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -24235,18 +26173,37 @@ export const PolicyUpdateResponse = {
     return message;
   },
 
-  fromJSON(_: any): PolicyUpdateResponse {
+  fromJSON(object: any): PolicyUpdateResponse {
     const message = { ...basePolicyUpdateResponse } as PolicyUpdateResponse;
+    message.failedUpdates = [];
+    if (object.failedUpdates !== undefined && object.failedUpdates !== null) {
+      for (const e of object.failedUpdates) {
+        message.failedUpdates.push(FailedUpdate.fromJSON(e));
+      }
+    }
     return message;
   },
 
-  toJSON(_: PolicyUpdateResponse): unknown {
+  toJSON(message: PolicyUpdateResponse): unknown {
     const obj: any = {};
+    if (message.failedUpdates) {
+      obj.failedUpdates = message.failedUpdates.map((e) =>
+        e ? FailedUpdate.toJSON(e) : undefined
+      );
+    } else {
+      obj.failedUpdates = [];
+    }
     return obj;
   },
 
-  fromPartial(_: DeepPartial<PolicyUpdateResponse>): PolicyUpdateResponse {
+  fromPartial(object: DeepPartial<PolicyUpdateResponse>): PolicyUpdateResponse {
     const message = { ...basePolicyUpdateResponse } as PolicyUpdateResponse;
+    message.failedUpdates = [];
+    if (object.failedUpdates !== undefined && object.failedUpdates !== null) {
+      for (const e of object.failedUpdates) {
+        message.failedUpdates.push(FailedUpdate.fromPartial(e));
+      }
+    }
     return message;
   },
 };
@@ -25516,7 +27473,10 @@ export const MacaroonPermission = {
   },
 };
 
-const baseBakeMacaroonRequest: object = { rootKeyId: "0" };
+const baseBakeMacaroonRequest: object = {
+  rootKeyId: "0",
+  allowExternalPermissions: false,
+};
 
 export const BakeMacaroonRequest = {
   encode(
@@ -25528,6 +27488,9 @@ export const BakeMacaroonRequest = {
     }
     if (message.rootKeyId !== "0") {
       writer.uint32(16).uint64(message.rootKeyId);
+    }
+    if (message.allowExternalPermissions === true) {
+      writer.uint32(24).bool(message.allowExternalPermissions);
     }
     return writer;
   },
@@ -25547,6 +27510,9 @@ export const BakeMacaroonRequest = {
           break;
         case 2:
           message.rootKeyId = longToString(reader.uint64() as Long);
+          break;
+        case 3:
+          message.allowExternalPermissions = reader.bool();
           break;
         default:
           reader.skipType(tag & 7);
@@ -25569,6 +27535,16 @@ export const BakeMacaroonRequest = {
     } else {
       message.rootKeyId = "0";
     }
+    if (
+      object.allowExternalPermissions !== undefined &&
+      object.allowExternalPermissions !== null
+    ) {
+      message.allowExternalPermissions = Boolean(
+        object.allowExternalPermissions
+      );
+    } else {
+      message.allowExternalPermissions = false;
+    }
     return message;
   },
 
@@ -25582,6 +27558,8 @@ export const BakeMacaroonRequest = {
       obj.permissions = [];
     }
     message.rootKeyId !== undefined && (obj.rootKeyId = message.rootKeyId);
+    message.allowExternalPermissions !== undefined &&
+      (obj.allowExternalPermissions = message.allowExternalPermissions);
     return obj;
   },
 
@@ -25597,6 +27575,14 @@ export const BakeMacaroonRequest = {
       message.rootKeyId = object.rootKeyId;
     } else {
       message.rootKeyId = "0";
+    }
+    if (
+      object.allowExternalPermissions !== undefined &&
+      object.allowExternalPermissions !== null
+    ) {
+      message.allowExternalPermissions = object.allowExternalPermissions;
+    } else {
+      message.allowExternalPermissions = false;
     }
     return message;
   },
@@ -26914,6 +28900,873 @@ export const Op = {
   },
 };
 
+const baseCheckMacPermRequest: object = { fullMethod: "" };
+
+export const CheckMacPermRequest = {
+  encode(
+    message: CheckMacPermRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.macaroon.length !== 0) {
+      writer.uint32(10).bytes(message.macaroon);
+    }
+    for (const v of message.permissions) {
+      MacaroonPermission.encode(v!, writer.uint32(18).fork()).ldelim();
+    }
+    if (message.fullMethod !== "") {
+      writer.uint32(26).string(message.fullMethod);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): CheckMacPermRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseCheckMacPermRequest } as CheckMacPermRequest;
+    message.permissions = [];
+    message.macaroon = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.macaroon = reader.bytes();
+          break;
+        case 2:
+          message.permissions.push(
+            MacaroonPermission.decode(reader, reader.uint32())
+          );
+          break;
+        case 3:
+          message.fullMethod = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CheckMacPermRequest {
+    const message = { ...baseCheckMacPermRequest } as CheckMacPermRequest;
+    message.permissions = [];
+    message.macaroon = new Uint8Array();
+    if (object.macaroon !== undefined && object.macaroon !== null) {
+      message.macaroon = bytesFromBase64(object.macaroon);
+    }
+    if (object.permissions !== undefined && object.permissions !== null) {
+      for (const e of object.permissions) {
+        message.permissions.push(MacaroonPermission.fromJSON(e));
+      }
+    }
+    if (object.fullMethod !== undefined && object.fullMethod !== null) {
+      message.fullMethod = String(object.fullMethod);
+    } else {
+      message.fullMethod = "";
+    }
+    return message;
+  },
+
+  toJSON(message: CheckMacPermRequest): unknown {
+    const obj: any = {};
+    message.macaroon !== undefined &&
+      (obj.macaroon = base64FromBytes(
+        message.macaroon !== undefined ? message.macaroon : new Uint8Array()
+      ));
+    if (message.permissions) {
+      obj.permissions = message.permissions.map((e) =>
+        e ? MacaroonPermission.toJSON(e) : undefined
+      );
+    } else {
+      obj.permissions = [];
+    }
+    message.fullMethod !== undefined && (obj.fullMethod = message.fullMethod);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<CheckMacPermRequest>): CheckMacPermRequest {
+    const message = { ...baseCheckMacPermRequest } as CheckMacPermRequest;
+    message.permissions = [];
+    if (object.macaroon !== undefined && object.macaroon !== null) {
+      message.macaroon = object.macaroon;
+    } else {
+      message.macaroon = new Uint8Array();
+    }
+    if (object.permissions !== undefined && object.permissions !== null) {
+      for (const e of object.permissions) {
+        message.permissions.push(MacaroonPermission.fromPartial(e));
+      }
+    }
+    if (object.fullMethod !== undefined && object.fullMethod !== null) {
+      message.fullMethod = object.fullMethod;
+    } else {
+      message.fullMethod = "";
+    }
+    return message;
+  },
+};
+
+const baseCheckMacPermResponse: object = { valid: false };
+
+export const CheckMacPermResponse = {
+  encode(
+    message: CheckMacPermResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.valid === true) {
+      writer.uint32(8).bool(message.valid);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): CheckMacPermResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseCheckMacPermResponse } as CheckMacPermResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.valid = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): CheckMacPermResponse {
+    const message = { ...baseCheckMacPermResponse } as CheckMacPermResponse;
+    if (object.valid !== undefined && object.valid !== null) {
+      message.valid = Boolean(object.valid);
+    } else {
+      message.valid = false;
+    }
+    return message;
+  },
+
+  toJSON(message: CheckMacPermResponse): unknown {
+    const obj: any = {};
+    message.valid !== undefined && (obj.valid = message.valid);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<CheckMacPermResponse>): CheckMacPermResponse {
+    const message = { ...baseCheckMacPermResponse } as CheckMacPermResponse;
+    if (object.valid !== undefined && object.valid !== null) {
+      message.valid = object.valid;
+    } else {
+      message.valid = false;
+    }
+    return message;
+  },
+};
+
+const baseRPCMiddlewareRequest: object = {
+  requestId: "0",
+  customCaveatCondition: "",
+  msgId: "0",
+};
+
+export const RPCMiddlewareRequest = {
+  encode(
+    message: RPCMiddlewareRequest,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.requestId !== "0") {
+      writer.uint32(8).uint64(message.requestId);
+    }
+    if (message.rawMacaroon.length !== 0) {
+      writer.uint32(18).bytes(message.rawMacaroon);
+    }
+    if (message.customCaveatCondition !== "") {
+      writer.uint32(26).string(message.customCaveatCondition);
+    }
+    if (message.streamAuth !== undefined) {
+      StreamAuth.encode(message.streamAuth, writer.uint32(34).fork()).ldelim();
+    }
+    if (message.request !== undefined) {
+      RPCMessage.encode(message.request, writer.uint32(42).fork()).ldelim();
+    }
+    if (message.response !== undefined) {
+      RPCMessage.encode(message.response, writer.uint32(50).fork()).ldelim();
+    }
+    if (message.msgId !== "0") {
+      writer.uint32(56).uint64(message.msgId);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): RPCMiddlewareRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseRPCMiddlewareRequest } as RPCMiddlewareRequest;
+    message.rawMacaroon = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.requestId = longToString(reader.uint64() as Long);
+          break;
+        case 2:
+          message.rawMacaroon = reader.bytes();
+          break;
+        case 3:
+          message.customCaveatCondition = reader.string();
+          break;
+        case 4:
+          message.streamAuth = StreamAuth.decode(reader, reader.uint32());
+          break;
+        case 5:
+          message.request = RPCMessage.decode(reader, reader.uint32());
+          break;
+        case 6:
+          message.response = RPCMessage.decode(reader, reader.uint32());
+          break;
+        case 7:
+          message.msgId = longToString(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RPCMiddlewareRequest {
+    const message = { ...baseRPCMiddlewareRequest } as RPCMiddlewareRequest;
+    message.rawMacaroon = new Uint8Array();
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = String(object.requestId);
+    } else {
+      message.requestId = "0";
+    }
+    if (object.rawMacaroon !== undefined && object.rawMacaroon !== null) {
+      message.rawMacaroon = bytesFromBase64(object.rawMacaroon);
+    }
+    if (
+      object.customCaveatCondition !== undefined &&
+      object.customCaveatCondition !== null
+    ) {
+      message.customCaveatCondition = String(object.customCaveatCondition);
+    } else {
+      message.customCaveatCondition = "";
+    }
+    if (object.streamAuth !== undefined && object.streamAuth !== null) {
+      message.streamAuth = StreamAuth.fromJSON(object.streamAuth);
+    } else {
+      message.streamAuth = undefined;
+    }
+    if (object.request !== undefined && object.request !== null) {
+      message.request = RPCMessage.fromJSON(object.request);
+    } else {
+      message.request = undefined;
+    }
+    if (object.response !== undefined && object.response !== null) {
+      message.response = RPCMessage.fromJSON(object.response);
+    } else {
+      message.response = undefined;
+    }
+    if (object.msgId !== undefined && object.msgId !== null) {
+      message.msgId = String(object.msgId);
+    } else {
+      message.msgId = "0";
+    }
+    return message;
+  },
+
+  toJSON(message: RPCMiddlewareRequest): unknown {
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
+    message.rawMacaroon !== undefined &&
+      (obj.rawMacaroon = base64FromBytes(
+        message.rawMacaroon !== undefined
+          ? message.rawMacaroon
+          : new Uint8Array()
+      ));
+    message.customCaveatCondition !== undefined &&
+      (obj.customCaveatCondition = message.customCaveatCondition);
+    message.streamAuth !== undefined &&
+      (obj.streamAuth = message.streamAuth
+        ? StreamAuth.toJSON(message.streamAuth)
+        : undefined);
+    message.request !== undefined &&
+      (obj.request = message.request
+        ? RPCMessage.toJSON(message.request)
+        : undefined);
+    message.response !== undefined &&
+      (obj.response = message.response
+        ? RPCMessage.toJSON(message.response)
+        : undefined);
+    message.msgId !== undefined && (obj.msgId = message.msgId);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<RPCMiddlewareRequest>): RPCMiddlewareRequest {
+    const message = { ...baseRPCMiddlewareRequest } as RPCMiddlewareRequest;
+    if (object.requestId !== undefined && object.requestId !== null) {
+      message.requestId = object.requestId;
+    } else {
+      message.requestId = "0";
+    }
+    if (object.rawMacaroon !== undefined && object.rawMacaroon !== null) {
+      message.rawMacaroon = object.rawMacaroon;
+    } else {
+      message.rawMacaroon = new Uint8Array();
+    }
+    if (
+      object.customCaveatCondition !== undefined &&
+      object.customCaveatCondition !== null
+    ) {
+      message.customCaveatCondition = object.customCaveatCondition;
+    } else {
+      message.customCaveatCondition = "";
+    }
+    if (object.streamAuth !== undefined && object.streamAuth !== null) {
+      message.streamAuth = StreamAuth.fromPartial(object.streamAuth);
+    } else {
+      message.streamAuth = undefined;
+    }
+    if (object.request !== undefined && object.request !== null) {
+      message.request = RPCMessage.fromPartial(object.request);
+    } else {
+      message.request = undefined;
+    }
+    if (object.response !== undefined && object.response !== null) {
+      message.response = RPCMessage.fromPartial(object.response);
+    } else {
+      message.response = undefined;
+    }
+    if (object.msgId !== undefined && object.msgId !== null) {
+      message.msgId = object.msgId;
+    } else {
+      message.msgId = "0";
+    }
+    return message;
+  },
+};
+
+const baseStreamAuth: object = { methodFullUri: "" };
+
+export const StreamAuth = {
+  encode(
+    message: StreamAuth,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.methodFullUri !== "") {
+      writer.uint32(10).string(message.methodFullUri);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): StreamAuth {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseStreamAuth } as StreamAuth;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.methodFullUri = reader.string();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): StreamAuth {
+    const message = { ...baseStreamAuth } as StreamAuth;
+    if (object.methodFullUri !== undefined && object.methodFullUri !== null) {
+      message.methodFullUri = String(object.methodFullUri);
+    } else {
+      message.methodFullUri = "";
+    }
+    return message;
+  },
+
+  toJSON(message: StreamAuth): unknown {
+    const obj: any = {};
+    message.methodFullUri !== undefined &&
+      (obj.methodFullUri = message.methodFullUri);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<StreamAuth>): StreamAuth {
+    const message = { ...baseStreamAuth } as StreamAuth;
+    if (object.methodFullUri !== undefined && object.methodFullUri !== null) {
+      message.methodFullUri = object.methodFullUri;
+    } else {
+      message.methodFullUri = "";
+    }
+    return message;
+  },
+};
+
+const baseRPCMessage: object = {
+  methodFullUri: "",
+  streamRpc: false,
+  typeName: "",
+};
+
+export const RPCMessage = {
+  encode(
+    message: RPCMessage,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.methodFullUri !== "") {
+      writer.uint32(10).string(message.methodFullUri);
+    }
+    if (message.streamRpc === true) {
+      writer.uint32(16).bool(message.streamRpc);
+    }
+    if (message.typeName !== "") {
+      writer.uint32(26).string(message.typeName);
+    }
+    if (message.serialized.length !== 0) {
+      writer.uint32(34).bytes(message.serialized);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): RPCMessage {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseRPCMessage } as RPCMessage;
+    message.serialized = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.methodFullUri = reader.string();
+          break;
+        case 2:
+          message.streamRpc = reader.bool();
+          break;
+        case 3:
+          message.typeName = reader.string();
+          break;
+        case 4:
+          message.serialized = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RPCMessage {
+    const message = { ...baseRPCMessage } as RPCMessage;
+    message.serialized = new Uint8Array();
+    if (object.methodFullUri !== undefined && object.methodFullUri !== null) {
+      message.methodFullUri = String(object.methodFullUri);
+    } else {
+      message.methodFullUri = "";
+    }
+    if (object.streamRpc !== undefined && object.streamRpc !== null) {
+      message.streamRpc = Boolean(object.streamRpc);
+    } else {
+      message.streamRpc = false;
+    }
+    if (object.typeName !== undefined && object.typeName !== null) {
+      message.typeName = String(object.typeName);
+    } else {
+      message.typeName = "";
+    }
+    if (object.serialized !== undefined && object.serialized !== null) {
+      message.serialized = bytesFromBase64(object.serialized);
+    }
+    return message;
+  },
+
+  toJSON(message: RPCMessage): unknown {
+    const obj: any = {};
+    message.methodFullUri !== undefined &&
+      (obj.methodFullUri = message.methodFullUri);
+    message.streamRpc !== undefined && (obj.streamRpc = message.streamRpc);
+    message.typeName !== undefined && (obj.typeName = message.typeName);
+    message.serialized !== undefined &&
+      (obj.serialized = base64FromBytes(
+        message.serialized !== undefined ? message.serialized : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<RPCMessage>): RPCMessage {
+    const message = { ...baseRPCMessage } as RPCMessage;
+    if (object.methodFullUri !== undefined && object.methodFullUri !== null) {
+      message.methodFullUri = object.methodFullUri;
+    } else {
+      message.methodFullUri = "";
+    }
+    if (object.streamRpc !== undefined && object.streamRpc !== null) {
+      message.streamRpc = object.streamRpc;
+    } else {
+      message.streamRpc = false;
+    }
+    if (object.typeName !== undefined && object.typeName !== null) {
+      message.typeName = object.typeName;
+    } else {
+      message.typeName = "";
+    }
+    if (object.serialized !== undefined && object.serialized !== null) {
+      message.serialized = object.serialized;
+    } else {
+      message.serialized = new Uint8Array();
+    }
+    return message;
+  },
+};
+
+const baseRPCMiddlewareResponse: object = { refMsgId: "0" };
+
+export const RPCMiddlewareResponse = {
+  encode(
+    message: RPCMiddlewareResponse,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.refMsgId !== "0") {
+      writer.uint32(8).uint64(message.refMsgId);
+    }
+    if (message.register !== undefined) {
+      MiddlewareRegistration.encode(
+        message.register,
+        writer.uint32(18).fork()
+      ).ldelim();
+    }
+    if (message.feedback !== undefined) {
+      InterceptFeedback.encode(
+        message.feedback,
+        writer.uint32(26).fork()
+      ).ldelim();
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): RPCMiddlewareResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseRPCMiddlewareResponse } as RPCMiddlewareResponse;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.refMsgId = longToString(reader.uint64() as Long);
+          break;
+        case 2:
+          message.register = MiddlewareRegistration.decode(
+            reader,
+            reader.uint32()
+          );
+          break;
+        case 3:
+          message.feedback = InterceptFeedback.decode(reader, reader.uint32());
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RPCMiddlewareResponse {
+    const message = { ...baseRPCMiddlewareResponse } as RPCMiddlewareResponse;
+    if (object.refMsgId !== undefined && object.refMsgId !== null) {
+      message.refMsgId = String(object.refMsgId);
+    } else {
+      message.refMsgId = "0";
+    }
+    if (object.register !== undefined && object.register !== null) {
+      message.register = MiddlewareRegistration.fromJSON(object.register);
+    } else {
+      message.register = undefined;
+    }
+    if (object.feedback !== undefined && object.feedback !== null) {
+      message.feedback = InterceptFeedback.fromJSON(object.feedback);
+    } else {
+      message.feedback = undefined;
+    }
+    return message;
+  },
+
+  toJSON(message: RPCMiddlewareResponse): unknown {
+    const obj: any = {};
+    message.refMsgId !== undefined && (obj.refMsgId = message.refMsgId);
+    message.register !== undefined &&
+      (obj.register = message.register
+        ? MiddlewareRegistration.toJSON(message.register)
+        : undefined);
+    message.feedback !== undefined &&
+      (obj.feedback = message.feedback
+        ? InterceptFeedback.toJSON(message.feedback)
+        : undefined);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<RPCMiddlewareResponse>
+  ): RPCMiddlewareResponse {
+    const message = { ...baseRPCMiddlewareResponse } as RPCMiddlewareResponse;
+    if (object.refMsgId !== undefined && object.refMsgId !== null) {
+      message.refMsgId = object.refMsgId;
+    } else {
+      message.refMsgId = "0";
+    }
+    if (object.register !== undefined && object.register !== null) {
+      message.register = MiddlewareRegistration.fromPartial(object.register);
+    } else {
+      message.register = undefined;
+    }
+    if (object.feedback !== undefined && object.feedback !== null) {
+      message.feedback = InterceptFeedback.fromPartial(object.feedback);
+    } else {
+      message.feedback = undefined;
+    }
+    return message;
+  },
+};
+
+const baseMiddlewareRegistration: object = {
+  middlewareName: "",
+  customMacaroonCaveatName: "",
+  readOnlyMode: false,
+};
+
+export const MiddlewareRegistration = {
+  encode(
+    message: MiddlewareRegistration,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.middlewareName !== "") {
+      writer.uint32(10).string(message.middlewareName);
+    }
+    if (message.customMacaroonCaveatName !== "") {
+      writer.uint32(18).string(message.customMacaroonCaveatName);
+    }
+    if (message.readOnlyMode === true) {
+      writer.uint32(24).bool(message.readOnlyMode);
+    }
+    return writer;
+  },
+
+  decode(
+    input: _m0.Reader | Uint8Array,
+    length?: number
+  ): MiddlewareRegistration {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseMiddlewareRegistration } as MiddlewareRegistration;
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.middlewareName = reader.string();
+          break;
+        case 2:
+          message.customMacaroonCaveatName = reader.string();
+          break;
+        case 3:
+          message.readOnlyMode = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): MiddlewareRegistration {
+    const message = { ...baseMiddlewareRegistration } as MiddlewareRegistration;
+    if (object.middlewareName !== undefined && object.middlewareName !== null) {
+      message.middlewareName = String(object.middlewareName);
+    } else {
+      message.middlewareName = "";
+    }
+    if (
+      object.customMacaroonCaveatName !== undefined &&
+      object.customMacaroonCaveatName !== null
+    ) {
+      message.customMacaroonCaveatName = String(
+        object.customMacaroonCaveatName
+      );
+    } else {
+      message.customMacaroonCaveatName = "";
+    }
+    if (object.readOnlyMode !== undefined && object.readOnlyMode !== null) {
+      message.readOnlyMode = Boolean(object.readOnlyMode);
+    } else {
+      message.readOnlyMode = false;
+    }
+    return message;
+  },
+
+  toJSON(message: MiddlewareRegistration): unknown {
+    const obj: any = {};
+    message.middlewareName !== undefined &&
+      (obj.middlewareName = message.middlewareName);
+    message.customMacaroonCaveatName !== undefined &&
+      (obj.customMacaroonCaveatName = message.customMacaroonCaveatName);
+    message.readOnlyMode !== undefined &&
+      (obj.readOnlyMode = message.readOnlyMode);
+    return obj;
+  },
+
+  fromPartial(
+    object: DeepPartial<MiddlewareRegistration>
+  ): MiddlewareRegistration {
+    const message = { ...baseMiddlewareRegistration } as MiddlewareRegistration;
+    if (object.middlewareName !== undefined && object.middlewareName !== null) {
+      message.middlewareName = object.middlewareName;
+    } else {
+      message.middlewareName = "";
+    }
+    if (
+      object.customMacaroonCaveatName !== undefined &&
+      object.customMacaroonCaveatName !== null
+    ) {
+      message.customMacaroonCaveatName = object.customMacaroonCaveatName;
+    } else {
+      message.customMacaroonCaveatName = "";
+    }
+    if (object.readOnlyMode !== undefined && object.readOnlyMode !== null) {
+      message.readOnlyMode = object.readOnlyMode;
+    } else {
+      message.readOnlyMode = false;
+    }
+    return message;
+  },
+};
+
+const baseInterceptFeedback: object = { error: "", replaceResponse: false };
+
+export const InterceptFeedback = {
+  encode(
+    message: InterceptFeedback,
+    writer: _m0.Writer = _m0.Writer.create()
+  ): _m0.Writer {
+    if (message.error !== "") {
+      writer.uint32(10).string(message.error);
+    }
+    if (message.replaceResponse === true) {
+      writer.uint32(16).bool(message.replaceResponse);
+    }
+    if (message.replacementSerialized.length !== 0) {
+      writer.uint32(26).bytes(message.replacementSerialized);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): InterceptFeedback {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = { ...baseInterceptFeedback } as InterceptFeedback;
+    message.replacementSerialized = new Uint8Array();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.error = reader.string();
+          break;
+        case 2:
+          message.replaceResponse = reader.bool();
+          break;
+        case 3:
+          message.replacementSerialized = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): InterceptFeedback {
+    const message = { ...baseInterceptFeedback } as InterceptFeedback;
+    message.replacementSerialized = new Uint8Array();
+    if (object.error !== undefined && object.error !== null) {
+      message.error = String(object.error);
+    } else {
+      message.error = "";
+    }
+    if (
+      object.replaceResponse !== undefined &&
+      object.replaceResponse !== null
+    ) {
+      message.replaceResponse = Boolean(object.replaceResponse);
+    } else {
+      message.replaceResponse = false;
+    }
+    if (
+      object.replacementSerialized !== undefined &&
+      object.replacementSerialized !== null
+    ) {
+      message.replacementSerialized = bytesFromBase64(
+        object.replacementSerialized
+      );
+    }
+    return message;
+  },
+
+  toJSON(message: InterceptFeedback): unknown {
+    const obj: any = {};
+    message.error !== undefined && (obj.error = message.error);
+    message.replaceResponse !== undefined &&
+      (obj.replaceResponse = message.replaceResponse);
+    message.replacementSerialized !== undefined &&
+      (obj.replacementSerialized = base64FromBytes(
+        message.replacementSerialized !== undefined
+          ? message.replacementSerialized
+          : new Uint8Array()
+      ));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<InterceptFeedback>): InterceptFeedback {
+    const message = { ...baseInterceptFeedback } as InterceptFeedback;
+    if (object.error !== undefined && object.error !== null) {
+      message.error = object.error;
+    } else {
+      message.error = "";
+    }
+    if (
+      object.replaceResponse !== undefined &&
+      object.replaceResponse !== null
+    ) {
+      message.replaceResponse = object.replaceResponse;
+    } else {
+      message.replaceResponse = false;
+    }
+    if (
+      object.replacementSerialized !== undefined &&
+      object.replacementSerialized !== null
+    ) {
+      message.replacementSerialized = object.replacementSerialized;
+    } else {
+      message.replacementSerialized = new Uint8Array();
+    }
+    return message;
+  },
+};
+
 /** Lightning is the main RPC server of the daemon. */
 export const LightningDefinition = {
   name: "Lightning",
@@ -27248,6 +30101,22 @@ export const LightningDefinition = {
       options: {},
     },
     /**
+     * lncli: `batchopenchannel`
+     * BatchOpenChannel attempts to open multiple single-funded channels in a
+     * single transaction in an atomic way. This means either all channel open
+     * requests succeed at once or all attempts are aborted if any of them fail.
+     * This is the safer variant of using PSBTs to manually fund a batch of
+     * channels through the OpenChannel RPC.
+     */
+    batchOpenChannel: {
+      name: "BatchOpenChannel",
+      requestType: BatchOpenChannelRequest,
+      requestStream: false,
+      responseType: BatchOpenChannelResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
      * FundingStateStep is an advanced funding related call that allows the caller
      * to either execute some preparatory steps for a funding workflow, or
      * manually progress a funding workflow. The primary way a funding flow is
@@ -27468,7 +30337,22 @@ export const LightningDefinition = {
       responseStream: false,
       options: {},
     },
-    /** DeleteAllPayments deletes all outgoing payments from DB. */
+    /**
+     * DeletePayment deletes an outgoing payment from DB. Note that it will not
+     * attempt to delete an In-Flight payment, since that would be unsafe.
+     */
+    deletePayment: {
+      name: "DeletePayment",
+      requestType: DeletePaymentRequest,
+      requestStream: false,
+      responseType: DeletePaymentResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * DeleteAllPayments deletes all outgoing payments from DB. Note that it will
+     * not attempt to delete In-Flight payments, since that would be unsafe.
+     */
     deleteAllPayments: {
       name: "DeleteAllPayments",
       requestType: DeleteAllPaymentsRequest,
@@ -27788,6 +30672,66 @@ export const LightningDefinition = {
       requestStream: false,
       responseType: ListPermissionsResponse,
       responseStream: false,
+      options: {},
+    },
+    /**
+     * CheckMacaroonPermissions checks whether a request follows the constraints
+     * imposed on the macaroon and that the macaroon is authorized to follow the
+     * provided permissions.
+     */
+    checkMacaroonPermissions: {
+      name: "CheckMacaroonPermissions",
+      requestType: CheckMacPermRequest,
+      requestStream: false,
+      responseType: CheckMacPermResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * RegisterRPCMiddleware adds a new gRPC middleware to the interceptor chain. A
+     * gRPC middleware is software component external to lnd that aims to add
+     * additional business logic to lnd by observing/intercepting/validating
+     * incoming gRPC client requests and (if needed) replacing/overwriting outgoing
+     * messages before they're sent to the client. When registering the middleware
+     * must identify itself and indicate what custom macaroon caveats it wants to
+     * be responsible for. Only requests that contain a macaroon with that specific
+     * custom caveat are then sent to the middleware for inspection. The other
+     * option is to register for the read-only mode in which all requests/responses
+     * are forwarded for interception to the middleware but the middleware is not
+     * allowed to modify any responses. As a security measure, _no_ middleware can
+     * modify responses for requests made with _unencumbered_ macaroons!
+     */
+    registerRPCMiddleware: {
+      name: "RegisterRPCMiddleware",
+      requestType: RPCMiddlewareResponse,
+      requestStream: true,
+      responseType: RPCMiddlewareRequest,
+      responseStream: true,
+      options: {},
+    },
+    /**
+     * lncli: `sendcustom`
+     * SendCustomMessage sends a custom peer message.
+     */
+    sendCustomMessage: {
+      name: "SendCustomMessage",
+      requestType: SendCustomMessageRequest,
+      requestStream: false,
+      responseType: SendCustomMessageResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * lncli: `subscribecustom`
+     * SubscribeCustomMessages subscribes to a stream of incoming custom peer
+     * messages.
+     */
+    subscribeCustomMessages: {
+      name: "SubscribeCustomMessages",
+      requestType: SubscribeCustomMessagesRequest,
+      requestStream: false,
+      responseType: CustomMessage,
+      responseStream: true,
       options: {},
     },
   },

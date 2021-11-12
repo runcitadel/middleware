@@ -88,7 +88,7 @@ export default class LNDService implements ILightningClient {
         State: stateService,
         state: walletState.state,
       };
-    } else if (walletState.state == WalletState.RPC_ACTIVE) {
+    } else if (walletState.state == WalletState.RPC_ACTIVE || walletState.state == WalletState.SERVER_ACTIVE) {
       // Read macaroons, they should exist in this state
       const macaroon = await fs.readFile(this.macaroonFile);
 
