@@ -3,7 +3,7 @@ import Long from "long";
 // Manually patched with the extension
 import _m0 from "protobufjs/minimal.js";
 // Manually patched with the extension
-import { ChanBackupSnapshot } from "./rpc.js";
+import { ChanBackupSnapshot } from "./lightning.js";
 
 export const protobufPackage = "lnrpc";
 

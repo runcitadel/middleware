@@ -27,7 +27,7 @@ import {
   SendResponse,
   Transaction,
   WalletBalanceResponse,
-} from "../../lnrpc/rpc.js";
+} from "../../lnrpc/lightning.js";
 import {
   GenSeedResponse,
   WalletUnlockerDefinition,

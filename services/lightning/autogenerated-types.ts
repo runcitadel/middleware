@@ -11,28 +11,36 @@ export interface SendCoinsResponse {
     txid: string;
 }
 export enum CommitmentType {
+    /** UNKNOWN_COMMITMENT_TYPE - Returned when the commitment type isn't known or unavailable. */
+    UNKNOWN_COMMITMENT_TYPE = 0,
     /**
      * LEGACY - A channel using the legacy commitment format having tweaked to_remote
      * keys.
      */
-    LEGACY = 0,
+    LEGACY = 1,
     /**
      * STATIC_REMOTE_KEY - A channel that uses the modern commitment format where the key in the
      * output of the remote party does not change each state. This makes back
      * up and recovery easier as when the channel is closed, the funds go
      * directly to that key.
      */
-    STATIC_REMOTE_KEY = 1,
+    STATIC_REMOTE_KEY = 2,
     /**
      * ANCHORS - A channel that uses a commitment format that has anchor outputs on the
      * commitments, allowing fee bumping after a force close transaction has
      * been broadcast.
      */
-    ANCHORS = 2,
-    /** UNKNOWN_COMMITMENT_TYPE - Returned when the commitment type isn't known or unavailable. */
-    UNKNOWN_COMMITMENT_TYPE = 999,
-    UNRECOGNIZED = -1
-}
+    ANCHORS = 3,
+    /**
+     * SCRIPT_ENFORCED_LEASE - A channel that uses a commitment type that builds upon the anchors
+     * commitment format, but in addition requires a CLTV clause to spend outputs
+     * paying to the channel initiator. This is intended for use on leased channels
+     * to guarantee that the channel initiator has no incentives to close a leased
+     * channel before its maturity date.
+     */
+    SCRIPT_ENFORCED_LEASE = 4,
+    UNRECOGNIZED = -1,
+  }
 export enum Initiator {
     INITIATOR_UNKNOWN = 0,
     INITIATOR_LOCAL = 1,
