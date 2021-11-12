@@ -2459,13 +2459,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"long@npm:^5.1.0":
-  version: 5.1.0
-  resolution: "long@npm:5.1.0"
-  checksum: bcf3c7cc204c1ab88f760f70ab8078abacd7fd2b5929e5c76b57149bbe22b788eb88dc0b6abb8e6b27fe87b21f59655d470e5265fcd39fef9ebd0a5d6b19abf6
-  languageName: node
-  linkType: hard
-
 "lru-cache@npm:^6.0.0":
   version: 6.0.0
   resolution: "lru-cache@npm:6.0.0"
@@ -2582,7 +2575,7 @@ __metadata:
     koa-body: ^4.2.0
     koa-morgan: ^1.0.1
     koa-passport: ^4.1.4
-    long: ^5.1.0
+    long: ^4.0.0
     nice-grpc: ^1.0.4
     node-fetch: 3.1.0
     passport-jwt: ^4.0.0
