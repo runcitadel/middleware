@@ -10,13 +10,14 @@ import getLightning from "../services/lightning.js";
 import BitcoinLogic from "../logic/bitcoin.js";
 
 import constants from "../utils/const.js";
-import type {
+import {
   Channel,
   ChannelBalanceResponse,
   ChannelFeeReport,
   EstimateFeeResponse,
   ForwardingHistoryResponse,
   GetInfoResponse,
+  Initiator,
   Invoice,
   NewAddressResponse,
   Payment,
@@ -555,7 +556,10 @@ type PendingForceClosedChannel_extended =
 type PendingOpenChannel_extended =
   PendingChannelsResponse_PendingOpenChannel & {
     type?: string;
+    /** @deprecated */
     initiator?: boolean;
+    /** @deprecated */
+    initiatorText: string;
   };
 
 // Returns a list of all open channels.
@@ -581,22 +585,35 @@ export async function getChannels(): Promise<Channel_extended[]> {
     (<PendingOpenChannel_extended>channel).type = "PENDING_OPEN_CHANNEL";
 
     // Make our best guess as to if this channel was created by us.
-    if (channel.channel?.remoteBalance === 0) {
+    if (channel.channel?.initiator === Initiator.INITIATOR_LOCAL) {
       (<PendingOpenChannel_extended>channel).initiator = true;
     } else {
       (<PendingOpenChannel_extended>channel).initiator = false;
     }
 
-    // Include commitFee in balance. This helps us avoid the leaky sats issue by making balances more consistent.
-    if ((<PendingOpenChannel_extended>channel).initiator) {
-      // @ts-expect-error The property exists!
+    switch (channel.channel?.initiator) {
+      case Initiator.INITIATOR_LOCAL:
+        (<PendingOpenChannel_extended>channel).initiatorText = "Your node";
+        break;
+      case Initiator.INITIATOR_REMOTE:
+        (<PendingOpenChannel_extended>channel).initiatorText = "Remote peer";
+        break;
+      case Initiator.INITIATOR_BOTH:
+        (<PendingOpenChannel_extended>channel).initiatorText = "Both your node and remote peer";
+        break;
+      default:
+        (<PendingOpenChannel_extended>channel).initiatorText = "Unknown";
+        break;
+    }
+
+    /*// Include commitFee in balance. This helps us avoid the leaky sats issue by making balances more consistent.
+    if (channel.channel?.initiator === Initiator.INITIATOR_LOCAL || channel.channel?.initiator === Initiator.INITIATOR_BOTH) {
       channel.channel.localBalance =
         (BigInt(channel.channel?.localBalance || "0") +  BigInt(channel.commitFee)).toString();
     } else {
-      // @ts-expect-error The property exists!
       channel.channel.remoteBalance =
       (BigInt(channel.channel?.remoteBalance || "0") + BigInt(channel.commitFee)).toString();
-    }
+    }*/
 
     allChannels.push(channel);
   }
@@ -616,7 +633,7 @@ export async function getChannels(): Promise<Channel_extended[]> {
   for (const channel of openChannels) {
     channel.type = "OPEN";
 
-    // Include commitFee in balance. This helps us avoid the leaky sats issue by making balances more consistent.
+    /*// Include commitFee in balance. This helps us avoid the leaky sats issue by making balances more consistent.
     if (channel.initiator) {
       channel.localBalance = (
         BigInt(channel.localBalance) + BigInt(channel.commitFee)
@@ -625,7 +642,7 @@ export async function getChannels(): Promise<Channel_extended[]> {
       channel.remoteBalance = (
         BigInt(channel.remoteBalance) + BigInt(channel.commitFee)
       ).toString();
-    }
+    }*/
 
     allChannels.push(channel);
   }
