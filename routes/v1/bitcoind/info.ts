@@ -39,7 +39,7 @@ router.get("/sync", auth.jwt, async (ctx, next) => {
 });
 
 router.get("/version", auth.jwt, async (ctx, next) => {
-  ctx.body = JSON.stringify(await bitcoinLogic.getVersion());
+  ctx.body = await bitcoinLogic.getVersion();
   await next();
 });
 
