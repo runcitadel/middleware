@@ -450,7 +450,14 @@ export async function getInvoices(): Promise<Invoice[]> {
 }
 
 type Transaction_extended = Transaction & {
-  type?: string;
+  type?: 
+    | "CHANNEL_OPEN"
+    | "CHANNEL_CLOSE"
+    | "PENDING_OPEN"
+    | "PENDING_CLOSE"
+    | "UNKNOWN"
+    | "ON_CHAIN_TRANSACTION_SENT"
+    | "ON_CHAIN_TRANSACTION_RECEIVED";
 };
 
 // Returns a list of all on chain transactions.
