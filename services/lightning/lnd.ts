@@ -51,7 +51,11 @@ type RpcClientWithLightningForSure = RpcClientInfo & {
 const DEFAULT_RECOVERY_WINDOW = 250;
 
 export default class LNDService implements ILightningClient {
-  constructor(private connectionUrl: string, private cert: Buffer, private macaroonFile: string) {}
+  constructor(
+    private connectionUrl: string,
+    private cert: Buffer,
+    private macaroonFile: string
+  ) {}
   async initializeRPCClient(): Promise<RpcClientInfo> {
     // Create credentials
     const lndCert = await this.cert;
@@ -88,7 +92,10 @@ export default class LNDService implements ILightningClient {
         State: stateService,
         state: walletState.state,
       };
-    } else if (walletState.state == WalletState.RPC_ACTIVE || walletState.state == WalletState.SERVER_ACTIVE) {
+    } else if (
+      walletState.state == WalletState.RPC_ACTIVE ||
+      walletState.state == WalletState.SERVER_ACTIVE
+    ) {
       // Read macaroons, they should exist in this state
       const macaroon = await fs.readFile(this.macaroonFile);
 
@@ -438,10 +445,14 @@ export default class LNDService implements ILightningClient {
     paymentRequest: string,
     amt: number
   ): Promise<SendResponse> {
-    const rpcPayload = {
+    const rpcPayload: {
+      paymentRequest: string;
+      amt?: string;
+    } = {
       paymentRequest,
-      amt: amt.toString(),
     };
+
+    if (amt) rpcPayload.amt = amt.toString();
 
     const { Lightning } = await this.expectWalletToExist();
     const response = await Lightning.sendPaymentSync(rpcPayload);
