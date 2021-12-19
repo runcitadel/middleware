@@ -27,7 +27,15 @@ router.post(
     "/sign-message",
     auth.jwt,
     async (ctx, next) => {
-        ctx.body = { signature: lightningLogic.signMessage(ctx.request.body.message) };
+        ctx.body = { signature: await lightningLogic.signMessage(ctx.request.body.message) };
+        await next();
+    }
+);
+router.post(
+    "/verify-message",
+    auth.jwt,
+    async (ctx, next) => {
+        ctx.body = await lightningLogic.verifyMessage(ctx.request.body.message, ctx.request.body.signature);
         await next();
     }
 );

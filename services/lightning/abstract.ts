@@ -95,4 +95,8 @@ export default interface ILightningClient {
   ): Promise<void>;
   getVersion(): Promise<string>;
   signMessage(message: string): Promise<string>;
+  verifyMessage(message: string, signature: string): Promise<{
+    pubkey: string;
+    valid: boolean;
+  }>;
 }

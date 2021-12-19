@@ -972,3 +972,10 @@ export async function updateChannelPolicy(
 export async function signMessage(message: string): Promise<string> {
   return await lndService.signMessage(message);
 }
+
+export async function verifyMessage(message: string, signature: string): Promise<{
+  pubkey: string;
+  valid: boolean;
+}> {
+  return await lndService.verifyMessage(message, signature);
+}

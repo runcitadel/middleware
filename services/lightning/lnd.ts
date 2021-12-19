@@ -505,4 +505,15 @@ export default class LNDService implements ILightningClient {
     const response = await Lightning.signMessage({ msg });
     return response.signature;
   }
+
+  async verifyMessage(message: string, signature: string): Promise<{
+    pubkey: string;
+    valid: boolean;
+  }> {
+    const { Lightning } = await this.expectWalletToExist();
+    // message as an Uint8Array
+    const msg = Uint8Array.from(Buffer.from(message, "utf8"));
+    const response = await Lightning.verifyMessage({ msg, signature });
+    return response;
+  }
 }
