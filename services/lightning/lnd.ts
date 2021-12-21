@@ -1,5 +1,4 @@
 import * as fs from "@runcitadel/fs";
-import { NodeError } from "@runcitadel/utils";
 
 import { createChannel, createClient, Client } from "nice-grpc";
 import {
@@ -51,14 +50,40 @@ type RpcClientWithLightningForSure = RpcClientInfo & {
 const DEFAULT_RECOVERY_WINDOW = 250;
 
 export default class LNDService implements ILightningClient {
+  #wasOnline = false;
   constructor(
     private connectionUrl: string,
     private cert: Buffer,
     private macaroonFile: string
   ) {}
-  async initializeRPCClient(): Promise<RpcClientInfo> {
+
+  protected async getCommunicationChannel(): Promise<grpc.Channel> {
+    const tlsCredentials = grpc.credentials.createSsl(this.cert);
+      // Read macaroons, they should exist in this state
+      const macaroon = await fs.readFile(this.macaroonFile);
+
+      // build credentials from macaroons
+      const metadata = new grpc.Metadata();
+      metadata.add("macaroon", macaroon.toString("hex"));
+      const macaroonCreds = grpc.credentials.createFromMetadataGenerator(
+        (_args, callback) => {
+          callback(null, metadata);
+        }
+      );
+      const fullCredentials = grpc.credentials.combineChannelCredentials(
+        tlsCredentials,
+        macaroonCreds
+      );
+
+      return createChannel(
+        this.connectionUrl,
+        fullCredentials
+      );
+  }
+
+  protected async initializeRPCClient(): Promise<RpcClientInfo> {
     // Create credentials
-    const lndCert = await this.cert;
+    const lndCert = this.cert;
     const tlsCredentials = grpc.credentials.createSsl(lndCert);
     const channel = createChannel(this.connectionUrl, tlsCredentials);
 
@@ -96,30 +121,14 @@ export default class LNDService implements ILightningClient {
       walletState.state == WalletState.RPC_ACTIVE ||
       walletState.state == WalletState.SERVER_ACTIVE
     ) {
-      // Read macaroons, they should exist in this state
-      const macaroon = await fs.readFile(this.macaroonFile);
+      const authenticatedChannel = await this.getCommunicationChannel();
 
-      // build credentials from macaroons
-      const metadata = new grpc.Metadata();
-      metadata.add("macaroon", macaroon.toString("hex"));
-      const macaroonCreds = grpc.credentials.createFromMetadataGenerator(
-        (_args, callback) => {
-          callback(null, metadata);
-        }
-      );
-      const fullCredentials = grpc.credentials.combineChannelCredentials(
-        tlsCredentials,
-        macaroonCreds
-      );
-
-      const authenticatedChannel = createChannel(
-        this.connectionUrl,
-        fullCredentials
-      );
       const LightningClient: Client<typeof LightningDefinition> = createClient(
         LightningDefinition,
         authenticatedChannel
       );
+
+      this.#wasOnline = true;
 
       return {
         WalletUnlocker: walletUnlocker,
@@ -128,14 +137,27 @@ export default class LNDService implements ILightningClient {
         state: walletState.state,
       };
     } else {
-      throw new NodeError("Unexpected LND state!", 500);
+      throw new Error("Unexpected LND state!");
     }
   }
 
-  async expectWalletToExist(): Promise<RpcClientWithLightningForSure> {
+  protected async expectWalletToExist(): Promise<RpcClientWithLightningForSure> {
     const client = await this.initializeRPCClient();
-    if (!client.Lightning) throw new NodeError("Error: Wallet not ready");
+    if (!client.Lightning) throw new Error("Error: Wallet not ready");
     return client as RpcClientWithLightningForSure;
+  }
+
+  protected async getLightningClient(): Promise<Client<typeof LightningDefinition>> {
+    if(this.#wasOnline) {
+      const channel = await this.getCommunicationChannel();
+      return createClient(
+        LightningDefinition,
+        channel
+      );
+    } else {
+      const client = await this.expectWalletToExist();
+      return client.Lightning;
+    }
   }
 
   // an amount, an options memo, and can only be paid to node that created it.
@@ -153,9 +175,9 @@ export default class LNDService implements ILightningClient {
       expiry: "3600",
     };
 
-    const conn = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
 
-    const grpcResponse = await conn.Lightning.addInvoice(rpcPayload);
+    const grpcResponse = await Lightning.addInvoice(rpcPayload);
 
     if (grpcResponse && grpcResponse.paymentRequest) {
       return {
@@ -163,7 +185,7 @@ export default class LNDService implements ILightningClient {
         paymentRequest: grpcResponse.paymentRequest,
       };
     } else {
-      throw new NodeError("Unable to parse invoice from lnd");
+      throw new Error("Unable to parse invoice from lnd");
     }
   }
 
@@ -180,7 +202,7 @@ export default class LNDService implements ILightningClient {
       force,
     };
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     const call = Lightning.closeChannel(rpcPayload);
     for await (const data of call) {
       if (data.closePending) {
@@ -202,7 +224,7 @@ export default class LNDService implements ILightningClient {
       },
     };
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.connectPeer(rpcPayload);
   }
 
@@ -213,7 +235,7 @@ export default class LNDService implements ILightningClient {
       payReq: paymentRequest,
     };
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     const invoice: extendedPaymentRequest = await Lightning.decodePayReq(
       rpcPayload
     );
@@ -235,9 +257,9 @@ export default class LNDService implements ILightningClient {
       targetConf: confTarget,
     };
 
-    const conn = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
 
-    return await conn.Lightning.estimateFee(rpcPayload);
+    return await Lightning.estimateFee(rpcPayload);
   }
 
   async generateAddress(): Promise<NewAddressResponse> {
@@ -245,26 +267,26 @@ export default class LNDService implements ILightningClient {
       type: 0,
     };
 
-    const conn = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
 
-    return await conn.Lightning.newAddress(rpcPayload);
+    return await Lightning.newAddress(rpcPayload);
   }
 
   async generateSeed(): Promise<GenSeedResponse> {
     const { WalletUnlocker, state } = await this.initializeRPCClient();
     if (state !== WalletState.NON_EXISTING) {
-      throw new NodeError("Wallet already exists");
+      throw new Error("Wallet already exists");
     }
     return await WalletUnlocker.genSeed({});
   }
 
   async getChannelBalance(): Promise<ChannelBalanceResponse> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return Lightning.channelBalance({});
   }
 
   async getFeeReport(): Promise<FeeReportResponse> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.feeReport({});
   }
 
@@ -281,7 +303,7 @@ export default class LNDService implements ILightningClient {
       numMaxEvents: 5000,
     };
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.forwardingHistory(rpcPayload);
   }
 
@@ -290,7 +312,7 @@ export default class LNDService implements ILightningClient {
   }
 
   async getInfo(): Promise<GetInfoResponse> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.getInfo({});
   }
 
@@ -302,7 +324,7 @@ export default class LNDService implements ILightningClient {
       pubKey,
       includeChannels,
     };
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.getNodeInfo(rpcPayload);
   }
 
@@ -310,31 +332,31 @@ export default class LNDService implements ILightningClient {
   // connected peer after three confirmation. After six confirmations, the channel is broadcasted by this node and it's
   // directly connected peer to the broader Lightning network.
   async getOpenChannels(): Promise<Channel[]> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     const grpcResponse = await Lightning.listChannels({});
     return grpcResponse.channels;
   }
 
   async getClosedChannels(): Promise<ChannelCloseSummary[]> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     const grpcResponse = await Lightning.closedChannels({});
     return grpcResponse.channels;
   }
 
   // Returns a list of all outgoing payments.
   async getPayments(): Promise<ListPaymentsResponse> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.listPayments({});
   }
 
   // Returns a list of all lnd's currently connected and active peers.
   async getPeers(): Promise<Peer[]> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     const grpcResponse = await Lightning.listPeers({});
     if (grpcResponse && grpcResponse.peers) {
       return grpcResponse.peers;
     } else {
-      throw new NodeError("Unable to parse peer information");
+      throw new Error("Unable to parse peer information");
     }
   }
 
@@ -342,14 +364,14 @@ export default class LNDService implements ILightningClient {
   // being opened, but have not reached three confirmations. Channels that are pending closed, but have not reached
   // one confirmation. Forced close channels that require potentially hundreds of confirmations.
   async getPendingChannels(): Promise<PendingChannelsResponse> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.pendingChannels({});
   }
 
   async getWalletBalance(): Promise<WalletBalanceResponse> {
     console.log(this);
     console.log(this.expectWalletToExist);
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.walletBalance({});
   }
 
@@ -364,7 +386,7 @@ export default class LNDService implements ILightningClient {
 
     const { WalletUnlocker, state } = await this.initializeRPCClient();
     if (state !== WalletState.NON_EXISTING) {
-      throw new NodeError("Wallet already exists");
+      throw new Error("Wallet already exists");
     }
     await WalletUnlocker.initWallet(rpcPayload);
     return mnemonic;
@@ -377,13 +399,13 @@ export default class LNDService implements ILightningClient {
       numMaxInvoices: "100",
     };
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.listInvoices(rpcPayload);
   }
 
   // Returns a list of all on chain transactions.
   async getOnChainTransactions(): Promise<Transaction[]> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     const grpcResponse = await Lightning.getTransactions({});
     return grpcResponse.transactions;
   }
@@ -394,7 +416,7 @@ export default class LNDService implements ILightningClient {
       maxConfs: 10000000, // Use arbitrarily high maximum confirmation limit.
     };
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
 
     return await Lightning.listUnspent(rpcPayload);
   }
@@ -415,7 +437,7 @@ export default class LNDService implements ILightningClient {
       rpcPayload.targetConf = 6;
     }
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.openChannelSync(rpcPayload);
   }
 
@@ -437,7 +459,7 @@ export default class LNDService implements ILightningClient {
       rpcPayload.targetConf = 6;
     }
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     return await Lightning.sendCoins(rpcPayload);
   }
 
@@ -454,11 +476,11 @@ export default class LNDService implements ILightningClient {
 
     if (amt) rpcPayload.amt = amt.toString();
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     const response = await Lightning.sendPaymentSync(rpcPayload);
     // sometimes the error comes in on the response...
     if (response.paymentError) {
-      throw new NodeError(
+      throw new Error(
         `Unable to send Lightning payment: ${response.paymentError}`
       );
     }
@@ -489,7 +511,7 @@ export default class LNDService implements ILightningClient {
       };
     }
 
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     await Lightning.updateChannelPolicy(rpcPayload);
   }
 
@@ -499,7 +521,7 @@ export default class LNDService implements ILightningClient {
   }
 
   async signMessage(message: string): Promise<string> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     // message as an Uint8Array
     const msg = Uint8Array.from(Buffer.from(message, "utf8"));
     const response = await Lightning.signMessage({ msg });
@@ -510,7 +532,7 @@ export default class LNDService implements ILightningClient {
     pubkey: string;
     valid: boolean;
   }> {
-    const { Lightning } = await this.expectWalletToExist();
+    const Lightning = await this.getLightningClient();
     // message as an Uint8Array
     const msg = Uint8Array.from(Buffer.from(message, "utf8"));
     const response = await Lightning.verifyMessage({ msg, signature });
