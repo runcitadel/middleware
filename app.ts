@@ -33,6 +33,13 @@ app.use(passport.session());
 
 app.use(morgan("combined"));
 
+app.use(async (ctx, next) => {
+    await next();
+    ctx.set('Cache-Control', 'no-store, no-cache, must-revalidate');
+    ctx.set('Pragma', 'no-cache');
+    ctx.set('Expires', "0");
+});
+
 app.use(ping.routes());
 app.use(bitcoind.routes());
 app.use(address.routes());
