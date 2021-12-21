@@ -1,6 +1,6 @@
 import Router from "@koa/router";
 const router = new Router({
-  prefix: "/v1/bitcoind/info",
+  prefix: "/v1/bitcoin/info",
 });
 import BitcoinLogic from "../../../logic/bitcoin.js";
 import * as auth from "../../../middlewares/auth.js";
@@ -17,18 +17,20 @@ router.get("/mempool", auth.jwt, async (ctx, next) => {
 });
 
 router.get("/blockcount", auth.jwt, async (ctx, next) => {
-  ctx.body = await bitcoinLogic.getBlockCount();
+  ctx.body = {
+    count: await bitcoinLogic.getBlockCount(),
+  };
   await next();
 });
 
 router.get("/connections", auth.jwt, async (ctx, next) => {
-  ctx.body = await bitcoinLogic.getConnectionsCount();
+  ctx.body = {
+    count: await bitcoinLogic.getConnectionsCount(),
+  };
   await next();
 });
 
-//requires no authentication as it is used to fetch loading status
-//which could be fetched at login/signup page
-router.get("/status", async (ctx, next) => {
+router.get("/status", auth.jwt, async (ctx, next) => {
   ctx.body = await bitcoinLogic.getStatus();
   await next();
 });
@@ -39,18 +41,14 @@ router.get("/sync", auth.jwt, async (ctx, next) => {
 });
 
 router.get("/version", auth.jwt, async (ctx, next) => {
-  ctx.body = await bitcoinLogic.getVersion();
+  ctx.body = {
+    version: await bitcoinLogic.getVersion(),
+  };
   await next();
 });
 
 router.get("/statsDump", auth.jwt, async (ctx, next) => {
-  const statusDump = await bitcoinLogic.nodeStatusDump();
-  ctx.body = {
-    blockchain_info: statusDump.blockchainInfo,
-    network_info: statusDump.networkInfo,
-    mempool: statusDump.mempoolInfo,
-    mining_info: statusDump.miningInfo,
-  };
+  ctx.body = await bitcoinLogic.nodeStatusDump();
   await next();
 });
 
@@ -75,16 +73,10 @@ router.get("/block", auth.jwt, async (ctx, next) => {
   await next();
 });
 
-// /v1/bitcoind/info/block/<hash>
-router.get("/block/:id", auth.jwt, async (ctx, next) => {
-  ctx.body = await bitcoinLogic.getBlock(ctx.params.id);
-  await next();
-});
-
 router.get("/blocks", auth.jwt, async (ctx, next) => {
   const fromHeight = parseInt(<string>ctx.request.query.from);
   const toHeight = parseInt(<string>ctx.request.query.to);
-  ctx.body = { blocks: await bitcoinLogic.getBlocks(fromHeight, toHeight) };
+  ctx.body = await bitcoinLogic.getBlocks(fromHeight, toHeight);
   await next();
 });
 
