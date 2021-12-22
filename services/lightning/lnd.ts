@@ -11,6 +11,7 @@ import {
   FeeReportResponse,
   ForwardingHistoryResponse,
   GetInfoResponse,
+  Invoice,
   LightningDefinition,
   ListInvoiceResponse,
   ListPaymentsResponse,
@@ -401,6 +402,11 @@ export default class LNDService implements ILightningClient {
 
     const Lightning = await this.getLightningClient();
     return await Lightning.listInvoices(rpcPayload);
+  }
+
+  async getInvoice(paymentHash: string): Promise<Invoice> {
+    const Lightning = await this.getLightningClient();
+    return await Lightning.lookupInvoice({rHashStr: paymentHash});
   }
 
   // Returns a list of all on chain transactions.

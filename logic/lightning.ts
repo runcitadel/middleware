@@ -979,3 +979,7 @@ export async function verifyMessage(message: string, signature: string): Promise
 }> {
   return await lndService.verifyMessage(message, signature);
 }
+
+export async function getInvoice(paymentHash: string) {
+  return await lndService.getInvoice(paymentHash);
+}

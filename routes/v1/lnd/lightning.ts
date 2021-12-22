@@ -63,6 +63,17 @@ router.get(
 );
 
 router.get(
+    "/invoice-info",
+    auth.jwt,
+    async (ctx, next) => {
+        const paymentHash = <string>ctx.request.query.paymentHash;
+
+        ctx.body = await lightningLogic.getInvoice(paymentHash);
+        await next();
+    }
+);
+
+router.get(
     "/invoices",
     auth.jwt,
     async (ctx, next) => {

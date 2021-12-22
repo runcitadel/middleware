@@ -13,6 +13,7 @@ import {
   ForwardingHistoryResponse,
   GenSeedResponse,
   GetInfoResponse,
+  Invoice,
   ListInvoiceResponse,
   ListPaymentsResponse,
   ListUnspentResponse,
@@ -99,4 +100,5 @@ export default interface ILightningClient {
     pubkey: string;
     valid: boolean;
   }>;
+  getInvoice(paymentHash: string): Promise<Invoice>;
 }
