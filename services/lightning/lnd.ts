@@ -52,6 +52,7 @@ const DEFAULT_RECOVERY_WINDOW = 250;
 
 export default class LNDService implements ILightningClient {
   #wasOnline = false;
+  #channel: grpc.Channel | undefined = undefined;
   constructor(
     private connectionUrl: string,
     private cert: Buffer,
@@ -59,27 +60,26 @@ export default class LNDService implements ILightningClient {
   ) {}
 
   protected async getCommunicationChannel(): Promise<grpc.Channel> {
+    if (this.#channel) return this.#channel;
     const tlsCredentials = grpc.credentials.createSsl(this.cert);
-      // Read macaroons, they should exist in this state
-      const macaroon = await fs.readFile(this.macaroonFile);
+    // Read macaroons, they should exist in this state
+    const macaroon = await fs.readFile(this.macaroonFile);
 
-      // build credentials from macaroons
-      const metadata = new grpc.Metadata();
-      metadata.add("macaroon", macaroon.toString("hex"));
-      const macaroonCreds = grpc.credentials.createFromMetadataGenerator(
-        (_args, callback) => {
-          callback(null, metadata);
-        }
-      );
-      const fullCredentials = grpc.credentials.combineChannelCredentials(
-        tlsCredentials,
-        macaroonCreds
-      );
+    // build credentials from macaroons
+    const metadata = new grpc.Metadata();
+    metadata.add("macaroon", macaroon.toString("hex"));
+    const macaroonCreds = grpc.credentials.createFromMetadataGenerator(
+      (_args, callback) => {
+        callback(null, metadata);
+      }
+    );
+    const fullCredentials = grpc.credentials.combineChannelCredentials(
+      tlsCredentials,
+      macaroonCreds
+    );
 
-      return createChannel(
-        this.connectionUrl,
-        fullCredentials
-      );
+    this.#channel = createChannel(this.connectionUrl, fullCredentials);
+    return this.#channel;
   }
 
   protected async initializeRPCClient(): Promise<RpcClientInfo> {
@@ -148,13 +148,12 @@ export default class LNDService implements ILightningClient {
     return client as RpcClientWithLightningForSure;
   }
 
-  protected async getLightningClient(): Promise<Client<typeof LightningDefinition>> {
-    if(this.#wasOnline) {
+  protected async getLightningClient(): Promise<
+    Client<typeof LightningDefinition>
+  > {
+    if (this.#wasOnline) {
       const channel = await this.getCommunicationChannel();
-      return createClient(
-        LightningDefinition,
-        channel
-      );
+      return createClient(LightningDefinition, channel);
     } else {
       const client = await this.expectWalletToExist();
       return client.Lightning;
@@ -406,7 +405,7 @@ export default class LNDService implements ILightningClient {
 
   async getInvoice(paymentHash: string): Promise<Invoice> {
     const Lightning = await this.getLightningClient();
-    return await Lightning.lookupInvoice({rHashStr: paymentHash});
+    return await Lightning.lookupInvoice({ rHashStr: paymentHash });
   }
 
   // Returns a list of all on chain transactions.
@@ -534,7 +533,10 @@ export default class LNDService implements ILightningClient {
     return response.signature;
   }
 
-  async verifyMessage(message: string, signature: string): Promise<{
+  async verifyMessage(
+    message: string,
+    signature: string
+  ): Promise<{
     pubkey: string;
     valid: boolean;
   }> {
