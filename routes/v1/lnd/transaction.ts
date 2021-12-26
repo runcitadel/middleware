@@ -56,7 +56,7 @@ router.get(
                 typeHelper.isPositiveInteger(amt, ctx);
             }
 
-        ctx.body = lightningLogic
+        ctx.body = await lightningLogic
             .estimateFee(address, parseInt(amt, 10), parseInt(confTarget, 10), sweep);
             await next();
     }
