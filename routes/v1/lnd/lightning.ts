@@ -96,8 +96,13 @@ router.post(
             typeHelper.isPositiveIntegerOrZero(amt, ctx);
         }
 
-        ctx.body = await lightningLogic
+        const data = await lightningLogic
             .payInvoice(paymentRequest, amt);
+        ctx.body = {
+            ...data,
+            paymentPreimage: Buffer.from(data.paymentPreimage).toString("base64"),
+            paymentHash: Buffer.from(data.paymentHash).toString("base64"),
+        }
         await next();
     }
 );
