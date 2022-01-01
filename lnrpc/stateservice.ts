@@ -74,7 +74,9 @@ export interface GetStateResponse {
   state: WalletState;
 }
 
-const baseSubscribeStateRequest: object = {};
+function createBaseSubscribeStateRequest(): SubscribeStateRequest {
+  return {};
+}
 
 export const SubscribeStateRequest = {
   encode(
@@ -90,7 +92,7 @@ export const SubscribeStateRequest = {
   ): SubscribeStateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSubscribeStateRequest } as SubscribeStateRequest;
+    const message = createBaseSubscribeStateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -103,7 +105,7 @@ export const SubscribeStateRequest = {
   },
 
   fromJSON(_: any): SubscribeStateRequest {
-    const message = { ...baseSubscribeStateRequest } as SubscribeStateRequest;
+    const message = createBaseSubscribeStateRequest();
     return message;
   },
 
@@ -113,12 +115,14 @@ export const SubscribeStateRequest = {
   },
 
   fromPartial(_: DeepPartial<SubscribeStateRequest>): SubscribeStateRequest {
-    const message = { ...baseSubscribeStateRequest } as SubscribeStateRequest;
+    const message = createBaseSubscribeStateRequest();
     return message;
   },
 };
 
-const baseSubscribeStateResponse: object = { state: 0 };
+function createBaseSubscribeStateResponse(): SubscribeStateResponse {
+  return { state: 0 };
+}
 
 export const SubscribeStateResponse = {
   encode(
@@ -137,7 +141,7 @@ export const SubscribeStateResponse = {
   ): SubscribeStateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseSubscribeStateResponse } as SubscribeStateResponse;
+    const message = createBaseSubscribeStateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -153,12 +157,11 @@ export const SubscribeStateResponse = {
   },
 
   fromJSON(object: any): SubscribeStateResponse {
-    const message = { ...baseSubscribeStateResponse } as SubscribeStateResponse;
-    if (object.state !== undefined && object.state !== null) {
-      message.state = walletStateFromJSON(object.state);
-    } else {
-      message.state = 0;
-    }
+    const message = createBaseSubscribeStateResponse();
+    message.state =
+      object.state !== undefined && object.state !== null
+        ? walletStateFromJSON(object.state)
+        : 0;
     return message;
   },
 
@@ -172,17 +175,15 @@ export const SubscribeStateResponse = {
   fromPartial(
     object: DeepPartial<SubscribeStateResponse>
   ): SubscribeStateResponse {
-    const message = { ...baseSubscribeStateResponse } as SubscribeStateResponse;
-    if (object.state !== undefined && object.state !== null) {
-      message.state = object.state;
-    } else {
-      message.state = 0;
-    }
+    const message = createBaseSubscribeStateResponse();
+    message.state = object.state ?? 0;
     return message;
   },
 };
 
-const baseGetStateRequest: object = {};
+function createBaseGetStateRequest(): GetStateRequest {
+  return {};
+}
 
 export const GetStateRequest = {
   encode(
@@ -195,7 +196,7 @@ export const GetStateRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetStateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGetStateRequest } as GetStateRequest;
+    const message = createBaseGetStateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -208,7 +209,7 @@ export const GetStateRequest = {
   },
 
   fromJSON(_: any): GetStateRequest {
-    const message = { ...baseGetStateRequest } as GetStateRequest;
+    const message = createBaseGetStateRequest();
     return message;
   },
 
@@ -218,12 +219,14 @@ export const GetStateRequest = {
   },
 
   fromPartial(_: DeepPartial<GetStateRequest>): GetStateRequest {
-    const message = { ...baseGetStateRequest } as GetStateRequest;
+    const message = createBaseGetStateRequest();
     return message;
   },
 };
 
-const baseGetStateResponse: object = { state: 0 };
+function createBaseGetStateResponse(): GetStateResponse {
+  return { state: 0 };
+}
 
 export const GetStateResponse = {
   encode(
@@ -239,7 +242,7 @@ export const GetStateResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GetStateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGetStateResponse } as GetStateResponse;
+    const message = createBaseGetStateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -255,12 +258,11 @@ export const GetStateResponse = {
   },
 
   fromJSON(object: any): GetStateResponse {
-    const message = { ...baseGetStateResponse } as GetStateResponse;
-    if (object.state !== undefined && object.state !== null) {
-      message.state = walletStateFromJSON(object.state);
-    } else {
-      message.state = 0;
-    }
+    const message = createBaseGetStateResponse();
+    message.state =
+      object.state !== undefined && object.state !== null
+        ? walletStateFromJSON(object.state)
+        : 0;
     return message;
   },
 
@@ -272,12 +274,8 @@ export const GetStateResponse = {
   },
 
   fromPartial(object: DeepPartial<GetStateResponse>): GetStateResponse {
-    const message = { ...baseGetStateResponse } as GetStateResponse;
-    if (object.state !== undefined && object.state !== null) {
-      message.state = object.state;
-    } else {
-      message.state = 0;
-    }
+    const message = createBaseGetStateResponse();
+    message.state = object.state ?? 0;
     return message;
   },
 };
@@ -325,6 +323,7 @@ type Builtin =
   | number
   | boolean
   | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Array<infer U>

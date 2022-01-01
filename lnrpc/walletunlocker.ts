@@ -249,7 +249,9 @@ export interface ChangePasswordResponse {
   adminMacaroon: Uint8Array;
 }
 
-const baseGenSeedRequest: object = {};
+function createBaseGenSeedRequest(): GenSeedRequest {
+  return { aezeedPassphrase: new Uint8Array(), seedEntropy: new Uint8Array() };
+}
 
 export const GenSeedRequest = {
   encode(
@@ -268,9 +270,7 @@ export const GenSeedRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenSeedRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenSeedRequest } as GenSeedRequest;
-    message.aezeedPassphrase = new Uint8Array();
-    message.seedEntropy = new Uint8Array();
+    const message = createBaseGenSeedRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -289,18 +289,15 @@ export const GenSeedRequest = {
   },
 
   fromJSON(object: any): GenSeedRequest {
-    const message = { ...baseGenSeedRequest } as GenSeedRequest;
-    message.aezeedPassphrase = new Uint8Array();
-    message.seedEntropy = new Uint8Array();
-    if (
-      object.aezeedPassphrase !== undefined &&
-      object.aezeedPassphrase !== null
-    ) {
-      message.aezeedPassphrase = bytesFromBase64(object.aezeedPassphrase);
-    }
-    if (object.seedEntropy !== undefined && object.seedEntropy !== null) {
-      message.seedEntropy = bytesFromBase64(object.seedEntropy);
-    }
+    const message = createBaseGenSeedRequest();
+    message.aezeedPassphrase =
+      object.aezeedPassphrase !== undefined && object.aezeedPassphrase !== null
+        ? bytesFromBase64(object.aezeedPassphrase)
+        : new Uint8Array();
+    message.seedEntropy =
+      object.seedEntropy !== undefined && object.seedEntropy !== null
+        ? bytesFromBase64(object.seedEntropy)
+        : new Uint8Array();
     return message;
   },
 
@@ -322,25 +319,16 @@ export const GenSeedRequest = {
   },
 
   fromPartial(object: DeepPartial<GenSeedRequest>): GenSeedRequest {
-    const message = { ...baseGenSeedRequest } as GenSeedRequest;
-    if (
-      object.aezeedPassphrase !== undefined &&
-      object.aezeedPassphrase !== null
-    ) {
-      message.aezeedPassphrase = object.aezeedPassphrase;
-    } else {
-      message.aezeedPassphrase = new Uint8Array();
-    }
-    if (object.seedEntropy !== undefined && object.seedEntropy !== null) {
-      message.seedEntropy = object.seedEntropy;
-    } else {
-      message.seedEntropy = new Uint8Array();
-    }
+    const message = createBaseGenSeedRequest();
+    message.aezeedPassphrase = object.aezeedPassphrase ?? new Uint8Array();
+    message.seedEntropy = object.seedEntropy ?? new Uint8Array();
     return message;
   },
 };
 
-const baseGenSeedResponse: object = { cipherSeedMnemonic: "" };
+function createBaseGenSeedResponse(): GenSeedResponse {
+  return { cipherSeedMnemonic: [], encipheredSeed: new Uint8Array() };
+}
 
 export const GenSeedResponse = {
   encode(
@@ -359,9 +347,7 @@ export const GenSeedResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): GenSeedResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseGenSeedResponse } as GenSeedResponse;
-    message.cipherSeedMnemonic = [];
-    message.encipheredSeed = new Uint8Array();
+    const message = createBaseGenSeedResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -380,20 +366,14 @@ export const GenSeedResponse = {
   },
 
   fromJSON(object: any): GenSeedResponse {
-    const message = { ...baseGenSeedResponse } as GenSeedResponse;
-    message.cipherSeedMnemonic = [];
-    message.encipheredSeed = new Uint8Array();
-    if (
-      object.cipherSeedMnemonic !== undefined &&
-      object.cipherSeedMnemonic !== null
-    ) {
-      for (const e of object.cipherSeedMnemonic) {
-        message.cipherSeedMnemonic.push(String(e));
-      }
-    }
-    if (object.encipheredSeed !== undefined && object.encipheredSeed !== null) {
-      message.encipheredSeed = bytesFromBase64(object.encipheredSeed);
-    }
+    const message = createBaseGenSeedResponse();
+    message.cipherSeedMnemonic = (object.cipherSeedMnemonic ?? []).map(
+      (e: any) => String(e)
+    );
+    message.encipheredSeed =
+      object.encipheredSeed !== undefined && object.encipheredSeed !== null
+        ? bytesFromBase64(object.encipheredSeed)
+        : new Uint8Array();
     return message;
   },
 
@@ -414,32 +394,26 @@ export const GenSeedResponse = {
   },
 
   fromPartial(object: DeepPartial<GenSeedResponse>): GenSeedResponse {
-    const message = { ...baseGenSeedResponse } as GenSeedResponse;
-    message.cipherSeedMnemonic = [];
-    if (
-      object.cipherSeedMnemonic !== undefined &&
-      object.cipherSeedMnemonic !== null
-    ) {
-      for (const e of object.cipherSeedMnemonic) {
-        message.cipherSeedMnemonic.push(e);
-      }
-    }
-    if (object.encipheredSeed !== undefined && object.encipheredSeed !== null) {
-      message.encipheredSeed = object.encipheredSeed;
-    } else {
-      message.encipheredSeed = new Uint8Array();
-    }
+    const message = createBaseGenSeedResponse();
+    message.cipherSeedMnemonic = object.cipherSeedMnemonic?.map((e) => e) || [];
+    message.encipheredSeed = object.encipheredSeed ?? new Uint8Array();
     return message;
   },
 };
 
-const baseInitWalletRequest: object = {
-  cipherSeedMnemonic: "",
-  recoveryWindow: 0,
-  statelessInit: false,
-  extendedMasterKey: "",
-  extendedMasterKeyBirthdayTimestamp: "0",
-};
+function createBaseInitWalletRequest(): InitWalletRequest {
+  return {
+    walletPassword: new Uint8Array(),
+    cipherSeedMnemonic: [],
+    aezeedPassphrase: new Uint8Array(),
+    recoveryWindow: 0,
+    channelBackups: undefined,
+    statelessInit: false,
+    extendedMasterKey: "",
+    extendedMasterKeyBirthdayTimestamp: "0",
+    watchOnly: undefined,
+  };
+}
 
 export const InitWalletRequest = {
   encode(
@@ -482,10 +456,7 @@ export const InitWalletRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): InitWalletRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseInitWalletRequest } as InitWalletRequest;
-    message.cipherSeedMnemonic = [];
-    message.walletPassword = new Uint8Array();
-    message.aezeedPassphrase = new Uint8Array();
+    const message = createBaseInitWalletRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -530,67 +501,44 @@ export const InitWalletRequest = {
   },
 
   fromJSON(object: any): InitWalletRequest {
-    const message = { ...baseInitWalletRequest } as InitWalletRequest;
-    message.cipherSeedMnemonic = [];
-    message.walletPassword = new Uint8Array();
-    message.aezeedPassphrase = new Uint8Array();
-    if (object.walletPassword !== undefined && object.walletPassword !== null) {
-      message.walletPassword = bytesFromBase64(object.walletPassword);
-    }
-    if (
-      object.cipherSeedMnemonic !== undefined &&
-      object.cipherSeedMnemonic !== null
-    ) {
-      for (const e of object.cipherSeedMnemonic) {
-        message.cipherSeedMnemonic.push(String(e));
-      }
-    }
-    if (
-      object.aezeedPassphrase !== undefined &&
-      object.aezeedPassphrase !== null
-    ) {
-      message.aezeedPassphrase = bytesFromBase64(object.aezeedPassphrase);
-    }
-    if (object.recoveryWindow !== undefined && object.recoveryWindow !== null) {
-      message.recoveryWindow = Number(object.recoveryWindow);
-    } else {
-      message.recoveryWindow = 0;
-    }
-    if (object.channelBackups !== undefined && object.channelBackups !== null) {
-      message.channelBackups = ChanBackupSnapshot.fromJSON(
-        object.channelBackups
-      );
-    } else {
-      message.channelBackups = undefined;
-    }
-    if (object.statelessInit !== undefined && object.statelessInit !== null) {
-      message.statelessInit = Boolean(object.statelessInit);
-    } else {
-      message.statelessInit = false;
-    }
-    if (
+    const message = createBaseInitWalletRequest();
+    message.walletPassword =
+      object.walletPassword !== undefined && object.walletPassword !== null
+        ? bytesFromBase64(object.walletPassword)
+        : new Uint8Array();
+    message.cipherSeedMnemonic = (object.cipherSeedMnemonic ?? []).map(
+      (e: any) => String(e)
+    );
+    message.aezeedPassphrase =
+      object.aezeedPassphrase !== undefined && object.aezeedPassphrase !== null
+        ? bytesFromBase64(object.aezeedPassphrase)
+        : new Uint8Array();
+    message.recoveryWindow =
+      object.recoveryWindow !== undefined && object.recoveryWindow !== null
+        ? Number(object.recoveryWindow)
+        : 0;
+    message.channelBackups =
+      object.channelBackups !== undefined && object.channelBackups !== null
+        ? ChanBackupSnapshot.fromJSON(object.channelBackups)
+        : undefined;
+    message.statelessInit =
+      object.statelessInit !== undefined && object.statelessInit !== null
+        ? Boolean(object.statelessInit)
+        : false;
+    message.extendedMasterKey =
       object.extendedMasterKey !== undefined &&
       object.extendedMasterKey !== null
-    ) {
-      message.extendedMasterKey = String(object.extendedMasterKey);
-    } else {
-      message.extendedMasterKey = "";
-    }
-    if (
+        ? String(object.extendedMasterKey)
+        : "";
+    message.extendedMasterKeyBirthdayTimestamp =
       object.extendedMasterKeyBirthdayTimestamp !== undefined &&
       object.extendedMasterKeyBirthdayTimestamp !== null
-    ) {
-      message.extendedMasterKeyBirthdayTimestamp = String(
-        object.extendedMasterKeyBirthdayTimestamp
-      );
-    } else {
-      message.extendedMasterKeyBirthdayTimestamp = "0";
-    }
-    if (object.watchOnly !== undefined && object.watchOnly !== null) {
-      message.watchOnly = WatchOnly.fromJSON(object.watchOnly);
-    } else {
-      message.watchOnly = undefined;
-    }
+        ? String(object.extendedMasterKeyBirthdayTimestamp)
+        : "0";
+    message.watchOnly =
+      object.watchOnly !== undefined && object.watchOnly !== null
+        ? WatchOnly.fromJSON(object.watchOnly)
+        : undefined;
     return message;
   },
 
@@ -614,7 +562,7 @@ export const InitWalletRequest = {
           : new Uint8Array()
       ));
     message.recoveryWindow !== undefined &&
-      (obj.recoveryWindow = message.recoveryWindow);
+      (obj.recoveryWindow = Math.round(message.recoveryWindow));
     message.channelBackups !== undefined &&
       (obj.channelBackups = message.channelBackups
         ? ChanBackupSnapshot.toJSON(message.channelBackups)
@@ -634,73 +582,30 @@ export const InitWalletRequest = {
   },
 
   fromPartial(object: DeepPartial<InitWalletRequest>): InitWalletRequest {
-    const message = { ...baseInitWalletRequest } as InitWalletRequest;
-    message.cipherSeedMnemonic = [];
-    if (object.walletPassword !== undefined && object.walletPassword !== null) {
-      message.walletPassword = object.walletPassword;
-    } else {
-      message.walletPassword = new Uint8Array();
-    }
-    if (
-      object.cipherSeedMnemonic !== undefined &&
-      object.cipherSeedMnemonic !== null
-    ) {
-      for (const e of object.cipherSeedMnemonic) {
-        message.cipherSeedMnemonic.push(e);
-      }
-    }
-    if (
-      object.aezeedPassphrase !== undefined &&
-      object.aezeedPassphrase !== null
-    ) {
-      message.aezeedPassphrase = object.aezeedPassphrase;
-    } else {
-      message.aezeedPassphrase = new Uint8Array();
-    }
-    if (object.recoveryWindow !== undefined && object.recoveryWindow !== null) {
-      message.recoveryWindow = object.recoveryWindow;
-    } else {
-      message.recoveryWindow = 0;
-    }
-    if (object.channelBackups !== undefined && object.channelBackups !== null) {
-      message.channelBackups = ChanBackupSnapshot.fromPartial(
-        object.channelBackups
-      );
-    } else {
-      message.channelBackups = undefined;
-    }
-    if (object.statelessInit !== undefined && object.statelessInit !== null) {
-      message.statelessInit = object.statelessInit;
-    } else {
-      message.statelessInit = false;
-    }
-    if (
-      object.extendedMasterKey !== undefined &&
-      object.extendedMasterKey !== null
-    ) {
-      message.extendedMasterKey = object.extendedMasterKey;
-    } else {
-      message.extendedMasterKey = "";
-    }
-    if (
-      object.extendedMasterKeyBirthdayTimestamp !== undefined &&
-      object.extendedMasterKeyBirthdayTimestamp !== null
-    ) {
-      message.extendedMasterKeyBirthdayTimestamp =
-        object.extendedMasterKeyBirthdayTimestamp;
-    } else {
-      message.extendedMasterKeyBirthdayTimestamp = "0";
-    }
-    if (object.watchOnly !== undefined && object.watchOnly !== null) {
-      message.watchOnly = WatchOnly.fromPartial(object.watchOnly);
-    } else {
-      message.watchOnly = undefined;
-    }
+    const message = createBaseInitWalletRequest();
+    message.walletPassword = object.walletPassword ?? new Uint8Array();
+    message.cipherSeedMnemonic = object.cipherSeedMnemonic?.map((e) => e) || [];
+    message.aezeedPassphrase = object.aezeedPassphrase ?? new Uint8Array();
+    message.recoveryWindow = object.recoveryWindow ?? 0;
+    message.channelBackups =
+      object.channelBackups !== undefined && object.channelBackups !== null
+        ? ChanBackupSnapshot.fromPartial(object.channelBackups)
+        : undefined;
+    message.statelessInit = object.statelessInit ?? false;
+    message.extendedMasterKey = object.extendedMasterKey ?? "";
+    message.extendedMasterKeyBirthdayTimestamp =
+      object.extendedMasterKeyBirthdayTimestamp ?? "0";
+    message.watchOnly =
+      object.watchOnly !== undefined && object.watchOnly !== null
+        ? WatchOnly.fromPartial(object.watchOnly)
+        : undefined;
     return message;
   },
 };
 
-const baseInitWalletResponse: object = {};
+function createBaseInitWalletResponse(): InitWalletResponse {
+  return { adminMacaroon: new Uint8Array() };
+}
 
 export const InitWalletResponse = {
   encode(
@@ -716,8 +621,7 @@ export const InitWalletResponse = {
   decode(input: _m0.Reader | Uint8Array, length?: number): InitWalletResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseInitWalletResponse } as InitWalletResponse;
-    message.adminMacaroon = new Uint8Array();
+    const message = createBaseInitWalletResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -733,11 +637,11 @@ export const InitWalletResponse = {
   },
 
   fromJSON(object: any): InitWalletResponse {
-    const message = { ...baseInitWalletResponse } as InitWalletResponse;
-    message.adminMacaroon = new Uint8Array();
-    if (object.adminMacaroon !== undefined && object.adminMacaroon !== null) {
-      message.adminMacaroon = bytesFromBase64(object.adminMacaroon);
-    }
+    const message = createBaseInitWalletResponse();
+    message.adminMacaroon =
+      object.adminMacaroon !== undefined && object.adminMacaroon !== null
+        ? bytesFromBase64(object.adminMacaroon)
+        : new Uint8Array();
     return message;
   },
 
@@ -753,17 +657,19 @@ export const InitWalletResponse = {
   },
 
   fromPartial(object: DeepPartial<InitWalletResponse>): InitWalletResponse {
-    const message = { ...baseInitWalletResponse } as InitWalletResponse;
-    if (object.adminMacaroon !== undefined && object.adminMacaroon !== null) {
-      message.adminMacaroon = object.adminMacaroon;
-    } else {
-      message.adminMacaroon = new Uint8Array();
-    }
+    const message = createBaseInitWalletResponse();
+    message.adminMacaroon = object.adminMacaroon ?? new Uint8Array();
     return message;
   },
 };
 
-const baseWatchOnly: object = { masterKeyBirthdayTimestamp: "0" };
+function createBaseWatchOnly(): WatchOnly {
+  return {
+    masterKeyBirthdayTimestamp: "0",
+    masterKeyFingerprint: new Uint8Array(),
+    accounts: [],
+  };
+}
 
 export const WatchOnly = {
   encode(
@@ -785,9 +691,7 @@ export const WatchOnly = {
   decode(input: _m0.Reader | Uint8Array, length?: number): WatchOnly {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseWatchOnly } as WatchOnly;
-    message.accounts = [];
-    message.masterKeyFingerprint = new Uint8Array();
+    const message = createBaseWatchOnly();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -813,32 +717,20 @@ export const WatchOnly = {
   },
 
   fromJSON(object: any): WatchOnly {
-    const message = { ...baseWatchOnly } as WatchOnly;
-    message.accounts = [];
-    message.masterKeyFingerprint = new Uint8Array();
-    if (
+    const message = createBaseWatchOnly();
+    message.masterKeyBirthdayTimestamp =
       object.masterKeyBirthdayTimestamp !== undefined &&
       object.masterKeyBirthdayTimestamp !== null
-    ) {
-      message.masterKeyBirthdayTimestamp = String(
-        object.masterKeyBirthdayTimestamp
-      );
-    } else {
-      message.masterKeyBirthdayTimestamp = "0";
-    }
-    if (
+        ? String(object.masterKeyBirthdayTimestamp)
+        : "0";
+    message.masterKeyFingerprint =
       object.masterKeyFingerprint !== undefined &&
       object.masterKeyFingerprint !== null
-    ) {
-      message.masterKeyFingerprint = bytesFromBase64(
-        object.masterKeyFingerprint
-      );
-    }
-    if (object.accounts !== undefined && object.accounts !== null) {
-      for (const e of object.accounts) {
-        message.accounts.push(WatchOnlyAccount.fromJSON(e));
-      }
-    }
+        ? bytesFromBase64(object.masterKeyFingerprint)
+        : new Uint8Array();
+    message.accounts = (object.accounts ?? []).map((e: any) =>
+      WatchOnlyAccount.fromJSON(e)
+    );
     return message;
   },
 
@@ -863,39 +755,20 @@ export const WatchOnly = {
   },
 
   fromPartial(object: DeepPartial<WatchOnly>): WatchOnly {
-    const message = { ...baseWatchOnly } as WatchOnly;
-    message.accounts = [];
-    if (
-      object.masterKeyBirthdayTimestamp !== undefined &&
-      object.masterKeyBirthdayTimestamp !== null
-    ) {
-      message.masterKeyBirthdayTimestamp = object.masterKeyBirthdayTimestamp;
-    } else {
-      message.masterKeyBirthdayTimestamp = "0";
-    }
-    if (
-      object.masterKeyFingerprint !== undefined &&
-      object.masterKeyFingerprint !== null
-    ) {
-      message.masterKeyFingerprint = object.masterKeyFingerprint;
-    } else {
-      message.masterKeyFingerprint = new Uint8Array();
-    }
-    if (object.accounts !== undefined && object.accounts !== null) {
-      for (const e of object.accounts) {
-        message.accounts.push(WatchOnlyAccount.fromPartial(e));
-      }
-    }
+    const message = createBaseWatchOnly();
+    message.masterKeyBirthdayTimestamp =
+      object.masterKeyBirthdayTimestamp ?? "0";
+    message.masterKeyFingerprint =
+      object.masterKeyFingerprint ?? new Uint8Array();
+    message.accounts =
+      object.accounts?.map((e) => WatchOnlyAccount.fromPartial(e)) || [];
     return message;
   },
 };
 
-const baseWatchOnlyAccount: object = {
-  purpose: 0,
-  coinType: 0,
-  account: 0,
-  xpub: "",
-};
+function createBaseWatchOnlyAccount(): WatchOnlyAccount {
+  return { purpose: 0, coinType: 0, account: 0, xpub: "" };
+}
 
 export const WatchOnlyAccount = {
   encode(
@@ -920,7 +793,7 @@ export const WatchOnlyAccount = {
   decode(input: _m0.Reader | Uint8Array, length?: number): WatchOnlyAccount {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseWatchOnlyAccount } as WatchOnlyAccount;
+    const message = createBaseWatchOnlyAccount();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -945,69 +818,56 @@ export const WatchOnlyAccount = {
   },
 
   fromJSON(object: any): WatchOnlyAccount {
-    const message = { ...baseWatchOnlyAccount } as WatchOnlyAccount;
-    if (object.purpose !== undefined && object.purpose !== null) {
-      message.purpose = Number(object.purpose);
-    } else {
-      message.purpose = 0;
-    }
-    if (object.coinType !== undefined && object.coinType !== null) {
-      message.coinType = Number(object.coinType);
-    } else {
-      message.coinType = 0;
-    }
-    if (object.account !== undefined && object.account !== null) {
-      message.account = Number(object.account);
-    } else {
-      message.account = 0;
-    }
-    if (object.xpub !== undefined && object.xpub !== null) {
-      message.xpub = String(object.xpub);
-    } else {
-      message.xpub = "";
-    }
+    const message = createBaseWatchOnlyAccount();
+    message.purpose =
+      object.purpose !== undefined && object.purpose !== null
+        ? Number(object.purpose)
+        : 0;
+    message.coinType =
+      object.coinType !== undefined && object.coinType !== null
+        ? Number(object.coinType)
+        : 0;
+    message.account =
+      object.account !== undefined && object.account !== null
+        ? Number(object.account)
+        : 0;
+    message.xpub =
+      object.xpub !== undefined && object.xpub !== null
+        ? String(object.xpub)
+        : "";
     return message;
   },
 
   toJSON(message: WatchOnlyAccount): unknown {
     const obj: any = {};
-    message.purpose !== undefined && (obj.purpose = message.purpose);
-    message.coinType !== undefined && (obj.coinType = message.coinType);
-    message.account !== undefined && (obj.account = message.account);
+    message.purpose !== undefined &&
+      (obj.purpose = Math.round(message.purpose));
+    message.coinType !== undefined &&
+      (obj.coinType = Math.round(message.coinType));
+    message.account !== undefined &&
+      (obj.account = Math.round(message.account));
     message.xpub !== undefined && (obj.xpub = message.xpub);
     return obj;
   },
 
   fromPartial(object: DeepPartial<WatchOnlyAccount>): WatchOnlyAccount {
-    const message = { ...baseWatchOnlyAccount } as WatchOnlyAccount;
-    if (object.purpose !== undefined && object.purpose !== null) {
-      message.purpose = object.purpose;
-    } else {
-      message.purpose = 0;
-    }
-    if (object.coinType !== undefined && object.coinType !== null) {
-      message.coinType = object.coinType;
-    } else {
-      message.coinType = 0;
-    }
-    if (object.account !== undefined && object.account !== null) {
-      message.account = object.account;
-    } else {
-      message.account = 0;
-    }
-    if (object.xpub !== undefined && object.xpub !== null) {
-      message.xpub = object.xpub;
-    } else {
-      message.xpub = "";
-    }
+    const message = createBaseWatchOnlyAccount();
+    message.purpose = object.purpose ?? 0;
+    message.coinType = object.coinType ?? 0;
+    message.account = object.account ?? 0;
+    message.xpub = object.xpub ?? "";
     return message;
   },
 };
 
-const baseUnlockWalletRequest: object = {
-  recoveryWindow: 0,
-  statelessInit: false,
-};
+function createBaseUnlockWalletRequest(): UnlockWalletRequest {
+  return {
+    walletPassword: new Uint8Array(),
+    recoveryWindow: 0,
+    channelBackups: undefined,
+    statelessInit: false,
+  };
+}
 
 export const UnlockWalletRequest = {
   encode(
@@ -1035,8 +895,7 @@ export const UnlockWalletRequest = {
   decode(input: _m0.Reader | Uint8Array, length?: number): UnlockWalletRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseUnlockWalletRequest } as UnlockWalletRequest;
-    message.walletPassword = new Uint8Array();
+    const message = createBaseUnlockWalletRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1064,28 +923,23 @@ export const UnlockWalletRequest = {
   },
 
   fromJSON(object: any): UnlockWalletRequest {
-    const message = { ...baseUnlockWalletRequest } as UnlockWalletRequest;
-    message.walletPassword = new Uint8Array();
-    if (object.walletPassword !== undefined && object.walletPassword !== null) {
-      message.walletPassword = bytesFromBase64(object.walletPassword);
-    }
-    if (object.recoveryWindow !== undefined && object.recoveryWindow !== null) {
-      message.recoveryWindow = Number(object.recoveryWindow);
-    } else {
-      message.recoveryWindow = 0;
-    }
-    if (object.channelBackups !== undefined && object.channelBackups !== null) {
-      message.channelBackups = ChanBackupSnapshot.fromJSON(
-        object.channelBackups
-      );
-    } else {
-      message.channelBackups = undefined;
-    }
-    if (object.statelessInit !== undefined && object.statelessInit !== null) {
-      message.statelessInit = Boolean(object.statelessInit);
-    } else {
-      message.statelessInit = false;
-    }
+    const message = createBaseUnlockWalletRequest();
+    message.walletPassword =
+      object.walletPassword !== undefined && object.walletPassword !== null
+        ? bytesFromBase64(object.walletPassword)
+        : new Uint8Array();
+    message.recoveryWindow =
+      object.recoveryWindow !== undefined && object.recoveryWindow !== null
+        ? Number(object.recoveryWindow)
+        : 0;
+    message.channelBackups =
+      object.channelBackups !== undefined && object.channelBackups !== null
+        ? ChanBackupSnapshot.fromJSON(object.channelBackups)
+        : undefined;
+    message.statelessInit =
+      object.statelessInit !== undefined && object.statelessInit !== null
+        ? Boolean(object.statelessInit)
+        : false;
     return message;
   },
 
@@ -1098,7 +952,7 @@ export const UnlockWalletRequest = {
           : new Uint8Array()
       ));
     message.recoveryWindow !== undefined &&
-      (obj.recoveryWindow = message.recoveryWindow);
+      (obj.recoveryWindow = Math.round(message.recoveryWindow));
     message.channelBackups !== undefined &&
       (obj.channelBackups = message.channelBackups
         ? ChanBackupSnapshot.toJSON(message.channelBackups)
@@ -1109,34 +963,21 @@ export const UnlockWalletRequest = {
   },
 
   fromPartial(object: DeepPartial<UnlockWalletRequest>): UnlockWalletRequest {
-    const message = { ...baseUnlockWalletRequest } as UnlockWalletRequest;
-    if (object.walletPassword !== undefined && object.walletPassword !== null) {
-      message.walletPassword = object.walletPassword;
-    } else {
-      message.walletPassword = new Uint8Array();
-    }
-    if (object.recoveryWindow !== undefined && object.recoveryWindow !== null) {
-      message.recoveryWindow = object.recoveryWindow;
-    } else {
-      message.recoveryWindow = 0;
-    }
-    if (object.channelBackups !== undefined && object.channelBackups !== null) {
-      message.channelBackups = ChanBackupSnapshot.fromPartial(
-        object.channelBackups
-      );
-    } else {
-      message.channelBackups = undefined;
-    }
-    if (object.statelessInit !== undefined && object.statelessInit !== null) {
-      message.statelessInit = object.statelessInit;
-    } else {
-      message.statelessInit = false;
-    }
+    const message = createBaseUnlockWalletRequest();
+    message.walletPassword = object.walletPassword ?? new Uint8Array();
+    message.recoveryWindow = object.recoveryWindow ?? 0;
+    message.channelBackups =
+      object.channelBackups !== undefined && object.channelBackups !== null
+        ? ChanBackupSnapshot.fromPartial(object.channelBackups)
+        : undefined;
+    message.statelessInit = object.statelessInit ?? false;
     return message;
   },
 };
 
-const baseUnlockWalletResponse: object = {};
+function createBaseUnlockWalletResponse(): UnlockWalletResponse {
+  return {};
+}
 
 export const UnlockWalletResponse = {
   encode(
@@ -1152,7 +993,7 @@ export const UnlockWalletResponse = {
   ): UnlockWalletResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseUnlockWalletResponse } as UnlockWalletResponse;
+    const message = createBaseUnlockWalletResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1165,7 +1006,7 @@ export const UnlockWalletResponse = {
   },
 
   fromJSON(_: any): UnlockWalletResponse {
-    const message = { ...baseUnlockWalletResponse } as UnlockWalletResponse;
+    const message = createBaseUnlockWalletResponse();
     return message;
   },
 
@@ -1175,15 +1016,19 @@ export const UnlockWalletResponse = {
   },
 
   fromPartial(_: DeepPartial<UnlockWalletResponse>): UnlockWalletResponse {
-    const message = { ...baseUnlockWalletResponse } as UnlockWalletResponse;
+    const message = createBaseUnlockWalletResponse();
     return message;
   },
 };
 
-const baseChangePasswordRequest: object = {
-  statelessInit: false,
-  newMacaroonRootKey: false,
-};
+function createBaseChangePasswordRequest(): ChangePasswordRequest {
+  return {
+    currentPassword: new Uint8Array(),
+    newPassword: new Uint8Array(),
+    statelessInit: false,
+    newMacaroonRootKey: false,
+  };
+}
 
 export const ChangePasswordRequest = {
   encode(
@@ -1211,9 +1056,7 @@ export const ChangePasswordRequest = {
   ): ChangePasswordRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseChangePasswordRequest } as ChangePasswordRequest;
-    message.currentPassword = new Uint8Array();
-    message.newPassword = new Uint8Array();
+    const message = createBaseChangePasswordRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1238,31 +1081,24 @@ export const ChangePasswordRequest = {
   },
 
   fromJSON(object: any): ChangePasswordRequest {
-    const message = { ...baseChangePasswordRequest } as ChangePasswordRequest;
-    message.currentPassword = new Uint8Array();
-    message.newPassword = new Uint8Array();
-    if (
-      object.currentPassword !== undefined &&
-      object.currentPassword !== null
-    ) {
-      message.currentPassword = bytesFromBase64(object.currentPassword);
-    }
-    if (object.newPassword !== undefined && object.newPassword !== null) {
-      message.newPassword = bytesFromBase64(object.newPassword);
-    }
-    if (object.statelessInit !== undefined && object.statelessInit !== null) {
-      message.statelessInit = Boolean(object.statelessInit);
-    } else {
-      message.statelessInit = false;
-    }
-    if (
+    const message = createBaseChangePasswordRequest();
+    message.currentPassword =
+      object.currentPassword !== undefined && object.currentPassword !== null
+        ? bytesFromBase64(object.currentPassword)
+        : new Uint8Array();
+    message.newPassword =
+      object.newPassword !== undefined && object.newPassword !== null
+        ? bytesFromBase64(object.newPassword)
+        : new Uint8Array();
+    message.statelessInit =
+      object.statelessInit !== undefined && object.statelessInit !== null
+        ? Boolean(object.statelessInit)
+        : false;
+    message.newMacaroonRootKey =
       object.newMacaroonRootKey !== undefined &&
       object.newMacaroonRootKey !== null
-    ) {
-      message.newMacaroonRootKey = Boolean(object.newMacaroonRootKey);
-    } else {
-      message.newMacaroonRootKey = false;
-    }
+        ? Boolean(object.newMacaroonRootKey)
+        : false;
     return message;
   },
 
@@ -1290,38 +1126,18 @@ export const ChangePasswordRequest = {
   fromPartial(
     object: DeepPartial<ChangePasswordRequest>
   ): ChangePasswordRequest {
-    const message = { ...baseChangePasswordRequest } as ChangePasswordRequest;
-    if (
-      object.currentPassword !== undefined &&
-      object.currentPassword !== null
-    ) {
-      message.currentPassword = object.currentPassword;
-    } else {
-      message.currentPassword = new Uint8Array();
-    }
-    if (object.newPassword !== undefined && object.newPassword !== null) {
-      message.newPassword = object.newPassword;
-    } else {
-      message.newPassword = new Uint8Array();
-    }
-    if (object.statelessInit !== undefined && object.statelessInit !== null) {
-      message.statelessInit = object.statelessInit;
-    } else {
-      message.statelessInit = false;
-    }
-    if (
-      object.newMacaroonRootKey !== undefined &&
-      object.newMacaroonRootKey !== null
-    ) {
-      message.newMacaroonRootKey = object.newMacaroonRootKey;
-    } else {
-      message.newMacaroonRootKey = false;
-    }
+    const message = createBaseChangePasswordRequest();
+    message.currentPassword = object.currentPassword ?? new Uint8Array();
+    message.newPassword = object.newPassword ?? new Uint8Array();
+    message.statelessInit = object.statelessInit ?? false;
+    message.newMacaroonRootKey = object.newMacaroonRootKey ?? false;
     return message;
   },
 };
 
-const baseChangePasswordResponse: object = {};
+function createBaseChangePasswordResponse(): ChangePasswordResponse {
+  return { adminMacaroon: new Uint8Array() };
+}
 
 export const ChangePasswordResponse = {
   encode(
@@ -1340,8 +1156,7 @@ export const ChangePasswordResponse = {
   ): ChangePasswordResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
-    const message = { ...baseChangePasswordResponse } as ChangePasswordResponse;
-    message.adminMacaroon = new Uint8Array();
+    const message = createBaseChangePasswordResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -1357,11 +1172,11 @@ export const ChangePasswordResponse = {
   },
 
   fromJSON(object: any): ChangePasswordResponse {
-    const message = { ...baseChangePasswordResponse } as ChangePasswordResponse;
-    message.adminMacaroon = new Uint8Array();
-    if (object.adminMacaroon !== undefined && object.adminMacaroon !== null) {
-      message.adminMacaroon = bytesFromBase64(object.adminMacaroon);
-    }
+    const message = createBaseChangePasswordResponse();
+    message.adminMacaroon =
+      object.adminMacaroon !== undefined && object.adminMacaroon !== null
+        ? bytesFromBase64(object.adminMacaroon)
+        : new Uint8Array();
     return message;
   },
 
@@ -1379,12 +1194,8 @@ export const ChangePasswordResponse = {
   fromPartial(
     object: DeepPartial<ChangePasswordResponse>
   ): ChangePasswordResponse {
-    const message = { ...baseChangePasswordResponse } as ChangePasswordResponse;
-    if (object.adminMacaroon !== undefined && object.adminMacaroon !== null) {
-      message.adminMacaroon = object.adminMacaroon;
-    } else {
-      message.adminMacaroon = new Uint8Array();
-    }
+    const message = createBaseChangePasswordResponse();
+    message.adminMacaroon = object.adminMacaroon ?? new Uint8Array();
     return message;
   },
 };
@@ -1508,6 +1319,7 @@ type Builtin =
   | number
   | boolean
   | undefined;
+
 export type DeepPartial<T> = T extends Builtin
   ? T
   : T extends Array<infer U>
