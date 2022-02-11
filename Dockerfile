@@ -10,7 +10,7 @@ COPY . .
 RUN yarn workspaces focus -A --production
 
 # Delete TypeScript code and markdown files to further reduce image size
-RUN find /app/node_modules | grep ".\.ts" | xargs rm
+RUN find /app/node_modules | grep ".\.ts" | grep -v "c-lightning\.ts" | xargs rm
 
 # TS Build Stage
 FROM amd64/node:16-bullseye-slim as middleware-builder
