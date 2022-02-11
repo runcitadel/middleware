@@ -547,6 +547,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/uuid@npm:^8":
+  version: 8.3.4
+  resolution: "@types/uuid@npm:8.3.4"
+  checksum: 6f11f3ff70f30210edaa8071422d405e9c1d4e53abbe50fdce365150d3c698fe7bbff65c1e71ae080cbfb8fded860dbb5e174da96fdbbdfcaa3fb3daa474d20f
+  languageName: node
+  linkType: hard
+
 "@types/validator@npm:^13.6.6, @types/validator@npm:^13.7.1":
   version: 13.7.1
   resolution: "@types/validator@npm:13.7.1"
@@ -961,6 +968,13 @@ __metadata:
   version: 3.1.1
   resolution: "bytes@npm:3.1.1"
   checksum: 949ab99a385d6acf4d2c69f1afc618615dc905936e0b0b9aa94a9e94d722baaba44d6a0851536585a0892ae4d462b5a270ccb1b04c774640742cbde5538ca328
+  languageName: node
+  linkType: hard
+
+"c-lightning.ts@npm:^0.0.7":
+  version: 0.0.7
+  resolution: "c-lightning.ts@npm:0.0.7"
+  checksum: 01ab4b13564c9855ef70f1c333c5ebc4f2a06ade6280b515aa324c254d48562a62f04100f803c7b74d27fa5d82c700dc69b88fbb654df94d0e752dfa79938095
   languageName: node
   linkType: hard
 
@@ -2397,12 +2411,14 @@ __metadata:
     "@types/morgan": ^1.9.3
     "@types/node": ^17
     "@types/passport-jwt": ^3.0.6
+    "@types/uuid": ^8
     "@types/validator": ^13.7.1
     "@typescript-eslint/eslint-plugin": ^5.11.0
     "@typescript-eslint/parser": ^5.11.0
     bech32: ^2.0.0
     big.js: ^6.1.1
     bolt11: ^1.3.4
+    c-lightning.ts: ^0.0.7
     crypto-js: ^4.1.1
     debug: ^4.3.3
     dotenv: ^16.0.0
@@ -2421,6 +2437,7 @@ __metadata:
     protobufjs: ^6.11.2
     ts-proto: ^1.104.0
     typescript: ^4.5.5
+    uuid: ^8.3.2
     validator: ^13.7.0
   languageName: unknown
   linkType: soft
@@ -3436,6 +3453,15 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
+  languageName: node
+  linkType: hard
+
+"uuid@npm:^8.3.2":
+  version: 8.3.2
+  resolution: "uuid@npm:8.3.2"
+  bin:
+    uuid: dist/bin/uuid
+  checksum: 5575a8a75c13120e2f10e6ddc801b2c7ed7d8f3c8ac22c7ed0c7b2ba6383ec0abda88c905085d630e251719e0777045ae3236f04c812184b7c765f63a70e58df
   languageName: node
   linkType: hard
 

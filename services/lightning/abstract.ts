@@ -7,7 +7,6 @@ import {
   ChannelBalanceResponse,
   ChannelCloseSummary,
   ChannelPoint,
-  ConnectPeerResponse,
   EstimateFeeResponse,
   FeeReportResponse,
   ForwardingHistoryResponse,
@@ -45,7 +44,7 @@ export default interface ILightningClient {
     pubKey: string,
     ip: string,
     port: number | string
-  ): Promise<ConnectPeerResponse>;
+  ): Promise<void>;
   decodePaymentRequest(paymentRequest: string): Promise<extendedPaymentRequest>;
   estimateFee(
     address: string,
@@ -82,8 +81,8 @@ export default interface ILightningClient {
   sendCoins(
     addr: string,
     amt: string | number | undefined,
-    satPerByte: number | string,
-    sendAll: boolean
+    satPerByte?: number | string,
+    sendAll?: boolean
   ): Promise<SendCoinsResponse>;
   sendPaymentSync(paymentRequest: string, amt: number): Promise<SendResponse>;
   updateChannelPolicy(

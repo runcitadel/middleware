@@ -100,8 +100,8 @@ router.post(
             .payInvoice(paymentRequest, amt);
         ctx.body = {
             ...data,
-            paymentPreimage: Buffer.from(data.paymentPreimage).toString("base64"),
-            paymentHash: Buffer.from(data.paymentHash).toString("base64"),
+            paymentPreimage: data.paymentPreimage,
+            paymentHash: data.paymentHash,
         }
         await next();
     }
