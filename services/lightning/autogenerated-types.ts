@@ -121,13 +121,13 @@ export enum PaymentFailureReason {
 }
 export interface Utxo {
   /** The type of address */
-  addressType: AddressType;
+  addressType?: AddressType;
   /** The address */
   address: string;
   /** The value of the unspent coin in satoshis */
   amountSat: number | string;
   /** The pkscript in hex */
-  pkScript: string;
+  pkScript?: string;
   /** The outpoint in format txid:n */
   outpoint: OutPoint | undefined;
   /** The number of confirmations for the Utxo */
@@ -174,7 +174,7 @@ export interface OutPoint {
   /** Reversed, hex-encoded string representing the transaction id. */
   txidStr: string;
   /** The index of the output on the transaction. */
-  outputIndex: number | string;
+  outputIndex?: number | string;
 }
 export interface EstimateFeeResponse {
   /** The total fee in satoshis. */
