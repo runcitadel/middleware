@@ -758,17 +758,17 @@ export interface Invoice {
    *
    * The fields value and value_msat are mutually exclusive.
    */
-  value: number | string;
+  value?: number | string;
   /**
    * The value of this invoice in millisatoshis
    *
    * The fields value and value_msat are mutually exclusive.
    */
-  valueMsat: number | string;
+  valueMsat?: number | string;
   /** When this invoice was created */
-  creationDate: number | string;
+  creationDate?: number | string;
   /** When this invoice was settled */
-  settleDate: number | string;
+  settleDate?: number | string;
   /**
    * A bare-bones invoice for a payment within the Lightning Network. With the
    * details of the invoice, the sender has all the data necessary to send a
@@ -779,23 +779,23 @@ export interface Invoice {
    * Route hints that can each be individually used to assist in reaching the
    * invoice's destination.
    */
-  routeHints: RouteHint[];
+  routeHints?: RouteHint[];
   /** Whether this invoice should include routing hints for private channels. */
-  private: boolean;
+  private?: boolean;
   /**
    * The "add" index of this invoice. Each newly created invoice will increment
    * this index making it monotonically increasing. Callers to the
    * SubscribeInvoices call can use this to instantly get notified of all added
    * invoices with an add_index greater than this one.
    */
-  addIndex: number | string;
+  addIndex?: number | string;
   /**
    * The "settle" index of this invoice. Each newly settled invoice will
    * increment this index making it monotonically increasing. Callers to the
    * SubscribeInvoices call can use this to instantly get notified of all
    * settled invoices with an settle_index greater than this one.
    */
-  settleIndex: number | string;
+  settleIndex?: number | string;
   /**
    * The amount that was accepted for this invoice, in satoshis. This will ONLY
    * be set if this invoice has been settled. We provide this field as if the
@@ -804,7 +804,7 @@ export interface Invoice {
    * MORE that was specified in the original invoice. So we'll record that here
    * as well.
    */
-  amtPaidSat: number | string;
+  amtPaidSat?: number | string;
   /**
    * The amount that was accepted for this invoice, in millisatoshis. This will
    * ONLY be set if this invoice has been settled. We provide this field as if
@@ -813,16 +813,16 @@ export interface Invoice {
    * paid MORE that was specified in the original invoice. So we'll record that
    * here as well.
    */
-  amtPaidMsat: number | string;
+  amtPaidMsat?: number | string;
   /** The state the invoice is in. */
   state: Invoice_InvoiceState;
   /**
    * Indicates if this invoice was a spontaneous payment that arrived via keysend
    * [EXPERIMENTAL].
    */
-  isKeysend: boolean;
+  isKeysend?: boolean;
   /** Signals whether or not this is an AMP invoice. */
-  isAmp: boolean;
+  isAmp?: boolean;
 }
 export enum Invoice_InvoiceState {
   OPEN = 0,
