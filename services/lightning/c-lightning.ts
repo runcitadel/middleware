@@ -40,6 +40,50 @@ enum Status {
   Paid = "paid",
   Unpaid = "unpaid",
 }
+interface CLightningChannel {
+  /**
+   * total channel value
+   */
+  amount_msat: number;
+  /**
+   * whether the channel peer is connected
+   */
+  connected: boolean;
+  /**
+   * the 0-based index of the output in the funding transaction
+   */
+  funding_output: number;
+  /**
+   * funding transaction id
+   */
+  funding_txid: string;
+  /**
+   * available satoshis on our node’s end of the channel
+   */
+  our_amount_msat: number;
+  /**
+   * the peer with which the channel is opened
+   */
+  peer_id: string;
+  /**
+   * the channel state, in particular "CHANNELD_NORMAL" means the channel can be used normally
+   */
+  state: ChannelState;
+}
+
+enum ChannelState {
+  AwaitingUnilateral = "AWAITING_UNILATERAL",
+  ChanneldAwaitingLockin = "CHANNELD_AWAITING_LOCKIN",
+  ChanneldNormal = "CHANNELD_NORMAL",
+  ChanneldShuttingDown = "CHANNELD_SHUTTING_DOWN",
+  ClosingdComplete = "CLOSINGD_COMPLETE",
+  ClosingdSigexchange = "CLOSINGD_SIGEXCHANGE",
+  DualopendAwaitingLockin = "DUALOPEND_AWAITING_LOCKIN",
+  DualopendOpenInit = "DUALOPEND_OPEN_INIT",
+  FundingSpendSeen = "FUNDING_SPEND_SEEN",
+  Onchain = "ONCHAIN",
+  Openingd = "OPENINGD"
+}
 
 function convertToLndState(status: Status): Invoice_InvoiceState {
   switch (status) {
@@ -295,32 +339,70 @@ export default class CLightningService implements ILightningClient {
     throw new Error("Not supported by c-lightning yet.");
   }
 
+  private async getChannels(): Promise<CLightningChannel[]> {
+    const peers = (await this.apiClient.listpeers()).peers;
+    let channels: CLightningChannel[] = [];
+    peers.forEach((peer) => {
+      channels = [
+        ...channels,
+        ...peer.channels
+      ] as unknown[] as CLightningChannel[];
+    });
+    return channels;
+  }
   // Returns a list of lnd's currently open channels. Channels are considered open by this node and it's directly
   // connected peer after three confirmation. After six confirmations, the channel is broadcasted by this node and it's
   // directly connected peer to the broader Lightning network.
   async getOpenChannels(): Promise<Channel[]> {
-    throw new Error("Not supported by c-lightning yet.");
+    const channels = await this.getChannels();
+    const lndChannels: Channel[] = [];
+    for (const channel of channels) {
+      if(channel.state == ChannelState.ChanneldNormal)
+        lndChannels.push({
+          active: true,
+          remotePubkey: channel.peer_id,
+          channelPoint: `${channel.funding_txid}:${channel.funding_output}`,
+          chanId: "",
+          capacity: Math.round(channel.amount_msat / 1000),
+          localBalance: Math.round(channel.our_amount_msat / 1000),
+          remoteBalance: Math.round(channel.amount_msat / 1000) - Math.round(channel.our_amount_msat / 1000),
+        });
+    }
+    return lndChannels;
   }
 
   async getClosedChannels(): Promise<ChannelCloseSummary[]> {
-    throw new Error("Not supported by c-lightning yet.");
+    const channels = await this.getChannels();
+    // TODO: Implement
+    return [];
   }
 
   // Returns a list of all outgoing payments.
   async getPayments(): Promise<ListPaymentsResponse> {
-    throw new Error("Not supported by c-lightning yet.");
+    return {
+      payments: [],
+      firstIndexOffset: 0,
+      lastIndexOffset: 0
+    }
+    //throw new Error("Not supported by c-lightning yet.");
   }
 
   // Returns a list of all lnd's currently connected and active peers.
   async getPeers(): Promise<Peer[]> {
-    throw new Error("Not supported by c-lightning yet.");
+    return [];
+    //throw new Error("Not supported by c-lightning yet.");
   }
 
   // Returns a list of lnd's currently pending channels. Pending channels include, channels that are in the process of
   // being opened, but have not reached three confirmations. Channels that are pending closed, but have not reached
   // one confirmation. Forced close channels that require potentially hundreds of confirmations.
   async getPendingChannels(): Promise<PendingChannelsResponse> {
-    throw new Error("Not supported by c-lightning yet.");
+    return {
+      totalLimboBalance: 0,
+      pendingOpenChannels: [],
+      pendingForceClosingChannels: [],
+      waitingCloseChannels: [],
+    }
   }
 
   async getWalletBalance(): Promise<WalletBalanceResponse> {
