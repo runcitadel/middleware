@@ -971,10 +971,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"c-lightning.ts@npm:^0.0.7":
-  version: 0.0.7
-  resolution: "c-lightning.ts@npm:0.0.7"
-  checksum: 01ab4b13564c9855ef70f1c333c5ebc4f2a06ade6280b515aa324c254d48562a62f04100f803c7b74d27fa5d82c700dc69b88fbb654df94d0e752dfa79938095
+"c-lightning.ts@npm:^0.0.15":
+  version: 0.0.15
+  resolution: "c-lightning.ts@npm:0.0.15"
+  checksum: ffa380df92c85d510990b3abd195011881bf057974505a620d077eda0ab18ab6f5949f72cfc3633f9b8265b81c028e747c786bb0fa2307bb1457b4286ce4e2f5
   languageName: node
   linkType: hard
 
@@ -2418,7 +2418,7 @@ __metadata:
     bech32: ^2.0.0
     big.js: ^6.1.1
     bolt11: ^1.3.4
-    c-lightning.ts: ^0.0.7
+    c-lightning.ts: ^0.0.15
     crypto-js: ^4.1.1
     debug: ^4.3.3
     dotenv: ^16.0.0
