@@ -1,8 +1,8 @@
 {
-  "name": "middleware",
+  "name": "@runcitadel/middleware",
   "version": "0.0.1",
-  "description": "Middleware for Bitcoin Nodes",
-  "author": "Aaron Dewes <aaron.dewes@web.de>",
+  "description": "Middleware for Citadel",
+  "author": "Citadel and contributors",
   "scripts": {
     "build": "tsc",
     "lint": "eslint --fix . && prettier -w .",
