@@ -51,7 +51,10 @@ router.get(
     "/version",
     auth.jwt,
     async (ctx, next) => {
-        ctx.body = { version: await lightningLogic.getVersion() };
+        ctx.body = {
+            version: await lightningLogic.getVersion(),
+            implementation: process.env.LIGHTNING_IMPL || "lnd",
+        };
         await next();
     }
 );
