@@ -5,10 +5,10 @@
   "author": "Citadel and contributors",
   "scripts": {
     "build": "tsc",
+    "build:watch": "tsc --watch",
     "start": "node --experimental-json-modules ./bin/www.mjs",
-    "dev": "npm-run-all --parallel tsc:watch start:watch",
-    "tsc:watch": "tsc --watch", 
-    "start:watch": "nodemon --experimental-json-modules ./bin/www.mjs", 
+    "start:watch": "nodemon --experimental-json-modules ./bin/www.mjs",
+    "dev": "concurrently \"yarn:build:watch\" \"yarn:start:watch\"",
     "lint": "eslint --fix . && prettier -w .",
     "build-types": "cd resources && protoc --plugin=../node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=../lnrpc --ts_proto_opt=esModuleInterop=true --ts_proto_opt=useExactTypes=false --ts_proto_opt=outputServices=generic-definitions --ts_proto_opt=forceLong=string lightning.proto walletunlocker.proto stateservice.proto"
   },
@@ -51,11 +51,11 @@
     "@types/validator": "^13.7.1",
     "@typescript-eslint/eslint-plugin": "^5.13.0",
     "@typescript-eslint/parser": "^5.13.0",
+    "concurrently": "^7.0.0",
     "eslint": "^8.10.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.15",
-    "npm-run-all": "^4.1.5",
     "prettier": "^2.5.1",
     "ts-proto": "^1.108.0",
     "typescript": "^4.6.2"
