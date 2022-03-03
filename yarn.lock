@@ -223,14 +223,63 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@runcitadel/fs@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "@runcitadel/fs@npm:1.0.1"
+"@runcitadel/fs@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "@runcitadel/fs@npm:1.0.2"
   dependencies:
     yaml: ^1.10.2
-  checksum: 81fa615b857173b03bff064569148ff985aba569e5dcbff71c99421657751be85e9e1661335d6ed563f973b3a31ddca7f34bfc0133fb61e58f6864ae704dff93
+  checksum: e60d821650ce8d460825c0a0fe7f66602888088c32bb098277e84a84cba4782eab8aa1906b195080ce584c8f3d051ced7869ce47890d059d33c25e0605c5ede3
   languageName: node
   linkType: hard
+
+"@runcitadel/middleware@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "@runcitadel/middleware@workspace:."
+  dependencies:
+    "@koa/cors": ^3.1.0
+    "@koa/router": ^10.1.1
+    "@runcitadel/bitcoin-rpc": ^0.0.4
+    "@runcitadel/fs": ^1.0.2
+    "@runcitadel/utils": ^0.9.1
+    "@types/crypto-js": ^4
+    "@types/koa": ^2.13.4
+    "@types/koa-morgan": ^1.0.5
+    "@types/koa-passport": ^4.0.3
+    "@types/koa__cors": ^3.1.1
+    "@types/koa__router": ^8.0.11
+    "@types/morgan": ^1.9.3
+    "@types/node": ^17
+    "@types/passport-jwt": ^3.0.6
+    "@types/uuid": ^8
+    "@types/validator": ^13.7.1
+    "@typescript-eslint/eslint-plugin": ^5.11.0
+    "@typescript-eslint/parser": ^5.11.0
+    bech32: ^2.0.0
+    big.js: ^6.1.1
+    bolt11: ^1.3.4
+    c-lightning.ts: ^0.0.17
+    crypto-js: ^4.1.1
+    debug: ^4.3.3
+    dotenv: ^16.0.0
+    eslint: ^8.9.0
+    eslint-config-prettier: ^8.3.0
+    eslint-plugin-prettier: ^4.0.0
+    koa: ^2.13.4
+    koa-body: ^4.2.0
+    koa-morgan: ^1.0.1
+    koa-passport: ^4.1.4
+    long: ^4.0.0
+    nice-grpc: ^1.0.6
+    node-fetch: 3.2.0
+    passport-jwt: ^4.0.0
+    prettier: ^2.5.1
+    protobufjs: ^6.11.2
+    ts-proto: ^1.104.0
+    typescript: ^4.5.5
+    uuid: ^8.3.2
+    validator: ^13.7.0
+  languageName: unknown
+  linkType: soft
 
 "@runcitadel/utils@npm:^0.9.1":
   version: 0.9.1
@@ -2392,55 +2441,6 @@ __metadata:
   checksum: ef3d1c88e79e0a68b0e94a03137676f3324ac18a908c245a9e5936f838079fcc108ac7170a5fadc265a9c2596963462e402841406bda1a4bb7b68805601d631c
   languageName: node
   linkType: hard
-
-"middleware@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "middleware@workspace:."
-  dependencies:
-    "@koa/cors": ^3.1.0
-    "@koa/router": ^10.1.1
-    "@runcitadel/bitcoin-rpc": ^0.0.4
-    "@runcitadel/fs": ^1.0.1
-    "@runcitadel/utils": ^0.9.1
-    "@types/crypto-js": ^4
-    "@types/koa": ^2.13.4
-    "@types/koa-morgan": ^1.0.5
-    "@types/koa-passport": ^4.0.3
-    "@types/koa__cors": ^3.1.1
-    "@types/koa__router": ^8.0.11
-    "@types/morgan": ^1.9.3
-    "@types/node": ^17
-    "@types/passport-jwt": ^3.0.6
-    "@types/uuid": ^8
-    "@types/validator": ^13.7.1
-    "@typescript-eslint/eslint-plugin": ^5.11.0
-    "@typescript-eslint/parser": ^5.11.0
-    bech32: ^2.0.0
-    big.js: ^6.1.1
-    bolt11: ^1.3.4
-    c-lightning.ts: ^0.0.17
-    crypto-js: ^4.1.1
-    debug: ^4.3.3
-    dotenv: ^16.0.0
-    eslint: ^8.9.0
-    eslint-config-prettier: ^8.3.0
-    eslint-plugin-prettier: ^4.0.0
-    koa: ^2.13.4
-    koa-body: ^4.2.0
-    koa-morgan: ^1.0.1
-    koa-passport: ^4.1.4
-    long: ^4.0.0
-    nice-grpc: ^1.0.6
-    node-fetch: 3.2.0
-    passport-jwt: ^4.0.0
-    prettier: ^2.5.1
-    protobufjs: ^6.11.2
-    ts-proto: ^1.104.0
-    typescript: ^4.5.5
-    uuid: ^8.3.2
-    validator: ^13.7.0
-  languageName: unknown
-  linkType: soft
 
 "mime-db@npm:1.51.0":
   version: 1.51.0
