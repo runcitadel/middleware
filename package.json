@@ -27,7 +27,7 @@
     "koa-body": "^4.2.0",
     "koa-morgan": "^1.0.1",
     "koa-passport": "^4.1.4",
-    "long": "^5.2.0",
+    "long": "^4.0.0",
     "nice-grpc": "^1.0.7",
     "node-fetch": "3.2.2",
     "passport-jwt": "^4.0.0",
