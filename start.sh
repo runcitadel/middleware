@@ -1,4 +1,4 @@
-#!/bin/ash
+#!/bin/sh
 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
@@ -9,21 +9,19 @@
 # THE SOFTWARE.
 
 # Usage
-# ./wait-for-node-manager.sh <hostname> <command>
+# ./start.sh <hostname>
 # Other documentation: https://docs.docker.com/compose/startup-order/
 
 set -e
 
 
 export HOST="$1"
-shift
-cmd="$@"
 
 found=1
 iterations=1
 until [ $found = 2 ]; do
   if node ./ping-manager.mjs; then
-    echo "Can connect, lets proceed with server starting"
+    echo "Manager is up, running Middleware..."
     found=2
   else
     echo "Can't connect, keep trying"
@@ -36,5 +34,5 @@ until [ $found = 2 ]; do
   sleep 2
 done
 
->&2 echo "Pre-condition found, Running service"
-exec $cmd
+# start server
+node --experimental-json-modules /app/bin/www.mjs

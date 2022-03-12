@@ -11,12 +11,12 @@ FROM node:${NODE_VERSION}-alpine@sha256:2c6c59cf4d34d4f937ddfcf33bab9d8bbad8658d
 FROM node-builder AS development
 # Create app directory
 WORKDIR /app
+# Install tools globally to avoid permission errors
+RUN yarn global add concurrently nodemon
 # Copy dependency management files
 COPY package.json yarn.lock ./
 # Install dependencies
 RUN yarn install
-# Install tools globally to avoid permission errors
-RUN yarn global add concurrently nodemon
 # NOTE: Using project files from mounted volumes
 EXPOSE 3005
 CMD [ "concurrently", "npm:build:watch", "nodemon --experimental-json-modules bin/www.mjs" ]
@@ -50,11 +50,12 @@ RUN rm -rf node_modules tsconfig.tsbuildinfo *.ts **/*.ts .eslint* .git* .pretti
 
 # PRODUCTION
 FROM node-runner AS production
-# Copy built code from build stage to '/app' directory
-COPY --from=builder /app /app
-# Copy node_modules
-COPY --from=dependencies /app/node_modules /app/node_modules
 # Change directory to '/app'
 WORKDIR /app
+# Copy built code from build stage to '/app' directory
+COPY --from=builder --chown=node:node /app /app
+# Copy node_modules
+COPY --from=dependencies --chown=node:node /app/node_modules /app/node_modules
 EXPOSE 3006
-CMD [ "node", "--experimental-json-modules", "bin/www.mjs" ]
+USER node
+# Start with ./start.sh
