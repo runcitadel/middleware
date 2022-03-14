@@ -13,13 +13,9 @@ FROM node-builder AS development
 WORKDIR /app
 # Install tools globally to avoid permission errors
 RUN yarn global add concurrently nodemon
-# Copy dependency management files
-COPY package.json yarn.lock ./
-# Install dependencies
-RUN yarn install
 # NOTE: Using project files from mounted volumes
 EXPOSE 3005
-CMD [ "concurrently", "npm:build:watch", "nodemon --experimental-json-modules bin/www.mjs" ]
+# NOTE: Using command from docker-compose.yml
 
 
 # DEPENDENCIES (production)
@@ -58,4 +54,4 @@ COPY --from=builder --chown=node:node /app /app
 COPY --from=dependencies --chown=node:node /app/node_modules /app/node_modules
 EXPOSE 3006
 USER node
-# Start with ./start.sh
+# NOTE: Using command from docker-compose.yml
