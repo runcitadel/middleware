@@ -496,9 +496,7 @@ export default class CLightningService implements ILightningClient {
   }
 
   async verifyMessage(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     message: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     signature: string
   ): Promise<{
     pubkey: string;
