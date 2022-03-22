@@ -709,7 +709,7 @@ export async function getChannels(): Promise<Channel_extended[]> {
     }
 
     // Fetch remote node alias and set it
-    const alias = await getNodeAlias(channel.remotePubkey);
+    const alias = await lndService.getNodeAlias(channel.remotePubkey);
     channel.remoteAlias = alias || "";
   }
 
@@ -938,17 +938,6 @@ export async function getStatus(): Promise<{
 
 export async function getVersion(): Promise<string> {
   return await lndService.getVersion();
-}
-
-export async function getNodeAlias(pubkey: string): Promise<string> {
-  const includeChannels = false;
-  let nodeInfo;
-  try {
-    nodeInfo = await lndService.getNodeInfo(pubkey, includeChannels);
-  } catch (error) {
-    return "";
-  }
-  return nodeInfo.node?.alias || "";
 }
 
 export async function updateChannelPolicy(

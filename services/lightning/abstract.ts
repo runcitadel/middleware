@@ -17,7 +17,6 @@ import {
   ListPaymentsResponse,
   ListUnspentResponse,
   NewAddressResponse,
-  NodeInfo,
   PayReq,
   Peer,
   PendingChannelsResponse,
@@ -62,7 +61,7 @@ export default interface ILightningClient {
   ): Promise<ForwardingHistoryResponse>;
   isOperational(): Promise<boolean>;
   getInfo(): Promise<GetInfoResponse>;
-  getNodeInfo(pubKey: string, includeChannels: boolean): Promise<NodeInfo>;
+  getNodeAlias(pubKey: string): Promise<string>;
   getOpenChannels(): Promise<Channel[]>;
   getClosedChannels(): Promise<ChannelCloseSummary[]>;
   getPayments(): Promise<ListPaymentsResponse>;

@@ -1,4 +1,4 @@
-import ApiClient, { ListfundsState, ListpeersChannel, ListinvoicesStatus } from "c-lightning.ts";
+import ApiClient, { ListfundsState, ListpeersChannel, ListinvoicesStatus, PayRequest } from "c-lightning.ts";
 import { v4 as uuidv4 } from "uuid";
 import ILightningClient, { extendedPaymentRequest } from "./abstract.js";
 import {
@@ -17,7 +17,6 @@ import {
   ListPaymentsResponse,
   ListUnspentResponse,
   NewAddressResponse,
-  NodeInfo,
   Peer,
   PendingChannelsResponse,
   SendCoinsResponse,
@@ -237,13 +236,11 @@ export default class CLightningService implements ILightningClient {
     };
   }
 
-  async getNodeInfo(
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  async getNodeAlias(
     pubKey: string,
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    includeChannels: boolean
-  ): Promise<NodeInfo> {
-    throw new Error("Not supported by c-lightning yet.");
+  ): Promise<string> {
+    const nodeInfo = await this.apiClient.getnode(pubKey);
+    return nodeInfo?.alias || "";
   }
 
   private async getChannels(): Promise<ListpeersChannel[]> {
@@ -460,6 +457,8 @@ export default class CLightningService implements ILightningClient {
     paymentRequest: string,
     amt?: number
   ): Promise<SendResponse> {
+    const req: PayRequest = { bolt11: paymentRequest };
+    if(amt) req.msatoshi = (BigInt(amt) * 1000n).toString();
     const data = await this.apiClient.pay({ bolt11: paymentRequest });
     await this.apiClient.waitsendpay({ payment_hash: data.payment_hash });
     return {
@@ -505,6 +504,17 @@ export default class CLightningService implements ILightningClient {
     pubkey: string;
     valid: boolean;
   }> {
-    throw new Error("Not implemented for c-lightning yet.");
+    try {
+      const data = await this.apiClient.checkmessage({ message, zbase: signature });
+      return {
+        valid: data.verified,
+        pubkey: (data as { verified: boolean; pubkey: string; }).pubkey,
+      };
+    } catch {
+      return {
+        pubkey: "unknown",
+        valid: false,
+      };
+    }
   }
 }

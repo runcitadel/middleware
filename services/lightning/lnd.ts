@@ -16,7 +16,6 @@ import {
   ListPaymentsResponse,
   ListUnspentResponse,
   NewAddressResponse,
-  NodeInfo,
   OpenChannelRequest,
   Peer,
   PendingChannelsResponse,
@@ -315,16 +314,15 @@ export default class LNDService implements ILightningClient {
     return await Lightning.getInfo({});
   }
 
-  async getNodeInfo(
+  async getNodeAlias(
     pubKey: string,
-    includeChannels: boolean
-  ): Promise<NodeInfo> {
+  ): Promise<string> {
     const rpcPayload = {
       pubKey,
-      includeChannels,
+      includeChannels: false,
     };
     const Lightning = await this.getLightningClient();
-    return await Lightning.getNodeInfo(rpcPayload);
+    return (await Lightning.getNodeInfo(rpcPayload)).node?.alias || "";
   }
 
   // Returns a list of lnd's currently open channels. Channels are considered open by this node and it's directly
