@@ -508,7 +508,7 @@ export default class CLightningService implements ILightningClient {
       const data = await this.apiClient.checkmessage({ message, zbase: signature });
       return {
         valid: data.verified,
-        pubkey: (data as { verified: boolean; pubkey: string; }).pubkey,
+        pubkey: data.pubkey,
       };
     } catch {
       return {

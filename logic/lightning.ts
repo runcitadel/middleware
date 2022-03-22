@@ -122,11 +122,18 @@ export function closeChannel(
 }
 
 // Decode the payment request into useful information.
-export async function decodePaymentRequest(
+export function decodePaymentRequest(
   paymentRequest: string
 ): Promise<extendedPaymentRequest> {
-  return await lndService.decodePaymentRequest(paymentRequest);
+  return lndService.decodePaymentRequest(paymentRequest);
 }
+
+export function getNodeAlias(
+  pubkey: string
+): Promise<string> {
+  return lndService.getNodeAlias(pubkey);
+}
+
 
 // Estimate the cost of opening a channel. We do this by repurposing the existing estimateFee grpc route from lnd. We
 // generate our own unused address and then feed that into the existing call. Then we add an extra 10 sats per
@@ -709,7 +716,7 @@ export async function getChannels(): Promise<Channel_extended[]> {
     }
 
     // Fetch remote node alias and set it
-    const alias = await lndService.getNodeAlias(channel.remotePubkey);
+    const alias = await getNodeAlias(channel.remotePubkey);
     channel.remoteAlias = alias || "";
   }
 

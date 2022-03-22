@@ -257,7 +257,7 @@ __metadata:
     bech32: ^2.0.0
     big.js: ^6.1.1
     bolt11: ^1.3.4
-    c-lightning.ts: ^0.1.0-beta.3
+    c-lightning.ts: ^0.1.0-beta.5
     concurrently: ^7.0.0
     crypto-js: ^4.1.1
     debug: ^4.3.3
@@ -1098,10 +1098,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"c-lightning.ts@npm:^0.1.0-beta.3":
-  version: 0.1.0-beta.3
-  resolution: "c-lightning.ts@npm:0.1.0-beta.3"
-  checksum: 4c1622ee3eb67b90b88852d9916467832b93426cdddbdb0657971b0cbdbd5357afa94680f9d3d2879b41d0706aecdb7c127f8fcc22706fd25feb131b1c538e8b
+"c-lightning.ts@npm:^0.1.0-beta.5":
+  version: 0.1.0-beta.5
+  resolution: "c-lightning.ts@npm:0.1.0-beta.5"
+  checksum: 22b2c92db9cb415879de84cb47d7cdf55339421d1f281e53acd4458a80c2f2c2ee696374a4016dfa7060a8967f25207b9c47bfe471be14af88591a4a3c5b2546
   languageName: node
   linkType: hard
 
