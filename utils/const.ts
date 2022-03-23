@@ -5,4 +5,5 @@ export default {
   CHANNEL_BACKUP_FILE:
     process.env.CHANNEL_BACKUP_FILE ||
     "/lnd/data/chain/bitcoin/" + process.env.LND_NETWORK + "/channel.backup",
+  IS_BITCOIN_CORE_INSTALLED: process.env.IS_BITCOIN_CORE_INSTALLED !== "false",
 };

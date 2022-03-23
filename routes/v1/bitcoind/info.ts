@@ -4,6 +4,7 @@ const router = new Router({
 });
 import BitcoinLogic from "../../../logic/bitcoin.js";
 import * as auth from "../../../middlewares/auth.js";
+import constants from "../../../utils/const.js";
 
 import { errorHandler } from "@runcitadel/utils";
 
@@ -11,6 +12,12 @@ const bitcoinLogic = new BitcoinLogic();
 
 router.use(errorHandler);
 
+router.get("/isInstalled", auth.jwt, async (ctx, next) => {
+  ctx.body = {
+    installed: constants.IS_BITCOIN_CORE_INSTALLED,
+  };
+  await next();
+})
 router.get("/mempool", auth.jwt, async (ctx, next) => {
   ctx.body = await bitcoinLogic.getMempoolInfo();
   await next();

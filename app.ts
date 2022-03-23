@@ -25,7 +25,9 @@ app.use(errorHandler);
 // Handles CORS
 app.use(cors(corsOptions));
 
-app.use(bodyParser());
+app.use(bodyParser({
+    parsedMethods: ["POST", "DELETE", "PUT"]
+}));
 
 app.use(passport.initialize());
 app.use(passport.session());
