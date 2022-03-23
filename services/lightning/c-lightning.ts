@@ -243,17 +243,6 @@ export default class CLightningService implements ILightningClient {
     return nodeInfo?.alias || "";
   }
 
-  private async getChannels(): Promise<ListpeersChannel[]> {
-    const peers = (await this.apiClient.listpeers()).peers;
-    let channels: ListpeersChannel[] = [];
-    peers.forEach((peer) => {
-      channels = [
-        ...channels,
-        ...peer.channels
-      ];
-    });
-    return channels;
-  }
   // Returns a list of lnd's currently open channels. Channels are considered open by this node and it's directly
   // connected peer after three confirmation. After six confirmations, the channel is broadcasted by this node and it's
   // directly connected peer to the broader Lightning network.
