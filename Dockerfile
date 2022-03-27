@@ -43,7 +43,7 @@ RUN yarn build
 # Delete everyhing we don't need in the next stage
 RUN rm -rf node_modules tsconfig.tsbuildinfo *.ts .eslint* .git* .prettier* .vscode* tsconfig.json .yarn* yarn.lock start-and-watch.sh generate-rpc-definitions.sh
 # Delete TypeScript code
-RUN find /app | grep ".\.ts" ".\.md" | xargs rm
+RUN find /app | grep -E "\.(ts|md)" | xargs rm
 
 # PRODUCTION
 FROM node-runner AS production
