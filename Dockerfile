@@ -27,7 +27,7 @@ COPY . .
 # Install production dependencies
 RUN yarn workspaces focus -A --production
 # Delete TypeScript code and markdown files to further reduce image size
-RUN find /app/node_modules | grep ".\.ts" ".\.md" | grep -v "c-lightning\.ts" | xargs rm
+RUN find /app/node_modules | grep -E "\.(ts|md)" | grep -v "c-lightning\.ts" | xargs rm
 
 
 # BUILD (production)
