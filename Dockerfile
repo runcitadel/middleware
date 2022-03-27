@@ -27,7 +27,7 @@ COPY . .
 # Install production dependencies
 RUN yarn workspaces focus -A --production
 # Delete TypeScript code and markdown files to further reduce image size
-RUN find /app/node_modules | grep ".\.ts" | grep -v "c-lightning\.ts" | xargs rm
+RUN find /app/node_modules | grep ".\.ts" ".\.md" | grep -v "c-lightning\.ts" | xargs rm
 
 
 # BUILD (production)
@@ -41,8 +41,9 @@ RUN yarn install
 # Build TS code
 RUN yarn build
 # Delete everyhing we don't need in the next stage
-RUN rm -rf node_modules tsconfig.tsbuildinfo *.ts **/*.ts .eslint* .git* .prettier* .vscode* tsconfig.json .yarn* yarn.lock
-
+RUN rm -rf node_modules tsconfig.tsbuildinfo *.ts .eslint* .git* .prettier* .vscode* tsconfig.json .yarn* yarn.lock start-and-watch.sh generate-rpc-definitions.sh
+# Delete TypeScript code
+RUN find /app | grep ".\.ts" ".\.md" | xargs rm
 
 # PRODUCTION
 FROM node-runner AS production

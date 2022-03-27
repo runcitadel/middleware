@@ -1,10 +1,12 @@
 // https://github.com/BlueWallet/BlueWallet/blob/82d387278bc3cc388cef9e2a084ee5d8db33616d/class/lnurl.js
 import bech32Js from "bech32";
 const { bech32 } = bech32Js;
-import bolt11 from "bolt11";
 import CryptoJS from "crypto-js";
 import crypto from "crypto";
 import fetch from "node-fetch";
+import getLightning from "../services/lightning";
+
+const lightningService = getLightning();
 
 type decodedInvoice = {
   destination: string | undefined;
@@ -14,10 +16,10 @@ type decodedInvoice = {
   fallback_addr: string;
   route_hints: string[];
   expiry?: string;
-  payment_hash?: bolt11.TagData;
-  description_hash?: bolt11.TagData;
+  payment_hash?: string;
+  description_hash?: string;
   cltv_expiry?: string;
-  description?: bolt11.TagData;
+  description?: string;
 };
 
 type LnURLServerReply = {
@@ -113,42 +115,23 @@ export default class Lnurl {
     return reply as ResponseType;
   }
 
-  decodeInvoice(invoice: string): decodedInvoice {
-    const { payeeNodeKey, tags, satoshis, millisatoshis, timestamp } =
-      bolt11.decode(invoice);
+  async decodeInvoice(invoice: string): Promise<decodedInvoice> {
+    const invoiceInfo = await lightningService.decodePaymentRequest(invoice);
 
     const decoded: decodedInvoice = {
-      destination: payeeNodeKey,
-      num_satoshis: satoshis ? satoshis.toString() : "0",
-      num_millisatoshis: millisatoshis ? millisatoshis.toString() : "0",
-      timestamp: (timestamp as number).toString(),
+      destination: invoiceInfo.destination,
+      num_satoshis: invoiceInfo.numSatoshis ? invoiceInfo.numSatoshis.toString() : "0",
+      num_millisatoshis: invoiceInfo.numMsat ? invoiceInfo.numMsat.toString() : "0",
+      timestamp: invoiceInfo.timestamp.toString(),
       fallback_addr: "",
       route_hints: [],
     };
 
-    for (let i = 0; i < tags.length; i++) {
-      const { tagName, data } = tags[i];
-      switch (tagName) {
-        case "payment_hash":
-          decoded.payment_hash = data;
-          break;
-        case "purpose_commit_hash":
-          decoded.description_hash = data;
-          break;
-        case "min_final_cltv_expiry":
-          decoded.cltv_expiry = data.toString();
-          break;
-        case "expire_time":
-          decoded.expiry = data.toString();
-          break;
-        case "description":
-          decoded.description = data;
-          break;
-      }
-    }
-
-    if (!decoded.expiry) decoded.expiry = "3600"; // default
-
+    if(invoiceInfo.paymentHash) decoded.payment_hash = invoiceInfo.paymentHash;
+    if(invoiceInfo.description) decoded.description = invoiceInfo.description;
+    if(invoiceInfo.expiry) decoded.expiry = invoiceInfo.expiry.toString();
+    else decoded.expiry = "3600"; // default
+  
     if (
       parseInt(decoded.num_satoshis) === 0 &&
       parseInt(decoded.num_millisatoshis) > 0
@@ -205,7 +188,7 @@ export default class Lnurl {
       );
 
     // check pr description_hash, amount etc:
-    const decoded = this.decodeInvoice((this.#lnurlPayServiceBolt11Payload as LNUrlCallback).pr);
+    const decoded = await this.decodeInvoice((this.#lnurlPayServiceBolt11Payload as LNUrlCallback).pr);
     const metadataHash = crypto
       .createHash("sha256")
       .update(this.#lnurlPayServicePayload.metadata)
