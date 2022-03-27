@@ -4,7 +4,7 @@ const { bech32 } = bech32Js;
 import CryptoJS from "crypto-js";
 import crypto from "crypto";
 import fetch from "node-fetch";
-import getLightning from "../services/lightning";
+import getLightning from "../services/lightning.js";
 
 const lightningService = getLightning();
 
