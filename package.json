@@ -3,6 +3,7 @@
   "version": "0.0.1",
   "description": "Middleware for Citadel",
   "author": "Citadel and contributors",
+  "private": "true",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
