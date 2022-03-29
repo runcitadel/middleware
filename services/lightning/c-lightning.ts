@@ -1,4 +1,4 @@
-import ApiClient, { ListfundsState, ListpeersChannel, ListinvoicesStatus, PayRequest } from "c-lightning.ts";
+import ApiClient, { ListfundsState, ListinvoicesStatus, PayRequest } from "c-lightning.ts";
 import { v4 as uuidv4 } from "uuid";
 import ILightningClient, { extendedPaymentRequest } from "./abstract.js";
 import {
@@ -17,7 +17,6 @@ import {
   ListPaymentsResponse,
   ListUnspentResponse,
   NewAddressResponse,
-  Peer,
   PendingChannelsResponse,
   SendCoinsResponse,
   SendResponse,
@@ -265,7 +264,7 @@ export default class CLightningService implements ILightningClient {
   }
 
   async getClosedChannels(): Promise<ChannelCloseSummary[]> {
-    const channels = (await this.apiClient.listfunds()).channels;
+    //const channels = (await this.apiClient.listfunds()).channels;
     // TODO: Implement
     return [];
   }
@@ -280,10 +279,11 @@ export default class CLightningService implements ILightningClient {
     //throw new Error("Not supported by c-lightning yet.");
   }
 
-  // Returns a list of all lnd's currently connected and active peers.
-  async getPeers(): Promise<Peer[]> {
-    return [];
-    //throw new Error("Not supported by c-lightning yet.");
+  // Returns a list of all connected peer's pubkeys.
+  async getPeerPubkeys(): Promise<string[]> {
+    const peers = await this.apiClient.listpeers();
+    
+    return peers.peers.map((peer) => peer.id);
   }
 
   // Returns a list of lnd's currently pending channels. Pending channels include, channels that are in the process of
@@ -378,7 +378,7 @@ export default class CLightningService implements ILightningClient {
           /** The raw transaction hex. */
           rawTxHex: transaction.rawtx,
           /** A label that was optionally set on transaction broadcast. */
-          label: "No label",
+          label: "",
         };
       }
     );

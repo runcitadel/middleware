@@ -17,7 +17,6 @@ import {
   ListUnspentResponse,
   NewAddressResponse,
   OpenChannelRequest,
-  Peer,
   PendingChannelsResponse,
   PolicyUpdateRequest,
   SendCoinsRequest,
@@ -347,11 +346,11 @@ export default class LNDService implements ILightningClient {
   }
 
   // Returns a list of all lnd's currently connected and active peers.
-  async getPeers(): Promise<Peer[]> {
+  async getPeerPubkeys(): Promise<string[]> {
     const Lightning = await this.getLightningClient();
     const grpcResponse = await Lightning.listPeers({});
     if (grpcResponse && grpcResponse.peers) {
-      return grpcResponse.peers;
+      return grpcResponse.peers.map(peer => peer.pubKey);
     } else {
       throw new Error("Unable to parse peer information");
     }

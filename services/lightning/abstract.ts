@@ -18,7 +18,6 @@ import {
   ListUnspentResponse,
   NewAddressResponse,
   PayReq,
-  Peer,
   PendingChannelsResponse,
   SendCoinsResponse,
   SendResponse,
@@ -65,7 +64,7 @@ export default interface ILightningClient {
   getOpenChannels(): Promise<Channel[]>;
   getClosedChannels(): Promise<ChannelCloseSummary[]>;
   getPayments(): Promise<ListPaymentsResponse>;
-  getPeers(): Promise<Peer[]>;
+  getPeerPubkeys(): Promise<string[]>;
   getPendingChannels(): Promise<PendingChannelsResponse>;
   getWalletBalance(): Promise<WalletBalanceResponse>;
   initWallet(mnemonic: string[]): Promise<string[]>;

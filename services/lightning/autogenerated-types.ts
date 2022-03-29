@@ -316,61 +316,6 @@ export interface Resolution {
    */
   sweepTxid: string;
 }
-export interface Peer {
-  /** The identity pubkey of the peer */
-  pubKey: string;
-  /** Network address of the peer; eg `127.0.0.1:10011` */
-  address: string;
-  /** Bytes of data transmitted to this peer */
-  bytesSent: number | string;
-  /** Bytes of data transmitted from this peer */
-  bytesRecv: number | string;
-  /** Satoshis sent to this peer */
-  satSent: number | string;
-  /** Satoshis received from this peer */
-  satRecv: number | string;
-  /** A channel is inbound if the counterparty initiated the channel */
-  inbound: boolean;
-  /** Ping time to this peer */
-  pingTime: number | string;
-  /** The type of sync we are currently performing with this peer. */
-  syncType: Peer_SyncType;
-  /** Features advertised by the remote peer in their init message. */
-  features: {
-    [key: number]: Feature;
-  };
-  /**
-   * The latest errors received from our peer with timestamps, limited to the 10
-   * most recent errors. These errors are tracked across peer connections, but
-   * are not persisted across lnd restarts. Note that these errors are only
-   * stored for peers that we have channels open with, to prevent peers from
-   * spamming us with errors at no cost.
-   */
-  errors: TimestampedError[];
-  /**
-   * The number of times we have recorded this peer going offline or coming
-   * online, recorded across restarts. Note that this value is decreased over
-   * time if the peer has not recently flapped, so that we can forgive peers
-   * with historically high flap counts.
-   */
-  flapCount: number | string;
-  /**
-   * The timestamp of the last flap we observed for this peer. If this value is
-   * zero, we have not observed any flaps for this peer.
-   */
-  lastFlapNs: number | string;
-}
-export enum Peer_SyncType {
-  /** UNKNOWN_SYNC - Denotes that we cannot determine the peer's current sync type. */
-  UNKNOWN_SYNC = 0,
-  /** ACTIVE_SYNC - Denotes that we are actively receiving new graph updates from the peer. */
-  ACTIVE_SYNC = 1,
-  /** PASSIVE_SYNC - Denotes that we are not receiving new graph updates from the peer. */
-  PASSIVE_SYNC = 2,
-  /** PINNED_SYNC - Denotes that this peer is pinned into an active sync. */
-  PINNED_SYNC = 3,
-  UNRECOGNIZED = -1,
-}
 export interface TimestampedError {
   /** The unix timestamp in seconds when the error occurred. */
   timestamp: number | string;

@@ -847,12 +847,12 @@ export async function openChannel(
   amt: string | number,
   satPerByte: number | undefined
 ): Promise<string> {
-  const peers = await lndService.getPeers();
+  const peers = await lndService.getPeerPubkeys();
 
   let existingPeer = false;
 
   for (const peer of peers) {
-    if (peer.pubKey === pubKey) {
+    if (peer === pubKey) {
       existingPeer = true;
       break;
     }
