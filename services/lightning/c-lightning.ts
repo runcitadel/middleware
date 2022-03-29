@@ -44,6 +44,7 @@ const Uint8ArrayFromHexString = (hexString: string) =>
   );
 
 export default class CLightningService implements ILightningClient {
+  readonly hasBolt12 = true;
   apiClient: ApiClient;
   constructor(socketPath: string) {
     this.apiClient = new ApiClient(socketPath);
@@ -503,5 +504,17 @@ export default class CLightningService implements ILightningClient {
         valid: false,
       };
     }
+  }
+
+  async addOffer(amount: number | string, description: string): Promise<{
+    bolt12: string;
+    bolt12_unsigned: string;
+  }> {
+    const offerData = await this.apiClient.offer({
+      amount: isNaN(Number(amount)) ? amount.toString() : `${amount}sat`,
+      description
+    });
+
+    return offerData;
   }
 }

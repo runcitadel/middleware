@@ -979,3 +979,14 @@ export async function verifyMessage(message: string, signature: string): Promise
 export async function getInvoice(paymentHash: string) {
   return await lndService.getInvoice(paymentHash);
 }
+
+export function hasBolt12(): boolean {
+  return lndService.hasBolt12;
+}
+
+export function createOffer(amount: string | number, description: string): Promise<{
+  bolt12: string;
+  bolt12_unsigned: string;
+}> {
+  return lndService.addOffer(amount, description);
+}

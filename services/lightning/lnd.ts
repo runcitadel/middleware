@@ -48,6 +48,7 @@ type RpcClientWithLightningForSure = RpcClientInfo & {
 const DEFAULT_RECOVERY_WINDOW = 250;
 
 export default class LNDService implements ILightningClient {
+  readonly hasBolt12 = false;
   #wasOnline = false;
   #channel: grpc.Channel | undefined = undefined;
   constructor(
@@ -545,5 +546,9 @@ export default class LNDService implements ILightningClient {
     const msg = Uint8Array.from(Buffer.from(message, "utf8"));
     const response = await Lightning.verifyMessage({ msg, signature });
     return response;
+  }
+
+  async addOffer(): Promise<{ bolt12: string; bolt12_unsigned: string; }> {
+    throw new  Error("BOLT12 not supported!");
   }
 }

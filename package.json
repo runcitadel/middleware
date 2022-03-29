@@ -3,7 +3,6 @@
   "version": "0.0.1",
   "description": "Middleware for Citadel",
   "author": "Citadel and contributors",
-  "private": "true",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
@@ -21,7 +20,6 @@
     "@runcitadel/utils": "^0.9.1",
     "@types/koa__router": "^8.0.11",
     "bech32": "^2.0.0",
-    "big.js": "^6.1.1",
     "c-lightning.ts": "^0.1.0",
     "crypto-js": "^4.1.1",
     "debug": "^4.3.3",

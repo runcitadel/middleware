@@ -24,6 +24,23 @@ router.post(
     }
 );
 
+router.post(
+    "/addOffer",
+    async (ctx, next) => {
+        // Denominated in Satoshi
+        // An offer of 0 sats is for any amount
+        const amount = ctx.request.body.amount;
+        const description = ctx.request.body.description || "";
+
+        typeHelper.isPositiveIntegerOrZero(amount, ctx as any);
+        typeHelper.isValidMemoLength(description, ctx as any);
+
+        ctx.body = await lightningLogic
+            .createOffer(amount === 0 ? "any" : amount, description);
+        await next();
+    }
+);
+
 router.get(
     "/forwardingEvents",
     auth.jwt,

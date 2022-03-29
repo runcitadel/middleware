@@ -255,7 +255,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.13.0
     "@typescript-eslint/parser": ^5.13.0
     bech32: ^2.0.0
-    big.js: ^6.1.1
     c-lightning.ts: ^0.1.0
     concurrently: ^7.0.0
     crypto-js: ^4.1.1
