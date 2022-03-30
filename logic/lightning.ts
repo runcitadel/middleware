@@ -772,8 +772,12 @@ export async function getPublicUris(): Promise<string[]> {
   return await lndService.getInfo().then((info) => info.uris);
 }
 
-export async function getGeneralInfo(): Promise<GetInfoResponse> {
-  return await lndService.getInfo();
+export async function getGeneralInfo(): Promise<GetInfoResponse & { hasBolt12: boolean; }> {
+  const info = await lndService.getInfo();
+  return {
+    ...info,
+    hasBolt12: lndService.hasBolt12,
+  };
 }
 
 // Returns the status on lnd syncing to the current chain.
