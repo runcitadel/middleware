@@ -96,18 +96,32 @@ export default class CLightningService implements ILightningClient {
   async decodePaymentRequest(
     paymentRequest: string
   ): Promise<extendedPaymentRequest> {
-    const decoded = await this.apiClient.decodepay({ bolt11: paymentRequest });
-    return {
-      paymentRequest,
-      destination: decoded.payee,
-      paymentHash: decoded.payment_hash,
-      numSatoshis: Number((decoded.amount_msat as bigint) / 1000n),
-      timestamp: decoded.created_at,
-      expiry: decoded.expiry,
-      description: decoded.description as string,
-      descriptionHash: decoded.description_hash as string,
-      numMsat: Number(decoded.amount_msat),
-    };
+    const decoded = await this.apiClient.decode({ string: paymentRequest });
+    if(decoded.valid && decoded.type === "bolt11 invoice")
+      return {
+        paymentRequest,
+        destination: decoded.payee,
+        paymentHash: decoded.payment_hash,
+        numSatoshis: Number((decoded.amount_msat as bigint) / 1000n),
+        timestamp: decoded.created_at,
+        expiry: decoded.created_at + decoded.expiry,
+        description: decoded.description as string,
+        descriptionHash: decoded.description_hash as string,
+        numMsat: Number(decoded.amount_msat),
+      };
+    if(decoded.valid && decoded.type === "bolt12 invoice")
+      return {
+        paymentRequest,
+        destination: decoded.node_id,
+        vendor: decoded.vendor,
+        paymentHash: decoded.payment_hash,
+        numSatoshis: decoded.amount_msat ? Number(decoded.amount_msat / 1000n) : undefined,
+        timestamp: decoded.created_at,
+        expiry: (decoded.created_at + decoded.relative_expiry) || undefined,
+        description: decoded.description as string,
+        numMsat: Number(decoded.amount_msat) || undefined,
+      };
+    throw new Error("Failed to decode invoice");
   }
 
   async estimateFee(
@@ -449,7 +463,7 @@ export default class CLightningService implements ILightningClient {
   ): Promise<SendResponse> {
     const req: PayRequest = { bolt11: paymentRequest };
     if(amt) req.msatoshi = (BigInt(amt) * 1000n).toString();
-    const data = await this.apiClient.pay({ bolt11: paymentRequest });
+    const data = await this.apiClient.pay(req);
     await this.apiClient.waitsendpay({ payment_hash: data.payment_hash });
     return {
       paymentPreimage: data.payment_preimage,

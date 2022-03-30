@@ -890,14 +890,18 @@ export interface ListPaymentsResponse {
 }
 
 export interface PayReq {
-  destination: string;
-  paymentHash: string;
-  numSatoshis: number | string;
-  timestamp: number | string;
-  expiry: number | string;
+  destination?: string;
+  paymentHash?: string;
+  numSatoshis?: number | string;
+  timestamp?: number | string;
+  expiry?: number | string;
   description: string;
-  descriptionHash: string;
-  numMsat: number | string;
+  descriptionHash?: string;
+  numMsat?: number | string;
+  /**
+   * the name of the vendor for this offer
+   */
+  vendor?: string;
 }
 export interface Feature {
   name: string;
