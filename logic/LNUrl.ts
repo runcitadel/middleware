@@ -122,7 +122,7 @@ export default class Lnurl {
       destination: invoiceInfo.destination,
       num_satoshis: invoiceInfo.numSatoshis ? invoiceInfo.numSatoshis.toString() : "0",
       num_millisatoshis: invoiceInfo.numMsat ? invoiceInfo.numMsat.toString() : "0",
-      timestamp: invoiceInfo.timestamp.toString(),
+      timestamp: invoiceInfo.timestamp?.toString() || "",
       fallback_addr: "",
       route_hints: [],
     };
