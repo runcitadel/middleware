@@ -1,4 +1,4 @@
-import ApiClient, { ListfundsState, ListinvoicesStatus, PayRequest } from "c-lightning.ts";
+import ApiClient, { ListfundsState, ListinvoicesStatus, PayRequest, WaitsendpayStatus } from "@core-ln/core";
 import { v4 as uuidv4 } from "uuid";
 import ILightningClient, { extendedPaymentRequest } from "./abstract.js";
 import {
@@ -347,7 +347,7 @@ export default class CLightningService implements ILightningClient {
     const invoices = (await this.apiClient.listinvoices()).invoices;
     const invoicesLnd: Invoice[] = invoices.map((invoice) => {
       return {
-        memo: invoice.description,
+        memo: invoice.description || "",
         value: Number((invoice.amount_msat || 0n) / 1000n),
         valueMsat: Number(invoice.amount_msat),
         paymentRequest: invoice.bolt11 || invoice.bolt12 || "",
@@ -363,6 +363,18 @@ export default class CLightningService implements ILightningClient {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   async getInvoice(paymentHash: string): Promise<Invoice> {
     throw new Error("Not suported by c-lightning");
+  }
+
+  async isInvoiceSettled(paymentHash: string): Promise<boolean> {
+    try {
+      const invoiceData = await this.apiClient.waitsendpay({
+        timeout: "0",
+        payment_hash: paymentHash,
+      });
+      return invoiceData.status === WaitsendpayStatus.Complete;
+    } catch {
+      return false;
+    }
   }
 
   // Returns a list of all on chain transactions.

@@ -84,8 +84,19 @@ router.get(
     auth.jwt,
     async (ctx, next) => {
         const paymentHash = <string>ctx.request.query.paymentHash;
+        let data;
 
-        ctx.body = await lightningLogic.getInvoice(paymentHash);
+        try {
+            data = await lightningLogic.getInvoice(paymentHash);
+        } catch {
+            data = {};
+        }
+
+    
+        ctx.body = {
+            ...data,
+            isPaid: await lightningLogic.isSettled(paymentHash),
+        };
         await next();
     }
 );

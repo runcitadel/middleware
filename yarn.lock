@@ -5,6 +5,22 @@ __metadata:
   version: 6
   cacheKey: 8
 
+"@core-ln/base@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@core-ln/base@npm:0.0.1"
+  checksum: 26aebf455ba5c46d318a1c98d1d9457e854534ceb4cb3dc4cd58333ccae808ddf083b4d11f91f13576fcf84c2ccd8923f254df1a4bbaa0abdabb74528a3ad861
+  languageName: node
+  linkType: hard
+
+"@core-ln/core@npm:^0.0.1":
+  version: 0.0.1
+  resolution: "@core-ln/core@npm:0.0.1"
+  dependencies:
+    "@core-ln/base": ^0.0.1
+  checksum: b6b4c74d96110f1725a8942d20035074e933a4195a1b226917085da32803325529198038ddcdb048321a4232606aab78ec3471d72dabdb08a293a1106c05941c
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^1.2.0":
   version: 1.2.0
   resolution: "@eslint/eslintrc@npm:1.2.0"
@@ -236,6 +252,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@runcitadel/middleware@workspace:."
   dependencies:
+    "@core-ln/core": ^0.0.1
     "@koa/cors": ^3.1.0
     "@koa/router": ^10.1.1
     "@runcitadel/bitcoin-rpc": ^0.0.4
@@ -255,7 +272,6 @@ __metadata:
     "@typescript-eslint/eslint-plugin": ^5.13.0
     "@typescript-eslint/parser": ^5.13.0
     bech32: ^2.0.0
-    c-lightning.ts: ^0.1.0
     concurrently: ^7.0.0
     crypto-js: ^4.1.1
     debug: ^4.3.3
@@ -996,13 +1012,6 @@ __metadata:
   version: 3.1.2
   resolution: "bytes@npm:3.1.2"
   checksum: e4bcd3948d289c5127591fbedf10c0b639ccbf00243504e4e127374a15c3bc8eed0d28d4aaab08ff6f1cf2abc0cce6ba3085ed32f4f90e82a5683ce0014e1b6e
-  languageName: node
-  linkType: hard
-
-"c-lightning.ts@npm:^0.1.0":
-  version: 0.1.0
-  resolution: "c-lightning.ts@npm:0.1.0"
-  checksum: 9055a7b6cd39c3d205760cca689fb6e0dec6cb741336d73c2d7d8d1fc5e2e059092a1a5c088c9087da7a784ada14e8dfefa8421d1b68110d1f5e723e49172f11
   languageName: node
   linkType: hard
 

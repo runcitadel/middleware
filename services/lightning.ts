@@ -27,6 +27,8 @@ export default function getLightning(): ILightningClient {
     case undefined:
       return new LNDService(`${LND_HOST}:${LND_PORT}`, fs.readFileSync(TLS_FILE), MACAROON_FILE);
     case "c-lightning":
+    case "core-lightning":
+    case "core-ln":
       return new CLightningService(C_LIGHTNING_SOCKET);
     default:
       throw new Error(`Unknown lightning implementation: ${process.env.LIGHTNING_IMPL}`);

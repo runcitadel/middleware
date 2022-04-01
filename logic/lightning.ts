@@ -984,6 +984,10 @@ export async function getInvoice(paymentHash: string) {
   return await lndService.getInvoice(paymentHash);
 }
 
+export async function isSettled(paymentHash: string) {
+  return await lndService.isInvoiceSettled(paymentHash);
+}
+
 export function hasBolt12(): boolean {
   return lndService.hasBolt12;
 }

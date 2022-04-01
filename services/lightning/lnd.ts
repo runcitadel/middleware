@@ -11,6 +11,7 @@ import {
   ForwardingHistoryResponse,
   GetInfoResponse,
   Invoice,
+  Invoice_InvoiceState,
   LightningDefinition,
   ListInvoiceResponse,
   ListPaymentsResponse,
@@ -403,6 +404,10 @@ export default class LNDService implements ILightningClient {
   async getInvoice(paymentHash: string): Promise<Invoice> {
     const Lightning = await this.getLightningClient();
     return await Lightning.lookupInvoice({ rHashStr: paymentHash });
+  }
+
+  async isInvoiceSettled(paymentHash: string): Promise<boolean> {
+      return (await this.getInvoice(paymentHash)).state === Invoice_InvoiceState.SETTLED;
   }
 
   // Returns a list of all on chain transactions.
