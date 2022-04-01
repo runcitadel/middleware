@@ -476,7 +476,6 @@ export default class CLightningService implements ILightningClient {
     const req: PayRequest = { bolt11: paymentRequest };
     if(amt) req.msatoshi = (BigInt(amt) * 1000n).toString();
     const data = await this.apiClient.pay(req);
-    await this.apiClient.waitsendpay({ payment_hash: data.payment_hash });
     return {
       paymentPreimage: data.payment_preimage,
       paymentRoute: undefined,
