@@ -3,13 +3,16 @@
   "version": "0.0.1",
   "description": "Middleware for Citadel",
   "author": "Citadel and contributors",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "build:watch": "tsc --watch",
     "start": "node --experimental-json-modules ./bin/www.mjs",
     "start:watch": "nodemon --experimental-json-modules ./bin/www.mjs",
     "dev": "concurrently \"yarn:build:watch\" \"yarn:start:watch\"",
-    "lint": "eslint --fix . && prettier -w .",
+    "tsc:check": "tsc --noEmit",
+    "lint": "xo --fix .",
+    "lint:check": "xo .",
     "build-types": "cd resources && protoc --plugin=../node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=../lnrpc --ts_proto_opt=esModuleInterop=true --ts_proto_opt=useExactTypes=false --ts_proto_opt=outputServices=generic-definitions --ts_proto_opt=forceLong=string lightning.proto walletunlocker.proto stateservice.proto"
   },
   "dependencies": {
@@ -19,7 +22,6 @@
     "@runcitadel/bitcoin-rpc": "^0.0.4",
     "@runcitadel/fs": "^1.0.2",
     "@runcitadel/utils": "^0.9.1",
-    "@types/koa__router": "^8.0.11",
     "bech32": "^2.0.0",
     "crypto-js": "^4.1.1",
     "debug": "^4.3.3",
@@ -41,22 +43,18 @@
     "@types/koa-morgan": "^1.0.5",
     "@types/koa-passport": "^4.0.3",
     "@types/koa__cors": "^3.1.1",
+    "@types/koa__router": "^8.0.11",
     "@types/morgan": "^1.9.3",
     "@types/node": "^17",
     "@types/passport-jwt": "^3.0.6",
     "@types/uuid": "^8",
     "@types/validator": "^13.7.1",
-    "@typescript-eslint/eslint-plugin": "^5.13.0",
-    "@typescript-eslint/parser": "^5.13.0",
+    "@types/xo": "^0",
     "concurrently": "^7.0.0",
-    "eslint": "^8.10.0",
-    "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.0.0",
     "nodemon": "^2.0.15",
-    "prettier": "^2.5.1",
     "ts-proto": "^1.108.0",
-    "typescript": "^4.6.2"
+    "typescript": "^4.6.2",
+    "xo": "^0.48.0"
   },
-  "type": "module",
   "packageManager": "yarn@3.2.0"
 }
