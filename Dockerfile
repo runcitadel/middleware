@@ -1,5 +1,5 @@
 # Define version & use pinned images
-ARG NODE_VERSION=16
+ARG NODE_VERSION=18
 
 # Build on the host architecture, change this if you're building on arm64
 FROM amd64/node:${NODE_VERSION}-alpine@sha256:425c81a04546a543da824e67c91d4a603af16fbc3d875ee2f276acf8ec2b1577 as node-builder

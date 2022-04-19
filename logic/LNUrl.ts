@@ -1,9 +1,9 @@
+/// <reference lib="dom" />
 // https://github.com/BlueWallet/BlueWallet/blob/82d387278bc3cc388cef9e2a084ee5d8db33616d/class/lnurl.js
 import bech32Js from "bech32";
 const { bech32 } = bech32Js;
 import CryptoJS from "crypto-js";
 import crypto from "crypto";
-import fetch from "node-fetch";
 import getLightning from "../services/lightning.js";
 
 const lightningService = getLightning();

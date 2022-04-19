@@ -30,7 +30,6 @@
     "koa-passport": "^4.1.4",
     "long": "^4.0.0",
     "nice-grpc": "^1.0.7",
-    "node-fetch": "3.2.2",
     "passport-jwt": "^4.0.0",
     "protobufjs": "^6.11.2",
     "uuid": "^8.3.2",
