@@ -82,16 +82,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grpc/grpc-js@npm:^1.6.7":
-  version: 1.6.7
-  resolution: "@grpc/grpc-js@npm:1.6.7"
-  dependencies:
-    "@grpc/proto-loader": ^0.6.4
-    "@types/node": ">=12.12.47"
-  checksum: 2668b08c2eec433970561384b22cf81443106835077ff1d8b7989cb5519fb7d2284c7a46b6ae94968f3b488ffbd9326ba9b4fbe4971a185d3b89eb0ee99e4fcd
-  languageName: node
-  linkType: hard
-
 "@grpc/proto-loader@npm:^0.6.4":
   version: 0.6.9
   resolution: "@grpc/proto-loader@npm:0.6.9"
@@ -290,7 +280,7 @@ __metadata:
   resolution: "@runcitadel/middleware@workspace:."
   dependencies:
     "@core-ln/core": ^0.0.1
-    "@grpc/grpc-js": ^1.6.7
+    "@grpc/grpc-js": ^1.5.1
     "@koa/cors": ^3.1.0
     "@koa/router": ^10.1.1
     "@runcitadel/bitcoin-rpc": ^0.0.4
