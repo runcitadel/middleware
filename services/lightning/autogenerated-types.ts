@@ -507,9 +507,7 @@ export interface WalletBalanceResponse {
   /** The unconfirmed balance of a wallet(with 0 confirmations) */
   unconfirmedBalance: number | string;
   /** A mapping of each wallet account's name to its balance. */
-  accountBalance: {
-    [key: string]: WalletAccountBalance;
-  };
+  accountBalance: Record<string, WalletAccountBalance>;
 }
 export interface Amount {
   /** Value denominated in satoshis. */
@@ -630,9 +628,7 @@ export interface LightningNode {
   alias: string;
   addresses: NodeAddress[];
   color: string;
-  features: {
-    [key: number]: Feature;
-  };
+  features: Record<number, Feature>;
 }
 export interface NodeAddress {
   network: string;
@@ -889,7 +885,7 @@ export interface ListPaymentsResponse {
   lastIndexOffset: number | string;
 }
 
-export interface PayReq {
+export interface PayRequest {
   destination?: string;
   paymentHash?: string;
   numSatoshis?: number | string;
@@ -899,7 +895,7 @@ export interface PayReq {
   descriptionHash?: string;
   numMsat?: number | string;
   /**
-   * the name of the vendor for this offer
+   * The name of the vendor for this offer
    */
   vendor?: string;
 }
@@ -1107,7 +1103,7 @@ export interface ChannelUpdate {
 
 export interface GenSeedResponse {
   /**
-   * cipherSeedMnemonic is a 24-word mnemonic that encodes a prior aezeed
+   * CipherSeedMnemonic is a 24-word mnemonic that encodes a prior aezeed
    * cipher seed obtained by the user. This field is optional, as if not
    * provided, then the daemon will generate a new cipher seed for the user.
    * Otherwise, then the daemon will attempt to recover the wallet state linked

@@ -4,18 +4,18 @@
  * Module dependencies.
  */
 
-import * as http from "node:http";
-import * as process from "node:process";
-import debugPkg from "debug";
-import app from "../app.js";
+import * as http from 'node:http';
+import * as process from 'node:process';
+import debugPkg from 'debug';
+import app from '../app.js';
 
-const debug = debugPkg("citadel-manager:server");
+const debug = debugPkg('citadel-manager:server');
 
 /**
  * Get port from environment and store in Express.
  */
 
-const port = normalizePort(process.env.PORT || "3005");
+const port = normalizePort(process.env.PORT || '3005');
 
 /**
  * Create HTTP server.
@@ -28,8 +28,8 @@ const server = http.createServer(app.callback());
  */
 
 server.listen(port);
-server.on("error", onError);
-server.on("listening", onListening);
+server.on('error', onError);
+server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -56,19 +56,19 @@ function normalizePort(value) {
  */
 
 function onError(error) {
-  if (error.syscall !== "listen") {
+  if (error.syscall !== 'listen') {
     throw error;
   }
 
-  const bind = typeof port === "string" ? "Pipe " + port : "Port " + port;
+  const bind = typeof port === 'string' ? 'Pipe ' + port : 'Port ' + port;
 
   // Handle specific listen errors with friendly messages
   switch (error.code) {
-    case "EACCES":
-      console.error(bind + " requires elevated privileges");
+    case 'EACCES':
+      console.error(bind + ' requires elevated privileges');
       process.exit(1);
-    case "EADDRINUSE":
-      console.error(bind + " is already in use");
+    case 'EADDRINUSE':
+      console.error(bind + ' is already in use');
       process.exit(1);
     default:
       throw error;
@@ -81,7 +81,7 @@ function onError(error) {
 
 function onListening() {
   const addr = server.address();
-  const bind = typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-  debug("Listening on " + bind);
-  console.log("Listening on " + bind);
+  const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
 }
