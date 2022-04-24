@@ -1,4 +1,4 @@
-export type BitcoinNetwork = "main" | "test" | "regtest";
+export type BitcoinNetwork = 'main' | 'test' | 'regtest';
 export type scriptPubkeyType = string;
 export type Block = {
   hash: string;
@@ -36,18 +36,21 @@ export type ChainInfo = {
   pruneheight: number;
   automatic_pruning: boolean;
   prune_target_size: number;
-  softforks: {
+  softforks: Array<{
     id: string;
     version: number;
     reject: {
       status: boolean;
     };
-  }[];
-  bip9_softforks: {
-    [key: string]: {
-      status: "defined" | "started" | "locked_in" | "active" | "failed";
-    };
-  }[];
+  }>;
+  bip9_softforks: Array<
+    Record<
+      string,
+      {
+        status: 'defined' | 'started' | 'locked_in' | 'active' | 'failed';
+      }
+    >
+  >;
   warnings?: string;
 };
 export type DecodedRawTransaction = {
@@ -58,7 +61,7 @@ export type DecodedRawTransaction = {
   version: number;
   locktime: number;
   vin: TxIn | TxIn[];
-  vout:  TxOut | TxOut[];
+  vout: TxOut | TxOut[];
 };
 export interface FetchedRawTransaction extends DecodedRawTransaction {
   hex: string;
@@ -94,20 +97,20 @@ export type NetworkInfo = {
   timeoffset: number;
   connections: number;
   networkactive: boolean;
-  networks: {
+  networks: Array<{
     name: string;
     limited: boolean;
     reachable: boolean;
     proxy: string;
     proxy_randomize_credentials: boolean;
-  }[];
+  }>;
   relayfee: number;
   incrementalfee: number;
-  localaddresses: {
+  localaddresses: Array<{
     address: string;
     port: number;
     score: number;
-  }[];
+  }>;
   warnings?: string;
 };
 export type PeerInfo = {
@@ -135,12 +138,8 @@ export type PeerInfo = {
   synced_blocks: number;
   inflight: number[];
   whitelisted: boolean;
-  bytessent_per_msg: {
-    [key: string]: number;
-  };
-  byterecv_per_msg: {
-    [key: string]: number;
-  };
+  bytessent_per_msg: Record<string, number>;
+  byterecv_per_msg: Record<string, number>;
 };
 export type Transaction = {
   txid: string;
@@ -150,7 +149,7 @@ export type Transaction = {
   vsize: number;
   locktime: number;
   vin: TxIn | TxIn[];
-  vout:  TxOut | TxOut[];
+  vout: TxOut | TxOut[];
 };
 export type TxIn = {
   txid: string;
