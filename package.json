@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@core-ln/core": "^0.0.1",
+    "@grpc/grpc-js": "^1.6.7",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.1.1",
     "@runcitadel/bitcoin-rpc": "^0.0.4",

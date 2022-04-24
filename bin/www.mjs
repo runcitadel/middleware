@@ -38,7 +38,7 @@ server.on('listening', onListening);
 function normalizePort(value) {
   const port = Number.parseInt(value, 10);
 
-  if (isNaN(port)) {
+  if (Number.isNaN(port)) {
     // Named pipe
     return value;
   }
@@ -67,9 +67,11 @@ function onError(error) {
     case 'EACCES':
       console.error(bind + ' requires elevated privileges');
       process.exit(1);
+      break;
     case 'EADDRINUSE':
       console.error(bind + ' is already in use');
       process.exit(1);
+      break;
     default:
       throw error;
   }

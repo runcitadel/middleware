@@ -87,6 +87,7 @@ export function toHexString(byteObject: Buffer): string {
 
   return bytes
     .map(function (byte) {
+      // eslint-disable-next-line no-bitwise
       return ('00' + (byte & 0xff).toString(16)).slice(-2);
     })
     .join('');
@@ -212,7 +213,7 @@ export async function estimateFee(
       mempoolInfo.mempoolminfee,
       confTarget,
     );
-  } catch (error) {
+  } catch (error: unknown) {
     return handleEstimateFeeError(error);
   }
 }
@@ -259,13 +260,13 @@ export async function estimateFeeSweep(
       amtToEstimate,
       r,
     );
-  } catch (error) {
+  } catch (error: unknown) {
     // Return after we have completed our search.
     if (l === amtToEstimate) {
       return handleEstimateFeeError(error);
     }
 
-    return await estimateFeeSweep(
+    return estimateFeeSweep(
       address,
       fullAmtToEstimate,
       mempoolMinFee,
@@ -732,6 +733,7 @@ export async function getChannels(): Promise<Channel_extended[]> {
     }
 
     // Fetch remote node alias and set it
+    // eslint-disable-next-line no-await-in-loop
     const alias = await getNodeAlias(channel.remotePubkey);
     channel.remoteAlias = alias || '';
   }
@@ -766,11 +768,7 @@ export async function getPendingChannelDetails(
   const typePendingChannel = pendingChannels[channelType];
 
   for (const curChannel of typePendingChannel) {
-    if (
-      curChannel.channel &&
-      curChannel.channel.remoteNodePub &&
-      curChannel.channel.remoteNodePub === pubKey
-    ) {
+    if (curChannel?.channel?.remoteNodePub === pubKey) {
       return curChannel.channel;
     }
   }
@@ -811,9 +809,12 @@ export async function getSyncStatus(): Promise<{
   let percentSynced = null;
   let processedBlocks = null;
 
-  if (!info.syncedToChain) {
+  if (info.syncedToChain) {
+    percentSynced = 1;
+    processedBlocks = info.blockHeight;
+  } else {
     const genesisTimestamp =
-      info.chains[0].network == 'testnet'
+      info.chains[0].network === 'testnet'
         ? TESTNET_GENESIS_BLOCK_TIMESTAMP
         : MAINNET_GENESIS_BLOCK_TIMESTAMP;
 
@@ -832,9 +833,6 @@ export async function getSyncStatus(): Promise<{
       processedBlocks = info.blockHeight;
       percentSynced = 1;
     }
-  } else {
-    percentSynced = 1;
-    processedBlocks = info.blockHeight;
   }
 
   return {
@@ -886,9 +884,9 @@ export async function openChannel(
 
   if (typeof amt === 'string') amt = Number.parseInt(amt);
   // Only returns a transactions id
-  const channel = await (
-    await lndService.openChannel(pubKey, amt, satPerByte)
-  ).fundingTxidStr;
+
+  const channelPoint = await lndService.openChannel(pubKey, amt, satPerByte);
+  const channel = channelPoint.fundingTxidStr;
 
   return channel!;
 }

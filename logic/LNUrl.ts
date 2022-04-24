@@ -74,15 +74,12 @@ export default class Lnurl {
   }
 
   static findlnurl(bodyOfText: string): string | undefined {
-    const res =
+    const result =
       /^(?:http.*[&?]lightning=|lightning:)?(lnurl1[02-9ac-hj-np-z]+)/.exec(
         bodyOfText.toLowerCase(),
       );
-    if (res) {
-      return res[1];
-    }
 
-    return null;
+    return result ? result[1] : undefined;
   }
 
   static getUrlFromLnurl(lnurlExample: string): string | false {
@@ -114,7 +111,7 @@ export default class Lnurl {
     const reply = await resp.json();
     if ((reply as {status: string}).status === 'ERROR') {
       throw new Error(
-        'Reply from server: ' + (reply as {reason: string}).reason,
+        `Reply from server: ${(reply as {reason: string}).reason}`,
       );
     }
 
@@ -168,17 +165,14 @@ export default class Lnurl {
       amountSat > this.#lnurlPayServicePayload.max
     )
       throw new Error(
-        'The specified amount is invalid, ' +
-          amountSat +
-          ' it should be between ' +
-          this.#lnurlPayServicePayload.min +
-          ' and ' +
-          this.#lnurlPayServicePayload.max,
+        `The specified amount is invalid, ${amountSat} it should be between ${
+          this.#lnurlPayServicePayload.min
+        } and ${this.#lnurlPayServicePayload.max}`,
       );
     const nonce = Math.floor(Math.random() * 2e16).toString(16);
-    const separator = !this.#lnurlPayServicePayload.callback.includes('?')
-      ? '?'
-      : '&';
+    const separator = this.#lnurlPayServicePayload.callback.includes('?')
+      ? '&'
+      : '?';
     if (
       this.commentAllowed &&
       comment &&
@@ -188,14 +182,12 @@ export default class Lnurl {
     }
 
     if (comment) comment = `&comment=${encodeURIComponent(comment)}`;
-    const urlToFetch =
-      this.#lnurlPayServicePayload.callback +
-      separator +
-      'amount=' +
-      Math.floor(amountSat * 1000) +
-      '&nonce=' +
-      nonce +
-      comment;
+    const urlToFetch = `${
+      this.#lnurlPayServicePayload.callback
+    }${separator}amount=${Math.floor(
+      amountSat * 1000,
+    )}&nonce=${nonce}${comment}`;
+
     this.#lnurlPayServiceBolt11Payload = await this.fetchGet<LNUrlCallback>(
       urlToFetch,
     );
@@ -254,7 +246,7 @@ export default class Lnurl {
     // Parse metadata and extract things from it
     let image;
     let description;
-    const kvs = JSON.parse(data.metadata);
+    const kvs = JSON.parse(data.metadata) as string[];
     for (const [k, v] of kvs) {
       switch (k) {
         case 'text/plain':
@@ -262,8 +254,10 @@ export default class Lnurl {
           break;
         case 'image/png;base64':
         case 'image/jpeg;base64':
-          image = 'data:' + k + ',' + v;
+          image = `data:${k},${v}`;
           break;
+        default:
+          throw new Error('Invalid metadata');
       }
     }
 

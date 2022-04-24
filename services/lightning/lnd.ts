@@ -1,5 +1,4 @@
 import * as fs from '@runcitadel/fs';
-
 import {createChannel, createClient, Client} from 'nice-grpc';
 import * as grpc from '@grpc/grpc-js';
 import {
@@ -111,9 +110,9 @@ export default class LNDService implements ILightningClient {
      * Once we have stuff like that implemented on the Citadel dashboard
      */
     if (
-      walletState.state == WalletState.NON_EXISTING ||
-      walletState.state == WalletState.LOCKED ||
-      walletState.state == WalletState.WAITING_TO_START
+      walletState.state === WalletState.NON_EXISTING ||
+      walletState.state === WalletState.LOCKED ||
+      walletState.state === WalletState.WAITING_TO_START
     ) {
       return {
         WalletUnlocker: walletUnlocker,
@@ -123,8 +122,8 @@ export default class LNDService implements ILightningClient {
     }
 
     if (
-      walletState.state == WalletState.RPC_ACTIVE ||
-      walletState.state == WalletState.SERVER_ACTIVE
+      walletState.state === WalletState.RPC_ACTIVE ||
+      walletState.state === WalletState.SERVER_ACTIVE
     ) {
       const authenticatedChannel = await this.getCommunicationChannel();
 
@@ -180,10 +179,9 @@ export default class LNDService implements ILightningClient {
     };
 
     const Lightning = await this.getLightningClient();
-
     const grpcResponse = await Lightning.addInvoice(rpcPayload);
 
-    if (grpcResponse && grpcResponse.paymentRequest) {
+    if (grpcResponse?.paymentRequest) {
       return {
         rHash: grpcResponse.rHash,
         paymentRequest: grpcResponse.paymentRequest,
@@ -313,7 +311,8 @@ export default class LNDService implements ILightningClient {
   }
 
   async isOperational(): Promise<boolean> {
-    return !(await this.initializeRPCClient()).offline;
+    const {offline} = await this.initializeRPCClient();
+    return !offline;
   }
 
   async getInfo(): Promise<GetInfoResponse> {
@@ -327,7 +326,8 @@ export default class LNDService implements ILightningClient {
       includeChannels: false,
     };
     const Lightning = await this.getLightningClient();
-    return (await Lightning.getNodeInfo(rpcPayload)).node?.alias || '';
+    const nodeInfo = await Lightning.getNodeInfo(rpcPayload);
+    return nodeInfo.node?.alias || '';
   }
 
   // Returns a list of lnd's currently open channels. Channels are considered open by this node and it's directly
@@ -355,7 +355,7 @@ export default class LNDService implements ILightningClient {
   async getPeerPubkeys(): Promise<string[]> {
     const Lightning = await this.getLightningClient();
     const grpcResponse = await Lightning.listPeers({});
-    if (grpcResponse && grpcResponse.peers) {
+    if (grpcResponse?.peers) {
       return grpcResponse.peers.map((peer) => peer.pubKey);
     }
 
@@ -412,10 +412,8 @@ export default class LNDService implements ILightningClient {
   }
 
   async isInvoiceSettled(paymentHash: string): Promise<boolean> {
-    return (
-      (await this.getInvoice(paymentHash)).state ===
-      Invoice_InvoiceState.SETTLED
-    );
+    const {state} = await this.getInvoice(paymentHash);
+    return state === Invoice_InvoiceState.SETTLED;
   }
 
   // Returns a list of all on chain transactions.

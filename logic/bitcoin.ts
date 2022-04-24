@@ -74,6 +74,7 @@ export default class BitcoinLogic {
       return -1;
     }
 
+    // eslint-disable-next-line unicorn/no-array-reduce
     const maxPeer = peerInfo.reduce(function (previous, current) {
       return previous.synced_headers > current.synced_headers
         ? previous
@@ -212,6 +213,7 @@ export default class BitcoinLogic {
       currentHeight >= fromHeight;
       currentHeight--
     ) {
+      // eslint-disable-next-line no-await-in-loop
       const block = await this.#bitcoinClient.getBlock(currentHash);
 
       const formattedBlock = {
