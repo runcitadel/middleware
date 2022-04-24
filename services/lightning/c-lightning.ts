@@ -42,7 +42,7 @@ function convertToLndState(status: ListinvoicesStatus): Invoice_InvoiceState {
   }
 }
 
-const Uint8ArrayFromHexString = (hexString: string) =>
+const uint8ArrayFromHexString = (hexString: string) =>
   new Uint8Array(
     hexString.match(/.{1,2}/g)!.map((byte) => Number.parseInt(byte, 16)),
   );
@@ -73,7 +73,7 @@ export default class CLightningService implements ILightningClient {
     });
 
     return {
-      rHash: Uint8ArrayFromHexString(invoice.payment_hash),
+      rHash: uint8ArrayFromHexString(invoice.payment_hash),
       paymentRequest: invoice.bolt11,
     };
   }
@@ -272,7 +272,7 @@ export default class CLightningService implements ILightningClient {
     const {channels} = await this.apiClient.listfunds();
     const lndChannels: Channel[] = [];
     for (const channel of channels) {
-      if (channel.state == ListfundsState.ChanneldNormal)
+      if (channel.state === ListfundsState.ChanneldNormal)
         lndChannels.push({
           active: true,
           remotePubkey: channel.peer_id,
@@ -392,9 +392,8 @@ export default class CLightningService implements ILightningClient {
   // Returns a list of all on chain transactions.
   async getOnChainTransactions(): Promise<Transaction[]> {
     const transactions = await this.apiClient.listtransactions();
-    const currentBlockHeight = Number.parseInt(
-      (await this.getInfo()).blockHeight.toString(),
-    );
+    const info = await this.getInfo();
+    const currentBlockHeight = Number.parseInt(info.blockHeight.toString());
     const newTransactions: Transaction[] = transactions.transactions.map(
       (transaction) => {
         return {
@@ -426,9 +425,8 @@ export default class CLightningService implements ILightningClient {
 
   async listUnspent(): Promise<ListUnspentResponse> {
     const data = await this.apiClient.listfunds();
-    const currentBlockHeight = Number.parseInt(
-      (await this.getInfo()).blockHeight.toString(),
-    );
+    const info = await this.getInfo();
+    const currentBlockHeight = Number.parseInt(info.blockHeight.toString());
     const utxos: Utxo[] = data.outputs.map((output) => {
       return {
         /** The address */
@@ -554,7 +552,7 @@ export default class CLightningService implements ILightningClient {
     bolt12_unsigned: string;
   }> {
     const offerData = await this.apiClient.offer({
-      amount: isNaN(Number(amount)) ? amount.toString() : `${amount}sat`,
+      amount: Number.isNaN(Number(amount)) ? amount.toString() : `${amount}sat`,
       description,
     });
 
