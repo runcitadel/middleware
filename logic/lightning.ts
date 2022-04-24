@@ -637,8 +637,8 @@ export async function getChannels(): Promise<Channel_extended[]> {
   // If we have any pending channels, we need to call get chain transactions to determine how many confirmations are
   // left for each pending channel. This gets the entire history of on chain transactions.
   // TODO: Once pagination is available, we should develop a different strategy.
-  let chainTxnCall: Promise<Transaction[]> | undefined = null;
-  let chainTxns: Record<string, Transaction> | undefined = null;
+  let chainTxnCall: Promise<Transaction[]> | undefined;
+  let chainTxns: Record<string, Transaction> | undefined;
   if (allChannels.length > 0) {
     chainTxnCall = lndService.getOnChainTransactions();
   }
@@ -663,13 +663,15 @@ export async function getChannels(): Promise<Channel_extended[]> {
     allChannels.push(channel);
   }
 
-  if (chainTxnCall !== null) {
+  if (chainTxnCall) {
     const chainTxnList = await chainTxnCall;
 
     // Convert list to object for efficient searching
     chainTxns = {};
-    for (const txn of chainTxnList) {
-      chainTxns[txn.txHash] = txn;
+    if (chainTxnList) {
+      for (const txn of chainTxnList) {
+        chainTxns[txn.txHash] = txn;
+      }
     }
   }
 
