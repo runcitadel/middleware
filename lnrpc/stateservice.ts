@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from "long";
+import Long from 'long';
 // Manually patched with the extension
-import _m0 from "protobufjs/minimal.js";
+import _m0 from 'protobufjs/minimal.js';
 
-export const protobufPackage = "lnrpc";
+export const protobufPackage = 'lnrpc';
 
 export enum WalletState {
   NON_EXISTING = 0,
@@ -19,25 +19,25 @@ export enum WalletState {
 export function walletStateFromJSON(object: any): WalletState {
   switch (object) {
     case 0:
-    case "NON_EXISTING":
+    case 'NON_EXISTING':
       return WalletState.NON_EXISTING;
     case 1:
-    case "LOCKED":
+    case 'LOCKED':
       return WalletState.LOCKED;
     case 2:
-    case "UNLOCKED":
+    case 'UNLOCKED':
       return WalletState.UNLOCKED;
     case 3:
-    case "RPC_ACTIVE":
+    case 'RPC_ACTIVE':
       return WalletState.RPC_ACTIVE;
     case 4:
-    case "SERVER_ACTIVE":
+    case 'SERVER_ACTIVE':
       return WalletState.SERVER_ACTIVE;
     case 255:
-    case "WAITING_TO_START":
+    case 'WAITING_TO_START':
       return WalletState.WAITING_TO_START;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return WalletState.UNRECOGNIZED;
   }
@@ -46,19 +46,19 @@ export function walletStateFromJSON(object: any): WalletState {
 export function walletStateToJSON(object: WalletState): string {
   switch (object) {
     case WalletState.NON_EXISTING:
-      return "NON_EXISTING";
+      return 'NON_EXISTING';
     case WalletState.LOCKED:
-      return "LOCKED";
+      return 'LOCKED';
     case WalletState.UNLOCKED:
-      return "UNLOCKED";
+      return 'UNLOCKED';
     case WalletState.RPC_ACTIVE:
-      return "RPC_ACTIVE";
+      return 'RPC_ACTIVE';
     case WalletState.SERVER_ACTIVE:
-      return "SERVER_ACTIVE";
+      return 'SERVER_ACTIVE';
     case WalletState.WAITING_TO_START:
-      return "WAITING_TO_START";
+      return 'WAITING_TO_START';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -81,17 +81,17 @@ function createBaseSubscribeStateRequest(): SubscribeStateRequest {
 export const SubscribeStateRequest = {
   encode(
     _: SubscribeStateRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): SubscribeStateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSubscribeStateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -101,6 +101,7 @@ export const SubscribeStateRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -110,8 +111,8 @@ export const SubscribeStateRequest = {
   },
 
   toJSON(_: SubscribeStateRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<SubscribeStateRequest>): SubscribeStateRequest {
@@ -121,26 +122,27 @@ export const SubscribeStateRequest = {
 };
 
 function createBaseSubscribeStateResponse(): SubscribeStateResponse {
-  return { state: 0 };
+  return {state: 0};
 }
 
 export const SubscribeStateResponse = {
   encode(
     message: SubscribeStateResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): SubscribeStateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSubscribeStateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -153,6 +155,7 @@ export const SubscribeStateResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -166,14 +169,14 @@ export const SubscribeStateResponse = {
   },
 
   toJSON(message: SubscribeStateResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.state !== undefined &&
-      (obj.state = walletStateToJSON(message.state));
-    return obj;
+      (object.state = walletStateToJSON(message.state));
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<SubscribeStateResponse>
+    object: DeepPartial<SubscribeStateResponse>,
   ): SubscribeStateResponse {
     const message = createBaseSubscribeStateResponse();
     message.state = object.state ?? 0;
@@ -188,14 +191,14 @@ function createBaseGetStateRequest(): GetStateRequest {
 export const GetStateRequest = {
   encode(
     _: GetStateRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetStateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetStateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -205,6 +208,7 @@ export const GetStateRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -214,8 +218,8 @@ export const GetStateRequest = {
   },
 
   toJSON(_: GetStateRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<GetStateRequest>): GetStateRequest {
@@ -225,23 +229,24 @@ export const GetStateRequest = {
 };
 
 function createBaseGetStateResponse(): GetStateResponse {
-  return { state: 0 };
+  return {state: 0};
 }
 
 export const GetStateResponse = {
   encode(
     message: GetStateResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetStateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetStateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -254,6 +259,7 @@ export const GetStateResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -267,10 +273,10 @@ export const GetStateResponse = {
   },
 
   toJSON(message: GetStateResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.state !== undefined &&
-      (obj.state = walletStateToJSON(message.state));
-    return obj;
+      (object.state = walletStateToJSON(message.state));
+    return object;
   },
 
   fromPartial(object: DeepPartial<GetStateResponse>): GetStateResponse {
@@ -285,15 +291,15 @@ export const GetStateResponse = {
  * the wallet and RPC server.
  */
 export const StateDefinition = {
-  name: "State",
-  fullName: "lnrpc.State",
+  name: 'State',
+  fullName: 'lnrpc.State',
   methods: {
     /**
      * SubscribeState subscribes to the state of the wallet. The current wallet
      * state will always be delivered immediately.
      */
     subscribeState: {
-      name: "SubscribeState",
+      name: 'SubscribeState',
       requestType: SubscribeStateRequest,
       requestStream: false,
       responseType: SubscribeStateResponse,
@@ -305,7 +311,7 @@ export const StateDefinition = {
      * changes.
      */
     getState: {
-      name: "GetState",
+      name: 'GetState',
       requestType: GetStateRequest,
       requestStream: false,
       responseType: GetStateResponse,
@@ -330,8 +336,8 @@ export type DeepPartial<T> = T extends Builtin
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : T extends Record<string, unknown>
+  ? {[K in keyof T]?: DeepPartial<T[K]>}
   : Partial<T>;
 
 if (_m0.util.Long !== Long) {

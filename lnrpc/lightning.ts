@@ -1,9 +1,9 @@
 /* eslint-disable */
-import Long from "long";
+import Long from 'long';
 // Manually patched with the extension
-import _m0 from "protobufjs/minimal.js";
+import _m0 from 'protobufjs/minimal.js';
 
-export const protobufPackage = "lnrpc";
+export const protobufPackage = 'lnrpc';
 
 /**
  * `AddressType` has to be one of:
@@ -22,19 +22,19 @@ export enum AddressType {
 export function addressTypeFromJSON(object: any): AddressType {
   switch (object) {
     case 0:
-    case "WITNESS_PUBKEY_HASH":
+    case 'WITNESS_PUBKEY_HASH':
       return AddressType.WITNESS_PUBKEY_HASH;
     case 1:
-    case "NESTED_PUBKEY_HASH":
+    case 'NESTED_PUBKEY_HASH':
       return AddressType.NESTED_PUBKEY_HASH;
     case 2:
-    case "UNUSED_WITNESS_PUBKEY_HASH":
+    case 'UNUSED_WITNESS_PUBKEY_HASH':
       return AddressType.UNUSED_WITNESS_PUBKEY_HASH;
     case 3:
-    case "UNUSED_NESTED_PUBKEY_HASH":
+    case 'UNUSED_NESTED_PUBKEY_HASH':
       return AddressType.UNUSED_NESTED_PUBKEY_HASH;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return AddressType.UNRECOGNIZED;
   }
@@ -43,15 +43,15 @@ export function addressTypeFromJSON(object: any): AddressType {
 export function addressTypeToJSON(object: AddressType): string {
   switch (object) {
     case AddressType.WITNESS_PUBKEY_HASH:
-      return "WITNESS_PUBKEY_HASH";
+      return 'WITNESS_PUBKEY_HASH';
     case AddressType.NESTED_PUBKEY_HASH:
-      return "NESTED_PUBKEY_HASH";
+      return 'NESTED_PUBKEY_HASH';
     case AddressType.UNUSED_WITNESS_PUBKEY_HASH:
-      return "UNUSED_WITNESS_PUBKEY_HASH";
+      return 'UNUSED_WITNESS_PUBKEY_HASH';
     case AddressType.UNUSED_NESTED_PUBKEY_HASH:
-      return "UNUSED_NESTED_PUBKEY_HASH";
+      return 'UNUSED_NESTED_PUBKEY_HASH';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -90,22 +90,22 @@ export enum CommitmentType {
 export function commitmentTypeFromJSON(object: any): CommitmentType {
   switch (object) {
     case 0:
-    case "UNKNOWN_COMMITMENT_TYPE":
+    case 'UNKNOWN_COMMITMENT_TYPE':
       return CommitmentType.UNKNOWN_COMMITMENT_TYPE;
     case 1:
-    case "LEGACY":
+    case 'LEGACY':
       return CommitmentType.LEGACY;
     case 2:
-    case "STATIC_REMOTE_KEY":
+    case 'STATIC_REMOTE_KEY':
       return CommitmentType.STATIC_REMOTE_KEY;
     case 3:
-    case "ANCHORS":
+    case 'ANCHORS':
       return CommitmentType.ANCHORS;
     case 4:
-    case "SCRIPT_ENFORCED_LEASE":
+    case 'SCRIPT_ENFORCED_LEASE':
       return CommitmentType.SCRIPT_ENFORCED_LEASE;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return CommitmentType.UNRECOGNIZED;
   }
@@ -114,17 +114,17 @@ export function commitmentTypeFromJSON(object: any): CommitmentType {
 export function commitmentTypeToJSON(object: CommitmentType): string {
   switch (object) {
     case CommitmentType.UNKNOWN_COMMITMENT_TYPE:
-      return "UNKNOWN_COMMITMENT_TYPE";
+      return 'UNKNOWN_COMMITMENT_TYPE';
     case CommitmentType.LEGACY:
-      return "LEGACY";
+      return 'LEGACY';
     case CommitmentType.STATIC_REMOTE_KEY:
-      return "STATIC_REMOTE_KEY";
+      return 'STATIC_REMOTE_KEY';
     case CommitmentType.ANCHORS:
-      return "ANCHORS";
+      return 'ANCHORS';
     case CommitmentType.SCRIPT_ENFORCED_LEASE:
-      return "SCRIPT_ENFORCED_LEASE";
+      return 'SCRIPT_ENFORCED_LEASE';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -139,19 +139,19 @@ export enum Initiator {
 export function initiatorFromJSON(object: any): Initiator {
   switch (object) {
     case 0:
-    case "INITIATOR_UNKNOWN":
+    case 'INITIATOR_UNKNOWN':
       return Initiator.INITIATOR_UNKNOWN;
     case 1:
-    case "INITIATOR_LOCAL":
+    case 'INITIATOR_LOCAL':
       return Initiator.INITIATOR_LOCAL;
     case 2:
-    case "INITIATOR_REMOTE":
+    case 'INITIATOR_REMOTE':
       return Initiator.INITIATOR_REMOTE;
     case 3:
-    case "INITIATOR_BOTH":
+    case 'INITIATOR_BOTH':
       return Initiator.INITIATOR_BOTH;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Initiator.UNRECOGNIZED;
   }
@@ -160,15 +160,15 @@ export function initiatorFromJSON(object: any): Initiator {
 export function initiatorToJSON(object: Initiator): string {
   switch (object) {
     case Initiator.INITIATOR_UNKNOWN:
-      return "INITIATOR_UNKNOWN";
+      return 'INITIATOR_UNKNOWN';
     case Initiator.INITIATOR_LOCAL:
-      return "INITIATOR_LOCAL";
+      return 'INITIATOR_LOCAL';
     case Initiator.INITIATOR_REMOTE:
-      return "INITIATOR_REMOTE";
+      return 'INITIATOR_REMOTE';
     case Initiator.INITIATOR_BOTH:
-      return "INITIATOR_BOTH";
+      return 'INITIATOR_BOTH';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -196,22 +196,22 @@ export enum ResolutionType {
 export function resolutionTypeFromJSON(object: any): ResolutionType {
   switch (object) {
     case 0:
-    case "TYPE_UNKNOWN":
+    case 'TYPE_UNKNOWN':
       return ResolutionType.TYPE_UNKNOWN;
     case 1:
-    case "ANCHOR":
+    case 'ANCHOR':
       return ResolutionType.ANCHOR;
     case 2:
-    case "INCOMING_HTLC":
+    case 'INCOMING_HTLC':
       return ResolutionType.INCOMING_HTLC;
     case 3:
-    case "OUTGOING_HTLC":
+    case 'OUTGOING_HTLC':
       return ResolutionType.OUTGOING_HTLC;
     case 4:
-    case "COMMIT":
+    case 'COMMIT':
       return ResolutionType.COMMIT;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return ResolutionType.UNRECOGNIZED;
   }
@@ -220,17 +220,17 @@ export function resolutionTypeFromJSON(object: any): ResolutionType {
 export function resolutionTypeToJSON(object: ResolutionType): string {
   switch (object) {
     case ResolutionType.TYPE_UNKNOWN:
-      return "TYPE_UNKNOWN";
+      return 'TYPE_UNKNOWN';
     case ResolutionType.ANCHOR:
-      return "ANCHOR";
+      return 'ANCHOR';
     case ResolutionType.INCOMING_HTLC:
-      return "INCOMING_HTLC";
+      return 'INCOMING_HTLC';
     case ResolutionType.OUTGOING_HTLC:
-      return "OUTGOING_HTLC";
+      return 'OUTGOING_HTLC';
     case ResolutionType.COMMIT:
-      return "COMMIT";
+      return 'COMMIT';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -262,25 +262,25 @@ export enum ResolutionOutcome {
 export function resolutionOutcomeFromJSON(object: any): ResolutionOutcome {
   switch (object) {
     case 0:
-    case "OUTCOME_UNKNOWN":
+    case 'OUTCOME_UNKNOWN':
       return ResolutionOutcome.OUTCOME_UNKNOWN;
     case 1:
-    case "CLAIMED":
+    case 'CLAIMED':
       return ResolutionOutcome.CLAIMED;
     case 2:
-    case "UNCLAIMED":
+    case 'UNCLAIMED':
       return ResolutionOutcome.UNCLAIMED;
     case 3:
-    case "ABANDONED":
+    case 'ABANDONED':
       return ResolutionOutcome.ABANDONED;
     case 4:
-    case "FIRST_STAGE":
+    case 'FIRST_STAGE':
       return ResolutionOutcome.FIRST_STAGE;
     case 5:
-    case "TIMEOUT":
+    case 'TIMEOUT':
       return ResolutionOutcome.TIMEOUT;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return ResolutionOutcome.UNRECOGNIZED;
   }
@@ -289,19 +289,19 @@ export function resolutionOutcomeFromJSON(object: any): ResolutionOutcome {
 export function resolutionOutcomeToJSON(object: ResolutionOutcome): string {
   switch (object) {
     case ResolutionOutcome.OUTCOME_UNKNOWN:
-      return "OUTCOME_UNKNOWN";
+      return 'OUTCOME_UNKNOWN';
     case ResolutionOutcome.CLAIMED:
-      return "CLAIMED";
+      return 'CLAIMED';
     case ResolutionOutcome.UNCLAIMED:
-      return "UNCLAIMED";
+      return 'UNCLAIMED';
     case ResolutionOutcome.ABANDONED:
-      return "ABANDONED";
+      return 'ABANDONED';
     case ResolutionOutcome.FIRST_STAGE:
-      return "FIRST_STAGE";
+      return 'FIRST_STAGE';
     case ResolutionOutcome.TIMEOUT:
-      return "TIMEOUT";
+      return 'TIMEOUT';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -314,13 +314,13 @@ export enum NodeMetricType {
 export function nodeMetricTypeFromJSON(object: any): NodeMetricType {
   switch (object) {
     case 0:
-    case "UNKNOWN":
+    case 'UNKNOWN':
       return NodeMetricType.UNKNOWN;
     case 1:
-    case "BETWEENNESS_CENTRALITY":
+    case 'BETWEENNESS_CENTRALITY':
       return NodeMetricType.BETWEENNESS_CENTRALITY;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return NodeMetricType.UNRECOGNIZED;
   }
@@ -329,11 +329,11 @@ export function nodeMetricTypeFromJSON(object: any): NodeMetricType {
 export function nodeMetricTypeToJSON(object: NodeMetricType): string {
   switch (object) {
     case NodeMetricType.UNKNOWN:
-      return "UNKNOWN";
+      return 'UNKNOWN';
     case NodeMetricType.BETWEENNESS_CENTRALITY:
-      return "BETWEENNESS_CENTRALITY";
+      return 'BETWEENNESS_CENTRALITY';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -347,16 +347,16 @@ export enum InvoiceHTLCState {
 export function invoiceHTLCStateFromJSON(object: any): InvoiceHTLCState {
   switch (object) {
     case 0:
-    case "ACCEPTED":
+    case 'ACCEPTED':
       return InvoiceHTLCState.ACCEPTED;
     case 1:
-    case "SETTLED":
+    case 'SETTLED':
       return InvoiceHTLCState.SETTLED;
     case 2:
-    case "CANCELED":
+    case 'CANCELED':
       return InvoiceHTLCState.CANCELED;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return InvoiceHTLCState.UNRECOGNIZED;
   }
@@ -365,13 +365,13 @@ export function invoiceHTLCStateFromJSON(object: any): InvoiceHTLCState {
 export function invoiceHTLCStateToJSON(object: InvoiceHTLCState): string {
   switch (object) {
     case InvoiceHTLCState.ACCEPTED:
-      return "ACCEPTED";
+      return 'ACCEPTED';
     case InvoiceHTLCState.SETTLED:
-      return "SETTLED";
+      return 'SETTLED';
     case InvoiceHTLCState.CANCELED:
-      return "CANCELED";
+      return 'CANCELED';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -398,52 +398,52 @@ export enum PaymentFailureReason {
 }
 
 export function paymentFailureReasonFromJSON(
-  object: any
+  object: any,
 ): PaymentFailureReason {
   switch (object) {
     case 0:
-    case "FAILURE_REASON_NONE":
+    case 'FAILURE_REASON_NONE':
       return PaymentFailureReason.FAILURE_REASON_NONE;
     case 1:
-    case "FAILURE_REASON_TIMEOUT":
+    case 'FAILURE_REASON_TIMEOUT':
       return PaymentFailureReason.FAILURE_REASON_TIMEOUT;
     case 2:
-    case "FAILURE_REASON_NO_ROUTE":
+    case 'FAILURE_REASON_NO_ROUTE':
       return PaymentFailureReason.FAILURE_REASON_NO_ROUTE;
     case 3:
-    case "FAILURE_REASON_ERROR":
+    case 'FAILURE_REASON_ERROR':
       return PaymentFailureReason.FAILURE_REASON_ERROR;
     case 4:
-    case "FAILURE_REASON_INCORRECT_PAYMENT_DETAILS":
+    case 'FAILURE_REASON_INCORRECT_PAYMENT_DETAILS':
       return PaymentFailureReason.FAILURE_REASON_INCORRECT_PAYMENT_DETAILS;
     case 5:
-    case "FAILURE_REASON_INSUFFICIENT_BALANCE":
+    case 'FAILURE_REASON_INSUFFICIENT_BALANCE':
       return PaymentFailureReason.FAILURE_REASON_INSUFFICIENT_BALANCE;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return PaymentFailureReason.UNRECOGNIZED;
   }
 }
 
 export function paymentFailureReasonToJSON(
-  object: PaymentFailureReason
+  object: PaymentFailureReason,
 ): string {
   switch (object) {
     case PaymentFailureReason.FAILURE_REASON_NONE:
-      return "FAILURE_REASON_NONE";
+      return 'FAILURE_REASON_NONE';
     case PaymentFailureReason.FAILURE_REASON_TIMEOUT:
-      return "FAILURE_REASON_TIMEOUT";
+      return 'FAILURE_REASON_TIMEOUT';
     case PaymentFailureReason.FAILURE_REASON_NO_ROUTE:
-      return "FAILURE_REASON_NO_ROUTE";
+      return 'FAILURE_REASON_NO_ROUTE';
     case PaymentFailureReason.FAILURE_REASON_ERROR:
-      return "FAILURE_REASON_ERROR";
+      return 'FAILURE_REASON_ERROR';
     case PaymentFailureReason.FAILURE_REASON_INCORRECT_PAYMENT_DETAILS:
-      return "FAILURE_REASON_INCORRECT_PAYMENT_DETAILS";
+      return 'FAILURE_REASON_INCORRECT_PAYMENT_DETAILS';
     case PaymentFailureReason.FAILURE_REASON_INSUFFICIENT_BALANCE:
-      return "FAILURE_REASON_INSUFFICIENT_BALANCE";
+      return 'FAILURE_REASON_INSUFFICIENT_BALANCE';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -479,82 +479,82 @@ export enum FeatureBit {
 export function featureBitFromJSON(object: any): FeatureBit {
   switch (object) {
     case 0:
-    case "DATALOSS_PROTECT_REQ":
+    case 'DATALOSS_PROTECT_REQ':
       return FeatureBit.DATALOSS_PROTECT_REQ;
     case 1:
-    case "DATALOSS_PROTECT_OPT":
+    case 'DATALOSS_PROTECT_OPT':
       return FeatureBit.DATALOSS_PROTECT_OPT;
     case 3:
-    case "INITIAL_ROUING_SYNC":
+    case 'INITIAL_ROUING_SYNC':
       return FeatureBit.INITIAL_ROUING_SYNC;
     case 4:
-    case "UPFRONT_SHUTDOWN_SCRIPT_REQ":
+    case 'UPFRONT_SHUTDOWN_SCRIPT_REQ':
       return FeatureBit.UPFRONT_SHUTDOWN_SCRIPT_REQ;
     case 5:
-    case "UPFRONT_SHUTDOWN_SCRIPT_OPT":
+    case 'UPFRONT_SHUTDOWN_SCRIPT_OPT':
       return FeatureBit.UPFRONT_SHUTDOWN_SCRIPT_OPT;
     case 6:
-    case "GOSSIP_QUERIES_REQ":
+    case 'GOSSIP_QUERIES_REQ':
       return FeatureBit.GOSSIP_QUERIES_REQ;
     case 7:
-    case "GOSSIP_QUERIES_OPT":
+    case 'GOSSIP_QUERIES_OPT':
       return FeatureBit.GOSSIP_QUERIES_OPT;
     case 8:
-    case "TLV_ONION_REQ":
+    case 'TLV_ONION_REQ':
       return FeatureBit.TLV_ONION_REQ;
     case 9:
-    case "TLV_ONION_OPT":
+    case 'TLV_ONION_OPT':
       return FeatureBit.TLV_ONION_OPT;
     case 10:
-    case "EXT_GOSSIP_QUERIES_REQ":
+    case 'EXT_GOSSIP_QUERIES_REQ':
       return FeatureBit.EXT_GOSSIP_QUERIES_REQ;
     case 11:
-    case "EXT_GOSSIP_QUERIES_OPT":
+    case 'EXT_GOSSIP_QUERIES_OPT':
       return FeatureBit.EXT_GOSSIP_QUERIES_OPT;
     case 12:
-    case "STATIC_REMOTE_KEY_REQ":
+    case 'STATIC_REMOTE_KEY_REQ':
       return FeatureBit.STATIC_REMOTE_KEY_REQ;
     case 13:
-    case "STATIC_REMOTE_KEY_OPT":
+    case 'STATIC_REMOTE_KEY_OPT':
       return FeatureBit.STATIC_REMOTE_KEY_OPT;
     case 14:
-    case "PAYMENT_ADDR_REQ":
+    case 'PAYMENT_ADDR_REQ':
       return FeatureBit.PAYMENT_ADDR_REQ;
     case 15:
-    case "PAYMENT_ADDR_OPT":
+    case 'PAYMENT_ADDR_OPT':
       return FeatureBit.PAYMENT_ADDR_OPT;
     case 16:
-    case "MPP_REQ":
+    case 'MPP_REQ':
       return FeatureBit.MPP_REQ;
     case 17:
-    case "MPP_OPT":
+    case 'MPP_OPT':
       return FeatureBit.MPP_OPT;
     case 18:
-    case "WUMBO_CHANNELS_REQ":
+    case 'WUMBO_CHANNELS_REQ':
       return FeatureBit.WUMBO_CHANNELS_REQ;
     case 19:
-    case "WUMBO_CHANNELS_OPT":
+    case 'WUMBO_CHANNELS_OPT':
       return FeatureBit.WUMBO_CHANNELS_OPT;
     case 20:
-    case "ANCHORS_REQ":
+    case 'ANCHORS_REQ':
       return FeatureBit.ANCHORS_REQ;
     case 21:
-    case "ANCHORS_OPT":
+    case 'ANCHORS_OPT':
       return FeatureBit.ANCHORS_OPT;
     case 22:
-    case "ANCHORS_ZERO_FEE_HTLC_REQ":
+    case 'ANCHORS_ZERO_FEE_HTLC_REQ':
       return FeatureBit.ANCHORS_ZERO_FEE_HTLC_REQ;
     case 23:
-    case "ANCHORS_ZERO_FEE_HTLC_OPT":
+    case 'ANCHORS_ZERO_FEE_HTLC_OPT':
       return FeatureBit.ANCHORS_ZERO_FEE_HTLC_OPT;
     case 30:
-    case "AMP_REQ":
+    case 'AMP_REQ':
       return FeatureBit.AMP_REQ;
     case 31:
-    case "AMP_OPT":
+    case 'AMP_OPT':
       return FeatureBit.AMP_OPT;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return FeatureBit.UNRECOGNIZED;
   }
@@ -563,57 +563,57 @@ export function featureBitFromJSON(object: any): FeatureBit {
 export function featureBitToJSON(object: FeatureBit): string {
   switch (object) {
     case FeatureBit.DATALOSS_PROTECT_REQ:
-      return "DATALOSS_PROTECT_REQ";
+      return 'DATALOSS_PROTECT_REQ';
     case FeatureBit.DATALOSS_PROTECT_OPT:
-      return "DATALOSS_PROTECT_OPT";
+      return 'DATALOSS_PROTECT_OPT';
     case FeatureBit.INITIAL_ROUING_SYNC:
-      return "INITIAL_ROUING_SYNC";
+      return 'INITIAL_ROUING_SYNC';
     case FeatureBit.UPFRONT_SHUTDOWN_SCRIPT_REQ:
-      return "UPFRONT_SHUTDOWN_SCRIPT_REQ";
+      return 'UPFRONT_SHUTDOWN_SCRIPT_REQ';
     case FeatureBit.UPFRONT_SHUTDOWN_SCRIPT_OPT:
-      return "UPFRONT_SHUTDOWN_SCRIPT_OPT";
+      return 'UPFRONT_SHUTDOWN_SCRIPT_OPT';
     case FeatureBit.GOSSIP_QUERIES_REQ:
-      return "GOSSIP_QUERIES_REQ";
+      return 'GOSSIP_QUERIES_REQ';
     case FeatureBit.GOSSIP_QUERIES_OPT:
-      return "GOSSIP_QUERIES_OPT";
+      return 'GOSSIP_QUERIES_OPT';
     case FeatureBit.TLV_ONION_REQ:
-      return "TLV_ONION_REQ";
+      return 'TLV_ONION_REQ';
     case FeatureBit.TLV_ONION_OPT:
-      return "TLV_ONION_OPT";
+      return 'TLV_ONION_OPT';
     case FeatureBit.EXT_GOSSIP_QUERIES_REQ:
-      return "EXT_GOSSIP_QUERIES_REQ";
+      return 'EXT_GOSSIP_QUERIES_REQ';
     case FeatureBit.EXT_GOSSIP_QUERIES_OPT:
-      return "EXT_GOSSIP_QUERIES_OPT";
+      return 'EXT_GOSSIP_QUERIES_OPT';
     case FeatureBit.STATIC_REMOTE_KEY_REQ:
-      return "STATIC_REMOTE_KEY_REQ";
+      return 'STATIC_REMOTE_KEY_REQ';
     case FeatureBit.STATIC_REMOTE_KEY_OPT:
-      return "STATIC_REMOTE_KEY_OPT";
+      return 'STATIC_REMOTE_KEY_OPT';
     case FeatureBit.PAYMENT_ADDR_REQ:
-      return "PAYMENT_ADDR_REQ";
+      return 'PAYMENT_ADDR_REQ';
     case FeatureBit.PAYMENT_ADDR_OPT:
-      return "PAYMENT_ADDR_OPT";
+      return 'PAYMENT_ADDR_OPT';
     case FeatureBit.MPP_REQ:
-      return "MPP_REQ";
+      return 'MPP_REQ';
     case FeatureBit.MPP_OPT:
-      return "MPP_OPT";
+      return 'MPP_OPT';
     case FeatureBit.WUMBO_CHANNELS_REQ:
-      return "WUMBO_CHANNELS_REQ";
+      return 'WUMBO_CHANNELS_REQ';
     case FeatureBit.WUMBO_CHANNELS_OPT:
-      return "WUMBO_CHANNELS_OPT";
+      return 'WUMBO_CHANNELS_OPT';
     case FeatureBit.ANCHORS_REQ:
-      return "ANCHORS_REQ";
+      return 'ANCHORS_REQ';
     case FeatureBit.ANCHORS_OPT:
-      return "ANCHORS_OPT";
+      return 'ANCHORS_OPT';
     case FeatureBit.ANCHORS_ZERO_FEE_HTLC_REQ:
-      return "ANCHORS_ZERO_FEE_HTLC_REQ";
+      return 'ANCHORS_ZERO_FEE_HTLC_REQ';
     case FeatureBit.ANCHORS_ZERO_FEE_HTLC_OPT:
-      return "ANCHORS_ZERO_FEE_HTLC_OPT";
+      return 'ANCHORS_ZERO_FEE_HTLC_OPT';
     case FeatureBit.AMP_REQ:
-      return "AMP_REQ";
+      return 'AMP_REQ';
     case FeatureBit.AMP_OPT:
-      return "AMP_OPT";
+      return 'AMP_OPT';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -629,22 +629,22 @@ export enum UpdateFailure {
 export function updateFailureFromJSON(object: any): UpdateFailure {
   switch (object) {
     case 0:
-    case "UPDATE_FAILURE_UNKNOWN":
+    case 'UPDATE_FAILURE_UNKNOWN':
       return UpdateFailure.UPDATE_FAILURE_UNKNOWN;
     case 1:
-    case "UPDATE_FAILURE_PENDING":
+    case 'UPDATE_FAILURE_PENDING':
       return UpdateFailure.UPDATE_FAILURE_PENDING;
     case 2:
-    case "UPDATE_FAILURE_NOT_FOUND":
+    case 'UPDATE_FAILURE_NOT_FOUND':
       return UpdateFailure.UPDATE_FAILURE_NOT_FOUND;
     case 3:
-    case "UPDATE_FAILURE_INTERNAL_ERR":
+    case 'UPDATE_FAILURE_INTERNAL_ERR':
       return UpdateFailure.UPDATE_FAILURE_INTERNAL_ERR;
     case 4:
-    case "UPDATE_FAILURE_INVALID_PARAMETER":
+    case 'UPDATE_FAILURE_INVALID_PARAMETER':
       return UpdateFailure.UPDATE_FAILURE_INVALID_PARAMETER;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return UpdateFailure.UNRECOGNIZED;
   }
@@ -653,17 +653,17 @@ export function updateFailureFromJSON(object: any): UpdateFailure {
 export function updateFailureToJSON(object: UpdateFailure): string {
   switch (object) {
     case UpdateFailure.UPDATE_FAILURE_UNKNOWN:
-      return "UPDATE_FAILURE_UNKNOWN";
+      return 'UPDATE_FAILURE_UNKNOWN';
     case UpdateFailure.UPDATE_FAILURE_PENDING:
-      return "UPDATE_FAILURE_PENDING";
+      return 'UPDATE_FAILURE_PENDING';
     case UpdateFailure.UPDATE_FAILURE_NOT_FOUND:
-      return "UPDATE_FAILURE_NOT_FOUND";
+      return 'UPDATE_FAILURE_NOT_FOUND';
     case UpdateFailure.UPDATE_FAILURE_INTERNAL_ERR:
-      return "UPDATE_FAILURE_INTERNAL_ERR";
+      return 'UPDATE_FAILURE_INTERNAL_ERR';
     case UpdateFailure.UPDATE_FAILURE_INVALID_PARAMETER:
-      return "UPDATE_FAILURE_INVALID_PARAMETER";
+      return 'UPDATE_FAILURE_INVALID_PARAMETER';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -842,7 +842,7 @@ export interface SendRequest {
    * required to be in the custom range >= 65536. When using REST, the values
    * must be encoded as base64.
    */
-  destCustomRecords: { [key: string]: Uint8Array };
+  destCustomRecords: Record<string, Uint8Array>;
   /** If set, circular payments to self are permitted. */
   allowSelfPayment: boolean;
   /**
@@ -1014,7 +1014,7 @@ export interface LightningAddress {
 
 export interface EstimateFeeRequest {
   /** The map from addresses to amounts for the transaction. */
-  AddrToAmount: { [key: string]: string };
+  AddrToAmount: Record<string, string>;
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -1050,7 +1050,7 @@ export interface EstimateFeeResponse {
 
 export interface SendManyRequest {
   /** The map from addresses to amounts */
-  AddrToAmount: { [key: string]: string };
+  AddrToAmount: Record<string, string>;
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -1459,52 +1459,52 @@ export enum ChannelCloseSummary_ClosureType {
 }
 
 export function channelCloseSummary_ClosureTypeFromJSON(
-  object: any
+  object: any,
 ): ChannelCloseSummary_ClosureType {
   switch (object) {
     case 0:
-    case "COOPERATIVE_CLOSE":
+    case 'COOPERATIVE_CLOSE':
       return ChannelCloseSummary_ClosureType.COOPERATIVE_CLOSE;
     case 1:
-    case "LOCAL_FORCE_CLOSE":
+    case 'LOCAL_FORCE_CLOSE':
       return ChannelCloseSummary_ClosureType.LOCAL_FORCE_CLOSE;
     case 2:
-    case "REMOTE_FORCE_CLOSE":
+    case 'REMOTE_FORCE_CLOSE':
       return ChannelCloseSummary_ClosureType.REMOTE_FORCE_CLOSE;
     case 3:
-    case "BREACH_CLOSE":
+    case 'BREACH_CLOSE':
       return ChannelCloseSummary_ClosureType.BREACH_CLOSE;
     case 4:
-    case "FUNDING_CANCELED":
+    case 'FUNDING_CANCELED':
       return ChannelCloseSummary_ClosureType.FUNDING_CANCELED;
     case 5:
-    case "ABANDONED":
+    case 'ABANDONED':
       return ChannelCloseSummary_ClosureType.ABANDONED;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return ChannelCloseSummary_ClosureType.UNRECOGNIZED;
   }
 }
 
 export function channelCloseSummary_ClosureTypeToJSON(
-  object: ChannelCloseSummary_ClosureType
+  object: ChannelCloseSummary_ClosureType,
 ): string {
   switch (object) {
     case ChannelCloseSummary_ClosureType.COOPERATIVE_CLOSE:
-      return "COOPERATIVE_CLOSE";
+      return 'COOPERATIVE_CLOSE';
     case ChannelCloseSummary_ClosureType.LOCAL_FORCE_CLOSE:
-      return "LOCAL_FORCE_CLOSE";
+      return 'LOCAL_FORCE_CLOSE';
     case ChannelCloseSummary_ClosureType.REMOTE_FORCE_CLOSE:
-      return "REMOTE_FORCE_CLOSE";
+      return 'REMOTE_FORCE_CLOSE';
     case ChannelCloseSummary_ClosureType.BREACH_CLOSE:
-      return "BREACH_CLOSE";
+      return 'BREACH_CLOSE';
     case ChannelCloseSummary_ClosureType.FUNDING_CANCELED:
-      return "FUNDING_CANCELED";
+      return 'FUNDING_CANCELED';
     case ChannelCloseSummary_ClosureType.ABANDONED:
-      return "ABANDONED";
+      return 'ABANDONED';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -1557,7 +1557,7 @@ export interface Peer {
   /** The type of sync we are currently performing with this peer. */
   syncType: Peer_SyncType;
   /** Features advertised by the remote peer in their init message. */
-  features: { [key: number]: Feature };
+  features: Record<number, Feature>;
   /**
    * The latest errors received from our peer with timestamps, limited to the 10
    * most recent errors. These errors are tracked across peer connections, but
@@ -1597,19 +1597,19 @@ export enum Peer_SyncType {
 export function peer_SyncTypeFromJSON(object: any): Peer_SyncType {
   switch (object) {
     case 0:
-    case "UNKNOWN_SYNC":
+    case 'UNKNOWN_SYNC':
       return Peer_SyncType.UNKNOWN_SYNC;
     case 1:
-    case "ACTIVE_SYNC":
+    case 'ACTIVE_SYNC':
       return Peer_SyncType.ACTIVE_SYNC;
     case 2:
-    case "PASSIVE_SYNC":
+    case 'PASSIVE_SYNC':
       return Peer_SyncType.PASSIVE_SYNC;
     case 3:
-    case "PINNED_SYNC":
+    case 'PINNED_SYNC':
       return Peer_SyncType.PINNED_SYNC;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Peer_SyncType.UNRECOGNIZED;
   }
@@ -1618,15 +1618,15 @@ export function peer_SyncTypeFromJSON(object: any): Peer_SyncType {
 export function peer_SyncTypeToJSON(object: Peer_SyncType): string {
   switch (object) {
     case Peer_SyncType.UNKNOWN_SYNC:
-      return "UNKNOWN_SYNC";
+      return 'UNKNOWN_SYNC';
     case Peer_SyncType.ACTIVE_SYNC:
-      return "ACTIVE_SYNC";
+      return 'ACTIVE_SYNC';
     case Peer_SyncType.PASSIVE_SYNC:
-      return "PASSIVE_SYNC";
+      return 'PASSIVE_SYNC';
     case Peer_SyncType.PINNED_SYNC:
-      return "PINNED_SYNC";
+      return 'PINNED_SYNC';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -1673,13 +1673,13 @@ export enum PeerEvent_EventType {
 export function peerEvent_EventTypeFromJSON(object: any): PeerEvent_EventType {
   switch (object) {
     case 0:
-    case "PEER_ONLINE":
+    case 'PEER_ONLINE':
       return PeerEvent_EventType.PEER_ONLINE;
     case 1:
-    case "PEER_OFFLINE":
+    case 'PEER_OFFLINE':
       return PeerEvent_EventType.PEER_OFFLINE;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return PeerEvent_EventType.UNRECOGNIZED;
   }
@@ -1688,11 +1688,11 @@ export function peerEvent_EventTypeFromJSON(object: any): PeerEvent_EventType {
 export function peerEvent_EventTypeToJSON(object: PeerEvent_EventType): string {
   switch (object) {
     case PeerEvent_EventType.PEER_ONLINE:
-      return "PEER_ONLINE";
+      return 'PEER_ONLINE';
     case PeerEvent_EventType.PEER_OFFLINE:
-      return "PEER_OFFLINE";
+      return 'PEER_OFFLINE';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -1742,7 +1742,7 @@ export interface GetInfoResponse {
    * Features that our node has advertised in our init message, node
    * announcements and invoices.
    */
-  features: { [key: number]: Feature };
+  features: Record<number, Feature>;
 }
 
 export interface GetInfoResponse_FeaturesEntry {
@@ -2372,37 +2372,37 @@ export enum PendingChannelsResponse_ForceClosedChannel_AnchorState {
 }
 
 export function pendingChannelsResponse_ForceClosedChannel_AnchorStateFromJSON(
-  object: any
+  object: any,
 ): PendingChannelsResponse_ForceClosedChannel_AnchorState {
   switch (object) {
     case 0:
-    case "LIMBO":
+    case 'LIMBO':
       return PendingChannelsResponse_ForceClosedChannel_AnchorState.LIMBO;
     case 1:
-    case "RECOVERED":
+    case 'RECOVERED':
       return PendingChannelsResponse_ForceClosedChannel_AnchorState.RECOVERED;
     case 2:
-    case "LOST":
+    case 'LOST':
       return PendingChannelsResponse_ForceClosedChannel_AnchorState.LOST;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return PendingChannelsResponse_ForceClosedChannel_AnchorState.UNRECOGNIZED;
   }
 }
 
 export function pendingChannelsResponse_ForceClosedChannel_AnchorStateToJSON(
-  object: PendingChannelsResponse_ForceClosedChannel_AnchorState
+  object: PendingChannelsResponse_ForceClosedChannel_AnchorState,
 ): string {
   switch (object) {
     case PendingChannelsResponse_ForceClosedChannel_AnchorState.LIMBO:
-      return "LIMBO";
+      return 'LIMBO';
     case PendingChannelsResponse_ForceClosedChannel_AnchorState.RECOVERED:
-      return "RECOVERED";
+      return 'RECOVERED';
     case PendingChannelsResponse_ForceClosedChannel_AnchorState.LOST:
-      return "LOST";
+      return 'LOST';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -2429,52 +2429,52 @@ export enum ChannelEventUpdate_UpdateType {
 }
 
 export function channelEventUpdate_UpdateTypeFromJSON(
-  object: any
+  object: any,
 ): ChannelEventUpdate_UpdateType {
   switch (object) {
     case 0:
-    case "OPEN_CHANNEL":
+    case 'OPEN_CHANNEL':
       return ChannelEventUpdate_UpdateType.OPEN_CHANNEL;
     case 1:
-    case "CLOSED_CHANNEL":
+    case 'CLOSED_CHANNEL':
       return ChannelEventUpdate_UpdateType.CLOSED_CHANNEL;
     case 2:
-    case "ACTIVE_CHANNEL":
+    case 'ACTIVE_CHANNEL':
       return ChannelEventUpdate_UpdateType.ACTIVE_CHANNEL;
     case 3:
-    case "INACTIVE_CHANNEL":
+    case 'INACTIVE_CHANNEL':
       return ChannelEventUpdate_UpdateType.INACTIVE_CHANNEL;
     case 4:
-    case "PENDING_OPEN_CHANNEL":
+    case 'PENDING_OPEN_CHANNEL':
       return ChannelEventUpdate_UpdateType.PENDING_OPEN_CHANNEL;
     case 5:
-    case "FULLY_RESOLVED_CHANNEL":
+    case 'FULLY_RESOLVED_CHANNEL':
       return ChannelEventUpdate_UpdateType.FULLY_RESOLVED_CHANNEL;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return ChannelEventUpdate_UpdateType.UNRECOGNIZED;
   }
 }
 
 export function channelEventUpdate_UpdateTypeToJSON(
-  object: ChannelEventUpdate_UpdateType
+  object: ChannelEventUpdate_UpdateType,
 ): string {
   switch (object) {
     case ChannelEventUpdate_UpdateType.OPEN_CHANNEL:
-      return "OPEN_CHANNEL";
+      return 'OPEN_CHANNEL';
     case ChannelEventUpdate_UpdateType.CLOSED_CHANNEL:
-      return "CLOSED_CHANNEL";
+      return 'CLOSED_CHANNEL';
     case ChannelEventUpdate_UpdateType.ACTIVE_CHANNEL:
-      return "ACTIVE_CHANNEL";
+      return 'ACTIVE_CHANNEL';
     case ChannelEventUpdate_UpdateType.INACTIVE_CHANNEL:
-      return "INACTIVE_CHANNEL";
+      return 'INACTIVE_CHANNEL';
     case ChannelEventUpdate_UpdateType.PENDING_OPEN_CHANNEL:
-      return "PENDING_OPEN_CHANNEL";
+      return 'PENDING_OPEN_CHANNEL';
     case ChannelEventUpdate_UpdateType.FULLY_RESOLVED_CHANNEL:
-      return "FULLY_RESOLVED_CHANNEL";
+      return 'FULLY_RESOLVED_CHANNEL';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -2495,7 +2495,7 @@ export interface WalletBalanceResponse {
   /** The unconfirmed balance of a wallet(with 0 confirmations) */
   unconfirmedBalance: string;
   /** A mapping of each wallet account's name to its balance. */
-  accountBalance: { [key: string]: WalletAccountBalance };
+  accountBalance: Record<string, WalletAccountBalance>;
 }
 
 export interface WalletBalanceResponse_AccountBalanceEntry {
@@ -2606,7 +2606,7 @@ export interface QueryRoutesRequest {
    * Record types are required to be in the custom range >= 65536. When using
    * REST, the values must be encoded as base64.
    */
-  destCustomRecords: { [key: string]: Uint8Array };
+  destCustomRecords: Record<string, Uint8Array>;
   /**
    * The channel id of the channel that must be taken to the first hop. If zero,
    * any channel may be used.
@@ -2717,7 +2717,7 @@ export interface Hop {
    * of the SendToRoute call as it allows callers to specify arbitrary K-V pairs
    * to drop off at each hop within the onion.
    */
-  customRecords: { [key: string]: Uint8Array };
+  customRecords: Record<string, Uint8Array>;
 }
 
 export interface Hop_CustomRecordsEntry {
@@ -2824,7 +2824,7 @@ export interface LightningNode {
   alias: string;
   addresses: NodeAddress[];
   color: string;
-  features: { [key: number]: Feature };
+  features: Record<number, Feature>;
 }
 
 export interface LightningNode_FeaturesEntry {
@@ -2901,7 +2901,7 @@ export interface NodeMetricsResponse {
    * Map of node pubkey to betweenness centrality of the node. Normalized
    * values are in the [0,1] closed interval.
    */
-  betweennessCentrality: { [key: string]: FloatMetric };
+  betweennessCentrality: Record<string, FloatMetric>;
 }
 
 export interface NodeMetricsResponse_BetweennessCentralityEntry {
@@ -2975,7 +2975,7 @@ export interface NodeUpdate {
    * Features that the node has advertised in the init message, node
    * announcements and invoices.
    */
-  features: { [key: number]: Feature };
+  features: Record<number, Feature>;
 }
 
 export interface NodeUpdate_FeaturesEntry {
@@ -3158,7 +3158,7 @@ export interface Invoice {
   /** List of HTLCs paying to this invoice [EXPERIMENTAL]. */
   htlcs: InvoiceHTLC[];
   /** List of features advertised on the invoice. */
-  features: { [key: number]: Feature };
+  features: Record<number, Feature>;
   /**
    * Indicates if this invoice was a spontaneous payment that arrived via keysend
    * [EXPERIMENTAL].
@@ -3180,7 +3180,7 @@ export interface Invoice {
    * used along side LookupInvoice to obtain the HTLC information related to a
    * given sub-invoice.
    */
-  ampInvoiceState: { [key: string]: AMPInvoiceState };
+  ampInvoiceState: Record<string, AMPInvoiceState>;
 }
 
 export enum Invoice_InvoiceState {
@@ -3192,42 +3192,42 @@ export enum Invoice_InvoiceState {
 }
 
 export function invoice_InvoiceStateFromJSON(
-  object: any
+  object: any,
 ): Invoice_InvoiceState {
   switch (object) {
     case 0:
-    case "OPEN":
+    case 'OPEN':
       return Invoice_InvoiceState.OPEN;
     case 1:
-    case "SETTLED":
+    case 'SETTLED':
       return Invoice_InvoiceState.SETTLED;
     case 2:
-    case "CANCELED":
+    case 'CANCELED':
       return Invoice_InvoiceState.CANCELED;
     case 3:
-    case "ACCEPTED":
+    case 'ACCEPTED':
       return Invoice_InvoiceState.ACCEPTED;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Invoice_InvoiceState.UNRECOGNIZED;
   }
 }
 
 export function invoice_InvoiceStateToJSON(
-  object: Invoice_InvoiceState
+  object: Invoice_InvoiceState,
 ): string {
   switch (object) {
     case Invoice_InvoiceState.OPEN:
-      return "OPEN";
+      return 'OPEN';
     case Invoice_InvoiceState.SETTLED:
-      return "SETTLED";
+      return 'SETTLED';
     case Invoice_InvoiceState.CANCELED:
-      return "CANCELED";
+      return 'CANCELED';
     case Invoice_InvoiceState.ACCEPTED:
-      return "ACCEPTED";
+      return 'ACCEPTED';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -3260,7 +3260,7 @@ export interface InvoiceHTLC {
   /** Current state the htlc is in. */
   state: InvoiceHTLCState;
   /** Custom tlv records. */
-  customRecords: { [key: string]: Uint8Array };
+  customRecords: Record<string, Uint8Array>;
   /** The total amount of the mpp payment in msat. */
   mppTotalAmtMsat: string;
   /** Details relevant to AMP HTLCs, only populated if this is an AMP HTLC. */
@@ -3448,42 +3448,42 @@ export enum Payment_PaymentStatus {
 }
 
 export function payment_PaymentStatusFromJSON(
-  object: any
+  object: any,
 ): Payment_PaymentStatus {
   switch (object) {
     case 0:
-    case "UNKNOWN":
+    case 'UNKNOWN':
       return Payment_PaymentStatus.UNKNOWN;
     case 1:
-    case "IN_FLIGHT":
+    case 'IN_FLIGHT':
       return Payment_PaymentStatus.IN_FLIGHT;
     case 2:
-    case "SUCCEEDED":
+    case 'SUCCEEDED':
       return Payment_PaymentStatus.SUCCEEDED;
     case 3:
-    case "FAILED":
+    case 'FAILED':
       return Payment_PaymentStatus.FAILED;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Payment_PaymentStatus.UNRECOGNIZED;
   }
 }
 
 export function payment_PaymentStatusToJSON(
-  object: Payment_PaymentStatus
+  object: Payment_PaymentStatus,
 ): string {
   switch (object) {
     case Payment_PaymentStatus.UNKNOWN:
-      return "UNKNOWN";
+      return 'UNKNOWN';
     case Payment_PaymentStatus.IN_FLIGHT:
-      return "IN_FLIGHT";
+      return 'IN_FLIGHT';
     case Payment_PaymentStatus.SUCCEEDED:
-      return "SUCCEEDED";
+      return 'SUCCEEDED';
     case Payment_PaymentStatus.FAILED:
-      return "FAILED";
+      return 'FAILED';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -3515,37 +3515,37 @@ export enum HTLCAttempt_HTLCStatus {
 }
 
 export function hTLCAttempt_HTLCStatusFromJSON(
-  object: any
+  object: any,
 ): HTLCAttempt_HTLCStatus {
   switch (object) {
     case 0:
-    case "IN_FLIGHT":
+    case 'IN_FLIGHT':
       return HTLCAttempt_HTLCStatus.IN_FLIGHT;
     case 1:
-    case "SUCCEEDED":
+    case 'SUCCEEDED':
       return HTLCAttempt_HTLCStatus.SUCCEEDED;
     case 2:
-    case "FAILED":
+    case 'FAILED':
       return HTLCAttempt_HTLCStatus.FAILED;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return HTLCAttempt_HTLCStatus.UNRECOGNIZED;
   }
 }
 
 export function hTLCAttempt_HTLCStatusToJSON(
-  object: HTLCAttempt_HTLCStatus
+  object: HTLCAttempt_HTLCStatus,
 ): string {
   switch (object) {
     case HTLCAttempt_HTLCStatus.IN_FLIGHT:
-      return "IN_FLIGHT";
+      return 'IN_FLIGHT';
     case HTLCAttempt_HTLCStatus.SUCCEEDED:
-      return "SUCCEEDED";
+      return 'SUCCEEDED';
     case HTLCAttempt_HTLCStatus.FAILED:
-      return "FAILED";
+      return 'FAILED';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -3648,7 +3648,7 @@ export interface PayReq {
   routeHints: RouteHint[];
   paymentAddr: Uint8Array;
   numMsat: string;
-  features: { [key: number]: Feature };
+  features: Record<number, Feature>;
 }
 
 export interface PayReq_FeaturesEntry {
@@ -3948,7 +3948,7 @@ export interface ListPermissionsResponse {
    * A map between all RPC method URIs and their required macaroon permissions to
    * access them.
    */
-  methodPermissions: { [key: string]: MacaroonPermissionList };
+  methodPermissions: Record<string, MacaroonPermissionList>;
 }
 
 export interface ListPermissionsResponse_MethodPermissionsEntry {
@@ -4024,91 +4024,91 @@ export enum Failure_FailureCode {
 export function failure_FailureCodeFromJSON(object: any): Failure_FailureCode {
   switch (object) {
     case 0:
-    case "RESERVED":
+    case 'RESERVED':
       return Failure_FailureCode.RESERVED;
     case 1:
-    case "INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS":
+    case 'INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS':
       return Failure_FailureCode.INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS;
     case 2:
-    case "INCORRECT_PAYMENT_AMOUNT":
+    case 'INCORRECT_PAYMENT_AMOUNT':
       return Failure_FailureCode.INCORRECT_PAYMENT_AMOUNT;
     case 3:
-    case "FINAL_INCORRECT_CLTV_EXPIRY":
+    case 'FINAL_INCORRECT_CLTV_EXPIRY':
       return Failure_FailureCode.FINAL_INCORRECT_CLTV_EXPIRY;
     case 4:
-    case "FINAL_INCORRECT_HTLC_AMOUNT":
+    case 'FINAL_INCORRECT_HTLC_AMOUNT':
       return Failure_FailureCode.FINAL_INCORRECT_HTLC_AMOUNT;
     case 5:
-    case "FINAL_EXPIRY_TOO_SOON":
+    case 'FINAL_EXPIRY_TOO_SOON':
       return Failure_FailureCode.FINAL_EXPIRY_TOO_SOON;
     case 6:
-    case "INVALID_REALM":
+    case 'INVALID_REALM':
       return Failure_FailureCode.INVALID_REALM;
     case 7:
-    case "EXPIRY_TOO_SOON":
+    case 'EXPIRY_TOO_SOON':
       return Failure_FailureCode.EXPIRY_TOO_SOON;
     case 8:
-    case "INVALID_ONION_VERSION":
+    case 'INVALID_ONION_VERSION':
       return Failure_FailureCode.INVALID_ONION_VERSION;
     case 9:
-    case "INVALID_ONION_HMAC":
+    case 'INVALID_ONION_HMAC':
       return Failure_FailureCode.INVALID_ONION_HMAC;
     case 10:
-    case "INVALID_ONION_KEY":
+    case 'INVALID_ONION_KEY':
       return Failure_FailureCode.INVALID_ONION_KEY;
     case 11:
-    case "AMOUNT_BELOW_MINIMUM":
+    case 'AMOUNT_BELOW_MINIMUM':
       return Failure_FailureCode.AMOUNT_BELOW_MINIMUM;
     case 12:
-    case "FEE_INSUFFICIENT":
+    case 'FEE_INSUFFICIENT':
       return Failure_FailureCode.FEE_INSUFFICIENT;
     case 13:
-    case "INCORRECT_CLTV_EXPIRY":
+    case 'INCORRECT_CLTV_EXPIRY':
       return Failure_FailureCode.INCORRECT_CLTV_EXPIRY;
     case 14:
-    case "CHANNEL_DISABLED":
+    case 'CHANNEL_DISABLED':
       return Failure_FailureCode.CHANNEL_DISABLED;
     case 15:
-    case "TEMPORARY_CHANNEL_FAILURE":
+    case 'TEMPORARY_CHANNEL_FAILURE':
       return Failure_FailureCode.TEMPORARY_CHANNEL_FAILURE;
     case 16:
-    case "REQUIRED_NODE_FEATURE_MISSING":
+    case 'REQUIRED_NODE_FEATURE_MISSING':
       return Failure_FailureCode.REQUIRED_NODE_FEATURE_MISSING;
     case 17:
-    case "REQUIRED_CHANNEL_FEATURE_MISSING":
+    case 'REQUIRED_CHANNEL_FEATURE_MISSING':
       return Failure_FailureCode.REQUIRED_CHANNEL_FEATURE_MISSING;
     case 18:
-    case "UNKNOWN_NEXT_PEER":
+    case 'UNKNOWN_NEXT_PEER':
       return Failure_FailureCode.UNKNOWN_NEXT_PEER;
     case 19:
-    case "TEMPORARY_NODE_FAILURE":
+    case 'TEMPORARY_NODE_FAILURE':
       return Failure_FailureCode.TEMPORARY_NODE_FAILURE;
     case 20:
-    case "PERMANENT_NODE_FAILURE":
+    case 'PERMANENT_NODE_FAILURE':
       return Failure_FailureCode.PERMANENT_NODE_FAILURE;
     case 21:
-    case "PERMANENT_CHANNEL_FAILURE":
+    case 'PERMANENT_CHANNEL_FAILURE':
       return Failure_FailureCode.PERMANENT_CHANNEL_FAILURE;
     case 22:
-    case "EXPIRY_TOO_FAR":
+    case 'EXPIRY_TOO_FAR':
       return Failure_FailureCode.EXPIRY_TOO_FAR;
     case 23:
-    case "MPP_TIMEOUT":
+    case 'MPP_TIMEOUT':
       return Failure_FailureCode.MPP_TIMEOUT;
     case 24:
-    case "INVALID_ONION_PAYLOAD":
+    case 'INVALID_ONION_PAYLOAD':
       return Failure_FailureCode.INVALID_ONION_PAYLOAD;
     case 997:
-    case "INTERNAL_FAILURE":
+    case 'INTERNAL_FAILURE':
       return Failure_FailureCode.INTERNAL_FAILURE;
     case 998:
-    case "UNKNOWN_FAILURE":
+    case 'UNKNOWN_FAILURE':
       return Failure_FailureCode.UNKNOWN_FAILURE;
     case 999:
-    case "UNREADABLE_FAILURE":
+    case 'UNREADABLE_FAILURE':
       return Failure_FailureCode.UNREADABLE_FAILURE;
     case -1:
-    case "UNRECOGNIZED":
+    case 'UNRECOGNIZED':
     default:
       return Failure_FailureCode.UNRECOGNIZED;
   }
@@ -4117,63 +4117,63 @@ export function failure_FailureCodeFromJSON(object: any): Failure_FailureCode {
 export function failure_FailureCodeToJSON(object: Failure_FailureCode): string {
   switch (object) {
     case Failure_FailureCode.RESERVED:
-      return "RESERVED";
+      return 'RESERVED';
     case Failure_FailureCode.INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS:
-      return "INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS";
+      return 'INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS';
     case Failure_FailureCode.INCORRECT_PAYMENT_AMOUNT:
-      return "INCORRECT_PAYMENT_AMOUNT";
+      return 'INCORRECT_PAYMENT_AMOUNT';
     case Failure_FailureCode.FINAL_INCORRECT_CLTV_EXPIRY:
-      return "FINAL_INCORRECT_CLTV_EXPIRY";
+      return 'FINAL_INCORRECT_CLTV_EXPIRY';
     case Failure_FailureCode.FINAL_INCORRECT_HTLC_AMOUNT:
-      return "FINAL_INCORRECT_HTLC_AMOUNT";
+      return 'FINAL_INCORRECT_HTLC_AMOUNT';
     case Failure_FailureCode.FINAL_EXPIRY_TOO_SOON:
-      return "FINAL_EXPIRY_TOO_SOON";
+      return 'FINAL_EXPIRY_TOO_SOON';
     case Failure_FailureCode.INVALID_REALM:
-      return "INVALID_REALM";
+      return 'INVALID_REALM';
     case Failure_FailureCode.EXPIRY_TOO_SOON:
-      return "EXPIRY_TOO_SOON";
+      return 'EXPIRY_TOO_SOON';
     case Failure_FailureCode.INVALID_ONION_VERSION:
-      return "INVALID_ONION_VERSION";
+      return 'INVALID_ONION_VERSION';
     case Failure_FailureCode.INVALID_ONION_HMAC:
-      return "INVALID_ONION_HMAC";
+      return 'INVALID_ONION_HMAC';
     case Failure_FailureCode.INVALID_ONION_KEY:
-      return "INVALID_ONION_KEY";
+      return 'INVALID_ONION_KEY';
     case Failure_FailureCode.AMOUNT_BELOW_MINIMUM:
-      return "AMOUNT_BELOW_MINIMUM";
+      return 'AMOUNT_BELOW_MINIMUM';
     case Failure_FailureCode.FEE_INSUFFICIENT:
-      return "FEE_INSUFFICIENT";
+      return 'FEE_INSUFFICIENT';
     case Failure_FailureCode.INCORRECT_CLTV_EXPIRY:
-      return "INCORRECT_CLTV_EXPIRY";
+      return 'INCORRECT_CLTV_EXPIRY';
     case Failure_FailureCode.CHANNEL_DISABLED:
-      return "CHANNEL_DISABLED";
+      return 'CHANNEL_DISABLED';
     case Failure_FailureCode.TEMPORARY_CHANNEL_FAILURE:
-      return "TEMPORARY_CHANNEL_FAILURE";
+      return 'TEMPORARY_CHANNEL_FAILURE';
     case Failure_FailureCode.REQUIRED_NODE_FEATURE_MISSING:
-      return "REQUIRED_NODE_FEATURE_MISSING";
+      return 'REQUIRED_NODE_FEATURE_MISSING';
     case Failure_FailureCode.REQUIRED_CHANNEL_FEATURE_MISSING:
-      return "REQUIRED_CHANNEL_FEATURE_MISSING";
+      return 'REQUIRED_CHANNEL_FEATURE_MISSING';
     case Failure_FailureCode.UNKNOWN_NEXT_PEER:
-      return "UNKNOWN_NEXT_PEER";
+      return 'UNKNOWN_NEXT_PEER';
     case Failure_FailureCode.TEMPORARY_NODE_FAILURE:
-      return "TEMPORARY_NODE_FAILURE";
+      return 'TEMPORARY_NODE_FAILURE';
     case Failure_FailureCode.PERMANENT_NODE_FAILURE:
-      return "PERMANENT_NODE_FAILURE";
+      return 'PERMANENT_NODE_FAILURE';
     case Failure_FailureCode.PERMANENT_CHANNEL_FAILURE:
-      return "PERMANENT_CHANNEL_FAILURE";
+      return 'PERMANENT_CHANNEL_FAILURE';
     case Failure_FailureCode.EXPIRY_TOO_FAR:
-      return "EXPIRY_TOO_FAR";
+      return 'EXPIRY_TOO_FAR';
     case Failure_FailureCode.MPP_TIMEOUT:
-      return "MPP_TIMEOUT";
+      return 'MPP_TIMEOUT';
     case Failure_FailureCode.INVALID_ONION_PAYLOAD:
-      return "INVALID_ONION_PAYLOAD";
+      return 'INVALID_ONION_PAYLOAD';
     case Failure_FailureCode.INTERNAL_FAILURE:
-      return "INTERNAL_FAILURE";
+      return 'INTERNAL_FAILURE';
     case Failure_FailureCode.UNKNOWN_FAILURE:
-      return "UNKNOWN_FAILURE";
+      return 'UNKNOWN_FAILURE';
     case Failure_FailureCode.UNREADABLE_FAILURE:
-      return "UNREADABLE_FAILURE";
+      return 'UNREADABLE_FAILURE';
     default:
-      return "UNKNOWN";
+      return 'UNKNOWN';
   }
 }
 
@@ -4433,17 +4433,17 @@ function createBaseSubscribeCustomMessagesRequest(): SubscribeCustomMessagesRequ
 export const SubscribeCustomMessagesRequest = {
   encode(
     _: SubscribeCustomMessagesRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): SubscribeCustomMessagesRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSubscribeCustomMessagesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4453,6 +4453,7 @@ export const SubscribeCustomMessagesRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -4462,12 +4463,12 @@ export const SubscribeCustomMessagesRequest = {
   },
 
   toJSON(_: SubscribeCustomMessagesRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(
-    _: DeepPartial<SubscribeCustomMessagesRequest>
+    _: DeepPartial<SubscribeCustomMessagesRequest>,
   ): SubscribeCustomMessagesRequest {
     const message = createBaseSubscribeCustomMessagesRequest();
     return message;
@@ -4475,29 +4476,32 @@ export const SubscribeCustomMessagesRequest = {
 };
 
 function createBaseCustomMessage(): CustomMessage {
-  return { peer: new Uint8Array(), type: 0, data: new Uint8Array() };
+  return {peer: new Uint8Array(), type: 0, data: new Uint8Array()};
 }
 
 export const CustomMessage = {
   encode(
     message: CustomMessage,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.peer.length !== 0) {
+    if (message.peer.length > 0) {
       writer.uint32(10).bytes(message.peer);
     }
+
     if (message.type !== 0) {
       writer.uint32(16).uint32(message.type);
     }
-    if (message.data.length !== 0) {
+
+    if (message.data.length > 0) {
       writer.uint32(26).bytes(message.data);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CustomMessage {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCustomMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4516,6 +4520,7 @@ export const CustomMessage = {
           break;
       }
     }
+
     return message;
   },
 
@@ -4537,17 +4542,17 @@ export const CustomMessage = {
   },
 
   toJSON(message: CustomMessage): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.peer !== undefined &&
-      (obj.peer = base64FromBytes(
-        message.peer !== undefined ? message.peer : new Uint8Array()
+      (object.peer = base64FromBytes(
+        message.peer !== undefined ? message.peer : new Uint8Array(),
       ));
-    message.type !== undefined && (obj.type = Math.round(message.type));
+    message.type !== undefined && (object.type = Math.round(message.type));
     message.data !== undefined &&
-      (obj.data = base64FromBytes(
-        message.data !== undefined ? message.data : new Uint8Array()
+      (object.data = base64FromBytes(
+        message.data !== undefined ? message.data : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<CustomMessage>): CustomMessage {
@@ -4560,32 +4565,35 @@ export const CustomMessage = {
 };
 
 function createBaseSendCustomMessageRequest(): SendCustomMessageRequest {
-  return { peer: new Uint8Array(), type: 0, data: new Uint8Array() };
+  return {peer: new Uint8Array(), type: 0, data: new Uint8Array()};
 }
 
 export const SendCustomMessageRequest = {
   encode(
     message: SendCustomMessageRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.peer.length !== 0) {
+    if (message.peer.length > 0) {
       writer.uint32(10).bytes(message.peer);
     }
+
     if (message.type !== 0) {
       writer.uint32(16).uint32(message.type);
     }
-    if (message.data.length !== 0) {
+
+    if (message.data.length > 0) {
       writer.uint32(26).bytes(message.data);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): SendCustomMessageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCustomMessageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4604,6 +4612,7 @@ export const SendCustomMessageRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -4625,21 +4634,21 @@ export const SendCustomMessageRequest = {
   },
 
   toJSON(message: SendCustomMessageRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.peer !== undefined &&
-      (obj.peer = base64FromBytes(
-        message.peer !== undefined ? message.peer : new Uint8Array()
+      (object.peer = base64FromBytes(
+        message.peer !== undefined ? message.peer : new Uint8Array(),
       ));
-    message.type !== undefined && (obj.type = Math.round(message.type));
+    message.type !== undefined && (object.type = Math.round(message.type));
     message.data !== undefined &&
-      (obj.data = base64FromBytes(
-        message.data !== undefined ? message.data : new Uint8Array()
+      (object.data = base64FromBytes(
+        message.data !== undefined ? message.data : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<SendCustomMessageRequest>
+    object: DeepPartial<SendCustomMessageRequest>,
   ): SendCustomMessageRequest {
     const message = createBaseSendCustomMessageRequest();
     message.peer = object.peer ?? new Uint8Array();
@@ -4656,17 +4665,17 @@ function createBaseSendCustomMessageResponse(): SendCustomMessageResponse {
 export const SendCustomMessageResponse = {
   encode(
     _: SendCustomMessageResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): SendCustomMessageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCustomMessageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4676,6 +4685,7 @@ export const SendCustomMessageResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -4685,12 +4695,12 @@ export const SendCustomMessageResponse = {
   },
 
   toJSON(_: SendCustomMessageResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(
-    _: DeepPartial<SendCustomMessageResponse>
+    _: DeepPartial<SendCustomMessageResponse>,
   ): SendCustomMessageResponse {
     const message = createBaseSendCustomMessageResponse();
     return message;
@@ -4700,11 +4710,11 @@ export const SendCustomMessageResponse = {
 function createBaseUtxo(): Utxo {
   return {
     addressType: 0,
-    address: "",
-    amountSat: "0",
-    pkScript: "",
+    address: '',
+    amountSat: '0',
+    pkScript: '',
     outpoint: undefined,
-    confirmations: "0",
+    confirmations: '0',
   };
 }
 
@@ -4713,27 +4723,33 @@ export const Utxo = {
     if (message.addressType !== 0) {
       writer.uint32(8).int32(message.addressType);
     }
-    if (message.address !== "") {
+
+    if (message.address !== '') {
       writer.uint32(18).string(message.address);
     }
-    if (message.amountSat !== "0") {
+
+    if (message.amountSat !== '0') {
       writer.uint32(24).int64(message.amountSat);
     }
-    if (message.pkScript !== "") {
+
+    if (message.pkScript !== '') {
       writer.uint32(34).string(message.pkScript);
     }
+
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(42).fork()).ldelim();
     }
-    if (message.confirmations !== "0") {
+
+    if (message.confirmations !== '0') {
       writer.uint32(48).int64(message.confirmations);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Utxo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUtxo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4761,6 +4777,7 @@ export const Utxo = {
           break;
       }
     }
+
     return message;
   },
 
@@ -4773,15 +4790,15 @@ export const Utxo = {
     message.address =
       object.address !== undefined && object.address !== null
         ? String(object.address)
-        : "";
+        : '';
     message.amountSat =
       object.amountSat !== undefined && object.amountSat !== null
         ? String(object.amountSat)
-        : "0";
+        : '0';
     message.pkScript =
       object.pkScript !== undefined && object.pkScript !== null
         ? String(object.pkScript)
-        : "";
+        : '';
     message.outpoint =
       object.outpoint !== undefined && object.outpoint !== null
         ? OutPoint.fromJSON(object.outpoint)
@@ -4789,97 +4806,107 @@ export const Utxo = {
     message.confirmations =
       object.confirmations !== undefined && object.confirmations !== null
         ? String(object.confirmations)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: Utxo): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.addressType !== undefined &&
-      (obj.addressType = addressTypeToJSON(message.addressType));
-    message.address !== undefined && (obj.address = message.address);
-    message.amountSat !== undefined && (obj.amountSat = message.amountSat);
-    message.pkScript !== undefined && (obj.pkScript = message.pkScript);
+      (object.addressType = addressTypeToJSON(message.addressType));
+    message.address !== undefined && (object.address = message.address);
+    message.amountSat !== undefined && (object.amountSat = message.amountSat);
+    message.pkScript !== undefined && (object.pkScript = message.pkScript);
     message.outpoint !== undefined &&
-      (obj.outpoint = message.outpoint
+      (object.outpoint = message.outpoint
         ? OutPoint.toJSON(message.outpoint)
         : undefined);
     message.confirmations !== undefined &&
-      (obj.confirmations = message.confirmations);
-    return obj;
+      (object.confirmations = message.confirmations);
+    return object;
   },
 
   fromPartial(object: DeepPartial<Utxo>): Utxo {
     const message = createBaseUtxo();
     message.addressType = object.addressType ?? 0;
-    message.address = object.address ?? "";
-    message.amountSat = object.amountSat ?? "0";
-    message.pkScript = object.pkScript ?? "";
+    message.address = object.address ?? '';
+    message.amountSat = object.amountSat ?? '0';
+    message.pkScript = object.pkScript ?? '';
     message.outpoint =
       object.outpoint !== undefined && object.outpoint !== null
         ? OutPoint.fromPartial(object.outpoint)
         : undefined;
-    message.confirmations = object.confirmations ?? "0";
+    message.confirmations = object.confirmations ?? '0';
     return message;
   },
 };
 
 function createBaseTransaction(): Transaction {
   return {
-    txHash: "",
-    amount: "0",
+    txHash: '',
+    amount: '0',
     numConfirmations: 0,
-    blockHash: "",
+    blockHash: '',
     blockHeight: 0,
-    timeStamp: "0",
-    totalFees: "0",
+    timeStamp: '0',
+    totalFees: '0',
     destAddresses: [],
-    rawTxHex: "",
-    label: "",
+    rawTxHex: '',
+    label: '',
   };
 }
 
 export const Transaction = {
   encode(
     message: Transaction,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.txHash !== "") {
+    if (message.txHash !== '') {
       writer.uint32(10).string(message.txHash);
     }
-    if (message.amount !== "0") {
+
+    if (message.amount !== '0') {
       writer.uint32(16).int64(message.amount);
     }
+
     if (message.numConfirmations !== 0) {
       writer.uint32(24).int32(message.numConfirmations);
     }
-    if (message.blockHash !== "") {
+
+    if (message.blockHash !== '') {
       writer.uint32(34).string(message.blockHash);
     }
+
     if (message.blockHeight !== 0) {
       writer.uint32(40).int32(message.blockHeight);
     }
-    if (message.timeStamp !== "0") {
+
+    if (message.timeStamp !== '0') {
       writer.uint32(48).int64(message.timeStamp);
     }
-    if (message.totalFees !== "0") {
+
+    if (message.totalFees !== '0') {
       writer.uint32(56).int64(message.totalFees);
     }
+
     for (const v of message.destAddresses) {
-      writer.uint32(66).string(v!);
+      writer.uint32(66).string(v);
     }
-    if (message.rawTxHex !== "") {
+
+    if (message.rawTxHex !== '') {
       writer.uint32(74).string(message.rawTxHex);
     }
-    if (message.label !== "") {
+
+    if (message.label !== '') {
       writer.uint32(82).string(message.label);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Transaction {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTransaction();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4919,6 +4946,7 @@ export const Transaction = {
           break;
       }
     }
+
     return message;
   },
 
@@ -4927,11 +4955,11 @@ export const Transaction = {
     message.txHash =
       object.txHash !== undefined && object.txHash !== null
         ? String(object.txHash)
-        : "";
+        : '';
     message.amount =
       object.amount !== undefined && object.amount !== null
         ? String(object.amount)
-        : "0";
+        : '0';
     message.numConfirmations =
       object.numConfirmations !== undefined && object.numConfirmations !== null
         ? Number(object.numConfirmations)
@@ -4939,7 +4967,7 @@ export const Transaction = {
     message.blockHash =
       object.blockHash !== undefined && object.blockHash !== null
         ? String(object.blockHash)
-        : "";
+        : '';
     message.blockHeight =
       object.blockHeight !== undefined && object.blockHeight !== null
         ? Number(object.blockHeight)
@@ -4947,89 +4975,90 @@ export const Transaction = {
     message.timeStamp =
       object.timeStamp !== undefined && object.timeStamp !== null
         ? String(object.timeStamp)
-        : "0";
+        : '0';
     message.totalFees =
       object.totalFees !== undefined && object.totalFees !== null
         ? String(object.totalFees)
-        : "0";
+        : '0';
     message.destAddresses = (object.destAddresses ?? []).map((e: any) =>
-      String(e)
+      String(e),
     );
     message.rawTxHex =
       object.rawTxHex !== undefined && object.rawTxHex !== null
         ? String(object.rawTxHex)
-        : "";
+        : '';
     message.label =
       object.label !== undefined && object.label !== null
         ? String(object.label)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: Transaction): unknown {
-    const obj: any = {};
-    message.txHash !== undefined && (obj.txHash = message.txHash);
-    message.amount !== undefined && (obj.amount = message.amount);
+    const object: any = {};
+    message.txHash !== undefined && (object.txHash = message.txHash);
+    message.amount !== undefined && (object.amount = message.amount);
     message.numConfirmations !== undefined &&
-      (obj.numConfirmations = Math.round(message.numConfirmations));
-    message.blockHash !== undefined && (obj.blockHash = message.blockHash);
+      (object.numConfirmations = Math.round(message.numConfirmations));
+    message.blockHash !== undefined && (object.blockHash = message.blockHash);
     message.blockHeight !== undefined &&
-      (obj.blockHeight = Math.round(message.blockHeight));
-    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
-    message.totalFees !== undefined && (obj.totalFees = message.totalFees);
-    if (message.destAddresses) {
-      obj.destAddresses = message.destAddresses.map((e) => e);
-    } else {
-      obj.destAddresses = [];
-    }
-    message.rawTxHex !== undefined && (obj.rawTxHex = message.rawTxHex);
-    message.label !== undefined && (obj.label = message.label);
-    return obj;
+      (object.blockHeight = Math.round(message.blockHeight));
+    message.timeStamp !== undefined && (object.timeStamp = message.timeStamp);
+    message.totalFees !== undefined && (object.totalFees = message.totalFees);
+    object.destAddresses = message.destAddresses
+      ? message.destAddresses.map((e) => e)
+      : [];
+    message.rawTxHex !== undefined && (object.rawTxHex = message.rawTxHex);
+    message.label !== undefined && (object.label = message.label);
+    return object;
   },
 
   fromPartial(object: DeepPartial<Transaction>): Transaction {
     const message = createBaseTransaction();
-    message.txHash = object.txHash ?? "";
-    message.amount = object.amount ?? "0";
+    message.txHash = object.txHash ?? '';
+    message.amount = object.amount ?? '0';
     message.numConfirmations = object.numConfirmations ?? 0;
-    message.blockHash = object.blockHash ?? "";
+    message.blockHash = object.blockHash ?? '';
     message.blockHeight = object.blockHeight ?? 0;
-    message.timeStamp = object.timeStamp ?? "0";
-    message.totalFees = object.totalFees ?? "0";
+    message.timeStamp = object.timeStamp ?? '0';
+    message.totalFees = object.totalFees ?? '0';
     message.destAddresses = object.destAddresses?.map((e) => e) || [];
-    message.rawTxHex = object.rawTxHex ?? "";
-    message.label = object.label ?? "";
+    message.rawTxHex = object.rawTxHex ?? '';
+    message.label = object.label ?? '';
     return message;
   },
 };
 
 function createBaseGetTransactionsRequest(): GetTransactionsRequest {
-  return { startHeight: 0, endHeight: 0, account: "" };
+  return {startHeight: 0, endHeight: 0, account: ''};
 }
 
 export const GetTransactionsRequest = {
   encode(
     message: GetTransactionsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.startHeight !== 0) {
       writer.uint32(8).int32(message.startHeight);
     }
+
     if (message.endHeight !== 0) {
       writer.uint32(16).int32(message.endHeight);
     }
-    if (message.account !== "") {
+
+    if (message.account !== '') {
       writer.uint32(26).string(message.account);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): GetTransactionsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetTransactionsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5048,6 +5077,7 @@ export const GetTransactionsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -5064,56 +5094,57 @@ export const GetTransactionsRequest = {
     message.account =
       object.account !== undefined && object.account !== null
         ? String(object.account)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: GetTransactionsRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.startHeight !== undefined &&
-      (obj.startHeight = Math.round(message.startHeight));
+      (object.startHeight = Math.round(message.startHeight));
     message.endHeight !== undefined &&
-      (obj.endHeight = Math.round(message.endHeight));
-    message.account !== undefined && (obj.account = message.account);
-    return obj;
+      (object.endHeight = Math.round(message.endHeight));
+    message.account !== undefined && (object.account = message.account);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<GetTransactionsRequest>
+    object: DeepPartial<GetTransactionsRequest>,
   ): GetTransactionsRequest {
     const message = createBaseGetTransactionsRequest();
     message.startHeight = object.startHeight ?? 0;
     message.endHeight = object.endHeight ?? 0;
-    message.account = object.account ?? "";
+    message.account = object.account ?? '';
     return message;
   },
 };
 
 function createBaseTransactionDetails(): TransactionDetails {
-  return { transactions: [] };
+  return {transactions: []};
 }
 
 export const TransactionDetails = {
   encode(
     message: TransactionDetails,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.transactions) {
-      Transaction.encode(v!, writer.uint32(10).fork()).ldelim();
+      Transaction.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): TransactionDetails {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTransactionDetails();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.transactions.push(
-            Transaction.decode(reader, reader.uint32())
+            Transaction.decode(reader, reader.uint32()),
           );
           break;
         default:
@@ -5121,27 +5152,29 @@ export const TransactionDetails = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): TransactionDetails {
     const message = createBaseTransactionDetails();
     message.transactions = (object.transactions ?? []).map((e: any) =>
-      Transaction.fromJSON(e)
+      Transaction.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: TransactionDetails): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.transactions) {
-      obj.transactions = message.transactions.map((e) =>
-        e ? Transaction.toJSON(e) : undefined
+      object.transactions = message.transactions.map((e) =>
+        e ? Transaction.toJSON(e) : undefined,
       );
     } else {
-      obj.transactions = [];
+      object.transactions = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<TransactionDetails>): TransactionDetails {
@@ -5153,29 +5186,32 @@ export const TransactionDetails = {
 };
 
 function createBaseFeeLimit(): FeeLimit {
-  return { fixed: undefined, fixedMsat: undefined, percent: undefined };
+  return {fixed: undefined, fixedMsat: undefined, percent: undefined};
 }
 
 export const FeeLimit = {
   encode(
     message: FeeLimit,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.fixed !== undefined) {
       writer.uint32(8).int64(message.fixed);
     }
+
     if (message.fixedMsat !== undefined) {
       writer.uint32(24).int64(message.fixedMsat);
     }
+
     if (message.percent !== undefined) {
       writer.uint32(16).int64(message.percent);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FeeLimit {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeeLimit();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5194,6 +5230,7 @@ export const FeeLimit = {
           break;
       }
     }
+
     return message;
   },
 
@@ -5215,11 +5252,11 @@ export const FeeLimit = {
   },
 
   toJSON(message: FeeLimit): unknown {
-    const obj: any = {};
-    message.fixed !== undefined && (obj.fixed = message.fixed);
-    message.fixedMsat !== undefined && (obj.fixedMsat = message.fixedMsat);
-    message.percent !== undefined && (obj.percent = message.percent);
-    return obj;
+    const object: any = {};
+    message.fixed !== undefined && (object.fixed = message.fixed);
+    message.fixedMsat !== undefined && (object.fixedMsat = message.fixedMsat);
+    message.percent !== undefined && (object.percent = message.percent);
+    return object;
   },
 
   fromPartial(object: DeepPartial<FeeLimit>): FeeLimit {
@@ -5234,15 +5271,15 @@ export const FeeLimit = {
 function createBaseSendRequest(): SendRequest {
   return {
     dest: new Uint8Array(),
-    destString: "",
-    amt: "0",
-    amtMsat: "0",
+    destString: '',
+    amt: '0',
+    amtMsat: '0',
     paymentHash: new Uint8Array(),
-    paymentHashString: "",
-    paymentRequest: "",
+    paymentHashString: '',
+    paymentRequest: '',
     finalCltvDelta: 0,
     feeLimit: undefined,
-    outgoingChanId: "0",
+    outgoingChanId: '0',
     lastHopPubkey: new Uint8Array(),
     cltvLimit: 0,
     destCustomRecords: {},
@@ -5255,67 +5292,83 @@ function createBaseSendRequest(): SendRequest {
 export const SendRequest = {
   encode(
     message: SendRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.dest.length !== 0) {
+    if (message.dest.length > 0) {
       writer.uint32(10).bytes(message.dest);
     }
-    if (message.destString !== "") {
+
+    if (message.destString !== '') {
       writer.uint32(18).string(message.destString);
     }
-    if (message.amt !== "0") {
+
+    if (message.amt !== '0') {
       writer.uint32(24).int64(message.amt);
     }
-    if (message.amtMsat !== "0") {
+
+    if (message.amtMsat !== '0') {
       writer.uint32(96).int64(message.amtMsat);
     }
-    if (message.paymentHash.length !== 0) {
+
+    if (message.paymentHash.length > 0) {
       writer.uint32(34).bytes(message.paymentHash);
     }
-    if (message.paymentHashString !== "") {
+
+    if (message.paymentHashString !== '') {
       writer.uint32(42).string(message.paymentHashString);
     }
-    if (message.paymentRequest !== "") {
+
+    if (message.paymentRequest !== '') {
       writer.uint32(50).string(message.paymentRequest);
     }
+
     if (message.finalCltvDelta !== 0) {
       writer.uint32(56).int32(message.finalCltvDelta);
     }
+
     if (message.feeLimit !== undefined) {
       FeeLimit.encode(message.feeLimit, writer.uint32(66).fork()).ldelim();
     }
-    if (message.outgoingChanId !== "0") {
+
+    if (message.outgoingChanId !== '0') {
       writer.uint32(72).uint64(message.outgoingChanId);
     }
-    if (message.lastHopPubkey.length !== 0) {
+
+    if (message.lastHopPubkey.length > 0) {
       writer.uint32(106).bytes(message.lastHopPubkey);
     }
+
     if (message.cltvLimit !== 0) {
       writer.uint32(80).uint32(message.cltvLimit);
     }
-    Object.entries(message.destCustomRecords).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.destCustomRecords)) {
       SendRequest_DestCustomRecordsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(90).fork()
+        {key: key as any, value},
+        writer.uint32(90).fork(),
       ).ldelim();
-    });
-    if (message.allowSelfPayment === true) {
+    }
+
+    if (message.allowSelfPayment) {
       writer.uint32(112).bool(message.allowSelfPayment);
     }
+
     writer.uint32(122).fork();
     for (const v of message.destFeatures) {
       writer.int32(v);
     }
+
     writer.ldelim();
-    if (message.paymentAddr.length !== 0) {
+    if (message.paymentAddr.length > 0) {
       writer.uint32(130).bytes(message.paymentAddr);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5359,11 +5412,12 @@ export const SendRequest = {
         case 11:
           const entry11 = SendRequest_DestCustomRecordsEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry11.value !== undefined) {
             message.destCustomRecords[entry11.key] = entry11.value;
           }
+
           break;
         case 14:
           message.allowSelfPayment = reader.bool();
@@ -5377,6 +5431,7 @@ export const SendRequest = {
           } else {
             message.destFeatures.push(reader.int32() as any);
           }
+
           break;
         case 16:
           message.paymentAddr = reader.bytes();
@@ -5386,6 +5441,7 @@ export const SendRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -5398,15 +5454,15 @@ export const SendRequest = {
     message.destString =
       object.destString !== undefined && object.destString !== null
         ? String(object.destString)
-        : "";
+        : '';
     message.amt =
       object.amt !== undefined && object.amt !== null
         ? String(object.amt)
-        : "0";
+        : '0';
     message.amtMsat =
       object.amtMsat !== undefined && object.amtMsat !== null
         ? String(object.amtMsat)
-        : "0";
+        : '0';
     message.paymentHash =
       object.paymentHash !== undefined && object.paymentHash !== null
         ? bytesFromBase64(object.paymentHash)
@@ -5415,11 +5471,11 @@ export const SendRequest = {
       object.paymentHashString !== undefined &&
       object.paymentHashString !== null
         ? String(object.paymentHashString)
-        : "";
+        : '';
     message.paymentRequest =
       object.paymentRequest !== undefined && object.paymentRequest !== null
         ? String(object.paymentRequest)
-        : "";
+        : '';
     message.finalCltvDelta =
       object.finalCltvDelta !== undefined && object.finalCltvDelta !== null
         ? Number(object.finalCltvDelta)
@@ -5431,7 +5487,7 @@ export const SendRequest = {
     message.outgoingChanId =
       object.outgoingChanId !== undefined && object.outgoingChanId !== null
         ? String(object.outgoingChanId)
-        : "0";
+        : '0';
     message.lastHopPubkey =
       object.lastHopPubkey !== undefined && object.lastHopPubkey !== null
         ? bytesFromBase64(object.lastHopPubkey)
@@ -5441,8 +5497,8 @@ export const SendRequest = {
         ? Number(object.cltvLimit)
         : 0;
     message.destCustomRecords = Object.entries(
-      object.destCustomRecords ?? {}
-    ).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+      object.destCustomRecords ?? {},
+    ).reduce<Record<string, Uint8Array>>((acc, [key, value]) => {
       acc[key] = bytesFromBase64(value as string);
       return acc;
     }, {});
@@ -5451,7 +5507,7 @@ export const SendRequest = {
         ? Boolean(object.allowSelfPayment)
         : false;
     message.destFeatures = (object.destFeatures ?? []).map((e: any) =>
-      featureBitFromJSON(e)
+      featureBitFromJSON(e),
     );
     message.paymentAddr =
       object.paymentAddr !== undefined && object.paymentAddr !== null
@@ -5461,85 +5517,86 @@ export const SendRequest = {
   },
 
   toJSON(message: SendRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.dest !== undefined &&
-      (obj.dest = base64FromBytes(
-        message.dest !== undefined ? message.dest : new Uint8Array()
+      (object.dest = base64FromBytes(
+        message.dest !== undefined ? message.dest : new Uint8Array(),
       ));
-    message.destString !== undefined && (obj.destString = message.destString);
-    message.amt !== undefined && (obj.amt = message.amt);
-    message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
+    message.destString !== undefined &&
+      (object.destString = message.destString);
+    message.amt !== undefined && (object.amt = message.amt);
+    message.amtMsat !== undefined && (object.amtMsat = message.amtMsat);
     message.paymentHash !== undefined &&
-      (obj.paymentHash = base64FromBytes(
+      (object.paymentHash = base64FromBytes(
         message.paymentHash !== undefined
           ? message.paymentHash
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.paymentHashString !== undefined &&
-      (obj.paymentHashString = message.paymentHashString);
+      (object.paymentHashString = message.paymentHashString);
     message.paymentRequest !== undefined &&
-      (obj.paymentRequest = message.paymentRequest);
+      (object.paymentRequest = message.paymentRequest);
     message.finalCltvDelta !== undefined &&
-      (obj.finalCltvDelta = Math.round(message.finalCltvDelta));
+      (object.finalCltvDelta = Math.round(message.finalCltvDelta));
     message.feeLimit !== undefined &&
-      (obj.feeLimit = message.feeLimit
+      (object.feeLimit = message.feeLimit
         ? FeeLimit.toJSON(message.feeLimit)
         : undefined);
     message.outgoingChanId !== undefined &&
-      (obj.outgoingChanId = message.outgoingChanId);
+      (object.outgoingChanId = message.outgoingChanId);
     message.lastHopPubkey !== undefined &&
-      (obj.lastHopPubkey = base64FromBytes(
+      (object.lastHopPubkey = base64FromBytes(
         message.lastHopPubkey !== undefined
           ? message.lastHopPubkey
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.cltvLimit !== undefined &&
-      (obj.cltvLimit = Math.round(message.cltvLimit));
-    obj.destCustomRecords = {};
+      (object.cltvLimit = Math.round(message.cltvLimit));
+    object.destCustomRecords = {};
     if (message.destCustomRecords) {
-      Object.entries(message.destCustomRecords).forEach(([k, v]) => {
-        obj.destCustomRecords[k] = base64FromBytes(v);
-      });
+      for (const [k, v] of Object.entries(message.destCustomRecords)) {
+        object.destCustomRecords[k] = base64FromBytes(v);
+      }
     }
+
     message.allowSelfPayment !== undefined &&
-      (obj.allowSelfPayment = message.allowSelfPayment);
-    if (message.destFeatures) {
-      obj.destFeatures = message.destFeatures.map((e) => featureBitToJSON(e));
-    } else {
-      obj.destFeatures = [];
-    }
+      (object.allowSelfPayment = message.allowSelfPayment);
+    object.destFeatures = message.destFeatures
+      ? message.destFeatures.map((e) => featureBitToJSON(e))
+      : [];
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
+      (object.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<SendRequest>): SendRequest {
     const message = createBaseSendRequest();
     message.dest = object.dest ?? new Uint8Array();
-    message.destString = object.destString ?? "";
-    message.amt = object.amt ?? "0";
-    message.amtMsat = object.amtMsat ?? "0";
+    message.destString = object.destString ?? '';
+    message.amt = object.amt ?? '0';
+    message.amtMsat = object.amtMsat ?? '0';
     message.paymentHash = object.paymentHash ?? new Uint8Array();
-    message.paymentHashString = object.paymentHashString ?? "";
-    message.paymentRequest = object.paymentRequest ?? "";
+    message.paymentHashString = object.paymentHashString ?? '';
+    message.paymentRequest = object.paymentRequest ?? '';
     message.finalCltvDelta = object.finalCltvDelta ?? 0;
     message.feeLimit =
       object.feeLimit !== undefined && object.feeLimit !== null
         ? FeeLimit.fromPartial(object.feeLimit)
         : undefined;
-    message.outgoingChanId = object.outgoingChanId ?? "0";
+    message.outgoingChanId = object.outgoingChanId ?? '0';
     message.lastHopPubkey = object.lastHopPubkey ?? new Uint8Array();
     message.cltvLimit = object.cltvLimit ?? 0;
     message.destCustomRecords = Object.entries(
-      object.destCustomRecords ?? {}
-    ).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+      object.destCustomRecords ?? {},
+    ).reduce<Record<string, Uint8Array>>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = value;
       }
+
       return acc;
     }, {});
     message.allowSelfPayment = object.allowSelfPayment ?? false;
@@ -5550,29 +5607,31 @@ export const SendRequest = {
 };
 
 function createBaseSendRequest_DestCustomRecordsEntry(): SendRequest_DestCustomRecordsEntry {
-  return { key: "0", value: new Uint8Array() };
+  return {key: '0', value: new Uint8Array()};
 }
 
 export const SendRequest_DestCustomRecordsEntry = {
   encode(
     message: SendRequest_DestCustomRecordsEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "0") {
+    if (message.key !== '0') {
       writer.uint32(8).uint64(message.key);
     }
-    if (message.value.length !== 0) {
+
+    if (message.value.length > 0) {
       writer.uint32(18).bytes(message.value);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): SendRequest_DestCustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendRequest_DestCustomRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5588,6 +5647,7 @@ export const SendRequest_DestCustomRecordsEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -5596,7 +5656,7 @@ export const SendRequest_DestCustomRecordsEntry = {
     message.key =
       object.key !== undefined && object.key !== null
         ? String(object.key)
-        : "0";
+        : '0';
     message.value =
       object.value !== undefined && object.value !== null
         ? bytesFromBase64(object.value)
@@ -5605,20 +5665,20 @@ export const SendRequest_DestCustomRecordsEntry = {
   },
 
   toJSON(message: SendRequest_DestCustomRecordsEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(
-        message.value !== undefined ? message.value : new Uint8Array()
+      (object.value = base64FromBytes(
+        message.value !== undefined ? message.value : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<SendRequest_DestCustomRecordsEntry>
+    object: DeepPartial<SendRequest_DestCustomRecordsEntry>,
   ): SendRequest_DestCustomRecordsEntry {
     const message = createBaseSendRequest_DestCustomRecordsEntry();
-    message.key = object.key ?? "0";
+    message.key = object.key ?? '0';
     message.value = object.value ?? new Uint8Array();
     return message;
   },
@@ -5626,7 +5686,7 @@ export const SendRequest_DestCustomRecordsEntry = {
 
 function createBaseSendResponse(): SendResponse {
   return {
-    paymentError: "",
+    paymentError: '',
     paymentPreimage: new Uint8Array(),
     paymentRoute: undefined,
     paymentHash: new Uint8Array(),
@@ -5636,26 +5696,30 @@ function createBaseSendResponse(): SendResponse {
 export const SendResponse = {
   encode(
     message: SendResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.paymentError !== "") {
+    if (message.paymentError !== '') {
       writer.uint32(10).string(message.paymentError);
     }
-    if (message.paymentPreimage.length !== 0) {
+
+    if (message.paymentPreimage.length > 0) {
       writer.uint32(18).bytes(message.paymentPreimage);
     }
+
     if (message.paymentRoute !== undefined) {
       Route.encode(message.paymentRoute, writer.uint32(26).fork()).ldelim();
     }
-    if (message.paymentHash.length !== 0) {
+
+    if (message.paymentHash.length > 0) {
       writer.uint32(34).bytes(message.paymentHash);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5677,6 +5741,7 @@ export const SendResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -5685,7 +5750,7 @@ export const SendResponse = {
     message.paymentError =
       object.paymentError !== undefined && object.paymentError !== null
         ? String(object.paymentError)
-        : "";
+        : '';
     message.paymentPreimage =
       object.paymentPreimage !== undefined && object.paymentPreimage !== null
         ? bytesFromBase64(object.paymentPreimage)
@@ -5702,31 +5767,31 @@ export const SendResponse = {
   },
 
   toJSON(message: SendResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.paymentError !== undefined &&
-      (obj.paymentError = message.paymentError);
+      (object.paymentError = message.paymentError);
     message.paymentPreimage !== undefined &&
-      (obj.paymentPreimage = base64FromBytes(
+      (object.paymentPreimage = base64FromBytes(
         message.paymentPreimage !== undefined
           ? message.paymentPreimage
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.paymentRoute !== undefined &&
-      (obj.paymentRoute = message.paymentRoute
+      (object.paymentRoute = message.paymentRoute
         ? Route.toJSON(message.paymentRoute)
         : undefined);
     message.paymentHash !== undefined &&
-      (obj.paymentHash = base64FromBytes(
+      (object.paymentHash = base64FromBytes(
         message.paymentHash !== undefined
           ? message.paymentHash
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<SendResponse>): SendResponse {
     const message = createBaseSendResponse();
-    message.paymentError = object.paymentError ?? "";
+    message.paymentError = object.paymentError ?? '';
     message.paymentPreimage = object.paymentPreimage ?? new Uint8Array();
     message.paymentRoute =
       object.paymentRoute !== undefined && object.paymentRoute !== null
@@ -5740,7 +5805,7 @@ export const SendResponse = {
 function createBaseSendToRouteRequest(): SendToRouteRequest {
   return {
     paymentHash: new Uint8Array(),
-    paymentHashString: "",
+    paymentHashString: '',
     route: undefined,
   };
 }
@@ -5748,23 +5813,26 @@ function createBaseSendToRouteRequest(): SendToRouteRequest {
 export const SendToRouteRequest = {
   encode(
     message: SendToRouteRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.paymentHash.length !== 0) {
+    if (message.paymentHash.length > 0) {
       writer.uint32(10).bytes(message.paymentHash);
     }
-    if (message.paymentHashString !== "") {
+
+    if (message.paymentHashString !== '') {
       writer.uint32(18).string(message.paymentHashString);
     }
+
     if (message.route !== undefined) {
       Route.encode(message.route, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendToRouteRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendToRouteRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5783,6 +5851,7 @@ export const SendToRouteRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -5796,7 +5865,7 @@ export const SendToRouteRequest = {
       object.paymentHashString !== undefined &&
       object.paymentHashString !== null
         ? String(object.paymentHashString)
-        : "";
+        : '';
     message.route =
       object.route !== undefined && object.route !== null
         ? Route.fromJSON(object.route)
@@ -5805,24 +5874,24 @@ export const SendToRouteRequest = {
   },
 
   toJSON(message: SendToRouteRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.paymentHash !== undefined &&
-      (obj.paymentHash = base64FromBytes(
+      (object.paymentHash = base64FromBytes(
         message.paymentHash !== undefined
           ? message.paymentHash
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.paymentHashString !== undefined &&
-      (obj.paymentHashString = message.paymentHashString);
+      (object.paymentHashString = message.paymentHashString);
     message.route !== undefined &&
-      (obj.route = message.route ? Route.toJSON(message.route) : undefined);
-    return obj;
+      (object.route = message.route ? Route.toJSON(message.route) : undefined);
+    return object;
   },
 
   fromPartial(object: DeepPartial<SendToRouteRequest>): SendToRouteRequest {
     const message = createBaseSendToRouteRequest();
     message.paymentHash = object.paymentHash ?? new Uint8Array();
-    message.paymentHashString = object.paymentHashString ?? "";
+    message.paymentHashString = object.paymentHashString ?? '';
     message.route =
       object.route !== undefined && object.route !== null
         ? Route.fromPartial(object.route)
@@ -5836,13 +5905,13 @@ function createBaseChannelAcceptRequest(): ChannelAcceptRequest {
     nodePubkey: new Uint8Array(),
     chainHash: new Uint8Array(),
     pendingChanId: new Uint8Array(),
-    fundingAmt: "0",
-    pushAmt: "0",
-    dustLimit: "0",
-    maxValueInFlight: "0",
-    channelReserve: "0",
-    minHtlc: "0",
-    feePerKw: "0",
+    fundingAmt: '0',
+    pushAmt: '0',
+    dustLimit: '0',
+    maxValueInFlight: '0',
+    channelReserve: '0',
+    minHtlc: '0',
+    feePerKw: '0',
     csvDelay: 0,
     maxAcceptedHtlcs: 0,
     channelFlags: 0,
@@ -5853,59 +5922,73 @@ function createBaseChannelAcceptRequest(): ChannelAcceptRequest {
 export const ChannelAcceptRequest = {
   encode(
     message: ChannelAcceptRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.nodePubkey.length !== 0) {
+    if (message.nodePubkey.length > 0) {
       writer.uint32(10).bytes(message.nodePubkey);
     }
-    if (message.chainHash.length !== 0) {
+
+    if (message.chainHash.length > 0) {
       writer.uint32(18).bytes(message.chainHash);
     }
-    if (message.pendingChanId.length !== 0) {
+
+    if (message.pendingChanId.length > 0) {
       writer.uint32(26).bytes(message.pendingChanId);
     }
-    if (message.fundingAmt !== "0") {
+
+    if (message.fundingAmt !== '0') {
       writer.uint32(32).uint64(message.fundingAmt);
     }
-    if (message.pushAmt !== "0") {
+
+    if (message.pushAmt !== '0') {
       writer.uint32(40).uint64(message.pushAmt);
     }
-    if (message.dustLimit !== "0") {
+
+    if (message.dustLimit !== '0') {
       writer.uint32(48).uint64(message.dustLimit);
     }
-    if (message.maxValueInFlight !== "0") {
+
+    if (message.maxValueInFlight !== '0') {
       writer.uint32(56).uint64(message.maxValueInFlight);
     }
-    if (message.channelReserve !== "0") {
+
+    if (message.channelReserve !== '0') {
       writer.uint32(64).uint64(message.channelReserve);
     }
-    if (message.minHtlc !== "0") {
+
+    if (message.minHtlc !== '0') {
       writer.uint32(72).uint64(message.minHtlc);
     }
-    if (message.feePerKw !== "0") {
+
+    if (message.feePerKw !== '0') {
       writer.uint32(80).uint64(message.feePerKw);
     }
+
     if (message.csvDelay !== 0) {
       writer.uint32(88).uint32(message.csvDelay);
     }
+
     if (message.maxAcceptedHtlcs !== 0) {
       writer.uint32(96).uint32(message.maxAcceptedHtlcs);
     }
+
     if (message.channelFlags !== 0) {
       writer.uint32(104).uint32(message.channelFlags);
     }
+
     if (message.commitmentType !== 0) {
       writer.uint32(112).int32(message.commitmentType);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ChannelAcceptRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelAcceptRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5957,6 +6040,7 @@ export const ChannelAcceptRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -5977,31 +6061,31 @@ export const ChannelAcceptRequest = {
     message.fundingAmt =
       object.fundingAmt !== undefined && object.fundingAmt !== null
         ? String(object.fundingAmt)
-        : "0";
+        : '0';
     message.pushAmt =
       object.pushAmt !== undefined && object.pushAmt !== null
         ? String(object.pushAmt)
-        : "0";
+        : '0';
     message.dustLimit =
       object.dustLimit !== undefined && object.dustLimit !== null
         ? String(object.dustLimit)
-        : "0";
+        : '0';
     message.maxValueInFlight =
       object.maxValueInFlight !== undefined && object.maxValueInFlight !== null
         ? String(object.maxValueInFlight)
-        : "0";
+        : '0';
     message.channelReserve =
       object.channelReserve !== undefined && object.channelReserve !== null
         ? String(object.channelReserve)
-        : "0";
+        : '0';
     message.minHtlc =
       object.minHtlc !== undefined && object.minHtlc !== null
         ? String(object.minHtlc)
-        : "0";
+        : '0';
     message.feePerKw =
       object.feePerKw !== undefined && object.feePerKw !== null
         ? String(object.feePerKw)
-        : "0";
+        : '0';
     message.csvDelay =
       object.csvDelay !== undefined && object.csvDelay !== null
         ? Number(object.csvDelay)
@@ -6022,39 +6106,42 @@ export const ChannelAcceptRequest = {
   },
 
   toJSON(message: ChannelAcceptRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.nodePubkey !== undefined &&
-      (obj.nodePubkey = base64FromBytes(
-        message.nodePubkey !== undefined ? message.nodePubkey : new Uint8Array()
+      (object.nodePubkey = base64FromBytes(
+        message.nodePubkey !== undefined
+          ? message.nodePubkey
+          : new Uint8Array(),
       ));
     message.chainHash !== undefined &&
-      (obj.chainHash = base64FromBytes(
-        message.chainHash !== undefined ? message.chainHash : new Uint8Array()
+      (object.chainHash = base64FromBytes(
+        message.chainHash !== undefined ? message.chainHash : new Uint8Array(),
       ));
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    message.fundingAmt !== undefined && (obj.fundingAmt = message.fundingAmt);
-    message.pushAmt !== undefined && (obj.pushAmt = message.pushAmt);
-    message.dustLimit !== undefined && (obj.dustLimit = message.dustLimit);
+    message.fundingAmt !== undefined &&
+      (object.fundingAmt = message.fundingAmt);
+    message.pushAmt !== undefined && (object.pushAmt = message.pushAmt);
+    message.dustLimit !== undefined && (object.dustLimit = message.dustLimit);
     message.maxValueInFlight !== undefined &&
-      (obj.maxValueInFlight = message.maxValueInFlight);
+      (object.maxValueInFlight = message.maxValueInFlight);
     message.channelReserve !== undefined &&
-      (obj.channelReserve = message.channelReserve);
-    message.minHtlc !== undefined && (obj.minHtlc = message.minHtlc);
-    message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
+      (object.channelReserve = message.channelReserve);
+    message.minHtlc !== undefined && (object.minHtlc = message.minHtlc);
+    message.feePerKw !== undefined && (object.feePerKw = message.feePerKw);
     message.csvDelay !== undefined &&
-      (obj.csvDelay = Math.round(message.csvDelay));
+      (object.csvDelay = Math.round(message.csvDelay));
     message.maxAcceptedHtlcs !== undefined &&
-      (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
+      (object.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
     message.channelFlags !== undefined &&
-      (obj.channelFlags = Math.round(message.channelFlags));
+      (object.channelFlags = Math.round(message.channelFlags));
     message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    return obj;
+      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelAcceptRequest>): ChannelAcceptRequest {
@@ -6062,13 +6149,13 @@ export const ChannelAcceptRequest = {
     message.nodePubkey = object.nodePubkey ?? new Uint8Array();
     message.chainHash = object.chainHash ?? new Uint8Array();
     message.pendingChanId = object.pendingChanId ?? new Uint8Array();
-    message.fundingAmt = object.fundingAmt ?? "0";
-    message.pushAmt = object.pushAmt ?? "0";
-    message.dustLimit = object.dustLimit ?? "0";
-    message.maxValueInFlight = object.maxValueInFlight ?? "0";
-    message.channelReserve = object.channelReserve ?? "0";
-    message.minHtlc = object.minHtlc ?? "0";
-    message.feePerKw = object.feePerKw ?? "0";
+    message.fundingAmt = object.fundingAmt ?? '0';
+    message.pushAmt = object.pushAmt ?? '0';
+    message.dustLimit = object.dustLimit ?? '0';
+    message.maxValueInFlight = object.maxValueInFlight ?? '0';
+    message.channelReserve = object.channelReserve ?? '0';
+    message.minHtlc = object.minHtlc ?? '0';
+    message.feePerKw = object.feePerKw ?? '0';
     message.csvDelay = object.csvDelay ?? 0;
     message.maxAcceptedHtlcs = object.maxAcceptedHtlcs ?? 0;
     message.channelFlags = object.channelFlags ?? 0;
@@ -6081,13 +6168,13 @@ function createBaseChannelAcceptResponse(): ChannelAcceptResponse {
   return {
     accept: false,
     pendingChanId: new Uint8Array(),
-    error: "",
-    upfrontShutdown: "",
+    error: '',
+    upfrontShutdown: '',
     csvDelay: 0,
-    reserveSat: "0",
-    inFlightMaxMsat: "0",
+    reserveSat: '0',
+    inFlightMaxMsat: '0',
     maxHtlcCount: 0,
-    minHtlcIn: "0",
+    minHtlcIn: '0',
     minAcceptDepth: 0,
   };
 }
@@ -6095,47 +6182,57 @@ function createBaseChannelAcceptResponse(): ChannelAcceptResponse {
 export const ChannelAcceptResponse = {
   encode(
     message: ChannelAcceptResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.accept === true) {
+    if (message.accept) {
       writer.uint32(8).bool(message.accept);
     }
-    if (message.pendingChanId.length !== 0) {
+
+    if (message.pendingChanId.length > 0) {
       writer.uint32(18).bytes(message.pendingChanId);
     }
-    if (message.error !== "") {
+
+    if (message.error !== '') {
       writer.uint32(26).string(message.error);
     }
-    if (message.upfrontShutdown !== "") {
+
+    if (message.upfrontShutdown !== '') {
       writer.uint32(34).string(message.upfrontShutdown);
     }
+
     if (message.csvDelay !== 0) {
       writer.uint32(40).uint32(message.csvDelay);
     }
-    if (message.reserveSat !== "0") {
+
+    if (message.reserveSat !== '0') {
       writer.uint32(48).uint64(message.reserveSat);
     }
-    if (message.inFlightMaxMsat !== "0") {
+
+    if (message.inFlightMaxMsat !== '0') {
       writer.uint32(56).uint64(message.inFlightMaxMsat);
     }
+
     if (message.maxHtlcCount !== 0) {
       writer.uint32(64).uint32(message.maxHtlcCount);
     }
-    if (message.minHtlcIn !== "0") {
+
+    if (message.minHtlcIn !== '0') {
       writer.uint32(72).uint64(message.minHtlcIn);
     }
+
     if (message.minAcceptDepth !== 0) {
       writer.uint32(80).uint32(message.minAcceptDepth);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ChannelAcceptResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelAcceptResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6175,6 +6272,7 @@ export const ChannelAcceptResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -6191,11 +6289,11 @@ export const ChannelAcceptResponse = {
     message.error =
       object.error !== undefined && object.error !== null
         ? String(object.error)
-        : "";
+        : '';
     message.upfrontShutdown =
       object.upfrontShutdown !== undefined && object.upfrontShutdown !== null
         ? String(object.upfrontShutdown)
-        : "";
+        : '';
     message.csvDelay =
       object.csvDelay !== undefined && object.csvDelay !== null
         ? Number(object.csvDelay)
@@ -6203,11 +6301,11 @@ export const ChannelAcceptResponse = {
     message.reserveSat =
       object.reserveSat !== undefined && object.reserveSat !== null
         ? String(object.reserveSat)
-        : "0";
+        : '0';
     message.inFlightMaxMsat =
       object.inFlightMaxMsat !== undefined && object.inFlightMaxMsat !== null
         ? String(object.inFlightMaxMsat)
-        : "0";
+        : '0';
     message.maxHtlcCount =
       object.maxHtlcCount !== undefined && object.maxHtlcCount !== null
         ? Number(object.maxHtlcCount)
@@ -6215,7 +6313,7 @@ export const ChannelAcceptResponse = {
     message.minHtlcIn =
       object.minHtlcIn !== undefined && object.minHtlcIn !== null
         ? String(object.minHtlcIn)
-        : "0";
+        : '0';
     message.minAcceptDepth =
       object.minAcceptDepth !== undefined && object.minAcceptDepth !== null
         ? Number(object.minAcceptDepth)
@@ -6224,43 +6322,44 @@ export const ChannelAcceptResponse = {
   },
 
   toJSON(message: ChannelAcceptResponse): unknown {
-    const obj: any = {};
-    message.accept !== undefined && (obj.accept = message.accept);
+    const object: any = {};
+    message.accept !== undefined && (object.accept = message.accept);
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    message.error !== undefined && (obj.error = message.error);
+    message.error !== undefined && (object.error = message.error);
     message.upfrontShutdown !== undefined &&
-      (obj.upfrontShutdown = message.upfrontShutdown);
+      (object.upfrontShutdown = message.upfrontShutdown);
     message.csvDelay !== undefined &&
-      (obj.csvDelay = Math.round(message.csvDelay));
-    message.reserveSat !== undefined && (obj.reserveSat = message.reserveSat);
+      (object.csvDelay = Math.round(message.csvDelay));
+    message.reserveSat !== undefined &&
+      (object.reserveSat = message.reserveSat);
     message.inFlightMaxMsat !== undefined &&
-      (obj.inFlightMaxMsat = message.inFlightMaxMsat);
+      (object.inFlightMaxMsat = message.inFlightMaxMsat);
     message.maxHtlcCount !== undefined &&
-      (obj.maxHtlcCount = Math.round(message.maxHtlcCount));
-    message.minHtlcIn !== undefined && (obj.minHtlcIn = message.minHtlcIn);
+      (object.maxHtlcCount = Math.round(message.maxHtlcCount));
+    message.minHtlcIn !== undefined && (object.minHtlcIn = message.minHtlcIn);
     message.minAcceptDepth !== undefined &&
-      (obj.minAcceptDepth = Math.round(message.minAcceptDepth));
-    return obj;
+      (object.minAcceptDepth = Math.round(message.minAcceptDepth));
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ChannelAcceptResponse>
+    object: DeepPartial<ChannelAcceptResponse>,
   ): ChannelAcceptResponse {
     const message = createBaseChannelAcceptResponse();
     message.accept = object.accept ?? false;
     message.pendingChanId = object.pendingChanId ?? new Uint8Array();
-    message.error = object.error ?? "";
-    message.upfrontShutdown = object.upfrontShutdown ?? "";
+    message.error = object.error ?? '';
+    message.upfrontShutdown = object.upfrontShutdown ?? '';
     message.csvDelay = object.csvDelay ?? 0;
-    message.reserveSat = object.reserveSat ?? "0";
-    message.inFlightMaxMsat = object.inFlightMaxMsat ?? "0";
+    message.reserveSat = object.reserveSat ?? '0';
+    message.inFlightMaxMsat = object.inFlightMaxMsat ?? '0';
     message.maxHtlcCount = object.maxHtlcCount ?? 0;
-    message.minHtlcIn = object.minHtlcIn ?? "0";
+    message.minHtlcIn = object.minHtlcIn ?? '0';
     message.minAcceptDepth = object.minAcceptDepth ?? 0;
     return message;
   },
@@ -6277,23 +6376,26 @@ function createBaseChannelPoint(): ChannelPoint {
 export const ChannelPoint = {
   encode(
     message: ChannelPoint,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.fundingTxidBytes !== undefined) {
       writer.uint32(10).bytes(message.fundingTxidBytes);
     }
+
     if (message.fundingTxidStr !== undefined) {
       writer.uint32(18).string(message.fundingTxidStr);
     }
+
     if (message.outputIndex !== 0) {
       writer.uint32(24).uint32(message.outputIndex);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelPoint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelPoint();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6312,6 +6414,7 @@ export const ChannelPoint = {
           break;
       }
     }
+
     return message;
   },
 
@@ -6333,17 +6436,17 @@ export const ChannelPoint = {
   },
 
   toJSON(message: ChannelPoint): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.fundingTxidBytes !== undefined &&
-      (obj.fundingTxidBytes =
+      (object.fundingTxidBytes =
         message.fundingTxidBytes !== undefined
           ? base64FromBytes(message.fundingTxidBytes)
           : undefined);
     message.fundingTxidStr !== undefined &&
-      (obj.fundingTxidStr = message.fundingTxidStr);
+      (object.fundingTxidStr = message.fundingTxidStr);
     message.outputIndex !== undefined &&
-      (obj.outputIndex = Math.round(message.outputIndex));
-    return obj;
+      (object.outputIndex = Math.round(message.outputIndex));
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelPoint>): ChannelPoint {
@@ -6356,29 +6459,32 @@ export const ChannelPoint = {
 };
 
 function createBaseOutPoint(): OutPoint {
-  return { txidBytes: new Uint8Array(), txidStr: "", outputIndex: 0 };
+  return {txidBytes: new Uint8Array(), txidStr: '', outputIndex: 0};
 }
 
 export const OutPoint = {
   encode(
     message: OutPoint,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.txidBytes.length !== 0) {
+    if (message.txidBytes.length > 0) {
       writer.uint32(10).bytes(message.txidBytes);
     }
-    if (message.txidStr !== "") {
+
+    if (message.txidStr !== '') {
       writer.uint32(18).string(message.txidStr);
     }
+
     if (message.outputIndex !== 0) {
       writer.uint32(24).uint32(message.outputIndex);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): OutPoint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOutPoint();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6397,6 +6503,7 @@ export const OutPoint = {
           break;
       }
     }
+
     return message;
   },
 
@@ -6409,7 +6516,7 @@ export const OutPoint = {
     message.txidStr =
       object.txidStr !== undefined && object.txidStr !== null
         ? String(object.txidStr)
-        : "";
+        : '';
     message.outputIndex =
       object.outputIndex !== undefined && object.outputIndex !== null
         ? Number(object.outputIndex)
@@ -6418,47 +6525,49 @@ export const OutPoint = {
   },
 
   toJSON(message: OutPoint): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.txidBytes !== undefined &&
-      (obj.txidBytes = base64FromBytes(
-        message.txidBytes !== undefined ? message.txidBytes : new Uint8Array()
+      (object.txidBytes = base64FromBytes(
+        message.txidBytes !== undefined ? message.txidBytes : new Uint8Array(),
       ));
-    message.txidStr !== undefined && (obj.txidStr = message.txidStr);
+    message.txidStr !== undefined && (object.txidStr = message.txidStr);
     message.outputIndex !== undefined &&
-      (obj.outputIndex = Math.round(message.outputIndex));
-    return obj;
+      (object.outputIndex = Math.round(message.outputIndex));
+    return object;
   },
 
   fromPartial(object: DeepPartial<OutPoint>): OutPoint {
     const message = createBaseOutPoint();
     message.txidBytes = object.txidBytes ?? new Uint8Array();
-    message.txidStr = object.txidStr ?? "";
+    message.txidStr = object.txidStr ?? '';
     message.outputIndex = object.outputIndex ?? 0;
     return message;
   },
 };
 
 function createBaseLightningAddress(): LightningAddress {
-  return { pubkey: "", host: "" };
+  return {pubkey: '', host: ''};
 }
 
 export const LightningAddress = {
   encode(
     message: LightningAddress,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pubkey !== "") {
+    if (message.pubkey !== '') {
       writer.uint32(10).string(message.pubkey);
     }
-    if (message.host !== "") {
+
+    if (message.host !== '') {
       writer.uint32(18).string(message.host);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LightningAddress {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightningAddress();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6474,6 +6583,7 @@ export const LightningAddress = {
           break;
       }
     }
+
     return message;
   },
 
@@ -6482,25 +6592,25 @@ export const LightningAddress = {
     message.pubkey =
       object.pubkey !== undefined && object.pubkey !== null
         ? String(object.pubkey)
-        : "";
+        : '';
     message.host =
       object.host !== undefined && object.host !== null
         ? String(object.host)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: LightningAddress): unknown {
-    const obj: any = {};
-    message.pubkey !== undefined && (obj.pubkey = message.pubkey);
-    message.host !== undefined && (obj.host = message.host);
-    return obj;
+    const object: any = {};
+    message.pubkey !== undefined && (object.pubkey = message.pubkey);
+    message.host !== undefined && (object.host = message.host);
+    return object;
   },
 
   fromPartial(object: DeepPartial<LightningAddress>): LightningAddress {
     const message = createBaseLightningAddress();
-    message.pubkey = object.pubkey ?? "";
-    message.host = object.host ?? "";
+    message.pubkey = object.pubkey ?? '';
+    message.host = object.host ?? '';
     return message;
   },
 };
@@ -6517,29 +6627,33 @@ function createBaseEstimateFeeRequest(): EstimateFeeRequest {
 export const EstimateFeeRequest = {
   encode(
     message: EstimateFeeRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    Object.entries(message.AddrToAmount).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(message.AddrToAmount)) {
       EstimateFeeRequest_AddrToAmountEntry.encode(
-        { key: key as any, value },
-        writer.uint32(10).fork()
+        {key: key as any, value},
+        writer.uint32(10).fork(),
       ).ldelim();
-    });
+    }
+
     if (message.targetConf !== 0) {
       writer.uint32(16).int32(message.targetConf);
     }
+
     if (message.minConfs !== 0) {
       writer.uint32(24).int32(message.minConfs);
     }
-    if (message.spendUnconfirmed === true) {
+
+    if (message.spendUnconfirmed) {
       writer.uint32(32).bool(message.spendUnconfirmed);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EstimateFeeRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEstimateFeeRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6547,11 +6661,12 @@ export const EstimateFeeRequest = {
         case 1:
           const entry1 = EstimateFeeRequest_AddrToAmountEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry1.value !== undefined) {
             message.AddrToAmount[entry1.key] = entry1.value;
           }
+
           break;
         case 2:
           message.targetConf = reader.int32();
@@ -6567,14 +6682,15 @@ export const EstimateFeeRequest = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): EstimateFeeRequest {
     const message = createBaseEstimateFeeRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{
-      [key: string]: string;
-    }>((acc, [key, value]) => {
+    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<
+      Record<string, string>
+    >((acc, [key, value]) => {
       acc[key] = String(value);
       return acc;
     }, {});
@@ -6594,30 +6710,32 @@ export const EstimateFeeRequest = {
   },
 
   toJSON(message: EstimateFeeRequest): unknown {
-    const obj: any = {};
-    obj.AddrToAmount = {};
+    const object: any = {};
+    object.AddrToAmount = {};
     if (message.AddrToAmount) {
-      Object.entries(message.AddrToAmount).forEach(([k, v]) => {
-        obj.AddrToAmount[k] = v;
-      });
+      for (const [k, v] of Object.entries(message.AddrToAmount)) {
+        object.AddrToAmount[k] = v;
+      }
     }
+
     message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
+      (object.targetConf = Math.round(message.targetConf));
     message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
+      (object.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
-    return obj;
+      (object.spendUnconfirmed = message.spendUnconfirmed);
+    return object;
   },
 
   fromPartial(object: DeepPartial<EstimateFeeRequest>): EstimateFeeRequest {
     const message = createBaseEstimateFeeRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{
-      [key: string]: string;
-    }>((acc, [key, value]) => {
+    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<
+      Record<string, string>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = String(value);
       }
+
       return acc;
     }, {});
     message.targetConf = object.targetConf ?? 0;
@@ -6628,29 +6746,31 @@ export const EstimateFeeRequest = {
 };
 
 function createBaseEstimateFeeRequest_AddrToAmountEntry(): EstimateFeeRequest_AddrToAmountEntry {
-  return { key: "", value: "0" };
+  return {key: '', value: '0'};
 }
 
 export const EstimateFeeRequest_AddrToAmountEntry = {
   encode(
     message: EstimateFeeRequest_AddrToAmountEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== "0") {
+
+    if (message.value !== '0') {
       writer.uint32(16).int64(message.value);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): EstimateFeeRequest_AddrToAmountEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEstimateFeeRequest_AddrToAmountEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6666,61 +6786,65 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): EstimateFeeRequest_AddrToAmountEntry {
     const message = createBaseEstimateFeeRequest_AddrToAmountEntry();
     message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : "";
+      object.key !== undefined && object.key !== null ? String(object.key) : '';
     message.value =
       object.value !== undefined && object.value !== null
         ? String(object.value)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: EstimateFeeRequest_AddrToAmountEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
-    message.value !== undefined && (obj.value = message.value);
-    return obj;
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
+    message.value !== undefined && (object.value = message.value);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<EstimateFeeRequest_AddrToAmountEntry>
+    object: DeepPartial<EstimateFeeRequest_AddrToAmountEntry>,
   ): EstimateFeeRequest_AddrToAmountEntry {
     const message = createBaseEstimateFeeRequest_AddrToAmountEntry();
-    message.key = object.key ?? "";
-    message.value = object.value ?? "0";
+    message.key = object.key ?? '';
+    message.value = object.value ?? '0';
     return message;
   },
 };
 
 function createBaseEstimateFeeResponse(): EstimateFeeResponse {
-  return { feeSat: "0", feerateSatPerByte: "0", satPerVbyte: "0" };
+  return {feeSat: '0', feerateSatPerByte: '0', satPerVbyte: '0'};
 }
 
 export const EstimateFeeResponse = {
   encode(
     message: EstimateFeeResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.feeSat !== "0") {
+    if (message.feeSat !== '0') {
       writer.uint32(8).int64(message.feeSat);
     }
-    if (message.feerateSatPerByte !== "0") {
+
+    if (message.feerateSatPerByte !== '0') {
       writer.uint32(16).int64(message.feerateSatPerByte);
     }
-    if (message.satPerVbyte !== "0") {
+
+    if (message.satPerVbyte !== '0') {
       writer.uint32(24).uint64(message.satPerVbyte);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EstimateFeeResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEstimateFeeResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6739,6 +6863,7 @@ export const EstimateFeeResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -6747,34 +6872,34 @@ export const EstimateFeeResponse = {
     message.feeSat =
       object.feeSat !== undefined && object.feeSat !== null
         ? String(object.feeSat)
-        : "0";
+        : '0';
     message.feerateSatPerByte =
       object.feerateSatPerByte !== undefined &&
       object.feerateSatPerByte !== null
         ? String(object.feerateSatPerByte)
-        : "0";
+        : '0';
     message.satPerVbyte =
       object.satPerVbyte !== undefined && object.satPerVbyte !== null
         ? String(object.satPerVbyte)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: EstimateFeeResponse): unknown {
-    const obj: any = {};
-    message.feeSat !== undefined && (obj.feeSat = message.feeSat);
+    const object: any = {};
+    message.feeSat !== undefined && (object.feeSat = message.feeSat);
     message.feerateSatPerByte !== undefined &&
-      (obj.feerateSatPerByte = message.feerateSatPerByte);
+      (object.feerateSatPerByte = message.feerateSatPerByte);
     message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
-    return obj;
+      (object.satPerVbyte = message.satPerVbyte);
+    return object;
   },
 
   fromPartial(object: DeepPartial<EstimateFeeResponse>): EstimateFeeResponse {
     const message = createBaseEstimateFeeResponse();
-    message.feeSat = object.feeSat ?? "0";
-    message.feerateSatPerByte = object.feerateSatPerByte ?? "0";
-    message.satPerVbyte = object.satPerVbyte ?? "0";
+    message.feeSat = object.feeSat ?? '0';
+    message.feerateSatPerByte = object.feerateSatPerByte ?? '0';
+    message.satPerVbyte = object.satPerVbyte ?? '0';
     return message;
   },
 };
@@ -6783,9 +6908,9 @@ function createBaseSendManyRequest(): SendManyRequest {
   return {
     AddrToAmount: {},
     targetConf: 0,
-    satPerVbyte: "0",
-    satPerByte: "0",
-    label: "",
+    satPerVbyte: '0',
+    satPerByte: '0',
+    label: '',
     minConfs: 0,
     spendUnconfirmed: false,
   };
@@ -6794,38 +6919,45 @@ function createBaseSendManyRequest(): SendManyRequest {
 export const SendManyRequest = {
   encode(
     message: SendManyRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    Object.entries(message.AddrToAmount).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(message.AddrToAmount)) {
       SendManyRequest_AddrToAmountEntry.encode(
-        { key: key as any, value },
-        writer.uint32(10).fork()
+        {key: key as any, value},
+        writer.uint32(10).fork(),
       ).ldelim();
-    });
+    }
+
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerVbyte !== "0") {
+
+    if (message.satPerVbyte !== '0') {
       writer.uint32(32).uint64(message.satPerVbyte);
     }
-    if (message.satPerByte !== "0") {
+
+    if (message.satPerByte !== '0') {
       writer.uint32(40).int64(message.satPerByte);
     }
-    if (message.label !== "") {
+
+    if (message.label !== '') {
       writer.uint32(50).string(message.label);
     }
+
     if (message.minConfs !== 0) {
       writer.uint32(56).int32(message.minConfs);
     }
-    if (message.spendUnconfirmed === true) {
+
+    if (message.spendUnconfirmed) {
       writer.uint32(64).bool(message.spendUnconfirmed);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendManyRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendManyRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6833,11 +6965,12 @@ export const SendManyRequest = {
         case 1:
           const entry1 = SendManyRequest_AddrToAmountEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry1.value !== undefined) {
             message.AddrToAmount[entry1.key] = entry1.value;
           }
+
           break;
         case 3:
           message.targetConf = reader.int32();
@@ -6862,14 +6995,15 @@ export const SendManyRequest = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): SendManyRequest {
     const message = createBaseSendManyRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{
-      [key: string]: string;
-    }>((acc, [key, value]) => {
+    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<
+      Record<string, string>
+    >((acc, [key, value]) => {
       acc[key] = String(value);
       return acc;
     }, {});
@@ -6880,15 +7014,15 @@ export const SendManyRequest = {
     message.satPerVbyte =
       object.satPerVbyte !== undefined && object.satPerVbyte !== null
         ? String(object.satPerVbyte)
-        : "0";
+        : '0';
     message.satPerByte =
       object.satPerByte !== undefined && object.satPerByte !== null
         ? String(object.satPerByte)
-        : "0";
+        : '0';
     message.label =
       object.label !== undefined && object.label !== null
         ? String(object.label)
-        : "";
+        : '';
     message.minConfs =
       object.minConfs !== undefined && object.minConfs !== null
         ? Number(object.minConfs)
@@ -6901,40 +7035,43 @@ export const SendManyRequest = {
   },
 
   toJSON(message: SendManyRequest): unknown {
-    const obj: any = {};
-    obj.AddrToAmount = {};
+    const object: any = {};
+    object.AddrToAmount = {};
     if (message.AddrToAmount) {
-      Object.entries(message.AddrToAmount).forEach(([k, v]) => {
-        obj.AddrToAmount[k] = v;
-      });
+      for (const [k, v] of Object.entries(message.AddrToAmount)) {
+        object.AddrToAmount[k] = v;
+      }
     }
+
     message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
+      (object.targetConf = Math.round(message.targetConf));
     message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
-    message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
-    message.label !== undefined && (obj.label = message.label);
+      (object.satPerVbyte = message.satPerVbyte);
+    message.satPerByte !== undefined &&
+      (object.satPerByte = message.satPerByte);
+    message.label !== undefined && (object.label = message.label);
     message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
+      (object.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
-    return obj;
+      (object.spendUnconfirmed = message.spendUnconfirmed);
+    return object;
   },
 
   fromPartial(object: DeepPartial<SendManyRequest>): SendManyRequest {
     const message = createBaseSendManyRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{
-      [key: string]: string;
-    }>((acc, [key, value]) => {
+    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<
+      Record<string, string>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = String(value);
       }
+
       return acc;
     }, {});
     message.targetConf = object.targetConf ?? 0;
-    message.satPerVbyte = object.satPerVbyte ?? "0";
-    message.satPerByte = object.satPerByte ?? "0";
-    message.label = object.label ?? "";
+    message.satPerVbyte = object.satPerVbyte ?? '0';
+    message.satPerByte = object.satPerByte ?? '0';
+    message.label = object.label ?? '';
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
     return message;
@@ -6942,29 +7079,31 @@ export const SendManyRequest = {
 };
 
 function createBaseSendManyRequest_AddrToAmountEntry(): SendManyRequest_AddrToAmountEntry {
-  return { key: "", value: "0" };
+  return {key: '', value: '0'};
 }
 
 export const SendManyRequest_AddrToAmountEntry = {
   encode(
     message: SendManyRequest_AddrToAmountEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== "0") {
+
+    if (message.value !== '0') {
       writer.uint32(16).int64(message.value);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): SendManyRequest_AddrToAmountEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendManyRequest_AddrToAmountEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6980,55 +7119,57 @@ export const SendManyRequest_AddrToAmountEntry = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): SendManyRequest_AddrToAmountEntry {
     const message = createBaseSendManyRequest_AddrToAmountEntry();
     message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : "";
+      object.key !== undefined && object.key !== null ? String(object.key) : '';
     message.value =
       object.value !== undefined && object.value !== null
         ? String(object.value)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: SendManyRequest_AddrToAmountEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
-    message.value !== undefined && (obj.value = message.value);
-    return obj;
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
+    message.value !== undefined && (object.value = message.value);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<SendManyRequest_AddrToAmountEntry>
+    object: DeepPartial<SendManyRequest_AddrToAmountEntry>,
   ): SendManyRequest_AddrToAmountEntry {
     const message = createBaseSendManyRequest_AddrToAmountEntry();
-    message.key = object.key ?? "";
-    message.value = object.value ?? "0";
+    message.key = object.key ?? '';
+    message.value = object.value ?? '0';
     return message;
   },
 };
 
 function createBaseSendManyResponse(): SendManyResponse {
-  return { txid: "" };
+  return {txid: ''};
 }
 
 export const SendManyResponse = {
   encode(
     message: SendManyResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.txid !== "") {
+    if (message.txid !== '') {
       writer.uint32(10).string(message.txid);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendManyResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendManyResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7041,6 +7182,7 @@ export const SendManyResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7049,32 +7191,32 @@ export const SendManyResponse = {
     message.txid =
       object.txid !== undefined && object.txid !== null
         ? String(object.txid)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: SendManyResponse): unknown {
-    const obj: any = {};
-    message.txid !== undefined && (obj.txid = message.txid);
-    return obj;
+    const object: any = {};
+    message.txid !== undefined && (object.txid = message.txid);
+    return object;
   },
 
   fromPartial(object: DeepPartial<SendManyResponse>): SendManyResponse {
     const message = createBaseSendManyResponse();
-    message.txid = object.txid ?? "";
+    message.txid = object.txid ?? '';
     return message;
   },
 };
 
 function createBaseSendCoinsRequest(): SendCoinsRequest {
   return {
-    addr: "",
-    amount: "0",
+    addr: '',
+    amount: '0',
     targetConf: 0,
-    satPerVbyte: "0",
-    satPerByte: "0",
+    satPerVbyte: '0',
+    satPerByte: '0',
     sendAll: false,
-    label: "",
+    label: '',
     minConfs: 0,
     spendUnconfirmed: false,
   };
@@ -7083,41 +7225,50 @@ function createBaseSendCoinsRequest(): SendCoinsRequest {
 export const SendCoinsRequest = {
   encode(
     message: SendCoinsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.addr !== "") {
+    if (message.addr !== '') {
       writer.uint32(10).string(message.addr);
     }
-    if (message.amount !== "0") {
+
+    if (message.amount !== '0') {
       writer.uint32(16).int64(message.amount);
     }
+
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerVbyte !== "0") {
+
+    if (message.satPerVbyte !== '0') {
       writer.uint32(32).uint64(message.satPerVbyte);
     }
-    if (message.satPerByte !== "0") {
+
+    if (message.satPerByte !== '0') {
       writer.uint32(40).int64(message.satPerByte);
     }
-    if (message.sendAll === true) {
+
+    if (message.sendAll) {
       writer.uint32(48).bool(message.sendAll);
     }
-    if (message.label !== "") {
+
+    if (message.label !== '') {
       writer.uint32(58).string(message.label);
     }
+
     if (message.minConfs !== 0) {
       writer.uint32(64).int32(message.minConfs);
     }
-    if (message.spendUnconfirmed === true) {
+
+    if (message.spendUnconfirmed) {
       writer.uint32(72).bool(message.spendUnconfirmed);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendCoinsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCoinsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7154,6 +7305,7 @@ export const SendCoinsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7162,11 +7314,11 @@ export const SendCoinsRequest = {
     message.addr =
       object.addr !== undefined && object.addr !== null
         ? String(object.addr)
-        : "";
+        : '';
     message.amount =
       object.amount !== undefined && object.amount !== null
         ? String(object.amount)
-        : "0";
+        : '0';
     message.targetConf =
       object.targetConf !== undefined && object.targetConf !== null
         ? Number(object.targetConf)
@@ -7174,11 +7326,11 @@ export const SendCoinsRequest = {
     message.satPerVbyte =
       object.satPerVbyte !== undefined && object.satPerVbyte !== null
         ? String(object.satPerVbyte)
-        : "0";
+        : '0';
     message.satPerByte =
       object.satPerByte !== undefined && object.satPerByte !== null
         ? String(object.satPerByte)
-        : "0";
+        : '0';
     message.sendAll =
       object.sendAll !== undefined && object.sendAll !== null
         ? Boolean(object.sendAll)
@@ -7186,7 +7338,7 @@ export const SendCoinsRequest = {
     message.label =
       object.label !== undefined && object.label !== null
         ? String(object.label)
-        : "";
+        : '';
     message.minConfs =
       object.minConfs !== undefined && object.minConfs !== null
         ? Number(object.minConfs)
@@ -7199,32 +7351,33 @@ export const SendCoinsRequest = {
   },
 
   toJSON(message: SendCoinsRequest): unknown {
-    const obj: any = {};
-    message.addr !== undefined && (obj.addr = message.addr);
-    message.amount !== undefined && (obj.amount = message.amount);
+    const object: any = {};
+    message.addr !== undefined && (object.addr = message.addr);
+    message.amount !== undefined && (object.amount = message.amount);
     message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
+      (object.targetConf = Math.round(message.targetConf));
     message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
-    message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
-    message.sendAll !== undefined && (obj.sendAll = message.sendAll);
-    message.label !== undefined && (obj.label = message.label);
+      (object.satPerVbyte = message.satPerVbyte);
+    message.satPerByte !== undefined &&
+      (object.satPerByte = message.satPerByte);
+    message.sendAll !== undefined && (object.sendAll = message.sendAll);
+    message.label !== undefined && (object.label = message.label);
     message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
+      (object.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
-    return obj;
+      (object.spendUnconfirmed = message.spendUnconfirmed);
+    return object;
   },
 
   fromPartial(object: DeepPartial<SendCoinsRequest>): SendCoinsRequest {
     const message = createBaseSendCoinsRequest();
-    message.addr = object.addr ?? "";
-    message.amount = object.amount ?? "0";
+    message.addr = object.addr ?? '';
+    message.amount = object.amount ?? '0';
     message.targetConf = object.targetConf ?? 0;
-    message.satPerVbyte = object.satPerVbyte ?? "0";
-    message.satPerByte = object.satPerByte ?? "0";
+    message.satPerVbyte = object.satPerVbyte ?? '0';
+    message.satPerByte = object.satPerByte ?? '0';
     message.sendAll = object.sendAll ?? false;
-    message.label = object.label ?? "";
+    message.label = object.label ?? '';
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
     return message;
@@ -7232,23 +7385,24 @@ export const SendCoinsRequest = {
 };
 
 function createBaseSendCoinsResponse(): SendCoinsResponse {
-  return { txid: "" };
+  return {txid: ''};
 }
 
 export const SendCoinsResponse = {
   encode(
     message: SendCoinsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.txid !== "") {
+    if (message.txid !== '') {
       writer.uint32(10).string(message.txid);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendCoinsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCoinsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7261,6 +7415,7 @@ export const SendCoinsResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7269,47 +7424,50 @@ export const SendCoinsResponse = {
     message.txid =
       object.txid !== undefined && object.txid !== null
         ? String(object.txid)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: SendCoinsResponse): unknown {
-    const obj: any = {};
-    message.txid !== undefined && (obj.txid = message.txid);
-    return obj;
+    const object: any = {};
+    message.txid !== undefined && (object.txid = message.txid);
+    return object;
   },
 
   fromPartial(object: DeepPartial<SendCoinsResponse>): SendCoinsResponse {
     const message = createBaseSendCoinsResponse();
-    message.txid = object.txid ?? "";
+    message.txid = object.txid ?? '';
     return message;
   },
 };
 
 function createBaseListUnspentRequest(): ListUnspentRequest {
-  return { minConfs: 0, maxConfs: 0, account: "" };
+  return {minConfs: 0, maxConfs: 0, account: ''};
 }
 
 export const ListUnspentRequest = {
   encode(
     message: ListUnspentRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.minConfs !== 0) {
       writer.uint32(8).int32(message.minConfs);
     }
+
     if (message.maxConfs !== 0) {
       writer.uint32(16).int32(message.maxConfs);
     }
-    if (message.account !== "") {
+
+    if (message.account !== '') {
       writer.uint32(26).string(message.account);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListUnspentRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListUnspentRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7328,6 +7486,7 @@ export const ListUnspentRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7344,47 +7503,48 @@ export const ListUnspentRequest = {
     message.account =
       object.account !== undefined && object.account !== null
         ? String(object.account)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: ListUnspentRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
+      (object.minConfs = Math.round(message.minConfs));
     message.maxConfs !== undefined &&
-      (obj.maxConfs = Math.round(message.maxConfs));
-    message.account !== undefined && (obj.account = message.account);
-    return obj;
+      (object.maxConfs = Math.round(message.maxConfs));
+    message.account !== undefined && (object.account = message.account);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListUnspentRequest>): ListUnspentRequest {
     const message = createBaseListUnspentRequest();
     message.minConfs = object.minConfs ?? 0;
     message.maxConfs = object.maxConfs ?? 0;
-    message.account = object.account ?? "";
+    message.account = object.account ?? '';
     return message;
   },
 };
 
 function createBaseListUnspentResponse(): ListUnspentResponse {
-  return { utxos: [] };
+  return {utxos: []};
 }
 
 export const ListUnspentResponse = {
   encode(
     message: ListUnspentResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.utxos) {
-      Utxo.encode(v!, writer.uint32(10).fork()).ldelim();
+      Utxo.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListUnspentResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListUnspentResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7397,6 +7557,7 @@ export const ListUnspentResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7407,13 +7568,11 @@ export const ListUnspentResponse = {
   },
 
   toJSON(message: ListUnspentResponse): unknown {
-    const obj: any = {};
-    if (message.utxos) {
-      obj.utxos = message.utxos.map((e) => (e ? Utxo.toJSON(e) : undefined));
-    } else {
-      obj.utxos = [];
-    }
-    return obj;
+    const object: any = {};
+    object.utxos = message.utxos
+      ? message.utxos.map((e) => (e ? Utxo.toJSON(e) : undefined))
+      : [];
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListUnspentResponse>): ListUnspentResponse {
@@ -7424,26 +7583,28 @@ export const ListUnspentResponse = {
 };
 
 function createBaseNewAddressRequest(): NewAddressRequest {
-  return { type: 0, account: "" };
+  return {type: 0, account: ''};
 }
 
 export const NewAddressRequest = {
   encode(
     message: NewAddressRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
-    if (message.account !== "") {
+
+    if (message.account !== '') {
       writer.uint32(18).string(message.account);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NewAddressRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNewAddressRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7459,6 +7620,7 @@ export const NewAddressRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7471,43 +7633,45 @@ export const NewAddressRequest = {
     message.account =
       object.account !== undefined && object.account !== null
         ? String(object.account)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: NewAddressRequest): unknown {
-    const obj: any = {};
-    message.type !== undefined && (obj.type = addressTypeToJSON(message.type));
-    message.account !== undefined && (obj.account = message.account);
-    return obj;
+    const object: any = {};
+    message.type !== undefined &&
+      (object.type = addressTypeToJSON(message.type));
+    message.account !== undefined && (object.account = message.account);
+    return object;
   },
 
   fromPartial(object: DeepPartial<NewAddressRequest>): NewAddressRequest {
     const message = createBaseNewAddressRequest();
     message.type = object.type ?? 0;
-    message.account = object.account ?? "";
+    message.account = object.account ?? '';
     return message;
   },
 };
 
 function createBaseNewAddressResponse(): NewAddressResponse {
-  return { address: "" };
+  return {address: ''};
 }
 
 export const NewAddressResponse = {
   encode(
     message: NewAddressResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.address !== "") {
+    if (message.address !== '') {
       writer.uint32(10).string(message.address);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NewAddressResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNewAddressResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7520,6 +7684,7 @@ export const NewAddressResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7528,44 +7693,46 @@ export const NewAddressResponse = {
     message.address =
       object.address !== undefined && object.address !== null
         ? String(object.address)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: NewAddressResponse): unknown {
-    const obj: any = {};
-    message.address !== undefined && (obj.address = message.address);
-    return obj;
+    const object: any = {};
+    message.address !== undefined && (object.address = message.address);
+    return object;
   },
 
   fromPartial(object: DeepPartial<NewAddressResponse>): NewAddressResponse {
     const message = createBaseNewAddressResponse();
-    message.address = object.address ?? "";
+    message.address = object.address ?? '';
     return message;
   },
 };
 
 function createBaseSignMessageRequest(): SignMessageRequest {
-  return { msg: new Uint8Array(), singleHash: false };
+  return {msg: new Uint8Array(), singleHash: false};
 }
 
 export const SignMessageRequest = {
   encode(
     message: SignMessageRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.msg.length !== 0) {
+    if (message.msg.length > 0) {
       writer.uint32(10).bytes(message.msg);
     }
-    if (message.singleHash === true) {
+
+    if (message.singleHash) {
       writer.uint32(16).bool(message.singleHash);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SignMessageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignMessageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7581,6 +7748,7 @@ export const SignMessageRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7598,13 +7766,14 @@ export const SignMessageRequest = {
   },
 
   toJSON(message: SignMessageRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.msg !== undefined &&
-      (obj.msg = base64FromBytes(
-        message.msg !== undefined ? message.msg : new Uint8Array()
+      (object.msg = base64FromBytes(
+        message.msg !== undefined ? message.msg : new Uint8Array(),
       ));
-    message.singleHash !== undefined && (obj.singleHash = message.singleHash);
-    return obj;
+    message.singleHash !== undefined &&
+      (object.singleHash = message.singleHash);
+    return object;
   },
 
   fromPartial(object: DeepPartial<SignMessageRequest>): SignMessageRequest {
@@ -7616,23 +7785,24 @@ export const SignMessageRequest = {
 };
 
 function createBaseSignMessageResponse(): SignMessageResponse {
-  return { signature: "" };
+  return {signature: ''};
 }
 
 export const SignMessageResponse = {
   encode(
     message: SignMessageResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.signature !== "") {
+    if (message.signature !== '') {
       writer.uint32(10).string(message.signature);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SignMessageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignMessageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7645,6 +7815,7 @@ export const SignMessageResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7653,47 +7824,49 @@ export const SignMessageResponse = {
     message.signature =
       object.signature !== undefined && object.signature !== null
         ? String(object.signature)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: SignMessageResponse): unknown {
-    const obj: any = {};
-    message.signature !== undefined && (obj.signature = message.signature);
-    return obj;
+    const object: any = {};
+    message.signature !== undefined && (object.signature = message.signature);
+    return object;
   },
 
   fromPartial(object: DeepPartial<SignMessageResponse>): SignMessageResponse {
     const message = createBaseSignMessageResponse();
-    message.signature = object.signature ?? "";
+    message.signature = object.signature ?? '';
     return message;
   },
 };
 
 function createBaseVerifyMessageRequest(): VerifyMessageRequest {
-  return { msg: new Uint8Array(), signature: "" };
+  return {msg: new Uint8Array(), signature: ''};
 }
 
 export const VerifyMessageRequest = {
   encode(
     message: VerifyMessageRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.msg.length !== 0) {
+    if (message.msg.length > 0) {
       writer.uint32(10).bytes(message.msg);
     }
-    if (message.signature !== "") {
+
+    if (message.signature !== '') {
       writer.uint32(18).string(message.signature);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): VerifyMessageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyMessageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7709,6 +7882,7 @@ export const VerifyMessageRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7721,52 +7895,54 @@ export const VerifyMessageRequest = {
     message.signature =
       object.signature !== undefined && object.signature !== null
         ? String(object.signature)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: VerifyMessageRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.msg !== undefined &&
-      (obj.msg = base64FromBytes(
-        message.msg !== undefined ? message.msg : new Uint8Array()
+      (object.msg = base64FromBytes(
+        message.msg !== undefined ? message.msg : new Uint8Array(),
       ));
-    message.signature !== undefined && (obj.signature = message.signature);
-    return obj;
+    message.signature !== undefined && (object.signature = message.signature);
+    return object;
   },
 
   fromPartial(object: DeepPartial<VerifyMessageRequest>): VerifyMessageRequest {
     const message = createBaseVerifyMessageRequest();
     message.msg = object.msg ?? new Uint8Array();
-    message.signature = object.signature ?? "";
+    message.signature = object.signature ?? '';
     return message;
   },
 };
 
 function createBaseVerifyMessageResponse(): VerifyMessageResponse {
-  return { valid: false, pubkey: "" };
+  return {valid: false, pubkey: ''};
 }
 
 export const VerifyMessageResponse = {
   encode(
     message: VerifyMessageResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.valid === true) {
+    if (message.valid) {
       writer.uint32(8).bool(message.valid);
     }
-    if (message.pubkey !== "") {
+
+    if (message.pubkey !== '') {
       writer.uint32(18).string(message.pubkey);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): VerifyMessageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyMessageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7782,6 +7958,7 @@ export const VerifyMessageResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7794,51 +7971,54 @@ export const VerifyMessageResponse = {
     message.pubkey =
       object.pubkey !== undefined && object.pubkey !== null
         ? String(object.pubkey)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: VerifyMessageResponse): unknown {
-    const obj: any = {};
-    message.valid !== undefined && (obj.valid = message.valid);
-    message.pubkey !== undefined && (obj.pubkey = message.pubkey);
-    return obj;
+    const object: any = {};
+    message.valid !== undefined && (object.valid = message.valid);
+    message.pubkey !== undefined && (object.pubkey = message.pubkey);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<VerifyMessageResponse>
+    object: DeepPartial<VerifyMessageResponse>,
   ): VerifyMessageResponse {
     const message = createBaseVerifyMessageResponse();
     message.valid = object.valid ?? false;
-    message.pubkey = object.pubkey ?? "";
+    message.pubkey = object.pubkey ?? '';
     return message;
   },
 };
 
 function createBaseConnectPeerRequest(): ConnectPeerRequest {
-  return { addr: undefined, perm: false, timeout: "0" };
+  return {addr: undefined, perm: false, timeout: '0'};
 }
 
 export const ConnectPeerRequest = {
   encode(
     message: ConnectPeerRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.addr !== undefined) {
       LightningAddress.encode(message.addr, writer.uint32(10).fork()).ldelim();
     }
-    if (message.perm === true) {
+
+    if (message.perm) {
       writer.uint32(16).bool(message.perm);
     }
-    if (message.timeout !== "0") {
+
+    if (message.timeout !== '0') {
       writer.uint32(24).uint64(message.timeout);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConnectPeerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConnectPeerRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7857,6 +8037,7 @@ export const ConnectPeerRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7873,19 +8054,19 @@ export const ConnectPeerRequest = {
     message.timeout =
       object.timeout !== undefined && object.timeout !== null
         ? String(object.timeout)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: ConnectPeerRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.addr !== undefined &&
-      (obj.addr = message.addr
+      (object.addr = message.addr
         ? LightningAddress.toJSON(message.addr)
         : undefined);
-    message.perm !== undefined && (obj.perm = message.perm);
-    message.timeout !== undefined && (obj.timeout = message.timeout);
-    return obj;
+    message.perm !== undefined && (object.perm = message.perm);
+    message.timeout !== undefined && (object.timeout = message.timeout);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ConnectPeerRequest>): ConnectPeerRequest {
@@ -7895,7 +8076,7 @@ export const ConnectPeerRequest = {
         ? LightningAddress.fromPartial(object.addr)
         : undefined;
     message.perm = object.perm ?? false;
-    message.timeout = object.timeout ?? "0";
+    message.timeout = object.timeout ?? '0';
     return message;
   },
 };
@@ -7907,14 +8088,14 @@ function createBaseConnectPeerResponse(): ConnectPeerResponse {
 export const ConnectPeerResponse = {
   encode(
     _: ConnectPeerResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConnectPeerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConnectPeerResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7924,6 +8105,7 @@ export const ConnectPeerResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7933,8 +8115,8 @@ export const ConnectPeerResponse = {
   },
 
   toJSON(_: ConnectPeerResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<ConnectPeerResponse>): ConnectPeerResponse {
@@ -7944,26 +8126,27 @@ export const ConnectPeerResponse = {
 };
 
 function createBaseDisconnectPeerRequest(): DisconnectPeerRequest {
-  return { pubKey: "" };
+  return {pubKey: ''};
 }
 
 export const DisconnectPeerRequest = {
   encode(
     message: DisconnectPeerRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pubKey !== "") {
+    if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): DisconnectPeerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDisconnectPeerRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7976,6 +8159,7 @@ export const DisconnectPeerRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -7984,21 +8168,21 @@ export const DisconnectPeerRequest = {
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
         ? String(object.pubKey)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: DisconnectPeerRequest): unknown {
-    const obj: any = {};
-    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
-    return obj;
+    const object: any = {};
+    message.pubKey !== undefined && (object.pubKey = message.pubKey);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<DisconnectPeerRequest>
+    object: DeepPartial<DisconnectPeerRequest>,
   ): DisconnectPeerRequest {
     const message = createBaseDisconnectPeerRequest();
-    message.pubKey = object.pubKey ?? "";
+    message.pubKey = object.pubKey ?? '';
     return message;
   },
 };
@@ -8010,17 +8194,17 @@ function createBaseDisconnectPeerResponse(): DisconnectPeerResponse {
 export const DisconnectPeerResponse = {
   encode(
     _: DisconnectPeerResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): DisconnectPeerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDisconnectPeerResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8030,6 +8214,7 @@ export const DisconnectPeerResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -8039,8 +8224,8 @@ export const DisconnectPeerResponse = {
   },
 
   toJSON(_: DisconnectPeerResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<DisconnectPeerResponse>): DisconnectPeerResponse {
@@ -8052,44 +8237,51 @@ export const DisconnectPeerResponse = {
 function createBaseHTLC(): HTLC {
   return {
     incoming: false,
-    amount: "0",
+    amount: '0',
     hashLock: new Uint8Array(),
     expirationHeight: 0,
-    htlcIndex: "0",
-    forwardingChannel: "0",
-    forwardingHtlcIndex: "0",
+    htlcIndex: '0',
+    forwardingChannel: '0',
+    forwardingHtlcIndex: '0',
   };
 }
 
 export const HTLC = {
   encode(message: HTLC, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.incoming === true) {
+    if (message.incoming) {
       writer.uint32(8).bool(message.incoming);
     }
-    if (message.amount !== "0") {
+
+    if (message.amount !== '0') {
       writer.uint32(16).int64(message.amount);
     }
-    if (message.hashLock.length !== 0) {
+
+    if (message.hashLock.length > 0) {
       writer.uint32(26).bytes(message.hashLock);
     }
+
     if (message.expirationHeight !== 0) {
       writer.uint32(32).uint32(message.expirationHeight);
     }
-    if (message.htlcIndex !== "0") {
+
+    if (message.htlcIndex !== '0') {
       writer.uint32(40).uint64(message.htlcIndex);
     }
-    if (message.forwardingChannel !== "0") {
+
+    if (message.forwardingChannel !== '0') {
       writer.uint32(48).uint64(message.forwardingChannel);
     }
-    if (message.forwardingHtlcIndex !== "0") {
+
+    if (message.forwardingHtlcIndex !== '0') {
       writer.uint32(56).uint64(message.forwardingHtlcIndex);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): HTLC {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHTLC();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8120,6 +8312,7 @@ export const HTLC = {
           break;
       }
     }
+
     return message;
   },
 
@@ -8132,7 +8325,7 @@ export const HTLC = {
     message.amount =
       object.amount !== undefined && object.amount !== null
         ? String(object.amount)
-        : "0";
+        : '0';
     message.hashLock =
       object.hashLock !== undefined && object.hashLock !== null
         ? bytesFromBase64(object.hashLock)
@@ -8144,47 +8337,47 @@ export const HTLC = {
     message.htlcIndex =
       object.htlcIndex !== undefined && object.htlcIndex !== null
         ? String(object.htlcIndex)
-        : "0";
+        : '0';
     message.forwardingChannel =
       object.forwardingChannel !== undefined &&
       object.forwardingChannel !== null
         ? String(object.forwardingChannel)
-        : "0";
+        : '0';
     message.forwardingHtlcIndex =
       object.forwardingHtlcIndex !== undefined &&
       object.forwardingHtlcIndex !== null
         ? String(object.forwardingHtlcIndex)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: HTLC): unknown {
-    const obj: any = {};
-    message.incoming !== undefined && (obj.incoming = message.incoming);
-    message.amount !== undefined && (obj.amount = message.amount);
+    const object: any = {};
+    message.incoming !== undefined && (object.incoming = message.incoming);
+    message.amount !== undefined && (object.amount = message.amount);
     message.hashLock !== undefined &&
-      (obj.hashLock = base64FromBytes(
-        message.hashLock !== undefined ? message.hashLock : new Uint8Array()
+      (object.hashLock = base64FromBytes(
+        message.hashLock !== undefined ? message.hashLock : new Uint8Array(),
       ));
     message.expirationHeight !== undefined &&
-      (obj.expirationHeight = Math.round(message.expirationHeight));
-    message.htlcIndex !== undefined && (obj.htlcIndex = message.htlcIndex);
+      (object.expirationHeight = Math.round(message.expirationHeight));
+    message.htlcIndex !== undefined && (object.htlcIndex = message.htlcIndex);
     message.forwardingChannel !== undefined &&
-      (obj.forwardingChannel = message.forwardingChannel);
+      (object.forwardingChannel = message.forwardingChannel);
     message.forwardingHtlcIndex !== undefined &&
-      (obj.forwardingHtlcIndex = message.forwardingHtlcIndex);
-    return obj;
+      (object.forwardingHtlcIndex = message.forwardingHtlcIndex);
+    return object;
   },
 
   fromPartial(object: DeepPartial<HTLC>): HTLC {
     const message = createBaseHTLC();
     message.incoming = object.incoming ?? false;
-    message.amount = object.amount ?? "0";
+    message.amount = object.amount ?? '0';
     message.hashLock = object.hashLock ?? new Uint8Array();
     message.expirationHeight = object.expirationHeight ?? 0;
-    message.htlcIndex = object.htlcIndex ?? "0";
-    message.forwardingChannel = object.forwardingChannel ?? "0";
-    message.forwardingHtlcIndex = object.forwardingHtlcIndex ?? "0";
+    message.htlcIndex = object.htlcIndex ?? '0';
+    message.forwardingChannel = object.forwardingChannel ?? '0';
+    message.forwardingHtlcIndex = object.forwardingHtlcIndex ?? '0';
     return message;
   },
 };
@@ -8192,10 +8385,10 @@ export const HTLC = {
 function createBaseChannelConstraints(): ChannelConstraints {
   return {
     csvDelay: 0,
-    chanReserveSat: "0",
-    dustLimitSat: "0",
-    maxPendingAmtMsat: "0",
-    minHtlcMsat: "0",
+    chanReserveSat: '0',
+    dustLimitSat: '0',
+    maxPendingAmtMsat: '0',
+    minHtlcMsat: '0',
     maxAcceptedHtlcs: 0,
   };
 }
@@ -8203,32 +8396,38 @@ function createBaseChannelConstraints(): ChannelConstraints {
 export const ChannelConstraints = {
   encode(
     message: ChannelConstraints,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.csvDelay !== 0) {
       writer.uint32(8).uint32(message.csvDelay);
     }
-    if (message.chanReserveSat !== "0") {
+
+    if (message.chanReserveSat !== '0') {
       writer.uint32(16).uint64(message.chanReserveSat);
     }
-    if (message.dustLimitSat !== "0") {
+
+    if (message.dustLimitSat !== '0') {
       writer.uint32(24).uint64(message.dustLimitSat);
     }
-    if (message.maxPendingAmtMsat !== "0") {
+
+    if (message.maxPendingAmtMsat !== '0') {
       writer.uint32(32).uint64(message.maxPendingAmtMsat);
     }
-    if (message.minHtlcMsat !== "0") {
+
+    if (message.minHtlcMsat !== '0') {
       writer.uint32(40).uint64(message.minHtlcMsat);
     }
+
     if (message.maxAcceptedHtlcs !== 0) {
       writer.uint32(48).uint32(message.maxAcceptedHtlcs);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelConstraints {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelConstraints();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8256,6 +8455,7 @@ export const ChannelConstraints = {
           break;
       }
     }
+
     return message;
   },
 
@@ -8268,20 +8468,20 @@ export const ChannelConstraints = {
     message.chanReserveSat =
       object.chanReserveSat !== undefined && object.chanReserveSat !== null
         ? String(object.chanReserveSat)
-        : "0";
+        : '0';
     message.dustLimitSat =
       object.dustLimitSat !== undefined && object.dustLimitSat !== null
         ? String(object.dustLimitSat)
-        : "0";
+        : '0';
     message.maxPendingAmtMsat =
       object.maxPendingAmtMsat !== undefined &&
       object.maxPendingAmtMsat !== null
         ? String(object.maxPendingAmtMsat)
-        : "0";
+        : '0';
     message.minHtlcMsat =
       object.minHtlcMsat !== undefined && object.minHtlcMsat !== null
         ? String(object.minHtlcMsat)
-        : "0";
+        : '0';
     message.maxAcceptedHtlcs =
       object.maxAcceptedHtlcs !== undefined && object.maxAcceptedHtlcs !== null
         ? Number(object.maxAcceptedHtlcs)
@@ -8290,29 +8490,29 @@ export const ChannelConstraints = {
   },
 
   toJSON(message: ChannelConstraints): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.csvDelay !== undefined &&
-      (obj.csvDelay = Math.round(message.csvDelay));
+      (object.csvDelay = Math.round(message.csvDelay));
     message.chanReserveSat !== undefined &&
-      (obj.chanReserveSat = message.chanReserveSat);
+      (object.chanReserveSat = message.chanReserveSat);
     message.dustLimitSat !== undefined &&
-      (obj.dustLimitSat = message.dustLimitSat);
+      (object.dustLimitSat = message.dustLimitSat);
     message.maxPendingAmtMsat !== undefined &&
-      (obj.maxPendingAmtMsat = message.maxPendingAmtMsat);
+      (object.maxPendingAmtMsat = message.maxPendingAmtMsat);
     message.minHtlcMsat !== undefined &&
-      (obj.minHtlcMsat = message.minHtlcMsat);
+      (object.minHtlcMsat = message.minHtlcMsat);
     message.maxAcceptedHtlcs !== undefined &&
-      (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
-    return obj;
+      (object.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelConstraints>): ChannelConstraints {
     const message = createBaseChannelConstraints();
     message.csvDelay = object.csvDelay ?? 0;
-    message.chanReserveSat = object.chanReserveSat ?? "0";
-    message.dustLimitSat = object.dustLimitSat ?? "0";
-    message.maxPendingAmtMsat = object.maxPendingAmtMsat ?? "0";
-    message.minHtlcMsat = object.minHtlcMsat ?? "0";
+    message.chanReserveSat = object.chanReserveSat ?? '0';
+    message.dustLimitSat = object.dustLimitSat ?? '0';
+    message.maxPendingAmtMsat = object.maxPendingAmtMsat ?? '0';
+    message.minHtlcMsat = object.minHtlcMsat ?? '0';
     message.maxAcceptedHtlcs = object.maxAcceptedHtlcs ?? 0;
     return message;
   },
@@ -8321,32 +8521,32 @@ export const ChannelConstraints = {
 function createBaseChannel(): Channel {
   return {
     active: false,
-    remotePubkey: "",
-    channelPoint: "",
-    chanId: "0",
-    capacity: "0",
-    localBalance: "0",
-    remoteBalance: "0",
-    commitFee: "0",
-    commitWeight: "0",
-    feePerKw: "0",
-    unsettledBalance: "0",
-    totalSatoshisSent: "0",
-    totalSatoshisReceived: "0",
-    numUpdates: "0",
+    remotePubkey: '',
+    channelPoint: '',
+    chanId: '0',
+    capacity: '0',
+    localBalance: '0',
+    remoteBalance: '0',
+    commitFee: '0',
+    commitWeight: '0',
+    feePerKw: '0',
+    unsettledBalance: '0',
+    totalSatoshisSent: '0',
+    totalSatoshisReceived: '0',
+    numUpdates: '0',
     pendingHtlcs: [],
     csvDelay: 0,
     private: false,
     initiator: false,
-    chanStatusFlags: "",
-    localChanReserveSat: "0",
-    remoteChanReserveSat: "0",
+    chanStatusFlags: '',
+    localChanReserveSat: '0',
+    remoteChanReserveSat: '0',
     staticRemoteKey: false,
     commitmentType: 0,
-    lifetime: "0",
-    uptime: "0",
-    closeAddress: "",
-    pushAmountSat: "0",
+    lifetime: '0',
+    uptime: '0',
+    closeAddress: '',
+    pushAmountSat: '0',
     thawHeight: 0,
     localConstraints: undefined,
     remoteConstraints: undefined,
@@ -8356,110 +8556,140 @@ function createBaseChannel(): Channel {
 export const Channel = {
   encode(
     message: Channel,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.active === true) {
+    if (message.active) {
       writer.uint32(8).bool(message.active);
     }
-    if (message.remotePubkey !== "") {
+
+    if (message.remotePubkey !== '') {
       writer.uint32(18).string(message.remotePubkey);
     }
-    if (message.channelPoint !== "") {
+
+    if (message.channelPoint !== '') {
       writer.uint32(26).string(message.channelPoint);
     }
-    if (message.chanId !== "0") {
+
+    if (message.chanId !== '0') {
       writer.uint32(32).uint64(message.chanId);
     }
-    if (message.capacity !== "0") {
+
+    if (message.capacity !== '0') {
       writer.uint32(40).int64(message.capacity);
     }
-    if (message.localBalance !== "0") {
+
+    if (message.localBalance !== '0') {
       writer.uint32(48).int64(message.localBalance);
     }
-    if (message.remoteBalance !== "0") {
+
+    if (message.remoteBalance !== '0') {
       writer.uint32(56).int64(message.remoteBalance);
     }
-    if (message.commitFee !== "0") {
+
+    if (message.commitFee !== '0') {
       writer.uint32(64).int64(message.commitFee);
     }
-    if (message.commitWeight !== "0") {
+
+    if (message.commitWeight !== '0') {
       writer.uint32(72).int64(message.commitWeight);
     }
-    if (message.feePerKw !== "0") {
+
+    if (message.feePerKw !== '0') {
       writer.uint32(80).int64(message.feePerKw);
     }
-    if (message.unsettledBalance !== "0") {
+
+    if (message.unsettledBalance !== '0') {
       writer.uint32(88).int64(message.unsettledBalance);
     }
-    if (message.totalSatoshisSent !== "0") {
+
+    if (message.totalSatoshisSent !== '0') {
       writer.uint32(96).int64(message.totalSatoshisSent);
     }
-    if (message.totalSatoshisReceived !== "0") {
+
+    if (message.totalSatoshisReceived !== '0') {
       writer.uint32(104).int64(message.totalSatoshisReceived);
     }
-    if (message.numUpdates !== "0") {
+
+    if (message.numUpdates !== '0') {
       writer.uint32(112).uint64(message.numUpdates);
     }
+
     for (const v of message.pendingHtlcs) {
-      HTLC.encode(v!, writer.uint32(122).fork()).ldelim();
+      HTLC.encode(v, writer.uint32(122).fork()).ldelim();
     }
+
     if (message.csvDelay !== 0) {
       writer.uint32(128).uint32(message.csvDelay);
     }
-    if (message.private === true) {
+
+    if (message.private) {
       writer.uint32(136).bool(message.private);
     }
-    if (message.initiator === true) {
+
+    if (message.initiator) {
       writer.uint32(144).bool(message.initiator);
     }
-    if (message.chanStatusFlags !== "") {
+
+    if (message.chanStatusFlags !== '') {
       writer.uint32(154).string(message.chanStatusFlags);
     }
-    if (message.localChanReserveSat !== "0") {
+
+    if (message.localChanReserveSat !== '0') {
       writer.uint32(160).int64(message.localChanReserveSat);
     }
-    if (message.remoteChanReserveSat !== "0") {
+
+    if (message.remoteChanReserveSat !== '0') {
       writer.uint32(168).int64(message.remoteChanReserveSat);
     }
-    if (message.staticRemoteKey === true) {
+
+    if (message.staticRemoteKey) {
       writer.uint32(176).bool(message.staticRemoteKey);
     }
+
     if (message.commitmentType !== 0) {
       writer.uint32(208).int32(message.commitmentType);
     }
-    if (message.lifetime !== "0") {
+
+    if (message.lifetime !== '0') {
       writer.uint32(184).int64(message.lifetime);
     }
-    if (message.uptime !== "0") {
+
+    if (message.uptime !== '0') {
       writer.uint32(192).int64(message.uptime);
     }
-    if (message.closeAddress !== "") {
+
+    if (message.closeAddress !== '') {
       writer.uint32(202).string(message.closeAddress);
     }
-    if (message.pushAmountSat !== "0") {
+
+    if (message.pushAmountSat !== '0') {
       writer.uint32(216).uint64(message.pushAmountSat);
     }
+
     if (message.thawHeight !== 0) {
       writer.uint32(224).uint32(message.thawHeight);
     }
+
     if (message.localConstraints !== undefined) {
       ChannelConstraints.encode(
         message.localConstraints,
-        writer.uint32(234).fork()
+        writer.uint32(234).fork(),
       ).ldelim();
     }
+
     if (message.remoteConstraints !== undefined) {
       ChannelConstraints.encode(
         message.remoteConstraints,
-        writer.uint32(242).fork()
+        writer.uint32(242).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Channel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8551,13 +8781,13 @@ export const Channel = {
         case 29:
           message.localConstraints = ChannelConstraints.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 30:
           message.remoteConstraints = ChannelConstraints.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         default:
@@ -8565,6 +8795,7 @@ export const Channel = {
           break;
       }
     }
+
     return message;
   },
 
@@ -8577,59 +8808,59 @@ export const Channel = {
     message.remotePubkey =
       object.remotePubkey !== undefined && object.remotePubkey !== null
         ? String(object.remotePubkey)
-        : "";
+        : '';
     message.channelPoint =
       object.channelPoint !== undefined && object.channelPoint !== null
         ? String(object.channelPoint)
-        : "";
+        : '';
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.capacity =
       object.capacity !== undefined && object.capacity !== null
         ? String(object.capacity)
-        : "0";
+        : '0';
     message.localBalance =
       object.localBalance !== undefined && object.localBalance !== null
         ? String(object.localBalance)
-        : "0";
+        : '0';
     message.remoteBalance =
       object.remoteBalance !== undefined && object.remoteBalance !== null
         ? String(object.remoteBalance)
-        : "0";
+        : '0';
     message.commitFee =
       object.commitFee !== undefined && object.commitFee !== null
         ? String(object.commitFee)
-        : "0";
+        : '0';
     message.commitWeight =
       object.commitWeight !== undefined && object.commitWeight !== null
         ? String(object.commitWeight)
-        : "0";
+        : '0';
     message.feePerKw =
       object.feePerKw !== undefined && object.feePerKw !== null
         ? String(object.feePerKw)
-        : "0";
+        : '0';
     message.unsettledBalance =
       object.unsettledBalance !== undefined && object.unsettledBalance !== null
         ? String(object.unsettledBalance)
-        : "0";
+        : '0';
     message.totalSatoshisSent =
       object.totalSatoshisSent !== undefined &&
       object.totalSatoshisSent !== null
         ? String(object.totalSatoshisSent)
-        : "0";
+        : '0';
     message.totalSatoshisReceived =
       object.totalSatoshisReceived !== undefined &&
       object.totalSatoshisReceived !== null
         ? String(object.totalSatoshisReceived)
-        : "0";
+        : '0';
     message.numUpdates =
       object.numUpdates !== undefined && object.numUpdates !== null
         ? String(object.numUpdates)
-        : "0";
+        : '0';
     message.pendingHtlcs = (object.pendingHtlcs ?? []).map((e: any) =>
-      HTLC.fromJSON(e)
+      HTLC.fromJSON(e),
     );
     message.csvDelay =
       object.csvDelay !== undefined && object.csvDelay !== null
@@ -8646,17 +8877,17 @@ export const Channel = {
     message.chanStatusFlags =
       object.chanStatusFlags !== undefined && object.chanStatusFlags !== null
         ? String(object.chanStatusFlags)
-        : "";
+        : '';
     message.localChanReserveSat =
       object.localChanReserveSat !== undefined &&
       object.localChanReserveSat !== null
         ? String(object.localChanReserveSat)
-        : "0";
+        : '0';
     message.remoteChanReserveSat =
       object.remoteChanReserveSat !== undefined &&
       object.remoteChanReserveSat !== null
         ? String(object.remoteChanReserveSat)
-        : "0";
+        : '0';
     message.staticRemoteKey =
       object.staticRemoteKey !== undefined && object.staticRemoteKey !== null
         ? Boolean(object.staticRemoteKey)
@@ -8668,19 +8899,19 @@ export const Channel = {
     message.lifetime =
       object.lifetime !== undefined && object.lifetime !== null
         ? String(object.lifetime)
-        : "0";
+        : '0';
     message.uptime =
       object.uptime !== undefined && object.uptime !== null
         ? String(object.uptime)
-        : "0";
+        : '0';
     message.closeAddress =
       object.closeAddress !== undefined && object.closeAddress !== null
         ? String(object.closeAddress)
-        : "";
+        : '';
     message.pushAmountSat =
       object.pushAmountSat !== undefined && object.pushAmountSat !== null
         ? String(object.pushAmountSat)
-        : "0";
+        : '0';
     message.thawHeight =
       object.thawHeight !== undefined && object.thawHeight !== null
         ? Number(object.thawHeight)
@@ -8698,99 +8929,101 @@ export const Channel = {
   },
 
   toJSON(message: Channel): unknown {
-    const obj: any = {};
-    message.active !== undefined && (obj.active = message.active);
+    const object: any = {};
+    message.active !== undefined && (object.active = message.active);
     message.remotePubkey !== undefined &&
-      (obj.remotePubkey = message.remotePubkey);
+      (object.remotePubkey = message.remotePubkey);
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint);
-    message.chanId !== undefined && (obj.chanId = message.chanId);
-    message.capacity !== undefined && (obj.capacity = message.capacity);
+      (object.channelPoint = message.channelPoint);
+    message.chanId !== undefined && (object.chanId = message.chanId);
+    message.capacity !== undefined && (object.capacity = message.capacity);
     message.localBalance !== undefined &&
-      (obj.localBalance = message.localBalance);
+      (object.localBalance = message.localBalance);
     message.remoteBalance !== undefined &&
-      (obj.remoteBalance = message.remoteBalance);
-    message.commitFee !== undefined && (obj.commitFee = message.commitFee);
+      (object.remoteBalance = message.remoteBalance);
+    message.commitFee !== undefined && (object.commitFee = message.commitFee);
     message.commitWeight !== undefined &&
-      (obj.commitWeight = message.commitWeight);
-    message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
+      (object.commitWeight = message.commitWeight);
+    message.feePerKw !== undefined && (object.feePerKw = message.feePerKw);
     message.unsettledBalance !== undefined &&
-      (obj.unsettledBalance = message.unsettledBalance);
+      (object.unsettledBalance = message.unsettledBalance);
     message.totalSatoshisSent !== undefined &&
-      (obj.totalSatoshisSent = message.totalSatoshisSent);
+      (object.totalSatoshisSent = message.totalSatoshisSent);
     message.totalSatoshisReceived !== undefined &&
-      (obj.totalSatoshisReceived = message.totalSatoshisReceived);
-    message.numUpdates !== undefined && (obj.numUpdates = message.numUpdates);
+      (object.totalSatoshisReceived = message.totalSatoshisReceived);
+    message.numUpdates !== undefined &&
+      (object.numUpdates = message.numUpdates);
     if (message.pendingHtlcs) {
-      obj.pendingHtlcs = message.pendingHtlcs.map((e) =>
-        e ? HTLC.toJSON(e) : undefined
+      object.pendingHtlcs = message.pendingHtlcs.map((e) =>
+        e ? HTLC.toJSON(e) : undefined,
       );
     } else {
-      obj.pendingHtlcs = [];
+      object.pendingHtlcs = [];
     }
+
     message.csvDelay !== undefined &&
-      (obj.csvDelay = Math.round(message.csvDelay));
-    message.private !== undefined && (obj.private = message.private);
-    message.initiator !== undefined && (obj.initiator = message.initiator);
+      (object.csvDelay = Math.round(message.csvDelay));
+    message.private !== undefined && (object.private = message.private);
+    message.initiator !== undefined && (object.initiator = message.initiator);
     message.chanStatusFlags !== undefined &&
-      (obj.chanStatusFlags = message.chanStatusFlags);
+      (object.chanStatusFlags = message.chanStatusFlags);
     message.localChanReserveSat !== undefined &&
-      (obj.localChanReserveSat = message.localChanReserveSat);
+      (object.localChanReserveSat = message.localChanReserveSat);
     message.remoteChanReserveSat !== undefined &&
-      (obj.remoteChanReserveSat = message.remoteChanReserveSat);
+      (object.remoteChanReserveSat = message.remoteChanReserveSat);
     message.staticRemoteKey !== undefined &&
-      (obj.staticRemoteKey = message.staticRemoteKey);
+      (object.staticRemoteKey = message.staticRemoteKey);
     message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    message.lifetime !== undefined && (obj.lifetime = message.lifetime);
-    message.uptime !== undefined && (obj.uptime = message.uptime);
+      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.lifetime !== undefined && (object.lifetime = message.lifetime);
+    message.uptime !== undefined && (object.uptime = message.uptime);
     message.closeAddress !== undefined &&
-      (obj.closeAddress = message.closeAddress);
+      (object.closeAddress = message.closeAddress);
     message.pushAmountSat !== undefined &&
-      (obj.pushAmountSat = message.pushAmountSat);
+      (object.pushAmountSat = message.pushAmountSat);
     message.thawHeight !== undefined &&
-      (obj.thawHeight = Math.round(message.thawHeight));
+      (object.thawHeight = Math.round(message.thawHeight));
     message.localConstraints !== undefined &&
-      (obj.localConstraints = message.localConstraints
+      (object.localConstraints = message.localConstraints
         ? ChannelConstraints.toJSON(message.localConstraints)
         : undefined);
     message.remoteConstraints !== undefined &&
-      (obj.remoteConstraints = message.remoteConstraints
+      (object.remoteConstraints = message.remoteConstraints
         ? ChannelConstraints.toJSON(message.remoteConstraints)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<Channel>): Channel {
     const message = createBaseChannel();
     message.active = object.active ?? false;
-    message.remotePubkey = object.remotePubkey ?? "";
-    message.channelPoint = object.channelPoint ?? "";
-    message.chanId = object.chanId ?? "0";
-    message.capacity = object.capacity ?? "0";
-    message.localBalance = object.localBalance ?? "0";
-    message.remoteBalance = object.remoteBalance ?? "0";
-    message.commitFee = object.commitFee ?? "0";
-    message.commitWeight = object.commitWeight ?? "0";
-    message.feePerKw = object.feePerKw ?? "0";
-    message.unsettledBalance = object.unsettledBalance ?? "0";
-    message.totalSatoshisSent = object.totalSatoshisSent ?? "0";
-    message.totalSatoshisReceived = object.totalSatoshisReceived ?? "0";
-    message.numUpdates = object.numUpdates ?? "0";
+    message.remotePubkey = object.remotePubkey ?? '';
+    message.channelPoint = object.channelPoint ?? '';
+    message.chanId = object.chanId ?? '0';
+    message.capacity = object.capacity ?? '0';
+    message.localBalance = object.localBalance ?? '0';
+    message.remoteBalance = object.remoteBalance ?? '0';
+    message.commitFee = object.commitFee ?? '0';
+    message.commitWeight = object.commitWeight ?? '0';
+    message.feePerKw = object.feePerKw ?? '0';
+    message.unsettledBalance = object.unsettledBalance ?? '0';
+    message.totalSatoshisSent = object.totalSatoshisSent ?? '0';
+    message.totalSatoshisReceived = object.totalSatoshisReceived ?? '0';
+    message.numUpdates = object.numUpdates ?? '0';
     message.pendingHtlcs =
       object.pendingHtlcs?.map((e) => HTLC.fromPartial(e)) || [];
     message.csvDelay = object.csvDelay ?? 0;
     message.private = object.private ?? false;
     message.initiator = object.initiator ?? false;
-    message.chanStatusFlags = object.chanStatusFlags ?? "";
-    message.localChanReserveSat = object.localChanReserveSat ?? "0";
-    message.remoteChanReserveSat = object.remoteChanReserveSat ?? "0";
+    message.chanStatusFlags = object.chanStatusFlags ?? '';
+    message.localChanReserveSat = object.localChanReserveSat ?? '0';
+    message.remoteChanReserveSat = object.remoteChanReserveSat ?? '0';
     message.staticRemoteKey = object.staticRemoteKey ?? false;
     message.commitmentType = object.commitmentType ?? 0;
-    message.lifetime = object.lifetime ?? "0";
-    message.uptime = object.uptime ?? "0";
-    message.closeAddress = object.closeAddress ?? "";
-    message.pushAmountSat = object.pushAmountSat ?? "0";
+    message.lifetime = object.lifetime ?? '0';
+    message.uptime = object.uptime ?? '0';
+    message.closeAddress = object.closeAddress ?? '';
+    message.pushAmountSat = object.pushAmountSat ?? '0';
     message.thawHeight = object.thawHeight ?? 0;
     message.localConstraints =
       object.localConstraints !== undefined && object.localConstraints !== null
@@ -8818,29 +9051,34 @@ function createBaseListChannelsRequest(): ListChannelsRequest {
 export const ListChannelsRequest = {
   encode(
     message: ListChannelsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.activeOnly === true) {
+    if (message.activeOnly) {
       writer.uint32(8).bool(message.activeOnly);
     }
-    if (message.inactiveOnly === true) {
+
+    if (message.inactiveOnly) {
       writer.uint32(16).bool(message.inactiveOnly);
     }
-    if (message.publicOnly === true) {
+
+    if (message.publicOnly) {
       writer.uint32(24).bool(message.publicOnly);
     }
-    if (message.privateOnly === true) {
+
+    if (message.privateOnly) {
       writer.uint32(32).bool(message.privateOnly);
     }
-    if (message.peer.length !== 0) {
+
+    if (message.peer.length > 0) {
       writer.uint32(42).bytes(message.peer);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListChannelsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListChannelsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8865,6 +9103,7 @@ export const ListChannelsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -8894,18 +9133,20 @@ export const ListChannelsRequest = {
   },
 
   toJSON(message: ListChannelsRequest): unknown {
-    const obj: any = {};
-    message.activeOnly !== undefined && (obj.activeOnly = message.activeOnly);
+    const object: any = {};
+    message.activeOnly !== undefined &&
+      (object.activeOnly = message.activeOnly);
     message.inactiveOnly !== undefined &&
-      (obj.inactiveOnly = message.inactiveOnly);
-    message.publicOnly !== undefined && (obj.publicOnly = message.publicOnly);
+      (object.inactiveOnly = message.inactiveOnly);
+    message.publicOnly !== undefined &&
+      (object.publicOnly = message.publicOnly);
     message.privateOnly !== undefined &&
-      (obj.privateOnly = message.privateOnly);
+      (object.privateOnly = message.privateOnly);
     message.peer !== undefined &&
-      (obj.peer = base64FromBytes(
-        message.peer !== undefined ? message.peer : new Uint8Array()
+      (object.peer = base64FromBytes(
+        message.peer !== undefined ? message.peer : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListChannelsRequest>): ListChannelsRequest {
@@ -8920,26 +9161,27 @@ export const ListChannelsRequest = {
 };
 
 function createBaseListChannelsResponse(): ListChannelsResponse {
-  return { channels: [] };
+  return {channels: []};
 }
 
 export const ListChannelsResponse = {
   encode(
     message: ListChannelsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.channels) {
-      Channel.encode(v!, writer.uint32(90).fork()).ldelim();
+      Channel.encode(v, writer.uint32(90).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ListChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListChannelsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8952,27 +9194,29 @@ export const ListChannelsResponse = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ListChannelsResponse {
     const message = createBaseListChannelsResponse();
     message.channels = (object.channels ?? []).map((e: any) =>
-      Channel.fromJSON(e)
+      Channel.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: ListChannelsResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.channels) {
-      obj.channels = message.channels.map((e) =>
-        e ? Channel.toJSON(e) : undefined
+      object.channels = message.channels.map((e) =>
+        e ? Channel.toJSON(e) : undefined,
       );
     } else {
-      obj.channels = [];
+      object.channels = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListChannelsResponse>): ListChannelsResponse {
@@ -8985,15 +9229,15 @@ export const ListChannelsResponse = {
 
 function createBaseChannelCloseSummary(): ChannelCloseSummary {
   return {
-    channelPoint: "",
-    chanId: "0",
-    chainHash: "",
-    closingTxHash: "",
-    remotePubkey: "",
-    capacity: "0",
+    channelPoint: '',
+    chanId: '0',
+    chainHash: '',
+    closingTxHash: '',
+    remotePubkey: '',
+    capacity: '0',
     closeHeight: 0,
-    settledBalance: "0",
-    timeLockedBalance: "0",
+    settledBalance: '0',
+    timeLockedBalance: '0',
     closeType: 0,
     openInitiator: 0,
     closeInitiator: 0,
@@ -9004,53 +9248,66 @@ function createBaseChannelCloseSummary(): ChannelCloseSummary {
 export const ChannelCloseSummary = {
   encode(
     message: ChannelCloseSummary,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.channelPoint !== "") {
+    if (message.channelPoint !== '') {
       writer.uint32(10).string(message.channelPoint);
     }
-    if (message.chanId !== "0") {
+
+    if (message.chanId !== '0') {
       writer.uint32(16).uint64(message.chanId);
     }
-    if (message.chainHash !== "") {
+
+    if (message.chainHash !== '') {
       writer.uint32(26).string(message.chainHash);
     }
-    if (message.closingTxHash !== "") {
+
+    if (message.closingTxHash !== '') {
       writer.uint32(34).string(message.closingTxHash);
     }
-    if (message.remotePubkey !== "") {
+
+    if (message.remotePubkey !== '') {
       writer.uint32(42).string(message.remotePubkey);
     }
-    if (message.capacity !== "0") {
+
+    if (message.capacity !== '0') {
       writer.uint32(48).int64(message.capacity);
     }
+
     if (message.closeHeight !== 0) {
       writer.uint32(56).uint32(message.closeHeight);
     }
-    if (message.settledBalance !== "0") {
+
+    if (message.settledBalance !== '0') {
       writer.uint32(64).int64(message.settledBalance);
     }
-    if (message.timeLockedBalance !== "0") {
+
+    if (message.timeLockedBalance !== '0') {
       writer.uint32(72).int64(message.timeLockedBalance);
     }
+
     if (message.closeType !== 0) {
       writer.uint32(80).int32(message.closeType);
     }
+
     if (message.openInitiator !== 0) {
       writer.uint32(88).int32(message.openInitiator);
     }
+
     if (message.closeInitiator !== 0) {
       writer.uint32(96).int32(message.closeInitiator);
     }
+
     for (const v of message.resolutions) {
-      Resolution.encode(v!, writer.uint32(106).fork()).ldelim();
+      Resolution.encode(v, writer.uint32(106).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelCloseSummary {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelCloseSummary();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9099,6 +9356,7 @@ export const ChannelCloseSummary = {
           break;
       }
     }
+
     return message;
   },
 
@@ -9107,27 +9365,27 @@ export const ChannelCloseSummary = {
     message.channelPoint =
       object.channelPoint !== undefined && object.channelPoint !== null
         ? String(object.channelPoint)
-        : "";
+        : '';
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.chainHash =
       object.chainHash !== undefined && object.chainHash !== null
         ? String(object.chainHash)
-        : "";
+        : '';
     message.closingTxHash =
       object.closingTxHash !== undefined && object.closingTxHash !== null
         ? String(object.closingTxHash)
-        : "";
+        : '';
     message.remotePubkey =
       object.remotePubkey !== undefined && object.remotePubkey !== null
         ? String(object.remotePubkey)
-        : "";
+        : '';
     message.capacity =
       object.capacity !== undefined && object.capacity !== null
         ? String(object.capacity)
-        : "0";
+        : '0';
     message.closeHeight =
       object.closeHeight !== undefined && object.closeHeight !== null
         ? Number(object.closeHeight)
@@ -9135,12 +9393,12 @@ export const ChannelCloseSummary = {
     message.settledBalance =
       object.settledBalance !== undefined && object.settledBalance !== null
         ? String(object.settledBalance)
-        : "0";
+        : '0';
     message.timeLockedBalance =
       object.timeLockedBalance !== undefined &&
       object.timeLockedBalance !== null
         ? String(object.timeLockedBalance)
-        : "0";
+        : '0';
     message.closeType =
       object.closeType !== undefined && object.closeType !== null
         ? channelCloseSummary_ClosureTypeFromJSON(object.closeType)
@@ -9154,57 +9412,58 @@ export const ChannelCloseSummary = {
         ? initiatorFromJSON(object.closeInitiator)
         : 0;
     message.resolutions = (object.resolutions ?? []).map((e: any) =>
-      Resolution.fromJSON(e)
+      Resolution.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: ChannelCloseSummary): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint);
-    message.chanId !== undefined && (obj.chanId = message.chanId);
-    message.chainHash !== undefined && (obj.chainHash = message.chainHash);
+      (object.channelPoint = message.channelPoint);
+    message.chanId !== undefined && (object.chanId = message.chanId);
+    message.chainHash !== undefined && (object.chainHash = message.chainHash);
     message.closingTxHash !== undefined &&
-      (obj.closingTxHash = message.closingTxHash);
+      (object.closingTxHash = message.closingTxHash);
     message.remotePubkey !== undefined &&
-      (obj.remotePubkey = message.remotePubkey);
-    message.capacity !== undefined && (obj.capacity = message.capacity);
+      (object.remotePubkey = message.remotePubkey);
+    message.capacity !== undefined && (object.capacity = message.capacity);
     message.closeHeight !== undefined &&
-      (obj.closeHeight = Math.round(message.closeHeight));
+      (object.closeHeight = Math.round(message.closeHeight));
     message.settledBalance !== undefined &&
-      (obj.settledBalance = message.settledBalance);
+      (object.settledBalance = message.settledBalance);
     message.timeLockedBalance !== undefined &&
-      (obj.timeLockedBalance = message.timeLockedBalance);
+      (object.timeLockedBalance = message.timeLockedBalance);
     message.closeType !== undefined &&
-      (obj.closeType = channelCloseSummary_ClosureTypeToJSON(
-        message.closeType
+      (object.closeType = channelCloseSummary_ClosureTypeToJSON(
+        message.closeType,
       ));
     message.openInitiator !== undefined &&
-      (obj.openInitiator = initiatorToJSON(message.openInitiator));
+      (object.openInitiator = initiatorToJSON(message.openInitiator));
     message.closeInitiator !== undefined &&
-      (obj.closeInitiator = initiatorToJSON(message.closeInitiator));
+      (object.closeInitiator = initiatorToJSON(message.closeInitiator));
     if (message.resolutions) {
-      obj.resolutions = message.resolutions.map((e) =>
-        e ? Resolution.toJSON(e) : undefined
+      object.resolutions = message.resolutions.map((e) =>
+        e ? Resolution.toJSON(e) : undefined,
       );
     } else {
-      obj.resolutions = [];
+      object.resolutions = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelCloseSummary>): ChannelCloseSummary {
     const message = createBaseChannelCloseSummary();
-    message.channelPoint = object.channelPoint ?? "";
-    message.chanId = object.chanId ?? "0";
-    message.chainHash = object.chainHash ?? "";
-    message.closingTxHash = object.closingTxHash ?? "";
-    message.remotePubkey = object.remotePubkey ?? "";
-    message.capacity = object.capacity ?? "0";
+    message.channelPoint = object.channelPoint ?? '';
+    message.chanId = object.chanId ?? '0';
+    message.chainHash = object.chainHash ?? '';
+    message.closingTxHash = object.closingTxHash ?? '';
+    message.remotePubkey = object.remotePubkey ?? '';
+    message.capacity = object.capacity ?? '0';
     message.closeHeight = object.closeHeight ?? 0;
-    message.settledBalance = object.settledBalance ?? "0";
-    message.timeLockedBalance = object.timeLockedBalance ?? "0";
+    message.settledBalance = object.settledBalance ?? '0';
+    message.timeLockedBalance = object.timeLockedBalance ?? '0';
     message.closeType = object.closeType ?? 0;
     message.openInitiator = object.openInitiator ?? 0;
     message.closeInitiator = object.closeInitiator ?? 0;
@@ -9219,37 +9478,42 @@ function createBaseResolution(): Resolution {
     resolutionType: 0,
     outcome: 0,
     outpoint: undefined,
-    amountSat: "0",
-    sweepTxid: "",
+    amountSat: '0',
+    sweepTxid: '',
   };
 }
 
 export const Resolution = {
   encode(
     message: Resolution,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.resolutionType !== 0) {
       writer.uint32(8).int32(message.resolutionType);
     }
+
     if (message.outcome !== 0) {
       writer.uint32(16).int32(message.outcome);
     }
+
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(26).fork()).ldelim();
     }
-    if (message.amountSat !== "0") {
+
+    if (message.amountSat !== '0') {
       writer.uint32(32).uint64(message.amountSat);
     }
-    if (message.sweepTxid !== "") {
+
+    if (message.sweepTxid !== '') {
       writer.uint32(42).string(message.sweepTxid);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Resolution {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResolution();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9274,6 +9538,7 @@ export const Resolution = {
           break;
       }
     }
+
     return message;
   },
 
@@ -9294,27 +9559,27 @@ export const Resolution = {
     message.amountSat =
       object.amountSat !== undefined && object.amountSat !== null
         ? String(object.amountSat)
-        : "0";
+        : '0';
     message.sweepTxid =
       object.sweepTxid !== undefined && object.sweepTxid !== null
         ? String(object.sweepTxid)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: Resolution): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.resolutionType !== undefined &&
-      (obj.resolutionType = resolutionTypeToJSON(message.resolutionType));
+      (object.resolutionType = resolutionTypeToJSON(message.resolutionType));
     message.outcome !== undefined &&
-      (obj.outcome = resolutionOutcomeToJSON(message.outcome));
+      (object.outcome = resolutionOutcomeToJSON(message.outcome));
     message.outpoint !== undefined &&
-      (obj.outpoint = message.outpoint
+      (object.outpoint = message.outpoint
         ? OutPoint.toJSON(message.outpoint)
         : undefined);
-    message.amountSat !== undefined && (obj.amountSat = message.amountSat);
-    message.sweepTxid !== undefined && (obj.sweepTxid = message.sweepTxid);
-    return obj;
+    message.amountSat !== undefined && (object.amountSat = message.amountSat);
+    message.sweepTxid !== undefined && (object.sweepTxid = message.sweepTxid);
+    return object;
   },
 
   fromPartial(object: DeepPartial<Resolution>): Resolution {
@@ -9325,8 +9590,8 @@ export const Resolution = {
       object.outpoint !== undefined && object.outpoint !== null
         ? OutPoint.fromPartial(object.outpoint)
         : undefined;
-    message.amountSat = object.amountSat ?? "0";
-    message.sweepTxid = object.sweepTxid ?? "";
+    message.amountSat = object.amountSat ?? '0';
+    message.sweepTxid = object.sweepTxid ?? '';
     return message;
   },
 };
@@ -9345,35 +9610,41 @@ function createBaseClosedChannelsRequest(): ClosedChannelsRequest {
 export const ClosedChannelsRequest = {
   encode(
     message: ClosedChannelsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.cooperative === true) {
+    if (message.cooperative) {
       writer.uint32(8).bool(message.cooperative);
     }
-    if (message.localForce === true) {
+
+    if (message.localForce) {
       writer.uint32(16).bool(message.localForce);
     }
-    if (message.remoteForce === true) {
+
+    if (message.remoteForce) {
       writer.uint32(24).bool(message.remoteForce);
     }
-    if (message.breach === true) {
+
+    if (message.breach) {
       writer.uint32(32).bool(message.breach);
     }
-    if (message.fundingCanceled === true) {
+
+    if (message.fundingCanceled) {
       writer.uint32(40).bool(message.fundingCanceled);
     }
-    if (message.abandoned === true) {
+
+    if (message.abandoned) {
       writer.uint32(48).bool(message.abandoned);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ClosedChannelsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClosedChannelsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9401,6 +9672,7 @@ export const ClosedChannelsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -9434,21 +9706,22 @@ export const ClosedChannelsRequest = {
   },
 
   toJSON(message: ClosedChannelsRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.cooperative !== undefined &&
-      (obj.cooperative = message.cooperative);
-    message.localForce !== undefined && (obj.localForce = message.localForce);
+      (object.cooperative = message.cooperative);
+    message.localForce !== undefined &&
+      (object.localForce = message.localForce);
     message.remoteForce !== undefined &&
-      (obj.remoteForce = message.remoteForce);
-    message.breach !== undefined && (obj.breach = message.breach);
+      (object.remoteForce = message.remoteForce);
+    message.breach !== undefined && (object.breach = message.breach);
     message.fundingCanceled !== undefined &&
-      (obj.fundingCanceled = message.fundingCanceled);
-    message.abandoned !== undefined && (obj.abandoned = message.abandoned);
-    return obj;
+      (object.fundingCanceled = message.fundingCanceled);
+    message.abandoned !== undefined && (object.abandoned = message.abandoned);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ClosedChannelsRequest>
+    object: DeepPartial<ClosedChannelsRequest>,
   ): ClosedChannelsRequest {
     const message = createBaseClosedChannelsRequest();
     message.cooperative = object.cooperative ?? false;
@@ -9462,33 +9735,34 @@ export const ClosedChannelsRequest = {
 };
 
 function createBaseClosedChannelsResponse(): ClosedChannelsResponse {
-  return { channels: [] };
+  return {channels: []};
 }
 
 export const ClosedChannelsResponse = {
   encode(
     message: ClosedChannelsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.channels) {
-      ChannelCloseSummary.encode(v!, writer.uint32(10).fork()).ldelim();
+      ChannelCloseSummary.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ClosedChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClosedChannelsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.channels.push(
-            ChannelCloseSummary.decode(reader, reader.uint32())
+            ChannelCloseSummary.decode(reader, reader.uint32()),
           );
           break;
         default:
@@ -9496,31 +9770,33 @@ export const ClosedChannelsResponse = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ClosedChannelsResponse {
     const message = createBaseClosedChannelsResponse();
     message.channels = (object.channels ?? []).map((e: any) =>
-      ChannelCloseSummary.fromJSON(e)
+      ChannelCloseSummary.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: ClosedChannelsResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.channels) {
-      obj.channels = message.channels.map((e) =>
-        e ? ChannelCloseSummary.toJSON(e) : undefined
+      object.channels = message.channels.map((e) =>
+        e ? ChannelCloseSummary.toJSON(e) : undefined,
       );
     } else {
-      obj.channels = [];
+      object.channels = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ClosedChannelsResponse>
+    object: DeepPartial<ClosedChannelsResponse>,
   ): ClosedChannelsResponse {
     const message = createBaseClosedChannelsResponse();
     message.channels =
@@ -9531,76 +9807,90 @@ export const ClosedChannelsResponse = {
 
 function createBasePeer(): Peer {
   return {
-    pubKey: "",
-    address: "",
-    bytesSent: "0",
-    bytesRecv: "0",
-    satSent: "0",
-    satRecv: "0",
+    pubKey: '',
+    address: '',
+    bytesSent: '0',
+    bytesRecv: '0',
+    satSent: '0',
+    satRecv: '0',
     inbound: false,
-    pingTime: "0",
+    pingTime: '0',
     syncType: 0,
     features: {},
     errors: [],
     flapCount: 0,
-    lastFlapNs: "0",
+    lastFlapNs: '0',
     lastPingPayload: new Uint8Array(),
   };
 }
 
 export const Peer = {
   encode(message: Peer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pubKey !== "") {
+    if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
-    if (message.address !== "") {
+
+    if (message.address !== '') {
       writer.uint32(26).string(message.address);
     }
-    if (message.bytesSent !== "0") {
+
+    if (message.bytesSent !== '0') {
       writer.uint32(32).uint64(message.bytesSent);
     }
-    if (message.bytesRecv !== "0") {
+
+    if (message.bytesRecv !== '0') {
       writer.uint32(40).uint64(message.bytesRecv);
     }
-    if (message.satSent !== "0") {
+
+    if (message.satSent !== '0') {
       writer.uint32(48).int64(message.satSent);
     }
-    if (message.satRecv !== "0") {
+
+    if (message.satRecv !== '0') {
       writer.uint32(56).int64(message.satRecv);
     }
-    if (message.inbound === true) {
+
+    if (message.inbound) {
       writer.uint32(64).bool(message.inbound);
     }
-    if (message.pingTime !== "0") {
+
+    if (message.pingTime !== '0') {
       writer.uint32(72).int64(message.pingTime);
     }
+
     if (message.syncType !== 0) {
       writer.uint32(80).int32(message.syncType);
     }
-    Object.entries(message.features).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.features)) {
       Peer_FeaturesEntry.encode(
-        { key: key as any, value },
-        writer.uint32(90).fork()
+        {key: key as any, value},
+        writer.uint32(90).fork(),
       ).ldelim();
-    });
-    for (const v of message.errors) {
-      TimestampedError.encode(v!, writer.uint32(98).fork()).ldelim();
     }
+
+    for (const v of message.errors) {
+      TimestampedError.encode(v, writer.uint32(98).fork()).ldelim();
+    }
+
     if (message.flapCount !== 0) {
       writer.uint32(104).int32(message.flapCount);
     }
-    if (message.lastFlapNs !== "0") {
+
+    if (message.lastFlapNs !== '0') {
       writer.uint32(112).int64(message.lastFlapNs);
     }
-    if (message.lastPingPayload.length !== 0) {
+
+    if (message.lastPingPayload.length > 0) {
       writer.uint32(122).bytes(message.lastPingPayload);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Peer {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeer();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9637,6 +9927,7 @@ export const Peer = {
           if (entry11.value !== undefined) {
             message.features[entry11.key] = entry11.value;
           }
+
           break;
         case 12:
           message.errors.push(TimestampedError.decode(reader, reader.uint32()));
@@ -9655,6 +9946,7 @@ export const Peer = {
           break;
       }
     }
+
     return message;
   },
 
@@ -9663,27 +9955,27 @@ export const Peer = {
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
         ? String(object.pubKey)
-        : "";
+        : '';
     message.address =
       object.address !== undefined && object.address !== null
         ? String(object.address)
-        : "";
+        : '';
     message.bytesSent =
       object.bytesSent !== undefined && object.bytesSent !== null
         ? String(object.bytesSent)
-        : "0";
+        : '0';
     message.bytesRecv =
       object.bytesRecv !== undefined && object.bytesRecv !== null
         ? String(object.bytesRecv)
-        : "0";
+        : '0';
     message.satSent =
       object.satSent !== undefined && object.satSent !== null
         ? String(object.satSent)
-        : "0";
+        : '0';
     message.satRecv =
       object.satRecv !== undefined && object.satRecv !== null
         ? String(object.satRecv)
-        : "0";
+        : '0';
     message.inbound =
       object.inbound !== undefined && object.inbound !== null
         ? Boolean(object.inbound)
@@ -9691,19 +9983,19 @@ export const Peer = {
     message.pingTime =
       object.pingTime !== undefined && object.pingTime !== null
         ? String(object.pingTime)
-        : "0";
+        : '0';
     message.syncType =
       object.syncType !== undefined && object.syncType !== null
         ? peer_SyncTypeFromJSON(object.syncType)
         : 0;
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       acc[Number(key)] = Feature.fromJSON(value);
       return acc;
     }, {});
     message.errors = (object.errors ?? []).map((e: any) =>
-      TimestampedError.fromJSON(e)
+      TimestampedError.fromJSON(e),
     );
     message.flapCount =
       object.flapCount !== undefined && object.flapCount !== null
@@ -9712,7 +10004,7 @@ export const Peer = {
     message.lastFlapNs =
       object.lastFlapNs !== undefined && object.lastFlapNs !== null
         ? String(object.lastFlapNs)
-        : "0";
+        : '0';
     message.lastPingPayload =
       object.lastPingPayload !== undefined && object.lastPingPayload !== null
         ? bytesFromBase64(object.lastPingPayload)
@@ -9721,91 +10013,97 @@ export const Peer = {
   },
 
   toJSON(message: Peer): unknown {
-    const obj: any = {};
-    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
-    message.address !== undefined && (obj.address = message.address);
-    message.bytesSent !== undefined && (obj.bytesSent = message.bytesSent);
-    message.bytesRecv !== undefined && (obj.bytesRecv = message.bytesRecv);
-    message.satSent !== undefined && (obj.satSent = message.satSent);
-    message.satRecv !== undefined && (obj.satRecv = message.satRecv);
-    message.inbound !== undefined && (obj.inbound = message.inbound);
-    message.pingTime !== undefined && (obj.pingTime = message.pingTime);
+    const object: any = {};
+    message.pubKey !== undefined && (object.pubKey = message.pubKey);
+    message.address !== undefined && (object.address = message.address);
+    message.bytesSent !== undefined && (object.bytesSent = message.bytesSent);
+    message.bytesRecv !== undefined && (object.bytesRecv = message.bytesRecv);
+    message.satSent !== undefined && (object.satSent = message.satSent);
+    message.satRecv !== undefined && (object.satRecv = message.satRecv);
+    message.inbound !== undefined && (object.inbound = message.inbound);
+    message.pingTime !== undefined && (object.pingTime = message.pingTime);
     message.syncType !== undefined &&
-      (obj.syncType = peer_SyncTypeToJSON(message.syncType));
-    obj.features = {};
+      (object.syncType = peer_SyncTypeToJSON(message.syncType));
+    object.features = {};
     if (message.features) {
-      Object.entries(message.features).forEach(([k, v]) => {
-        obj.features[k] = Feature.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.features)) {
+        object.features[k] = Feature.toJSON(v);
+      }
     }
+
     if (message.errors) {
-      obj.errors = message.errors.map((e) =>
-        e ? TimestampedError.toJSON(e) : undefined
+      object.errors = message.errors.map((e) =>
+        e ? TimestampedError.toJSON(e) : undefined,
       );
     } else {
-      obj.errors = [];
+      object.errors = [];
     }
+
     message.flapCount !== undefined &&
-      (obj.flapCount = Math.round(message.flapCount));
-    message.lastFlapNs !== undefined && (obj.lastFlapNs = message.lastFlapNs);
+      (object.flapCount = Math.round(message.flapCount));
+    message.lastFlapNs !== undefined &&
+      (object.lastFlapNs = message.lastFlapNs);
     message.lastPingPayload !== undefined &&
-      (obj.lastPingPayload = base64FromBytes(
+      (object.lastPingPayload = base64FromBytes(
         message.lastPingPayload !== undefined
           ? message.lastPingPayload
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<Peer>): Peer {
     const message = createBasePeer();
-    message.pubKey = object.pubKey ?? "";
-    message.address = object.address ?? "";
-    message.bytesSent = object.bytesSent ?? "0";
-    message.bytesRecv = object.bytesRecv ?? "0";
-    message.satSent = object.satSent ?? "0";
-    message.satRecv = object.satRecv ?? "0";
+    message.pubKey = object.pubKey ?? '';
+    message.address = object.address ?? '';
+    message.bytesSent = object.bytesSent ?? '0';
+    message.bytesRecv = object.bytesRecv ?? '0';
+    message.satSent = object.satSent ?? '0';
+    message.satRecv = object.satRecv ?? '0';
     message.inbound = object.inbound ?? false;
-    message.pingTime = object.pingTime ?? "0";
+    message.pingTime = object.pingTime ?? '0';
     message.syncType = object.syncType ?? 0;
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
+
       return acc;
     }, {});
     message.errors =
       object.errors?.map((e) => TimestampedError.fromPartial(e)) || [];
     message.flapCount = object.flapCount ?? 0;
-    message.lastFlapNs = object.lastFlapNs ?? "0";
+    message.lastFlapNs = object.lastFlapNs ?? '0';
     message.lastPingPayload = object.lastPingPayload ?? new Uint8Array();
     return message;
   },
 };
 
 function createBasePeer_FeaturesEntry(): Peer_FeaturesEntry {
-  return { key: 0, value: undefined };
+  return {key: 0, value: undefined};
 }
 
 export const Peer_FeaturesEntry = {
   encode(
     message: Peer_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
+
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Peer_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeer_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9821,6 +10119,7 @@ export const Peer_FeaturesEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -9836,11 +10135,13 @@ export const Peer_FeaturesEntry = {
   },
 
   toJSON(message: Peer_FeaturesEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = Math.round(message.key));
+    const object: any = {};
+    message.key !== undefined && (object.key = Math.round(message.key));
     message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
-    return obj;
+      (object.value = message.value
+        ? Feature.toJSON(message.value)
+        : undefined);
+    return object;
   },
 
   fromPartial(object: DeepPartial<Peer_FeaturesEntry>): Peer_FeaturesEntry {
@@ -9855,26 +10156,28 @@ export const Peer_FeaturesEntry = {
 };
 
 function createBaseTimestampedError(): TimestampedError {
-  return { timestamp: "0", error: "" };
+  return {timestamp: '0', error: ''};
 }
 
 export const TimestampedError = {
   encode(
     message: TimestampedError,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.timestamp !== "0") {
+    if (message.timestamp !== '0') {
       writer.uint32(8).uint64(message.timestamp);
     }
-    if (message.error !== "") {
+
+    if (message.error !== '') {
       writer.uint32(18).string(message.error);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): TimestampedError {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTimestampedError();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9890,6 +10193,7 @@ export const TimestampedError = {
           break;
       }
     }
+
     return message;
   },
 
@@ -9898,47 +10202,48 @@ export const TimestampedError = {
     message.timestamp =
       object.timestamp !== undefined && object.timestamp !== null
         ? String(object.timestamp)
-        : "0";
+        : '0';
     message.error =
       object.error !== undefined && object.error !== null
         ? String(object.error)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: TimestampedError): unknown {
-    const obj: any = {};
-    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
-    message.error !== undefined && (obj.error = message.error);
-    return obj;
+    const object: any = {};
+    message.timestamp !== undefined && (object.timestamp = message.timestamp);
+    message.error !== undefined && (object.error = message.error);
+    return object;
   },
 
   fromPartial(object: DeepPartial<TimestampedError>): TimestampedError {
     const message = createBaseTimestampedError();
-    message.timestamp = object.timestamp ?? "0";
-    message.error = object.error ?? "";
+    message.timestamp = object.timestamp ?? '0';
+    message.error = object.error ?? '';
     return message;
   },
 };
 
 function createBaseListPeersRequest(): ListPeersRequest {
-  return { latestError: false };
+  return {latestError: false};
 }
 
 export const ListPeersRequest = {
   encode(
     message: ListPeersRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.latestError === true) {
+    if (message.latestError) {
       writer.uint32(8).bool(message.latestError);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListPeersRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPeersRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9951,6 +10256,7 @@ export const ListPeersRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -9964,10 +10270,10 @@ export const ListPeersRequest = {
   },
 
   toJSON(message: ListPeersRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.latestError !== undefined &&
-      (obj.latestError = message.latestError);
-    return obj;
+      (object.latestError = message.latestError);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListPeersRequest>): ListPeersRequest {
@@ -9978,23 +10284,24 @@ export const ListPeersRequest = {
 };
 
 function createBaseListPeersResponse(): ListPeersResponse {
-  return { peers: [] };
+  return {peers: []};
 }
 
 export const ListPeersResponse = {
   encode(
     message: ListPeersResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.peers) {
-      Peer.encode(v!, writer.uint32(10).fork()).ldelim();
+      Peer.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListPeersResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPeersResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10007,6 +10314,7 @@ export const ListPeersResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10017,13 +10325,11 @@ export const ListPeersResponse = {
   },
 
   toJSON(message: ListPeersResponse): unknown {
-    const obj: any = {};
-    if (message.peers) {
-      obj.peers = message.peers.map((e) => (e ? Peer.toJSON(e) : undefined));
-    } else {
-      obj.peers = [];
-    }
-    return obj;
+    const object: any = {};
+    object.peers = message.peers
+      ? message.peers.map((e) => (e ? Peer.toJSON(e) : undefined))
+      : [];
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListPeersResponse>): ListPeersResponse {
@@ -10040,17 +10346,17 @@ function createBasePeerEventSubscription(): PeerEventSubscription {
 export const PeerEventSubscription = {
   encode(
     _: PeerEventSubscription,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PeerEventSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeerEventSubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10060,6 +10366,7 @@ export const PeerEventSubscription = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10069,8 +10376,8 @@ export const PeerEventSubscription = {
   },
 
   toJSON(_: PeerEventSubscription): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<PeerEventSubscription>): PeerEventSubscription {
@@ -10080,26 +10387,28 @@ export const PeerEventSubscription = {
 };
 
 function createBasePeerEvent(): PeerEvent {
-  return { pubKey: "", type: 0 };
+  return {pubKey: '', type: 0};
 }
 
 export const PeerEvent = {
   encode(
     message: PeerEvent,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pubKey !== "") {
+    if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
+
     if (message.type !== 0) {
       writer.uint32(16).int32(message.type);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PeerEvent {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeerEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10115,6 +10424,7 @@ export const PeerEvent = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10123,7 +10433,7 @@ export const PeerEvent = {
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
         ? String(object.pubKey)
-        : "";
+        : '';
     message.type =
       object.type !== undefined && object.type !== null
         ? peerEvent_EventTypeFromJSON(object.type)
@@ -10132,16 +10442,16 @@ export const PeerEvent = {
   },
 
   toJSON(message: PeerEvent): unknown {
-    const obj: any = {};
-    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
+    const object: any = {};
+    message.pubKey !== undefined && (object.pubKey = message.pubKey);
     message.type !== undefined &&
-      (obj.type = peerEvent_EventTypeToJSON(message.type));
-    return obj;
+      (object.type = peerEvent_EventTypeToJSON(message.type));
+    return object;
   },
 
   fromPartial(object: DeepPartial<PeerEvent>): PeerEvent {
     const message = createBasePeerEvent();
-    message.pubKey = object.pubKey ?? "";
+    message.pubKey = object.pubKey ?? '';
     message.type = object.type ?? 0;
     return message;
   },
@@ -10154,14 +10464,14 @@ function createBaseGetInfoRequest(): GetInfoRequest {
 export const GetInfoRequest = {
   encode(
     _: GetInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10171,6 +10481,7 @@ export const GetInfoRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10180,8 +10491,8 @@ export const GetInfoRequest = {
   },
 
   toJSON(_: GetInfoRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<GetInfoRequest>): GetInfoRequest {
@@ -10192,18 +10503,18 @@ export const GetInfoRequest = {
 
 function createBaseGetInfoResponse(): GetInfoResponse {
   return {
-    version: "",
-    commitHash: "",
-    identityPubkey: "",
-    alias: "",
-    color: "",
+    version: '',
+    commitHash: '',
+    identityPubkey: '',
+    alias: '',
+    color: '',
     numPendingChannels: 0,
     numActiveChannels: 0,
     numInactiveChannels: 0,
     numPeers: 0,
     blockHeight: 0,
-    blockHash: "",
-    bestHeaderTimestamp: "0",
+    blockHash: '',
+    bestHeaderTimestamp: '0',
     syncedToChain: false,
     syncedToGraph: false,
     testnet: false,
@@ -10216,71 +10527,89 @@ function createBaseGetInfoResponse(): GetInfoResponse {
 export const GetInfoResponse = {
   encode(
     message: GetInfoResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.version !== "") {
+    if (message.version !== '') {
       writer.uint32(114).string(message.version);
     }
-    if (message.commitHash !== "") {
+
+    if (message.commitHash !== '') {
       writer.uint32(162).string(message.commitHash);
     }
-    if (message.identityPubkey !== "") {
+
+    if (message.identityPubkey !== '') {
       writer.uint32(10).string(message.identityPubkey);
     }
-    if (message.alias !== "") {
+
+    if (message.alias !== '') {
       writer.uint32(18).string(message.alias);
     }
-    if (message.color !== "") {
+
+    if (message.color !== '') {
       writer.uint32(138).string(message.color);
     }
+
     if (message.numPendingChannels !== 0) {
       writer.uint32(24).uint32(message.numPendingChannels);
     }
+
     if (message.numActiveChannels !== 0) {
       writer.uint32(32).uint32(message.numActiveChannels);
     }
+
     if (message.numInactiveChannels !== 0) {
       writer.uint32(120).uint32(message.numInactiveChannels);
     }
+
     if (message.numPeers !== 0) {
       writer.uint32(40).uint32(message.numPeers);
     }
+
     if (message.blockHeight !== 0) {
       writer.uint32(48).uint32(message.blockHeight);
     }
-    if (message.blockHash !== "") {
+
+    if (message.blockHash !== '') {
       writer.uint32(66).string(message.blockHash);
     }
-    if (message.bestHeaderTimestamp !== "0") {
+
+    if (message.bestHeaderTimestamp !== '0') {
       writer.uint32(104).int64(message.bestHeaderTimestamp);
     }
-    if (message.syncedToChain === true) {
+
+    if (message.syncedToChain) {
       writer.uint32(72).bool(message.syncedToChain);
     }
-    if (message.syncedToGraph === true) {
+
+    if (message.syncedToGraph) {
       writer.uint32(144).bool(message.syncedToGraph);
     }
-    if (message.testnet === true) {
+
+    if (message.testnet) {
       writer.uint32(80).bool(message.testnet);
     }
+
     for (const v of message.chains) {
-      Chain.encode(v!, writer.uint32(130).fork()).ldelim();
+      Chain.encode(v, writer.uint32(130).fork()).ldelim();
     }
+
     for (const v of message.uris) {
-      writer.uint32(98).string(v!);
+      writer.uint32(98).string(v);
     }
-    Object.entries(message.features).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.features)) {
       GetInfoResponse_FeaturesEntry.encode(
-        { key: key as any, value },
-        writer.uint32(154).fork()
+        {key: key as any, value},
+        writer.uint32(154).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetInfoResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetInfoResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10339,17 +10668,19 @@ export const GetInfoResponse = {
         case 19:
           const entry19 = GetInfoResponse_FeaturesEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry19.value !== undefined) {
             message.features[entry19.key] = entry19.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -10358,23 +10689,23 @@ export const GetInfoResponse = {
     message.version =
       object.version !== undefined && object.version !== null
         ? String(object.version)
-        : "";
+        : '';
     message.commitHash =
       object.commitHash !== undefined && object.commitHash !== null
         ? String(object.commitHash)
-        : "";
+        : '';
     message.identityPubkey =
       object.identityPubkey !== undefined && object.identityPubkey !== null
         ? String(object.identityPubkey)
-        : "";
+        : '';
     message.alias =
       object.alias !== undefined && object.alias !== null
         ? String(object.alias)
-        : "";
+        : '';
     message.color =
       object.color !== undefined && object.color !== null
         ? String(object.color)
-        : "";
+        : '';
     message.numPendingChannels =
       object.numPendingChannels !== undefined &&
       object.numPendingChannels !== null
@@ -10401,12 +10732,12 @@ export const GetInfoResponse = {
     message.blockHash =
       object.blockHash !== undefined && object.blockHash !== null
         ? String(object.blockHash)
-        : "";
+        : '';
     message.bestHeaderTimestamp =
       object.bestHeaderTimestamp !== undefined &&
       object.bestHeaderTimestamp !== null
         ? String(object.bestHeaderTimestamp)
-        : "0";
+        : '0';
     message.syncedToChain =
       object.syncedToChain !== undefined && object.syncedToChain !== null
         ? Boolean(object.syncedToChain)
@@ -10421,9 +10752,9 @@ export const GetInfoResponse = {
         : false;
     message.chains = (object.chains ?? []).map((e: any) => Chain.fromJSON(e));
     message.uris = (object.uris ?? []).map((e: any) => String(e));
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       acc[Number(key)] = Feature.fromJSON(value);
       return acc;
     }, {});
@@ -10431,75 +10762,72 @@ export const GetInfoResponse = {
   },
 
   toJSON(message: GetInfoResponse): unknown {
-    const obj: any = {};
-    message.version !== undefined && (obj.version = message.version);
-    message.commitHash !== undefined && (obj.commitHash = message.commitHash);
+    const object: any = {};
+    message.version !== undefined && (object.version = message.version);
+    message.commitHash !== undefined &&
+      (object.commitHash = message.commitHash);
     message.identityPubkey !== undefined &&
-      (obj.identityPubkey = message.identityPubkey);
-    message.alias !== undefined && (obj.alias = message.alias);
-    message.color !== undefined && (obj.color = message.color);
+      (object.identityPubkey = message.identityPubkey);
+    message.alias !== undefined && (object.alias = message.alias);
+    message.color !== undefined && (object.color = message.color);
     message.numPendingChannels !== undefined &&
-      (obj.numPendingChannels = Math.round(message.numPendingChannels));
+      (object.numPendingChannels = Math.round(message.numPendingChannels));
     message.numActiveChannels !== undefined &&
-      (obj.numActiveChannels = Math.round(message.numActiveChannels));
+      (object.numActiveChannels = Math.round(message.numActiveChannels));
     message.numInactiveChannels !== undefined &&
-      (obj.numInactiveChannels = Math.round(message.numInactiveChannels));
+      (object.numInactiveChannels = Math.round(message.numInactiveChannels));
     message.numPeers !== undefined &&
-      (obj.numPeers = Math.round(message.numPeers));
+      (object.numPeers = Math.round(message.numPeers));
     message.blockHeight !== undefined &&
-      (obj.blockHeight = Math.round(message.blockHeight));
-    message.blockHash !== undefined && (obj.blockHash = message.blockHash);
+      (object.blockHeight = Math.round(message.blockHeight));
+    message.blockHash !== undefined && (object.blockHash = message.blockHash);
     message.bestHeaderTimestamp !== undefined &&
-      (obj.bestHeaderTimestamp = message.bestHeaderTimestamp);
+      (object.bestHeaderTimestamp = message.bestHeaderTimestamp);
     message.syncedToChain !== undefined &&
-      (obj.syncedToChain = message.syncedToChain);
+      (object.syncedToChain = message.syncedToChain);
     message.syncedToGraph !== undefined &&
-      (obj.syncedToGraph = message.syncedToGraph);
-    message.testnet !== undefined && (obj.testnet = message.testnet);
-    if (message.chains) {
-      obj.chains = message.chains.map((e) => (e ? Chain.toJSON(e) : undefined));
-    } else {
-      obj.chains = [];
-    }
-    if (message.uris) {
-      obj.uris = message.uris.map((e) => e);
-    } else {
-      obj.uris = [];
-    }
-    obj.features = {};
+      (object.syncedToGraph = message.syncedToGraph);
+    message.testnet !== undefined && (object.testnet = message.testnet);
+    object.chains = message.chains
+      ? message.chains.map((e) => (e ? Chain.toJSON(e) : undefined))
+      : [];
+    object.uris = message.uris ? message.uris.map((e) => e) : [];
+    object.features = {};
     if (message.features) {
-      Object.entries(message.features).forEach(([k, v]) => {
-        obj.features[k] = Feature.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.features)) {
+        object.features[k] = Feature.toJSON(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<GetInfoResponse>): GetInfoResponse {
     const message = createBaseGetInfoResponse();
-    message.version = object.version ?? "";
-    message.commitHash = object.commitHash ?? "";
-    message.identityPubkey = object.identityPubkey ?? "";
-    message.alias = object.alias ?? "";
-    message.color = object.color ?? "";
+    message.version = object.version ?? '';
+    message.commitHash = object.commitHash ?? '';
+    message.identityPubkey = object.identityPubkey ?? '';
+    message.alias = object.alias ?? '';
+    message.color = object.color ?? '';
     message.numPendingChannels = object.numPendingChannels ?? 0;
     message.numActiveChannels = object.numActiveChannels ?? 0;
     message.numInactiveChannels = object.numInactiveChannels ?? 0;
     message.numPeers = object.numPeers ?? 0;
     message.blockHeight = object.blockHeight ?? 0;
-    message.blockHash = object.blockHash ?? "";
-    message.bestHeaderTimestamp = object.bestHeaderTimestamp ?? "0";
+    message.blockHash = object.blockHash ?? '';
+    message.bestHeaderTimestamp = object.bestHeaderTimestamp ?? '0';
     message.syncedToChain = object.syncedToChain ?? false;
     message.syncedToGraph = object.syncedToGraph ?? false;
     message.testnet = object.testnet ?? false;
     message.chains = object.chains?.map((e) => Chain.fromPartial(e)) || [];
     message.uris = object.uris?.map((e) => e) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
+
       return acc;
     }, {});
     return message;
@@ -10507,29 +10835,31 @@ export const GetInfoResponse = {
 };
 
 function createBaseGetInfoResponse_FeaturesEntry(): GetInfoResponse_FeaturesEntry {
-  return { key: 0, value: undefined };
+  return {key: 0, value: undefined};
 }
 
 export const GetInfoResponse_FeaturesEntry = {
   encode(
     message: GetInfoResponse_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
+
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): GetInfoResponse_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetInfoResponse_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10545,6 +10875,7 @@ export const GetInfoResponse_FeaturesEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10560,15 +10891,17 @@ export const GetInfoResponse_FeaturesEntry = {
   },
 
   toJSON(message: GetInfoResponse_FeaturesEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = Math.round(message.key));
+    const object: any = {};
+    message.key !== undefined && (object.key = Math.round(message.key));
     message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
-    return obj;
+      (object.value = message.value
+        ? Feature.toJSON(message.value)
+        : undefined);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<GetInfoResponse_FeaturesEntry>
+    object: DeepPartial<GetInfoResponse_FeaturesEntry>,
   ): GetInfoResponse_FeaturesEntry {
     const message = createBaseGetInfoResponse_FeaturesEntry();
     message.key = object.key ?? 0;
@@ -10587,17 +10920,17 @@ function createBaseGetRecoveryInfoRequest(): GetRecoveryInfoRequest {
 export const GetRecoveryInfoRequest = {
   encode(
     _: GetRecoveryInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): GetRecoveryInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRecoveryInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10607,6 +10940,7 @@ export const GetRecoveryInfoRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10616,8 +10950,8 @@ export const GetRecoveryInfoRequest = {
   },
 
   toJSON(_: GetRecoveryInfoRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<GetRecoveryInfoRequest>): GetRecoveryInfoRequest {
@@ -10627,32 +10961,35 @@ export const GetRecoveryInfoRequest = {
 };
 
 function createBaseGetRecoveryInfoResponse(): GetRecoveryInfoResponse {
-  return { recoveryMode: false, recoveryFinished: false, progress: 0 };
+  return {recoveryMode: false, recoveryFinished: false, progress: 0};
 }
 
 export const GetRecoveryInfoResponse = {
   encode(
     message: GetRecoveryInfoResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.recoveryMode === true) {
+    if (message.recoveryMode) {
       writer.uint32(8).bool(message.recoveryMode);
     }
-    if (message.recoveryFinished === true) {
+
+    if (message.recoveryFinished) {
       writer.uint32(16).bool(message.recoveryFinished);
     }
+
     if (message.progress !== 0) {
       writer.uint32(25).double(message.progress);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): GetRecoveryInfoResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRecoveryInfoResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10671,6 +11008,7 @@ export const GetRecoveryInfoResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10692,17 +11030,17 @@ export const GetRecoveryInfoResponse = {
   },
 
   toJSON(message: GetRecoveryInfoResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.recoveryMode !== undefined &&
-      (obj.recoveryMode = message.recoveryMode);
+      (object.recoveryMode = message.recoveryMode);
     message.recoveryFinished !== undefined &&
-      (obj.recoveryFinished = message.recoveryFinished);
-    message.progress !== undefined && (obj.progress = message.progress);
-    return obj;
+      (object.recoveryFinished = message.recoveryFinished);
+    message.progress !== undefined && (object.progress = message.progress);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<GetRecoveryInfoResponse>
+    object: DeepPartial<GetRecoveryInfoResponse>,
   ): GetRecoveryInfoResponse {
     const message = createBaseGetRecoveryInfoResponse();
     message.recoveryMode = object.recoveryMode ?? false;
@@ -10713,23 +11051,25 @@ export const GetRecoveryInfoResponse = {
 };
 
 function createBaseChain(): Chain {
-  return { chain: "", network: "" };
+  return {chain: '', network: ''};
 }
 
 export const Chain = {
   encode(message: Chain, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chain !== "") {
+    if (message.chain !== '') {
       writer.uint32(10).string(message.chain);
     }
-    if (message.network !== "") {
+
+    if (message.network !== '') {
       writer.uint32(18).string(message.network);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Chain {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChain();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10745,6 +11085,7 @@ export const Chain = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10753,53 +11094,56 @@ export const Chain = {
     message.chain =
       object.chain !== undefined && object.chain !== null
         ? String(object.chain)
-        : "";
+        : '';
     message.network =
       object.network !== undefined && object.network !== null
         ? String(object.network)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: Chain): unknown {
-    const obj: any = {};
-    message.chain !== undefined && (obj.chain = message.chain);
-    message.network !== undefined && (obj.network = message.network);
-    return obj;
+    const object: any = {};
+    message.chain !== undefined && (object.chain = message.chain);
+    message.network !== undefined && (object.network = message.network);
+    return object;
   },
 
   fromPartial(object: DeepPartial<Chain>): Chain {
     const message = createBaseChain();
-    message.chain = object.chain ?? "";
-    message.network = object.network ?? "";
+    message.chain = object.chain ?? '';
+    message.network = object.network ?? '';
     return message;
   },
 };
 
 function createBaseConfirmationUpdate(): ConfirmationUpdate {
-  return { blockSha: new Uint8Array(), blockHeight: 0, numConfsLeft: 0 };
+  return {blockSha: new Uint8Array(), blockHeight: 0, numConfsLeft: 0};
 }
 
 export const ConfirmationUpdate = {
   encode(
     message: ConfirmationUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.blockSha.length !== 0) {
+    if (message.blockSha.length > 0) {
       writer.uint32(10).bytes(message.blockSha);
     }
+
     if (message.blockHeight !== 0) {
       writer.uint32(16).int32(message.blockHeight);
     }
+
     if (message.numConfsLeft !== 0) {
       writer.uint32(24).uint32(message.numConfsLeft);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConfirmationUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConfirmationUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10818,6 +11162,7 @@ export const ConfirmationUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10839,16 +11184,16 @@ export const ConfirmationUpdate = {
   },
 
   toJSON(message: ConfirmationUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.blockSha !== undefined &&
-      (obj.blockSha = base64FromBytes(
-        message.blockSha !== undefined ? message.blockSha : new Uint8Array()
+      (object.blockSha = base64FromBytes(
+        message.blockSha !== undefined ? message.blockSha : new Uint8Array(),
       ));
     message.blockHeight !== undefined &&
-      (obj.blockHeight = Math.round(message.blockHeight));
+      (object.blockHeight = Math.round(message.blockHeight));
     message.numConfsLeft !== undefined &&
-      (obj.numConfsLeft = Math.round(message.numConfsLeft));
-    return obj;
+      (object.numConfsLeft = Math.round(message.numConfsLeft));
+    return object;
   },
 
   fromPartial(object: DeepPartial<ConfirmationUpdate>): ConfirmationUpdate {
@@ -10861,26 +11206,27 @@ export const ConfirmationUpdate = {
 };
 
 function createBaseChannelOpenUpdate(): ChannelOpenUpdate {
-  return { channelPoint: undefined };
+  return {channelPoint: undefined};
 }
 
 export const ChannelOpenUpdate = {
   encode(
     message: ChannelOpenUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.channelPoint !== undefined) {
       ChannelPoint.encode(
         message.channelPoint,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelOpenUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelOpenUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10893,6 +11239,7 @@ export const ChannelOpenUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10906,12 +11253,12 @@ export const ChannelOpenUpdate = {
   },
 
   toJSON(message: ChannelOpenUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint
+      (object.channelPoint = message.channelPoint
         ? ChannelPoint.toJSON(message.channelPoint)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelOpenUpdate>): ChannelOpenUpdate {
@@ -10925,26 +11272,28 @@ export const ChannelOpenUpdate = {
 };
 
 function createBaseChannelCloseUpdate(): ChannelCloseUpdate {
-  return { closingTxid: new Uint8Array(), success: false };
+  return {closingTxid: new Uint8Array(), success: false};
 }
 
 export const ChannelCloseUpdate = {
   encode(
     message: ChannelCloseUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.closingTxid.length !== 0) {
+    if (message.closingTxid.length > 0) {
       writer.uint32(10).bytes(message.closingTxid);
     }
-    if (message.success === true) {
+
+    if (message.success) {
       writer.uint32(16).bool(message.success);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelCloseUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelCloseUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10960,6 +11309,7 @@ export const ChannelCloseUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -10977,15 +11327,15 @@ export const ChannelCloseUpdate = {
   },
 
   toJSON(message: ChannelCloseUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.closingTxid !== undefined &&
-      (obj.closingTxid = base64FromBytes(
+      (object.closingTxid = base64FromBytes(
         message.closingTxid !== undefined
           ? message.closingTxid
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    message.success !== undefined && (obj.success = message.success);
-    return obj;
+    message.success !== undefined && (object.success = message.success);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelCloseUpdate>): ChannelCloseUpdate {
@@ -11001,44 +11351,50 @@ function createBaseCloseChannelRequest(): CloseChannelRequest {
     channelPoint: undefined,
     force: false,
     targetConf: 0,
-    satPerByte: "0",
-    deliveryAddress: "",
-    satPerVbyte: "0",
+    satPerByte: '0',
+    deliveryAddress: '',
+    satPerVbyte: '0',
   };
 }
 
 export const CloseChannelRequest = {
   encode(
     message: CloseChannelRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.channelPoint !== undefined) {
       ChannelPoint.encode(
         message.channelPoint,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
-    if (message.force === true) {
+
+    if (message.force) {
       writer.uint32(16).bool(message.force);
     }
+
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerByte !== "0") {
+
+    if (message.satPerByte !== '0') {
       writer.uint32(32).int64(message.satPerByte);
     }
-    if (message.deliveryAddress !== "") {
+
+    if (message.deliveryAddress !== '') {
       writer.uint32(42).string(message.deliveryAddress);
     }
-    if (message.satPerVbyte !== "0") {
+
+    if (message.satPerVbyte !== '0') {
       writer.uint32(48).uint64(message.satPerVbyte);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CloseChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCloseChannelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11066,6 +11422,7 @@ export const CloseChannelRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -11086,33 +11443,34 @@ export const CloseChannelRequest = {
     message.satPerByte =
       object.satPerByte !== undefined && object.satPerByte !== null
         ? String(object.satPerByte)
-        : "0";
+        : '0';
     message.deliveryAddress =
       object.deliveryAddress !== undefined && object.deliveryAddress !== null
         ? String(object.deliveryAddress)
-        : "";
+        : '';
     message.satPerVbyte =
       object.satPerVbyte !== undefined && object.satPerVbyte !== null
         ? String(object.satPerVbyte)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: CloseChannelRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint
+      (object.channelPoint = message.channelPoint
         ? ChannelPoint.toJSON(message.channelPoint)
         : undefined);
-    message.force !== undefined && (obj.force = message.force);
+    message.force !== undefined && (object.force = message.force);
     message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
-    message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
+      (object.targetConf = Math.round(message.targetConf));
+    message.satPerByte !== undefined &&
+      (object.satPerByte = message.satPerByte);
     message.deliveryAddress !== undefined &&
-      (obj.deliveryAddress = message.deliveryAddress);
+      (object.deliveryAddress = message.deliveryAddress);
     message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
-    return obj;
+      (object.satPerVbyte = message.satPerVbyte);
+    return object;
   },
 
   fromPartial(object: DeepPartial<CloseChannelRequest>): CloseChannelRequest {
@@ -11123,40 +11481,42 @@ export const CloseChannelRequest = {
         : undefined;
     message.force = object.force ?? false;
     message.targetConf = object.targetConf ?? 0;
-    message.satPerByte = object.satPerByte ?? "0";
-    message.deliveryAddress = object.deliveryAddress ?? "";
-    message.satPerVbyte = object.satPerVbyte ?? "0";
+    message.satPerByte = object.satPerByte ?? '0';
+    message.deliveryAddress = object.deliveryAddress ?? '';
+    message.satPerVbyte = object.satPerVbyte ?? '0';
     return message;
   },
 };
 
 function createBaseCloseStatusUpdate(): CloseStatusUpdate {
-  return { closePending: undefined, chanClose: undefined };
+  return {closePending: undefined, chanClose: undefined};
 }
 
 export const CloseStatusUpdate = {
   encode(
     message: CloseStatusUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.closePending !== undefined) {
       PendingUpdate.encode(
         message.closePending,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
+
     if (message.chanClose !== undefined) {
       ChannelCloseUpdate.encode(
         message.chanClose,
-        writer.uint32(26).fork()
+        writer.uint32(26).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CloseStatusUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCloseStatusUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11167,7 +11527,7 @@ export const CloseStatusUpdate = {
         case 3:
           message.chanClose = ChannelCloseUpdate.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         default:
@@ -11175,6 +11535,7 @@ export const CloseStatusUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -11192,16 +11553,16 @@ export const CloseStatusUpdate = {
   },
 
   toJSON(message: CloseStatusUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.closePending !== undefined &&
-      (obj.closePending = message.closePending
+      (object.closePending = message.closePending
         ? PendingUpdate.toJSON(message.closePending)
         : undefined);
     message.chanClose !== undefined &&
-      (obj.chanClose = message.chanClose
+      (object.chanClose = message.chanClose
         ? ChannelCloseUpdate.toJSON(message.chanClose)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<CloseStatusUpdate>): CloseStatusUpdate {
@@ -11219,26 +11580,28 @@ export const CloseStatusUpdate = {
 };
 
 function createBasePendingUpdate(): PendingUpdate {
-  return { txid: new Uint8Array(), outputIndex: 0 };
+  return {txid: new Uint8Array(), outputIndex: 0};
 }
 
 export const PendingUpdate = {
   encode(
     message: PendingUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.txid.length !== 0) {
+    if (message.txid.length > 0) {
       writer.uint32(10).bytes(message.txid);
     }
+
     if (message.outputIndex !== 0) {
       writer.uint32(16).uint32(message.outputIndex);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PendingUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11254,6 +11617,7 @@ export const PendingUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -11271,14 +11635,14 @@ export const PendingUpdate = {
   },
 
   toJSON(message: PendingUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.txid !== undefined &&
-      (obj.txid = base64FromBytes(
-        message.txid !== undefined ? message.txid : new Uint8Array()
+      (object.txid = base64FromBytes(
+        message.txid !== undefined ? message.txid : new Uint8Array(),
       ));
     message.outputIndex !== undefined &&
-      (obj.outputIndex = Math.round(message.outputIndex));
-    return obj;
+      (object.outputIndex = Math.round(message.outputIndex));
+    return object;
   },
 
   fromPartial(object: DeepPartial<PendingUpdate>): PendingUpdate {
@@ -11290,29 +11654,32 @@ export const PendingUpdate = {
 };
 
 function createBaseReadyForPsbtFunding(): ReadyForPsbtFunding {
-  return { fundingAddress: "", fundingAmount: "0", psbt: new Uint8Array() };
+  return {fundingAddress: '', fundingAmount: '0', psbt: new Uint8Array()};
 }
 
 export const ReadyForPsbtFunding = {
   encode(
     message: ReadyForPsbtFunding,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.fundingAddress !== "") {
+    if (message.fundingAddress !== '') {
       writer.uint32(10).string(message.fundingAddress);
     }
-    if (message.fundingAmount !== "0") {
+
+    if (message.fundingAmount !== '0') {
       writer.uint32(16).int64(message.fundingAmount);
     }
-    if (message.psbt.length !== 0) {
+
+    if (message.psbt.length > 0) {
       writer.uint32(26).bytes(message.psbt);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ReadyForPsbtFunding {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseReadyForPsbtFunding();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11331,6 +11698,7 @@ export const ReadyForPsbtFunding = {
           break;
       }
     }
+
     return message;
   },
 
@@ -11339,11 +11707,11 @@ export const ReadyForPsbtFunding = {
     message.fundingAddress =
       object.fundingAddress !== undefined && object.fundingAddress !== null
         ? String(object.fundingAddress)
-        : "";
+        : '';
     message.fundingAmount =
       object.fundingAmount !== undefined && object.fundingAmount !== null
         ? String(object.fundingAmount)
-        : "0";
+        : '0';
     message.psbt =
       object.psbt !== undefined && object.psbt !== null
         ? bytesFromBase64(object.psbt)
@@ -11352,22 +11720,22 @@ export const ReadyForPsbtFunding = {
   },
 
   toJSON(message: ReadyForPsbtFunding): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.fundingAddress !== undefined &&
-      (obj.fundingAddress = message.fundingAddress);
+      (object.fundingAddress = message.fundingAddress);
     message.fundingAmount !== undefined &&
-      (obj.fundingAmount = message.fundingAmount);
+      (object.fundingAmount = message.fundingAmount);
     message.psbt !== undefined &&
-      (obj.psbt = base64FromBytes(
-        message.psbt !== undefined ? message.psbt : new Uint8Array()
+      (object.psbt = base64FromBytes(
+        message.psbt !== undefined ? message.psbt : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<ReadyForPsbtFunding>): ReadyForPsbtFunding {
     const message = createBaseReadyForPsbtFunding();
-    message.fundingAddress = object.fundingAddress ?? "";
-    message.fundingAmount = object.fundingAmount ?? "0";
+    message.fundingAddress = object.fundingAddress ?? '';
+    message.fundingAmount = object.fundingAmount ?? '0';
     message.psbt = object.psbt ?? new Uint8Array();
     return message;
   },
@@ -11377,52 +11745,58 @@ function createBaseBatchOpenChannelRequest(): BatchOpenChannelRequest {
   return {
     channels: [],
     targetConf: 0,
-    satPerVbyte: "0",
+    satPerVbyte: '0',
     minConfs: 0,
     spendUnconfirmed: false,
-    label: "",
+    label: '',
   };
 }
 
 export const BatchOpenChannelRequest = {
   encode(
     message: BatchOpenChannelRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.channels) {
-      BatchOpenChannel.encode(v!, writer.uint32(10).fork()).ldelim();
+      BatchOpenChannel.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.targetConf !== 0) {
       writer.uint32(16).int32(message.targetConf);
     }
-    if (message.satPerVbyte !== "0") {
+
+    if (message.satPerVbyte !== '0') {
       writer.uint32(24).int64(message.satPerVbyte);
     }
+
     if (message.minConfs !== 0) {
       writer.uint32(32).int32(message.minConfs);
     }
-    if (message.spendUnconfirmed === true) {
+
+    if (message.spendUnconfirmed) {
       writer.uint32(40).bool(message.spendUnconfirmed);
     }
-    if (message.label !== "") {
+
+    if (message.label !== '') {
       writer.uint32(50).string(message.label);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): BatchOpenChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBatchOpenChannelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.channels.push(
-            BatchOpenChannel.decode(reader, reader.uint32())
+            BatchOpenChannel.decode(reader, reader.uint32()),
           );
           break;
         case 2:
@@ -11445,13 +11819,14 @@ export const BatchOpenChannelRequest = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): BatchOpenChannelRequest {
     const message = createBaseBatchOpenChannelRequest();
     message.channels = (object.channels ?? []).map((e: any) =>
-      BatchOpenChannel.fromJSON(e)
+      BatchOpenChannel.fromJSON(e),
     );
     message.targetConf =
       object.targetConf !== undefined && object.targetConf !== null
@@ -11460,7 +11835,7 @@ export const BatchOpenChannelRequest = {
     message.satPerVbyte =
       object.satPerVbyte !== undefined && object.satPerVbyte !== null
         ? String(object.satPerVbyte)
-        : "0";
+        : '0';
     message.minConfs =
       object.minConfs !== undefined && object.minConfs !== null
         ? Number(object.minConfs)
@@ -11472,42 +11847,43 @@ export const BatchOpenChannelRequest = {
     message.label =
       object.label !== undefined && object.label !== null
         ? String(object.label)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: BatchOpenChannelRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.channels) {
-      obj.channels = message.channels.map((e) =>
-        e ? BatchOpenChannel.toJSON(e) : undefined
+      object.channels = message.channels.map((e) =>
+        e ? BatchOpenChannel.toJSON(e) : undefined,
       );
     } else {
-      obj.channels = [];
+      object.channels = [];
     }
+
     message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
+      (object.targetConf = Math.round(message.targetConf));
     message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
+      (object.satPerVbyte = message.satPerVbyte);
     message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
+      (object.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
-    message.label !== undefined && (obj.label = message.label);
-    return obj;
+      (object.spendUnconfirmed = message.spendUnconfirmed);
+    message.label !== undefined && (object.label = message.label);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<BatchOpenChannelRequest>
+    object: DeepPartial<BatchOpenChannelRequest>,
   ): BatchOpenChannelRequest {
     const message = createBaseBatchOpenChannelRequest();
     message.channels =
       object.channels?.map((e) => BatchOpenChannel.fromPartial(e)) || [];
     message.targetConf = object.targetConf ?? 0;
-    message.satPerVbyte = object.satPerVbyte ?? "0";
+    message.satPerVbyte = object.satPerVbyte ?? '0';
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
-    message.label = object.label ?? "";
+    message.label = object.label ?? '';
     return message;
   },
 };
@@ -11515,12 +11891,12 @@ export const BatchOpenChannelRequest = {
 function createBaseBatchOpenChannel(): BatchOpenChannel {
   return {
     nodePubkey: new Uint8Array(),
-    localFundingAmount: "0",
-    pushSat: "0",
+    localFundingAmount: '0',
+    pushSat: '0',
     private: false,
-    minHtlcMsat: "0",
+    minHtlcMsat: '0',
     remoteCsvDelay: 0,
-    closeAddress: "",
+    closeAddress: '',
     pendingChanId: new Uint8Array(),
     commitmentType: 0,
   };
@@ -11529,41 +11905,50 @@ function createBaseBatchOpenChannel(): BatchOpenChannel {
 export const BatchOpenChannel = {
   encode(
     message: BatchOpenChannel,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.nodePubkey.length !== 0) {
+    if (message.nodePubkey.length > 0) {
       writer.uint32(10).bytes(message.nodePubkey);
     }
-    if (message.localFundingAmount !== "0") {
+
+    if (message.localFundingAmount !== '0') {
       writer.uint32(16).int64(message.localFundingAmount);
     }
-    if (message.pushSat !== "0") {
+
+    if (message.pushSat !== '0') {
       writer.uint32(24).int64(message.pushSat);
     }
-    if (message.private === true) {
+
+    if (message.private) {
       writer.uint32(32).bool(message.private);
     }
-    if (message.minHtlcMsat !== "0") {
+
+    if (message.minHtlcMsat !== '0') {
       writer.uint32(40).int64(message.minHtlcMsat);
     }
+
     if (message.remoteCsvDelay !== 0) {
       writer.uint32(48).uint32(message.remoteCsvDelay);
     }
-    if (message.closeAddress !== "") {
+
+    if (message.closeAddress !== '') {
       writer.uint32(58).string(message.closeAddress);
     }
-    if (message.pendingChanId.length !== 0) {
+
+    if (message.pendingChanId.length > 0) {
       writer.uint32(66).bytes(message.pendingChanId);
     }
+
     if (message.commitmentType !== 0) {
       writer.uint32(72).int32(message.commitmentType);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): BatchOpenChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBatchOpenChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11600,6 +11985,7 @@ export const BatchOpenChannel = {
           break;
       }
     }
+
     return message;
   },
 
@@ -11613,11 +11999,11 @@ export const BatchOpenChannel = {
       object.localFundingAmount !== undefined &&
       object.localFundingAmount !== null
         ? String(object.localFundingAmount)
-        : "0";
+        : '0';
     message.pushSat =
       object.pushSat !== undefined && object.pushSat !== null
         ? String(object.pushSat)
-        : "0";
+        : '0';
     message.private =
       object.private !== undefined && object.private !== null
         ? Boolean(object.private)
@@ -11625,7 +12011,7 @@ export const BatchOpenChannel = {
     message.minHtlcMsat =
       object.minHtlcMsat !== undefined && object.minHtlcMsat !== null
         ? String(object.minHtlcMsat)
-        : "0";
+        : '0';
     message.remoteCsvDelay =
       object.remoteCsvDelay !== undefined && object.remoteCsvDelay !== null
         ? Number(object.remoteCsvDelay)
@@ -11633,7 +12019,7 @@ export const BatchOpenChannel = {
     message.closeAddress =
       object.closeAddress !== undefined && object.closeAddress !== null
         ? String(object.closeAddress)
-        : "";
+        : '';
     message.pendingChanId =
       object.pendingChanId !== undefined && object.pendingChanId !== null
         ? bytesFromBase64(object.pendingChanId)
@@ -11646,41 +12032,43 @@ export const BatchOpenChannel = {
   },
 
   toJSON(message: BatchOpenChannel): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.nodePubkey !== undefined &&
-      (obj.nodePubkey = base64FromBytes(
-        message.nodePubkey !== undefined ? message.nodePubkey : new Uint8Array()
+      (object.nodePubkey = base64FromBytes(
+        message.nodePubkey !== undefined
+          ? message.nodePubkey
+          : new Uint8Array(),
       ));
     message.localFundingAmount !== undefined &&
-      (obj.localFundingAmount = message.localFundingAmount);
-    message.pushSat !== undefined && (obj.pushSat = message.pushSat);
-    message.private !== undefined && (obj.private = message.private);
+      (object.localFundingAmount = message.localFundingAmount);
+    message.pushSat !== undefined && (object.pushSat = message.pushSat);
+    message.private !== undefined && (object.private = message.private);
     message.minHtlcMsat !== undefined &&
-      (obj.minHtlcMsat = message.minHtlcMsat);
+      (object.minHtlcMsat = message.minHtlcMsat);
     message.remoteCsvDelay !== undefined &&
-      (obj.remoteCsvDelay = Math.round(message.remoteCsvDelay));
+      (object.remoteCsvDelay = Math.round(message.remoteCsvDelay));
     message.closeAddress !== undefined &&
-      (obj.closeAddress = message.closeAddress);
+      (object.closeAddress = message.closeAddress);
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    return obj;
+      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    return object;
   },
 
   fromPartial(object: DeepPartial<BatchOpenChannel>): BatchOpenChannel {
     const message = createBaseBatchOpenChannel();
     message.nodePubkey = object.nodePubkey ?? new Uint8Array();
-    message.localFundingAmount = object.localFundingAmount ?? "0";
-    message.pushSat = object.pushSat ?? "0";
+    message.localFundingAmount = object.localFundingAmount ?? '0';
+    message.pushSat = object.pushSat ?? '0';
     message.private = object.private ?? false;
-    message.minHtlcMsat = object.minHtlcMsat ?? "0";
+    message.minHtlcMsat = object.minHtlcMsat ?? '0';
     message.remoteCsvDelay = object.remoteCsvDelay ?? 0;
-    message.closeAddress = object.closeAddress ?? "";
+    message.closeAddress = object.closeAddress ?? '';
     message.pendingChanId = object.pendingChanId ?? new Uint8Array();
     message.commitmentType = object.commitmentType ?? 0;
     return message;
@@ -11688,33 +12076,34 @@ export const BatchOpenChannel = {
 };
 
 function createBaseBatchOpenChannelResponse(): BatchOpenChannelResponse {
-  return { pendingChannels: [] };
+  return {pendingChannels: []};
 }
 
 export const BatchOpenChannelResponse = {
   encode(
     message: BatchOpenChannelResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.pendingChannels) {
-      PendingUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
+      PendingUpdate.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): BatchOpenChannelResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBatchOpenChannelResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.pendingChannels.push(
-            PendingUpdate.decode(reader, reader.uint32())
+            PendingUpdate.decode(reader, reader.uint32()),
           );
           break;
         default:
@@ -11722,31 +12111,33 @@ export const BatchOpenChannelResponse = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): BatchOpenChannelResponse {
     const message = createBaseBatchOpenChannelResponse();
     message.pendingChannels = (object.pendingChannels ?? []).map((e: any) =>
-      PendingUpdate.fromJSON(e)
+      PendingUpdate.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: BatchOpenChannelResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.pendingChannels) {
-      obj.pendingChannels = message.pendingChannels.map((e) =>
-        e ? PendingUpdate.toJSON(e) : undefined
+      object.pendingChannels = message.pendingChannels.map((e) =>
+        e ? PendingUpdate.toJSON(e) : undefined,
       );
     } else {
-      obj.pendingChannels = [];
+      object.pendingChannels = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<BatchOpenChannelResponse>
+    object: DeepPartial<BatchOpenChannelResponse>,
   ): BatchOpenChannelResponse {
     const message = createBaseBatchOpenChannelResponse();
     message.pendingChannels =
@@ -11757,21 +12148,21 @@ export const BatchOpenChannelResponse = {
 
 function createBaseOpenChannelRequest(): OpenChannelRequest {
   return {
-    satPerVbyte: "0",
+    satPerVbyte: '0',
     nodePubkey: new Uint8Array(),
-    nodePubkeyString: "",
-    localFundingAmount: "0",
-    pushSat: "0",
+    nodePubkeyString: '',
+    localFundingAmount: '0',
+    pushSat: '0',
     targetConf: 0,
-    satPerByte: "0",
+    satPerByte: '0',
     private: false,
-    minHtlcMsat: "0",
+    minHtlcMsat: '0',
     remoteCsvDelay: 0,
     minConfs: 0,
     spendUnconfirmed: false,
-    closeAddress: "",
+    closeAddress: '',
     fundingShim: undefined,
-    remoteMaxValueInFlightMsat: "0",
+    remoteMaxValueInFlightMsat: '0',
     remoteMaxHtlcs: 0,
     maxLocalCsv: 0,
     commitmentType: 0,
@@ -11781,71 +12172,89 @@ function createBaseOpenChannelRequest(): OpenChannelRequest {
 export const OpenChannelRequest = {
   encode(
     message: OpenChannelRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.satPerVbyte !== "0") {
+    if (message.satPerVbyte !== '0') {
       writer.uint32(8).uint64(message.satPerVbyte);
     }
-    if (message.nodePubkey.length !== 0) {
+
+    if (message.nodePubkey.length > 0) {
       writer.uint32(18).bytes(message.nodePubkey);
     }
-    if (message.nodePubkeyString !== "") {
+
+    if (message.nodePubkeyString !== '') {
       writer.uint32(26).string(message.nodePubkeyString);
     }
-    if (message.localFundingAmount !== "0") {
+
+    if (message.localFundingAmount !== '0') {
       writer.uint32(32).int64(message.localFundingAmount);
     }
-    if (message.pushSat !== "0") {
+
+    if (message.pushSat !== '0') {
       writer.uint32(40).int64(message.pushSat);
     }
+
     if (message.targetConf !== 0) {
       writer.uint32(48).int32(message.targetConf);
     }
-    if (message.satPerByte !== "0") {
+
+    if (message.satPerByte !== '0') {
       writer.uint32(56).int64(message.satPerByte);
     }
-    if (message.private === true) {
+
+    if (message.private) {
       writer.uint32(64).bool(message.private);
     }
-    if (message.minHtlcMsat !== "0") {
+
+    if (message.minHtlcMsat !== '0') {
       writer.uint32(72).int64(message.minHtlcMsat);
     }
+
     if (message.remoteCsvDelay !== 0) {
       writer.uint32(80).uint32(message.remoteCsvDelay);
     }
+
     if (message.minConfs !== 0) {
       writer.uint32(88).int32(message.minConfs);
     }
-    if (message.spendUnconfirmed === true) {
+
+    if (message.spendUnconfirmed) {
       writer.uint32(96).bool(message.spendUnconfirmed);
     }
-    if (message.closeAddress !== "") {
+
+    if (message.closeAddress !== '') {
       writer.uint32(106).string(message.closeAddress);
     }
+
     if (message.fundingShim !== undefined) {
       FundingShim.encode(
         message.fundingShim,
-        writer.uint32(114).fork()
+        writer.uint32(114).fork(),
       ).ldelim();
     }
-    if (message.remoteMaxValueInFlightMsat !== "0") {
+
+    if (message.remoteMaxValueInFlightMsat !== '0') {
       writer.uint32(120).uint64(message.remoteMaxValueInFlightMsat);
     }
+
     if (message.remoteMaxHtlcs !== 0) {
       writer.uint32(128).uint32(message.remoteMaxHtlcs);
     }
+
     if (message.maxLocalCsv !== 0) {
       writer.uint32(136).uint32(message.maxLocalCsv);
     }
+
     if (message.commitmentType !== 0) {
       writer.uint32(144).int32(message.commitmentType);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): OpenChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOpenChannelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11894,7 +12303,7 @@ export const OpenChannelRequest = {
           break;
         case 15:
           message.remoteMaxValueInFlightMsat = longToString(
-            reader.uint64() as Long
+            reader.uint64() as Long,
           );
           break;
         case 16:
@@ -11911,6 +12320,7 @@ export const OpenChannelRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -11919,7 +12329,7 @@ export const OpenChannelRequest = {
     message.satPerVbyte =
       object.satPerVbyte !== undefined && object.satPerVbyte !== null
         ? String(object.satPerVbyte)
-        : "0";
+        : '0';
     message.nodePubkey =
       object.nodePubkey !== undefined && object.nodePubkey !== null
         ? bytesFromBase64(object.nodePubkey)
@@ -11927,16 +12337,16 @@ export const OpenChannelRequest = {
     message.nodePubkeyString =
       object.nodePubkeyString !== undefined && object.nodePubkeyString !== null
         ? String(object.nodePubkeyString)
-        : "";
+        : '';
     message.localFundingAmount =
       object.localFundingAmount !== undefined &&
       object.localFundingAmount !== null
         ? String(object.localFundingAmount)
-        : "0";
+        : '0';
     message.pushSat =
       object.pushSat !== undefined && object.pushSat !== null
         ? String(object.pushSat)
-        : "0";
+        : '0';
     message.targetConf =
       object.targetConf !== undefined && object.targetConf !== null
         ? Number(object.targetConf)
@@ -11944,7 +12354,7 @@ export const OpenChannelRequest = {
     message.satPerByte =
       object.satPerByte !== undefined && object.satPerByte !== null
         ? String(object.satPerByte)
-        : "0";
+        : '0';
     message.private =
       object.private !== undefined && object.private !== null
         ? Boolean(object.private)
@@ -11952,7 +12362,7 @@ export const OpenChannelRequest = {
     message.minHtlcMsat =
       object.minHtlcMsat !== undefined && object.minHtlcMsat !== null
         ? String(object.minHtlcMsat)
-        : "0";
+        : '0';
     message.remoteCsvDelay =
       object.remoteCsvDelay !== undefined && object.remoteCsvDelay !== null
         ? Number(object.remoteCsvDelay)
@@ -11968,7 +12378,7 @@ export const OpenChannelRequest = {
     message.closeAddress =
       object.closeAddress !== undefined && object.closeAddress !== null
         ? String(object.closeAddress)
-        : "";
+        : '';
     message.fundingShim =
       object.fundingShim !== undefined && object.fundingShim !== null
         ? FundingShim.fromJSON(object.fundingShim)
@@ -11977,7 +12387,7 @@ export const OpenChannelRequest = {
       object.remoteMaxValueInFlightMsat !== undefined &&
       object.remoteMaxValueInFlightMsat !== null
         ? String(object.remoteMaxValueInFlightMsat)
-        : "0";
+        : '0';
     message.remoteMaxHtlcs =
       object.remoteMaxHtlcs !== undefined && object.remoteMaxHtlcs !== null
         ? Number(object.remoteMaxHtlcs)
@@ -11994,68 +12404,71 @@ export const OpenChannelRequest = {
   },
 
   toJSON(message: OpenChannelRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
+      (object.satPerVbyte = message.satPerVbyte);
     message.nodePubkey !== undefined &&
-      (obj.nodePubkey = base64FromBytes(
-        message.nodePubkey !== undefined ? message.nodePubkey : new Uint8Array()
+      (object.nodePubkey = base64FromBytes(
+        message.nodePubkey !== undefined
+          ? message.nodePubkey
+          : new Uint8Array(),
       ));
     message.nodePubkeyString !== undefined &&
-      (obj.nodePubkeyString = message.nodePubkeyString);
+      (object.nodePubkeyString = message.nodePubkeyString);
     message.localFundingAmount !== undefined &&
-      (obj.localFundingAmount = message.localFundingAmount);
-    message.pushSat !== undefined && (obj.pushSat = message.pushSat);
+      (object.localFundingAmount = message.localFundingAmount);
+    message.pushSat !== undefined && (object.pushSat = message.pushSat);
     message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
-    message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
-    message.private !== undefined && (obj.private = message.private);
+      (object.targetConf = Math.round(message.targetConf));
+    message.satPerByte !== undefined &&
+      (object.satPerByte = message.satPerByte);
+    message.private !== undefined && (object.private = message.private);
     message.minHtlcMsat !== undefined &&
-      (obj.minHtlcMsat = message.minHtlcMsat);
+      (object.minHtlcMsat = message.minHtlcMsat);
     message.remoteCsvDelay !== undefined &&
-      (obj.remoteCsvDelay = Math.round(message.remoteCsvDelay));
+      (object.remoteCsvDelay = Math.round(message.remoteCsvDelay));
     message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
+      (object.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
+      (object.spendUnconfirmed = message.spendUnconfirmed);
     message.closeAddress !== undefined &&
-      (obj.closeAddress = message.closeAddress);
+      (object.closeAddress = message.closeAddress);
     message.fundingShim !== undefined &&
-      (obj.fundingShim = message.fundingShim
+      (object.fundingShim = message.fundingShim
         ? FundingShim.toJSON(message.fundingShim)
         : undefined);
     message.remoteMaxValueInFlightMsat !== undefined &&
-      (obj.remoteMaxValueInFlightMsat = message.remoteMaxValueInFlightMsat);
+      (object.remoteMaxValueInFlightMsat = message.remoteMaxValueInFlightMsat);
     message.remoteMaxHtlcs !== undefined &&
-      (obj.remoteMaxHtlcs = Math.round(message.remoteMaxHtlcs));
+      (object.remoteMaxHtlcs = Math.round(message.remoteMaxHtlcs));
     message.maxLocalCsv !== undefined &&
-      (obj.maxLocalCsv = Math.round(message.maxLocalCsv));
+      (object.maxLocalCsv = Math.round(message.maxLocalCsv));
     message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    return obj;
+      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    return object;
   },
 
   fromPartial(object: DeepPartial<OpenChannelRequest>): OpenChannelRequest {
     const message = createBaseOpenChannelRequest();
-    message.satPerVbyte = object.satPerVbyte ?? "0";
+    message.satPerVbyte = object.satPerVbyte ?? '0';
     message.nodePubkey = object.nodePubkey ?? new Uint8Array();
-    message.nodePubkeyString = object.nodePubkeyString ?? "";
-    message.localFundingAmount = object.localFundingAmount ?? "0";
-    message.pushSat = object.pushSat ?? "0";
+    message.nodePubkeyString = object.nodePubkeyString ?? '';
+    message.localFundingAmount = object.localFundingAmount ?? '0';
+    message.pushSat = object.pushSat ?? '0';
     message.targetConf = object.targetConf ?? 0;
-    message.satPerByte = object.satPerByte ?? "0";
+    message.satPerByte = object.satPerByte ?? '0';
     message.private = object.private ?? false;
-    message.minHtlcMsat = object.minHtlcMsat ?? "0";
+    message.minHtlcMsat = object.minHtlcMsat ?? '0';
     message.remoteCsvDelay = object.remoteCsvDelay ?? 0;
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
-    message.closeAddress = object.closeAddress ?? "";
+    message.closeAddress = object.closeAddress ?? '';
     message.fundingShim =
       object.fundingShim !== undefined && object.fundingShim !== null
         ? FundingShim.fromPartial(object.fundingShim)
         : undefined;
     message.remoteMaxValueInFlightMsat =
-      object.remoteMaxValueInFlightMsat ?? "0";
+      object.remoteMaxValueInFlightMsat ?? '0';
     message.remoteMaxHtlcs = object.remoteMaxHtlcs ?? 0;
     message.maxLocalCsv = object.maxLocalCsv ?? 0;
     message.commitmentType = object.commitmentType ?? 0;
@@ -12075,35 +12488,39 @@ function createBaseOpenStatusUpdate(): OpenStatusUpdate {
 export const OpenStatusUpdate = {
   encode(
     message: OpenStatusUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.chanPending !== undefined) {
       PendingUpdate.encode(
         message.chanPending,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
+
     if (message.chanOpen !== undefined) {
       ChannelOpenUpdate.encode(
         message.chanOpen,
-        writer.uint32(26).fork()
+        writer.uint32(26).fork(),
       ).ldelim();
     }
+
     if (message.psbtFund !== undefined) {
       ReadyForPsbtFunding.encode(
         message.psbtFund,
-        writer.uint32(42).fork()
+        writer.uint32(42).fork(),
       ).ldelim();
     }
-    if (message.pendingChanId.length !== 0) {
+
+    if (message.pendingChanId.length > 0) {
       writer.uint32(34).bytes(message.pendingChanId);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): OpenStatusUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOpenStatusUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12117,7 +12534,7 @@ export const OpenStatusUpdate = {
         case 5:
           message.psbtFund = ReadyForPsbtFunding.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 4:
@@ -12128,6 +12545,7 @@ export const OpenStatusUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12153,26 +12571,26 @@ export const OpenStatusUpdate = {
   },
 
   toJSON(message: OpenStatusUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.chanPending !== undefined &&
-      (obj.chanPending = message.chanPending
+      (object.chanPending = message.chanPending
         ? PendingUpdate.toJSON(message.chanPending)
         : undefined);
     message.chanOpen !== undefined &&
-      (obj.chanOpen = message.chanOpen
+      (object.chanOpen = message.chanOpen
         ? ChannelOpenUpdate.toJSON(message.chanOpen)
         : undefined);
     message.psbtFund !== undefined &&
-      (obj.psbtFund = message.psbtFund
+      (object.psbtFund = message.psbtFund
         ? ReadyForPsbtFunding.toJSON(message.psbtFund)
         : undefined);
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<OpenStatusUpdate>): OpenStatusUpdate {
@@ -12195,26 +12613,28 @@ export const OpenStatusUpdate = {
 };
 
 function createBaseKeyLocator(): KeyLocator {
-  return { keyFamily: 0, keyIndex: 0 };
+  return {keyFamily: 0, keyIndex: 0};
 }
 
 export const KeyLocator = {
   encode(
     message: KeyLocator,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.keyFamily !== 0) {
       writer.uint32(8).int32(message.keyFamily);
     }
+
     if (message.keyIndex !== 0) {
       writer.uint32(16).int32(message.keyIndex);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): KeyLocator {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseKeyLocator();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12230,6 +12650,7 @@ export const KeyLocator = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12247,12 +12668,12 @@ export const KeyLocator = {
   },
 
   toJSON(message: KeyLocator): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.keyFamily !== undefined &&
-      (obj.keyFamily = Math.round(message.keyFamily));
+      (object.keyFamily = Math.round(message.keyFamily));
     message.keyIndex !== undefined &&
-      (obj.keyIndex = Math.round(message.keyIndex));
-    return obj;
+      (object.keyIndex = Math.round(message.keyIndex));
+    return object;
   },
 
   fromPartial(object: DeepPartial<KeyLocator>): KeyLocator {
@@ -12264,26 +12685,28 @@ export const KeyLocator = {
 };
 
 function createBaseKeyDescriptor(): KeyDescriptor {
-  return { rawKeyBytes: new Uint8Array(), keyLoc: undefined };
+  return {rawKeyBytes: new Uint8Array(), keyLoc: undefined};
 }
 
 export const KeyDescriptor = {
   encode(
     message: KeyDescriptor,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.rawKeyBytes.length !== 0) {
+    if (message.rawKeyBytes.length > 0) {
       writer.uint32(10).bytes(message.rawKeyBytes);
     }
+
     if (message.keyLoc !== undefined) {
       KeyLocator.encode(message.keyLoc, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): KeyDescriptor {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseKeyDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12299,6 +12722,7 @@ export const KeyDescriptor = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12316,18 +12740,18 @@ export const KeyDescriptor = {
   },
 
   toJSON(message: KeyDescriptor): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.rawKeyBytes !== undefined &&
-      (obj.rawKeyBytes = base64FromBytes(
+      (object.rawKeyBytes = base64FromBytes(
         message.rawKeyBytes !== undefined
           ? message.rawKeyBytes
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.keyLoc !== undefined &&
-      (obj.keyLoc = message.keyLoc
+      (object.keyLoc = message.keyLoc
         ? KeyLocator.toJSON(message.keyLoc)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<KeyDescriptor>): KeyDescriptor {
@@ -12343,7 +12767,7 @@ export const KeyDescriptor = {
 
 function createBaseChanPointShim(): ChanPointShim {
   return {
-    amt: "0",
+    amt: '0',
     chanPoint: undefined,
     localKey: undefined,
     remoteKey: new Uint8Array(),
@@ -12355,32 +12779,38 @@ function createBaseChanPointShim(): ChanPointShim {
 export const ChanPointShim = {
   encode(
     message: ChanPointShim,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.amt !== "0") {
+    if (message.amt !== '0') {
       writer.uint32(8).int64(message.amt);
     }
+
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
+
     if (message.localKey !== undefined) {
       KeyDescriptor.encode(message.localKey, writer.uint32(26).fork()).ldelim();
     }
-    if (message.remoteKey.length !== 0) {
+
+    if (message.remoteKey.length > 0) {
       writer.uint32(34).bytes(message.remoteKey);
     }
-    if (message.pendingChanId.length !== 0) {
+
+    if (message.pendingChanId.length > 0) {
       writer.uint32(42).bytes(message.pendingChanId);
     }
+
     if (message.thawHeight !== 0) {
       writer.uint32(48).uint32(message.thawHeight);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChanPointShim {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanPointShim();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12408,6 +12838,7 @@ export const ChanPointShim = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12416,7 +12847,7 @@ export const ChanPointShim = {
     message.amt =
       object.amt !== undefined && object.amt !== null
         ? String(object.amt)
-        : "0";
+        : '0';
     message.chanPoint =
       object.chanPoint !== undefined && object.chanPoint !== null
         ? ChannelPoint.fromJSON(object.chanPoint)
@@ -12441,34 +12872,34 @@ export const ChanPointShim = {
   },
 
   toJSON(message: ChanPointShim): unknown {
-    const obj: any = {};
-    message.amt !== undefined && (obj.amt = message.amt);
+    const object: any = {};
+    message.amt !== undefined && (object.amt = message.amt);
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
+      (object.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
     message.localKey !== undefined &&
-      (obj.localKey = message.localKey
+      (object.localKey = message.localKey
         ? KeyDescriptor.toJSON(message.localKey)
         : undefined);
     message.remoteKey !== undefined &&
-      (obj.remoteKey = base64FromBytes(
-        message.remoteKey !== undefined ? message.remoteKey : new Uint8Array()
+      (object.remoteKey = base64FromBytes(
+        message.remoteKey !== undefined ? message.remoteKey : new Uint8Array(),
       ));
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.thawHeight !== undefined &&
-      (obj.thawHeight = Math.round(message.thawHeight));
-    return obj;
+      (object.thawHeight = Math.round(message.thawHeight));
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChanPointShim>): ChanPointShim {
     const message = createBaseChanPointShim();
-    message.amt = object.amt ?? "0";
+    message.amt = object.amt ?? '0';
     message.chanPoint =
       object.chanPoint !== undefined && object.chanPoint !== null
         ? ChannelPoint.fromPartial(object.chanPoint)
@@ -12495,23 +12926,26 @@ function createBasePsbtShim(): PsbtShim {
 export const PsbtShim = {
   encode(
     message: PsbtShim,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pendingChanId.length !== 0) {
+    if (message.pendingChanId.length > 0) {
       writer.uint32(10).bytes(message.pendingChanId);
     }
-    if (message.basePsbt.length !== 0) {
+
+    if (message.basePsbt.length > 0) {
       writer.uint32(18).bytes(message.basePsbt);
     }
-    if (message.noPublish === true) {
+
+    if (message.noPublish) {
       writer.uint32(24).bool(message.noPublish);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PsbtShim {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePsbtShim();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12530,6 +12964,7 @@ export const PsbtShim = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12551,19 +12986,19 @@ export const PsbtShim = {
   },
 
   toJSON(message: PsbtShim): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.basePsbt !== undefined &&
-      (obj.basePsbt = base64FromBytes(
-        message.basePsbt !== undefined ? message.basePsbt : new Uint8Array()
+      (object.basePsbt = base64FromBytes(
+        message.basePsbt !== undefined ? message.basePsbt : new Uint8Array(),
       ));
-    message.noPublish !== undefined && (obj.noPublish = message.noPublish);
-    return obj;
+    message.noPublish !== undefined && (object.noPublish = message.noPublish);
+    return object;
   },
 
   fromPartial(object: DeepPartial<PsbtShim>): PsbtShim {
@@ -12576,29 +13011,31 @@ export const PsbtShim = {
 };
 
 function createBaseFundingShim(): FundingShim {
-  return { chanPointShim: undefined, psbtShim: undefined };
+  return {chanPointShim: undefined, psbtShim: undefined};
 }
 
 export const FundingShim = {
   encode(
     message: FundingShim,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.chanPointShim !== undefined) {
       ChanPointShim.encode(
         message.chanPointShim,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
+
     if (message.psbtShim !== undefined) {
       PsbtShim.encode(message.psbtShim, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingShim {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingShim();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12614,6 +13051,7 @@ export const FundingShim = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12631,16 +13069,16 @@ export const FundingShim = {
   },
 
   toJSON(message: FundingShim): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.chanPointShim !== undefined &&
-      (obj.chanPointShim = message.chanPointShim
+      (object.chanPointShim = message.chanPointShim
         ? ChanPointShim.toJSON(message.chanPointShim)
         : undefined);
     message.psbtShim !== undefined &&
-      (obj.psbtShim = message.psbtShim
+      (object.psbtShim = message.psbtShim
         ? PsbtShim.toJSON(message.psbtShim)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<FundingShim>): FundingShim {
@@ -12658,23 +13096,24 @@ export const FundingShim = {
 };
 
 function createBaseFundingShimCancel(): FundingShimCancel {
-  return { pendingChanId: new Uint8Array() };
+  return {pendingChanId: new Uint8Array()};
 }
 
 export const FundingShimCancel = {
   encode(
     message: FundingShimCancel,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pendingChanId.length !== 0) {
+    if (message.pendingChanId.length > 0) {
       writer.uint32(10).bytes(message.pendingChanId);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingShimCancel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingShimCancel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12687,6 +13126,7 @@ export const FundingShimCancel = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12700,14 +13140,14 @@ export const FundingShimCancel = {
   },
 
   toJSON(message: FundingShimCancel): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<FundingShimCancel>): FundingShimCancel {
@@ -12728,23 +13168,26 @@ function createBaseFundingPsbtVerify(): FundingPsbtVerify {
 export const FundingPsbtVerify = {
   encode(
     message: FundingPsbtVerify,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.fundedPsbt.length !== 0) {
+    if (message.fundedPsbt.length > 0) {
       writer.uint32(10).bytes(message.fundedPsbt);
     }
-    if (message.pendingChanId.length !== 0) {
+
+    if (message.pendingChanId.length > 0) {
       writer.uint32(18).bytes(message.pendingChanId);
     }
-    if (message.skipFinalize === true) {
+
+    if (message.skipFinalize) {
       writer.uint32(24).bool(message.skipFinalize);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingPsbtVerify {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingPsbtVerify();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12763,6 +13206,7 @@ export const FundingPsbtVerify = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12784,20 +13228,22 @@ export const FundingPsbtVerify = {
   },
 
   toJSON(message: FundingPsbtVerify): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.fundedPsbt !== undefined &&
-      (obj.fundedPsbt = base64FromBytes(
-        message.fundedPsbt !== undefined ? message.fundedPsbt : new Uint8Array()
+      (object.fundedPsbt = base64FromBytes(
+        message.fundedPsbt !== undefined
+          ? message.fundedPsbt
+          : new Uint8Array(),
       ));
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.skipFinalize !== undefined &&
-      (obj.skipFinalize = message.skipFinalize);
-    return obj;
+      (object.skipFinalize = message.skipFinalize);
+    return object;
   },
 
   fromPartial(object: DeepPartial<FundingPsbtVerify>): FundingPsbtVerify {
@@ -12820,23 +13266,26 @@ function createBaseFundingPsbtFinalize(): FundingPsbtFinalize {
 export const FundingPsbtFinalize = {
   encode(
     message: FundingPsbtFinalize,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.signedPsbt.length !== 0) {
+    if (message.signedPsbt.length > 0) {
       writer.uint32(10).bytes(message.signedPsbt);
     }
-    if (message.pendingChanId.length !== 0) {
+
+    if (message.pendingChanId.length > 0) {
       writer.uint32(18).bytes(message.pendingChanId);
     }
-    if (message.finalRawTx.length !== 0) {
+
+    if (message.finalRawTx.length > 0) {
       writer.uint32(26).bytes(message.finalRawTx);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingPsbtFinalize {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingPsbtFinalize();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12855,6 +13304,7 @@ export const FundingPsbtFinalize = {
           break;
       }
     }
+
     return message;
   },
 
@@ -12876,22 +13326,26 @@ export const FundingPsbtFinalize = {
   },
 
   toJSON(message: FundingPsbtFinalize): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.signedPsbt !== undefined &&
-      (obj.signedPsbt = base64FromBytes(
-        message.signedPsbt !== undefined ? message.signedPsbt : new Uint8Array()
+      (object.signedPsbt = base64FromBytes(
+        message.signedPsbt !== undefined
+          ? message.signedPsbt
+          : new Uint8Array(),
       ));
     message.pendingChanId !== undefined &&
-      (obj.pendingChanId = base64FromBytes(
+      (object.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.finalRawTx !== undefined &&
-      (obj.finalRawTx = base64FromBytes(
-        message.finalRawTx !== undefined ? message.finalRawTx : new Uint8Array()
+      (object.finalRawTx = base64FromBytes(
+        message.finalRawTx !== undefined
+          ? message.finalRawTx
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<FundingPsbtFinalize>): FundingPsbtFinalize {
@@ -12903,7 +13357,7 @@ export const FundingPsbtFinalize = {
   },
 };
 
-function createBaseFundingTransitionMsg(): FundingTransitionMsg {
+function createBaseFundingTransitionMessage(): FundingTransitionMsg {
   return {
     shimRegister: undefined,
     shimCancel: undefined,
@@ -12915,42 +13369,46 @@ function createBaseFundingTransitionMsg(): FundingTransitionMsg {
 export const FundingTransitionMsg = {
   encode(
     message: FundingTransitionMsg,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.shimRegister !== undefined) {
       FundingShim.encode(
         message.shimRegister,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
+
     if (message.shimCancel !== undefined) {
       FundingShimCancel.encode(
         message.shimCancel,
-        writer.uint32(18).fork()
+        writer.uint32(18).fork(),
       ).ldelim();
     }
+
     if (message.psbtVerify !== undefined) {
       FundingPsbtVerify.encode(
         message.psbtVerify,
-        writer.uint32(26).fork()
+        writer.uint32(26).fork(),
       ).ldelim();
     }
+
     if (message.psbtFinalize !== undefined) {
       FundingPsbtFinalize.encode(
         message.psbtFinalize,
-        writer.uint32(34).fork()
+        writer.uint32(34).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): FundingTransitionMsg {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseFundingTransitionMsg();
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFundingTransitionMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -12960,19 +13418,19 @@ export const FundingTransitionMsg = {
         case 2:
           message.shimCancel = FundingShimCancel.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 3:
           message.psbtVerify = FundingPsbtVerify.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 4:
           message.psbtFinalize = FundingPsbtFinalize.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         default:
@@ -12980,11 +13438,12 @@ export const FundingTransitionMsg = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): FundingTransitionMsg {
-    const message = createBaseFundingTransitionMsg();
+    const message = createBaseFundingTransitionMessage();
     message.shimRegister =
       object.shimRegister !== undefined && object.shimRegister !== null
         ? FundingShim.fromJSON(object.shimRegister)
@@ -13005,28 +13464,28 @@ export const FundingTransitionMsg = {
   },
 
   toJSON(message: FundingTransitionMsg): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.shimRegister !== undefined &&
-      (obj.shimRegister = message.shimRegister
+      (object.shimRegister = message.shimRegister
         ? FundingShim.toJSON(message.shimRegister)
         : undefined);
     message.shimCancel !== undefined &&
-      (obj.shimCancel = message.shimCancel
+      (object.shimCancel = message.shimCancel
         ? FundingShimCancel.toJSON(message.shimCancel)
         : undefined);
     message.psbtVerify !== undefined &&
-      (obj.psbtVerify = message.psbtVerify
+      (object.psbtVerify = message.psbtVerify
         ? FundingPsbtVerify.toJSON(message.psbtVerify)
         : undefined);
     message.psbtFinalize !== undefined &&
-      (obj.psbtFinalize = message.psbtFinalize
+      (object.psbtFinalize = message.psbtFinalize
         ? FundingPsbtFinalize.toJSON(message.psbtFinalize)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<FundingTransitionMsg>): FundingTransitionMsg {
-    const message = createBaseFundingTransitionMsg();
+    const message = createBaseFundingTransitionMessage();
     message.shimRegister =
       object.shimRegister !== undefined && object.shimRegister !== null
         ? FundingShim.fromPartial(object.shimRegister)
@@ -13054,17 +13513,17 @@ function createBaseFundingStateStepResp(): FundingStateStepResp {
 export const FundingStateStepResp = {
   encode(
     _: FundingStateStepResp,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): FundingStateStepResp {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingStateStepResp();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13074,6 +13533,7 @@ export const FundingStateStepResp = {
           break;
       }
     }
+
     return message;
   },
 
@@ -13083,8 +13543,8 @@ export const FundingStateStepResp = {
   },
 
   toJSON(_: FundingStateStepResp): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<FundingStateStepResp>): FundingStateStepResp {
@@ -13096,8 +13556,8 @@ export const FundingStateStepResp = {
 function createBasePendingHTLC(): PendingHTLC {
   return {
     incoming: false,
-    amount: "0",
-    outpoint: "",
+    amount: '0',
+    outpoint: '',
     maturityHeight: 0,
     blocksTilMaturity: 0,
     stage: 0,
@@ -13107,32 +13567,38 @@ function createBasePendingHTLC(): PendingHTLC {
 export const PendingHTLC = {
   encode(
     message: PendingHTLC,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.incoming === true) {
+    if (message.incoming) {
       writer.uint32(8).bool(message.incoming);
     }
-    if (message.amount !== "0") {
+
+    if (message.amount !== '0') {
       writer.uint32(16).int64(message.amount);
     }
-    if (message.outpoint !== "") {
+
+    if (message.outpoint !== '') {
       writer.uint32(26).string(message.outpoint);
     }
+
     if (message.maturityHeight !== 0) {
       writer.uint32(32).uint32(message.maturityHeight);
     }
+
     if (message.blocksTilMaturity !== 0) {
       writer.uint32(40).int32(message.blocksTilMaturity);
     }
+
     if (message.stage !== 0) {
       writer.uint32(48).uint32(message.stage);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PendingHTLC {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingHTLC();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13160,6 +13626,7 @@ export const PendingHTLC = {
           break;
       }
     }
+
     return message;
   },
 
@@ -13172,11 +13639,11 @@ export const PendingHTLC = {
     message.amount =
       object.amount !== undefined && object.amount !== null
         ? String(object.amount)
-        : "0";
+        : '0';
     message.outpoint =
       object.outpoint !== undefined && object.outpoint !== null
         ? String(object.outpoint)
-        : "";
+        : '';
     message.maturityHeight =
       object.maturityHeight !== undefined && object.maturityHeight !== null
         ? Number(object.maturityHeight)
@@ -13194,23 +13661,23 @@ export const PendingHTLC = {
   },
 
   toJSON(message: PendingHTLC): unknown {
-    const obj: any = {};
-    message.incoming !== undefined && (obj.incoming = message.incoming);
-    message.amount !== undefined && (obj.amount = message.amount);
-    message.outpoint !== undefined && (obj.outpoint = message.outpoint);
+    const object: any = {};
+    message.incoming !== undefined && (object.incoming = message.incoming);
+    message.amount !== undefined && (object.amount = message.amount);
+    message.outpoint !== undefined && (object.outpoint = message.outpoint);
     message.maturityHeight !== undefined &&
-      (obj.maturityHeight = Math.round(message.maturityHeight));
+      (object.maturityHeight = Math.round(message.maturityHeight));
     message.blocksTilMaturity !== undefined &&
-      (obj.blocksTilMaturity = Math.round(message.blocksTilMaturity));
-    message.stage !== undefined && (obj.stage = Math.round(message.stage));
-    return obj;
+      (object.blocksTilMaturity = Math.round(message.blocksTilMaturity));
+    message.stage !== undefined && (object.stage = Math.round(message.stage));
+    return object;
   },
 
   fromPartial(object: DeepPartial<PendingHTLC>): PendingHTLC {
     const message = createBasePendingHTLC();
     message.incoming = object.incoming ?? false;
-    message.amount = object.amount ?? "0";
-    message.outpoint = object.outpoint ?? "";
+    message.amount = object.amount ?? '0';
+    message.outpoint = object.outpoint ?? '';
     message.maturityHeight = object.maturityHeight ?? 0;
     message.blocksTilMaturity = object.blocksTilMaturity ?? 0;
     message.stage = object.stage ?? 0;
@@ -13225,17 +13692,17 @@ function createBasePendingChannelsRequest(): PendingChannelsRequest {
 export const PendingChannelsRequest = {
   encode(
     _: PendingChannelsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PendingChannelsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13245,6 +13712,7 @@ export const PendingChannelsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -13254,8 +13722,8 @@ export const PendingChannelsRequest = {
   },
 
   toJSON(_: PendingChannelsRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<PendingChannelsRequest>): PendingChannelsRequest {
@@ -13266,7 +13734,7 @@ export const PendingChannelsRequest = {
 
 function createBasePendingChannelsResponse(): PendingChannelsResponse {
   return {
-    totalLimboBalance: "0",
+    totalLimboBalance: '0',
     pendingOpenChannels: [],
     pendingClosingChannels: [],
     pendingForceClosingChannels: [],
@@ -13277,44 +13745,49 @@ function createBasePendingChannelsResponse(): PendingChannelsResponse {
 export const PendingChannelsResponse = {
   encode(
     message: PendingChannelsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.totalLimboBalance !== "0") {
+    if (message.totalLimboBalance !== '0') {
       writer.uint32(8).int64(message.totalLimboBalance);
     }
+
     for (const v of message.pendingOpenChannels) {
       PendingChannelsResponse_PendingOpenChannel.encode(
-        v!,
-        writer.uint32(18).fork()
+        v,
+        writer.uint32(18).fork(),
       ).ldelim();
     }
+
     for (const v of message.pendingClosingChannels) {
       PendingChannelsResponse_ClosedChannel.encode(
-        v!,
-        writer.uint32(26).fork()
+        v,
+        writer.uint32(26).fork(),
       ).ldelim();
     }
+
     for (const v of message.pendingForceClosingChannels) {
       PendingChannelsResponse_ForceClosedChannel.encode(
-        v!,
-        writer.uint32(34).fork()
+        v,
+        writer.uint32(34).fork(),
       ).ldelim();
     }
+
     for (const v of message.waitingCloseChannels) {
       PendingChannelsResponse_WaitingCloseChannel.encode(
-        v!,
-        writer.uint32(42).fork()
+        v,
+        writer.uint32(42).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PendingChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13326,32 +13799,32 @@ export const PendingChannelsResponse = {
           message.pendingOpenChannels.push(
             PendingChannelsResponse_PendingOpenChannel.decode(
               reader,
-              reader.uint32()
-            )
+              reader.uint32(),
+            ),
           );
           break;
         case 3:
           message.pendingClosingChannels.push(
             PendingChannelsResponse_ClosedChannel.decode(
               reader,
-              reader.uint32()
-            )
+              reader.uint32(),
+            ),
           );
           break;
         case 4:
           message.pendingForceClosingChannels.push(
             PendingChannelsResponse_ForceClosedChannel.decode(
               reader,
-              reader.uint32()
-            )
+              reader.uint32(),
+            ),
           );
           break;
         case 5:
           message.waitingCloseChannels.push(
             PendingChannelsResponse_WaitingCloseChannel.decode(
               reader,
-              reader.uint32()
-            )
+              reader.uint32(),
+            ),
           );
           break;
         default:
@@ -13359,6 +13832,7 @@ export const PendingChannelsResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -13368,78 +13842,82 @@ export const PendingChannelsResponse = {
       object.totalLimboBalance !== undefined &&
       object.totalLimboBalance !== null
         ? String(object.totalLimboBalance)
-        : "0";
+        : '0';
     message.pendingOpenChannels = (object.pendingOpenChannels ?? []).map(
-      (e: any) => PendingChannelsResponse_PendingOpenChannel.fromJSON(e)
+      (e: any) => PendingChannelsResponse_PendingOpenChannel.fromJSON(e),
     );
     message.pendingClosingChannels = (object.pendingClosingChannels ?? []).map(
-      (e: any) => PendingChannelsResponse_ClosedChannel.fromJSON(e)
+      (e: any) => PendingChannelsResponse_ClosedChannel.fromJSON(e),
     );
     message.pendingForceClosingChannels = (
       object.pendingForceClosingChannels ?? []
     ).map((e: any) => PendingChannelsResponse_ForceClosedChannel.fromJSON(e));
     message.waitingCloseChannels = (object.waitingCloseChannels ?? []).map(
-      (e: any) => PendingChannelsResponse_WaitingCloseChannel.fromJSON(e)
+      (e: any) => PendingChannelsResponse_WaitingCloseChannel.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: PendingChannelsResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.totalLimboBalance !== undefined &&
-      (obj.totalLimboBalance = message.totalLimboBalance);
+      (object.totalLimboBalance = message.totalLimboBalance);
     if (message.pendingOpenChannels) {
-      obj.pendingOpenChannels = message.pendingOpenChannels.map((e) =>
-        e ? PendingChannelsResponse_PendingOpenChannel.toJSON(e) : undefined
+      object.pendingOpenChannels = message.pendingOpenChannels.map((e) =>
+        e ? PendingChannelsResponse_PendingOpenChannel.toJSON(e) : undefined,
       );
     } else {
-      obj.pendingOpenChannels = [];
+      object.pendingOpenChannels = [];
     }
+
     if (message.pendingClosingChannels) {
-      obj.pendingClosingChannels = message.pendingClosingChannels.map((e) =>
-        e ? PendingChannelsResponse_ClosedChannel.toJSON(e) : undefined
+      object.pendingClosingChannels = message.pendingClosingChannels.map((e) =>
+        e ? PendingChannelsResponse_ClosedChannel.toJSON(e) : undefined,
       );
     } else {
-      obj.pendingClosingChannels = [];
+      object.pendingClosingChannels = [];
     }
+
     if (message.pendingForceClosingChannels) {
-      obj.pendingForceClosingChannels = message.pendingForceClosingChannels.map(
-        (e) =>
-          e ? PendingChannelsResponse_ForceClosedChannel.toJSON(e) : undefined
-      );
+      object.pendingForceClosingChannels =
+        message.pendingForceClosingChannels.map((e) =>
+          e ? PendingChannelsResponse_ForceClosedChannel.toJSON(e) : undefined,
+        );
     } else {
-      obj.pendingForceClosingChannels = [];
+      object.pendingForceClosingChannels = [];
     }
+
     if (message.waitingCloseChannels) {
-      obj.waitingCloseChannels = message.waitingCloseChannels.map((e) =>
-        e ? PendingChannelsResponse_WaitingCloseChannel.toJSON(e) : undefined
+      object.waitingCloseChannels = message.waitingCloseChannels.map((e) =>
+        e ? PendingChannelsResponse_WaitingCloseChannel.toJSON(e) : undefined,
       );
     } else {
-      obj.waitingCloseChannels = [];
+      object.waitingCloseChannels = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<PendingChannelsResponse>
+    object: DeepPartial<PendingChannelsResponse>,
   ): PendingChannelsResponse {
     const message = createBasePendingChannelsResponse();
-    message.totalLimboBalance = object.totalLimboBalance ?? "0";
+    message.totalLimboBalance = object.totalLimboBalance ?? '0';
     message.pendingOpenChannels =
       object.pendingOpenChannels?.map((e) =>
-        PendingChannelsResponse_PendingOpenChannel.fromPartial(e)
+        PendingChannelsResponse_PendingOpenChannel.fromPartial(e),
       ) || [];
     message.pendingClosingChannels =
       object.pendingClosingChannels?.map((e) =>
-        PendingChannelsResponse_ClosedChannel.fromPartial(e)
+        PendingChannelsResponse_ClosedChannel.fromPartial(e),
       ) || [];
     message.pendingForceClosingChannels =
       object.pendingForceClosingChannels?.map((e) =>
-        PendingChannelsResponse_ForceClosedChannel.fromPartial(e)
+        PendingChannelsResponse_ForceClosedChannel.fromPartial(e),
       ) || [];
     message.waitingCloseChannels =
       object.waitingCloseChannels?.map((e) =>
-        PendingChannelsResponse_WaitingCloseChannel.fromPartial(e)
+        PendingChannelsResponse_WaitingCloseChannel.fromPartial(e),
       ) || [];
     return message;
   },
@@ -13447,63 +13925,73 @@ export const PendingChannelsResponse = {
 
 function createBasePendingChannelsResponse_PendingChannel(): PendingChannelsResponse_PendingChannel {
   return {
-    remoteNodePub: "",
-    channelPoint: "",
-    capacity: "0",
-    localBalance: "0",
-    remoteBalance: "0",
-    localChanReserveSat: "0",
-    remoteChanReserveSat: "0",
+    remoteNodePub: '',
+    channelPoint: '',
+    capacity: '0',
+    localBalance: '0',
+    remoteBalance: '0',
+    localChanReserveSat: '0',
+    remoteChanReserveSat: '0',
     initiator: 0,
     commitmentType: 0,
-    numForwardingPackages: "0",
+    numForwardingPackages: '0',
   };
 }
 
 export const PendingChannelsResponse_PendingChannel = {
   encode(
     message: PendingChannelsResponse_PendingChannel,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.remoteNodePub !== "") {
+    if (message.remoteNodePub !== '') {
       writer.uint32(10).string(message.remoteNodePub);
     }
-    if (message.channelPoint !== "") {
+
+    if (message.channelPoint !== '') {
       writer.uint32(18).string(message.channelPoint);
     }
-    if (message.capacity !== "0") {
+
+    if (message.capacity !== '0') {
       writer.uint32(24).int64(message.capacity);
     }
-    if (message.localBalance !== "0") {
+
+    if (message.localBalance !== '0') {
       writer.uint32(32).int64(message.localBalance);
     }
-    if (message.remoteBalance !== "0") {
+
+    if (message.remoteBalance !== '0') {
       writer.uint32(40).int64(message.remoteBalance);
     }
-    if (message.localChanReserveSat !== "0") {
+
+    if (message.localChanReserveSat !== '0') {
       writer.uint32(48).int64(message.localChanReserveSat);
     }
-    if (message.remoteChanReserveSat !== "0") {
+
+    if (message.remoteChanReserveSat !== '0') {
       writer.uint32(56).int64(message.remoteChanReserveSat);
     }
+
     if (message.initiator !== 0) {
       writer.uint32(64).int32(message.initiator);
     }
+
     if (message.commitmentType !== 0) {
       writer.uint32(72).int32(message.commitmentType);
     }
-    if (message.numForwardingPackages !== "0") {
+
+    if (message.numForwardingPackages !== '0') {
       writer.uint32(80).int64(message.numForwardingPackages);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PendingChannelsResponse_PendingChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_PendingChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13543,6 +14031,7 @@ export const PendingChannelsResponse_PendingChannel = {
           break;
       }
     }
+
     return message;
   },
 
@@ -13551,33 +14040,33 @@ export const PendingChannelsResponse_PendingChannel = {
     message.remoteNodePub =
       object.remoteNodePub !== undefined && object.remoteNodePub !== null
         ? String(object.remoteNodePub)
-        : "";
+        : '';
     message.channelPoint =
       object.channelPoint !== undefined && object.channelPoint !== null
         ? String(object.channelPoint)
-        : "";
+        : '';
     message.capacity =
       object.capacity !== undefined && object.capacity !== null
         ? String(object.capacity)
-        : "0";
+        : '0';
     message.localBalance =
       object.localBalance !== undefined && object.localBalance !== null
         ? String(object.localBalance)
-        : "0";
+        : '0';
     message.remoteBalance =
       object.remoteBalance !== undefined && object.remoteBalance !== null
         ? String(object.remoteBalance)
-        : "0";
+        : '0';
     message.localChanReserveSat =
       object.localChanReserveSat !== undefined &&
       object.localChanReserveSat !== null
         ? String(object.localChanReserveSat)
-        : "0";
+        : '0';
     message.remoteChanReserveSat =
       object.remoteChanReserveSat !== undefined &&
       object.remoteChanReserveSat !== null
         ? String(object.remoteChanReserveSat)
-        : "0";
+        : '0';
     message.initiator =
       object.initiator !== undefined && object.initiator !== null
         ? initiatorFromJSON(object.initiator)
@@ -13590,48 +14079,48 @@ export const PendingChannelsResponse_PendingChannel = {
       object.numForwardingPackages !== undefined &&
       object.numForwardingPackages !== null
         ? String(object.numForwardingPackages)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: PendingChannelsResponse_PendingChannel): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.remoteNodePub !== undefined &&
-      (obj.remoteNodePub = message.remoteNodePub);
+      (object.remoteNodePub = message.remoteNodePub);
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint);
-    message.capacity !== undefined && (obj.capacity = message.capacity);
+      (object.channelPoint = message.channelPoint);
+    message.capacity !== undefined && (object.capacity = message.capacity);
     message.localBalance !== undefined &&
-      (obj.localBalance = message.localBalance);
+      (object.localBalance = message.localBalance);
     message.remoteBalance !== undefined &&
-      (obj.remoteBalance = message.remoteBalance);
+      (object.remoteBalance = message.remoteBalance);
     message.localChanReserveSat !== undefined &&
-      (obj.localChanReserveSat = message.localChanReserveSat);
+      (object.localChanReserveSat = message.localChanReserveSat);
     message.remoteChanReserveSat !== undefined &&
-      (obj.remoteChanReserveSat = message.remoteChanReserveSat);
+      (object.remoteChanReserveSat = message.remoteChanReserveSat);
     message.initiator !== undefined &&
-      (obj.initiator = initiatorToJSON(message.initiator));
+      (object.initiator = initiatorToJSON(message.initiator));
     message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
     message.numForwardingPackages !== undefined &&
-      (obj.numForwardingPackages = message.numForwardingPackages);
-    return obj;
+      (object.numForwardingPackages = message.numForwardingPackages);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<PendingChannelsResponse_PendingChannel>
+    object: DeepPartial<PendingChannelsResponse_PendingChannel>,
   ): PendingChannelsResponse_PendingChannel {
     const message = createBasePendingChannelsResponse_PendingChannel();
-    message.remoteNodePub = object.remoteNodePub ?? "";
-    message.channelPoint = object.channelPoint ?? "";
-    message.capacity = object.capacity ?? "0";
-    message.localBalance = object.localBalance ?? "0";
-    message.remoteBalance = object.remoteBalance ?? "0";
-    message.localChanReserveSat = object.localChanReserveSat ?? "0";
-    message.remoteChanReserveSat = object.remoteChanReserveSat ?? "0";
+    message.remoteNodePub = object.remoteNodePub ?? '';
+    message.channelPoint = object.channelPoint ?? '';
+    message.capacity = object.capacity ?? '0';
+    message.localBalance = object.localBalance ?? '0';
+    message.remoteBalance = object.remoteBalance ?? '0';
+    message.localChanReserveSat = object.localChanReserveSat ?? '0';
+    message.remoteChanReserveSat = object.remoteChanReserveSat ?? '0';
     message.initiator = object.initiator ?? 0;
     message.commitmentType = object.commitmentType ?? 0;
-    message.numForwardingPackages = object.numForwardingPackages ?? "0";
+    message.numForwardingPackages = object.numForwardingPackages ?? '0';
     return message;
   },
 };
@@ -13640,44 +14129,49 @@ function createBasePendingChannelsResponse_PendingOpenChannel(): PendingChannels
   return {
     channel: undefined,
     confirmationHeight: 0,
-    commitFee: "0",
-    commitWeight: "0",
-    feePerKw: "0",
+    commitFee: '0',
+    commitWeight: '0',
+    feePerKw: '0',
   };
 }
 
 export const PendingChannelsResponse_PendingOpenChannel = {
   encode(
     message: PendingChannelsResponse_PendingOpenChannel,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.channel !== undefined) {
       PendingChannelsResponse_PendingChannel.encode(
         message.channel,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
+
     if (message.confirmationHeight !== 0) {
       writer.uint32(16).uint32(message.confirmationHeight);
     }
-    if (message.commitFee !== "0") {
+
+    if (message.commitFee !== '0') {
       writer.uint32(32).int64(message.commitFee);
     }
-    if (message.commitWeight !== "0") {
+
+    if (message.commitWeight !== '0') {
       writer.uint32(40).int64(message.commitWeight);
     }
-    if (message.feePerKw !== "0") {
+
+    if (message.feePerKw !== '0') {
       writer.uint32(48).int64(message.feePerKw);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PendingChannelsResponse_PendingOpenChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_PendingOpenChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13685,7 +14179,7 @@ export const PendingChannelsResponse_PendingOpenChannel = {
         case 1:
           message.channel = PendingChannelsResponse_PendingChannel.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 2:
@@ -13705,6 +14199,7 @@ export const PendingChannelsResponse_PendingOpenChannel = {
           break;
       }
     }
+
     return message;
   },
 
@@ -13722,35 +14217,35 @@ export const PendingChannelsResponse_PendingOpenChannel = {
     message.commitFee =
       object.commitFee !== undefined && object.commitFee !== null
         ? String(object.commitFee)
-        : "0";
+        : '0';
     message.commitWeight =
       object.commitWeight !== undefined && object.commitWeight !== null
         ? String(object.commitWeight)
-        : "0";
+        : '0';
     message.feePerKw =
       object.feePerKw !== undefined && object.feePerKw !== null
         ? String(object.feePerKw)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: PendingChannelsResponse_PendingOpenChannel): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.channel !== undefined &&
-      (obj.channel = message.channel
+      (object.channel = message.channel
         ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
         : undefined);
     message.confirmationHeight !== undefined &&
-      (obj.confirmationHeight = Math.round(message.confirmationHeight));
-    message.commitFee !== undefined && (obj.commitFee = message.commitFee);
+      (object.confirmationHeight = Math.round(message.confirmationHeight));
+    message.commitFee !== undefined && (object.commitFee = message.commitFee);
     message.commitWeight !== undefined &&
-      (obj.commitWeight = message.commitWeight);
-    message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
-    return obj;
+      (object.commitWeight = message.commitWeight);
+    message.feePerKw !== undefined && (object.feePerKw = message.feePerKw);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<PendingChannelsResponse_PendingOpenChannel>
+    object: DeepPartial<PendingChannelsResponse_PendingOpenChannel>,
   ): PendingChannelsResponse_PendingOpenChannel {
     const message = createBasePendingChannelsResponse_PendingOpenChannel();
     message.channel =
@@ -13758,46 +14253,49 @@ export const PendingChannelsResponse_PendingOpenChannel = {
         ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
         : undefined;
     message.confirmationHeight = object.confirmationHeight ?? 0;
-    message.commitFee = object.commitFee ?? "0";
-    message.commitWeight = object.commitWeight ?? "0";
-    message.feePerKw = object.feePerKw ?? "0";
+    message.commitFee = object.commitFee ?? '0';
+    message.commitWeight = object.commitWeight ?? '0';
+    message.feePerKw = object.feePerKw ?? '0';
     return message;
   },
 };
 
 function createBasePendingChannelsResponse_WaitingCloseChannel(): PendingChannelsResponse_WaitingCloseChannel {
-  return { channel: undefined, limboBalance: "0", commitments: undefined };
+  return {channel: undefined, limboBalance: '0', commitments: undefined};
 }
 
 export const PendingChannelsResponse_WaitingCloseChannel = {
   encode(
     message: PendingChannelsResponse_WaitingCloseChannel,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.channel !== undefined) {
       PendingChannelsResponse_PendingChannel.encode(
         message.channel,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
-    if (message.limboBalance !== "0") {
+
+    if (message.limboBalance !== '0') {
       writer.uint32(16).int64(message.limboBalance);
     }
+
     if (message.commitments !== undefined) {
       PendingChannelsResponse_Commitments.encode(
         message.commitments,
-        writer.uint32(26).fork()
+        writer.uint32(26).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PendingChannelsResponse_WaitingCloseChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_WaitingCloseChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13805,7 +14303,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
         case 1:
           message.channel = PendingChannelsResponse_PendingChannel.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 2:
@@ -13814,7 +14312,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
         case 3:
           message.commitments = PendingChannelsResponse_Commitments.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         default:
@@ -13822,6 +14320,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
           break;
       }
     }
+
     return message;
   },
 
@@ -13834,7 +14333,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
     message.limboBalance =
       object.limboBalance !== undefined && object.limboBalance !== null
         ? String(object.limboBalance)
-        : "0";
+        : '0';
     message.commitments =
       object.commitments !== undefined && object.commitments !== null
         ? PendingChannelsResponse_Commitments.fromJSON(object.commitments)
@@ -13843,29 +14342,29 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
   },
 
   toJSON(message: PendingChannelsResponse_WaitingCloseChannel): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.channel !== undefined &&
-      (obj.channel = message.channel
+      (object.channel = message.channel
         ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
         : undefined);
     message.limboBalance !== undefined &&
-      (obj.limboBalance = message.limboBalance);
+      (object.limboBalance = message.limboBalance);
     message.commitments !== undefined &&
-      (obj.commitments = message.commitments
+      (object.commitments = message.commitments
         ? PendingChannelsResponse_Commitments.toJSON(message.commitments)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<PendingChannelsResponse_WaitingCloseChannel>
+    object: DeepPartial<PendingChannelsResponse_WaitingCloseChannel>,
   ): PendingChannelsResponse_WaitingCloseChannel {
     const message = createBasePendingChannelsResponse_WaitingCloseChannel();
     message.channel =
       object.channel !== undefined && object.channel !== null
         ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
         : undefined;
-    message.limboBalance = object.limboBalance ?? "0";
+    message.limboBalance = object.limboBalance ?? '0';
     message.commitments =
       object.commitments !== undefined && object.commitments !== null
         ? PendingChannelsResponse_Commitments.fromPartial(object.commitments)
@@ -13876,47 +14375,53 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
 
 function createBasePendingChannelsResponse_Commitments(): PendingChannelsResponse_Commitments {
   return {
-    localTxid: "",
-    remoteTxid: "",
-    remotePendingTxid: "",
-    localCommitFeeSat: "0",
-    remoteCommitFeeSat: "0",
-    remotePendingCommitFeeSat: "0",
+    localTxid: '',
+    remoteTxid: '',
+    remotePendingTxid: '',
+    localCommitFeeSat: '0',
+    remoteCommitFeeSat: '0',
+    remotePendingCommitFeeSat: '0',
   };
 }
 
 export const PendingChannelsResponse_Commitments = {
   encode(
     message: PendingChannelsResponse_Commitments,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.localTxid !== "") {
+    if (message.localTxid !== '') {
       writer.uint32(10).string(message.localTxid);
     }
-    if (message.remoteTxid !== "") {
+
+    if (message.remoteTxid !== '') {
       writer.uint32(18).string(message.remoteTxid);
     }
-    if (message.remotePendingTxid !== "") {
+
+    if (message.remotePendingTxid !== '') {
       writer.uint32(26).string(message.remotePendingTxid);
     }
-    if (message.localCommitFeeSat !== "0") {
+
+    if (message.localCommitFeeSat !== '0') {
       writer.uint32(32).uint64(message.localCommitFeeSat);
     }
-    if (message.remoteCommitFeeSat !== "0") {
+
+    if (message.remoteCommitFeeSat !== '0') {
       writer.uint32(40).uint64(message.remoteCommitFeeSat);
     }
-    if (message.remotePendingCommitFeeSat !== "0") {
+
+    if (message.remotePendingCommitFeeSat !== '0') {
       writer.uint32(48).uint64(message.remotePendingCommitFeeSat);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PendingChannelsResponse_Commitments {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_Commitments();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13938,7 +14443,7 @@ export const PendingChannelsResponse_Commitments = {
           break;
         case 6:
           message.remotePendingCommitFeeSat = longToString(
-            reader.uint64() as Long
+            reader.uint64() as Long,
           );
           break;
         default:
@@ -13946,6 +14451,7 @@ export const PendingChannelsResponse_Commitments = {
           break;
       }
     }
+
     return message;
   },
 
@@ -13954,90 +14460,93 @@ export const PendingChannelsResponse_Commitments = {
     message.localTxid =
       object.localTxid !== undefined && object.localTxid !== null
         ? String(object.localTxid)
-        : "";
+        : '';
     message.remoteTxid =
       object.remoteTxid !== undefined && object.remoteTxid !== null
         ? String(object.remoteTxid)
-        : "";
+        : '';
     message.remotePendingTxid =
       object.remotePendingTxid !== undefined &&
       object.remotePendingTxid !== null
         ? String(object.remotePendingTxid)
-        : "";
+        : '';
     message.localCommitFeeSat =
       object.localCommitFeeSat !== undefined &&
       object.localCommitFeeSat !== null
         ? String(object.localCommitFeeSat)
-        : "0";
+        : '0';
     message.remoteCommitFeeSat =
       object.remoteCommitFeeSat !== undefined &&
       object.remoteCommitFeeSat !== null
         ? String(object.remoteCommitFeeSat)
-        : "0";
+        : '0';
     message.remotePendingCommitFeeSat =
       object.remotePendingCommitFeeSat !== undefined &&
       object.remotePendingCommitFeeSat !== null
         ? String(object.remotePendingCommitFeeSat)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: PendingChannelsResponse_Commitments): unknown {
-    const obj: any = {};
-    message.localTxid !== undefined && (obj.localTxid = message.localTxid);
-    message.remoteTxid !== undefined && (obj.remoteTxid = message.remoteTxid);
+    const object: any = {};
+    message.localTxid !== undefined && (object.localTxid = message.localTxid);
+    message.remoteTxid !== undefined &&
+      (object.remoteTxid = message.remoteTxid);
     message.remotePendingTxid !== undefined &&
-      (obj.remotePendingTxid = message.remotePendingTxid);
+      (object.remotePendingTxid = message.remotePendingTxid);
     message.localCommitFeeSat !== undefined &&
-      (obj.localCommitFeeSat = message.localCommitFeeSat);
+      (object.localCommitFeeSat = message.localCommitFeeSat);
     message.remoteCommitFeeSat !== undefined &&
-      (obj.remoteCommitFeeSat = message.remoteCommitFeeSat);
+      (object.remoteCommitFeeSat = message.remoteCommitFeeSat);
     message.remotePendingCommitFeeSat !== undefined &&
-      (obj.remotePendingCommitFeeSat = message.remotePendingCommitFeeSat);
-    return obj;
+      (object.remotePendingCommitFeeSat = message.remotePendingCommitFeeSat);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<PendingChannelsResponse_Commitments>
+    object: DeepPartial<PendingChannelsResponse_Commitments>,
   ): PendingChannelsResponse_Commitments {
     const message = createBasePendingChannelsResponse_Commitments();
-    message.localTxid = object.localTxid ?? "";
-    message.remoteTxid = object.remoteTxid ?? "";
-    message.remotePendingTxid = object.remotePendingTxid ?? "";
-    message.localCommitFeeSat = object.localCommitFeeSat ?? "0";
-    message.remoteCommitFeeSat = object.remoteCommitFeeSat ?? "0";
-    message.remotePendingCommitFeeSat = object.remotePendingCommitFeeSat ?? "0";
+    message.localTxid = object.localTxid ?? '';
+    message.remoteTxid = object.remoteTxid ?? '';
+    message.remotePendingTxid = object.remotePendingTxid ?? '';
+    message.localCommitFeeSat = object.localCommitFeeSat ?? '0';
+    message.remoteCommitFeeSat = object.remoteCommitFeeSat ?? '0';
+    message.remotePendingCommitFeeSat = object.remotePendingCommitFeeSat ?? '0';
     return message;
   },
 };
 
 function createBasePendingChannelsResponse_ClosedChannel(): PendingChannelsResponse_ClosedChannel {
-  return { channel: undefined, closingTxid: "" };
+  return {channel: undefined, closingTxid: ''};
 }
 
 export const PendingChannelsResponse_ClosedChannel = {
   encode(
     message: PendingChannelsResponse_ClosedChannel,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.channel !== undefined) {
       PendingChannelsResponse_PendingChannel.encode(
         message.channel,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
-    if (message.closingTxid !== "") {
+
+    if (message.closingTxid !== '') {
       writer.uint32(18).string(message.closingTxid);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PendingChannelsResponse_ClosedChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_ClosedChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14045,7 +14554,7 @@ export const PendingChannelsResponse_ClosedChannel = {
         case 1:
           message.channel = PendingChannelsResponse_PendingChannel.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 2:
@@ -14056,6 +14565,7 @@ export const PendingChannelsResponse_ClosedChannel = {
           break;
       }
     }
+
     return message;
   },
 
@@ -14068,30 +14578,30 @@ export const PendingChannelsResponse_ClosedChannel = {
     message.closingTxid =
       object.closingTxid !== undefined && object.closingTxid !== null
         ? String(object.closingTxid)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: PendingChannelsResponse_ClosedChannel): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.channel !== undefined &&
-      (obj.channel = message.channel
+      (object.channel = message.channel
         ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
         : undefined);
     message.closingTxid !== undefined &&
-      (obj.closingTxid = message.closingTxid);
-    return obj;
+      (object.closingTxid = message.closingTxid);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<PendingChannelsResponse_ClosedChannel>
+    object: DeepPartial<PendingChannelsResponse_ClosedChannel>,
   ): PendingChannelsResponse_ClosedChannel {
     const message = createBasePendingChannelsResponse_ClosedChannel();
     message.channel =
       object.channel !== undefined && object.channel !== null
         ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
         : undefined;
-    message.closingTxid = object.closingTxid ?? "";
+    message.closingTxid = object.closingTxid ?? '';
     return message;
   },
 };
@@ -14099,11 +14609,11 @@ export const PendingChannelsResponse_ClosedChannel = {
 function createBasePendingChannelsResponse_ForceClosedChannel(): PendingChannelsResponse_ForceClosedChannel {
   return {
     channel: undefined,
-    closingTxid: "",
-    limboBalance: "0",
+    closingTxid: '',
+    limboBalance: '0',
     maturityHeight: 0,
     blocksTilMaturity: 0,
-    recoveredBalance: "0",
+    recoveredBalance: '0',
     pendingHtlcs: [],
     anchor: 0,
   };
@@ -14112,44 +14622,52 @@ function createBasePendingChannelsResponse_ForceClosedChannel(): PendingChannels
 export const PendingChannelsResponse_ForceClosedChannel = {
   encode(
     message: PendingChannelsResponse_ForceClosedChannel,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.channel !== undefined) {
       PendingChannelsResponse_PendingChannel.encode(
         message.channel,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
-    if (message.closingTxid !== "") {
+
+    if (message.closingTxid !== '') {
       writer.uint32(18).string(message.closingTxid);
     }
-    if (message.limboBalance !== "0") {
+
+    if (message.limboBalance !== '0') {
       writer.uint32(24).int64(message.limboBalance);
     }
+
     if (message.maturityHeight !== 0) {
       writer.uint32(32).uint32(message.maturityHeight);
     }
+
     if (message.blocksTilMaturity !== 0) {
       writer.uint32(40).int32(message.blocksTilMaturity);
     }
-    if (message.recoveredBalance !== "0") {
+
+    if (message.recoveredBalance !== '0') {
       writer.uint32(48).int64(message.recoveredBalance);
     }
+
     for (const v of message.pendingHtlcs) {
-      PendingHTLC.encode(v!, writer.uint32(66).fork()).ldelim();
+      PendingHTLC.encode(v, writer.uint32(66).fork()).ldelim();
     }
+
     if (message.anchor !== 0) {
       writer.uint32(72).int32(message.anchor);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PendingChannelsResponse_ForceClosedChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_ForceClosedChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14157,7 +14675,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
         case 1:
           message.channel = PendingChannelsResponse_PendingChannel.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 2:
@@ -14177,7 +14695,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
           break;
         case 8:
           message.pendingHtlcs.push(
-            PendingHTLC.decode(reader, reader.uint32())
+            PendingHTLC.decode(reader, reader.uint32()),
           );
           break;
         case 9:
@@ -14188,6 +14706,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
           break;
       }
     }
+
     return message;
   },
 
@@ -14200,11 +14719,11 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     message.closingTxid =
       object.closingTxid !== undefined && object.closingTxid !== null
         ? String(object.closingTxid)
-        : "";
+        : '';
     message.limboBalance =
       object.limboBalance !== undefined && object.limboBalance !== null
         ? String(object.limboBalance)
-        : "0";
+        : '0';
     message.maturityHeight =
       object.maturityHeight !== undefined && object.maturityHeight !== null
         ? Number(object.maturityHeight)
@@ -14217,63 +14736,64 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     message.recoveredBalance =
       object.recoveredBalance !== undefined && object.recoveredBalance !== null
         ? String(object.recoveredBalance)
-        : "0";
+        : '0';
     message.pendingHtlcs = (object.pendingHtlcs ?? []).map((e: any) =>
-      PendingHTLC.fromJSON(e)
+      PendingHTLC.fromJSON(e),
     );
     message.anchor =
       object.anchor !== undefined && object.anchor !== null
         ? pendingChannelsResponse_ForceClosedChannel_AnchorStateFromJSON(
-            object.anchor
+            object.anchor,
           )
         : 0;
     return message;
   },
 
   toJSON(message: PendingChannelsResponse_ForceClosedChannel): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.channel !== undefined &&
-      (obj.channel = message.channel
+      (object.channel = message.channel
         ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
         : undefined);
     message.closingTxid !== undefined &&
-      (obj.closingTxid = message.closingTxid);
+      (object.closingTxid = message.closingTxid);
     message.limboBalance !== undefined &&
-      (obj.limboBalance = message.limboBalance);
+      (object.limboBalance = message.limboBalance);
     message.maturityHeight !== undefined &&
-      (obj.maturityHeight = Math.round(message.maturityHeight));
+      (object.maturityHeight = Math.round(message.maturityHeight));
     message.blocksTilMaturity !== undefined &&
-      (obj.blocksTilMaturity = Math.round(message.blocksTilMaturity));
+      (object.blocksTilMaturity = Math.round(message.blocksTilMaturity));
     message.recoveredBalance !== undefined &&
-      (obj.recoveredBalance = message.recoveredBalance);
+      (object.recoveredBalance = message.recoveredBalance);
     if (message.pendingHtlcs) {
-      obj.pendingHtlcs = message.pendingHtlcs.map((e) =>
-        e ? PendingHTLC.toJSON(e) : undefined
+      object.pendingHtlcs = message.pendingHtlcs.map((e) =>
+        e ? PendingHTLC.toJSON(e) : undefined,
       );
     } else {
-      obj.pendingHtlcs = [];
+      object.pendingHtlcs = [];
     }
+
     message.anchor !== undefined &&
-      (obj.anchor =
+      (object.anchor =
         pendingChannelsResponse_ForceClosedChannel_AnchorStateToJSON(
-          message.anchor
+          message.anchor,
         ));
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<PendingChannelsResponse_ForceClosedChannel>
+    object: DeepPartial<PendingChannelsResponse_ForceClosedChannel>,
   ): PendingChannelsResponse_ForceClosedChannel {
     const message = createBasePendingChannelsResponse_ForceClosedChannel();
     message.channel =
       object.channel !== undefined && object.channel !== null
         ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
         : undefined;
-    message.closingTxid = object.closingTxid ?? "";
-    message.limboBalance = object.limboBalance ?? "0";
+    message.closingTxid = object.closingTxid ?? '';
+    message.limboBalance = object.limboBalance ?? '0';
     message.maturityHeight = object.maturityHeight ?? 0;
     message.blocksTilMaturity = object.blocksTilMaturity ?? 0;
-    message.recoveredBalance = object.recoveredBalance ?? "0";
+    message.recoveredBalance = object.recoveredBalance ?? '0';
     message.pendingHtlcs =
       object.pendingHtlcs?.map((e) => PendingHTLC.fromPartial(e)) || [];
     message.anchor = object.anchor ?? 0;
@@ -14288,17 +14808,17 @@ function createBaseChannelEventSubscription(): ChannelEventSubscription {
 export const ChannelEventSubscription = {
   encode(
     _: ChannelEventSubscription,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ChannelEventSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEventSubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14308,6 +14828,7 @@ export const ChannelEventSubscription = {
           break;
       }
     }
+
     return message;
   },
 
@@ -14317,12 +14838,12 @@ export const ChannelEventSubscription = {
   },
 
   toJSON(_: ChannelEventSubscription): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(
-    _: DeepPartial<ChannelEventSubscription>
+    _: DeepPartial<ChannelEventSubscription>,
   ): ChannelEventSubscription {
     const message = createBaseChannelEventSubscription();
     return message;
@@ -14344,50 +14865,57 @@ function createBaseChannelEventUpdate(): ChannelEventUpdate {
 export const ChannelEventUpdate = {
   encode(
     message: ChannelEventUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.openChannel !== undefined) {
       Channel.encode(message.openChannel, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.closedChannel !== undefined) {
       ChannelCloseSummary.encode(
         message.closedChannel,
-        writer.uint32(18).fork()
+        writer.uint32(18).fork(),
       ).ldelim();
     }
+
     if (message.activeChannel !== undefined) {
       ChannelPoint.encode(
         message.activeChannel,
-        writer.uint32(26).fork()
+        writer.uint32(26).fork(),
       ).ldelim();
     }
+
     if (message.inactiveChannel !== undefined) {
       ChannelPoint.encode(
         message.inactiveChannel,
-        writer.uint32(34).fork()
+        writer.uint32(34).fork(),
       ).ldelim();
     }
+
     if (message.pendingOpenChannel !== undefined) {
       PendingUpdate.encode(
         message.pendingOpenChannel,
-        writer.uint32(50).fork()
+        writer.uint32(50).fork(),
       ).ldelim();
     }
+
     if (message.fullyResolvedChannel !== undefined) {
       ChannelPoint.encode(
         message.fullyResolvedChannel,
-        writer.uint32(58).fork()
+        writer.uint32(58).fork(),
       ).ldelim();
     }
+
     if (message.type !== 0) {
       writer.uint32(40).int32(message.type);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelEventUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEventUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14398,7 +14926,7 @@ export const ChannelEventUpdate = {
         case 2:
           message.closedChannel = ChannelCloseSummary.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 3:
@@ -14407,19 +14935,19 @@ export const ChannelEventUpdate = {
         case 4:
           message.inactiveChannel = ChannelPoint.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 6:
           message.pendingOpenChannel = PendingUpdate.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 7:
           message.fullyResolvedChannel = ChannelPoint.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 5:
@@ -14430,6 +14958,7 @@ export const ChannelEventUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -14469,34 +14998,34 @@ export const ChannelEventUpdate = {
   },
 
   toJSON(message: ChannelEventUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.openChannel !== undefined &&
-      (obj.openChannel = message.openChannel
+      (object.openChannel = message.openChannel
         ? Channel.toJSON(message.openChannel)
         : undefined);
     message.closedChannel !== undefined &&
-      (obj.closedChannel = message.closedChannel
+      (object.closedChannel = message.closedChannel
         ? ChannelCloseSummary.toJSON(message.closedChannel)
         : undefined);
     message.activeChannel !== undefined &&
-      (obj.activeChannel = message.activeChannel
+      (object.activeChannel = message.activeChannel
         ? ChannelPoint.toJSON(message.activeChannel)
         : undefined);
     message.inactiveChannel !== undefined &&
-      (obj.inactiveChannel = message.inactiveChannel
+      (object.inactiveChannel = message.inactiveChannel
         ? ChannelPoint.toJSON(message.inactiveChannel)
         : undefined);
     message.pendingOpenChannel !== undefined &&
-      (obj.pendingOpenChannel = message.pendingOpenChannel
+      (object.pendingOpenChannel = message.pendingOpenChannel
         ? PendingUpdate.toJSON(message.pendingOpenChannel)
         : undefined);
     message.fullyResolvedChannel !== undefined &&
-      (obj.fullyResolvedChannel = message.fullyResolvedChannel
+      (object.fullyResolvedChannel = message.fullyResolvedChannel
         ? ChannelPoint.toJSON(message.fullyResolvedChannel)
         : undefined);
     message.type !== undefined &&
-      (obj.type = channelEventUpdate_UpdateTypeToJSON(message.type));
-    return obj;
+      (object.type = channelEventUpdate_UpdateTypeToJSON(message.type));
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelEventUpdate>): ChannelEventUpdate {
@@ -14533,29 +15062,31 @@ export const ChannelEventUpdate = {
 };
 
 function createBaseWalletAccountBalance(): WalletAccountBalance {
-  return { confirmedBalance: "0", unconfirmedBalance: "0" };
+  return {confirmedBalance: '0', unconfirmedBalance: '0'};
 }
 
 export const WalletAccountBalance = {
   encode(
     message: WalletAccountBalance,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.confirmedBalance !== "0") {
+    if (message.confirmedBalance !== '0') {
       writer.uint32(8).int64(message.confirmedBalance);
     }
-    if (message.unconfirmedBalance !== "0") {
+
+    if (message.unconfirmedBalance !== '0') {
       writer.uint32(16).int64(message.unconfirmedBalance);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): WalletAccountBalance {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletAccountBalance();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14571,6 +15102,7 @@ export const WalletAccountBalance = {
           break;
       }
     }
+
     return message;
   },
 
@@ -14579,28 +15111,28 @@ export const WalletAccountBalance = {
     message.confirmedBalance =
       object.confirmedBalance !== undefined && object.confirmedBalance !== null
         ? String(object.confirmedBalance)
-        : "0";
+        : '0';
     message.unconfirmedBalance =
       object.unconfirmedBalance !== undefined &&
       object.unconfirmedBalance !== null
         ? String(object.unconfirmedBalance)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: WalletAccountBalance): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.confirmedBalance !== undefined &&
-      (obj.confirmedBalance = message.confirmedBalance);
+      (object.confirmedBalance = message.confirmedBalance);
     message.unconfirmedBalance !== undefined &&
-      (obj.unconfirmedBalance = message.unconfirmedBalance);
-    return obj;
+      (object.unconfirmedBalance = message.unconfirmedBalance);
+    return object;
   },
 
   fromPartial(object: DeepPartial<WalletAccountBalance>): WalletAccountBalance {
     const message = createBaseWalletAccountBalance();
-    message.confirmedBalance = object.confirmedBalance ?? "0";
-    message.unconfirmedBalance = object.unconfirmedBalance ?? "0";
+    message.confirmedBalance = object.confirmedBalance ?? '0';
+    message.unconfirmedBalance = object.unconfirmedBalance ?? '0';
     return message;
   },
 };
@@ -14612,17 +15144,17 @@ function createBaseWalletBalanceRequest(): WalletBalanceRequest {
 export const WalletBalanceRequest = {
   encode(
     _: WalletBalanceRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): WalletBalanceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14632,6 +15164,7 @@ export const WalletBalanceRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -14641,8 +15174,8 @@ export const WalletBalanceRequest = {
   },
 
   toJSON(_: WalletBalanceRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<WalletBalanceRequest>): WalletBalanceRequest {
@@ -14653,9 +15186,9 @@ export const WalletBalanceRequest = {
 
 function createBaseWalletBalanceResponse(): WalletBalanceResponse {
   return {
-    totalBalance: "0",
-    confirmedBalance: "0",
-    unconfirmedBalance: "0",
+    totalBalance: '0',
+    confirmedBalance: '0',
+    unconfirmedBalance: '0',
     accountBalance: {},
   };
 }
@@ -14663,32 +15196,36 @@ function createBaseWalletBalanceResponse(): WalletBalanceResponse {
 export const WalletBalanceResponse = {
   encode(
     message: WalletBalanceResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.totalBalance !== "0") {
+    if (message.totalBalance !== '0') {
       writer.uint32(8).int64(message.totalBalance);
     }
-    if (message.confirmedBalance !== "0") {
+
+    if (message.confirmedBalance !== '0') {
       writer.uint32(16).int64(message.confirmedBalance);
     }
-    if (message.unconfirmedBalance !== "0") {
+
+    if (message.unconfirmedBalance !== '0') {
       writer.uint32(24).int64(message.unconfirmedBalance);
     }
-    Object.entries(message.accountBalance).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.accountBalance)) {
       WalletBalanceResponse_AccountBalanceEntry.encode(
-        { key: key as any, value },
-        writer.uint32(34).fork()
+        {key: key as any, value},
+        writer.uint32(34).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): WalletBalanceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14705,17 +15242,19 @@ export const WalletBalanceResponse = {
         case 4:
           const entry4 = WalletBalanceResponse_AccountBalanceEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry4.value !== undefined) {
             message.accountBalance[entry4.key] = entry4.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -14724,19 +15263,19 @@ export const WalletBalanceResponse = {
     message.totalBalance =
       object.totalBalance !== undefined && object.totalBalance !== null
         ? String(object.totalBalance)
-        : "0";
+        : '0';
     message.confirmedBalance =
       object.confirmedBalance !== undefined && object.confirmedBalance !== null
         ? String(object.confirmedBalance)
-        : "0";
+        : '0';
     message.unconfirmedBalance =
       object.unconfirmedBalance !== undefined &&
       object.unconfirmedBalance !== null
         ? String(object.unconfirmedBalance)
-        : "0";
-    message.accountBalance = Object.entries(
-      object.accountBalance ?? {}
-    ).reduce<{ [key: string]: WalletAccountBalance }>((acc, [key, value]) => {
+        : '0';
+    message.accountBalance = Object.entries(object.accountBalance ?? {}).reduce<
+      Record<string, WalletAccountBalance>
+    >((acc, [key, value]) => {
       acc[key] = WalletAccountBalance.fromJSON(value);
       return acc;
     }, {});
@@ -14744,35 +15283,37 @@ export const WalletBalanceResponse = {
   },
 
   toJSON(message: WalletBalanceResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.totalBalance !== undefined &&
-      (obj.totalBalance = message.totalBalance);
+      (object.totalBalance = message.totalBalance);
     message.confirmedBalance !== undefined &&
-      (obj.confirmedBalance = message.confirmedBalance);
+      (object.confirmedBalance = message.confirmedBalance);
     message.unconfirmedBalance !== undefined &&
-      (obj.unconfirmedBalance = message.unconfirmedBalance);
-    obj.accountBalance = {};
+      (object.unconfirmedBalance = message.unconfirmedBalance);
+    object.accountBalance = {};
     if (message.accountBalance) {
-      Object.entries(message.accountBalance).forEach(([k, v]) => {
-        obj.accountBalance[k] = WalletAccountBalance.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.accountBalance)) {
+        object.accountBalance[k] = WalletAccountBalance.toJSON(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<WalletBalanceResponse>
+    object: DeepPartial<WalletBalanceResponse>,
   ): WalletBalanceResponse {
     const message = createBaseWalletBalanceResponse();
-    message.totalBalance = object.totalBalance ?? "0";
-    message.confirmedBalance = object.confirmedBalance ?? "0";
-    message.unconfirmedBalance = object.unconfirmedBalance ?? "0";
-    message.accountBalance = Object.entries(
-      object.accountBalance ?? {}
-    ).reduce<{ [key: string]: WalletAccountBalance }>((acc, [key, value]) => {
+    message.totalBalance = object.totalBalance ?? '0';
+    message.confirmedBalance = object.confirmedBalance ?? '0';
+    message.unconfirmedBalance = object.unconfirmedBalance ?? '0';
+    message.accountBalance = Object.entries(object.accountBalance ?? {}).reduce<
+      Record<string, WalletAccountBalance>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = WalletAccountBalance.fromPartial(value);
       }
+
       return acc;
     }, {});
     return message;
@@ -14780,32 +15321,34 @@ export const WalletBalanceResponse = {
 };
 
 function createBaseWalletBalanceResponse_AccountBalanceEntry(): WalletBalanceResponse_AccountBalanceEntry {
-  return { key: "", value: undefined };
+  return {key: '', value: undefined};
 }
 
 export const WalletBalanceResponse_AccountBalanceEntry = {
   encode(
     message: WalletBalanceResponse_AccountBalanceEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
+
     if (message.value !== undefined) {
       WalletAccountBalance.encode(
         message.value,
-        writer.uint32(18).fork()
+        writer.uint32(18).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): WalletBalanceResponse_AccountBalanceEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceResponse_AccountBalanceEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14821,13 +15364,14 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): WalletBalanceResponse_AccountBalanceEntry {
     const message = createBaseWalletBalanceResponse_AccountBalanceEntry();
     message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : "";
+      object.key !== undefined && object.key !== null ? String(object.key) : '';
     message.value =
       object.value !== undefined && object.value !== null
         ? WalletAccountBalance.fromJSON(object.value)
@@ -14836,20 +15380,20 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
   },
 
   toJSON(message: WalletBalanceResponse_AccountBalanceEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
     message.value !== undefined &&
-      (obj.value = message.value
+      (object.value = message.value
         ? WalletAccountBalance.toJSON(message.value)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<WalletBalanceResponse_AccountBalanceEntry>
+    object: DeepPartial<WalletBalanceResponse_AccountBalanceEntry>,
   ): WalletBalanceResponse_AccountBalanceEntry {
     const message = createBaseWalletBalanceResponse_AccountBalanceEntry();
-    message.key = object.key ?? "";
+    message.key = object.key ?? '';
     message.value =
       object.value !== undefined && object.value !== null
         ? WalletAccountBalance.fromPartial(object.value)
@@ -14859,26 +15403,28 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
 };
 
 function createBaseAmount(): Amount {
-  return { sat: "0", msat: "0" };
+  return {sat: '0', msat: '0'};
 }
 
 export const Amount = {
   encode(
     message: Amount,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.sat !== "0") {
+    if (message.sat !== '0') {
       writer.uint32(8).uint64(message.sat);
     }
-    if (message.msat !== "0") {
+
+    if (message.msat !== '0') {
       writer.uint32(16).uint64(message.msat);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Amount {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAmount();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14894,6 +15440,7 @@ export const Amount = {
           break;
       }
     }
+
     return message;
   },
 
@@ -14902,25 +15449,25 @@ export const Amount = {
     message.sat =
       object.sat !== undefined && object.sat !== null
         ? String(object.sat)
-        : "0";
+        : '0';
     message.msat =
       object.msat !== undefined && object.msat !== null
         ? String(object.msat)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: Amount): unknown {
-    const obj: any = {};
-    message.sat !== undefined && (obj.sat = message.sat);
-    message.msat !== undefined && (obj.msat = message.msat);
-    return obj;
+    const object: any = {};
+    message.sat !== undefined && (object.sat = message.sat);
+    message.msat !== undefined && (object.msat = message.msat);
+    return object;
   },
 
   fromPartial(object: DeepPartial<Amount>): Amount {
     const message = createBaseAmount();
-    message.sat = object.sat ?? "0";
-    message.msat = object.msat ?? "0";
+    message.sat = object.sat ?? '0';
+    message.msat = object.msat ?? '0';
     return message;
   },
 };
@@ -14932,17 +15479,17 @@ function createBaseChannelBalanceRequest(): ChannelBalanceRequest {
 export const ChannelBalanceRequest = {
   encode(
     _: ChannelBalanceRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ChannelBalanceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBalanceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14952,6 +15499,7 @@ export const ChannelBalanceRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -14961,8 +15509,8 @@ export const ChannelBalanceRequest = {
   },
 
   toJSON(_: ChannelBalanceRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<ChannelBalanceRequest>): ChannelBalanceRequest {
@@ -14973,8 +15521,8 @@ export const ChannelBalanceRequest = {
 
 function createBaseChannelBalanceResponse(): ChannelBalanceResponse {
   return {
-    balance: "0",
-    pendingOpenBalance: "0",
+    balance: '0',
+    pendingOpenBalance: '0',
     localBalance: undefined,
     remoteBalance: undefined,
     unsettledLocalBalance: undefined,
@@ -14987,53 +15535,61 @@ function createBaseChannelBalanceResponse(): ChannelBalanceResponse {
 export const ChannelBalanceResponse = {
   encode(
     message: ChannelBalanceResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.balance !== "0") {
+    if (message.balance !== '0') {
       writer.uint32(8).int64(message.balance);
     }
-    if (message.pendingOpenBalance !== "0") {
+
+    if (message.pendingOpenBalance !== '0') {
       writer.uint32(16).int64(message.pendingOpenBalance);
     }
+
     if (message.localBalance !== undefined) {
       Amount.encode(message.localBalance, writer.uint32(26).fork()).ldelim();
     }
+
     if (message.remoteBalance !== undefined) {
       Amount.encode(message.remoteBalance, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.unsettledLocalBalance !== undefined) {
       Amount.encode(
         message.unsettledLocalBalance,
-        writer.uint32(42).fork()
+        writer.uint32(42).fork(),
       ).ldelim();
     }
+
     if (message.unsettledRemoteBalance !== undefined) {
       Amount.encode(
         message.unsettledRemoteBalance,
-        writer.uint32(50).fork()
+        writer.uint32(50).fork(),
       ).ldelim();
     }
+
     if (message.pendingOpenLocalBalance !== undefined) {
       Amount.encode(
         message.pendingOpenLocalBalance,
-        writer.uint32(58).fork()
+        writer.uint32(58).fork(),
       ).ldelim();
     }
+
     if (message.pendingOpenRemoteBalance !== undefined) {
       Amount.encode(
         message.pendingOpenRemoteBalance,
-        writer.uint32(66).fork()
+        writer.uint32(66).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ChannelBalanceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBalanceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15053,25 +15609,25 @@ export const ChannelBalanceResponse = {
         case 5:
           message.unsettledLocalBalance = Amount.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 6:
           message.unsettledRemoteBalance = Amount.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 7:
           message.pendingOpenLocalBalance = Amount.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 8:
           message.pendingOpenRemoteBalance = Amount.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         default:
@@ -15079,6 +15635,7 @@ export const ChannelBalanceResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -15087,12 +15644,12 @@ export const ChannelBalanceResponse = {
     message.balance =
       object.balance !== undefined && object.balance !== null
         ? String(object.balance)
-        : "0";
+        : '0';
     message.pendingOpenBalance =
       object.pendingOpenBalance !== undefined &&
       object.pendingOpenBalance !== null
         ? String(object.pendingOpenBalance)
-        : "0";
+        : '0';
     message.localBalance =
       object.localBalance !== undefined && object.localBalance !== null
         ? Amount.fromJSON(object.localBalance)
@@ -15125,43 +15682,43 @@ export const ChannelBalanceResponse = {
   },
 
   toJSON(message: ChannelBalanceResponse): unknown {
-    const obj: any = {};
-    message.balance !== undefined && (obj.balance = message.balance);
+    const object: any = {};
+    message.balance !== undefined && (object.balance = message.balance);
     message.pendingOpenBalance !== undefined &&
-      (obj.pendingOpenBalance = message.pendingOpenBalance);
+      (object.pendingOpenBalance = message.pendingOpenBalance);
     message.localBalance !== undefined &&
-      (obj.localBalance = message.localBalance
+      (object.localBalance = message.localBalance
         ? Amount.toJSON(message.localBalance)
         : undefined);
     message.remoteBalance !== undefined &&
-      (obj.remoteBalance = message.remoteBalance
+      (object.remoteBalance = message.remoteBalance
         ? Amount.toJSON(message.remoteBalance)
         : undefined);
     message.unsettledLocalBalance !== undefined &&
-      (obj.unsettledLocalBalance = message.unsettledLocalBalance
+      (object.unsettledLocalBalance = message.unsettledLocalBalance
         ? Amount.toJSON(message.unsettledLocalBalance)
         : undefined);
     message.unsettledRemoteBalance !== undefined &&
-      (obj.unsettledRemoteBalance = message.unsettledRemoteBalance
+      (object.unsettledRemoteBalance = message.unsettledRemoteBalance
         ? Amount.toJSON(message.unsettledRemoteBalance)
         : undefined);
     message.pendingOpenLocalBalance !== undefined &&
-      (obj.pendingOpenLocalBalance = message.pendingOpenLocalBalance
+      (object.pendingOpenLocalBalance = message.pendingOpenLocalBalance
         ? Amount.toJSON(message.pendingOpenLocalBalance)
         : undefined);
     message.pendingOpenRemoteBalance !== undefined &&
-      (obj.pendingOpenRemoteBalance = message.pendingOpenRemoteBalance
+      (object.pendingOpenRemoteBalance = message.pendingOpenRemoteBalance
         ? Amount.toJSON(message.pendingOpenRemoteBalance)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ChannelBalanceResponse>
+    object: DeepPartial<ChannelBalanceResponse>,
   ): ChannelBalanceResponse {
     const message = createBaseChannelBalanceResponse();
-    message.balance = object.balance ?? "0";
-    message.pendingOpenBalance = object.pendingOpenBalance ?? "0";
+    message.balance = object.balance ?? '0';
+    message.pendingOpenBalance = object.pendingOpenBalance ?? '0';
     message.localBalance =
       object.localBalance !== undefined && object.localBalance !== null
         ? Amount.fromPartial(object.localBalance)
@@ -15196,19 +15753,19 @@ export const ChannelBalanceResponse = {
 
 function createBaseQueryRoutesRequest(): QueryRoutesRequest {
   return {
-    pubKey: "",
-    amt: "0",
-    amtMsat: "0",
+    pubKey: '',
+    amt: '0',
+    amtMsat: '0',
     finalCltvDelta: 0,
     feeLimit: undefined,
     ignoredNodes: [],
     ignoredEdges: [],
-    sourcePubKey: "",
+    sourcePubKey: '',
     useMissionControl: false,
     ignoredPairs: [],
     cltvLimit: 0,
     destCustomRecords: {},
-    outgoingChanId: "0",
+    outgoingChanId: '0',
     lastHopPubkey: new Uint8Array(),
     routeHints: [],
     destFeatures: [],
@@ -15218,67 +15775,83 @@ function createBaseQueryRoutesRequest(): QueryRoutesRequest {
 export const QueryRoutesRequest = {
   encode(
     message: QueryRoutesRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pubKey !== "") {
+    if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
-    if (message.amt !== "0") {
+
+    if (message.amt !== '0') {
       writer.uint32(16).int64(message.amt);
     }
-    if (message.amtMsat !== "0") {
+
+    if (message.amtMsat !== '0') {
       writer.uint32(96).int64(message.amtMsat);
     }
+
     if (message.finalCltvDelta !== 0) {
       writer.uint32(32).int32(message.finalCltvDelta);
     }
+
     if (message.feeLimit !== undefined) {
       FeeLimit.encode(message.feeLimit, writer.uint32(42).fork()).ldelim();
     }
+
     for (const v of message.ignoredNodes) {
-      writer.uint32(50).bytes(v!);
+      writer.uint32(50).bytes(v);
     }
+
     for (const v of message.ignoredEdges) {
-      EdgeLocator.encode(v!, writer.uint32(58).fork()).ldelim();
+      EdgeLocator.encode(v, writer.uint32(58).fork()).ldelim();
     }
-    if (message.sourcePubKey !== "") {
+
+    if (message.sourcePubKey !== '') {
       writer.uint32(66).string(message.sourcePubKey);
     }
-    if (message.useMissionControl === true) {
+
+    if (message.useMissionControl) {
       writer.uint32(72).bool(message.useMissionControl);
     }
+
     for (const v of message.ignoredPairs) {
-      NodePair.encode(v!, writer.uint32(82).fork()).ldelim();
+      NodePair.encode(v, writer.uint32(82).fork()).ldelim();
     }
+
     if (message.cltvLimit !== 0) {
       writer.uint32(88).uint32(message.cltvLimit);
     }
-    Object.entries(message.destCustomRecords).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.destCustomRecords)) {
       QueryRoutesRequest_DestCustomRecordsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(106).fork()
+        {key: key as any, value},
+        writer.uint32(106).fork(),
       ).ldelim();
-    });
-    if (message.outgoingChanId !== "0") {
+    }
+
+    if (message.outgoingChanId !== '0') {
       writer.uint32(112).uint64(message.outgoingChanId);
     }
-    if (message.lastHopPubkey.length !== 0) {
+
+    if (message.lastHopPubkey.length > 0) {
       writer.uint32(122).bytes(message.lastHopPubkey);
     }
+
     for (const v of message.routeHints) {
-      RouteHint.encode(v!, writer.uint32(130).fork()).ldelim();
+      RouteHint.encode(v, writer.uint32(130).fork()).ldelim();
     }
+
     writer.uint32(138).fork();
     for (const v of message.destFeatures) {
       writer.int32(v);
     }
+
     writer.ldelim();
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryRoutesRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryRoutesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15303,7 +15876,7 @@ export const QueryRoutesRequest = {
           break;
         case 7:
           message.ignoredEdges.push(
-            EdgeLocator.decode(reader, reader.uint32())
+            EdgeLocator.decode(reader, reader.uint32()),
           );
           break;
         case 8:
@@ -15321,11 +15894,12 @@ export const QueryRoutesRequest = {
         case 13:
           const entry13 = QueryRoutesRequest_DestCustomRecordsEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry13.value !== undefined) {
             message.destCustomRecords[entry13.key] = entry13.value;
           }
+
           break;
         case 14:
           message.outgoingChanId = longToString(reader.uint64() as Long);
@@ -15345,12 +15919,14 @@ export const QueryRoutesRequest = {
           } else {
             message.destFeatures.push(reader.int32() as any);
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -15359,15 +15935,15 @@ export const QueryRoutesRequest = {
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
         ? String(object.pubKey)
-        : "";
+        : '';
     message.amt =
       object.amt !== undefined && object.amt !== null
         ? String(object.amt)
-        : "0";
+        : '0';
     message.amtMsat =
       object.amtMsat !== undefined && object.amtMsat !== null
         ? String(object.amtMsat)
-        : "0";
+        : '0';
     message.finalCltvDelta =
       object.finalCltvDelta !== undefined && object.finalCltvDelta !== null
         ? Number(object.finalCltvDelta)
@@ -15377,122 +15953,125 @@ export const QueryRoutesRequest = {
         ? FeeLimit.fromJSON(object.feeLimit)
         : undefined;
     message.ignoredNodes = (object.ignoredNodes ?? []).map((e: any) =>
-      bytesFromBase64(e)
+      bytesFromBase64(e),
     );
     message.ignoredEdges = (object.ignoredEdges ?? []).map((e: any) =>
-      EdgeLocator.fromJSON(e)
+      EdgeLocator.fromJSON(e),
     );
     message.sourcePubKey =
       object.sourcePubKey !== undefined && object.sourcePubKey !== null
         ? String(object.sourcePubKey)
-        : "";
+        : '';
     message.useMissionControl =
       object.useMissionControl !== undefined &&
       object.useMissionControl !== null
         ? Boolean(object.useMissionControl)
         : false;
     message.ignoredPairs = (object.ignoredPairs ?? []).map((e: any) =>
-      NodePair.fromJSON(e)
+      NodePair.fromJSON(e),
     );
     message.cltvLimit =
       object.cltvLimit !== undefined && object.cltvLimit !== null
         ? Number(object.cltvLimit)
         : 0;
     message.destCustomRecords = Object.entries(
-      object.destCustomRecords ?? {}
-    ).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+      object.destCustomRecords ?? {},
+    ).reduce<Record<string, Uint8Array>>((acc, [key, value]) => {
       acc[key] = bytesFromBase64(value as string);
       return acc;
     }, {});
     message.outgoingChanId =
       object.outgoingChanId !== undefined && object.outgoingChanId !== null
         ? String(object.outgoingChanId)
-        : "0";
+        : '0';
     message.lastHopPubkey =
       object.lastHopPubkey !== undefined && object.lastHopPubkey !== null
         ? bytesFromBase64(object.lastHopPubkey)
         : new Uint8Array();
     message.routeHints = (object.routeHints ?? []).map((e: any) =>
-      RouteHint.fromJSON(e)
+      RouteHint.fromJSON(e),
     );
     message.destFeatures = (object.destFeatures ?? []).map((e: any) =>
-      featureBitFromJSON(e)
+      featureBitFromJSON(e),
     );
     return message;
   },
 
   toJSON(message: QueryRoutesRequest): unknown {
-    const obj: any = {};
-    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
-    message.amt !== undefined && (obj.amt = message.amt);
-    message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
+    const object: any = {};
+    message.pubKey !== undefined && (object.pubKey = message.pubKey);
+    message.amt !== undefined && (object.amt = message.amt);
+    message.amtMsat !== undefined && (object.amtMsat = message.amtMsat);
     message.finalCltvDelta !== undefined &&
-      (obj.finalCltvDelta = Math.round(message.finalCltvDelta));
+      (object.finalCltvDelta = Math.round(message.finalCltvDelta));
     message.feeLimit !== undefined &&
-      (obj.feeLimit = message.feeLimit
+      (object.feeLimit = message.feeLimit
         ? FeeLimit.toJSON(message.feeLimit)
         : undefined);
     if (message.ignoredNodes) {
-      obj.ignoredNodes = message.ignoredNodes.map((e) =>
-        base64FromBytes(e !== undefined ? e : new Uint8Array())
+      object.ignoredNodes = message.ignoredNodes.map((e) =>
+        base64FromBytes(e !== undefined ? e : new Uint8Array()),
       );
     } else {
-      obj.ignoredNodes = [];
+      object.ignoredNodes = [];
     }
+
     if (message.ignoredEdges) {
-      obj.ignoredEdges = message.ignoredEdges.map((e) =>
-        e ? EdgeLocator.toJSON(e) : undefined
+      object.ignoredEdges = message.ignoredEdges.map((e) =>
+        e ? EdgeLocator.toJSON(e) : undefined,
       );
     } else {
-      obj.ignoredEdges = [];
+      object.ignoredEdges = [];
     }
+
     message.sourcePubKey !== undefined &&
-      (obj.sourcePubKey = message.sourcePubKey);
+      (object.sourcePubKey = message.sourcePubKey);
     message.useMissionControl !== undefined &&
-      (obj.useMissionControl = message.useMissionControl);
+      (object.useMissionControl = message.useMissionControl);
     if (message.ignoredPairs) {
-      obj.ignoredPairs = message.ignoredPairs.map((e) =>
-        e ? NodePair.toJSON(e) : undefined
+      object.ignoredPairs = message.ignoredPairs.map((e) =>
+        e ? NodePair.toJSON(e) : undefined,
       );
     } else {
-      obj.ignoredPairs = [];
+      object.ignoredPairs = [];
     }
+
     message.cltvLimit !== undefined &&
-      (obj.cltvLimit = Math.round(message.cltvLimit));
-    obj.destCustomRecords = {};
+      (object.cltvLimit = Math.round(message.cltvLimit));
+    object.destCustomRecords = {};
     if (message.destCustomRecords) {
-      Object.entries(message.destCustomRecords).forEach(([k, v]) => {
-        obj.destCustomRecords[k] = base64FromBytes(v);
-      });
+      for (const [k, v] of Object.entries(message.destCustomRecords)) {
+        object.destCustomRecords[k] = base64FromBytes(v);
+      }
     }
+
     message.outgoingChanId !== undefined &&
-      (obj.outgoingChanId = message.outgoingChanId);
+      (object.outgoingChanId = message.outgoingChanId);
     message.lastHopPubkey !== undefined &&
-      (obj.lastHopPubkey = base64FromBytes(
+      (object.lastHopPubkey = base64FromBytes(
         message.lastHopPubkey !== undefined
           ? message.lastHopPubkey
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     if (message.routeHints) {
-      obj.routeHints = message.routeHints.map((e) =>
-        e ? RouteHint.toJSON(e) : undefined
+      object.routeHints = message.routeHints.map((e) =>
+        e ? RouteHint.toJSON(e) : undefined,
       );
     } else {
-      obj.routeHints = [];
+      object.routeHints = [];
     }
-    if (message.destFeatures) {
-      obj.destFeatures = message.destFeatures.map((e) => featureBitToJSON(e));
-    } else {
-      obj.destFeatures = [];
-    }
-    return obj;
+
+    object.destFeatures = message.destFeatures
+      ? message.destFeatures.map((e) => featureBitToJSON(e))
+      : [];
+    return object;
   },
 
   fromPartial(object: DeepPartial<QueryRoutesRequest>): QueryRoutesRequest {
     const message = createBaseQueryRoutesRequest();
-    message.pubKey = object.pubKey ?? "";
-    message.amt = object.amt ?? "0";
-    message.amtMsat = object.amtMsat ?? "0";
+    message.pubKey = object.pubKey ?? '';
+    message.amt = object.amt ?? '0';
+    message.amtMsat = object.amtMsat ?? '0';
     message.finalCltvDelta = object.finalCltvDelta ?? 0;
     message.feeLimit =
       object.feeLimit !== undefined && object.feeLimit !== null
@@ -15501,20 +16080,21 @@ export const QueryRoutesRequest = {
     message.ignoredNodes = object.ignoredNodes?.map((e) => e) || [];
     message.ignoredEdges =
       object.ignoredEdges?.map((e) => EdgeLocator.fromPartial(e)) || [];
-    message.sourcePubKey = object.sourcePubKey ?? "";
+    message.sourcePubKey = object.sourcePubKey ?? '';
     message.useMissionControl = object.useMissionControl ?? false;
     message.ignoredPairs =
       object.ignoredPairs?.map((e) => NodePair.fromPartial(e)) || [];
     message.cltvLimit = object.cltvLimit ?? 0;
     message.destCustomRecords = Object.entries(
-      object.destCustomRecords ?? {}
-    ).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+      object.destCustomRecords ?? {},
+    ).reduce<Record<string, Uint8Array>>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = value;
       }
+
       return acc;
     }, {});
-    message.outgoingChanId = object.outgoingChanId ?? "0";
+    message.outgoingChanId = object.outgoingChanId ?? '0';
     message.lastHopPubkey = object.lastHopPubkey ?? new Uint8Array();
     message.routeHints =
       object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
@@ -15524,29 +16104,31 @@ export const QueryRoutesRequest = {
 };
 
 function createBaseQueryRoutesRequest_DestCustomRecordsEntry(): QueryRoutesRequest_DestCustomRecordsEntry {
-  return { key: "0", value: new Uint8Array() };
+  return {key: '0', value: new Uint8Array()};
 }
 
 export const QueryRoutesRequest_DestCustomRecordsEntry = {
   encode(
     message: QueryRoutesRequest_DestCustomRecordsEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "0") {
+    if (message.key !== '0') {
       writer.uint32(8).uint64(message.key);
     }
-    if (message.value.length !== 0) {
+
+    if (message.value.length > 0) {
       writer.uint32(18).bytes(message.value);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): QueryRoutesRequest_DestCustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryRoutesRequest_DestCustomRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15562,6 +16144,7 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -15570,7 +16153,7 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
     message.key =
       object.key !== undefined && object.key !== null
         ? String(object.key)
-        : "0";
+        : '0';
     message.value =
       object.value !== undefined && object.value !== null
         ? bytesFromBase64(object.value)
@@ -15579,46 +16162,48 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
   },
 
   toJSON(message: QueryRoutesRequest_DestCustomRecordsEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(
-        message.value !== undefined ? message.value : new Uint8Array()
+      (object.value = base64FromBytes(
+        message.value !== undefined ? message.value : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<QueryRoutesRequest_DestCustomRecordsEntry>
+    object: DeepPartial<QueryRoutesRequest_DestCustomRecordsEntry>,
   ): QueryRoutesRequest_DestCustomRecordsEntry {
     const message = createBaseQueryRoutesRequest_DestCustomRecordsEntry();
-    message.key = object.key ?? "0";
+    message.key = object.key ?? '0';
     message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseNodePair(): NodePair {
-  return { from: new Uint8Array(), to: new Uint8Array() };
+  return {from: new Uint8Array(), to: new Uint8Array()};
 }
 
 export const NodePair = {
   encode(
     message: NodePair,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.from.length !== 0) {
+    if (message.from.length > 0) {
       writer.uint32(10).bytes(message.from);
     }
-    if (message.to.length !== 0) {
+
+    if (message.to.length > 0) {
       writer.uint32(18).bytes(message.to);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodePair {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodePair();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15634,6 +16219,7 @@ export const NodePair = {
           break;
       }
     }
+
     return message;
   },
 
@@ -15651,16 +16237,16 @@ export const NodePair = {
   },
 
   toJSON(message: NodePair): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.from !== undefined &&
-      (obj.from = base64FromBytes(
-        message.from !== undefined ? message.from : new Uint8Array()
+      (object.from = base64FromBytes(
+        message.from !== undefined ? message.from : new Uint8Array(),
       ));
     message.to !== undefined &&
-      (obj.to = base64FromBytes(
-        message.to !== undefined ? message.to : new Uint8Array()
+      (object.to = base64FromBytes(
+        message.to !== undefined ? message.to : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<NodePair>): NodePair {
@@ -15672,26 +16258,28 @@ export const NodePair = {
 };
 
 function createBaseEdgeLocator(): EdgeLocator {
-  return { channelId: "0", directionReverse: false };
+  return {channelId: '0', directionReverse: false};
 }
 
 export const EdgeLocator = {
   encode(
     message: EdgeLocator,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.channelId !== "0") {
+    if (message.channelId !== '0') {
       writer.uint32(8).uint64(message.channelId);
     }
-    if (message.directionReverse === true) {
+
+    if (message.directionReverse) {
       writer.uint32(16).bool(message.directionReverse);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EdgeLocator {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEdgeLocator();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15707,6 +16295,7 @@ export const EdgeLocator = {
           break;
       }
     }
+
     return message;
   },
 
@@ -15715,7 +16304,7 @@ export const EdgeLocator = {
     message.channelId =
       object.channelId !== undefined && object.channelId !== null
         ? String(object.channelId)
-        : "0";
+        : '0';
     message.directionReverse =
       object.directionReverse !== undefined && object.directionReverse !== null
         ? Boolean(object.directionReverse)
@@ -15724,42 +16313,44 @@ export const EdgeLocator = {
   },
 
   toJSON(message: EdgeLocator): unknown {
-    const obj: any = {};
-    message.channelId !== undefined && (obj.channelId = message.channelId);
+    const object: any = {};
+    message.channelId !== undefined && (object.channelId = message.channelId);
     message.directionReverse !== undefined &&
-      (obj.directionReverse = message.directionReverse);
-    return obj;
+      (object.directionReverse = message.directionReverse);
+    return object;
   },
 
   fromPartial(object: DeepPartial<EdgeLocator>): EdgeLocator {
     const message = createBaseEdgeLocator();
-    message.channelId = object.channelId ?? "0";
+    message.channelId = object.channelId ?? '0';
     message.directionReverse = object.directionReverse ?? false;
     return message;
   },
 };
 
 function createBaseQueryRoutesResponse(): QueryRoutesResponse {
-  return { routes: [], successProb: 0 };
+  return {routes: [], successProb: 0};
 }
 
 export const QueryRoutesResponse = {
   encode(
     message: QueryRoutesResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.routes) {
-      Route.encode(v!, writer.uint32(10).fork()).ldelim();
+      Route.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.successProb !== 0) {
       writer.uint32(17).double(message.successProb);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryRoutesResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryRoutesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15775,6 +16366,7 @@ export const QueryRoutesResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -15789,15 +16381,13 @@ export const QueryRoutesResponse = {
   },
 
   toJSON(message: QueryRoutesResponse): unknown {
-    const obj: any = {};
-    if (message.routes) {
-      obj.routes = message.routes.map((e) => (e ? Route.toJSON(e) : undefined));
-    } else {
-      obj.routes = [];
-    }
+    const object: any = {};
+    object.routes = message.routes
+      ? message.routes.map((e) => (e ? Route.toJSON(e) : undefined))
+      : [];
     message.successProb !== undefined &&
-      (obj.successProb = message.successProb);
-    return obj;
+      (object.successProb = message.successProb);
+    return object;
   },
 
   fromPartial(object: DeepPartial<QueryRoutesResponse>): QueryRoutesResponse {
@@ -15810,14 +16400,14 @@ export const QueryRoutesResponse = {
 
 function createBaseHop(): Hop {
   return {
-    chanId: "0",
-    chanCapacity: "0",
-    amtToForward: "0",
-    fee: "0",
+    chanId: '0',
+    chanCapacity: '0',
+    amtToForward: '0',
+    fee: '0',
     expiry: 0,
-    amtToForwardMsat: "0",
-    feeMsat: "0",
-    pubKey: "",
+    amtToForwardMsat: '0',
+    feeMsat: '0',
+    pubKey: '',
     tlvPayload: false,
     mppRecord: undefined,
     ampRecord: undefined,
@@ -15827,51 +16417,63 @@ function createBaseHop(): Hop {
 
 export const Hop = {
   encode(message: Hop, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chanId !== "0") {
+    if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.chanCapacity !== "0") {
+
+    if (message.chanCapacity !== '0') {
       writer.uint32(16).int64(message.chanCapacity);
     }
-    if (message.amtToForward !== "0") {
+
+    if (message.amtToForward !== '0') {
       writer.uint32(24).int64(message.amtToForward);
     }
-    if (message.fee !== "0") {
+
+    if (message.fee !== '0') {
       writer.uint32(32).int64(message.fee);
     }
+
     if (message.expiry !== 0) {
       writer.uint32(40).uint32(message.expiry);
     }
-    if (message.amtToForwardMsat !== "0") {
+
+    if (message.amtToForwardMsat !== '0') {
       writer.uint32(48).int64(message.amtToForwardMsat);
     }
-    if (message.feeMsat !== "0") {
+
+    if (message.feeMsat !== '0') {
       writer.uint32(56).int64(message.feeMsat);
     }
-    if (message.pubKey !== "") {
+
+    if (message.pubKey !== '') {
       writer.uint32(66).string(message.pubKey);
     }
-    if (message.tlvPayload === true) {
+
+    if (message.tlvPayload) {
       writer.uint32(72).bool(message.tlvPayload);
     }
+
     if (message.mppRecord !== undefined) {
       MPPRecord.encode(message.mppRecord, writer.uint32(82).fork()).ldelim();
     }
+
     if (message.ampRecord !== undefined) {
       AMPRecord.encode(message.ampRecord, writer.uint32(98).fork()).ldelim();
     }
-    Object.entries(message.customRecords).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.customRecords)) {
       Hop_CustomRecordsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(90).fork()
+        {key: key as any, value},
+        writer.uint32(90).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Hop {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHop();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15912,17 +16514,19 @@ export const Hop = {
         case 11:
           const entry11 = Hop_CustomRecordsEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry11.value !== undefined) {
             message.customRecords[entry11.key] = entry11.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -15931,19 +16535,19 @@ export const Hop = {
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.chanCapacity =
       object.chanCapacity !== undefined && object.chanCapacity !== null
         ? String(object.chanCapacity)
-        : "0";
+        : '0';
     message.amtToForward =
       object.amtToForward !== undefined && object.amtToForward !== null
         ? String(object.amtToForward)
-        : "0";
+        : '0';
     message.fee =
       object.fee !== undefined && object.fee !== null
         ? String(object.fee)
-        : "0";
+        : '0';
     message.expiry =
       object.expiry !== undefined && object.expiry !== null
         ? Number(object.expiry)
@@ -15951,15 +16555,15 @@ export const Hop = {
     message.amtToForwardMsat =
       object.amtToForwardMsat !== undefined && object.amtToForwardMsat !== null
         ? String(object.amtToForwardMsat)
-        : "0";
+        : '0';
     message.feeMsat =
       object.feeMsat !== undefined && object.feeMsat !== null
         ? String(object.feeMsat)
-        : "0";
+        : '0';
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
         ? String(object.pubKey)
-        : "";
+        : '';
     message.tlvPayload =
       object.tlvPayload !== undefined && object.tlvPayload !== null
         ? Boolean(object.tlvPayload)
@@ -15972,9 +16576,9 @@ export const Hop = {
       object.ampRecord !== undefined && object.ampRecord !== null
         ? AMPRecord.fromJSON(object.ampRecord)
         : undefined;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{
-      [key: string]: Uint8Array;
-    }>((acc, [key, value]) => {
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<
+      Record<string, Uint8Array>
+    >((acc, [key, value]) => {
       acc[key] = bytesFromBase64(value as string);
       return acc;
     }, {});
@@ -15982,46 +16586,49 @@ export const Hop = {
   },
 
   toJSON(message: Hop): unknown {
-    const obj: any = {};
-    message.chanId !== undefined && (obj.chanId = message.chanId);
+    const object: any = {};
+    message.chanId !== undefined && (object.chanId = message.chanId);
     message.chanCapacity !== undefined &&
-      (obj.chanCapacity = message.chanCapacity);
+      (object.chanCapacity = message.chanCapacity);
     message.amtToForward !== undefined &&
-      (obj.amtToForward = message.amtToForward);
-    message.fee !== undefined && (obj.fee = message.fee);
-    message.expiry !== undefined && (obj.expiry = Math.round(message.expiry));
+      (object.amtToForward = message.amtToForward);
+    message.fee !== undefined && (object.fee = message.fee);
+    message.expiry !== undefined &&
+      (object.expiry = Math.round(message.expiry));
     message.amtToForwardMsat !== undefined &&
-      (obj.amtToForwardMsat = message.amtToForwardMsat);
-    message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
-    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
-    message.tlvPayload !== undefined && (obj.tlvPayload = message.tlvPayload);
+      (object.amtToForwardMsat = message.amtToForwardMsat);
+    message.feeMsat !== undefined && (object.feeMsat = message.feeMsat);
+    message.pubKey !== undefined && (object.pubKey = message.pubKey);
+    message.tlvPayload !== undefined &&
+      (object.tlvPayload = message.tlvPayload);
     message.mppRecord !== undefined &&
-      (obj.mppRecord = message.mppRecord
+      (object.mppRecord = message.mppRecord
         ? MPPRecord.toJSON(message.mppRecord)
         : undefined);
     message.ampRecord !== undefined &&
-      (obj.ampRecord = message.ampRecord
+      (object.ampRecord = message.ampRecord
         ? AMPRecord.toJSON(message.ampRecord)
         : undefined);
-    obj.customRecords = {};
+    object.customRecords = {};
     if (message.customRecords) {
-      Object.entries(message.customRecords).forEach(([k, v]) => {
-        obj.customRecords[k] = base64FromBytes(v);
-      });
+      for (const [k, v] of Object.entries(message.customRecords)) {
+        object.customRecords[k] = base64FromBytes(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<Hop>): Hop {
     const message = createBaseHop();
-    message.chanId = object.chanId ?? "0";
-    message.chanCapacity = object.chanCapacity ?? "0";
-    message.amtToForward = object.amtToForward ?? "0";
-    message.fee = object.fee ?? "0";
+    message.chanId = object.chanId ?? '0';
+    message.chanCapacity = object.chanCapacity ?? '0';
+    message.amtToForward = object.amtToForward ?? '0';
+    message.fee = object.fee ?? '0';
     message.expiry = object.expiry ?? 0;
-    message.amtToForwardMsat = object.amtToForwardMsat ?? "0";
-    message.feeMsat = object.feeMsat ?? "0";
-    message.pubKey = object.pubKey ?? "";
+    message.amtToForwardMsat = object.amtToForwardMsat ?? '0';
+    message.feeMsat = object.feeMsat ?? '0';
+    message.pubKey = object.pubKey ?? '';
     message.tlvPayload = object.tlvPayload ?? false;
     message.mppRecord =
       object.mppRecord !== undefined && object.mppRecord !== null
@@ -16031,12 +16638,13 @@ export const Hop = {
       object.ampRecord !== undefined && object.ampRecord !== null
         ? AMPRecord.fromPartial(object.ampRecord)
         : undefined;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{
-      [key: string]: Uint8Array;
-    }>((acc, [key, value]) => {
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<
+      Record<string, Uint8Array>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = value;
       }
+
       return acc;
     }, {});
     return message;
@@ -16044,29 +16652,31 @@ export const Hop = {
 };
 
 function createBaseHop_CustomRecordsEntry(): Hop_CustomRecordsEntry {
-  return { key: "0", value: new Uint8Array() };
+  return {key: '0', value: new Uint8Array()};
 }
 
 export const Hop_CustomRecordsEntry = {
   encode(
     message: Hop_CustomRecordsEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "0") {
+    if (message.key !== '0') {
       writer.uint32(8).uint64(message.key);
     }
-    if (message.value.length !== 0) {
+
+    if (message.value.length > 0) {
       writer.uint32(18).bytes(message.value);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): Hop_CustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHop_CustomRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16082,6 +16692,7 @@ export const Hop_CustomRecordsEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16090,7 +16701,7 @@ export const Hop_CustomRecordsEntry = {
     message.key =
       object.key !== undefined && object.key !== null
         ? String(object.key)
-        : "0";
+        : '0';
     message.value =
       object.value !== undefined && object.value !== null
         ? bytesFromBase64(object.value)
@@ -16099,46 +16710,48 @@ export const Hop_CustomRecordsEntry = {
   },
 
   toJSON(message: Hop_CustomRecordsEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(
-        message.value !== undefined ? message.value : new Uint8Array()
+      (object.value = base64FromBytes(
+        message.value !== undefined ? message.value : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<Hop_CustomRecordsEntry>
+    object: DeepPartial<Hop_CustomRecordsEntry>,
   ): Hop_CustomRecordsEntry {
     const message = createBaseHop_CustomRecordsEntry();
-    message.key = object.key ?? "0";
+    message.key = object.key ?? '0';
     message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseMPPRecord(): MPPRecord {
-  return { paymentAddr: new Uint8Array(), totalAmtMsat: "0" };
+  return {paymentAddr: new Uint8Array(), totalAmtMsat: '0'};
 }
 
 export const MPPRecord = {
   encode(
     message: MPPRecord,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.paymentAddr.length !== 0) {
+    if (message.paymentAddr.length > 0) {
       writer.uint32(90).bytes(message.paymentAddr);
     }
-    if (message.totalAmtMsat !== "0") {
+
+    if (message.totalAmtMsat !== '0') {
       writer.uint32(80).int64(message.totalAmtMsat);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MPPRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMPPRecord();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16154,6 +16767,7 @@ export const MPPRecord = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16166,27 +16780,27 @@ export const MPPRecord = {
     message.totalAmtMsat =
       object.totalAmtMsat !== undefined && object.totalAmtMsat !== null
         ? String(object.totalAmtMsat)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: MPPRecord): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
+      (object.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.totalAmtMsat !== undefined &&
-      (obj.totalAmtMsat = message.totalAmtMsat);
-    return obj;
+      (object.totalAmtMsat = message.totalAmtMsat);
+    return object;
   },
 
   fromPartial(object: DeepPartial<MPPRecord>): MPPRecord {
     const message = createBaseMPPRecord();
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
-    message.totalAmtMsat = object.totalAmtMsat ?? "0";
+    message.totalAmtMsat = object.totalAmtMsat ?? '0';
     return message;
   },
 };
@@ -16202,23 +16816,26 @@ function createBaseAMPRecord(): AMPRecord {
 export const AMPRecord = {
   encode(
     message: AMPRecord,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.rootShare.length !== 0) {
+    if (message.rootShare.length > 0) {
       writer.uint32(10).bytes(message.rootShare);
     }
-    if (message.setId.length !== 0) {
+
+    if (message.setId.length > 0) {
       writer.uint32(18).bytes(message.setId);
     }
+
     if (message.childIndex !== 0) {
       writer.uint32(24).uint32(message.childIndex);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AMPRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAMPRecord();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16237,6 +16854,7 @@ export const AMPRecord = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16258,18 +16876,18 @@ export const AMPRecord = {
   },
 
   toJSON(message: AMPRecord): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.rootShare !== undefined &&
-      (obj.rootShare = base64FromBytes(
-        message.rootShare !== undefined ? message.rootShare : new Uint8Array()
+      (object.rootShare = base64FromBytes(
+        message.rootShare !== undefined ? message.rootShare : new Uint8Array(),
       ));
     message.setId !== undefined &&
-      (obj.setId = base64FromBytes(
-        message.setId !== undefined ? message.setId : new Uint8Array()
+      (object.setId = base64FromBytes(
+        message.setId !== undefined ? message.setId : new Uint8Array(),
       ));
     message.childIndex !== undefined &&
-      (obj.childIndex = Math.round(message.childIndex));
-    return obj;
+      (object.childIndex = Math.round(message.childIndex));
+    return object;
   },
 
   fromPartial(object: DeepPartial<AMPRecord>): AMPRecord {
@@ -16284,11 +16902,11 @@ export const AMPRecord = {
 function createBaseRoute(): Route {
   return {
     totalTimeLock: 0,
-    totalFees: "0",
-    totalAmt: "0",
+    totalFees: '0',
+    totalAmt: '0',
     hops: [],
-    totalFeesMsat: "0",
-    totalAmtMsat: "0",
+    totalFeesMsat: '0',
+    totalAmtMsat: '0',
   };
 }
 
@@ -16297,27 +16915,33 @@ export const Route = {
     if (message.totalTimeLock !== 0) {
       writer.uint32(8).uint32(message.totalTimeLock);
     }
-    if (message.totalFees !== "0") {
+
+    if (message.totalFees !== '0') {
       writer.uint32(16).int64(message.totalFees);
     }
-    if (message.totalAmt !== "0") {
+
+    if (message.totalAmt !== '0') {
       writer.uint32(24).int64(message.totalAmt);
     }
+
     for (const v of message.hops) {
-      Hop.encode(v!, writer.uint32(34).fork()).ldelim();
+      Hop.encode(v, writer.uint32(34).fork()).ldelim();
     }
-    if (message.totalFeesMsat !== "0") {
+
+    if (message.totalFeesMsat !== '0') {
       writer.uint32(40).int64(message.totalFeesMsat);
     }
-    if (message.totalAmtMsat !== "0") {
+
+    if (message.totalAmtMsat !== '0') {
       writer.uint32(48).int64(message.totalAmtMsat);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Route {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRoute();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16345,6 +16969,7 @@ export const Route = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16357,74 +16982,74 @@ export const Route = {
     message.totalFees =
       object.totalFees !== undefined && object.totalFees !== null
         ? String(object.totalFees)
-        : "0";
+        : '0';
     message.totalAmt =
       object.totalAmt !== undefined && object.totalAmt !== null
         ? String(object.totalAmt)
-        : "0";
+        : '0';
     message.hops = (object.hops ?? []).map((e: any) => Hop.fromJSON(e));
     message.totalFeesMsat =
       object.totalFeesMsat !== undefined && object.totalFeesMsat !== null
         ? String(object.totalFeesMsat)
-        : "0";
+        : '0';
     message.totalAmtMsat =
       object.totalAmtMsat !== undefined && object.totalAmtMsat !== null
         ? String(object.totalAmtMsat)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: Route): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.totalTimeLock !== undefined &&
-      (obj.totalTimeLock = Math.round(message.totalTimeLock));
-    message.totalFees !== undefined && (obj.totalFees = message.totalFees);
-    message.totalAmt !== undefined && (obj.totalAmt = message.totalAmt);
-    if (message.hops) {
-      obj.hops = message.hops.map((e) => (e ? Hop.toJSON(e) : undefined));
-    } else {
-      obj.hops = [];
-    }
+      (object.totalTimeLock = Math.round(message.totalTimeLock));
+    message.totalFees !== undefined && (object.totalFees = message.totalFees);
+    message.totalAmt !== undefined && (object.totalAmt = message.totalAmt);
+    object.hops = message.hops
+      ? message.hops.map((e) => (e ? Hop.toJSON(e) : undefined))
+      : [];
     message.totalFeesMsat !== undefined &&
-      (obj.totalFeesMsat = message.totalFeesMsat);
+      (object.totalFeesMsat = message.totalFeesMsat);
     message.totalAmtMsat !== undefined &&
-      (obj.totalAmtMsat = message.totalAmtMsat);
-    return obj;
+      (object.totalAmtMsat = message.totalAmtMsat);
+    return object;
   },
 
   fromPartial(object: DeepPartial<Route>): Route {
     const message = createBaseRoute();
     message.totalTimeLock = object.totalTimeLock ?? 0;
-    message.totalFees = object.totalFees ?? "0";
-    message.totalAmt = object.totalAmt ?? "0";
+    message.totalFees = object.totalFees ?? '0';
+    message.totalAmt = object.totalAmt ?? '0';
     message.hops = object.hops?.map((e) => Hop.fromPartial(e)) || [];
-    message.totalFeesMsat = object.totalFeesMsat ?? "0";
-    message.totalAmtMsat = object.totalAmtMsat ?? "0";
+    message.totalFeesMsat = object.totalFeesMsat ?? '0';
+    message.totalAmtMsat = object.totalAmtMsat ?? '0';
     return message;
   },
 };
 
 function createBaseNodeInfoRequest(): NodeInfoRequest {
-  return { pubKey: "", includeChannels: false };
+  return {pubKey: '', includeChannels: false};
 }
 
 export const NodeInfoRequest = {
   encode(
     message: NodeInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pubKey !== "") {
+    if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
-    if (message.includeChannels === true) {
+
+    if (message.includeChannels) {
       writer.uint32(16).bool(message.includeChannels);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16440,6 +17065,7 @@ export const NodeInfoRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16448,7 +17074,7 @@ export const NodeInfoRequest = {
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
         ? String(object.pubKey)
-        : "";
+        : '';
     message.includeChannels =
       object.includeChannels !== undefined && object.includeChannels !== null
         ? Boolean(object.includeChannels)
@@ -16457,48 +17083,52 @@ export const NodeInfoRequest = {
   },
 
   toJSON(message: NodeInfoRequest): unknown {
-    const obj: any = {};
-    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
+    const object: any = {};
+    message.pubKey !== undefined && (object.pubKey = message.pubKey);
     message.includeChannels !== undefined &&
-      (obj.includeChannels = message.includeChannels);
-    return obj;
+      (object.includeChannels = message.includeChannels);
+    return object;
   },
 
   fromPartial(object: DeepPartial<NodeInfoRequest>): NodeInfoRequest {
     const message = createBaseNodeInfoRequest();
-    message.pubKey = object.pubKey ?? "";
+    message.pubKey = object.pubKey ?? '';
     message.includeChannels = object.includeChannels ?? false;
     return message;
   },
 };
 
 function createBaseNodeInfo(): NodeInfo {
-  return { node: undefined, numChannels: 0, totalCapacity: "0", channels: [] };
+  return {node: undefined, numChannels: 0, totalCapacity: '0', channels: []};
 }
 
 export const NodeInfo = {
   encode(
     message: NodeInfo,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.node !== undefined) {
       LightningNode.encode(message.node, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.numChannels !== 0) {
       writer.uint32(16).uint32(message.numChannels);
     }
-    if (message.totalCapacity !== "0") {
+
+    if (message.totalCapacity !== '0') {
       writer.uint32(24).int64(message.totalCapacity);
     }
+
     for (const v of message.channels) {
-      ChannelEdge.encode(v!, writer.uint32(34).fork()).ldelim();
+      ChannelEdge.encode(v, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeInfo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16520,6 +17150,7 @@ export const NodeInfo = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16536,31 +17167,32 @@ export const NodeInfo = {
     message.totalCapacity =
       object.totalCapacity !== undefined && object.totalCapacity !== null
         ? String(object.totalCapacity)
-        : "0";
+        : '0';
     message.channels = (object.channels ?? []).map((e: any) =>
-      ChannelEdge.fromJSON(e)
+      ChannelEdge.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: NodeInfo): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.node !== undefined &&
-      (obj.node = message.node
+      (object.node = message.node
         ? LightningNode.toJSON(message.node)
         : undefined);
     message.numChannels !== undefined &&
-      (obj.numChannels = Math.round(message.numChannels));
+      (object.numChannels = Math.round(message.numChannels));
     message.totalCapacity !== undefined &&
-      (obj.totalCapacity = message.totalCapacity);
+      (object.totalCapacity = message.totalCapacity);
     if (message.channels) {
-      obj.channels = message.channels.map((e) =>
-        e ? ChannelEdge.toJSON(e) : undefined
+      object.channels = message.channels.map((e) =>
+        e ? ChannelEdge.toJSON(e) : undefined,
       );
     } else {
-      obj.channels = [];
+      object.channels = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<NodeInfo>): NodeInfo {
@@ -16570,7 +17202,7 @@ export const NodeInfo = {
         ? LightningNode.fromPartial(object.node)
         : undefined;
     message.numChannels = object.numChannels ?? 0;
-    message.totalCapacity = object.totalCapacity ?? "0";
+    message.totalCapacity = object.totalCapacity ?? '0';
     message.channels =
       object.channels?.map((e) => ChannelEdge.fromPartial(e)) || [];
     return message;
@@ -16580,10 +17212,10 @@ export const NodeInfo = {
 function createBaseLightningNode(): LightningNode {
   return {
     lastUpdate: 0,
-    pubKey: "",
-    alias: "",
+    pubKey: '',
+    alias: '',
     addresses: [],
-    color: "",
+    color: '',
     features: {},
   };
 }
@@ -16591,35 +17223,41 @@ function createBaseLightningNode(): LightningNode {
 export const LightningNode = {
   encode(
     message: LightningNode,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.lastUpdate !== 0) {
       writer.uint32(8).uint32(message.lastUpdate);
     }
-    if (message.pubKey !== "") {
+
+    if (message.pubKey !== '') {
       writer.uint32(18).string(message.pubKey);
     }
-    if (message.alias !== "") {
+
+    if (message.alias !== '') {
       writer.uint32(26).string(message.alias);
     }
+
     for (const v of message.addresses) {
-      NodeAddress.encode(v!, writer.uint32(34).fork()).ldelim();
+      NodeAddress.encode(v, writer.uint32(34).fork()).ldelim();
     }
-    if (message.color !== "") {
+
+    if (message.color !== '') {
       writer.uint32(42).string(message.color);
     }
-    Object.entries(message.features).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.features)) {
       LightningNode_FeaturesEntry.encode(
-        { key: key as any, value },
-        writer.uint32(50).fork()
+        {key: key as any, value},
+        writer.uint32(50).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LightningNode {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightningNode();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16642,17 +17280,19 @@ export const LightningNode = {
         case 6:
           const entry6 = LightningNode_FeaturesEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry6.value !== undefined) {
             message.features[entry6.key] = entry6.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -16665,21 +17305,21 @@ export const LightningNode = {
     message.pubKey =
       object.pubKey !== undefined && object.pubKey !== null
         ? String(object.pubKey)
-        : "";
+        : '';
     message.alias =
       object.alias !== undefined && object.alias !== null
         ? String(object.alias)
-        : "";
+        : '';
     message.addresses = (object.addresses ?? []).map((e: any) =>
-      NodeAddress.fromJSON(e)
+      NodeAddress.fromJSON(e),
     );
     message.color =
       object.color !== undefined && object.color !== null
         ? String(object.color)
-        : "";
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+        : '';
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       acc[Number(key)] = Feature.fromJSON(value);
       return acc;
     }, {});
@@ -16687,42 +17327,45 @@ export const LightningNode = {
   },
 
   toJSON(message: LightningNode): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.lastUpdate !== undefined &&
-      (obj.lastUpdate = Math.round(message.lastUpdate));
-    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
-    message.alias !== undefined && (obj.alias = message.alias);
+      (object.lastUpdate = Math.round(message.lastUpdate));
+    message.pubKey !== undefined && (object.pubKey = message.pubKey);
+    message.alias !== undefined && (object.alias = message.alias);
     if (message.addresses) {
-      obj.addresses = message.addresses.map((e) =>
-        e ? NodeAddress.toJSON(e) : undefined
+      object.addresses = message.addresses.map((e) =>
+        e ? NodeAddress.toJSON(e) : undefined,
       );
     } else {
-      obj.addresses = [];
+      object.addresses = [];
     }
-    message.color !== undefined && (obj.color = message.color);
-    obj.features = {};
+
+    message.color !== undefined && (object.color = message.color);
+    object.features = {};
     if (message.features) {
-      Object.entries(message.features).forEach(([k, v]) => {
-        obj.features[k] = Feature.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.features)) {
+        object.features[k] = Feature.toJSON(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<LightningNode>): LightningNode {
     const message = createBaseLightningNode();
     message.lastUpdate = object.lastUpdate ?? 0;
-    message.pubKey = object.pubKey ?? "";
-    message.alias = object.alias ?? "";
+    message.pubKey = object.pubKey ?? '';
+    message.alias = object.alias ?? '';
     message.addresses =
       object.addresses?.map((e) => NodeAddress.fromPartial(e)) || [];
-    message.color = object.color ?? "";
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.color = object.color ?? '';
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
+
       return acc;
     }, {});
     return message;
@@ -16730,29 +17373,31 @@ export const LightningNode = {
 };
 
 function createBaseLightningNode_FeaturesEntry(): LightningNode_FeaturesEntry {
-  return { key: 0, value: undefined };
+  return {key: 0, value: undefined};
 }
 
 export const LightningNode_FeaturesEntry = {
   encode(
     message: LightningNode_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
+
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): LightningNode_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightningNode_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16768,6 +17413,7 @@ export const LightningNode_FeaturesEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16783,15 +17429,17 @@ export const LightningNode_FeaturesEntry = {
   },
 
   toJSON(message: LightningNode_FeaturesEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = Math.round(message.key));
+    const object: any = {};
+    message.key !== undefined && (object.key = Math.round(message.key));
     message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
-    return obj;
+      (object.value = message.value
+        ? Feature.toJSON(message.value)
+        : undefined);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<LightningNode_FeaturesEntry>
+    object: DeepPartial<LightningNode_FeaturesEntry>,
   ): LightningNode_FeaturesEntry {
     const message = createBaseLightningNode_FeaturesEntry();
     message.key = object.key ?? 0;
@@ -16804,26 +17452,28 @@ export const LightningNode_FeaturesEntry = {
 };
 
 function createBaseNodeAddress(): NodeAddress {
-  return { network: "", addr: "" };
+  return {network: '', addr: ''};
 }
 
 export const NodeAddress = {
   encode(
     message: NodeAddress,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.network !== "") {
+    if (message.network !== '') {
       writer.uint32(10).string(message.network);
     }
-    if (message.addr !== "") {
+
+    if (message.addr !== '') {
       writer.uint32(18).string(message.addr);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeAddress {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeAddress();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16839,6 +17489,7 @@ export const NodeAddress = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16847,25 +17498,25 @@ export const NodeAddress = {
     message.network =
       object.network !== undefined && object.network !== null
         ? String(object.network)
-        : "";
+        : '';
     message.addr =
       object.addr !== undefined && object.addr !== null
         ? String(object.addr)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: NodeAddress): unknown {
-    const obj: any = {};
-    message.network !== undefined && (obj.network = message.network);
-    message.addr !== undefined && (obj.addr = message.addr);
-    return obj;
+    const object: any = {};
+    message.network !== undefined && (object.network = message.network);
+    message.addr !== undefined && (object.addr = message.addr);
+    return object;
   },
 
   fromPartial(object: DeepPartial<NodeAddress>): NodeAddress {
     const message = createBaseNodeAddress();
-    message.network = object.network ?? "";
-    message.addr = object.addr ?? "";
+    message.network = object.network ?? '';
+    message.addr = object.addr ?? '';
     return message;
   },
 };
@@ -16873,11 +17524,11 @@ export const NodeAddress = {
 function createBaseRoutingPolicy(): RoutingPolicy {
   return {
     timeLockDelta: 0,
-    minHtlc: "0",
-    feeBaseMsat: "0",
-    feeRateMilliMsat: "0",
+    minHtlc: '0',
+    feeBaseMsat: '0',
+    feeRateMilliMsat: '0',
     disabled: false,
-    maxHtlcMsat: "0",
+    maxHtlcMsat: '0',
     lastUpdate: 0,
   };
 }
@@ -16885,35 +17536,42 @@ function createBaseRoutingPolicy(): RoutingPolicy {
 export const RoutingPolicy = {
   encode(
     message: RoutingPolicy,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.timeLockDelta !== 0) {
       writer.uint32(8).uint32(message.timeLockDelta);
     }
-    if (message.minHtlc !== "0") {
+
+    if (message.minHtlc !== '0') {
       writer.uint32(16).int64(message.minHtlc);
     }
-    if (message.feeBaseMsat !== "0") {
+
+    if (message.feeBaseMsat !== '0') {
       writer.uint32(24).int64(message.feeBaseMsat);
     }
-    if (message.feeRateMilliMsat !== "0") {
+
+    if (message.feeRateMilliMsat !== '0') {
       writer.uint32(32).int64(message.feeRateMilliMsat);
     }
-    if (message.disabled === true) {
+
+    if (message.disabled) {
       writer.uint32(40).bool(message.disabled);
     }
-    if (message.maxHtlcMsat !== "0") {
+
+    if (message.maxHtlcMsat !== '0') {
       writer.uint32(48).uint64(message.maxHtlcMsat);
     }
+
     if (message.lastUpdate !== 0) {
       writer.uint32(56).uint32(message.lastUpdate);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): RoutingPolicy {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRoutingPolicy();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16944,6 +17602,7 @@ export const RoutingPolicy = {
           break;
       }
     }
+
     return message;
   },
 
@@ -16956,15 +17615,15 @@ export const RoutingPolicy = {
     message.minHtlc =
       object.minHtlc !== undefined && object.minHtlc !== null
         ? String(object.minHtlc)
-        : "0";
+        : '0';
     message.feeBaseMsat =
       object.feeBaseMsat !== undefined && object.feeBaseMsat !== null
         ? String(object.feeBaseMsat)
-        : "0";
+        : '0';
     message.feeRateMilliMsat =
       object.feeRateMilliMsat !== undefined && object.feeRateMilliMsat !== null
         ? String(object.feeRateMilliMsat)
-        : "0";
+        : '0';
     message.disabled =
       object.disabled !== undefined && object.disabled !== null
         ? Boolean(object.disabled)
@@ -16972,7 +17631,7 @@ export const RoutingPolicy = {
     message.maxHtlcMsat =
       object.maxHtlcMsat !== undefined && object.maxHtlcMsat !== null
         ? String(object.maxHtlcMsat)
-        : "0";
+        : '0';
     message.lastUpdate =
       object.lastUpdate !== undefined && object.lastUpdate !== null
         ? Number(object.lastUpdate)
@@ -16981,30 +17640,30 @@ export const RoutingPolicy = {
   },
 
   toJSON(message: RoutingPolicy): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.timeLockDelta !== undefined &&
-      (obj.timeLockDelta = Math.round(message.timeLockDelta));
-    message.minHtlc !== undefined && (obj.minHtlc = message.minHtlc);
+      (object.timeLockDelta = Math.round(message.timeLockDelta));
+    message.minHtlc !== undefined && (object.minHtlc = message.minHtlc);
     message.feeBaseMsat !== undefined &&
-      (obj.feeBaseMsat = message.feeBaseMsat);
+      (object.feeBaseMsat = message.feeBaseMsat);
     message.feeRateMilliMsat !== undefined &&
-      (obj.feeRateMilliMsat = message.feeRateMilliMsat);
-    message.disabled !== undefined && (obj.disabled = message.disabled);
+      (object.feeRateMilliMsat = message.feeRateMilliMsat);
+    message.disabled !== undefined && (object.disabled = message.disabled);
     message.maxHtlcMsat !== undefined &&
-      (obj.maxHtlcMsat = message.maxHtlcMsat);
+      (object.maxHtlcMsat = message.maxHtlcMsat);
     message.lastUpdate !== undefined &&
-      (obj.lastUpdate = Math.round(message.lastUpdate));
-    return obj;
+      (object.lastUpdate = Math.round(message.lastUpdate));
+    return object;
   },
 
   fromPartial(object: DeepPartial<RoutingPolicy>): RoutingPolicy {
     const message = createBaseRoutingPolicy();
     message.timeLockDelta = object.timeLockDelta ?? 0;
-    message.minHtlc = object.minHtlc ?? "0";
-    message.feeBaseMsat = object.feeBaseMsat ?? "0";
-    message.feeRateMilliMsat = object.feeRateMilliMsat ?? "0";
+    message.minHtlc = object.minHtlc ?? '0';
+    message.feeBaseMsat = object.feeBaseMsat ?? '0';
+    message.feeRateMilliMsat = object.feeRateMilliMsat ?? '0';
     message.disabled = object.disabled ?? false;
-    message.maxHtlcMsat = object.maxHtlcMsat ?? "0";
+    message.maxHtlcMsat = object.maxHtlcMsat ?? '0';
     message.lastUpdate = object.lastUpdate ?? 0;
     return message;
   },
@@ -17012,12 +17671,12 @@ export const RoutingPolicy = {
 
 function createBaseChannelEdge(): ChannelEdge {
   return {
-    channelId: "0",
-    chanPoint: "",
+    channelId: '0',
+    chanPoint: '',
     lastUpdate: 0,
-    node1Pub: "",
-    node2Pub: "",
-    capacity: "0",
+    node1Pub: '',
+    node2Pub: '',
+    capacity: '0',
     node1Policy: undefined,
     node2Policy: undefined,
   };
@@ -17026,44 +17685,52 @@ function createBaseChannelEdge(): ChannelEdge {
 export const ChannelEdge = {
   encode(
     message: ChannelEdge,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.channelId !== "0") {
+    if (message.channelId !== '0') {
       writer.uint32(8).uint64(message.channelId);
     }
-    if (message.chanPoint !== "") {
+
+    if (message.chanPoint !== '') {
       writer.uint32(18).string(message.chanPoint);
     }
+
     if (message.lastUpdate !== 0) {
       writer.uint32(24).uint32(message.lastUpdate);
     }
-    if (message.node1Pub !== "") {
+
+    if (message.node1Pub !== '') {
       writer.uint32(34).string(message.node1Pub);
     }
-    if (message.node2Pub !== "") {
+
+    if (message.node2Pub !== '') {
       writer.uint32(42).string(message.node2Pub);
     }
-    if (message.capacity !== "0") {
+
+    if (message.capacity !== '0') {
       writer.uint32(48).int64(message.capacity);
     }
+
     if (message.node1Policy !== undefined) {
       RoutingPolicy.encode(
         message.node1Policy,
-        writer.uint32(58).fork()
+        writer.uint32(58).fork(),
       ).ldelim();
     }
+
     if (message.node2Policy !== undefined) {
       RoutingPolicy.encode(
         message.node2Policy,
-        writer.uint32(66).fork()
+        writer.uint32(66).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelEdge {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEdge();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17097,6 +17764,7 @@ export const ChannelEdge = {
           break;
       }
     }
+
     return message;
   },
 
@@ -17105,11 +17773,11 @@ export const ChannelEdge = {
     message.channelId =
       object.channelId !== undefined && object.channelId !== null
         ? String(object.channelId)
-        : "0";
+        : '0';
     message.chanPoint =
       object.chanPoint !== undefined && object.chanPoint !== null
         ? String(object.chanPoint)
-        : "";
+        : '';
     message.lastUpdate =
       object.lastUpdate !== undefined && object.lastUpdate !== null
         ? Number(object.lastUpdate)
@@ -17117,15 +17785,15 @@ export const ChannelEdge = {
     message.node1Pub =
       object.node1Pub !== undefined && object.node1Pub !== null
         ? String(object.node1Pub)
-        : "";
+        : '';
     message.node2Pub =
       object.node2Pub !== undefined && object.node2Pub !== null
         ? String(object.node2Pub)
-        : "";
+        : '';
     message.capacity =
       object.capacity !== undefined && object.capacity !== null
         ? String(object.capacity)
-        : "0";
+        : '0';
     message.node1Policy =
       object.node1Policy !== undefined && object.node1Policy !== null
         ? RoutingPolicy.fromJSON(object.node1Policy)
@@ -17138,33 +17806,33 @@ export const ChannelEdge = {
   },
 
   toJSON(message: ChannelEdge): unknown {
-    const obj: any = {};
-    message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.chanPoint !== undefined && (obj.chanPoint = message.chanPoint);
+    const object: any = {};
+    message.channelId !== undefined && (object.channelId = message.channelId);
+    message.chanPoint !== undefined && (object.chanPoint = message.chanPoint);
     message.lastUpdate !== undefined &&
-      (obj.lastUpdate = Math.round(message.lastUpdate));
-    message.node1Pub !== undefined && (obj.node1Pub = message.node1Pub);
-    message.node2Pub !== undefined && (obj.node2Pub = message.node2Pub);
-    message.capacity !== undefined && (obj.capacity = message.capacity);
+      (object.lastUpdate = Math.round(message.lastUpdate));
+    message.node1Pub !== undefined && (object.node1Pub = message.node1Pub);
+    message.node2Pub !== undefined && (object.node2Pub = message.node2Pub);
+    message.capacity !== undefined && (object.capacity = message.capacity);
     message.node1Policy !== undefined &&
-      (obj.node1Policy = message.node1Policy
+      (object.node1Policy = message.node1Policy
         ? RoutingPolicy.toJSON(message.node1Policy)
         : undefined);
     message.node2Policy !== undefined &&
-      (obj.node2Policy = message.node2Policy
+      (object.node2Policy = message.node2Policy
         ? RoutingPolicy.toJSON(message.node2Policy)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelEdge>): ChannelEdge {
     const message = createBaseChannelEdge();
-    message.channelId = object.channelId ?? "0";
-    message.chanPoint = object.chanPoint ?? "";
+    message.channelId = object.channelId ?? '0';
+    message.chanPoint = object.chanPoint ?? '';
     message.lastUpdate = object.lastUpdate ?? 0;
-    message.node1Pub = object.node1Pub ?? "";
-    message.node2Pub = object.node2Pub ?? "";
-    message.capacity = object.capacity ?? "0";
+    message.node1Pub = object.node1Pub ?? '';
+    message.node2Pub = object.node2Pub ?? '';
+    message.capacity = object.capacity ?? '0';
     message.node1Policy =
       object.node1Policy !== undefined && object.node1Policy !== null
         ? RoutingPolicy.fromPartial(object.node1Policy)
@@ -17178,23 +17846,24 @@ export const ChannelEdge = {
 };
 
 function createBaseChannelGraphRequest(): ChannelGraphRequest {
-  return { includeUnannounced: false };
+  return {includeUnannounced: false};
 }
 
 export const ChannelGraphRequest = {
   encode(
     message: ChannelGraphRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.includeUnannounced === true) {
+    if (message.includeUnannounced) {
       writer.uint32(8).bool(message.includeUnannounced);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelGraphRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelGraphRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17207,6 +17876,7 @@ export const ChannelGraphRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -17221,10 +17891,10 @@ export const ChannelGraphRequest = {
   },
 
   toJSON(message: ChannelGraphRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.includeUnannounced !== undefined &&
-      (obj.includeUnannounced = message.includeUnannounced);
-    return obj;
+      (object.includeUnannounced = message.includeUnannounced);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelGraphRequest>): ChannelGraphRequest {
@@ -17235,26 +17905,28 @@ export const ChannelGraphRequest = {
 };
 
 function createBaseChannelGraph(): ChannelGraph {
-  return { nodes: [], edges: [] };
+  return {nodes: [], edges: []};
 }
 
 export const ChannelGraph = {
   encode(
     message: ChannelGraph,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.nodes) {
-      LightningNode.encode(v!, writer.uint32(10).fork()).ldelim();
+      LightningNode.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     for (const v of message.edges) {
-      ChannelEdge.encode(v!, writer.uint32(18).fork()).ldelim();
+      ChannelEdge.encode(v, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelGraph {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelGraph();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17270,37 +17942,40 @@ export const ChannelGraph = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ChannelGraph {
     const message = createBaseChannelGraph();
     message.nodes = (object.nodes ?? []).map((e: any) =>
-      LightningNode.fromJSON(e)
+      LightningNode.fromJSON(e),
     );
     message.edges = (object.edges ?? []).map((e: any) =>
-      ChannelEdge.fromJSON(e)
+      ChannelEdge.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: ChannelGraph): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.nodes) {
-      obj.nodes = message.nodes.map((e) =>
-        e ? LightningNode.toJSON(e) : undefined
+      object.nodes = message.nodes.map((e) =>
+        e ? LightningNode.toJSON(e) : undefined,
       );
     } else {
-      obj.nodes = [];
+      object.nodes = [];
     }
+
     if (message.edges) {
-      obj.edges = message.edges.map((e) =>
-        e ? ChannelEdge.toJSON(e) : undefined
+      object.edges = message.edges.map((e) =>
+        e ? ChannelEdge.toJSON(e) : undefined,
       );
     } else {
-      obj.edges = [];
+      object.edges = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelGraph>): ChannelGraph {
@@ -17313,25 +17988,26 @@ export const ChannelGraph = {
 };
 
 function createBaseNodeMetricsRequest(): NodeMetricsRequest {
-  return { types: [] };
+  return {types: []};
 }
 
 export const NodeMetricsRequest = {
   encode(
     message: NodeMetricsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     writer.uint32(10).fork();
     for (const v of message.types) {
       writer.int32(v);
     }
+
     writer.ldelim();
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeMetricsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeMetricsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17345,31 +18021,31 @@ export const NodeMetricsRequest = {
           } else {
             message.types.push(reader.int32() as any);
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): NodeMetricsRequest {
     const message = createBaseNodeMetricsRequest();
     message.types = (object.types ?? []).map((e: any) =>
-      nodeMetricTypeFromJSON(e)
+      nodeMetricTypeFromJSON(e),
     );
     return message;
   },
 
   toJSON(message: NodeMetricsRequest): unknown {
-    const obj: any = {};
-    if (message.types) {
-      obj.types = message.types.map((e) => nodeMetricTypeToJSON(e));
-    } else {
-      obj.types = [];
-    }
-    return obj;
+    const object: any = {};
+    object.types = message.types
+      ? message.types.map((e) => nodeMetricTypeToJSON(e))
+      : [];
+    return object;
   },
 
   fromPartial(object: DeepPartial<NodeMetricsRequest>): NodeMetricsRequest {
@@ -17380,26 +18056,27 @@ export const NodeMetricsRequest = {
 };
 
 function createBaseNodeMetricsResponse(): NodeMetricsResponse {
-  return { betweennessCentrality: {} };
+  return {betweennessCentrality: {}};
 }
 
 export const NodeMetricsResponse = {
   encode(
     message: NodeMetricsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    Object.entries(message.betweennessCentrality).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(message.betweennessCentrality)) {
       NodeMetricsResponse_BetweennessCentralityEntry.encode(
-        { key: key as any, value },
-        writer.uint32(10).fork()
+        {key: key as any, value},
+        writer.uint32(10).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeMetricsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeMetricsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17407,25 +18084,27 @@ export const NodeMetricsResponse = {
         case 1:
           const entry1 = NodeMetricsResponse_BetweennessCentralityEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry1.value !== undefined) {
             message.betweennessCentrality[entry1.key] = entry1.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): NodeMetricsResponse {
     const message = createBaseNodeMetricsResponse();
     message.betweennessCentrality = Object.entries(
-      object.betweennessCentrality ?? {}
-    ).reduce<{ [key: string]: FloatMetric }>((acc, [key, value]) => {
+      object.betweennessCentrality ?? {},
+    ).reduce<Record<string, FloatMetric>>((acc, [key, value]) => {
       acc[key] = FloatMetric.fromJSON(value);
       return acc;
     }, {});
@@ -17433,24 +18112,26 @@ export const NodeMetricsResponse = {
   },
 
   toJSON(message: NodeMetricsResponse): unknown {
-    const obj: any = {};
-    obj.betweennessCentrality = {};
+    const object: any = {};
+    object.betweennessCentrality = {};
     if (message.betweennessCentrality) {
-      Object.entries(message.betweennessCentrality).forEach(([k, v]) => {
-        obj.betweennessCentrality[k] = FloatMetric.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.betweennessCentrality)) {
+        object.betweennessCentrality[k] = FloatMetric.toJSON(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<NodeMetricsResponse>): NodeMetricsResponse {
     const message = createBaseNodeMetricsResponse();
     message.betweennessCentrality = Object.entries(
-      object.betweennessCentrality ?? {}
-    ).reduce<{ [key: string]: FloatMetric }>((acc, [key, value]) => {
+      object.betweennessCentrality ?? {},
+    ).reduce<Record<string, FloatMetric>>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = FloatMetric.fromPartial(value);
       }
+
       return acc;
     }, {});
     return message;
@@ -17458,29 +18139,31 @@ export const NodeMetricsResponse = {
 };
 
 function createBaseNodeMetricsResponse_BetweennessCentralityEntry(): NodeMetricsResponse_BetweennessCentralityEntry {
-  return { key: "", value: undefined };
+  return {key: '', value: undefined};
 }
 
 export const NodeMetricsResponse_BetweennessCentralityEntry = {
   encode(
     message: NodeMetricsResponse_BetweennessCentralityEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
+
     if (message.value !== undefined) {
       FloatMetric.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): NodeMetricsResponse_BetweennessCentralityEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeMetricsResponse_BetweennessCentralityEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17496,13 +18179,14 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): NodeMetricsResponse_BetweennessCentralityEntry {
     const message = createBaseNodeMetricsResponse_BetweennessCentralityEntry();
     message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : "";
+      object.key !== undefined && object.key !== null ? String(object.key) : '';
     message.value =
       object.value !== undefined && object.value !== null
         ? FloatMetric.fromJSON(object.value)
@@ -17511,20 +18195,20 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
   },
 
   toJSON(message: NodeMetricsResponse_BetweennessCentralityEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
     message.value !== undefined &&
-      (obj.value = message.value
+      (object.value = message.value
         ? FloatMetric.toJSON(message.value)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<NodeMetricsResponse_BetweennessCentralityEntry>
+    object: DeepPartial<NodeMetricsResponse_BetweennessCentralityEntry>,
   ): NodeMetricsResponse_BetweennessCentralityEntry {
     const message = createBaseNodeMetricsResponse_BetweennessCentralityEntry();
-    message.key = object.key ?? "";
+    message.key = object.key ?? '';
     message.value =
       object.value !== undefined && object.value !== null
         ? FloatMetric.fromPartial(object.value)
@@ -17534,26 +18218,28 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
 };
 
 function createBaseFloatMetric(): FloatMetric {
-  return { value: 0, normalizedValue: 0 };
+  return {value: 0, normalizedValue: 0};
 }
 
 export const FloatMetric = {
   encode(
     message: FloatMetric,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.value !== 0) {
       writer.uint32(9).double(message.value);
     }
+
     if (message.normalizedValue !== 0) {
       writer.uint32(17).double(message.normalizedValue);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FloatMetric {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFloatMetric();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17569,6 +18255,7 @@ export const FloatMetric = {
           break;
       }
     }
+
     return message;
   },
 
@@ -17586,11 +18273,11 @@ export const FloatMetric = {
   },
 
   toJSON(message: FloatMetric): unknown {
-    const obj: any = {};
-    message.value !== undefined && (obj.value = message.value);
+    const object: any = {};
+    message.value !== undefined && (object.value = message.value);
     message.normalizedValue !== undefined &&
-      (obj.normalizedValue = message.normalizedValue);
-    return obj;
+      (object.normalizedValue = message.normalizedValue);
+    return object;
   },
 
   fromPartial(object: DeepPartial<FloatMetric>): FloatMetric {
@@ -17602,23 +18289,24 @@ export const FloatMetric = {
 };
 
 function createBaseChanInfoRequest(): ChanInfoRequest {
-  return { chanId: "0" };
+  return {chanId: '0'};
 }
 
 export const ChanInfoRequest = {
   encode(
     message: ChanInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chanId !== "0") {
+    if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChanInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17631,6 +18319,7 @@ export const ChanInfoRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -17639,19 +18328,19 @@ export const ChanInfoRequest = {
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: ChanInfoRequest): unknown {
-    const obj: any = {};
-    message.chanId !== undefined && (obj.chanId = message.chanId);
-    return obj;
+    const object: any = {};
+    message.chanId !== undefined && (object.chanId = message.chanId);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChanInfoRequest>): ChanInfoRequest {
     const message = createBaseChanInfoRequest();
-    message.chanId = object.chanId ?? "0";
+    message.chanId = object.chanId ?? '0';
     return message;
   },
 };
@@ -17663,14 +18352,14 @@ function createBaseNetworkInfoRequest(): NetworkInfoRequest {
 export const NetworkInfoRequest = {
   encode(
     _: NetworkInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NetworkInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNetworkInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17680,6 +18369,7 @@ export const NetworkInfoRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -17689,8 +18379,8 @@ export const NetworkInfoRequest = {
   },
 
   toJSON(_: NetworkInfoRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<NetworkInfoRequest>): NetworkInfoRequest {
@@ -17706,59 +18396,70 @@ function createBaseNetworkInfo(): NetworkInfo {
     maxOutDegree: 0,
     numNodes: 0,
     numChannels: 0,
-    totalNetworkCapacity: "0",
+    totalNetworkCapacity: '0',
     avgChannelSize: 0,
-    minChannelSize: "0",
-    maxChannelSize: "0",
-    medianChannelSizeSat: "0",
-    numZombieChans: "0",
+    minChannelSize: '0',
+    maxChannelSize: '0',
+    medianChannelSizeSat: '0',
+    numZombieChans: '0',
   };
 }
 
 export const NetworkInfo = {
   encode(
     message: NetworkInfo,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.graphDiameter !== 0) {
       writer.uint32(8).uint32(message.graphDiameter);
     }
+
     if (message.avgOutDegree !== 0) {
       writer.uint32(17).double(message.avgOutDegree);
     }
+
     if (message.maxOutDegree !== 0) {
       writer.uint32(24).uint32(message.maxOutDegree);
     }
+
     if (message.numNodes !== 0) {
       writer.uint32(32).uint32(message.numNodes);
     }
+
     if (message.numChannels !== 0) {
       writer.uint32(40).uint32(message.numChannels);
     }
-    if (message.totalNetworkCapacity !== "0") {
+
+    if (message.totalNetworkCapacity !== '0') {
       writer.uint32(48).int64(message.totalNetworkCapacity);
     }
+
     if (message.avgChannelSize !== 0) {
       writer.uint32(57).double(message.avgChannelSize);
     }
-    if (message.minChannelSize !== "0") {
+
+    if (message.minChannelSize !== '0') {
       writer.uint32(64).int64(message.minChannelSize);
     }
-    if (message.maxChannelSize !== "0") {
+
+    if (message.maxChannelSize !== '0') {
       writer.uint32(72).int64(message.maxChannelSize);
     }
-    if (message.medianChannelSizeSat !== "0") {
+
+    if (message.medianChannelSizeSat !== '0') {
       writer.uint32(80).int64(message.medianChannelSizeSat);
     }
-    if (message.numZombieChans !== "0") {
+
+    if (message.numZombieChans !== '0') {
       writer.uint32(88).uint64(message.numZombieChans);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NetworkInfo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNetworkInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17801,6 +18502,7 @@ export const NetworkInfo = {
           break;
       }
     }
+
     return message;
   },
 
@@ -17830,7 +18532,7 @@ export const NetworkInfo = {
       object.totalNetworkCapacity !== undefined &&
       object.totalNetworkCapacity !== null
         ? String(object.totalNetworkCapacity)
-        : "0";
+        : '0';
     message.avgChannelSize =
       object.avgChannelSize !== undefined && object.avgChannelSize !== null
         ? Number(object.avgChannelSize)
@@ -17838,48 +18540,48 @@ export const NetworkInfo = {
     message.minChannelSize =
       object.minChannelSize !== undefined && object.minChannelSize !== null
         ? String(object.minChannelSize)
-        : "0";
+        : '0';
     message.maxChannelSize =
       object.maxChannelSize !== undefined && object.maxChannelSize !== null
         ? String(object.maxChannelSize)
-        : "0";
+        : '0';
     message.medianChannelSizeSat =
       object.medianChannelSizeSat !== undefined &&
       object.medianChannelSizeSat !== null
         ? String(object.medianChannelSizeSat)
-        : "0";
+        : '0';
     message.numZombieChans =
       object.numZombieChans !== undefined && object.numZombieChans !== null
         ? String(object.numZombieChans)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: NetworkInfo): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.graphDiameter !== undefined &&
-      (obj.graphDiameter = Math.round(message.graphDiameter));
+      (object.graphDiameter = Math.round(message.graphDiameter));
     message.avgOutDegree !== undefined &&
-      (obj.avgOutDegree = message.avgOutDegree);
+      (object.avgOutDegree = message.avgOutDegree);
     message.maxOutDegree !== undefined &&
-      (obj.maxOutDegree = Math.round(message.maxOutDegree));
+      (object.maxOutDegree = Math.round(message.maxOutDegree));
     message.numNodes !== undefined &&
-      (obj.numNodes = Math.round(message.numNodes));
+      (object.numNodes = Math.round(message.numNodes));
     message.numChannels !== undefined &&
-      (obj.numChannels = Math.round(message.numChannels));
+      (object.numChannels = Math.round(message.numChannels));
     message.totalNetworkCapacity !== undefined &&
-      (obj.totalNetworkCapacity = message.totalNetworkCapacity);
+      (object.totalNetworkCapacity = message.totalNetworkCapacity);
     message.avgChannelSize !== undefined &&
-      (obj.avgChannelSize = message.avgChannelSize);
+      (object.avgChannelSize = message.avgChannelSize);
     message.minChannelSize !== undefined &&
-      (obj.minChannelSize = message.minChannelSize);
+      (object.minChannelSize = message.minChannelSize);
     message.maxChannelSize !== undefined &&
-      (obj.maxChannelSize = message.maxChannelSize);
+      (object.maxChannelSize = message.maxChannelSize);
     message.medianChannelSizeSat !== undefined &&
-      (obj.medianChannelSizeSat = message.medianChannelSizeSat);
+      (object.medianChannelSizeSat = message.medianChannelSizeSat);
     message.numZombieChans !== undefined &&
-      (obj.numZombieChans = message.numZombieChans);
-    return obj;
+      (object.numZombieChans = message.numZombieChans);
+    return object;
   },
 
   fromPartial(object: DeepPartial<NetworkInfo>): NetworkInfo {
@@ -17889,12 +18591,12 @@ export const NetworkInfo = {
     message.maxOutDegree = object.maxOutDegree ?? 0;
     message.numNodes = object.numNodes ?? 0;
     message.numChannels = object.numChannels ?? 0;
-    message.totalNetworkCapacity = object.totalNetworkCapacity ?? "0";
+    message.totalNetworkCapacity = object.totalNetworkCapacity ?? '0';
     message.avgChannelSize = object.avgChannelSize ?? 0;
-    message.minChannelSize = object.minChannelSize ?? "0";
-    message.maxChannelSize = object.maxChannelSize ?? "0";
-    message.medianChannelSizeSat = object.medianChannelSizeSat ?? "0";
-    message.numZombieChans = object.numZombieChans ?? "0";
+    message.minChannelSize = object.minChannelSize ?? '0';
+    message.maxChannelSize = object.maxChannelSize ?? '0';
+    message.medianChannelSizeSat = object.medianChannelSizeSat ?? '0';
+    message.numZombieChans = object.numZombieChans ?? '0';
     return message;
   },
 };
@@ -17910,7 +18612,7 @@ export const StopRequest = {
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StopRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStopRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17920,6 +18622,7 @@ export const StopRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -17929,8 +18632,8 @@ export const StopRequest = {
   },
 
   toJSON(_: StopRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<StopRequest>): StopRequest {
@@ -17946,14 +18649,14 @@ function createBaseStopResponse(): StopResponse {
 export const StopResponse = {
   encode(
     _: StopResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StopResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStopResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17963,6 +18666,7 @@ export const StopResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -17972,8 +18676,8 @@ export const StopResponse = {
   },
 
   toJSON(_: StopResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<StopResponse>): StopResponse {
@@ -17989,17 +18693,17 @@ function createBaseGraphTopologySubscription(): GraphTopologySubscription {
 export const GraphTopologySubscription = {
   encode(
     _: GraphTopologySubscription,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): GraphTopologySubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGraphTopologySubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18009,6 +18713,7 @@ export const GraphTopologySubscription = {
           break;
       }
     }
+
     return message;
   },
 
@@ -18018,12 +18723,12 @@ export const GraphTopologySubscription = {
   },
 
   toJSON(_: GraphTopologySubscription): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(
-    _: DeepPartial<GraphTopologySubscription>
+    _: DeepPartial<GraphTopologySubscription>,
   ): GraphTopologySubscription {
     const message = createBaseGraphTopologySubscription();
     return message;
@@ -18031,29 +18736,32 @@ export const GraphTopologySubscription = {
 };
 
 function createBaseGraphTopologyUpdate(): GraphTopologyUpdate {
-  return { nodeUpdates: [], channelUpdates: [], closedChans: [] };
+  return {nodeUpdates: [], channelUpdates: [], closedChans: []};
 }
 
 export const GraphTopologyUpdate = {
   encode(
     message: GraphTopologyUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.nodeUpdates) {
-      NodeUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
+      NodeUpdate.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     for (const v of message.channelUpdates) {
-      ChannelEdgeUpdate.encode(v!, writer.uint32(18).fork()).ldelim();
+      ChannelEdgeUpdate.encode(v, writer.uint32(18).fork()).ldelim();
     }
+
     for (const v of message.closedChans) {
-      ClosedChannelUpdate.encode(v!, writer.uint32(26).fork()).ldelim();
+      ClosedChannelUpdate.encode(v, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GraphTopologyUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGraphTopologyUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18063,12 +18771,12 @@ export const GraphTopologyUpdate = {
           break;
         case 2:
           message.channelUpdates.push(
-            ChannelEdgeUpdate.decode(reader, reader.uint32())
+            ChannelEdgeUpdate.decode(reader, reader.uint32()),
           );
           break;
         case 3:
           message.closedChans.push(
-            ClosedChannelUpdate.decode(reader, reader.uint32())
+            ClosedChannelUpdate.decode(reader, reader.uint32()),
           );
           break;
         default:
@@ -18076,47 +18784,51 @@ export const GraphTopologyUpdate = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): GraphTopologyUpdate {
     const message = createBaseGraphTopologyUpdate();
     message.nodeUpdates = (object.nodeUpdates ?? []).map((e: any) =>
-      NodeUpdate.fromJSON(e)
+      NodeUpdate.fromJSON(e),
     );
     message.channelUpdates = (object.channelUpdates ?? []).map((e: any) =>
-      ChannelEdgeUpdate.fromJSON(e)
+      ChannelEdgeUpdate.fromJSON(e),
     );
     message.closedChans = (object.closedChans ?? []).map((e: any) =>
-      ClosedChannelUpdate.fromJSON(e)
+      ClosedChannelUpdate.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: GraphTopologyUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.nodeUpdates) {
-      obj.nodeUpdates = message.nodeUpdates.map((e) =>
-        e ? NodeUpdate.toJSON(e) : undefined
+      object.nodeUpdates = message.nodeUpdates.map((e) =>
+        e ? NodeUpdate.toJSON(e) : undefined,
       );
     } else {
-      obj.nodeUpdates = [];
+      object.nodeUpdates = [];
     }
+
     if (message.channelUpdates) {
-      obj.channelUpdates = message.channelUpdates.map((e) =>
-        e ? ChannelEdgeUpdate.toJSON(e) : undefined
+      object.channelUpdates = message.channelUpdates.map((e) =>
+        e ? ChannelEdgeUpdate.toJSON(e) : undefined,
       );
     } else {
-      obj.channelUpdates = [];
+      object.channelUpdates = [];
     }
+
     if (message.closedChans) {
-      obj.closedChans = message.closedChans.map((e) =>
-        e ? ClosedChannelUpdate.toJSON(e) : undefined
+      object.closedChans = message.closedChans.map((e) =>
+        e ? ClosedChannelUpdate.toJSON(e) : undefined,
       );
     } else {
-      obj.closedChans = [];
+      object.closedChans = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<GraphTopologyUpdate>): GraphTopologyUpdate {
@@ -18134,10 +18846,10 @@ export const GraphTopologyUpdate = {
 function createBaseNodeUpdate(): NodeUpdate {
   return {
     addresses: [],
-    identityKey: "",
+    identityKey: '',
     globalFeatures: new Uint8Array(),
-    alias: "",
-    color: "",
+    alias: '',
+    color: '',
     nodeAddresses: [],
     features: {},
   };
@@ -18146,38 +18858,45 @@ function createBaseNodeUpdate(): NodeUpdate {
 export const NodeUpdate = {
   encode(
     message: NodeUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.addresses) {
-      writer.uint32(10).string(v!);
+      writer.uint32(10).string(v);
     }
-    if (message.identityKey !== "") {
+
+    if (message.identityKey !== '') {
       writer.uint32(18).string(message.identityKey);
     }
-    if (message.globalFeatures.length !== 0) {
+
+    if (message.globalFeatures.length > 0) {
       writer.uint32(26).bytes(message.globalFeatures);
     }
-    if (message.alias !== "") {
+
+    if (message.alias !== '') {
       writer.uint32(34).string(message.alias);
     }
-    if (message.color !== "") {
+
+    if (message.color !== '') {
       writer.uint32(42).string(message.color);
     }
+
     for (const v of message.nodeAddresses) {
-      NodeAddress.encode(v!, writer.uint32(58).fork()).ldelim();
+      NodeAddress.encode(v, writer.uint32(58).fork()).ldelim();
     }
-    Object.entries(message.features).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.features)) {
       NodeUpdate_FeaturesEntry.encode(
-        { key: key as any, value },
-        writer.uint32(50).fork()
+        {key: key as any, value},
+        writer.uint32(50).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18199,23 +18918,25 @@ export const NodeUpdate = {
           break;
         case 7:
           message.nodeAddresses.push(
-            NodeAddress.decode(reader, reader.uint32())
+            NodeAddress.decode(reader, reader.uint32()),
           );
           break;
         case 6:
           const entry6 = NodeUpdate_FeaturesEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry6.value !== undefined) {
             message.features[entry6.key] = entry6.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -18225,7 +18946,7 @@ export const NodeUpdate = {
     message.identityKey =
       object.identityKey !== undefined && object.identityKey !== null
         ? String(object.identityKey)
-        : "";
+        : '';
     message.globalFeatures =
       object.globalFeatures !== undefined && object.globalFeatures !== null
         ? bytesFromBase64(object.globalFeatures)
@@ -18233,17 +18954,17 @@ export const NodeUpdate = {
     message.alias =
       object.alias !== undefined && object.alias !== null
         ? String(object.alias)
-        : "";
+        : '';
     message.color =
       object.color !== undefined && object.color !== null
         ? String(object.color)
-        : "";
+        : '';
     message.nodeAddresses = (object.nodeAddresses ?? []).map((e: any) =>
-      NodeAddress.fromJSON(e)
+      NodeAddress.fromJSON(e),
     );
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       acc[Number(key)] = Feature.fromJSON(value);
       return acc;
     }, {});
@@ -18251,53 +18972,52 @@ export const NodeUpdate = {
   },
 
   toJSON(message: NodeUpdate): unknown {
-    const obj: any = {};
-    if (message.addresses) {
-      obj.addresses = message.addresses.map((e) => e);
-    } else {
-      obj.addresses = [];
-    }
+    const object: any = {};
+    object.addresses = message.addresses ? message.addresses.map((e) => e) : [];
     message.identityKey !== undefined &&
-      (obj.identityKey = message.identityKey);
+      (object.identityKey = message.identityKey);
     message.globalFeatures !== undefined &&
-      (obj.globalFeatures = base64FromBytes(
+      (object.globalFeatures = base64FromBytes(
         message.globalFeatures !== undefined
           ? message.globalFeatures
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    message.alias !== undefined && (obj.alias = message.alias);
-    message.color !== undefined && (obj.color = message.color);
+    message.alias !== undefined && (object.alias = message.alias);
+    message.color !== undefined && (object.color = message.color);
     if (message.nodeAddresses) {
-      obj.nodeAddresses = message.nodeAddresses.map((e) =>
-        e ? NodeAddress.toJSON(e) : undefined
+      object.nodeAddresses = message.nodeAddresses.map((e) =>
+        e ? NodeAddress.toJSON(e) : undefined,
       );
     } else {
-      obj.nodeAddresses = [];
+      object.nodeAddresses = [];
     }
-    obj.features = {};
+
+    object.features = {};
     if (message.features) {
-      Object.entries(message.features).forEach(([k, v]) => {
-        obj.features[k] = Feature.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.features)) {
+        object.features[k] = Feature.toJSON(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<NodeUpdate>): NodeUpdate {
     const message = createBaseNodeUpdate();
     message.addresses = object.addresses?.map((e) => e) || [];
-    message.identityKey = object.identityKey ?? "";
+    message.identityKey = object.identityKey ?? '';
     message.globalFeatures = object.globalFeatures ?? new Uint8Array();
-    message.alias = object.alias ?? "";
-    message.color = object.color ?? "";
+    message.alias = object.alias ?? '';
+    message.color = object.color ?? '';
     message.nodeAddresses =
       object.nodeAddresses?.map((e) => NodeAddress.fromPartial(e)) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
+
       return acc;
     }, {});
     return message;
@@ -18305,29 +19025,31 @@ export const NodeUpdate = {
 };
 
 function createBaseNodeUpdate_FeaturesEntry(): NodeUpdate_FeaturesEntry {
-  return { key: 0, value: undefined };
+  return {key: 0, value: undefined};
 }
 
 export const NodeUpdate_FeaturesEntry = {
   encode(
     message: NodeUpdate_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
+
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): NodeUpdate_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeUpdate_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18343,6 +19065,7 @@ export const NodeUpdate_FeaturesEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -18358,15 +19081,17 @@ export const NodeUpdate_FeaturesEntry = {
   },
 
   toJSON(message: NodeUpdate_FeaturesEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = Math.round(message.key));
+    const object: any = {};
+    message.key !== undefined && (object.key = Math.round(message.key));
     message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
-    return obj;
+      (object.value = message.value
+        ? Feature.toJSON(message.value)
+        : undefined);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<NodeUpdate_FeaturesEntry>
+    object: DeepPartial<NodeUpdate_FeaturesEntry>,
   ): NodeUpdate_FeaturesEntry {
     const message = createBaseNodeUpdate_FeaturesEntry();
     message.key = object.key ?? 0;
@@ -18380,47 +19105,53 @@ export const NodeUpdate_FeaturesEntry = {
 
 function createBaseChannelEdgeUpdate(): ChannelEdgeUpdate {
   return {
-    chanId: "0",
+    chanId: '0',
     chanPoint: undefined,
-    capacity: "0",
+    capacity: '0',
     routingPolicy: undefined,
-    advertisingNode: "",
-    connectingNode: "",
+    advertisingNode: '',
+    connectingNode: '',
   };
 }
 
 export const ChannelEdgeUpdate = {
   encode(
     message: ChannelEdgeUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chanId !== "0") {
+    if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
+
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-    if (message.capacity !== "0") {
+
+    if (message.capacity !== '0') {
       writer.uint32(24).int64(message.capacity);
     }
+
     if (message.routingPolicy !== undefined) {
       RoutingPolicy.encode(
         message.routingPolicy,
-        writer.uint32(34).fork()
+        writer.uint32(34).fork(),
       ).ldelim();
     }
-    if (message.advertisingNode !== "") {
+
+    if (message.advertisingNode !== '') {
       writer.uint32(42).string(message.advertisingNode);
     }
-    if (message.connectingNode !== "") {
+
+    if (message.connectingNode !== '') {
       writer.uint32(50).string(message.connectingNode);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelEdgeUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEdgeUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18448,6 +19179,7 @@ export const ChannelEdgeUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -18456,7 +19188,7 @@ export const ChannelEdgeUpdate = {
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.chanPoint =
       object.chanPoint !== undefined && object.chanPoint !== null
         ? ChannelPoint.fromJSON(object.chanPoint)
@@ -18464,7 +19196,7 @@ export const ChannelEdgeUpdate = {
     message.capacity =
       object.capacity !== undefined && object.capacity !== null
         ? String(object.capacity)
-        : "0";
+        : '0';
     message.routingPolicy =
       object.routingPolicy !== undefined && object.routingPolicy !== null
         ? RoutingPolicy.fromJSON(object.routingPolicy)
@@ -18472,78 +19204,82 @@ export const ChannelEdgeUpdate = {
     message.advertisingNode =
       object.advertisingNode !== undefined && object.advertisingNode !== null
         ? String(object.advertisingNode)
-        : "";
+        : '';
     message.connectingNode =
       object.connectingNode !== undefined && object.connectingNode !== null
         ? String(object.connectingNode)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: ChannelEdgeUpdate): unknown {
-    const obj: any = {};
-    message.chanId !== undefined && (obj.chanId = message.chanId);
+    const object: any = {};
+    message.chanId !== undefined && (object.chanId = message.chanId);
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
+      (object.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
-    message.capacity !== undefined && (obj.capacity = message.capacity);
+    message.capacity !== undefined && (object.capacity = message.capacity);
     message.routingPolicy !== undefined &&
-      (obj.routingPolicy = message.routingPolicy
+      (object.routingPolicy = message.routingPolicy
         ? RoutingPolicy.toJSON(message.routingPolicy)
         : undefined);
     message.advertisingNode !== undefined &&
-      (obj.advertisingNode = message.advertisingNode);
+      (object.advertisingNode = message.advertisingNode);
     message.connectingNode !== undefined &&
-      (obj.connectingNode = message.connectingNode);
-    return obj;
+      (object.connectingNode = message.connectingNode);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelEdgeUpdate>): ChannelEdgeUpdate {
     const message = createBaseChannelEdgeUpdate();
-    message.chanId = object.chanId ?? "0";
+    message.chanId = object.chanId ?? '0';
     message.chanPoint =
       object.chanPoint !== undefined && object.chanPoint !== null
         ? ChannelPoint.fromPartial(object.chanPoint)
         : undefined;
-    message.capacity = object.capacity ?? "0";
+    message.capacity = object.capacity ?? '0';
     message.routingPolicy =
       object.routingPolicy !== undefined && object.routingPolicy !== null
         ? RoutingPolicy.fromPartial(object.routingPolicy)
         : undefined;
-    message.advertisingNode = object.advertisingNode ?? "";
-    message.connectingNode = object.connectingNode ?? "";
+    message.advertisingNode = object.advertisingNode ?? '';
+    message.connectingNode = object.connectingNode ?? '';
     return message;
   },
 };
 
 function createBaseClosedChannelUpdate(): ClosedChannelUpdate {
-  return { chanId: "0", capacity: "0", closedHeight: 0, chanPoint: undefined };
+  return {chanId: '0', capacity: '0', closedHeight: 0, chanPoint: undefined};
 }
 
 export const ClosedChannelUpdate = {
   encode(
     message: ClosedChannelUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chanId !== "0") {
+    if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.capacity !== "0") {
+
+    if (message.capacity !== '0') {
       writer.uint32(16).int64(message.capacity);
     }
+
     if (message.closedHeight !== 0) {
       writer.uint32(24).uint32(message.closedHeight);
     }
+
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(34).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ClosedChannelUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClosedChannelUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18565,6 +19301,7 @@ export const ClosedChannelUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -18573,11 +19310,11 @@ export const ClosedChannelUpdate = {
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.capacity =
       object.capacity !== undefined && object.capacity !== null
         ? String(object.capacity)
-        : "0";
+        : '0';
     message.closedHeight =
       object.closedHeight !== undefined && object.closedHeight !== null
         ? Number(object.closedHeight)
@@ -18590,22 +19327,22 @@ export const ClosedChannelUpdate = {
   },
 
   toJSON(message: ClosedChannelUpdate): unknown {
-    const obj: any = {};
-    message.chanId !== undefined && (obj.chanId = message.chanId);
-    message.capacity !== undefined && (obj.capacity = message.capacity);
+    const object: any = {};
+    message.chanId !== undefined && (object.chanId = message.chanId);
+    message.capacity !== undefined && (object.capacity = message.capacity);
     message.closedHeight !== undefined &&
-      (obj.closedHeight = Math.round(message.closedHeight));
+      (object.closedHeight = Math.round(message.closedHeight));
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
+      (object.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<ClosedChannelUpdate>): ClosedChannelUpdate {
     const message = createBaseClosedChannelUpdate();
-    message.chanId = object.chanId ?? "0";
-    message.capacity = object.capacity ?? "0";
+    message.chanId = object.chanId ?? '0';
+    message.capacity = object.capacity ?? '0';
     message.closedHeight = object.closedHeight ?? 0;
     message.chanPoint =
       object.chanPoint !== undefined && object.chanPoint !== null
@@ -18617,8 +19354,8 @@ export const ClosedChannelUpdate = {
 
 function createBaseHopHint(): HopHint {
   return {
-    nodeId: "",
-    chanId: "0",
+    nodeId: '',
+    chanId: '0',
     feeBaseMsat: 0,
     feeProportionalMillionths: 0,
     cltvExpiryDelta: 0,
@@ -18628,29 +19365,34 @@ function createBaseHopHint(): HopHint {
 export const HopHint = {
   encode(
     message: HopHint,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.nodeId !== "") {
+    if (message.nodeId !== '') {
       writer.uint32(10).string(message.nodeId);
     }
-    if (message.chanId !== "0") {
+
+    if (message.chanId !== '0') {
       writer.uint32(16).uint64(message.chanId);
     }
+
     if (message.feeBaseMsat !== 0) {
       writer.uint32(24).uint32(message.feeBaseMsat);
     }
+
     if (message.feeProportionalMillionths !== 0) {
       writer.uint32(32).uint32(message.feeProportionalMillionths);
     }
+
     if (message.cltvExpiryDelta !== 0) {
       writer.uint32(40).uint32(message.cltvExpiryDelta);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): HopHint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHopHint();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18675,6 +19417,7 @@ export const HopHint = {
           break;
       }
     }
+
     return message;
   },
 
@@ -18683,11 +19426,11 @@ export const HopHint = {
     message.nodeId =
       object.nodeId !== undefined && object.nodeId !== null
         ? String(object.nodeId)
-        : "";
+        : '';
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.feeBaseMsat =
       object.feeBaseMsat !== undefined && object.feeBaseMsat !== null
         ? Number(object.feeBaseMsat)
@@ -18705,24 +19448,24 @@ export const HopHint = {
   },
 
   toJSON(message: HopHint): unknown {
-    const obj: any = {};
-    message.nodeId !== undefined && (obj.nodeId = message.nodeId);
-    message.chanId !== undefined && (obj.chanId = message.chanId);
+    const object: any = {};
+    message.nodeId !== undefined && (object.nodeId = message.nodeId);
+    message.chanId !== undefined && (object.chanId = message.chanId);
     message.feeBaseMsat !== undefined &&
-      (obj.feeBaseMsat = Math.round(message.feeBaseMsat));
+      (object.feeBaseMsat = Math.round(message.feeBaseMsat));
     message.feeProportionalMillionths !== undefined &&
-      (obj.feeProportionalMillionths = Math.round(
-        message.feeProportionalMillionths
+      (object.feeProportionalMillionths = Math.round(
+        message.feeProportionalMillionths,
       ));
     message.cltvExpiryDelta !== undefined &&
-      (obj.cltvExpiryDelta = Math.round(message.cltvExpiryDelta));
-    return obj;
+      (object.cltvExpiryDelta = Math.round(message.cltvExpiryDelta));
+    return object;
   },
 
   fromPartial(object: DeepPartial<HopHint>): HopHint {
     const message = createBaseHopHint();
-    message.nodeId = object.nodeId ?? "";
-    message.chanId = object.chanId ?? "0";
+    message.nodeId = object.nodeId ?? '';
+    message.chanId = object.chanId ?? '0';
     message.feeBaseMsat = object.feeBaseMsat ?? 0;
     message.feeProportionalMillionths = object.feeProportionalMillionths ?? 0;
     message.cltvExpiryDelta = object.cltvExpiryDelta ?? 0;
@@ -18731,20 +19474,21 @@ export const HopHint = {
 };
 
 function createBaseSetID(): SetID {
-  return { setId: new Uint8Array() };
+  return {setId: new Uint8Array()};
 }
 
 export const SetID = {
   encode(message: SetID, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.setId.length !== 0) {
+    if (message.setId.length > 0) {
       writer.uint32(10).bytes(message.setId);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SetID {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSetID();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18757,6 +19501,7 @@ export const SetID = {
           break;
       }
     }
+
     return message;
   },
 
@@ -18770,12 +19515,12 @@ export const SetID = {
   },
 
   toJSON(message: SetID): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.setId !== undefined &&
-      (obj.setId = base64FromBytes(
-        message.setId !== undefined ? message.setId : new Uint8Array()
+      (object.setId = base64FromBytes(
+        message.setId !== undefined ? message.setId : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<SetID>): SetID {
@@ -18786,23 +19531,24 @@ export const SetID = {
 };
 
 function createBaseRouteHint(): RouteHint {
-  return { hopHints: [] };
+  return {hopHints: []};
 }
 
 export const RouteHint = {
   encode(
     message: RouteHint,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.hopHints) {
-      HopHint.encode(v!, writer.uint32(10).fork()).ldelim();
+      HopHint.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): RouteHint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRouteHint();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18815,27 +19561,29 @@ export const RouteHint = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): RouteHint {
     const message = createBaseRouteHint();
     message.hopHints = (object.hopHints ?? []).map((e: any) =>
-      HopHint.fromJSON(e)
+      HopHint.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: RouteHint): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.hopHints) {
-      obj.hopHints = message.hopHints.map((e) =>
-        e ? HopHint.toJSON(e) : undefined
+      object.hopHints = message.hopHints.map((e) =>
+        e ? HopHint.toJSON(e) : undefined,
       );
     } else {
-      obj.hopHints = [];
+      object.hopHints = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<RouteHint>): RouteHint {
@@ -18847,32 +19595,36 @@ export const RouteHint = {
 };
 
 function createBaseAMPInvoiceState(): AMPInvoiceState {
-  return { state: 0, settleIndex: "0", settleTime: "0", amtPaidMsat: "0" };
+  return {state: 0, settleIndex: '0', settleTime: '0', amtPaidMsat: '0'};
 }
 
 export const AMPInvoiceState = {
   encode(
     message: AMPInvoiceState,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
-    if (message.settleIndex !== "0") {
+
+    if (message.settleIndex !== '0') {
       writer.uint32(16).uint64(message.settleIndex);
     }
-    if (message.settleTime !== "0") {
+
+    if (message.settleTime !== '0') {
       writer.uint32(24).int64(message.settleTime);
     }
-    if (message.amtPaidMsat !== "0") {
+
+    if (message.amtPaidMsat !== '0') {
       writer.uint32(40).int64(message.amtPaidMsat);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AMPInvoiceState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAMPInvoiceState();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18894,6 +19646,7 @@ export const AMPInvoiceState = {
           break;
       }
     }
+
     return message;
   },
 
@@ -18906,62 +19659,63 @@ export const AMPInvoiceState = {
     message.settleIndex =
       object.settleIndex !== undefined && object.settleIndex !== null
         ? String(object.settleIndex)
-        : "0";
+        : '0';
     message.settleTime =
       object.settleTime !== undefined && object.settleTime !== null
         ? String(object.settleTime)
-        : "0";
+        : '0';
     message.amtPaidMsat =
       object.amtPaidMsat !== undefined && object.amtPaidMsat !== null
         ? String(object.amtPaidMsat)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: AMPInvoiceState): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.state !== undefined &&
-      (obj.state = invoiceHTLCStateToJSON(message.state));
+      (object.state = invoiceHTLCStateToJSON(message.state));
     message.settleIndex !== undefined &&
-      (obj.settleIndex = message.settleIndex);
-    message.settleTime !== undefined && (obj.settleTime = message.settleTime);
+      (object.settleIndex = message.settleIndex);
+    message.settleTime !== undefined &&
+      (object.settleTime = message.settleTime);
     message.amtPaidMsat !== undefined &&
-      (obj.amtPaidMsat = message.amtPaidMsat);
-    return obj;
+      (object.amtPaidMsat = message.amtPaidMsat);
+    return object;
   },
 
   fromPartial(object: DeepPartial<AMPInvoiceState>): AMPInvoiceState {
     const message = createBaseAMPInvoiceState();
     message.state = object.state ?? 0;
-    message.settleIndex = object.settleIndex ?? "0";
-    message.settleTime = object.settleTime ?? "0";
-    message.amtPaidMsat = object.amtPaidMsat ?? "0";
+    message.settleIndex = object.settleIndex ?? '0';
+    message.settleTime = object.settleTime ?? '0';
+    message.amtPaidMsat = object.amtPaidMsat ?? '0';
     return message;
   },
 };
 
 function createBaseInvoice(): Invoice {
   return {
-    memo: "",
+    memo: '',
     rPreimage: new Uint8Array(),
     rHash: new Uint8Array(),
-    value: "0",
-    valueMsat: "0",
+    value: '0',
+    valueMsat: '0',
     settled: false,
-    creationDate: "0",
-    settleDate: "0",
-    paymentRequest: "",
+    creationDate: '0',
+    settleDate: '0',
+    paymentRequest: '',
     descriptionHash: new Uint8Array(),
-    expiry: "0",
-    fallbackAddr: "",
-    cltvExpiry: "0",
+    expiry: '0',
+    fallbackAddr: '',
+    cltvExpiry: '0',
     routeHints: [],
     private: false,
-    addIndex: "0",
-    settleIndex: "0",
-    amtPaid: "0",
-    amtPaidSat: "0",
-    amtPaidMsat: "0",
+    addIndex: '0',
+    settleIndex: '0',
+    amtPaid: '0',
+    amtPaidSat: '0',
+    amtPaidMsat: '0',
     state: 0,
     htlcs: [],
     features: {},
@@ -18975,101 +19729,128 @@ function createBaseInvoice(): Invoice {
 export const Invoice = {
   encode(
     message: Invoice,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.memo !== "") {
+    if (message.memo !== '') {
       writer.uint32(10).string(message.memo);
     }
-    if (message.rPreimage.length !== 0) {
+
+    if (message.rPreimage.length > 0) {
       writer.uint32(26).bytes(message.rPreimage);
     }
-    if (message.rHash.length !== 0) {
+
+    if (message.rHash.length > 0) {
       writer.uint32(34).bytes(message.rHash);
     }
-    if (message.value !== "0") {
+
+    if (message.value !== '0') {
       writer.uint32(40).int64(message.value);
     }
-    if (message.valueMsat !== "0") {
+
+    if (message.valueMsat !== '0') {
       writer.uint32(184).int64(message.valueMsat);
     }
-    if (message.settled === true) {
+
+    if (message.settled) {
       writer.uint32(48).bool(message.settled);
     }
-    if (message.creationDate !== "0") {
+
+    if (message.creationDate !== '0') {
       writer.uint32(56).int64(message.creationDate);
     }
-    if (message.settleDate !== "0") {
+
+    if (message.settleDate !== '0') {
       writer.uint32(64).int64(message.settleDate);
     }
-    if (message.paymentRequest !== "") {
+
+    if (message.paymentRequest !== '') {
       writer.uint32(74).string(message.paymentRequest);
     }
-    if (message.descriptionHash.length !== 0) {
+
+    if (message.descriptionHash.length > 0) {
       writer.uint32(82).bytes(message.descriptionHash);
     }
-    if (message.expiry !== "0") {
+
+    if (message.expiry !== '0') {
       writer.uint32(88).int64(message.expiry);
     }
-    if (message.fallbackAddr !== "") {
+
+    if (message.fallbackAddr !== '') {
       writer.uint32(98).string(message.fallbackAddr);
     }
-    if (message.cltvExpiry !== "0") {
+
+    if (message.cltvExpiry !== '0') {
       writer.uint32(104).uint64(message.cltvExpiry);
     }
+
     for (const v of message.routeHints) {
-      RouteHint.encode(v!, writer.uint32(114).fork()).ldelim();
+      RouteHint.encode(v, writer.uint32(114).fork()).ldelim();
     }
-    if (message.private === true) {
+
+    if (message.private) {
       writer.uint32(120).bool(message.private);
     }
-    if (message.addIndex !== "0") {
+
+    if (message.addIndex !== '0') {
       writer.uint32(128).uint64(message.addIndex);
     }
-    if (message.settleIndex !== "0") {
+
+    if (message.settleIndex !== '0') {
       writer.uint32(136).uint64(message.settleIndex);
     }
-    if (message.amtPaid !== "0") {
+
+    if (message.amtPaid !== '0') {
       writer.uint32(144).int64(message.amtPaid);
     }
-    if (message.amtPaidSat !== "0") {
+
+    if (message.amtPaidSat !== '0') {
       writer.uint32(152).int64(message.amtPaidSat);
     }
-    if (message.amtPaidMsat !== "0") {
+
+    if (message.amtPaidMsat !== '0') {
       writer.uint32(160).int64(message.amtPaidMsat);
     }
+
     if (message.state !== 0) {
       writer.uint32(168).int32(message.state);
     }
+
     for (const v of message.htlcs) {
-      InvoiceHTLC.encode(v!, writer.uint32(178).fork()).ldelim();
+      InvoiceHTLC.encode(v, writer.uint32(178).fork()).ldelim();
     }
-    Object.entries(message.features).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.features)) {
       Invoice_FeaturesEntry.encode(
-        { key: key as any, value },
-        writer.uint32(194).fork()
+        {key: key as any, value},
+        writer.uint32(194).fork(),
       ).ldelim();
-    });
-    if (message.isKeysend === true) {
+    }
+
+    if (message.isKeysend) {
       writer.uint32(200).bool(message.isKeysend);
     }
-    if (message.paymentAddr.length !== 0) {
+
+    if (message.paymentAddr.length > 0) {
       writer.uint32(210).bytes(message.paymentAddr);
     }
-    if (message.isAmp === true) {
+
+    if (message.isAmp) {
       writer.uint32(216).bool(message.isAmp);
     }
-    Object.entries(message.ampInvoiceState).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.ampInvoiceState)) {
       Invoice_AmpInvoiceStateEntry.encode(
-        { key: key as any, value },
-        writer.uint32(226).fork()
+        {key: key as any, value},
+        writer.uint32(226).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Invoice {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoice();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19145,6 +19926,7 @@ export const Invoice = {
           if (entry24.value !== undefined) {
             message.features[entry24.key] = entry24.value;
           }
+
           break;
         case 25:
           message.isKeysend = reader.bool();
@@ -19158,17 +19940,19 @@ export const Invoice = {
         case 28:
           const entry28 = Invoice_AmpInvoiceStateEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry28.value !== undefined) {
             message.ampInvoiceState[entry28.key] = entry28.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -19177,7 +19961,7 @@ export const Invoice = {
     message.memo =
       object.memo !== undefined && object.memo !== null
         ? String(object.memo)
-        : "";
+        : '';
     message.rPreimage =
       object.rPreimage !== undefined && object.rPreimage !== null
         ? bytesFromBase64(object.rPreimage)
@@ -19189,11 +19973,11 @@ export const Invoice = {
     message.value =
       object.value !== undefined && object.value !== null
         ? String(object.value)
-        : "0";
+        : '0';
     message.valueMsat =
       object.valueMsat !== undefined && object.valueMsat !== null
         ? String(object.valueMsat)
-        : "0";
+        : '0';
     message.settled =
       object.settled !== undefined && object.settled !== null
         ? Boolean(object.settled)
@@ -19201,15 +19985,15 @@ export const Invoice = {
     message.creationDate =
       object.creationDate !== undefined && object.creationDate !== null
         ? String(object.creationDate)
-        : "0";
+        : '0';
     message.settleDate =
       object.settleDate !== undefined && object.settleDate !== null
         ? String(object.settleDate)
-        : "0";
+        : '0';
     message.paymentRequest =
       object.paymentRequest !== undefined && object.paymentRequest !== null
         ? String(object.paymentRequest)
-        : "";
+        : '';
     message.descriptionHash =
       object.descriptionHash !== undefined && object.descriptionHash !== null
         ? bytesFromBase64(object.descriptionHash)
@@ -19217,17 +20001,17 @@ export const Invoice = {
     message.expiry =
       object.expiry !== undefined && object.expiry !== null
         ? String(object.expiry)
-        : "0";
+        : '0';
     message.fallbackAddr =
       object.fallbackAddr !== undefined && object.fallbackAddr !== null
         ? String(object.fallbackAddr)
-        : "";
+        : '';
     message.cltvExpiry =
       object.cltvExpiry !== undefined && object.cltvExpiry !== null
         ? String(object.cltvExpiry)
-        : "0";
+        : '0';
     message.routeHints = (object.routeHints ?? []).map((e: any) =>
-      RouteHint.fromJSON(e)
+      RouteHint.fromJSON(e),
     );
     message.private =
       object.private !== undefined && object.private !== null
@@ -19236,33 +20020,33 @@ export const Invoice = {
     message.addIndex =
       object.addIndex !== undefined && object.addIndex !== null
         ? String(object.addIndex)
-        : "0";
+        : '0';
     message.settleIndex =
       object.settleIndex !== undefined && object.settleIndex !== null
         ? String(object.settleIndex)
-        : "0";
+        : '0';
     message.amtPaid =
       object.amtPaid !== undefined && object.amtPaid !== null
         ? String(object.amtPaid)
-        : "0";
+        : '0';
     message.amtPaidSat =
       object.amtPaidSat !== undefined && object.amtPaidSat !== null
         ? String(object.amtPaidSat)
-        : "0";
+        : '0';
     message.amtPaidMsat =
       object.amtPaidMsat !== undefined && object.amtPaidMsat !== null
         ? String(object.amtPaidMsat)
-        : "0";
+        : '0';
     message.state =
       object.state !== undefined && object.state !== null
         ? invoice_InvoiceStateFromJSON(object.state)
         : 0;
     message.htlcs = (object.htlcs ?? []).map((e: any) =>
-      InvoiceHTLC.fromJSON(e)
+      InvoiceHTLC.fromJSON(e),
     );
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       acc[Number(key)] = Feature.fromJSON(value);
       return acc;
     }, {});
@@ -19279,8 +20063,8 @@ export const Invoice = {
         ? Boolean(object.isAmp)
         : false;
     message.ampInvoiceState = Object.entries(
-      object.ampInvoiceState ?? {}
-    ).reduce<{ [key: string]: AMPInvoiceState }>((acc, [key, value]) => {
+      object.ampInvoiceState ?? {},
+    ).reduce<Record<string, AMPInvoiceState>>((acc, [key, value]) => {
       acc[key] = AMPInvoiceState.fromJSON(value);
       return acc;
     }, {});
@@ -19288,123 +20072,132 @@ export const Invoice = {
   },
 
   toJSON(message: Invoice): unknown {
-    const obj: any = {};
-    message.memo !== undefined && (obj.memo = message.memo);
+    const object: any = {};
+    message.memo !== undefined && (object.memo = message.memo);
     message.rPreimage !== undefined &&
-      (obj.rPreimage = base64FromBytes(
-        message.rPreimage !== undefined ? message.rPreimage : new Uint8Array()
+      (object.rPreimage = base64FromBytes(
+        message.rPreimage !== undefined ? message.rPreimage : new Uint8Array(),
       ));
     message.rHash !== undefined &&
-      (obj.rHash = base64FromBytes(
-        message.rHash !== undefined ? message.rHash : new Uint8Array()
+      (object.rHash = base64FromBytes(
+        message.rHash !== undefined ? message.rHash : new Uint8Array(),
       ));
-    message.value !== undefined && (obj.value = message.value);
-    message.valueMsat !== undefined && (obj.valueMsat = message.valueMsat);
-    message.settled !== undefined && (obj.settled = message.settled);
+    message.value !== undefined && (object.value = message.value);
+    message.valueMsat !== undefined && (object.valueMsat = message.valueMsat);
+    message.settled !== undefined && (object.settled = message.settled);
     message.creationDate !== undefined &&
-      (obj.creationDate = message.creationDate);
-    message.settleDate !== undefined && (obj.settleDate = message.settleDate);
+      (object.creationDate = message.creationDate);
+    message.settleDate !== undefined &&
+      (object.settleDate = message.settleDate);
     message.paymentRequest !== undefined &&
-      (obj.paymentRequest = message.paymentRequest);
+      (object.paymentRequest = message.paymentRequest);
     message.descriptionHash !== undefined &&
-      (obj.descriptionHash = base64FromBytes(
+      (object.descriptionHash = base64FromBytes(
         message.descriptionHash !== undefined
           ? message.descriptionHash
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    message.expiry !== undefined && (obj.expiry = message.expiry);
+    message.expiry !== undefined && (object.expiry = message.expiry);
     message.fallbackAddr !== undefined &&
-      (obj.fallbackAddr = message.fallbackAddr);
-    message.cltvExpiry !== undefined && (obj.cltvExpiry = message.cltvExpiry);
+      (object.fallbackAddr = message.fallbackAddr);
+    message.cltvExpiry !== undefined &&
+      (object.cltvExpiry = message.cltvExpiry);
     if (message.routeHints) {
-      obj.routeHints = message.routeHints.map((e) =>
-        e ? RouteHint.toJSON(e) : undefined
+      object.routeHints = message.routeHints.map((e) =>
+        e ? RouteHint.toJSON(e) : undefined,
       );
     } else {
-      obj.routeHints = [];
+      object.routeHints = [];
     }
-    message.private !== undefined && (obj.private = message.private);
-    message.addIndex !== undefined && (obj.addIndex = message.addIndex);
+
+    message.private !== undefined && (object.private = message.private);
+    message.addIndex !== undefined && (object.addIndex = message.addIndex);
     message.settleIndex !== undefined &&
-      (obj.settleIndex = message.settleIndex);
-    message.amtPaid !== undefined && (obj.amtPaid = message.amtPaid);
-    message.amtPaidSat !== undefined && (obj.amtPaidSat = message.amtPaidSat);
+      (object.settleIndex = message.settleIndex);
+    message.amtPaid !== undefined && (object.amtPaid = message.amtPaid);
+    message.amtPaidSat !== undefined &&
+      (object.amtPaidSat = message.amtPaidSat);
     message.amtPaidMsat !== undefined &&
-      (obj.amtPaidMsat = message.amtPaidMsat);
+      (object.amtPaidMsat = message.amtPaidMsat);
     message.state !== undefined &&
-      (obj.state = invoice_InvoiceStateToJSON(message.state));
+      (object.state = invoice_InvoiceStateToJSON(message.state));
     if (message.htlcs) {
-      obj.htlcs = message.htlcs.map((e) =>
-        e ? InvoiceHTLC.toJSON(e) : undefined
+      object.htlcs = message.htlcs.map((e) =>
+        e ? InvoiceHTLC.toJSON(e) : undefined,
       );
     } else {
-      obj.htlcs = [];
+      object.htlcs = [];
     }
-    obj.features = {};
+
+    object.features = {};
     if (message.features) {
-      Object.entries(message.features).forEach(([k, v]) => {
-        obj.features[k] = Feature.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.features)) {
+        object.features[k] = Feature.toJSON(v);
+      }
     }
-    message.isKeysend !== undefined && (obj.isKeysend = message.isKeysend);
+
+    message.isKeysend !== undefined && (object.isKeysend = message.isKeysend);
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
+      (object.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    message.isAmp !== undefined && (obj.isAmp = message.isAmp);
-    obj.ampInvoiceState = {};
+    message.isAmp !== undefined && (object.isAmp = message.isAmp);
+    object.ampInvoiceState = {};
     if (message.ampInvoiceState) {
-      Object.entries(message.ampInvoiceState).forEach(([k, v]) => {
-        obj.ampInvoiceState[k] = AMPInvoiceState.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.ampInvoiceState)) {
+        object.ampInvoiceState[k] = AMPInvoiceState.toJSON(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<Invoice>): Invoice {
     const message = createBaseInvoice();
-    message.memo = object.memo ?? "";
+    message.memo = object.memo ?? '';
     message.rPreimage = object.rPreimage ?? new Uint8Array();
     message.rHash = object.rHash ?? new Uint8Array();
-    message.value = object.value ?? "0";
-    message.valueMsat = object.valueMsat ?? "0";
+    message.value = object.value ?? '0';
+    message.valueMsat = object.valueMsat ?? '0';
     message.settled = object.settled ?? false;
-    message.creationDate = object.creationDate ?? "0";
-    message.settleDate = object.settleDate ?? "0";
-    message.paymentRequest = object.paymentRequest ?? "";
+    message.creationDate = object.creationDate ?? '0';
+    message.settleDate = object.settleDate ?? '0';
+    message.paymentRequest = object.paymentRequest ?? '';
     message.descriptionHash = object.descriptionHash ?? new Uint8Array();
-    message.expiry = object.expiry ?? "0";
-    message.fallbackAddr = object.fallbackAddr ?? "";
-    message.cltvExpiry = object.cltvExpiry ?? "0";
+    message.expiry = object.expiry ?? '0';
+    message.fallbackAddr = object.fallbackAddr ?? '';
+    message.cltvExpiry = object.cltvExpiry ?? '0';
     message.routeHints =
       object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
     message.private = object.private ?? false;
-    message.addIndex = object.addIndex ?? "0";
-    message.settleIndex = object.settleIndex ?? "0";
-    message.amtPaid = object.amtPaid ?? "0";
-    message.amtPaidSat = object.amtPaidSat ?? "0";
-    message.amtPaidMsat = object.amtPaidMsat ?? "0";
+    message.addIndex = object.addIndex ?? '0';
+    message.settleIndex = object.settleIndex ?? '0';
+    message.amtPaid = object.amtPaid ?? '0';
+    message.amtPaidSat = object.amtPaidSat ?? '0';
+    message.amtPaidMsat = object.amtPaidMsat ?? '0';
     message.state = object.state ?? 0;
     message.htlcs = object.htlcs?.map((e) => InvoiceHTLC.fromPartial(e)) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
+
       return acc;
     }, {});
     message.isKeysend = object.isKeysend ?? false;
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
     message.isAmp = object.isAmp ?? false;
     message.ampInvoiceState = Object.entries(
-      object.ampInvoiceState ?? {}
-    ).reduce<{ [key: string]: AMPInvoiceState }>((acc, [key, value]) => {
+      object.ampInvoiceState ?? {},
+    ).reduce<Record<string, AMPInvoiceState>>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = AMPInvoiceState.fromPartial(value);
       }
+
       return acc;
     }, {});
     return message;
@@ -19412,29 +20205,31 @@ export const Invoice = {
 };
 
 function createBaseInvoice_FeaturesEntry(): Invoice_FeaturesEntry {
-  return { key: 0, value: undefined };
+  return {key: 0, value: undefined};
 }
 
 export const Invoice_FeaturesEntry = {
   encode(
     message: Invoice_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
+
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): Invoice_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoice_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19450,6 +20245,7 @@ export const Invoice_FeaturesEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -19465,15 +20261,17 @@ export const Invoice_FeaturesEntry = {
   },
 
   toJSON(message: Invoice_FeaturesEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = Math.round(message.key));
+    const object: any = {};
+    message.key !== undefined && (object.key = Math.round(message.key));
     message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
-    return obj;
+      (object.value = message.value
+        ? Feature.toJSON(message.value)
+        : undefined);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<Invoice_FeaturesEntry>
+    object: DeepPartial<Invoice_FeaturesEntry>,
   ): Invoice_FeaturesEntry {
     const message = createBaseInvoice_FeaturesEntry();
     message.key = object.key ?? 0;
@@ -19486,29 +20284,31 @@ export const Invoice_FeaturesEntry = {
 };
 
 function createBaseInvoice_AmpInvoiceStateEntry(): Invoice_AmpInvoiceStateEntry {
-  return { key: "", value: undefined };
+  return {key: '', value: undefined};
 }
 
 export const Invoice_AmpInvoiceStateEntry = {
   encode(
     message: Invoice_AmpInvoiceStateEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
+
     if (message.value !== undefined) {
       AMPInvoiceState.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): Invoice_AmpInvoiceStateEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoice_AmpInvoiceStateEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19524,13 +20324,14 @@ export const Invoice_AmpInvoiceStateEntry = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): Invoice_AmpInvoiceStateEntry {
     const message = createBaseInvoice_AmpInvoiceStateEntry();
     message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : "";
+      object.key !== undefined && object.key !== null ? String(object.key) : '';
     message.value =
       object.value !== undefined && object.value !== null
         ? AMPInvoiceState.fromJSON(object.value)
@@ -19539,20 +20340,20 @@ export const Invoice_AmpInvoiceStateEntry = {
   },
 
   toJSON(message: Invoice_AmpInvoiceStateEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
     message.value !== undefined &&
-      (obj.value = message.value
+      (object.value = message.value
         ? AMPInvoiceState.toJSON(message.value)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<Invoice_AmpInvoiceStateEntry>
+    object: DeepPartial<Invoice_AmpInvoiceStateEntry>,
   ): Invoice_AmpInvoiceStateEntry {
     const message = createBaseInvoice_AmpInvoiceStateEntry();
-    message.key = object.key ?? "";
+    message.key = object.key ?? '';
     message.value =
       object.value !== undefined && object.value !== null
         ? AMPInvoiceState.fromPartial(object.value)
@@ -19563,16 +20364,16 @@ export const Invoice_AmpInvoiceStateEntry = {
 
 function createBaseInvoiceHTLC(): InvoiceHTLC {
   return {
-    chanId: "0",
-    htlcIndex: "0",
-    amtMsat: "0",
+    chanId: '0',
+    htlcIndex: '0',
+    amtMsat: '0',
     acceptHeight: 0,
-    acceptTime: "0",
-    resolveTime: "0",
+    acceptTime: '0',
+    resolveTime: '0',
     expiryHeight: 0,
     state: 0,
     customRecords: {},
-    mppTotalAmtMsat: "0",
+    mppTotalAmtMsat: '0',
     amp: undefined,
   };
 }
@@ -19580,50 +20381,61 @@ function createBaseInvoiceHTLC(): InvoiceHTLC {
 export const InvoiceHTLC = {
   encode(
     message: InvoiceHTLC,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chanId !== "0") {
+    if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.htlcIndex !== "0") {
+
+    if (message.htlcIndex !== '0') {
       writer.uint32(16).uint64(message.htlcIndex);
     }
-    if (message.amtMsat !== "0") {
+
+    if (message.amtMsat !== '0') {
       writer.uint32(24).uint64(message.amtMsat);
     }
+
     if (message.acceptHeight !== 0) {
       writer.uint32(32).int32(message.acceptHeight);
     }
-    if (message.acceptTime !== "0") {
+
+    if (message.acceptTime !== '0') {
       writer.uint32(40).int64(message.acceptTime);
     }
-    if (message.resolveTime !== "0") {
+
+    if (message.resolveTime !== '0') {
       writer.uint32(48).int64(message.resolveTime);
     }
+
     if (message.expiryHeight !== 0) {
       writer.uint32(56).int32(message.expiryHeight);
     }
+
     if (message.state !== 0) {
       writer.uint32(64).int32(message.state);
     }
-    Object.entries(message.customRecords).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.customRecords)) {
       InvoiceHTLC_CustomRecordsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(74).fork()
+        {key: key as any, value},
+        writer.uint32(74).fork(),
       ).ldelim();
-    });
-    if (message.mppTotalAmtMsat !== "0") {
+    }
+
+    if (message.mppTotalAmtMsat !== '0') {
       writer.uint32(80).uint64(message.mppTotalAmtMsat);
     }
+
     if (message.amp !== undefined) {
       AMP.encode(message.amp, writer.uint32(90).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InvoiceHTLC {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoiceHTLC();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19655,11 +20467,12 @@ export const InvoiceHTLC = {
         case 9:
           const entry9 = InvoiceHTLC_CustomRecordsEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry9.value !== undefined) {
             message.customRecords[entry9.key] = entry9.value;
           }
+
           break;
         case 10:
           message.mppTotalAmtMsat = longToString(reader.uint64() as Long);
@@ -19672,6 +20485,7 @@ export const InvoiceHTLC = {
           break;
       }
     }
+
     return message;
   },
 
@@ -19680,15 +20494,15 @@ export const InvoiceHTLC = {
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.htlcIndex =
       object.htlcIndex !== undefined && object.htlcIndex !== null
         ? String(object.htlcIndex)
-        : "0";
+        : '0';
     message.amtMsat =
       object.amtMsat !== undefined && object.amtMsat !== null
         ? String(object.amtMsat)
-        : "0";
+        : '0';
     message.acceptHeight =
       object.acceptHeight !== undefined && object.acceptHeight !== null
         ? Number(object.acceptHeight)
@@ -19696,11 +20510,11 @@ export const InvoiceHTLC = {
     message.acceptTime =
       object.acceptTime !== undefined && object.acceptTime !== null
         ? String(object.acceptTime)
-        : "0";
+        : '0';
     message.resolveTime =
       object.resolveTime !== undefined && object.resolveTime !== null
         ? String(object.resolveTime)
-        : "0";
+        : '0';
     message.expiryHeight =
       object.expiryHeight !== undefined && object.expiryHeight !== null
         ? Number(object.expiryHeight)
@@ -19709,16 +20523,16 @@ export const InvoiceHTLC = {
       object.state !== undefined && object.state !== null
         ? invoiceHTLCStateFromJSON(object.state)
         : 0;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{
-      [key: string]: Uint8Array;
-    }>((acc, [key, value]) => {
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<
+      Record<string, Uint8Array>
+    >((acc, [key, value]) => {
       acc[key] = bytesFromBase64(value as string);
       return acc;
     }, {});
     message.mppTotalAmtMsat =
       object.mppTotalAmtMsat !== undefined && object.mppTotalAmtMsat !== null
         ? String(object.mppTotalAmtMsat)
-        : "0";
+        : '0';
     message.amp =
       object.amp !== undefined && object.amp !== null
         ? AMP.fromJSON(object.amp)
@@ -19727,51 +20541,54 @@ export const InvoiceHTLC = {
   },
 
   toJSON(message: InvoiceHTLC): unknown {
-    const obj: any = {};
-    message.chanId !== undefined && (obj.chanId = message.chanId);
-    message.htlcIndex !== undefined && (obj.htlcIndex = message.htlcIndex);
-    message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
+    const object: any = {};
+    message.chanId !== undefined && (object.chanId = message.chanId);
+    message.htlcIndex !== undefined && (object.htlcIndex = message.htlcIndex);
+    message.amtMsat !== undefined && (object.amtMsat = message.amtMsat);
     message.acceptHeight !== undefined &&
-      (obj.acceptHeight = Math.round(message.acceptHeight));
-    message.acceptTime !== undefined && (obj.acceptTime = message.acceptTime);
+      (object.acceptHeight = Math.round(message.acceptHeight));
+    message.acceptTime !== undefined &&
+      (object.acceptTime = message.acceptTime);
     message.resolveTime !== undefined &&
-      (obj.resolveTime = message.resolveTime);
+      (object.resolveTime = message.resolveTime);
     message.expiryHeight !== undefined &&
-      (obj.expiryHeight = Math.round(message.expiryHeight));
+      (object.expiryHeight = Math.round(message.expiryHeight));
     message.state !== undefined &&
-      (obj.state = invoiceHTLCStateToJSON(message.state));
-    obj.customRecords = {};
+      (object.state = invoiceHTLCStateToJSON(message.state));
+    object.customRecords = {};
     if (message.customRecords) {
-      Object.entries(message.customRecords).forEach(([k, v]) => {
-        obj.customRecords[k] = base64FromBytes(v);
-      });
+      for (const [k, v] of Object.entries(message.customRecords)) {
+        object.customRecords[k] = base64FromBytes(v);
+      }
     }
+
     message.mppTotalAmtMsat !== undefined &&
-      (obj.mppTotalAmtMsat = message.mppTotalAmtMsat);
+      (object.mppTotalAmtMsat = message.mppTotalAmtMsat);
     message.amp !== undefined &&
-      (obj.amp = message.amp ? AMP.toJSON(message.amp) : undefined);
-    return obj;
+      (object.amp = message.amp ? AMP.toJSON(message.amp) : undefined);
+    return object;
   },
 
   fromPartial(object: DeepPartial<InvoiceHTLC>): InvoiceHTLC {
     const message = createBaseInvoiceHTLC();
-    message.chanId = object.chanId ?? "0";
-    message.htlcIndex = object.htlcIndex ?? "0";
-    message.amtMsat = object.amtMsat ?? "0";
+    message.chanId = object.chanId ?? '0';
+    message.htlcIndex = object.htlcIndex ?? '0';
+    message.amtMsat = object.amtMsat ?? '0';
     message.acceptHeight = object.acceptHeight ?? 0;
-    message.acceptTime = object.acceptTime ?? "0";
-    message.resolveTime = object.resolveTime ?? "0";
+    message.acceptTime = object.acceptTime ?? '0';
+    message.resolveTime = object.resolveTime ?? '0';
     message.expiryHeight = object.expiryHeight ?? 0;
     message.state = object.state ?? 0;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{
-      [key: string]: Uint8Array;
-    }>((acc, [key, value]) => {
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<
+      Record<string, Uint8Array>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = value;
       }
+
       return acc;
     }, {});
-    message.mppTotalAmtMsat = object.mppTotalAmtMsat ?? "0";
+    message.mppTotalAmtMsat = object.mppTotalAmtMsat ?? '0';
     message.amp =
       object.amp !== undefined && object.amp !== null
         ? AMP.fromPartial(object.amp)
@@ -19781,29 +20598,31 @@ export const InvoiceHTLC = {
 };
 
 function createBaseInvoiceHTLC_CustomRecordsEntry(): InvoiceHTLC_CustomRecordsEntry {
-  return { key: "0", value: new Uint8Array() };
+  return {key: '0', value: new Uint8Array()};
 }
 
 export const InvoiceHTLC_CustomRecordsEntry = {
   encode(
     message: InvoiceHTLC_CustomRecordsEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "0") {
+    if (message.key !== '0') {
       writer.uint32(8).uint64(message.key);
     }
-    if (message.value.length !== 0) {
+
+    if (message.value.length > 0) {
       writer.uint32(18).bytes(message.value);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): InvoiceHTLC_CustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoiceHTLC_CustomRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19819,6 +20638,7 @@ export const InvoiceHTLC_CustomRecordsEntry = {
           break;
       }
     }
+
     return message;
   },
 
@@ -19827,7 +20647,7 @@ export const InvoiceHTLC_CustomRecordsEntry = {
     message.key =
       object.key !== undefined && object.key !== null
         ? String(object.key)
-        : "0";
+        : '0';
     message.value =
       object.value !== undefined && object.value !== null
         ? bytesFromBase64(object.value)
@@ -19836,20 +20656,20 @@ export const InvoiceHTLC_CustomRecordsEntry = {
   },
 
   toJSON(message: InvoiceHTLC_CustomRecordsEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(
-        message.value !== undefined ? message.value : new Uint8Array()
+      (object.value = base64FromBytes(
+        message.value !== undefined ? message.value : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<InvoiceHTLC_CustomRecordsEntry>
+    object: DeepPartial<InvoiceHTLC_CustomRecordsEntry>,
   ): InvoiceHTLC_CustomRecordsEntry {
     const message = createBaseInvoiceHTLC_CustomRecordsEntry();
-    message.key = object.key ?? "0";
+    message.key = object.key ?? '0';
     message.value = object.value ?? new Uint8Array();
     return message;
   },
@@ -19867,27 +20687,32 @@ function createBaseAMP(): AMP {
 
 export const AMP = {
   encode(message: AMP, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.rootShare.length !== 0) {
+    if (message.rootShare.length > 0) {
       writer.uint32(10).bytes(message.rootShare);
     }
-    if (message.setId.length !== 0) {
+
+    if (message.setId.length > 0) {
       writer.uint32(18).bytes(message.setId);
     }
+
     if (message.childIndex !== 0) {
       writer.uint32(24).uint32(message.childIndex);
     }
-    if (message.hash.length !== 0) {
+
+    if (message.hash.length > 0) {
       writer.uint32(34).bytes(message.hash);
     }
-    if (message.preimage.length !== 0) {
+
+    if (message.preimage.length > 0) {
       writer.uint32(42).bytes(message.preimage);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AMP {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAMP();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19912,6 +20737,7 @@ export const AMP = {
           break;
       }
     }
+
     return message;
   },
 
@@ -19941,26 +20767,26 @@ export const AMP = {
   },
 
   toJSON(message: AMP): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.rootShare !== undefined &&
-      (obj.rootShare = base64FromBytes(
-        message.rootShare !== undefined ? message.rootShare : new Uint8Array()
+      (object.rootShare = base64FromBytes(
+        message.rootShare !== undefined ? message.rootShare : new Uint8Array(),
       ));
     message.setId !== undefined &&
-      (obj.setId = base64FromBytes(
-        message.setId !== undefined ? message.setId : new Uint8Array()
+      (object.setId = base64FromBytes(
+        message.setId !== undefined ? message.setId : new Uint8Array(),
       ));
     message.childIndex !== undefined &&
-      (obj.childIndex = Math.round(message.childIndex));
+      (object.childIndex = Math.round(message.childIndex));
     message.hash !== undefined &&
-      (obj.hash = base64FromBytes(
-        message.hash !== undefined ? message.hash : new Uint8Array()
+      (object.hash = base64FromBytes(
+        message.hash !== undefined ? message.hash : new Uint8Array(),
       ));
     message.preimage !== undefined &&
-      (obj.preimage = base64FromBytes(
-        message.preimage !== undefined ? message.preimage : new Uint8Array()
+      (object.preimage = base64FromBytes(
+        message.preimage !== undefined ? message.preimage : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<AMP>): AMP {
@@ -19977,8 +20803,8 @@ export const AMP = {
 function createBaseAddInvoiceResponse(): AddInvoiceResponse {
   return {
     rHash: new Uint8Array(),
-    paymentRequest: "",
-    addIndex: "0",
+    paymentRequest: '',
+    addIndex: '0',
     paymentAddr: new Uint8Array(),
   };
 }
@@ -19986,26 +20812,30 @@ function createBaseAddInvoiceResponse(): AddInvoiceResponse {
 export const AddInvoiceResponse = {
   encode(
     message: AddInvoiceResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.rHash.length !== 0) {
+    if (message.rHash.length > 0) {
       writer.uint32(10).bytes(message.rHash);
     }
-    if (message.paymentRequest !== "") {
+
+    if (message.paymentRequest !== '') {
       writer.uint32(18).string(message.paymentRequest);
     }
-    if (message.addIndex !== "0") {
+
+    if (message.addIndex !== '0') {
       writer.uint32(128).uint64(message.addIndex);
     }
-    if (message.paymentAddr.length !== 0) {
+
+    if (message.paymentAddr.length > 0) {
       writer.uint32(138).bytes(message.paymentAddr);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AddInvoiceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddInvoiceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20027,6 +20857,7 @@ export const AddInvoiceResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -20039,11 +20870,11 @@ export const AddInvoiceResponse = {
     message.paymentRequest =
       object.paymentRequest !== undefined && object.paymentRequest !== null
         ? String(object.paymentRequest)
-        : "";
+        : '';
     message.addIndex =
       object.addIndex !== undefined && object.addIndex !== null
         ? String(object.addIndex)
-        : "0";
+        : '0';
     message.paymentAddr =
       object.paymentAddr !== undefined && object.paymentAddr !== null
         ? bytesFromBase64(object.paymentAddr)
@@ -20052,54 +20883,56 @@ export const AddInvoiceResponse = {
   },
 
   toJSON(message: AddInvoiceResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.rHash !== undefined &&
-      (obj.rHash = base64FromBytes(
-        message.rHash !== undefined ? message.rHash : new Uint8Array()
+      (object.rHash = base64FromBytes(
+        message.rHash !== undefined ? message.rHash : new Uint8Array(),
       ));
     message.paymentRequest !== undefined &&
-      (obj.paymentRequest = message.paymentRequest);
-    message.addIndex !== undefined && (obj.addIndex = message.addIndex);
+      (object.paymentRequest = message.paymentRequest);
+    message.addIndex !== undefined && (object.addIndex = message.addIndex);
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
+      (object.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<AddInvoiceResponse>): AddInvoiceResponse {
     const message = createBaseAddInvoiceResponse();
     message.rHash = object.rHash ?? new Uint8Array();
-    message.paymentRequest = object.paymentRequest ?? "";
-    message.addIndex = object.addIndex ?? "0";
+    message.paymentRequest = object.paymentRequest ?? '';
+    message.addIndex = object.addIndex ?? '0';
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
     return message;
   },
 };
 
 function createBasePaymentHash(): PaymentHash {
-  return { rHashStr: "", rHash: new Uint8Array() };
+  return {rHashStr: '', rHash: new Uint8Array()};
 }
 
 export const PaymentHash = {
   encode(
     message: PaymentHash,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.rHashStr !== "") {
+    if (message.rHashStr !== '') {
       writer.uint32(10).string(message.rHashStr);
     }
-    if (message.rHash.length !== 0) {
+
+    if (message.rHash.length > 0) {
       writer.uint32(18).bytes(message.rHash);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PaymentHash {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePaymentHash();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20115,6 +20948,7 @@ export const PaymentHash = {
           break;
       }
     }
+
     return message;
   },
 
@@ -20123,7 +20957,7 @@ export const PaymentHash = {
     message.rHashStr =
       object.rHashStr !== undefined && object.rHashStr !== null
         ? String(object.rHashStr)
-        : "";
+        : '';
     message.rHash =
       object.rHash !== undefined && object.rHash !== null
         ? bytesFromBase64(object.rHash)
@@ -20132,18 +20966,18 @@ export const PaymentHash = {
   },
 
   toJSON(message: PaymentHash): unknown {
-    const obj: any = {};
-    message.rHashStr !== undefined && (obj.rHashStr = message.rHashStr);
+    const object: any = {};
+    message.rHashStr !== undefined && (object.rHashStr = message.rHashStr);
     message.rHash !== undefined &&
-      (obj.rHash = base64FromBytes(
-        message.rHash !== undefined ? message.rHash : new Uint8Array()
+      (object.rHash = base64FromBytes(
+        message.rHash !== undefined ? message.rHash : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<PaymentHash>): PaymentHash {
     const message = createBasePaymentHash();
-    message.rHashStr = object.rHashStr ?? "";
+    message.rHashStr = object.rHashStr ?? '';
     message.rHash = object.rHash ?? new Uint8Array();
     return message;
   },
@@ -20152,8 +20986,8 @@ export const PaymentHash = {
 function createBaseListInvoiceRequest(): ListInvoiceRequest {
   return {
     pendingOnly: false,
-    indexOffset: "0",
-    numMaxInvoices: "0",
+    indexOffset: '0',
+    numMaxInvoices: '0',
     reversed: false,
   };
 }
@@ -20161,26 +20995,30 @@ function createBaseListInvoiceRequest(): ListInvoiceRequest {
 export const ListInvoiceRequest = {
   encode(
     message: ListInvoiceRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pendingOnly === true) {
+    if (message.pendingOnly) {
       writer.uint32(8).bool(message.pendingOnly);
     }
-    if (message.indexOffset !== "0") {
+
+    if (message.indexOffset !== '0') {
       writer.uint32(32).uint64(message.indexOffset);
     }
-    if (message.numMaxInvoices !== "0") {
+
+    if (message.numMaxInvoices !== '0') {
       writer.uint32(40).uint64(message.numMaxInvoices);
     }
-    if (message.reversed === true) {
+
+    if (message.reversed) {
       writer.uint32(48).bool(message.reversed);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListInvoiceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListInvoiceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20202,6 +21040,7 @@ export const ListInvoiceRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -20214,11 +21053,11 @@ export const ListInvoiceRequest = {
     message.indexOffset =
       object.indexOffset !== undefined && object.indexOffset !== null
         ? String(object.indexOffset)
-        : "0";
+        : '0';
     message.numMaxInvoices =
       object.numMaxInvoices !== undefined && object.numMaxInvoices !== null
         ? String(object.numMaxInvoices)
-        : "0";
+        : '0';
     message.reversed =
       object.reversed !== undefined && object.reversed !== null
         ? Boolean(object.reversed)
@@ -20227,51 +21066,54 @@ export const ListInvoiceRequest = {
   },
 
   toJSON(message: ListInvoiceRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.pendingOnly !== undefined &&
-      (obj.pendingOnly = message.pendingOnly);
+      (object.pendingOnly = message.pendingOnly);
     message.indexOffset !== undefined &&
-      (obj.indexOffset = message.indexOffset);
+      (object.indexOffset = message.indexOffset);
     message.numMaxInvoices !== undefined &&
-      (obj.numMaxInvoices = message.numMaxInvoices);
-    message.reversed !== undefined && (obj.reversed = message.reversed);
-    return obj;
+      (object.numMaxInvoices = message.numMaxInvoices);
+    message.reversed !== undefined && (object.reversed = message.reversed);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListInvoiceRequest>): ListInvoiceRequest {
     const message = createBaseListInvoiceRequest();
     message.pendingOnly = object.pendingOnly ?? false;
-    message.indexOffset = object.indexOffset ?? "0";
-    message.numMaxInvoices = object.numMaxInvoices ?? "0";
+    message.indexOffset = object.indexOffset ?? '0';
+    message.numMaxInvoices = object.numMaxInvoices ?? '0';
     message.reversed = object.reversed ?? false;
     return message;
   },
 };
 
 function createBaseListInvoiceResponse(): ListInvoiceResponse {
-  return { invoices: [], lastIndexOffset: "0", firstIndexOffset: "0" };
+  return {invoices: [], lastIndexOffset: '0', firstIndexOffset: '0'};
 }
 
 export const ListInvoiceResponse = {
   encode(
     message: ListInvoiceResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.invoices) {
-      Invoice.encode(v!, writer.uint32(10).fork()).ldelim();
+      Invoice.encode(v, writer.uint32(10).fork()).ldelim();
     }
-    if (message.lastIndexOffset !== "0") {
+
+    if (message.lastIndexOffset !== '0') {
       writer.uint32(16).uint64(message.lastIndexOffset);
     }
-    if (message.firstIndexOffset !== "0") {
+
+    if (message.firstIndexOffset !== '0') {
       writer.uint32(24).uint64(message.firstIndexOffset);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListInvoiceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListInvoiceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20290,72 +21132,76 @@ export const ListInvoiceResponse = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ListInvoiceResponse {
     const message = createBaseListInvoiceResponse();
     message.invoices = (object.invoices ?? []).map((e: any) =>
-      Invoice.fromJSON(e)
+      Invoice.fromJSON(e),
     );
     message.lastIndexOffset =
       object.lastIndexOffset !== undefined && object.lastIndexOffset !== null
         ? String(object.lastIndexOffset)
-        : "0";
+        : '0';
     message.firstIndexOffset =
       object.firstIndexOffset !== undefined && object.firstIndexOffset !== null
         ? String(object.firstIndexOffset)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: ListInvoiceResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.invoices) {
-      obj.invoices = message.invoices.map((e) =>
-        e ? Invoice.toJSON(e) : undefined
+      object.invoices = message.invoices.map((e) =>
+        e ? Invoice.toJSON(e) : undefined,
       );
     } else {
-      obj.invoices = [];
+      object.invoices = [];
     }
+
     message.lastIndexOffset !== undefined &&
-      (obj.lastIndexOffset = message.lastIndexOffset);
+      (object.lastIndexOffset = message.lastIndexOffset);
     message.firstIndexOffset !== undefined &&
-      (obj.firstIndexOffset = message.firstIndexOffset);
-    return obj;
+      (object.firstIndexOffset = message.firstIndexOffset);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListInvoiceResponse>): ListInvoiceResponse {
     const message = createBaseListInvoiceResponse();
     message.invoices =
       object.invoices?.map((e) => Invoice.fromPartial(e)) || [];
-    message.lastIndexOffset = object.lastIndexOffset ?? "0";
-    message.firstIndexOffset = object.firstIndexOffset ?? "0";
+    message.lastIndexOffset = object.lastIndexOffset ?? '0';
+    message.firstIndexOffset = object.firstIndexOffset ?? '0';
     return message;
   },
 };
 
 function createBaseInvoiceSubscription(): InvoiceSubscription {
-  return { addIndex: "0", settleIndex: "0" };
+  return {addIndex: '0', settleIndex: '0'};
 }
 
 export const InvoiceSubscription = {
   encode(
     message: InvoiceSubscription,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.addIndex !== "0") {
+    if (message.addIndex !== '0') {
       writer.uint32(8).uint64(message.addIndex);
     }
-    if (message.settleIndex !== "0") {
+
+    if (message.settleIndex !== '0') {
       writer.uint32(16).uint64(message.settleIndex);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InvoiceSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoiceSubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20371,6 +21217,7 @@ export const InvoiceSubscription = {
           break;
       }
     }
+
     return message;
   },
 
@@ -20379,46 +21226,46 @@ export const InvoiceSubscription = {
     message.addIndex =
       object.addIndex !== undefined && object.addIndex !== null
         ? String(object.addIndex)
-        : "0";
+        : '0';
     message.settleIndex =
       object.settleIndex !== undefined && object.settleIndex !== null
         ? String(object.settleIndex)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: InvoiceSubscription): unknown {
-    const obj: any = {};
-    message.addIndex !== undefined && (obj.addIndex = message.addIndex);
+    const object: any = {};
+    message.addIndex !== undefined && (object.addIndex = message.addIndex);
     message.settleIndex !== undefined &&
-      (obj.settleIndex = message.settleIndex);
-    return obj;
+      (object.settleIndex = message.settleIndex);
+    return object;
   },
 
   fromPartial(object: DeepPartial<InvoiceSubscription>): InvoiceSubscription {
     const message = createBaseInvoiceSubscription();
-    message.addIndex = object.addIndex ?? "0";
-    message.settleIndex = object.settleIndex ?? "0";
+    message.addIndex = object.addIndex ?? '0';
+    message.settleIndex = object.settleIndex ?? '0';
     return message;
   },
 };
 
 function createBasePayment(): Payment {
   return {
-    paymentHash: "",
-    value: "0",
-    creationDate: "0",
-    fee: "0",
-    paymentPreimage: "",
-    valueSat: "0",
-    valueMsat: "0",
-    paymentRequest: "",
+    paymentHash: '',
+    value: '0',
+    creationDate: '0',
+    fee: '0',
+    paymentPreimage: '',
+    valueSat: '0',
+    valueMsat: '0',
+    paymentRequest: '',
     status: 0,
-    feeSat: "0",
-    feeMsat: "0",
-    creationTimeNs: "0",
+    feeSat: '0',
+    feeMsat: '0',
+    creationTimeNs: '0',
     htlcs: [],
-    paymentIndex: "0",
+    paymentIndex: '0',
     failureReason: 0,
   };
 }
@@ -20426,59 +21273,74 @@ function createBasePayment(): Payment {
 export const Payment = {
   encode(
     message: Payment,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.paymentHash !== "") {
+    if (message.paymentHash !== '') {
       writer.uint32(10).string(message.paymentHash);
     }
-    if (message.value !== "0") {
+
+    if (message.value !== '0') {
       writer.uint32(16).int64(message.value);
     }
-    if (message.creationDate !== "0") {
+
+    if (message.creationDate !== '0') {
       writer.uint32(24).int64(message.creationDate);
     }
-    if (message.fee !== "0") {
+
+    if (message.fee !== '0') {
       writer.uint32(40).int64(message.fee);
     }
-    if (message.paymentPreimage !== "") {
+
+    if (message.paymentPreimage !== '') {
       writer.uint32(50).string(message.paymentPreimage);
     }
-    if (message.valueSat !== "0") {
+
+    if (message.valueSat !== '0') {
       writer.uint32(56).int64(message.valueSat);
     }
-    if (message.valueMsat !== "0") {
+
+    if (message.valueMsat !== '0') {
       writer.uint32(64).int64(message.valueMsat);
     }
-    if (message.paymentRequest !== "") {
+
+    if (message.paymentRequest !== '') {
       writer.uint32(74).string(message.paymentRequest);
     }
+
     if (message.status !== 0) {
       writer.uint32(80).int32(message.status);
     }
-    if (message.feeSat !== "0") {
+
+    if (message.feeSat !== '0') {
       writer.uint32(88).int64(message.feeSat);
     }
-    if (message.feeMsat !== "0") {
+
+    if (message.feeMsat !== '0') {
       writer.uint32(96).int64(message.feeMsat);
     }
-    if (message.creationTimeNs !== "0") {
+
+    if (message.creationTimeNs !== '0') {
       writer.uint32(104).int64(message.creationTimeNs);
     }
+
     for (const v of message.htlcs) {
-      HTLCAttempt.encode(v!, writer.uint32(114).fork()).ldelim();
+      HTLCAttempt.encode(v, writer.uint32(114).fork()).ldelim();
     }
-    if (message.paymentIndex !== "0") {
+
+    if (message.paymentIndex !== '0') {
       writer.uint32(120).uint64(message.paymentIndex);
     }
+
     if (message.failureReason !== 0) {
       writer.uint32(128).int32(message.failureReason);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Payment {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePayment();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20533,6 +21395,7 @@ export const Payment = {
           break;
       }
     }
+
     return message;
   },
 
@@ -20541,35 +21404,35 @@ export const Payment = {
     message.paymentHash =
       object.paymentHash !== undefined && object.paymentHash !== null
         ? String(object.paymentHash)
-        : "";
+        : '';
     message.value =
       object.value !== undefined && object.value !== null
         ? String(object.value)
-        : "0";
+        : '0';
     message.creationDate =
       object.creationDate !== undefined && object.creationDate !== null
         ? String(object.creationDate)
-        : "0";
+        : '0';
     message.fee =
       object.fee !== undefined && object.fee !== null
         ? String(object.fee)
-        : "0";
+        : '0';
     message.paymentPreimage =
       object.paymentPreimage !== undefined && object.paymentPreimage !== null
         ? String(object.paymentPreimage)
-        : "";
+        : '';
     message.valueSat =
       object.valueSat !== undefined && object.valueSat !== null
         ? String(object.valueSat)
-        : "0";
+        : '0';
     message.valueMsat =
       object.valueMsat !== undefined && object.valueMsat !== null
         ? String(object.valueMsat)
-        : "0";
+        : '0';
     message.paymentRequest =
       object.paymentRequest !== undefined && object.paymentRequest !== null
         ? String(object.paymentRequest)
-        : "";
+        : '';
     message.status =
       object.status !== undefined && object.status !== null
         ? payment_PaymentStatusFromJSON(object.status)
@@ -20577,22 +21440,22 @@ export const Payment = {
     message.feeSat =
       object.feeSat !== undefined && object.feeSat !== null
         ? String(object.feeSat)
-        : "0";
+        : '0';
     message.feeMsat =
       object.feeMsat !== undefined && object.feeMsat !== null
         ? String(object.feeMsat)
-        : "0";
+        : '0';
     message.creationTimeNs =
       object.creationTimeNs !== undefined && object.creationTimeNs !== null
         ? String(object.creationTimeNs)
-        : "0";
+        : '0';
     message.htlcs = (object.htlcs ?? []).map((e: any) =>
-      HTLCAttempt.fromJSON(e)
+      HTLCAttempt.fromJSON(e),
     );
     message.paymentIndex =
       object.paymentIndex !== undefined && object.paymentIndex !== null
         ? String(object.paymentIndex)
-        : "0";
+        : '0';
     message.failureReason =
       object.failureReason !== undefined && object.failureReason !== null
         ? paymentFailureReasonFromJSON(object.failureReason)
@@ -20601,55 +21464,58 @@ export const Payment = {
   },
 
   toJSON(message: Payment): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.paymentHash !== undefined &&
-      (obj.paymentHash = message.paymentHash);
-    message.value !== undefined && (obj.value = message.value);
+      (object.paymentHash = message.paymentHash);
+    message.value !== undefined && (object.value = message.value);
     message.creationDate !== undefined &&
-      (obj.creationDate = message.creationDate);
-    message.fee !== undefined && (obj.fee = message.fee);
+      (object.creationDate = message.creationDate);
+    message.fee !== undefined && (object.fee = message.fee);
     message.paymentPreimage !== undefined &&
-      (obj.paymentPreimage = message.paymentPreimage);
-    message.valueSat !== undefined && (obj.valueSat = message.valueSat);
-    message.valueMsat !== undefined && (obj.valueMsat = message.valueMsat);
+      (object.paymentPreimage = message.paymentPreimage);
+    message.valueSat !== undefined && (object.valueSat = message.valueSat);
+    message.valueMsat !== undefined && (object.valueMsat = message.valueMsat);
     message.paymentRequest !== undefined &&
-      (obj.paymentRequest = message.paymentRequest);
+      (object.paymentRequest = message.paymentRequest);
     message.status !== undefined &&
-      (obj.status = payment_PaymentStatusToJSON(message.status));
-    message.feeSat !== undefined && (obj.feeSat = message.feeSat);
-    message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
+      (object.status = payment_PaymentStatusToJSON(message.status));
+    message.feeSat !== undefined && (object.feeSat = message.feeSat);
+    message.feeMsat !== undefined && (object.feeMsat = message.feeMsat);
     message.creationTimeNs !== undefined &&
-      (obj.creationTimeNs = message.creationTimeNs);
+      (object.creationTimeNs = message.creationTimeNs);
     if (message.htlcs) {
-      obj.htlcs = message.htlcs.map((e) =>
-        e ? HTLCAttempt.toJSON(e) : undefined
+      object.htlcs = message.htlcs.map((e) =>
+        e ? HTLCAttempt.toJSON(e) : undefined,
       );
     } else {
-      obj.htlcs = [];
+      object.htlcs = [];
     }
+
     message.paymentIndex !== undefined &&
-      (obj.paymentIndex = message.paymentIndex);
+      (object.paymentIndex = message.paymentIndex);
     message.failureReason !== undefined &&
-      (obj.failureReason = paymentFailureReasonToJSON(message.failureReason));
-    return obj;
+      (object.failureReason = paymentFailureReasonToJSON(
+        message.failureReason,
+      ));
+    return object;
   },
 
   fromPartial(object: DeepPartial<Payment>): Payment {
     const message = createBasePayment();
-    message.paymentHash = object.paymentHash ?? "";
-    message.value = object.value ?? "0";
-    message.creationDate = object.creationDate ?? "0";
-    message.fee = object.fee ?? "0";
-    message.paymentPreimage = object.paymentPreimage ?? "";
-    message.valueSat = object.valueSat ?? "0";
-    message.valueMsat = object.valueMsat ?? "0";
-    message.paymentRequest = object.paymentRequest ?? "";
+    message.paymentHash = object.paymentHash ?? '';
+    message.value = object.value ?? '0';
+    message.creationDate = object.creationDate ?? '0';
+    message.fee = object.fee ?? '0';
+    message.paymentPreimage = object.paymentPreimage ?? '';
+    message.valueSat = object.valueSat ?? '0';
+    message.valueMsat = object.valueMsat ?? '0';
+    message.paymentRequest = object.paymentRequest ?? '';
     message.status = object.status ?? 0;
-    message.feeSat = object.feeSat ?? "0";
-    message.feeMsat = object.feeMsat ?? "0";
-    message.creationTimeNs = object.creationTimeNs ?? "0";
+    message.feeSat = object.feeSat ?? '0';
+    message.feeMsat = object.feeMsat ?? '0';
+    message.creationTimeNs = object.creationTimeNs ?? '0';
     message.htlcs = object.htlcs?.map((e) => HTLCAttempt.fromPartial(e)) || [];
-    message.paymentIndex = object.paymentIndex ?? "0";
+    message.paymentIndex = object.paymentIndex ?? '0';
     message.failureReason = object.failureReason ?? 0;
     return message;
   },
@@ -20657,11 +21523,11 @@ export const Payment = {
 
 function createBaseHTLCAttempt(): HTLCAttempt {
   return {
-    attemptId: "0",
+    attemptId: '0',
     status: 0,
     route: undefined,
-    attemptTimeNs: "0",
-    resolveTimeNs: "0",
+    attemptTimeNs: '0',
+    resolveTimeNs: '0',
     failure: undefined,
     preimage: new Uint8Array(),
   };
@@ -20670,35 +21536,42 @@ function createBaseHTLCAttempt(): HTLCAttempt {
 export const HTLCAttempt = {
   encode(
     message: HTLCAttempt,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.attemptId !== "0") {
+    if (message.attemptId !== '0') {
       writer.uint32(56).uint64(message.attemptId);
     }
+
     if (message.status !== 0) {
       writer.uint32(8).int32(message.status);
     }
+
     if (message.route !== undefined) {
       Route.encode(message.route, writer.uint32(18).fork()).ldelim();
     }
-    if (message.attemptTimeNs !== "0") {
+
+    if (message.attemptTimeNs !== '0') {
       writer.uint32(24).int64(message.attemptTimeNs);
     }
-    if (message.resolveTimeNs !== "0") {
+
+    if (message.resolveTimeNs !== '0') {
       writer.uint32(32).int64(message.resolveTimeNs);
     }
+
     if (message.failure !== undefined) {
       Failure.encode(message.failure, writer.uint32(42).fork()).ldelim();
     }
-    if (message.preimage.length !== 0) {
+
+    if (message.preimage.length > 0) {
       writer.uint32(50).bytes(message.preimage);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): HTLCAttempt {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHTLCAttempt();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20729,6 +21602,7 @@ export const HTLCAttempt = {
           break;
       }
     }
+
     return message;
   },
 
@@ -20737,7 +21611,7 @@ export const HTLCAttempt = {
     message.attemptId =
       object.attemptId !== undefined && object.attemptId !== null
         ? String(object.attemptId)
-        : "0";
+        : '0';
     message.status =
       object.status !== undefined && object.status !== null
         ? hTLCAttempt_HTLCStatusFromJSON(object.status)
@@ -20749,11 +21623,11 @@ export const HTLCAttempt = {
     message.attemptTimeNs =
       object.attemptTimeNs !== undefined && object.attemptTimeNs !== null
         ? String(object.attemptTimeNs)
-        : "0";
+        : '0';
     message.resolveTimeNs =
       object.resolveTimeNs !== undefined && object.resolveTimeNs !== null
         ? String(object.resolveTimeNs)
-        : "0";
+        : '0';
     message.failure =
       object.failure !== undefined && object.failure !== null
         ? Failure.fromJSON(object.failure)
@@ -20766,37 +21640,37 @@ export const HTLCAttempt = {
   },
 
   toJSON(message: HTLCAttempt): unknown {
-    const obj: any = {};
-    message.attemptId !== undefined && (obj.attemptId = message.attemptId);
+    const object: any = {};
+    message.attemptId !== undefined && (object.attemptId = message.attemptId);
     message.status !== undefined &&
-      (obj.status = hTLCAttempt_HTLCStatusToJSON(message.status));
+      (object.status = hTLCAttempt_HTLCStatusToJSON(message.status));
     message.route !== undefined &&
-      (obj.route = message.route ? Route.toJSON(message.route) : undefined);
+      (object.route = message.route ? Route.toJSON(message.route) : undefined);
     message.attemptTimeNs !== undefined &&
-      (obj.attemptTimeNs = message.attemptTimeNs);
+      (object.attemptTimeNs = message.attemptTimeNs);
     message.resolveTimeNs !== undefined &&
-      (obj.resolveTimeNs = message.resolveTimeNs);
+      (object.resolveTimeNs = message.resolveTimeNs);
     message.failure !== undefined &&
-      (obj.failure = message.failure
+      (object.failure = message.failure
         ? Failure.toJSON(message.failure)
         : undefined);
     message.preimage !== undefined &&
-      (obj.preimage = base64FromBytes(
-        message.preimage !== undefined ? message.preimage : new Uint8Array()
+      (object.preimage = base64FromBytes(
+        message.preimage !== undefined ? message.preimage : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<HTLCAttempt>): HTLCAttempt {
     const message = createBaseHTLCAttempt();
-    message.attemptId = object.attemptId ?? "0";
+    message.attemptId = object.attemptId ?? '0';
     message.status = object.status ?? 0;
     message.route =
       object.route !== undefined && object.route !== null
         ? Route.fromPartial(object.route)
         : undefined;
-    message.attemptTimeNs = object.attemptTimeNs ?? "0";
-    message.resolveTimeNs = object.resolveTimeNs ?? "0";
+    message.attemptTimeNs = object.attemptTimeNs ?? '0';
+    message.resolveTimeNs = object.resolveTimeNs ?? '0';
     message.failure =
       object.failure !== undefined && object.failure !== null
         ? Failure.fromPartial(object.failure)
@@ -20809,8 +21683,8 @@ export const HTLCAttempt = {
 function createBaseListPaymentsRequest(): ListPaymentsRequest {
   return {
     includeIncomplete: false,
-    indexOffset: "0",
-    maxPayments: "0",
+    indexOffset: '0',
+    maxPayments: '0',
     reversed: false,
   };
 }
@@ -20818,26 +21692,30 @@ function createBaseListPaymentsRequest(): ListPaymentsRequest {
 export const ListPaymentsRequest = {
   encode(
     message: ListPaymentsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.includeIncomplete === true) {
+    if (message.includeIncomplete) {
       writer.uint32(8).bool(message.includeIncomplete);
     }
-    if (message.indexOffset !== "0") {
+
+    if (message.indexOffset !== '0') {
       writer.uint32(16).uint64(message.indexOffset);
     }
-    if (message.maxPayments !== "0") {
+
+    if (message.maxPayments !== '0') {
       writer.uint32(24).uint64(message.maxPayments);
     }
-    if (message.reversed === true) {
+
+    if (message.reversed) {
       writer.uint32(32).bool(message.reversed);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListPaymentsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPaymentsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20859,6 +21737,7 @@ export const ListPaymentsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -20872,11 +21751,11 @@ export const ListPaymentsRequest = {
     message.indexOffset =
       object.indexOffset !== undefined && object.indexOffset !== null
         ? String(object.indexOffset)
-        : "0";
+        : '0';
     message.maxPayments =
       object.maxPayments !== undefined && object.maxPayments !== null
         ? String(object.maxPayments)
-        : "0";
+        : '0';
     message.reversed =
       object.reversed !== undefined && object.reversed !== null
         ? Boolean(object.reversed)
@@ -20885,54 +21764,57 @@ export const ListPaymentsRequest = {
   },
 
   toJSON(message: ListPaymentsRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.includeIncomplete !== undefined &&
-      (obj.includeIncomplete = message.includeIncomplete);
+      (object.includeIncomplete = message.includeIncomplete);
     message.indexOffset !== undefined &&
-      (obj.indexOffset = message.indexOffset);
+      (object.indexOffset = message.indexOffset);
     message.maxPayments !== undefined &&
-      (obj.maxPayments = message.maxPayments);
-    message.reversed !== undefined && (obj.reversed = message.reversed);
-    return obj;
+      (object.maxPayments = message.maxPayments);
+    message.reversed !== undefined && (object.reversed = message.reversed);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListPaymentsRequest>): ListPaymentsRequest {
     const message = createBaseListPaymentsRequest();
     message.includeIncomplete = object.includeIncomplete ?? false;
-    message.indexOffset = object.indexOffset ?? "0";
-    message.maxPayments = object.maxPayments ?? "0";
+    message.indexOffset = object.indexOffset ?? '0';
+    message.maxPayments = object.maxPayments ?? '0';
     message.reversed = object.reversed ?? false;
     return message;
   },
 };
 
 function createBaseListPaymentsResponse(): ListPaymentsResponse {
-  return { payments: [], firstIndexOffset: "0", lastIndexOffset: "0" };
+  return {payments: [], firstIndexOffset: '0', lastIndexOffset: '0'};
 }
 
 export const ListPaymentsResponse = {
   encode(
     message: ListPaymentsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.payments) {
-      Payment.encode(v!, writer.uint32(10).fork()).ldelim();
+      Payment.encode(v, writer.uint32(10).fork()).ldelim();
     }
-    if (message.firstIndexOffset !== "0") {
+
+    if (message.firstIndexOffset !== '0') {
       writer.uint32(16).uint64(message.firstIndexOffset);
     }
-    if (message.lastIndexOffset !== "0") {
+
+    if (message.lastIndexOffset !== '0') {
       writer.uint32(24).uint64(message.lastIndexOffset);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ListPaymentsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPaymentsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20951,75 +21833,79 @@ export const ListPaymentsResponse = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ListPaymentsResponse {
     const message = createBaseListPaymentsResponse();
     message.payments = (object.payments ?? []).map((e: any) =>
-      Payment.fromJSON(e)
+      Payment.fromJSON(e),
     );
     message.firstIndexOffset =
       object.firstIndexOffset !== undefined && object.firstIndexOffset !== null
         ? String(object.firstIndexOffset)
-        : "0";
+        : '0';
     message.lastIndexOffset =
       object.lastIndexOffset !== undefined && object.lastIndexOffset !== null
         ? String(object.lastIndexOffset)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: ListPaymentsResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.payments) {
-      obj.payments = message.payments.map((e) =>
-        e ? Payment.toJSON(e) : undefined
+      object.payments = message.payments.map((e) =>
+        e ? Payment.toJSON(e) : undefined,
       );
     } else {
-      obj.payments = [];
+      object.payments = [];
     }
+
     message.firstIndexOffset !== undefined &&
-      (obj.firstIndexOffset = message.firstIndexOffset);
+      (object.firstIndexOffset = message.firstIndexOffset);
     message.lastIndexOffset !== undefined &&
-      (obj.lastIndexOffset = message.lastIndexOffset);
-    return obj;
+      (object.lastIndexOffset = message.lastIndexOffset);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ListPaymentsResponse>): ListPaymentsResponse {
     const message = createBaseListPaymentsResponse();
     message.payments =
       object.payments?.map((e) => Payment.fromPartial(e)) || [];
-    message.firstIndexOffset = object.firstIndexOffset ?? "0";
-    message.lastIndexOffset = object.lastIndexOffset ?? "0";
+    message.firstIndexOffset = object.firstIndexOffset ?? '0';
+    message.lastIndexOffset = object.lastIndexOffset ?? '0';
     return message;
   },
 };
 
 function createBaseDeletePaymentRequest(): DeletePaymentRequest {
-  return { paymentHash: new Uint8Array(), failedHtlcsOnly: false };
+  return {paymentHash: new Uint8Array(), failedHtlcsOnly: false};
 }
 
 export const DeletePaymentRequest = {
   encode(
     message: DeletePaymentRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.paymentHash.length !== 0) {
+    if (message.paymentHash.length > 0) {
       writer.uint32(10).bytes(message.paymentHash);
     }
-    if (message.failedHtlcsOnly === true) {
+
+    if (message.failedHtlcsOnly) {
       writer.uint32(16).bool(message.failedHtlcsOnly);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): DeletePaymentRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeletePaymentRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21035,6 +21921,7 @@ export const DeletePaymentRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21052,16 +21939,16 @@ export const DeletePaymentRequest = {
   },
 
   toJSON(message: DeletePaymentRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.paymentHash !== undefined &&
-      (obj.paymentHash = base64FromBytes(
+      (object.paymentHash = base64FromBytes(
         message.paymentHash !== undefined
           ? message.paymentHash
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.failedHtlcsOnly !== undefined &&
-      (obj.failedHtlcsOnly = message.failedHtlcsOnly);
-    return obj;
+      (object.failedHtlcsOnly = message.failedHtlcsOnly);
+    return object;
   },
 
   fromPartial(object: DeepPartial<DeletePaymentRequest>): DeletePaymentRequest {
@@ -21073,29 +21960,31 @@ export const DeletePaymentRequest = {
 };
 
 function createBaseDeleteAllPaymentsRequest(): DeleteAllPaymentsRequest {
-  return { failedPaymentsOnly: false, failedHtlcsOnly: false };
+  return {failedPaymentsOnly: false, failedHtlcsOnly: false};
 }
 
 export const DeleteAllPaymentsRequest = {
   encode(
     message: DeleteAllPaymentsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.failedPaymentsOnly === true) {
+    if (message.failedPaymentsOnly) {
       writer.uint32(8).bool(message.failedPaymentsOnly);
     }
-    if (message.failedHtlcsOnly === true) {
+
+    if (message.failedHtlcsOnly) {
       writer.uint32(16).bool(message.failedHtlcsOnly);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): DeleteAllPaymentsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteAllPaymentsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21111,6 +22000,7 @@ export const DeleteAllPaymentsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21129,16 +22019,16 @@ export const DeleteAllPaymentsRequest = {
   },
 
   toJSON(message: DeleteAllPaymentsRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.failedPaymentsOnly !== undefined &&
-      (obj.failedPaymentsOnly = message.failedPaymentsOnly);
+      (object.failedPaymentsOnly = message.failedPaymentsOnly);
     message.failedHtlcsOnly !== undefined &&
-      (obj.failedHtlcsOnly = message.failedHtlcsOnly);
-    return obj;
+      (object.failedHtlcsOnly = message.failedHtlcsOnly);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<DeleteAllPaymentsRequest>
+    object: DeepPartial<DeleteAllPaymentsRequest>,
   ): DeleteAllPaymentsRequest {
     const message = createBaseDeleteAllPaymentsRequest();
     message.failedPaymentsOnly = object.failedPaymentsOnly ?? false;
@@ -21154,17 +22044,17 @@ function createBaseDeletePaymentResponse(): DeletePaymentResponse {
 export const DeletePaymentResponse = {
   encode(
     _: DeletePaymentResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): DeletePaymentResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeletePaymentResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21174,6 +22064,7 @@ export const DeletePaymentResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21183,8 +22074,8 @@ export const DeletePaymentResponse = {
   },
 
   toJSON(_: DeletePaymentResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<DeletePaymentResponse>): DeletePaymentResponse {
@@ -21200,17 +22091,17 @@ function createBaseDeleteAllPaymentsResponse(): DeleteAllPaymentsResponse {
 export const DeleteAllPaymentsResponse = {
   encode(
     _: DeleteAllPaymentsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): DeleteAllPaymentsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteAllPaymentsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21220,6 +22111,7 @@ export const DeleteAllPaymentsResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21229,12 +22121,12 @@ export const DeleteAllPaymentsResponse = {
   },
 
   toJSON(_: DeleteAllPaymentsResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(
-    _: DeepPartial<DeleteAllPaymentsResponse>
+    _: DeepPartial<DeleteAllPaymentsResponse>,
   ): DeleteAllPaymentsResponse {
     const message = createBaseDeleteAllPaymentsResponse();
     return message;
@@ -21252,29 +22144,32 @@ function createBaseAbandonChannelRequest(): AbandonChannelRequest {
 export const AbandonChannelRequest = {
   encode(
     message: AbandonChannelRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.channelPoint !== undefined) {
       ChannelPoint.encode(
         message.channelPoint,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
-    if (message.pendingFundingShimOnly === true) {
+
+    if (message.pendingFundingShimOnly) {
       writer.uint32(16).bool(message.pendingFundingShimOnly);
     }
-    if (message.iKnowWhatIAmDoing === true) {
+
+    if (message.iKnowWhatIAmDoing) {
       writer.uint32(24).bool(message.iKnowWhatIAmDoing);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): AbandonChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAbandonChannelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21293,6 +22188,7 @@ export const AbandonChannelRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21316,20 +22212,20 @@ export const AbandonChannelRequest = {
   },
 
   toJSON(message: AbandonChannelRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint
+      (object.channelPoint = message.channelPoint
         ? ChannelPoint.toJSON(message.channelPoint)
         : undefined);
     message.pendingFundingShimOnly !== undefined &&
-      (obj.pendingFundingShimOnly = message.pendingFundingShimOnly);
+      (object.pendingFundingShimOnly = message.pendingFundingShimOnly);
     message.iKnowWhatIAmDoing !== undefined &&
-      (obj.iKnowWhatIAmDoing = message.iKnowWhatIAmDoing);
-    return obj;
+      (object.iKnowWhatIAmDoing = message.iKnowWhatIAmDoing);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<AbandonChannelRequest>
+    object: DeepPartial<AbandonChannelRequest>,
   ): AbandonChannelRequest {
     const message = createBaseAbandonChannelRequest();
     message.channelPoint =
@@ -21349,17 +22245,17 @@ function createBaseAbandonChannelResponse(): AbandonChannelResponse {
 export const AbandonChannelResponse = {
   encode(
     _: AbandonChannelResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): AbandonChannelResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAbandonChannelResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21369,6 +22265,7 @@ export const AbandonChannelResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21378,8 +22275,8 @@ export const AbandonChannelResponse = {
   },
 
   toJSON(_: AbandonChannelResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<AbandonChannelResponse>): AbandonChannelResponse {
@@ -21389,26 +22286,28 @@ export const AbandonChannelResponse = {
 };
 
 function createBaseDebugLevelRequest(): DebugLevelRequest {
-  return { show: false, levelSpec: "" };
+  return {show: false, levelSpec: ''};
 }
 
 export const DebugLevelRequest = {
   encode(
     message: DebugLevelRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.show === true) {
+    if (message.show) {
       writer.uint32(8).bool(message.show);
     }
-    if (message.levelSpec !== "") {
+
+    if (message.levelSpec !== '') {
       writer.uint32(18).string(message.levelSpec);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DebugLevelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDebugLevelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21424,6 +22323,7 @@ export const DebugLevelRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21436,43 +22336,44 @@ export const DebugLevelRequest = {
     message.levelSpec =
       object.levelSpec !== undefined && object.levelSpec !== null
         ? String(object.levelSpec)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: DebugLevelRequest): unknown {
-    const obj: any = {};
-    message.show !== undefined && (obj.show = message.show);
-    message.levelSpec !== undefined && (obj.levelSpec = message.levelSpec);
-    return obj;
+    const object: any = {};
+    message.show !== undefined && (object.show = message.show);
+    message.levelSpec !== undefined && (object.levelSpec = message.levelSpec);
+    return object;
   },
 
   fromPartial(object: DeepPartial<DebugLevelRequest>): DebugLevelRequest {
     const message = createBaseDebugLevelRequest();
     message.show = object.show ?? false;
-    message.levelSpec = object.levelSpec ?? "";
+    message.levelSpec = object.levelSpec ?? '';
     return message;
   },
 };
 
 function createBaseDebugLevelResponse(): DebugLevelResponse {
-  return { subSystems: "" };
+  return {subSystems: ''};
 }
 
 export const DebugLevelResponse = {
   encode(
     message: DebugLevelResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.subSystems !== "") {
+    if (message.subSystems !== '') {
       writer.uint32(10).string(message.subSystems);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DebugLevelResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDebugLevelResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21485,6 +22386,7 @@ export const DebugLevelResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21493,42 +22395,44 @@ export const DebugLevelResponse = {
     message.subSystems =
       object.subSystems !== undefined && object.subSystems !== null
         ? String(object.subSystems)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: DebugLevelResponse): unknown {
-    const obj: any = {};
-    message.subSystems !== undefined && (obj.subSystems = message.subSystems);
-    return obj;
+    const object: any = {};
+    message.subSystems !== undefined &&
+      (object.subSystems = message.subSystems);
+    return object;
   },
 
   fromPartial(object: DeepPartial<DebugLevelResponse>): DebugLevelResponse {
     const message = createBaseDebugLevelResponse();
-    message.subSystems = object.subSystems ?? "";
+    message.subSystems = object.subSystems ?? '';
     return message;
   },
 };
 
-function createBasePayReqString(): PayReqString {
-  return { payReq: "" };
+function createBasePayRequestString(): PayReqString {
+  return {payReq: ''};
 }
 
 export const PayReqString = {
   encode(
     message: PayReqString,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.payReq !== "") {
+    if (message.payReq !== '') {
       writer.uint32(10).string(message.payReq);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PayReqString {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePayReqString();
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePayRequestString();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -21540,45 +22444,46 @@ export const PayReqString = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): PayReqString {
-    const message = createBasePayReqString();
+    const message = createBasePayRequestString();
     message.payReq =
       object.payReq !== undefined && object.payReq !== null
         ? String(object.payReq)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: PayReqString): unknown {
-    const obj: any = {};
-    message.payReq !== undefined && (obj.payReq = message.payReq);
-    return obj;
+    const object: any = {};
+    message.payReq !== undefined && (object.payReq = message.payReq);
+    return object;
   },
 
   fromPartial(object: DeepPartial<PayReqString>): PayReqString {
-    const message = createBasePayReqString();
-    message.payReq = object.payReq ?? "";
+    const message = createBasePayRequestString();
+    message.payReq = object.payReq ?? '';
     return message;
   },
 };
 
-function createBasePayReq(): PayReq {
+function createBasePayRequest(): PayReq {
   return {
-    destination: "",
-    paymentHash: "",
-    numSatoshis: "0",
-    timestamp: "0",
-    expiry: "0",
-    description: "",
-    descriptionHash: "",
-    fallbackAddr: "",
-    cltvExpiry: "0",
+    destination: '',
+    paymentHash: '',
+    numSatoshis: '0',
+    timestamp: '0',
+    expiry: '0',
+    description: '',
+    descriptionHash: '',
+    fallbackAddr: '',
+    cltvExpiry: '0',
     routeHints: [],
     paymentAddr: new Uint8Array(),
-    numMsat: "0",
+    numMsat: '0',
     features: {},
   };
 }
@@ -21586,57 +22491,70 @@ function createBasePayReq(): PayReq {
 export const PayReq = {
   encode(
     message: PayReq,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.destination !== "") {
+    if (message.destination !== '') {
       writer.uint32(10).string(message.destination);
     }
-    if (message.paymentHash !== "") {
+
+    if (message.paymentHash !== '') {
       writer.uint32(18).string(message.paymentHash);
     }
-    if (message.numSatoshis !== "0") {
+
+    if (message.numSatoshis !== '0') {
       writer.uint32(24).int64(message.numSatoshis);
     }
-    if (message.timestamp !== "0") {
+
+    if (message.timestamp !== '0') {
       writer.uint32(32).int64(message.timestamp);
     }
-    if (message.expiry !== "0") {
+
+    if (message.expiry !== '0') {
       writer.uint32(40).int64(message.expiry);
     }
-    if (message.description !== "") {
+
+    if (message.description !== '') {
       writer.uint32(50).string(message.description);
     }
-    if (message.descriptionHash !== "") {
+
+    if (message.descriptionHash !== '') {
       writer.uint32(58).string(message.descriptionHash);
     }
-    if (message.fallbackAddr !== "") {
+
+    if (message.fallbackAddr !== '') {
       writer.uint32(66).string(message.fallbackAddr);
     }
-    if (message.cltvExpiry !== "0") {
+
+    if (message.cltvExpiry !== '0') {
       writer.uint32(72).int64(message.cltvExpiry);
     }
+
     for (const v of message.routeHints) {
-      RouteHint.encode(v!, writer.uint32(82).fork()).ldelim();
+      RouteHint.encode(v, writer.uint32(82).fork()).ldelim();
     }
-    if (message.paymentAddr.length !== 0) {
+
+    if (message.paymentAddr.length > 0) {
       writer.uint32(90).bytes(message.paymentAddr);
     }
-    if (message.numMsat !== "0") {
+
+    if (message.numMsat !== '0') {
       writer.uint32(96).int64(message.numMsat);
     }
-    Object.entries(message.features).forEach(([key, value]) => {
+
+    for (const [key, value] of Object.entries(message.features)) {
       PayReq_FeaturesEntry.encode(
-        { key: key as any, value },
-        writer.uint32(106).fork()
+        {key: key as any, value},
+        writer.uint32(106).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PayReq {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePayReq();
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePayRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -21681,55 +22599,57 @@ export const PayReq = {
           if (entry13.value !== undefined) {
             message.features[entry13.key] = entry13.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): PayReq {
-    const message = createBasePayReq();
+    const message = createBasePayRequest();
     message.destination =
       object.destination !== undefined && object.destination !== null
         ? String(object.destination)
-        : "";
+        : '';
     message.paymentHash =
       object.paymentHash !== undefined && object.paymentHash !== null
         ? String(object.paymentHash)
-        : "";
+        : '';
     message.numSatoshis =
       object.numSatoshis !== undefined && object.numSatoshis !== null
         ? String(object.numSatoshis)
-        : "0";
+        : '0';
     message.timestamp =
       object.timestamp !== undefined && object.timestamp !== null
         ? String(object.timestamp)
-        : "0";
+        : '0';
     message.expiry =
       object.expiry !== undefined && object.expiry !== null
         ? String(object.expiry)
-        : "0";
+        : '0';
     message.description =
       object.description !== undefined && object.description !== null
         ? String(object.description)
-        : "";
+        : '';
     message.descriptionHash =
       object.descriptionHash !== undefined && object.descriptionHash !== null
         ? String(object.descriptionHash)
-        : "";
+        : '';
     message.fallbackAddr =
       object.fallbackAddr !== undefined && object.fallbackAddr !== null
         ? String(object.fallbackAddr)
-        : "";
+        : '';
     message.cltvExpiry =
       object.cltvExpiry !== undefined && object.cltvExpiry !== null
         ? String(object.cltvExpiry)
-        : "0";
+        : '0';
     message.routeHints = (object.routeHints ?? []).map((e: any) =>
-      RouteHint.fromJSON(e)
+      RouteHint.fromJSON(e),
     );
     message.paymentAddr =
       object.paymentAddr !== undefined && object.paymentAddr !== null
@@ -21738,10 +22658,10 @@ export const PayReq = {
     message.numMsat =
       object.numMsat !== undefined && object.numMsat !== null
         ? String(object.numMsat)
-        : "0";
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+        : '0';
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       acc[Number(key)] = Feature.fromJSON(value);
       return acc;
     }, {});
@@ -21749,97 +22669,103 @@ export const PayReq = {
   },
 
   toJSON(message: PayReq): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.destination !== undefined &&
-      (obj.destination = message.destination);
+      (object.destination = message.destination);
     message.paymentHash !== undefined &&
-      (obj.paymentHash = message.paymentHash);
+      (object.paymentHash = message.paymentHash);
     message.numSatoshis !== undefined &&
-      (obj.numSatoshis = message.numSatoshis);
-    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
-    message.expiry !== undefined && (obj.expiry = message.expiry);
+      (object.numSatoshis = message.numSatoshis);
+    message.timestamp !== undefined && (object.timestamp = message.timestamp);
+    message.expiry !== undefined && (object.expiry = message.expiry);
     message.description !== undefined &&
-      (obj.description = message.description);
+      (object.description = message.description);
     message.descriptionHash !== undefined &&
-      (obj.descriptionHash = message.descriptionHash);
+      (object.descriptionHash = message.descriptionHash);
     message.fallbackAddr !== undefined &&
-      (obj.fallbackAddr = message.fallbackAddr);
-    message.cltvExpiry !== undefined && (obj.cltvExpiry = message.cltvExpiry);
+      (object.fallbackAddr = message.fallbackAddr);
+    message.cltvExpiry !== undefined &&
+      (object.cltvExpiry = message.cltvExpiry);
     if (message.routeHints) {
-      obj.routeHints = message.routeHints.map((e) =>
-        e ? RouteHint.toJSON(e) : undefined
+      object.routeHints = message.routeHints.map((e) =>
+        e ? RouteHint.toJSON(e) : undefined,
       );
     } else {
-      obj.routeHints = [];
+      object.routeHints = [];
     }
+
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
+      (object.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    message.numMsat !== undefined && (obj.numMsat = message.numMsat);
-    obj.features = {};
+    message.numMsat !== undefined && (object.numMsat = message.numMsat);
+    object.features = {};
     if (message.features) {
-      Object.entries(message.features).forEach(([k, v]) => {
-        obj.features[k] = Feature.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.features)) {
+        object.features[k] = Feature.toJSON(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<PayReq>): PayReq {
-    const message = createBasePayReq();
-    message.destination = object.destination ?? "";
-    message.paymentHash = object.paymentHash ?? "";
-    message.numSatoshis = object.numSatoshis ?? "0";
-    message.timestamp = object.timestamp ?? "0";
-    message.expiry = object.expiry ?? "0";
-    message.description = object.description ?? "";
-    message.descriptionHash = object.descriptionHash ?? "";
-    message.fallbackAddr = object.fallbackAddr ?? "";
-    message.cltvExpiry = object.cltvExpiry ?? "0";
+    const message = createBasePayRequest();
+    message.destination = object.destination ?? '';
+    message.paymentHash = object.paymentHash ?? '';
+    message.numSatoshis = object.numSatoshis ?? '0';
+    message.timestamp = object.timestamp ?? '0';
+    message.expiry = object.expiry ?? '0';
+    message.description = object.description ?? '';
+    message.descriptionHash = object.descriptionHash ?? '';
+    message.fallbackAddr = object.fallbackAddr ?? '';
+    message.cltvExpiry = object.cltvExpiry ?? '0';
     message.routeHints =
       object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
-    message.numMsat = object.numMsat ?? "0";
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.numMsat = object.numMsat ?? '0';
+    message.features = Object.entries(object.features ?? {}).reduce<
+      Record<number, Feature>
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
+
       return acc;
     }, {});
     return message;
   },
 };
 
-function createBasePayReq_FeaturesEntry(): PayReq_FeaturesEntry {
-  return { key: 0, value: undefined };
+function createBasePayRequest_FeaturesEntry(): PayReq_FeaturesEntry {
+  return {key: 0, value: undefined};
 }
 
 export const PayReq_FeaturesEntry = {
   encode(
     message: PayReq_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
+
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PayReq_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePayReq_FeaturesEntry();
+    const end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePayRequest_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -21854,11 +22780,12 @@ export const PayReq_FeaturesEntry = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): PayReq_FeaturesEntry {
-    const message = createBasePayReq_FeaturesEntry();
+    const message = createBasePayRequest_FeaturesEntry();
     message.key =
       object.key !== undefined && object.key !== null ? Number(object.key) : 0;
     message.value =
@@ -21869,15 +22796,17 @@ export const PayReq_FeaturesEntry = {
   },
 
   toJSON(message: PayReq_FeaturesEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = Math.round(message.key));
+    const object: any = {};
+    message.key !== undefined && (object.key = Math.round(message.key));
     message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
-    return obj;
+      (object.value = message.value
+        ? Feature.toJSON(message.value)
+        : undefined);
+    return object;
   },
 
   fromPartial(object: DeepPartial<PayReq_FeaturesEntry>): PayReq_FeaturesEntry {
-    const message = createBasePayReq_FeaturesEntry();
+    const message = createBasePayRequest_FeaturesEntry();
     message.key = object.key ?? 0;
     message.value =
       object.value !== undefined && object.value !== null
@@ -21888,29 +22817,32 @@ export const PayReq_FeaturesEntry = {
 };
 
 function createBaseFeature(): Feature {
-  return { name: "", isRequired: false, isKnown: false };
+  return {name: '', isRequired: false, isKnown: false};
 }
 
 export const Feature = {
   encode(
     message: Feature,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.name !== "") {
+    if (message.name !== '') {
       writer.uint32(18).string(message.name);
     }
-    if (message.isRequired === true) {
+
+    if (message.isRequired) {
       writer.uint32(24).bool(message.isRequired);
     }
-    if (message.isKnown === true) {
+
+    if (message.isKnown) {
       writer.uint32(32).bool(message.isKnown);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Feature {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeature();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21929,6 +22861,7 @@ export const Feature = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21937,7 +22870,7 @@ export const Feature = {
     message.name =
       object.name !== undefined && object.name !== null
         ? String(object.name)
-        : "";
+        : '';
     message.isRequired =
       object.isRequired !== undefined && object.isRequired !== null
         ? Boolean(object.isRequired)
@@ -21950,16 +22883,17 @@ export const Feature = {
   },
 
   toJSON(message: Feature): unknown {
-    const obj: any = {};
-    message.name !== undefined && (obj.name = message.name);
-    message.isRequired !== undefined && (obj.isRequired = message.isRequired);
-    message.isKnown !== undefined && (obj.isKnown = message.isKnown);
-    return obj;
+    const object: any = {};
+    message.name !== undefined && (object.name = message.name);
+    message.isRequired !== undefined &&
+      (object.isRequired = message.isRequired);
+    message.isKnown !== undefined && (object.isKnown = message.isKnown);
+    return object;
   },
 
   fromPartial(object: DeepPartial<Feature>): Feature {
     const message = createBaseFeature();
-    message.name = object.name ?? "";
+    message.name = object.name ?? '';
     message.isRequired = object.isRequired ?? false;
     message.isKnown = object.isKnown ?? false;
     return message;
@@ -21973,14 +22907,14 @@ function createBaseFeeReportRequest(): FeeReportRequest {
 export const FeeReportRequest = {
   encode(
     _: FeeReportRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FeeReportRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeeReportRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21990,6 +22924,7 @@ export const FeeReportRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -21999,8 +22934,8 @@ export const FeeReportRequest = {
   },
 
   toJSON(_: FeeReportRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<FeeReportRequest>): FeeReportRequest {
@@ -22011,10 +22946,10 @@ export const FeeReportRequest = {
 
 function createBaseChannelFeeReport(): ChannelFeeReport {
   return {
-    chanId: "0",
-    channelPoint: "",
-    baseFeeMsat: "0",
-    feePerMil: "0",
+    chanId: '0',
+    channelPoint: '',
+    baseFeeMsat: '0',
+    feePerMil: '0',
     feeRate: 0,
   };
 }
@@ -22022,29 +22957,34 @@ function createBaseChannelFeeReport(): ChannelFeeReport {
 export const ChannelFeeReport = {
   encode(
     message: ChannelFeeReport,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.chanId !== "0") {
+    if (message.chanId !== '0') {
       writer.uint32(40).uint64(message.chanId);
     }
-    if (message.channelPoint !== "") {
+
+    if (message.channelPoint !== '') {
       writer.uint32(10).string(message.channelPoint);
     }
-    if (message.baseFeeMsat !== "0") {
+
+    if (message.baseFeeMsat !== '0') {
       writer.uint32(16).int64(message.baseFeeMsat);
     }
-    if (message.feePerMil !== "0") {
+
+    if (message.feePerMil !== '0') {
       writer.uint32(24).int64(message.feePerMil);
     }
+
     if (message.feeRate !== 0) {
       writer.uint32(33).double(message.feeRate);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelFeeReport {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelFeeReport();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22069,6 +23009,7 @@ export const ChannelFeeReport = {
           break;
       }
     }
+
     return message;
   },
 
@@ -22077,19 +23018,19 @@ export const ChannelFeeReport = {
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.channelPoint =
       object.channelPoint !== undefined && object.channelPoint !== null
         ? String(object.channelPoint)
-        : "";
+        : '';
     message.baseFeeMsat =
       object.baseFeeMsat !== undefined && object.baseFeeMsat !== null
         ? String(object.baseFeeMsat)
-        : "0";
+        : '0';
     message.feePerMil =
       object.feePerMil !== undefined && object.feePerMil !== null
         ? String(object.feePerMil)
-        : "0";
+        : '0';
     message.feeRate =
       object.feeRate !== undefined && object.feeRate !== null
         ? Number(object.feeRate)
@@ -22098,62 +23039,66 @@ export const ChannelFeeReport = {
   },
 
   toJSON(message: ChannelFeeReport): unknown {
-    const obj: any = {};
-    message.chanId !== undefined && (obj.chanId = message.chanId);
+    const object: any = {};
+    message.chanId !== undefined && (object.chanId = message.chanId);
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint);
+      (object.channelPoint = message.channelPoint);
     message.baseFeeMsat !== undefined &&
-      (obj.baseFeeMsat = message.baseFeeMsat);
-    message.feePerMil !== undefined && (obj.feePerMil = message.feePerMil);
-    message.feeRate !== undefined && (obj.feeRate = message.feeRate);
-    return obj;
+      (object.baseFeeMsat = message.baseFeeMsat);
+    message.feePerMil !== undefined && (object.feePerMil = message.feePerMil);
+    message.feeRate !== undefined && (object.feeRate = message.feeRate);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelFeeReport>): ChannelFeeReport {
     const message = createBaseChannelFeeReport();
-    message.chanId = object.chanId ?? "0";
-    message.channelPoint = object.channelPoint ?? "";
-    message.baseFeeMsat = object.baseFeeMsat ?? "0";
-    message.feePerMil = object.feePerMil ?? "0";
+    message.chanId = object.chanId ?? '0';
+    message.channelPoint = object.channelPoint ?? '';
+    message.baseFeeMsat = object.baseFeeMsat ?? '0';
+    message.feePerMil = object.feePerMil ?? '0';
     message.feeRate = object.feeRate ?? 0;
     return message;
   },
 };
 
 function createBaseFeeReportResponse(): FeeReportResponse {
-  return { channelFees: [], dayFeeSum: "0", weekFeeSum: "0", monthFeeSum: "0" };
+  return {channelFees: [], dayFeeSum: '0', weekFeeSum: '0', monthFeeSum: '0'};
 }
 
 export const FeeReportResponse = {
   encode(
     message: FeeReportResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.channelFees) {
-      ChannelFeeReport.encode(v!, writer.uint32(10).fork()).ldelim();
+      ChannelFeeReport.encode(v, writer.uint32(10).fork()).ldelim();
     }
-    if (message.dayFeeSum !== "0") {
+
+    if (message.dayFeeSum !== '0') {
       writer.uint32(16).uint64(message.dayFeeSum);
     }
-    if (message.weekFeeSum !== "0") {
+
+    if (message.weekFeeSum !== '0') {
       writer.uint32(24).uint64(message.weekFeeSum);
     }
-    if (message.monthFeeSum !== "0") {
+
+    if (message.monthFeeSum !== '0') {
       writer.uint32(32).uint64(message.monthFeeSum);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FeeReportResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeeReportResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.channelFees.push(
-            ChannelFeeReport.decode(reader, reader.uint32())
+            ChannelFeeReport.decode(reader, reader.uint32()),
           );
           break;
         case 2:
@@ -22170,52 +23115,55 @@ export const FeeReportResponse = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): FeeReportResponse {
     const message = createBaseFeeReportResponse();
     message.channelFees = (object.channelFees ?? []).map((e: any) =>
-      ChannelFeeReport.fromJSON(e)
+      ChannelFeeReport.fromJSON(e),
     );
     message.dayFeeSum =
       object.dayFeeSum !== undefined && object.dayFeeSum !== null
         ? String(object.dayFeeSum)
-        : "0";
+        : '0';
     message.weekFeeSum =
       object.weekFeeSum !== undefined && object.weekFeeSum !== null
         ? String(object.weekFeeSum)
-        : "0";
+        : '0';
     message.monthFeeSum =
       object.monthFeeSum !== undefined && object.monthFeeSum !== null
         ? String(object.monthFeeSum)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: FeeReportResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.channelFees) {
-      obj.channelFees = message.channelFees.map((e) =>
-        e ? ChannelFeeReport.toJSON(e) : undefined
+      object.channelFees = message.channelFees.map((e) =>
+        e ? ChannelFeeReport.toJSON(e) : undefined,
       );
     } else {
-      obj.channelFees = [];
+      object.channelFees = [];
     }
-    message.dayFeeSum !== undefined && (obj.dayFeeSum = message.dayFeeSum);
-    message.weekFeeSum !== undefined && (obj.weekFeeSum = message.weekFeeSum);
+
+    message.dayFeeSum !== undefined && (object.dayFeeSum = message.dayFeeSum);
+    message.weekFeeSum !== undefined &&
+      (object.weekFeeSum = message.weekFeeSum);
     message.monthFeeSum !== undefined &&
-      (obj.monthFeeSum = message.monthFeeSum);
-    return obj;
+      (object.monthFeeSum = message.monthFeeSum);
+    return object;
   },
 
   fromPartial(object: DeepPartial<FeeReportResponse>): FeeReportResponse {
     const message = createBaseFeeReportResponse();
     message.channelFees =
       object.channelFees?.map((e) => ChannelFeeReport.fromPartial(e)) || [];
-    message.dayFeeSum = object.dayFeeSum ?? "0";
-    message.weekFeeSum = object.weekFeeSum ?? "0";
-    message.monthFeeSum = object.monthFeeSum ?? "0";
+    message.dayFeeSum = object.dayFeeSum ?? '0';
+    message.weekFeeSum = object.weekFeeSum ?? '0';
+    message.monthFeeSum = object.monthFeeSum ?? '0';
     return message;
   },
 };
@@ -22224,11 +23172,11 @@ function createBasePolicyUpdateRequest(): PolicyUpdateRequest {
   return {
     global: undefined,
     chanPoint: undefined,
-    baseFeeMsat: "0",
+    baseFeeMsat: '0',
     feeRate: 0,
     timeLockDelta: 0,
-    maxHtlcMsat: "0",
-    minHtlcMsat: "0",
+    maxHtlcMsat: '0',
+    minHtlcMsat: '0',
     minHtlcMsatSpecified: false,
   };
 }
@@ -22236,38 +23184,46 @@ function createBasePolicyUpdateRequest(): PolicyUpdateRequest {
 export const PolicyUpdateRequest = {
   encode(
     message: PolicyUpdateRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.global !== undefined) {
       writer.uint32(8).bool(message.global);
     }
+
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-    if (message.baseFeeMsat !== "0") {
+
+    if (message.baseFeeMsat !== '0') {
       writer.uint32(24).int64(message.baseFeeMsat);
     }
+
     if (message.feeRate !== 0) {
       writer.uint32(33).double(message.feeRate);
     }
+
     if (message.timeLockDelta !== 0) {
       writer.uint32(40).uint32(message.timeLockDelta);
     }
-    if (message.maxHtlcMsat !== "0") {
+
+    if (message.maxHtlcMsat !== '0') {
       writer.uint32(48).uint64(message.maxHtlcMsat);
     }
-    if (message.minHtlcMsat !== "0") {
+
+    if (message.minHtlcMsat !== '0') {
       writer.uint32(56).uint64(message.minHtlcMsat);
     }
-    if (message.minHtlcMsatSpecified === true) {
+
+    if (message.minHtlcMsatSpecified) {
       writer.uint32(64).bool(message.minHtlcMsatSpecified);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PolicyUpdateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePolicyUpdateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22301,6 +23257,7 @@ export const PolicyUpdateRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -22317,7 +23274,7 @@ export const PolicyUpdateRequest = {
     message.baseFeeMsat =
       object.baseFeeMsat !== undefined && object.baseFeeMsat !== null
         ? String(object.baseFeeMsat)
-        : "0";
+        : '0';
     message.feeRate =
       object.feeRate !== undefined && object.feeRate !== null
         ? Number(object.feeRate)
@@ -22329,11 +23286,11 @@ export const PolicyUpdateRequest = {
     message.maxHtlcMsat =
       object.maxHtlcMsat !== undefined && object.maxHtlcMsat !== null
         ? String(object.maxHtlcMsat)
-        : "0";
+        : '0';
     message.minHtlcMsat =
       object.minHtlcMsat !== undefined && object.minHtlcMsat !== null
         ? String(object.minHtlcMsat)
-        : "0";
+        : '0';
     message.minHtlcMsatSpecified =
       object.minHtlcMsatSpecified !== undefined &&
       object.minHtlcMsatSpecified !== null
@@ -22343,24 +23300,24 @@ export const PolicyUpdateRequest = {
   },
 
   toJSON(message: PolicyUpdateRequest): unknown {
-    const obj: any = {};
-    message.global !== undefined && (obj.global = message.global);
+    const object: any = {};
+    message.global !== undefined && (object.global = message.global);
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
+      (object.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
     message.baseFeeMsat !== undefined &&
-      (obj.baseFeeMsat = message.baseFeeMsat);
-    message.feeRate !== undefined && (obj.feeRate = message.feeRate);
+      (object.baseFeeMsat = message.baseFeeMsat);
+    message.feeRate !== undefined && (object.feeRate = message.feeRate);
     message.timeLockDelta !== undefined &&
-      (obj.timeLockDelta = Math.round(message.timeLockDelta));
+      (object.timeLockDelta = Math.round(message.timeLockDelta));
     message.maxHtlcMsat !== undefined &&
-      (obj.maxHtlcMsat = message.maxHtlcMsat);
+      (object.maxHtlcMsat = message.maxHtlcMsat);
     message.minHtlcMsat !== undefined &&
-      (obj.minHtlcMsat = message.minHtlcMsat);
+      (object.minHtlcMsat = message.minHtlcMsat);
     message.minHtlcMsatSpecified !== undefined &&
-      (obj.minHtlcMsatSpecified = message.minHtlcMsatSpecified);
-    return obj;
+      (object.minHtlcMsatSpecified = message.minHtlcMsatSpecified);
+    return object;
   },
 
   fromPartial(object: DeepPartial<PolicyUpdateRequest>): PolicyUpdateRequest {
@@ -22370,40 +23327,43 @@ export const PolicyUpdateRequest = {
       object.chanPoint !== undefined && object.chanPoint !== null
         ? ChannelPoint.fromPartial(object.chanPoint)
         : undefined;
-    message.baseFeeMsat = object.baseFeeMsat ?? "0";
+    message.baseFeeMsat = object.baseFeeMsat ?? '0';
     message.feeRate = object.feeRate ?? 0;
     message.timeLockDelta = object.timeLockDelta ?? 0;
-    message.maxHtlcMsat = object.maxHtlcMsat ?? "0";
-    message.minHtlcMsat = object.minHtlcMsat ?? "0";
+    message.maxHtlcMsat = object.maxHtlcMsat ?? '0';
+    message.minHtlcMsat = object.minHtlcMsat ?? '0';
     message.minHtlcMsatSpecified = object.minHtlcMsatSpecified ?? false;
     return message;
   },
 };
 
 function createBaseFailedUpdate(): FailedUpdate {
-  return { outpoint: undefined, reason: 0, updateError: "" };
+  return {outpoint: undefined, reason: 0, updateError: ''};
 }
 
 export const FailedUpdate = {
   encode(
     message: FailedUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.reason !== 0) {
       writer.uint32(16).int32(message.reason);
     }
-    if (message.updateError !== "") {
+
+    if (message.updateError !== '') {
       writer.uint32(26).string(message.updateError);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FailedUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFailedUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22422,6 +23382,7 @@ export const FailedUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -22438,21 +23399,21 @@ export const FailedUpdate = {
     message.updateError =
       object.updateError !== undefined && object.updateError !== null
         ? String(object.updateError)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: FailedUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.outpoint !== undefined &&
-      (obj.outpoint = message.outpoint
+      (object.outpoint = message.outpoint
         ? OutPoint.toJSON(message.outpoint)
         : undefined);
     message.reason !== undefined &&
-      (obj.reason = updateFailureToJSON(message.reason));
+      (object.reason = updateFailureToJSON(message.reason));
     message.updateError !== undefined &&
-      (obj.updateError = message.updateError);
-    return obj;
+      (object.updateError = message.updateError);
+    return object;
   },
 
   fromPartial(object: DeepPartial<FailedUpdate>): FailedUpdate {
@@ -22462,39 +23423,40 @@ export const FailedUpdate = {
         ? OutPoint.fromPartial(object.outpoint)
         : undefined;
     message.reason = object.reason ?? 0;
-    message.updateError = object.updateError ?? "";
+    message.updateError = object.updateError ?? '';
     return message;
   },
 };
 
 function createBasePolicyUpdateResponse(): PolicyUpdateResponse {
-  return { failedUpdates: [] };
+  return {failedUpdates: []};
 }
 
 export const PolicyUpdateResponse = {
   encode(
     message: PolicyUpdateResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.failedUpdates) {
-      FailedUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
+      FailedUpdate.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): PolicyUpdateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePolicyUpdateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.failedUpdates.push(
-            FailedUpdate.decode(reader, reader.uint32())
+            FailedUpdate.decode(reader, reader.uint32()),
           );
           break;
         default:
@@ -22502,27 +23464,29 @@ export const PolicyUpdateResponse = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): PolicyUpdateResponse {
     const message = createBasePolicyUpdateResponse();
     message.failedUpdates = (object.failedUpdates ?? []).map((e: any) =>
-      FailedUpdate.fromJSON(e)
+      FailedUpdate.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: PolicyUpdateResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.failedUpdates) {
-      obj.failedUpdates = message.failedUpdates.map((e) =>
-        e ? FailedUpdate.toJSON(e) : undefined
+      object.failedUpdates = message.failedUpdates.map((e) =>
+        e ? FailedUpdate.toJSON(e) : undefined,
       );
     } else {
-      obj.failedUpdates = [];
+      object.failedUpdates = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<PolicyUpdateResponse>): PolicyUpdateResponse {
@@ -22534,35 +23498,39 @@ export const PolicyUpdateResponse = {
 };
 
 function createBaseForwardingHistoryRequest(): ForwardingHistoryRequest {
-  return { startTime: "0", endTime: "0", indexOffset: 0, numMaxEvents: 0 };
+  return {startTime: '0', endTime: '0', indexOffset: 0, numMaxEvents: 0};
 }
 
 export const ForwardingHistoryRequest = {
   encode(
     message: ForwardingHistoryRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.startTime !== "0") {
+    if (message.startTime !== '0') {
       writer.uint32(8).uint64(message.startTime);
     }
-    if (message.endTime !== "0") {
+
+    if (message.endTime !== '0') {
       writer.uint32(16).uint64(message.endTime);
     }
+
     if (message.indexOffset !== 0) {
       writer.uint32(24).uint32(message.indexOffset);
     }
+
     if (message.numMaxEvents !== 0) {
       writer.uint32(32).uint32(message.numMaxEvents);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ForwardingHistoryRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseForwardingHistoryRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22584,6 +23552,7 @@ export const ForwardingHistoryRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -22592,11 +23561,11 @@ export const ForwardingHistoryRequest = {
     message.startTime =
       object.startTime !== undefined && object.startTime !== null
         ? String(object.startTime)
-        : "0";
+        : '0';
     message.endTime =
       object.endTime !== undefined && object.endTime !== null
         ? String(object.endTime)
-        : "0";
+        : '0';
     message.indexOffset =
       object.indexOffset !== undefined && object.indexOffset !== null
         ? Number(object.indexOffset)
@@ -22609,22 +23578,22 @@ export const ForwardingHistoryRequest = {
   },
 
   toJSON(message: ForwardingHistoryRequest): unknown {
-    const obj: any = {};
-    message.startTime !== undefined && (obj.startTime = message.startTime);
-    message.endTime !== undefined && (obj.endTime = message.endTime);
+    const object: any = {};
+    message.startTime !== undefined && (object.startTime = message.startTime);
+    message.endTime !== undefined && (object.endTime = message.endTime);
     message.indexOffset !== undefined &&
-      (obj.indexOffset = Math.round(message.indexOffset));
+      (object.indexOffset = Math.round(message.indexOffset));
     message.numMaxEvents !== undefined &&
-      (obj.numMaxEvents = Math.round(message.numMaxEvents));
-    return obj;
+      (object.numMaxEvents = Math.round(message.numMaxEvents));
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ForwardingHistoryRequest>
+    object: DeepPartial<ForwardingHistoryRequest>,
   ): ForwardingHistoryRequest {
     const message = createBaseForwardingHistoryRequest();
-    message.startTime = object.startTime ?? "0";
-    message.endTime = object.endTime ?? "0";
+    message.startTime = object.startTime ?? '0';
+    message.endTime = object.endTime ?? '0';
     message.indexOffset = object.indexOffset ?? 0;
     message.numMaxEvents = object.numMaxEvents ?? 0;
     return message;
@@ -22633,60 +23602,70 @@ export const ForwardingHistoryRequest = {
 
 function createBaseForwardingEvent(): ForwardingEvent {
   return {
-    timestamp: "0",
-    chanIdIn: "0",
-    chanIdOut: "0",
-    amtIn: "0",
-    amtOut: "0",
-    fee: "0",
-    feeMsat: "0",
-    amtInMsat: "0",
-    amtOutMsat: "0",
-    timestampNs: "0",
+    timestamp: '0',
+    chanIdIn: '0',
+    chanIdOut: '0',
+    amtIn: '0',
+    amtOut: '0',
+    fee: '0',
+    feeMsat: '0',
+    amtInMsat: '0',
+    amtOutMsat: '0',
+    timestampNs: '0',
   };
 }
 
 export const ForwardingEvent = {
   encode(
     message: ForwardingEvent,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.timestamp !== "0") {
+    if (message.timestamp !== '0') {
       writer.uint32(8).uint64(message.timestamp);
     }
-    if (message.chanIdIn !== "0") {
+
+    if (message.chanIdIn !== '0') {
       writer.uint32(16).uint64(message.chanIdIn);
     }
-    if (message.chanIdOut !== "0") {
+
+    if (message.chanIdOut !== '0') {
       writer.uint32(32).uint64(message.chanIdOut);
     }
-    if (message.amtIn !== "0") {
+
+    if (message.amtIn !== '0') {
       writer.uint32(40).uint64(message.amtIn);
     }
-    if (message.amtOut !== "0") {
+
+    if (message.amtOut !== '0') {
       writer.uint32(48).uint64(message.amtOut);
     }
-    if (message.fee !== "0") {
+
+    if (message.fee !== '0') {
       writer.uint32(56).uint64(message.fee);
     }
-    if (message.feeMsat !== "0") {
+
+    if (message.feeMsat !== '0') {
       writer.uint32(64).uint64(message.feeMsat);
     }
-    if (message.amtInMsat !== "0") {
+
+    if (message.amtInMsat !== '0') {
       writer.uint32(72).uint64(message.amtInMsat);
     }
-    if (message.amtOutMsat !== "0") {
+
+    if (message.amtOutMsat !== '0') {
       writer.uint32(80).uint64(message.amtOutMsat);
     }
-    if (message.timestampNs !== "0") {
+
+    if (message.timestampNs !== '0') {
       writer.uint32(88).uint64(message.timestampNs);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ForwardingEvent {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseForwardingEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22726,6 +23705,7 @@ export const ForwardingEvent = {
           break;
       }
     }
+
     return message;
   },
 
@@ -22734,109 +23714,112 @@ export const ForwardingEvent = {
     message.timestamp =
       object.timestamp !== undefined && object.timestamp !== null
         ? String(object.timestamp)
-        : "0";
+        : '0';
     message.chanIdIn =
       object.chanIdIn !== undefined && object.chanIdIn !== null
         ? String(object.chanIdIn)
-        : "0";
+        : '0';
     message.chanIdOut =
       object.chanIdOut !== undefined && object.chanIdOut !== null
         ? String(object.chanIdOut)
-        : "0";
+        : '0';
     message.amtIn =
       object.amtIn !== undefined && object.amtIn !== null
         ? String(object.amtIn)
-        : "0";
+        : '0';
     message.amtOut =
       object.amtOut !== undefined && object.amtOut !== null
         ? String(object.amtOut)
-        : "0";
+        : '0';
     message.fee =
       object.fee !== undefined && object.fee !== null
         ? String(object.fee)
-        : "0";
+        : '0';
     message.feeMsat =
       object.feeMsat !== undefined && object.feeMsat !== null
         ? String(object.feeMsat)
-        : "0";
+        : '0';
     message.amtInMsat =
       object.amtInMsat !== undefined && object.amtInMsat !== null
         ? String(object.amtInMsat)
-        : "0";
+        : '0';
     message.amtOutMsat =
       object.amtOutMsat !== undefined && object.amtOutMsat !== null
         ? String(object.amtOutMsat)
-        : "0";
+        : '0';
     message.timestampNs =
       object.timestampNs !== undefined && object.timestampNs !== null
         ? String(object.timestampNs)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: ForwardingEvent): unknown {
-    const obj: any = {};
-    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
-    message.chanIdIn !== undefined && (obj.chanIdIn = message.chanIdIn);
-    message.chanIdOut !== undefined && (obj.chanIdOut = message.chanIdOut);
-    message.amtIn !== undefined && (obj.amtIn = message.amtIn);
-    message.amtOut !== undefined && (obj.amtOut = message.amtOut);
-    message.fee !== undefined && (obj.fee = message.fee);
-    message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
-    message.amtInMsat !== undefined && (obj.amtInMsat = message.amtInMsat);
-    message.amtOutMsat !== undefined && (obj.amtOutMsat = message.amtOutMsat);
+    const object: any = {};
+    message.timestamp !== undefined && (object.timestamp = message.timestamp);
+    message.chanIdIn !== undefined && (object.chanIdIn = message.chanIdIn);
+    message.chanIdOut !== undefined && (object.chanIdOut = message.chanIdOut);
+    message.amtIn !== undefined && (object.amtIn = message.amtIn);
+    message.amtOut !== undefined && (object.amtOut = message.amtOut);
+    message.fee !== undefined && (object.fee = message.fee);
+    message.feeMsat !== undefined && (object.feeMsat = message.feeMsat);
+    message.amtInMsat !== undefined && (object.amtInMsat = message.amtInMsat);
+    message.amtOutMsat !== undefined &&
+      (object.amtOutMsat = message.amtOutMsat);
     message.timestampNs !== undefined &&
-      (obj.timestampNs = message.timestampNs);
-    return obj;
+      (object.timestampNs = message.timestampNs);
+    return object;
   },
 
   fromPartial(object: DeepPartial<ForwardingEvent>): ForwardingEvent {
     const message = createBaseForwardingEvent();
-    message.timestamp = object.timestamp ?? "0";
-    message.chanIdIn = object.chanIdIn ?? "0";
-    message.chanIdOut = object.chanIdOut ?? "0";
-    message.amtIn = object.amtIn ?? "0";
-    message.amtOut = object.amtOut ?? "0";
-    message.fee = object.fee ?? "0";
-    message.feeMsat = object.feeMsat ?? "0";
-    message.amtInMsat = object.amtInMsat ?? "0";
-    message.amtOutMsat = object.amtOutMsat ?? "0";
-    message.timestampNs = object.timestampNs ?? "0";
+    message.timestamp = object.timestamp ?? '0';
+    message.chanIdIn = object.chanIdIn ?? '0';
+    message.chanIdOut = object.chanIdOut ?? '0';
+    message.amtIn = object.amtIn ?? '0';
+    message.amtOut = object.amtOut ?? '0';
+    message.fee = object.fee ?? '0';
+    message.feeMsat = object.feeMsat ?? '0';
+    message.amtInMsat = object.amtInMsat ?? '0';
+    message.amtOutMsat = object.amtOutMsat ?? '0';
+    message.timestampNs = object.timestampNs ?? '0';
     return message;
   },
 };
 
 function createBaseForwardingHistoryResponse(): ForwardingHistoryResponse {
-  return { forwardingEvents: [], lastOffsetIndex: 0 };
+  return {forwardingEvents: [], lastOffsetIndex: 0};
 }
 
 export const ForwardingHistoryResponse = {
   encode(
     message: ForwardingHistoryResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.forwardingEvents) {
-      ForwardingEvent.encode(v!, writer.uint32(10).fork()).ldelim();
+      ForwardingEvent.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     if (message.lastOffsetIndex !== 0) {
       writer.uint32(16).uint32(message.lastOffsetIndex);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ForwardingHistoryResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseForwardingHistoryResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.forwardingEvents.push(
-            ForwardingEvent.decode(reader, reader.uint32())
+            ForwardingEvent.decode(reader, reader.uint32()),
           );
           break;
         case 2:
@@ -22847,13 +23830,14 @@ export const ForwardingHistoryResponse = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ForwardingHistoryResponse {
     const message = createBaseForwardingHistoryResponse();
     message.forwardingEvents = (object.forwardingEvents ?? []).map((e: any) =>
-      ForwardingEvent.fromJSON(e)
+      ForwardingEvent.fromJSON(e),
     );
     message.lastOffsetIndex =
       object.lastOffsetIndex !== undefined && object.lastOffsetIndex !== null
@@ -22863,21 +23847,22 @@ export const ForwardingHistoryResponse = {
   },
 
   toJSON(message: ForwardingHistoryResponse): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.forwardingEvents) {
-      obj.forwardingEvents = message.forwardingEvents.map((e) =>
-        e ? ForwardingEvent.toJSON(e) : undefined
+      object.forwardingEvents = message.forwardingEvents.map((e) =>
+        e ? ForwardingEvent.toJSON(e) : undefined,
       );
     } else {
-      obj.forwardingEvents = [];
+      object.forwardingEvents = [];
     }
+
     message.lastOffsetIndex !== undefined &&
-      (obj.lastOffsetIndex = Math.round(message.lastOffsetIndex));
-    return obj;
+      (object.lastOffsetIndex = Math.round(message.lastOffsetIndex));
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ForwardingHistoryResponse>
+    object: DeepPartial<ForwardingHistoryResponse>,
   ): ForwardingHistoryResponse {
     const message = createBaseForwardingHistoryResponse();
     message.forwardingEvents =
@@ -22888,26 +23873,27 @@ export const ForwardingHistoryResponse = {
 };
 
 function createBaseExportChannelBackupRequest(): ExportChannelBackupRequest {
-  return { chanPoint: undefined };
+  return {chanPoint: undefined};
 }
 
 export const ExportChannelBackupRequest = {
   encode(
     message: ExportChannelBackupRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ExportChannelBackupRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExportChannelBackupRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22920,6 +23906,7 @@ export const ExportChannelBackupRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -22933,16 +23920,16 @@ export const ExportChannelBackupRequest = {
   },
 
   toJSON(message: ExportChannelBackupRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
+      (object.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ExportChannelBackupRequest>
+    object: DeepPartial<ExportChannelBackupRequest>,
   ): ExportChannelBackupRequest {
     const message = createBaseExportChannelBackupRequest();
     message.chanPoint =
@@ -22954,26 +23941,28 @@ export const ExportChannelBackupRequest = {
 };
 
 function createBaseChannelBackup(): ChannelBackup {
-  return { chanPoint: undefined, chanBackup: new Uint8Array() };
+  return {chanPoint: undefined, chanBackup: new Uint8Array()};
 }
 
 export const ChannelBackup = {
   encode(
     message: ChannelBackup,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(10).fork()).ldelim();
     }
-    if (message.chanBackup.length !== 0) {
+
+    if (message.chanBackup.length > 0) {
       writer.uint32(18).bytes(message.chanBackup);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelBackup {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBackup();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22989,6 +23978,7 @@ export const ChannelBackup = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23006,16 +23996,18 @@ export const ChannelBackup = {
   },
 
   toJSON(message: ChannelBackup): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
+      (object.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
     message.chanBackup !== undefined &&
-      (obj.chanBackup = base64FromBytes(
-        message.chanBackup !== undefined ? message.chanBackup : new Uint8Array()
+      (object.chanBackup = base64FromBytes(
+        message.chanBackup !== undefined
+          ? message.chanBackup
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelBackup>): ChannelBackup {
@@ -23030,26 +24022,28 @@ export const ChannelBackup = {
 };
 
 function createBaseMultiChanBackup(): MultiChanBackup {
-  return { chanPoints: [], multiChanBackup: new Uint8Array() };
+  return {chanPoints: [], multiChanBackup: new Uint8Array()};
 }
 
 export const MultiChanBackup = {
   encode(
     message: MultiChanBackup,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.chanPoints) {
-      ChannelPoint.encode(v!, writer.uint32(10).fork()).ldelim();
+      ChannelPoint.encode(v, writer.uint32(10).fork()).ldelim();
     }
-    if (message.multiChanBackup.length !== 0) {
+
+    if (message.multiChanBackup.length > 0) {
       writer.uint32(18).bytes(message.multiChanBackup);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MultiChanBackup {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMultiChanBackup();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23065,13 +24059,14 @@ export const MultiChanBackup = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MultiChanBackup {
     const message = createBaseMultiChanBackup();
     message.chanPoints = (object.chanPoints ?? []).map((e: any) =>
-      ChannelPoint.fromJSON(e)
+      ChannelPoint.fromJSON(e),
     );
     message.multiChanBackup =
       object.multiChanBackup !== undefined && object.multiChanBackup !== null
@@ -23081,21 +24076,22 @@ export const MultiChanBackup = {
   },
 
   toJSON(message: MultiChanBackup): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.chanPoints) {
-      obj.chanPoints = message.chanPoints.map((e) =>
-        e ? ChannelPoint.toJSON(e) : undefined
+      object.chanPoints = message.chanPoints.map((e) =>
+        e ? ChannelPoint.toJSON(e) : undefined,
       );
     } else {
-      obj.chanPoints = [];
+      object.chanPoints = [];
     }
+
     message.multiChanBackup !== undefined &&
-      (obj.multiChanBackup = base64FromBytes(
+      (object.multiChanBackup = base64FromBytes(
         message.multiChanBackup !== undefined
           ? message.multiChanBackup
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<MultiChanBackup>): MultiChanBackup {
@@ -23114,17 +24110,17 @@ function createBaseChanBackupExportRequest(): ChanBackupExportRequest {
 export const ChanBackupExportRequest = {
   encode(
     _: ChanBackupExportRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ChanBackupExportRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanBackupExportRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23134,6 +24130,7 @@ export const ChanBackupExportRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23143,12 +24140,12 @@ export const ChanBackupExportRequest = {
   },
 
   toJSON(_: ChanBackupExportRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(
-    _: DeepPartial<ChanBackupExportRequest>
+    _: DeepPartial<ChanBackupExportRequest>,
   ): ChanBackupExportRequest {
     const message = createBaseChanBackupExportRequest();
     return message;
@@ -23156,32 +24153,34 @@ export const ChanBackupExportRequest = {
 };
 
 function createBaseChanBackupSnapshot(): ChanBackupSnapshot {
-  return { singleChanBackups: undefined, multiChanBackup: undefined };
+  return {singleChanBackups: undefined, multiChanBackup: undefined};
 }
 
 export const ChanBackupSnapshot = {
   encode(
     message: ChanBackupSnapshot,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.singleChanBackups !== undefined) {
       ChannelBackups.encode(
         message.singleChanBackups,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
+
     if (message.multiChanBackup !== undefined) {
       MultiChanBackup.encode(
         message.multiChanBackup,
-        writer.uint32(18).fork()
+        writer.uint32(18).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChanBackupSnapshot {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanBackupSnapshot();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23189,13 +24188,13 @@ export const ChanBackupSnapshot = {
         case 1:
           message.singleChanBackups = ChannelBackups.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 2:
           message.multiChanBackup = MultiChanBackup.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         default:
@@ -23203,6 +24202,7 @@ export const ChanBackupSnapshot = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23221,16 +24221,16 @@ export const ChanBackupSnapshot = {
   },
 
   toJSON(message: ChanBackupSnapshot): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.singleChanBackups !== undefined &&
-      (obj.singleChanBackups = message.singleChanBackups
+      (object.singleChanBackups = message.singleChanBackups
         ? ChannelBackups.toJSON(message.singleChanBackups)
         : undefined);
     message.multiChanBackup !== undefined &&
-      (obj.multiChanBackup = message.multiChanBackup
+      (object.multiChanBackup = message.multiChanBackup
         ? MultiChanBackup.toJSON(message.multiChanBackup)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChanBackupSnapshot>): ChanBackupSnapshot {
@@ -23249,30 +24249,31 @@ export const ChanBackupSnapshot = {
 };
 
 function createBaseChannelBackups(): ChannelBackups {
-  return { chanBackups: [] };
+  return {chanBackups: []};
 }
 
 export const ChannelBackups = {
   encode(
     message: ChannelBackups,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.chanBackups) {
-      ChannelBackup.encode(v!, writer.uint32(10).fork()).ldelim();
+      ChannelBackup.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelBackups {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBackups();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.chanBackups.push(
-            ChannelBackup.decode(reader, reader.uint32())
+            ChannelBackup.decode(reader, reader.uint32()),
           );
           break;
         default:
@@ -23280,27 +24281,29 @@ export const ChannelBackups = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ChannelBackups {
     const message = createBaseChannelBackups();
     message.chanBackups = (object.chanBackups ?? []).map((e: any) =>
-      ChannelBackup.fromJSON(e)
+      ChannelBackup.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: ChannelBackups): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.chanBackups) {
-      obj.chanBackups = message.chanBackups.map((e) =>
-        e ? ChannelBackup.toJSON(e) : undefined
+      object.chanBackups = message.chanBackups.map((e) =>
+        e ? ChannelBackup.toJSON(e) : undefined,
       );
     } else {
-      obj.chanBackups = [];
+      object.chanBackups = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelBackups>): ChannelBackups {
@@ -23312,32 +24315,34 @@ export const ChannelBackups = {
 };
 
 function createBaseRestoreChanBackupRequest(): RestoreChanBackupRequest {
-  return { chanBackups: undefined, multiChanBackup: undefined };
+  return {chanBackups: undefined, multiChanBackup: undefined};
 }
 
 export const RestoreChanBackupRequest = {
   encode(
     message: RestoreChanBackupRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.chanBackups !== undefined) {
       ChannelBackups.encode(
         message.chanBackups,
-        writer.uint32(10).fork()
+        writer.uint32(10).fork(),
       ).ldelim();
     }
+
     if (message.multiChanBackup !== undefined) {
       writer.uint32(18).bytes(message.multiChanBackup);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): RestoreChanBackupRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRestoreChanBackupRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23353,6 +24358,7 @@ export const RestoreChanBackupRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23370,21 +24376,21 @@ export const RestoreChanBackupRequest = {
   },
 
   toJSON(message: RestoreChanBackupRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.chanBackups !== undefined &&
-      (obj.chanBackups = message.chanBackups
+      (object.chanBackups = message.chanBackups
         ? ChannelBackups.toJSON(message.chanBackups)
         : undefined);
     message.multiChanBackup !== undefined &&
-      (obj.multiChanBackup =
+      (object.multiChanBackup =
         message.multiChanBackup !== undefined
           ? base64FromBytes(message.multiChanBackup)
           : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<RestoreChanBackupRequest>
+    object: DeepPartial<RestoreChanBackupRequest>,
   ): RestoreChanBackupRequest {
     const message = createBaseRestoreChanBackupRequest();
     message.chanBackups =
@@ -23403,17 +24409,17 @@ function createBaseRestoreBackupResponse(): RestoreBackupResponse {
 export const RestoreBackupResponse = {
   encode(
     _: RestoreBackupResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): RestoreBackupResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRestoreBackupResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23423,6 +24429,7 @@ export const RestoreBackupResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23432,8 +24439,8 @@ export const RestoreBackupResponse = {
   },
 
   toJSON(_: RestoreBackupResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<RestoreBackupResponse>): RestoreBackupResponse {
@@ -23449,17 +24456,17 @@ function createBaseChannelBackupSubscription(): ChannelBackupSubscription {
 export const ChannelBackupSubscription = {
   encode(
     _: ChannelBackupSubscription,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ChannelBackupSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBackupSubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23469,6 +24476,7 @@ export const ChannelBackupSubscription = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23478,12 +24486,12 @@ export const ChannelBackupSubscription = {
   },
 
   toJSON(_: ChannelBackupSubscription): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(
-    _: DeepPartial<ChannelBackupSubscription>
+    _: DeepPartial<ChannelBackupSubscription>,
   ): ChannelBackupSubscription {
     const message = createBaseChannelBackupSubscription();
     return message;
@@ -23497,17 +24505,17 @@ function createBaseVerifyChanBackupResponse(): VerifyChanBackupResponse {
 export const VerifyChanBackupResponse = {
   encode(
     _: VerifyChanBackupResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): VerifyChanBackupResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyChanBackupResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23517,6 +24525,7 @@ export const VerifyChanBackupResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23526,12 +24535,12 @@ export const VerifyChanBackupResponse = {
   },
 
   toJSON(_: VerifyChanBackupResponse): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(
-    _: DeepPartial<VerifyChanBackupResponse>
+    _: DeepPartial<VerifyChanBackupResponse>,
   ): VerifyChanBackupResponse {
     const message = createBaseVerifyChanBackupResponse();
     return message;
@@ -23539,26 +24548,28 @@ export const VerifyChanBackupResponse = {
 };
 
 function createBaseMacaroonPermission(): MacaroonPermission {
-  return { entity: "", action: "" };
+  return {entity: '', action: ''};
 }
 
 export const MacaroonPermission = {
   encode(
     message: MacaroonPermission,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.entity !== "") {
+    if (message.entity !== '') {
       writer.uint32(10).string(message.entity);
     }
-    if (message.action !== "") {
+
+    if (message.action !== '') {
       writer.uint32(18).string(message.action);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MacaroonPermission {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMacaroonPermission();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23574,6 +24585,7 @@ export const MacaroonPermission = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23582,60 +24594,63 @@ export const MacaroonPermission = {
     message.entity =
       object.entity !== undefined && object.entity !== null
         ? String(object.entity)
-        : "";
+        : '';
     message.action =
       object.action !== undefined && object.action !== null
         ? String(object.action)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: MacaroonPermission): unknown {
-    const obj: any = {};
-    message.entity !== undefined && (obj.entity = message.entity);
-    message.action !== undefined && (obj.action = message.action);
-    return obj;
+    const object: any = {};
+    message.entity !== undefined && (object.entity = message.entity);
+    message.action !== undefined && (object.action = message.action);
+    return object;
   },
 
   fromPartial(object: DeepPartial<MacaroonPermission>): MacaroonPermission {
     const message = createBaseMacaroonPermission();
-    message.entity = object.entity ?? "";
-    message.action = object.action ?? "";
+    message.entity = object.entity ?? '';
+    message.action = object.action ?? '';
     return message;
   },
 };
 
 function createBaseBakeMacaroonRequest(): BakeMacaroonRequest {
-  return { permissions: [], rootKeyId: "0", allowExternalPermissions: false };
+  return {permissions: [], rootKeyId: '0', allowExternalPermissions: false};
 }
 
 export const BakeMacaroonRequest = {
   encode(
     message: BakeMacaroonRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.permissions) {
-      MacaroonPermission.encode(v!, writer.uint32(10).fork()).ldelim();
+      MacaroonPermission.encode(v, writer.uint32(10).fork()).ldelim();
     }
-    if (message.rootKeyId !== "0") {
+
+    if (message.rootKeyId !== '0') {
       writer.uint32(16).uint64(message.rootKeyId);
     }
-    if (message.allowExternalPermissions === true) {
+
+    if (message.allowExternalPermissions) {
       writer.uint32(24).bool(message.allowExternalPermissions);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): BakeMacaroonRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBakeMacaroonRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.permissions.push(
-            MacaroonPermission.decode(reader, reader.uint32())
+            MacaroonPermission.decode(reader, reader.uint32()),
           );
           break;
         case 2:
@@ -23649,18 +24664,19 @@ export const BakeMacaroonRequest = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): BakeMacaroonRequest {
     const message = createBaseBakeMacaroonRequest();
     message.permissions = (object.permissions ?? []).map((e: any) =>
-      MacaroonPermission.fromJSON(e)
+      MacaroonPermission.fromJSON(e),
     );
     message.rootKeyId =
       object.rootKeyId !== undefined && object.rootKeyId !== null
         ? String(object.rootKeyId)
-        : "0";
+        : '0';
     message.allowExternalPermissions =
       object.allowExternalPermissions !== undefined &&
       object.allowExternalPermissions !== null
@@ -23670,51 +24686,53 @@ export const BakeMacaroonRequest = {
   },
 
   toJSON(message: BakeMacaroonRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.permissions) {
-      obj.permissions = message.permissions.map((e) =>
-        e ? MacaroonPermission.toJSON(e) : undefined
+      object.permissions = message.permissions.map((e) =>
+        e ? MacaroonPermission.toJSON(e) : undefined,
       );
     } else {
-      obj.permissions = [];
+      object.permissions = [];
     }
-    message.rootKeyId !== undefined && (obj.rootKeyId = message.rootKeyId);
+
+    message.rootKeyId !== undefined && (object.rootKeyId = message.rootKeyId);
     message.allowExternalPermissions !== undefined &&
-      (obj.allowExternalPermissions = message.allowExternalPermissions);
-    return obj;
+      (object.allowExternalPermissions = message.allowExternalPermissions);
+    return object;
   },
 
   fromPartial(object: DeepPartial<BakeMacaroonRequest>): BakeMacaroonRequest {
     const message = createBaseBakeMacaroonRequest();
     message.permissions =
       object.permissions?.map((e) => MacaroonPermission.fromPartial(e)) || [];
-    message.rootKeyId = object.rootKeyId ?? "0";
+    message.rootKeyId = object.rootKeyId ?? '0';
     message.allowExternalPermissions = object.allowExternalPermissions ?? false;
     return message;
   },
 };
 
 function createBaseBakeMacaroonResponse(): BakeMacaroonResponse {
-  return { macaroon: "" };
+  return {macaroon: ''};
 }
 
 export const BakeMacaroonResponse = {
   encode(
     message: BakeMacaroonResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.macaroon !== "") {
+    if (message.macaroon !== '') {
       writer.uint32(10).string(message.macaroon);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): BakeMacaroonResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBakeMacaroonResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23727,6 +24745,7 @@ export const BakeMacaroonResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23735,19 +24754,19 @@ export const BakeMacaroonResponse = {
     message.macaroon =
       object.macaroon !== undefined && object.macaroon !== null
         ? String(object.macaroon)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: BakeMacaroonResponse): unknown {
-    const obj: any = {};
-    message.macaroon !== undefined && (obj.macaroon = message.macaroon);
-    return obj;
+    const object: any = {};
+    message.macaroon !== undefined && (object.macaroon = message.macaroon);
+    return object;
   },
 
   fromPartial(object: DeepPartial<BakeMacaroonResponse>): BakeMacaroonResponse {
     const message = createBaseBakeMacaroonResponse();
-    message.macaroon = object.macaroon ?? "";
+    message.macaroon = object.macaroon ?? '';
     return message;
   },
 };
@@ -23759,17 +24778,17 @@ function createBaseListMacaroonIDsRequest(): ListMacaroonIDsRequest {
 export const ListMacaroonIDsRequest = {
   encode(
     _: ListMacaroonIDsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ListMacaroonIDsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListMacaroonIDsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23779,6 +24798,7 @@ export const ListMacaroonIDsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23788,8 +24808,8 @@ export const ListMacaroonIDsRequest = {
   },
 
   toJSON(_: ListMacaroonIDsRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<ListMacaroonIDsRequest>): ListMacaroonIDsRequest {
@@ -23799,28 +24819,29 @@ export const ListMacaroonIDsRequest = {
 };
 
 function createBaseListMacaroonIDsResponse(): ListMacaroonIDsResponse {
-  return { rootKeyIds: [] };
+  return {rootKeyIds: []};
 }
 
 export const ListMacaroonIDsResponse = {
   encode(
     message: ListMacaroonIDsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     writer.uint32(10).fork();
     for (const v of message.rootKeyIds) {
       writer.uint64(v);
     }
+
     writer.ldelim();
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ListMacaroonIDsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListMacaroonIDsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23834,12 +24855,14 @@ export const ListMacaroonIDsResponse = {
           } else {
             message.rootKeyIds.push(longToString(reader.uint64() as Long));
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
@@ -23850,17 +24873,15 @@ export const ListMacaroonIDsResponse = {
   },
 
   toJSON(message: ListMacaroonIDsResponse): unknown {
-    const obj: any = {};
-    if (message.rootKeyIds) {
-      obj.rootKeyIds = message.rootKeyIds.map((e) => e);
-    } else {
-      obj.rootKeyIds = [];
-    }
-    return obj;
+    const object: any = {};
+    object.rootKeyIds = message.rootKeyIds
+      ? message.rootKeyIds.map((e) => e)
+      : [];
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ListMacaroonIDsResponse>
+    object: DeepPartial<ListMacaroonIDsResponse>,
   ): ListMacaroonIDsResponse {
     const message = createBaseListMacaroonIDsResponse();
     message.rootKeyIds = object.rootKeyIds?.map((e) => e) || [];
@@ -23869,26 +24890,27 @@ export const ListMacaroonIDsResponse = {
 };
 
 function createBaseDeleteMacaroonIDRequest(): DeleteMacaroonIDRequest {
-  return { rootKeyId: "0" };
+  return {rootKeyId: '0'};
 }
 
 export const DeleteMacaroonIDRequest = {
   encode(
     message: DeleteMacaroonIDRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.rootKeyId !== "0") {
+    if (message.rootKeyId !== '0') {
       writer.uint32(8).uint64(message.rootKeyId);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): DeleteMacaroonIDRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteMacaroonIDRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23901,6 +24923,7 @@ export const DeleteMacaroonIDRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23909,46 +24932,47 @@ export const DeleteMacaroonIDRequest = {
     message.rootKeyId =
       object.rootKeyId !== undefined && object.rootKeyId !== null
         ? String(object.rootKeyId)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: DeleteMacaroonIDRequest): unknown {
-    const obj: any = {};
-    message.rootKeyId !== undefined && (obj.rootKeyId = message.rootKeyId);
-    return obj;
+    const object: any = {};
+    message.rootKeyId !== undefined && (object.rootKeyId = message.rootKeyId);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<DeleteMacaroonIDRequest>
+    object: DeepPartial<DeleteMacaroonIDRequest>,
   ): DeleteMacaroonIDRequest {
     const message = createBaseDeleteMacaroonIDRequest();
-    message.rootKeyId = object.rootKeyId ?? "0";
+    message.rootKeyId = object.rootKeyId ?? '0';
     return message;
   },
 };
 
 function createBaseDeleteMacaroonIDResponse(): DeleteMacaroonIDResponse {
-  return { deleted: false };
+  return {deleted: false};
 }
 
 export const DeleteMacaroonIDResponse = {
   encode(
     message: DeleteMacaroonIDResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.deleted === true) {
+    if (message.deleted) {
       writer.uint32(8).bool(message.deleted);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): DeleteMacaroonIDResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteMacaroonIDResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23961,6 +24985,7 @@ export const DeleteMacaroonIDResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -23974,13 +24999,13 @@ export const DeleteMacaroonIDResponse = {
   },
 
   toJSON(message: DeleteMacaroonIDResponse): unknown {
-    const obj: any = {};
-    message.deleted !== undefined && (obj.deleted = message.deleted);
-    return obj;
+    const object: any = {};
+    message.deleted !== undefined && (object.deleted = message.deleted);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<DeleteMacaroonIDResponse>
+    object: DeepPartial<DeleteMacaroonIDResponse>,
   ): DeleteMacaroonIDResponse {
     const message = createBaseDeleteMacaroonIDResponse();
     message.deleted = object.deleted ?? false;
@@ -23989,33 +25014,34 @@ export const DeleteMacaroonIDResponse = {
 };
 
 function createBaseMacaroonPermissionList(): MacaroonPermissionList {
-  return { permissions: [] };
+  return {permissions: []};
 }
 
 export const MacaroonPermissionList = {
   encode(
     message: MacaroonPermissionList,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.permissions) {
-      MacaroonPermission.encode(v!, writer.uint32(10).fork()).ldelim();
+      MacaroonPermission.encode(v, writer.uint32(10).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): MacaroonPermissionList {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMacaroonPermissionList();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
           message.permissions.push(
-            MacaroonPermission.decode(reader, reader.uint32())
+            MacaroonPermission.decode(reader, reader.uint32()),
           );
           break;
         default:
@@ -24023,31 +25049,33 @@ export const MacaroonPermissionList = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): MacaroonPermissionList {
     const message = createBaseMacaroonPermissionList();
     message.permissions = (object.permissions ?? []).map((e: any) =>
-      MacaroonPermission.fromJSON(e)
+      MacaroonPermission.fromJSON(e),
     );
     return message;
   },
 
   toJSON(message: MacaroonPermissionList): unknown {
-    const obj: any = {};
+    const object: any = {};
     if (message.permissions) {
-      obj.permissions = message.permissions.map((e) =>
-        e ? MacaroonPermission.toJSON(e) : undefined
+      object.permissions = message.permissions.map((e) =>
+        e ? MacaroonPermission.toJSON(e) : undefined,
       );
     } else {
-      obj.permissions = [];
+      object.permissions = [];
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<MacaroonPermissionList>
+    object: DeepPartial<MacaroonPermissionList>,
   ): MacaroonPermissionList {
     const message = createBaseMacaroonPermissionList();
     message.permissions =
@@ -24063,17 +25091,17 @@ function createBaseListPermissionsRequest(): ListPermissionsRequest {
 export const ListPermissionsRequest = {
   encode(
     _: ListPermissionsRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ListPermissionsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24083,6 +25111,7 @@ export const ListPermissionsRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -24092,8 +25121,8 @@ export const ListPermissionsRequest = {
   },
 
   toJSON(_: ListPermissionsRequest): unknown {
-    const obj: any = {};
-    return obj;
+    const object: any = {};
+    return object;
   },
 
   fromPartial(_: DeepPartial<ListPermissionsRequest>): ListPermissionsRequest {
@@ -24103,29 +25132,30 @@ export const ListPermissionsRequest = {
 };
 
 function createBaseListPermissionsResponse(): ListPermissionsResponse {
-  return { methodPermissions: {} };
+  return {methodPermissions: {}};
 }
 
 export const ListPermissionsResponse = {
   encode(
     message: ListPermissionsResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    Object.entries(message.methodPermissions).forEach(([key, value]) => {
+    for (const [key, value] of Object.entries(message.methodPermissions)) {
       ListPermissionsResponse_MethodPermissionsEntry.encode(
-        { key: key as any, value },
-        writer.uint32(10).fork()
+        {key: key as any, value},
+        writer.uint32(10).fork(),
       ).ldelim();
-    });
+    }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ListPermissionsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24133,25 +25163,27 @@ export const ListPermissionsResponse = {
         case 1:
           const entry1 = ListPermissionsResponse_MethodPermissionsEntry.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           if (entry1.value !== undefined) {
             message.methodPermissions[entry1.key] = entry1.value;
           }
+
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ListPermissionsResponse {
     const message = createBaseListPermissionsResponse();
     message.methodPermissions = Object.entries(
-      object.methodPermissions ?? {}
-    ).reduce<{ [key: string]: MacaroonPermissionList }>((acc, [key, value]) => {
+      object.methodPermissions ?? {},
+    ).reduce<Record<string, MacaroonPermissionList>>((acc, [key, value]) => {
       acc[key] = MacaroonPermissionList.fromJSON(value);
       return acc;
     }, {});
@@ -24159,26 +25191,28 @@ export const ListPermissionsResponse = {
   },
 
   toJSON(message: ListPermissionsResponse): unknown {
-    const obj: any = {};
-    obj.methodPermissions = {};
+    const object: any = {};
+    object.methodPermissions = {};
     if (message.methodPermissions) {
-      Object.entries(message.methodPermissions).forEach(([k, v]) => {
-        obj.methodPermissions[k] = MacaroonPermissionList.toJSON(v);
-      });
+      for (const [k, v] of Object.entries(message.methodPermissions)) {
+        object.methodPermissions[k] = MacaroonPermissionList.toJSON(v);
+      }
     }
-    return obj;
+
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ListPermissionsResponse>
+    object: DeepPartial<ListPermissionsResponse>,
   ): ListPermissionsResponse {
     const message = createBaseListPermissionsResponse();
     message.methodPermissions = Object.entries(
-      object.methodPermissions ?? {}
-    ).reduce<{ [key: string]: MacaroonPermissionList }>((acc, [key, value]) => {
+      object.methodPermissions ?? {},
+    ).reduce<Record<string, MacaroonPermissionList>>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = MacaroonPermissionList.fromPartial(value);
       }
+
       return acc;
     }, {});
     return message;
@@ -24186,32 +25220,34 @@ export const ListPermissionsResponse = {
 };
 
 function createBaseListPermissionsResponse_MethodPermissionsEntry(): ListPermissionsResponse_MethodPermissionsEntry {
-  return { key: "", value: undefined };
+  return {key: '', value: undefined};
 }
 
 export const ListPermissionsResponse_MethodPermissionsEntry = {
   encode(
     message: ListPermissionsResponse_MethodPermissionsEntry,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== "") {
+    if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
+
     if (message.value !== undefined) {
       MacaroonPermissionList.encode(
         message.value,
-        writer.uint32(18).fork()
+        writer.uint32(18).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): ListPermissionsResponse_MethodPermissionsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsResponse_MethodPermissionsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24222,7 +25258,7 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
         case 2:
           message.value = MacaroonPermissionList.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         default:
@@ -24230,13 +25266,14 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
           break;
       }
     }
+
     return message;
   },
 
   fromJSON(object: any): ListPermissionsResponse_MethodPermissionsEntry {
     const message = createBaseListPermissionsResponse_MethodPermissionsEntry();
     message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : "";
+      object.key !== undefined && object.key !== null ? String(object.key) : '';
     message.value =
       object.value !== undefined && object.value !== null
         ? MacaroonPermissionList.fromJSON(object.value)
@@ -24245,20 +25282,20 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
   },
 
   toJSON(message: ListPermissionsResponse_MethodPermissionsEntry): unknown {
-    const obj: any = {};
-    message.key !== undefined && (obj.key = message.key);
+    const object: any = {};
+    message.key !== undefined && (object.key = message.key);
     message.value !== undefined &&
-      (obj.value = message.value
+      (object.value = message.value
         ? MacaroonPermissionList.toJSON(message.value)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<ListPermissionsResponse_MethodPermissionsEntry>
+    object: DeepPartial<ListPermissionsResponse_MethodPermissionsEntry>,
   ): ListPermissionsResponse_MethodPermissionsEntry {
     const message = createBaseListPermissionsResponse_MethodPermissionsEntry();
-    message.key = object.key ?? "";
+    message.key = object.key ?? '';
     message.value =
       object.value !== undefined && object.value !== null
         ? MacaroonPermissionList.fromPartial(object.value)
@@ -24271,7 +25308,7 @@ function createBaseFailure(): Failure {
   return {
     code: 0,
     channelUpdate: undefined,
-    htlcMsat: "0",
+    htlcMsat: '0',
     onionSha256: new Uint8Array(),
     cltvExpiry: 0,
     flags: 0,
@@ -24283,41 +25320,49 @@ function createBaseFailure(): Failure {
 export const Failure = {
   encode(
     message: Failure,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     if (message.code !== 0) {
       writer.uint32(8).int32(message.code);
     }
+
     if (message.channelUpdate !== undefined) {
       ChannelUpdate.encode(
         message.channelUpdate,
-        writer.uint32(26).fork()
+        writer.uint32(26).fork(),
       ).ldelim();
     }
-    if (message.htlcMsat !== "0") {
+
+    if (message.htlcMsat !== '0') {
       writer.uint32(32).uint64(message.htlcMsat);
     }
-    if (message.onionSha256.length !== 0) {
+
+    if (message.onionSha256.length > 0) {
       writer.uint32(42).bytes(message.onionSha256);
     }
+
     if (message.cltvExpiry !== 0) {
       writer.uint32(48).uint32(message.cltvExpiry);
     }
+
     if (message.flags !== 0) {
       writer.uint32(56).uint32(message.flags);
     }
+
     if (message.failureSourceIndex !== 0) {
       writer.uint32(64).uint32(message.failureSourceIndex);
     }
+
     if (message.height !== 0) {
       writer.uint32(72).uint32(message.height);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Failure {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFailure();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24351,6 +25396,7 @@ export const Failure = {
           break;
       }
     }
+
     return message;
   },
 
@@ -24367,7 +25413,7 @@ export const Failure = {
     message.htlcMsat =
       object.htlcMsat !== undefined && object.htlcMsat !== null
         ? String(object.htlcMsat)
-        : "0";
+        : '0';
     message.onionSha256 =
       object.onionSha256 !== undefined && object.onionSha256 !== null
         ? bytesFromBase64(object.onionSha256)
@@ -24393,27 +25439,28 @@ export const Failure = {
   },
 
   toJSON(message: Failure): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.code !== undefined &&
-      (obj.code = failure_FailureCodeToJSON(message.code));
+      (object.code = failure_FailureCodeToJSON(message.code));
     message.channelUpdate !== undefined &&
-      (obj.channelUpdate = message.channelUpdate
+      (object.channelUpdate = message.channelUpdate
         ? ChannelUpdate.toJSON(message.channelUpdate)
         : undefined);
-    message.htlcMsat !== undefined && (obj.htlcMsat = message.htlcMsat);
+    message.htlcMsat !== undefined && (object.htlcMsat = message.htlcMsat);
     message.onionSha256 !== undefined &&
-      (obj.onionSha256 = base64FromBytes(
+      (object.onionSha256 = base64FromBytes(
         message.onionSha256 !== undefined
           ? message.onionSha256
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.cltvExpiry !== undefined &&
-      (obj.cltvExpiry = Math.round(message.cltvExpiry));
-    message.flags !== undefined && (obj.flags = Math.round(message.flags));
+      (object.cltvExpiry = Math.round(message.cltvExpiry));
+    message.flags !== undefined && (object.flags = Math.round(message.flags));
     message.failureSourceIndex !== undefined &&
-      (obj.failureSourceIndex = Math.round(message.failureSourceIndex));
-    message.height !== undefined && (obj.height = Math.round(message.height));
-    return obj;
+      (object.failureSourceIndex = Math.round(message.failureSourceIndex));
+    message.height !== undefined &&
+      (object.height = Math.round(message.height));
+    return object;
   },
 
   fromPartial(object: DeepPartial<Failure>): Failure {
@@ -24423,7 +25470,7 @@ export const Failure = {
       object.channelUpdate !== undefined && object.channelUpdate !== null
         ? ChannelUpdate.fromPartial(object.channelUpdate)
         : undefined;
-    message.htlcMsat = object.htlcMsat ?? "0";
+    message.htlcMsat = object.htlcMsat ?? '0';
     message.onionSha256 = object.onionSha256 ?? new Uint8Array();
     message.cltvExpiry = object.cltvExpiry ?? 0;
     message.flags = object.flags ?? 0;
@@ -24437,15 +25484,15 @@ function createBaseChannelUpdate(): ChannelUpdate {
   return {
     signature: new Uint8Array(),
     chainHash: new Uint8Array(),
-    chanId: "0",
+    chanId: '0',
     timestamp: 0,
     messageFlags: 0,
     channelFlags: 0,
     timeLockDelta: 0,
-    htlcMinimumMsat: "0",
+    htlcMinimumMsat: '0',
     baseFee: 0,
     feeRate: 0,
-    htlcMaximumMsat: "0",
+    htlcMaximumMsat: '0',
     extraOpaqueData: new Uint8Array(),
   };
 }
@@ -24453,50 +25500,62 @@ function createBaseChannelUpdate(): ChannelUpdate {
 export const ChannelUpdate = {
   encode(
     message: ChannelUpdate,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.signature.length !== 0) {
+    if (message.signature.length > 0) {
       writer.uint32(10).bytes(message.signature);
     }
-    if (message.chainHash.length !== 0) {
+
+    if (message.chainHash.length > 0) {
       writer.uint32(18).bytes(message.chainHash);
     }
-    if (message.chanId !== "0") {
+
+    if (message.chanId !== '0') {
       writer.uint32(24).uint64(message.chanId);
     }
+
     if (message.timestamp !== 0) {
       writer.uint32(32).uint32(message.timestamp);
     }
+
     if (message.messageFlags !== 0) {
       writer.uint32(80).uint32(message.messageFlags);
     }
+
     if (message.channelFlags !== 0) {
       writer.uint32(40).uint32(message.channelFlags);
     }
+
     if (message.timeLockDelta !== 0) {
       writer.uint32(48).uint32(message.timeLockDelta);
     }
-    if (message.htlcMinimumMsat !== "0") {
+
+    if (message.htlcMinimumMsat !== '0') {
       writer.uint32(56).uint64(message.htlcMinimumMsat);
     }
+
     if (message.baseFee !== 0) {
       writer.uint32(64).uint32(message.baseFee);
     }
+
     if (message.feeRate !== 0) {
       writer.uint32(72).uint32(message.feeRate);
     }
-    if (message.htlcMaximumMsat !== "0") {
+
+    if (message.htlcMaximumMsat !== '0') {
       writer.uint32(88).uint64(message.htlcMaximumMsat);
     }
-    if (message.extraOpaqueData.length !== 0) {
+
+    if (message.extraOpaqueData.length > 0) {
       writer.uint32(98).bytes(message.extraOpaqueData);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24542,6 +25601,7 @@ export const ChannelUpdate = {
           break;
       }
     }
+
     return message;
   },
 
@@ -24558,7 +25618,7 @@ export const ChannelUpdate = {
     message.chanId =
       object.chanId !== undefined && object.chanId !== null
         ? String(object.chanId)
-        : "0";
+        : '0';
     message.timestamp =
       object.timestamp !== undefined && object.timestamp !== null
         ? Number(object.timestamp)
@@ -24578,7 +25638,7 @@ export const ChannelUpdate = {
     message.htlcMinimumMsat =
       object.htlcMinimumMsat !== undefined && object.htlcMinimumMsat !== null
         ? String(object.htlcMinimumMsat)
-        : "0";
+        : '0';
     message.baseFee =
       object.baseFee !== undefined && object.baseFee !== null
         ? Number(object.baseFee)
@@ -24590,7 +25650,7 @@ export const ChannelUpdate = {
     message.htlcMaximumMsat =
       object.htlcMaximumMsat !== undefined && object.htlcMaximumMsat !== null
         ? String(object.htlcMaximumMsat)
-        : "0";
+        : '0';
     message.extraOpaqueData =
       object.extraOpaqueData !== undefined && object.extraOpaqueData !== null
         ? bytesFromBase64(object.extraOpaqueData)
@@ -24599,83 +25659,86 @@ export const ChannelUpdate = {
   },
 
   toJSON(message: ChannelUpdate): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.signature !== undefined &&
-      (obj.signature = base64FromBytes(
-        message.signature !== undefined ? message.signature : new Uint8Array()
+      (object.signature = base64FromBytes(
+        message.signature !== undefined ? message.signature : new Uint8Array(),
       ));
     message.chainHash !== undefined &&
-      (obj.chainHash = base64FromBytes(
-        message.chainHash !== undefined ? message.chainHash : new Uint8Array()
+      (object.chainHash = base64FromBytes(
+        message.chainHash !== undefined ? message.chainHash : new Uint8Array(),
       ));
-    message.chanId !== undefined && (obj.chanId = message.chanId);
+    message.chanId !== undefined && (object.chanId = message.chanId);
     message.timestamp !== undefined &&
-      (obj.timestamp = Math.round(message.timestamp));
+      (object.timestamp = Math.round(message.timestamp));
     message.messageFlags !== undefined &&
-      (obj.messageFlags = Math.round(message.messageFlags));
+      (object.messageFlags = Math.round(message.messageFlags));
     message.channelFlags !== undefined &&
-      (obj.channelFlags = Math.round(message.channelFlags));
+      (object.channelFlags = Math.round(message.channelFlags));
     message.timeLockDelta !== undefined &&
-      (obj.timeLockDelta = Math.round(message.timeLockDelta));
+      (object.timeLockDelta = Math.round(message.timeLockDelta));
     message.htlcMinimumMsat !== undefined &&
-      (obj.htlcMinimumMsat = message.htlcMinimumMsat);
+      (object.htlcMinimumMsat = message.htlcMinimumMsat);
     message.baseFee !== undefined &&
-      (obj.baseFee = Math.round(message.baseFee));
+      (object.baseFee = Math.round(message.baseFee));
     message.feeRate !== undefined &&
-      (obj.feeRate = Math.round(message.feeRate));
+      (object.feeRate = Math.round(message.feeRate));
     message.htlcMaximumMsat !== undefined &&
-      (obj.htlcMaximumMsat = message.htlcMaximumMsat);
+      (object.htlcMaximumMsat = message.htlcMaximumMsat);
     message.extraOpaqueData !== undefined &&
-      (obj.extraOpaqueData = base64FromBytes(
+      (object.extraOpaqueData = base64FromBytes(
         message.extraOpaqueData !== undefined
           ? message.extraOpaqueData
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<ChannelUpdate>): ChannelUpdate {
     const message = createBaseChannelUpdate();
     message.signature = object.signature ?? new Uint8Array();
     message.chainHash = object.chainHash ?? new Uint8Array();
-    message.chanId = object.chanId ?? "0";
+    message.chanId = object.chanId ?? '0';
     message.timestamp = object.timestamp ?? 0;
     message.messageFlags = object.messageFlags ?? 0;
     message.channelFlags = object.channelFlags ?? 0;
     message.timeLockDelta = object.timeLockDelta ?? 0;
-    message.htlcMinimumMsat = object.htlcMinimumMsat ?? "0";
+    message.htlcMinimumMsat = object.htlcMinimumMsat ?? '0';
     message.baseFee = object.baseFee ?? 0;
     message.feeRate = object.feeRate ?? 0;
-    message.htlcMaximumMsat = object.htlcMaximumMsat ?? "0";
+    message.htlcMaximumMsat = object.htlcMaximumMsat ?? '0';
     message.extraOpaqueData = object.extraOpaqueData ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseMacaroonId(): MacaroonId {
-  return { nonce: new Uint8Array(), storageId: new Uint8Array(), ops: [] };
+  return {nonce: new Uint8Array(), storageId: new Uint8Array(), ops: []};
 }
 
 export const MacaroonId = {
   encode(
     message: MacaroonId,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.nonce.length !== 0) {
+    if (message.nonce.length > 0) {
       writer.uint32(10).bytes(message.nonce);
     }
-    if (message.storageId.length !== 0) {
+
+    if (message.storageId.length > 0) {
       writer.uint32(18).bytes(message.storageId);
     }
+
     for (const v of message.ops) {
-      Op.encode(v!, writer.uint32(26).fork()).ldelim();
+      Op.encode(v, writer.uint32(26).fork()).ldelim();
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MacaroonId {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMacaroonId();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24694,6 +25757,7 @@ export const MacaroonId = {
           break;
       }
     }
+
     return message;
   },
 
@@ -24712,21 +25776,19 @@ export const MacaroonId = {
   },
 
   toJSON(message: MacaroonId): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.nonce !== undefined &&
-      (obj.nonce = base64FromBytes(
-        message.nonce !== undefined ? message.nonce : new Uint8Array()
+      (object.nonce = base64FromBytes(
+        message.nonce !== undefined ? message.nonce : new Uint8Array(),
       ));
     message.storageId !== undefined &&
-      (obj.storageId = base64FromBytes(
-        message.storageId !== undefined ? message.storageId : new Uint8Array()
+      (object.storageId = base64FromBytes(
+        message.storageId !== undefined ? message.storageId : new Uint8Array(),
       ));
-    if (message.ops) {
-      obj.ops = message.ops.map((e) => (e ? Op.toJSON(e) : undefined));
-    } else {
-      obj.ops = [];
-    }
-    return obj;
+    object.ops = message.ops
+      ? message.ops.map((e) => (e ? Op.toJSON(e) : undefined))
+      : [];
+    return object;
   },
 
   fromPartial(object: DeepPartial<MacaroonId>): MacaroonId {
@@ -24739,23 +25801,25 @@ export const MacaroonId = {
 };
 
 function createBaseOp(): Op {
-  return { entity: "", actions: [] };
+  return {entity: '', actions: []};
 }
 
 export const Op = {
   encode(message: Op, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.entity !== "") {
+    if (message.entity !== '') {
       writer.uint32(10).string(message.entity);
     }
+
     for (const v of message.actions) {
-      writer.uint32(18).string(v!);
+      writer.uint32(18).string(v);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Op {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOp();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24771,6 +25835,7 @@ export const Op = {
           break;
       }
     }
+
     return message;
   },
 
@@ -24779,54 +25844,53 @@ export const Op = {
     message.entity =
       object.entity !== undefined && object.entity !== null
         ? String(object.entity)
-        : "";
+        : '';
     message.actions = (object.actions ?? []).map((e: any) => String(e));
     return message;
   },
 
   toJSON(message: Op): unknown {
-    const obj: any = {};
-    message.entity !== undefined && (obj.entity = message.entity);
-    if (message.actions) {
-      obj.actions = message.actions.map((e) => e);
-    } else {
-      obj.actions = [];
-    }
-    return obj;
+    const object: any = {};
+    message.entity !== undefined && (object.entity = message.entity);
+    object.actions = message.actions ? message.actions.map((e) => e) : [];
+    return object;
   },
 
   fromPartial(object: DeepPartial<Op>): Op {
     const message = createBaseOp();
-    message.entity = object.entity ?? "";
+    message.entity = object.entity ?? '';
     message.actions = object.actions?.map((e) => e) || [];
     return message;
   },
 };
 
 function createBaseCheckMacPermRequest(): CheckMacPermRequest {
-  return { macaroon: new Uint8Array(), permissions: [], fullMethod: "" };
+  return {macaroon: new Uint8Array(), permissions: [], fullMethod: ''};
 }
 
 export const CheckMacPermRequest = {
   encode(
     message: CheckMacPermRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.macaroon.length !== 0) {
+    if (message.macaroon.length > 0) {
       writer.uint32(10).bytes(message.macaroon);
     }
+
     for (const v of message.permissions) {
-      MacaroonPermission.encode(v!, writer.uint32(18).fork()).ldelim();
+      MacaroonPermission.encode(v, writer.uint32(18).fork()).ldelim();
     }
-    if (message.fullMethod !== "") {
+
+    if (message.fullMethod !== '') {
       writer.uint32(26).string(message.fullMethod);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CheckMacPermRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCheckMacPermRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24836,7 +25900,7 @@ export const CheckMacPermRequest = {
           break;
         case 2:
           message.permissions.push(
-            MacaroonPermission.decode(reader, reader.uint32())
+            MacaroonPermission.decode(reader, reader.uint32()),
           );
           break;
         case 3:
@@ -24847,6 +25911,7 @@ export const CheckMacPermRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -24857,30 +25922,32 @@ export const CheckMacPermRequest = {
         ? bytesFromBase64(object.macaroon)
         : new Uint8Array();
     message.permissions = (object.permissions ?? []).map((e: any) =>
-      MacaroonPermission.fromJSON(e)
+      MacaroonPermission.fromJSON(e),
     );
     message.fullMethod =
       object.fullMethod !== undefined && object.fullMethod !== null
         ? String(object.fullMethod)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: CheckMacPermRequest): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.macaroon !== undefined &&
-      (obj.macaroon = base64FromBytes(
-        message.macaroon !== undefined ? message.macaroon : new Uint8Array()
+      (object.macaroon = base64FromBytes(
+        message.macaroon !== undefined ? message.macaroon : new Uint8Array(),
       ));
     if (message.permissions) {
-      obj.permissions = message.permissions.map((e) =>
-        e ? MacaroonPermission.toJSON(e) : undefined
+      object.permissions = message.permissions.map((e) =>
+        e ? MacaroonPermission.toJSON(e) : undefined,
       );
     } else {
-      obj.permissions = [];
+      object.permissions = [];
     }
-    message.fullMethod !== undefined && (obj.fullMethod = message.fullMethod);
-    return obj;
+
+    message.fullMethod !== undefined &&
+      (object.fullMethod = message.fullMethod);
+    return object;
   },
 
   fromPartial(object: DeepPartial<CheckMacPermRequest>): CheckMacPermRequest {
@@ -24888,32 +25955,33 @@ export const CheckMacPermRequest = {
     message.macaroon = object.macaroon ?? new Uint8Array();
     message.permissions =
       object.permissions?.map((e) => MacaroonPermission.fromPartial(e)) || [];
-    message.fullMethod = object.fullMethod ?? "";
+    message.fullMethod = object.fullMethod ?? '';
     return message;
   },
 };
 
 function createBaseCheckMacPermResponse(): CheckMacPermResponse {
-  return { valid: false };
+  return {valid: false};
 }
 
 export const CheckMacPermResponse = {
   encode(
     message: CheckMacPermResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.valid === true) {
+    if (message.valid) {
       writer.uint32(8).bool(message.valid);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): CheckMacPermResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCheckMacPermResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24926,6 +25994,7 @@ export const CheckMacPermResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -24939,9 +26008,9 @@ export const CheckMacPermResponse = {
   },
 
   toJSON(message: CheckMacPermResponse): unknown {
-    const obj: any = {};
-    message.valid !== undefined && (obj.valid = message.valid);
-    return obj;
+    const object: any = {};
+    message.valid !== undefined && (object.valid = message.valid);
+    return object;
   },
 
   fromPartial(object: DeepPartial<CheckMacPermResponse>): CheckMacPermResponse {
@@ -24953,51 +26022,58 @@ export const CheckMacPermResponse = {
 
 function createBaseRPCMiddlewareRequest(): RPCMiddlewareRequest {
   return {
-    requestId: "0",
+    requestId: '0',
     rawMacaroon: new Uint8Array(),
-    customCaveatCondition: "",
+    customCaveatCondition: '',
     streamAuth: undefined,
     request: undefined,
     response: undefined,
-    msgId: "0",
+    msgId: '0',
   };
 }
 
 export const RPCMiddlewareRequest = {
   encode(
     message: RPCMiddlewareRequest,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.requestId !== "0") {
+    if (message.requestId !== '0') {
       writer.uint32(8).uint64(message.requestId);
     }
-    if (message.rawMacaroon.length !== 0) {
+
+    if (message.rawMacaroon.length > 0) {
       writer.uint32(18).bytes(message.rawMacaroon);
     }
-    if (message.customCaveatCondition !== "") {
+
+    if (message.customCaveatCondition !== '') {
       writer.uint32(26).string(message.customCaveatCondition);
     }
+
     if (message.streamAuth !== undefined) {
       StreamAuth.encode(message.streamAuth, writer.uint32(34).fork()).ldelim();
     }
+
     if (message.request !== undefined) {
       RPCMessage.encode(message.request, writer.uint32(42).fork()).ldelim();
     }
+
     if (message.response !== undefined) {
       RPCMessage.encode(message.response, writer.uint32(50).fork()).ldelim();
     }
-    if (message.msgId !== "0") {
+
+    if (message.msgId !== '0') {
       writer.uint32(56).uint64(message.msgId);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): RPCMiddlewareRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRPCMiddlewareRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25028,6 +26104,7 @@ export const RPCMiddlewareRequest = {
           break;
       }
     }
+
     return message;
   },
 
@@ -25036,7 +26113,7 @@ export const RPCMiddlewareRequest = {
     message.requestId =
       object.requestId !== undefined && object.requestId !== null
         ? String(object.requestId)
-        : "0";
+        : '0';
     message.rawMacaroon =
       object.rawMacaroon !== undefined && object.rawMacaroon !== null
         ? bytesFromBase64(object.rawMacaroon)
@@ -25045,7 +26122,7 @@ export const RPCMiddlewareRequest = {
       object.customCaveatCondition !== undefined &&
       object.customCaveatCondition !== null
         ? String(object.customCaveatCondition)
-        : "";
+        : '';
     message.streamAuth =
       object.streamAuth !== undefined && object.streamAuth !== null
         ? StreamAuth.fromJSON(object.streamAuth)
@@ -25061,42 +26138,42 @@ export const RPCMiddlewareRequest = {
     message.msgId =
       object.msgId !== undefined && object.msgId !== null
         ? String(object.msgId)
-        : "0";
+        : '0';
     return message;
   },
 
   toJSON(message: RPCMiddlewareRequest): unknown {
-    const obj: any = {};
-    message.requestId !== undefined && (obj.requestId = message.requestId);
+    const object: any = {};
+    message.requestId !== undefined && (object.requestId = message.requestId);
     message.rawMacaroon !== undefined &&
-      (obj.rawMacaroon = base64FromBytes(
+      (object.rawMacaroon = base64FromBytes(
         message.rawMacaroon !== undefined
           ? message.rawMacaroon
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
     message.customCaveatCondition !== undefined &&
-      (obj.customCaveatCondition = message.customCaveatCondition);
+      (object.customCaveatCondition = message.customCaveatCondition);
     message.streamAuth !== undefined &&
-      (obj.streamAuth = message.streamAuth
+      (object.streamAuth = message.streamAuth
         ? StreamAuth.toJSON(message.streamAuth)
         : undefined);
     message.request !== undefined &&
-      (obj.request = message.request
+      (object.request = message.request
         ? RPCMessage.toJSON(message.request)
         : undefined);
     message.response !== undefined &&
-      (obj.response = message.response
+      (object.response = message.response
         ? RPCMessage.toJSON(message.response)
         : undefined);
-    message.msgId !== undefined && (obj.msgId = message.msgId);
-    return obj;
+    message.msgId !== undefined && (object.msgId = message.msgId);
+    return object;
   },
 
   fromPartial(object: DeepPartial<RPCMiddlewareRequest>): RPCMiddlewareRequest {
     const message = createBaseRPCMiddlewareRequest();
-    message.requestId = object.requestId ?? "0";
+    message.requestId = object.requestId ?? '0';
     message.rawMacaroon = object.rawMacaroon ?? new Uint8Array();
-    message.customCaveatCondition = object.customCaveatCondition ?? "";
+    message.customCaveatCondition = object.customCaveatCondition ?? '';
     message.streamAuth =
       object.streamAuth !== undefined && object.streamAuth !== null
         ? StreamAuth.fromPartial(object.streamAuth)
@@ -25109,29 +26186,30 @@ export const RPCMiddlewareRequest = {
       object.response !== undefined && object.response !== null
         ? RPCMessage.fromPartial(object.response)
         : undefined;
-    message.msgId = object.msgId ?? "0";
+    message.msgId = object.msgId ?? '0';
     return message;
   },
 };
 
 function createBaseStreamAuth(): StreamAuth {
-  return { methodFullUri: "" };
+  return {methodFullUri: ''};
 }
 
 export const StreamAuth = {
   encode(
     message: StreamAuth,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.methodFullUri !== "") {
+    if (message.methodFullUri !== '') {
       writer.uint32(10).string(message.methodFullUri);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StreamAuth {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStreamAuth();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25144,6 +26222,7 @@ export const StreamAuth = {
           break;
       }
     }
+
     return message;
   },
 
@@ -25152,29 +26231,29 @@ export const StreamAuth = {
     message.methodFullUri =
       object.methodFullUri !== undefined && object.methodFullUri !== null
         ? String(object.methodFullUri)
-        : "";
+        : '';
     return message;
   },
 
   toJSON(message: StreamAuth): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.methodFullUri !== undefined &&
-      (obj.methodFullUri = message.methodFullUri);
-    return obj;
+      (object.methodFullUri = message.methodFullUri);
+    return object;
   },
 
   fromPartial(object: DeepPartial<StreamAuth>): StreamAuth {
     const message = createBaseStreamAuth();
-    message.methodFullUri = object.methodFullUri ?? "";
+    message.methodFullUri = object.methodFullUri ?? '';
     return message;
   },
 };
 
 function createBaseRPCMessage(): RPCMessage {
   return {
-    methodFullUri: "",
+    methodFullUri: '',
     streamRpc: false,
-    typeName: "",
+    typeName: '',
     serialized: new Uint8Array(),
   };
 }
@@ -25182,26 +26261,30 @@ function createBaseRPCMessage(): RPCMessage {
 export const RPCMessage = {
   encode(
     message: RPCMessage,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.methodFullUri !== "") {
+    if (message.methodFullUri !== '') {
       writer.uint32(10).string(message.methodFullUri);
     }
-    if (message.streamRpc === true) {
+
+    if (message.streamRpc) {
       writer.uint32(16).bool(message.streamRpc);
     }
-    if (message.typeName !== "") {
+
+    if (message.typeName !== '') {
       writer.uint32(26).string(message.typeName);
     }
-    if (message.serialized.length !== 0) {
+
+    if (message.serialized.length > 0) {
       writer.uint32(34).bytes(message.serialized);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): RPCMessage {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRPCMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25223,6 +26306,7 @@ export const RPCMessage = {
           break;
       }
     }
+
     return message;
   },
 
@@ -25231,7 +26315,7 @@ export const RPCMessage = {
     message.methodFullUri =
       object.methodFullUri !== undefined && object.methodFullUri !== null
         ? String(object.methodFullUri)
-        : "";
+        : '';
     message.streamRpc =
       object.streamRpc !== undefined && object.streamRpc !== null
         ? Boolean(object.streamRpc)
@@ -25239,7 +26323,7 @@ export const RPCMessage = {
     message.typeName =
       object.typeName !== undefined && object.typeName !== null
         ? String(object.typeName)
-        : "";
+        : '';
     message.serialized =
       object.serialized !== undefined && object.serialized !== null
         ? bytesFromBase64(object.serialized)
@@ -25248,61 +26332,66 @@ export const RPCMessage = {
   },
 
   toJSON(message: RPCMessage): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.methodFullUri !== undefined &&
-      (obj.methodFullUri = message.methodFullUri);
-    message.streamRpc !== undefined && (obj.streamRpc = message.streamRpc);
-    message.typeName !== undefined && (obj.typeName = message.typeName);
+      (object.methodFullUri = message.methodFullUri);
+    message.streamRpc !== undefined && (object.streamRpc = message.streamRpc);
+    message.typeName !== undefined && (object.typeName = message.typeName);
     message.serialized !== undefined &&
-      (obj.serialized = base64FromBytes(
-        message.serialized !== undefined ? message.serialized : new Uint8Array()
+      (object.serialized = base64FromBytes(
+        message.serialized !== undefined
+          ? message.serialized
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<RPCMessage>): RPCMessage {
     const message = createBaseRPCMessage();
-    message.methodFullUri = object.methodFullUri ?? "";
+    message.methodFullUri = object.methodFullUri ?? '';
     message.streamRpc = object.streamRpc ?? false;
-    message.typeName = object.typeName ?? "";
+    message.typeName = object.typeName ?? '';
     message.serialized = object.serialized ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseRPCMiddlewareResponse(): RPCMiddlewareResponse {
-  return { refMsgId: "0", register: undefined, feedback: undefined };
+  return {refMsgId: '0', register: undefined, feedback: undefined};
 }
 
 export const RPCMiddlewareResponse = {
   encode(
     message: RPCMiddlewareResponse,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.refMsgId !== "0") {
+    if (message.refMsgId !== '0') {
       writer.uint32(8).uint64(message.refMsgId);
     }
+
     if (message.register !== undefined) {
       MiddlewareRegistration.encode(
         message.register,
-        writer.uint32(18).fork()
+        writer.uint32(18).fork(),
       ).ldelim();
     }
+
     if (message.feedback !== undefined) {
       InterceptFeedback.encode(
         message.feedback,
-        writer.uint32(26).fork()
+        writer.uint32(26).fork(),
       ).ldelim();
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): RPCMiddlewareResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRPCMiddlewareResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25313,7 +26402,7 @@ export const RPCMiddlewareResponse = {
         case 2:
           message.register = MiddlewareRegistration.decode(
             reader,
-            reader.uint32()
+            reader.uint32(),
           );
           break;
         case 3:
@@ -25324,6 +26413,7 @@ export const RPCMiddlewareResponse = {
           break;
       }
     }
+
     return message;
   },
 
@@ -25332,7 +26422,7 @@ export const RPCMiddlewareResponse = {
     message.refMsgId =
       object.refMsgId !== undefined && object.refMsgId !== null
         ? String(object.refMsgId)
-        : "0";
+        : '0';
     message.register =
       object.register !== undefined && object.register !== null
         ? MiddlewareRegistration.fromJSON(object.register)
@@ -25345,24 +26435,24 @@ export const RPCMiddlewareResponse = {
   },
 
   toJSON(message: RPCMiddlewareResponse): unknown {
-    const obj: any = {};
-    message.refMsgId !== undefined && (obj.refMsgId = message.refMsgId);
+    const object: any = {};
+    message.refMsgId !== undefined && (object.refMsgId = message.refMsgId);
     message.register !== undefined &&
-      (obj.register = message.register
+      (object.register = message.register
         ? MiddlewareRegistration.toJSON(message.register)
         : undefined);
     message.feedback !== undefined &&
-      (obj.feedback = message.feedback
+      (object.feedback = message.feedback
         ? InterceptFeedback.toJSON(message.feedback)
         : undefined);
-    return obj;
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<RPCMiddlewareResponse>
+    object: DeepPartial<RPCMiddlewareResponse>,
   ): RPCMiddlewareResponse {
     const message = createBaseRPCMiddlewareResponse();
-    message.refMsgId = object.refMsgId ?? "0";
+    message.refMsgId = object.refMsgId ?? '0';
     message.register =
       object.register !== undefined && object.register !== null
         ? MiddlewareRegistration.fromPartial(object.register)
@@ -25377,8 +26467,8 @@ export const RPCMiddlewareResponse = {
 
 function createBaseMiddlewareRegistration(): MiddlewareRegistration {
   return {
-    middlewareName: "",
-    customMacaroonCaveatName: "",
+    middlewareName: '',
+    customMacaroonCaveatName: '',
     readOnlyMode: false,
   };
 }
@@ -25386,26 +26476,29 @@ function createBaseMiddlewareRegistration(): MiddlewareRegistration {
 export const MiddlewareRegistration = {
   encode(
     message: MiddlewareRegistration,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.middlewareName !== "") {
+    if (message.middlewareName !== '') {
       writer.uint32(10).string(message.middlewareName);
     }
-    if (message.customMacaroonCaveatName !== "") {
+
+    if (message.customMacaroonCaveatName !== '') {
       writer.uint32(18).string(message.customMacaroonCaveatName);
     }
-    if (message.readOnlyMode === true) {
+
+    if (message.readOnlyMode) {
       writer.uint32(24).bool(message.readOnlyMode);
     }
+
     return writer;
   },
 
   decode(
     input: _m0.Reader | Uint8Array,
-    length?: number
+    length?: number,
   ): MiddlewareRegistration {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMiddlewareRegistration();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25424,6 +26517,7 @@ export const MiddlewareRegistration = {
           break;
       }
     }
+
     return message;
   },
 
@@ -25432,12 +26526,12 @@ export const MiddlewareRegistration = {
     message.middlewareName =
       object.middlewareName !== undefined && object.middlewareName !== null
         ? String(object.middlewareName)
-        : "";
+        : '';
     message.customMacaroonCaveatName =
       object.customMacaroonCaveatName !== undefined &&
       object.customMacaroonCaveatName !== null
         ? String(object.customMacaroonCaveatName)
-        : "";
+        : '';
     message.readOnlyMode =
       object.readOnlyMode !== undefined && object.readOnlyMode !== null
         ? Boolean(object.readOnlyMode)
@@ -25446,22 +26540,22 @@ export const MiddlewareRegistration = {
   },
 
   toJSON(message: MiddlewareRegistration): unknown {
-    const obj: any = {};
+    const object: any = {};
     message.middlewareName !== undefined &&
-      (obj.middlewareName = message.middlewareName);
+      (object.middlewareName = message.middlewareName);
     message.customMacaroonCaveatName !== undefined &&
-      (obj.customMacaroonCaveatName = message.customMacaroonCaveatName);
+      (object.customMacaroonCaveatName = message.customMacaroonCaveatName);
     message.readOnlyMode !== undefined &&
-      (obj.readOnlyMode = message.readOnlyMode);
-    return obj;
+      (object.readOnlyMode = message.readOnlyMode);
+    return object;
   },
 
   fromPartial(
-    object: DeepPartial<MiddlewareRegistration>
+    object: DeepPartial<MiddlewareRegistration>,
   ): MiddlewareRegistration {
     const message = createBaseMiddlewareRegistration();
-    message.middlewareName = object.middlewareName ?? "";
-    message.customMacaroonCaveatName = object.customMacaroonCaveatName ?? "";
+    message.middlewareName = object.middlewareName ?? '';
+    message.customMacaroonCaveatName = object.customMacaroonCaveatName ?? '';
     message.readOnlyMode = object.readOnlyMode ?? false;
     return message;
   },
@@ -25469,7 +26563,7 @@ export const MiddlewareRegistration = {
 
 function createBaseInterceptFeedback(): InterceptFeedback {
   return {
-    error: "",
+    error: '',
     replaceResponse: false,
     replacementSerialized: new Uint8Array(),
   };
@@ -25478,23 +26572,26 @@ function createBaseInterceptFeedback(): InterceptFeedback {
 export const InterceptFeedback = {
   encode(
     message: InterceptFeedback,
-    writer: _m0.Writer = _m0.Writer.create()
+    writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.error !== "") {
+    if (message.error !== '') {
       writer.uint32(10).string(message.error);
     }
-    if (message.replaceResponse === true) {
+
+    if (message.replaceResponse) {
       writer.uint32(16).bool(message.replaceResponse);
     }
-    if (message.replacementSerialized.length !== 0) {
+
+    if (message.replacementSerialized.length > 0) {
       writer.uint32(26).bytes(message.replacementSerialized);
     }
+
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InterceptFeedback {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    let end = length === undefined ? reader.len : reader.pos + length;
+    const end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInterceptFeedback();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25513,6 +26610,7 @@ export const InterceptFeedback = {
           break;
       }
     }
+
     return message;
   },
 
@@ -25521,7 +26619,7 @@ export const InterceptFeedback = {
     message.error =
       object.error !== undefined && object.error !== null
         ? String(object.error)
-        : "";
+        : '';
     message.replaceResponse =
       object.replaceResponse !== undefined && object.replaceResponse !== null
         ? Boolean(object.replaceResponse)
@@ -25535,22 +26633,22 @@ export const InterceptFeedback = {
   },
 
   toJSON(message: InterceptFeedback): unknown {
-    const obj: any = {};
-    message.error !== undefined && (obj.error = message.error);
+    const object: any = {};
+    message.error !== undefined && (object.error = message.error);
     message.replaceResponse !== undefined &&
-      (obj.replaceResponse = message.replaceResponse);
+      (object.replaceResponse = message.replaceResponse);
     message.replacementSerialized !== undefined &&
-      (obj.replacementSerialized = base64FromBytes(
+      (object.replacementSerialized = base64FromBytes(
         message.replacementSerialized !== undefined
           ? message.replacementSerialized
-          : new Uint8Array()
+          : new Uint8Array(),
       ));
-    return obj;
+    return object;
   },
 
   fromPartial(object: DeepPartial<InterceptFeedback>): InterceptFeedback {
     const message = createBaseInterceptFeedback();
-    message.error = object.error ?? "";
+    message.error = object.error ?? '';
     message.replaceResponse = object.replaceResponse ?? false;
     message.replacementSerialized =
       object.replacementSerialized ?? new Uint8Array();
@@ -25560,17 +26658,17 @@ export const InterceptFeedback = {
 
 /** Lightning is the main RPC server of the daemon. */
 export const LightningDefinition = {
-  name: "Lightning",
-  fullName: "lnrpc.Lightning",
+  name: 'Lightning',
+  fullName: 'lnrpc.Lightning',
   methods: {
     /**
-     * lncli: `walletbalance`
+     * Lncli: `walletbalance`
      * WalletBalance returns total unspent outputs(confirmed and unconfirmed), all
      * confirmed unspent outputs and all unconfirmed unspent outputs under control
      * of the wallet.
      */
     walletBalance: {
-      name: "WalletBalance",
+      name: 'WalletBalance',
       requestType: WalletBalanceRequest,
       requestStream: false,
       responseType: WalletBalanceResponse,
@@ -25578,13 +26676,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `channelbalance`
+     * Lncli: `channelbalance`
      * ChannelBalance returns a report on the total funds across all open channels,
      * categorized in local/remote, pending local/remote and unsettled local/remote
      * balances.
      */
     channelBalance: {
-      name: "ChannelBalance",
+      name: 'ChannelBalance',
       requestType: ChannelBalanceRequest,
       requestStream: false,
       responseType: ChannelBalanceResponse,
@@ -25592,12 +26690,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `listchaintxns`
+     * Lncli: `listchaintxns`
      * GetTransactions returns a list describing all the known transactions
      * relevant to the wallet.
      */
     getTransactions: {
-      name: "GetTransactions",
+      name: 'GetTransactions',
       requestType: GetTransactionsRequest,
       requestStream: false,
       responseType: TransactionDetails,
@@ -25605,7 +26703,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `estimatefee`
+     * Lncli: `estimatefee`
      * EstimateFee asks the chain backend to estimate the fee rate and total fees
      * for a transaction that pays to multiple specified outputs.
      *
@@ -25615,7 +26713,7 @@ export const LightningDefinition = {
      * the grpc-gateway library.
      */
     estimateFee: {
-      name: "EstimateFee",
+      name: 'EstimateFee',
       requestType: EstimateFeeRequest,
       requestStream: false,
       responseType: EstimateFeeResponse,
@@ -25623,7 +26721,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `sendcoins`
+     * Lncli: `sendcoins`
      * SendCoins executes a request to send coins to a particular address. Unlike
      * SendMany, this RPC call only allows creating a single output at a time. If
      * neither target_conf, or sat_per_vbyte are set, then the internal wallet will
@@ -25631,7 +26729,7 @@ export const LightningDefinition = {
      * target.
      */
     sendCoins: {
-      name: "SendCoins",
+      name: 'SendCoins',
       requestType: SendCoinsRequest,
       requestStream: false,
       responseType: SendCoinsResponse,
@@ -25639,14 +26737,14 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `listunspent`
+     * Lncli: `listunspent`
      * Deprecated, use walletrpc.ListUnspent instead.
      *
      * ListUnspent returns a list of all utxos spendable by the wallet with a
      * number of confirmations between the specified minimum and maximum.
      */
     listUnspent: {
-      name: "ListUnspent",
+      name: 'ListUnspent',
       requestType: ListUnspentRequest,
       requestStream: false,
       responseType: ListUnspentResponse,
@@ -25659,7 +26757,7 @@ export const LightningDefinition = {
      * wallet are sent over.
      */
     subscribeTransactions: {
-      name: "SubscribeTransactions",
+      name: 'SubscribeTransactions',
       requestType: GetTransactionsRequest,
       requestStream: false,
       responseType: Transaction,
@@ -25667,14 +26765,14 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `sendmany`
+     * Lncli: `sendmany`
      * SendMany handles a request for a transaction that creates multiple specified
      * outputs in parallel. If neither target_conf, or sat_per_vbyte are set, then
      * the internal wallet will consult its fee model to determine a fee for the
      * default confirmation target.
      */
     sendMany: {
-      name: "SendMany",
+      name: 'SendMany',
       requestType: SendManyRequest,
       requestStream: false,
       responseType: SendManyResponse,
@@ -25682,11 +26780,11 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `newaddress`
+     * Lncli: `newaddress`
      * NewAddress creates a new address under control of the local wallet.
      */
     newAddress: {
-      name: "NewAddress",
+      name: 'NewAddress',
       requestType: NewAddressRequest,
       requestStream: false,
       responseType: NewAddressResponse,
@@ -25694,13 +26792,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `signmessage`
+     * Lncli: `signmessage`
      * SignMessage signs a message with this node's private key. The returned
      * signature string is `zbase32` encoded and pubkey recoverable, meaning that
      * only the message digest and signature are needed for verification.
      */
     signMessage: {
-      name: "SignMessage",
+      name: 'SignMessage',
       requestType: SignMessageRequest,
       requestStream: false,
       responseType: SignMessageResponse,
@@ -25708,14 +26806,14 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `verifymessage`
+     * Lncli: `verifymessage`
      * VerifyMessage verifies a signature over a msg. The signature must be
      * zbase32 encoded and signed by an active node in the resident node's
      * channel database. In addition to returning the validity of the signature,
      * VerifyMessage also returns the recovered pubkey from the signature.
      */
     verifyMessage: {
-      name: "VerifyMessage",
+      name: 'VerifyMessage',
       requestType: VerifyMessageRequest,
       requestStream: false,
       responseType: VerifyMessageResponse,
@@ -25723,13 +26821,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `connect`
+     * Lncli: `connect`
      * ConnectPeer attempts to establish a connection to a remote peer. This is at
      * the networking level, and is used for communication between nodes. This is
      * distinct from establishing a channel with a peer.
      */
     connectPeer: {
-      name: "ConnectPeer",
+      name: 'ConnectPeer',
       requestType: ConnectPeerRequest,
       requestStream: false,
       responseType: ConnectPeerResponse,
@@ -25737,13 +26835,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `disconnect`
+     * Lncli: `disconnect`
      * DisconnectPeer attempts to disconnect one peer from another identified by a
      * given pubKey. In the case that we currently have a pending or active channel
      * with the target peer, then this action will be not be allowed.
      */
     disconnectPeer: {
-      name: "DisconnectPeer",
+      name: 'DisconnectPeer',
       requestType: DisconnectPeerRequest,
       requestStream: false,
       responseType: DisconnectPeerResponse,
@@ -25751,11 +26849,11 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `listpeers`
+     * Lncli: `listpeers`
      * ListPeers returns a verbose listing of all currently active peers.
      */
     listPeers: {
-      name: "ListPeers",
+      name: 'ListPeers',
       requestType: ListPeersRequest,
       requestStream: false,
       responseType: ListPeersResponse,
@@ -25768,7 +26866,7 @@ export const LightningDefinition = {
      * over. Events include peers going online and offline.
      */
     subscribePeerEvents: {
-      name: "SubscribePeerEvents",
+      name: 'SubscribePeerEvents',
       requestType: PeerEventSubscription,
       requestStream: false,
       responseType: PeerEvent,
@@ -25776,13 +26874,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `getinfo`
+     * Lncli: `getinfo`
      * GetInfo returns general information concerning the lightning node including
      * it's identity pubkey, alias, the chains it is connected to, and information
      * concerning the number of open+pending channels.
      */
     getInfo: {
-      name: "GetInfo",
+      name: 'GetInfo',
       requestType: GetInfoRequest,
       requestStream: false,
       responseType: GetInfoResponse,
@@ -25790,13 +26888,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `getrecoveryinfo`
+     * Lncli: `getrecoveryinfo`
      * GetRecoveryInfo returns information concerning the recovery mode including
      * whether it's in a recovery mode, whether the recovery is finished, and the
      * progress made so far.
      */
     getRecoveryInfo: {
-      name: "GetRecoveryInfo",
+      name: 'GetRecoveryInfo',
       requestType: GetRecoveryInfoRequest,
       requestStream: false,
       responseType: GetRecoveryInfoResponse,
@@ -25804,14 +26902,14 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `pendingchannels`
+     * Lncli: `pendingchannels`
      * PendingChannels returns a list of all the channels that are currently
      * considered "pending". A channel is pending if it has finished the funding
      * workflow and is waiting for confirmations for the funding txn, or is in the
      * process of closure, either initiated cooperatively or non-cooperatively.
      */
     pendingChannels: {
-      name: "PendingChannels",
+      name: 'PendingChannels',
       requestType: PendingChannelsRequest,
       requestStream: false,
       responseType: PendingChannelsResponse,
@@ -25819,12 +26917,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `listchannels`
+     * Lncli: `listchannels`
      * ListChannels returns a description of all the open channels that this node
      * is a participant in.
      */
     listChannels: {
-      name: "ListChannels",
+      name: 'ListChannels',
       requestType: ListChannelsRequest,
       requestStream: false,
       responseType: ListChannelsResponse,
@@ -25838,7 +26936,7 @@ export const LightningDefinition = {
      * channels.
      */
     subscribeChannelEvents: {
-      name: "SubscribeChannelEvents",
+      name: 'SubscribeChannelEvents',
       requestType: ChannelEventSubscription,
       requestStream: false,
       responseType: ChannelEventUpdate,
@@ -25846,12 +26944,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `closedchannels`
+     * Lncli: `closedchannels`
      * ClosedChannels returns a description of all the closed channels that
      * this node was a participant in.
      */
     closedChannels: {
-      name: "ClosedChannels",
+      name: 'ClosedChannels',
       requestType: ClosedChannelsRequest,
       requestStream: false,
       responseType: ClosedChannelsResponse,
@@ -25865,7 +26963,7 @@ export const LightningDefinition = {
      * encoded strings.
      */
     openChannelSync: {
-      name: "OpenChannelSync",
+      name: 'OpenChannelSync',
       requestType: OpenChannelRequest,
       requestStream: false,
       responseType: ChannelPoint,
@@ -25873,7 +26971,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `openchannel`
+     * Lncli: `openchannel`
      * OpenChannel attempts to open a singly funded channel specified in the
      * request to a remote peer. Users are able to specify a target number of
      * blocks that the funding transaction should be confirmed in, or a manual fee
@@ -25884,7 +26982,7 @@ export const LightningDefinition = {
      * then be used to manually progress the channel funding flow.
      */
     openChannel: {
-      name: "OpenChannel",
+      name: 'OpenChannel',
       requestType: OpenChannelRequest,
       requestStream: false,
       responseType: OpenStatusUpdate,
@@ -25892,7 +26990,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `batchopenchannel`
+     * Lncli: `batchopenchannel`
      * BatchOpenChannel attempts to open multiple single-funded channels in a
      * single transaction in an atomic way. This means either all channel open
      * requests succeed at once or all attempts are aborted if any of them fail.
@@ -25900,7 +26998,7 @@ export const LightningDefinition = {
      * channels through the OpenChannel RPC.
      */
     batchOpenChannel: {
-      name: "BatchOpenChannel",
+      name: 'BatchOpenChannel',
       requestType: BatchOpenChannelRequest,
       requestStream: false,
       responseType: BatchOpenChannelResponse,
@@ -25918,7 +27016,7 @@ export const LightningDefinition = {
      * funding for partially complete funding transactions.
      */
     fundingStateStep: {
-      name: "FundingStateStep",
+      name: 'FundingStateStep',
       requestType: FundingTransitionMsg,
       requestStream: false,
       responseType: FundingStateStepResp,
@@ -25933,7 +27031,7 @@ export const LightningDefinition = {
      * through a single persistent connection.
      */
     channelAcceptor: {
-      name: "ChannelAcceptor",
+      name: 'ChannelAcceptor',
       requestType: ChannelAcceptResponse,
       requestStream: true,
       responseType: ChannelAcceptRequest,
@@ -25941,7 +27039,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `closechannel`
+     * Lncli: `closechannel`
      * CloseChannel attempts to close an active channel identified by its channel
      * outpoint (ChannelPoint). The actions of this method can additionally be
      * augmented to attempt a force close after a timeout period in the case of an
@@ -25951,7 +27049,7 @@ export const LightningDefinition = {
      * specified, then a default lax, block confirmation target is used.
      */
     closeChannel: {
-      name: "CloseChannel",
+      name: 'CloseChannel',
       requestType: CloseChannelRequest,
       requestStream: false,
       responseType: CloseStatusUpdate,
@@ -25959,7 +27057,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `abandonchannel`
+     * Lncli: `abandonchannel`
      * AbandonChannel removes all channel state from the database except for a
      * close summary. This method can be used to get rid of permanently unusable
      * channels due to bugs fixed in newer versions of lnd. This method can also be
@@ -25968,7 +27066,7 @@ export const LightningDefinition = {
      * build.
      */
     abandonChannel: {
-      name: "AbandonChannel",
+      name: 'AbandonChannel',
       requestType: AbandonChannelRequest,
       requestStream: false,
       responseType: AbandonChannelResponse,
@@ -25976,7 +27074,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `sendpayment`
+     * Lncli: `sendpayment`
      * Deprecated, use routerrpc.SendPaymentV2. SendPayment dispatches a
      * bi-directional streaming RPC for sending payments through the Lightning
      * Network. A single RPC invocation creates a persistent bi-directional
@@ -25986,7 +27084,7 @@ export const LightningDefinition = {
      * @deprecated
      */
     sendPayment: {
-      name: "SendPayment",
+      name: 'SendPayment',
       requestType: SendRequest,
       requestStream: true,
       responseType: SendResponse,
@@ -26000,7 +27098,7 @@ export const LightningDefinition = {
      * hash (if any) to be encoded as hex strings.
      */
     sendPaymentSync: {
-      name: "SendPaymentSync",
+      name: 'SendPaymentSync',
       requestType: SendRequest,
       requestStream: false,
       responseType: SendResponse,
@@ -26008,7 +27106,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `sendtoroute`
+     * Lncli: `sendtoroute`
      * Deprecated, use routerrpc.SendToRouteV2. SendToRoute is a bi-directional
      * streaming RPC for sending payment through the Lightning Network. This
      * method differs from SendPayment in that it allows users to specify a full
@@ -26018,7 +27116,7 @@ export const LightningDefinition = {
      * @deprecated
      */
     sendToRoute: {
-      name: "SendToRoute",
+      name: 'SendToRoute',
       requestType: SendToRouteRequest,
       requestStream: true,
       responseType: SendResponse,
@@ -26030,7 +27128,7 @@ export const LightningDefinition = {
      * until the payment either fails or succeeds.
      */
     sendToRouteSync: {
-      name: "SendToRouteSync",
+      name: 'SendToRouteSync',
       requestType: SendToRouteRequest,
       requestStream: false,
       responseType: SendResponse,
@@ -26038,13 +27136,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `addinvoice`
+     * Lncli: `addinvoice`
      * AddInvoice attempts to add a new invoice to the invoice database. Any
      * duplicated invoices are rejected, therefore all invoices *must* have a
      * unique payment preimage.
      */
     addInvoice: {
-      name: "AddInvoice",
+      name: 'AddInvoice',
       requestType: Invoice,
       requestStream: false,
       responseType: AddInvoiceResponse,
@@ -26052,7 +27150,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `listinvoices`
+     * Lncli: `listinvoices`
      * ListInvoices returns a list of all the invoices currently stored within the
      * database. Any active debug invoices are ignored. It has full support for
      * paginated responses, allowing users to query for specific invoices through
@@ -26062,7 +27160,7 @@ export const LightningDefinition = {
      * Backwards pagination is also supported through the Reversed flag.
      */
     listInvoices: {
-      name: "ListInvoices",
+      name: 'ListInvoices',
       requestType: ListInvoiceRequest,
       requestStream: false,
       responseType: ListInvoiceResponse,
@@ -26070,13 +27168,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `lookupinvoice`
+     * Lncli: `lookupinvoice`
      * LookupInvoice attempts to look up an invoice according to its payment hash.
      * The passed payment hash *must* be exactly 32 bytes, if not, an error is
      * returned.
      */
     lookupInvoice: {
-      name: "LookupInvoice",
+      name: 'LookupInvoice',
       requestType: PaymentHash,
       requestStream: false,
       responseType: Invoice,
@@ -26095,7 +27193,7 @@ export const LightningDefinition = {
      * the latest add/settle events.
      */
     subscribeInvoices: {
-      name: "SubscribeInvoices",
+      name: 'SubscribeInvoices',
       requestType: InvoiceSubscription,
       requestStream: false,
       responseType: Invoice,
@@ -26103,13 +27201,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `decodepayreq`
+     * Lncli: `decodepayreq`
      * DecodePayReq takes an encoded payment request string and attempts to decode
      * it, returning a full description of the conditions encoded within the
      * payment request.
      */
     decodePayReq: {
-      name: "DecodePayReq",
+      name: 'DecodePayReq',
       requestType: PayReqString,
       requestStream: false,
       responseType: PayReq,
@@ -26117,11 +27215,11 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `listpayments`
+     * Lncli: `listpayments`
      * ListPayments returns a list of all outgoing payments.
      */
     listPayments: {
-      name: "ListPayments",
+      name: 'ListPayments',
       requestType: ListPaymentsRequest,
       requestStream: false,
       responseType: ListPaymentsResponse,
@@ -26133,7 +27231,7 @@ export const LightningDefinition = {
      * attempt to delete an In-Flight payment, since that would be unsafe.
      */
     deletePayment: {
-      name: "DeletePayment",
+      name: 'DeletePayment',
       requestType: DeletePaymentRequest,
       requestStream: false,
       responseType: DeletePaymentResponse,
@@ -26145,7 +27243,7 @@ export const LightningDefinition = {
      * not attempt to delete In-Flight payments, since that would be unsafe.
      */
     deleteAllPayments: {
-      name: "DeleteAllPayments",
+      name: 'DeleteAllPayments',
       requestType: DeleteAllPaymentsRequest,
       requestStream: false,
       responseType: DeleteAllPaymentsResponse,
@@ -26153,7 +27251,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `describegraph`
+     * Lncli: `describegraph`
      * DescribeGraph returns a description of the latest graph state from the
      * point of view of the node. The graph information is partitioned into two
      * components: all the nodes/vertexes, and all the edges that connect the
@@ -26162,7 +27260,7 @@ export const LightningDefinition = {
      * delta, fee information, etc.
      */
     describeGraph: {
-      name: "DescribeGraph",
+      name: 'DescribeGraph',
       requestType: ChannelGraphRequest,
       requestStream: false,
       responseType: ChannelGraph,
@@ -26170,12 +27268,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `getnodemetrics`
+     * Lncli: `getnodemetrics`
      * GetNodeMetrics returns node metrics calculated from the graph. Currently
      * the only supported metric is betweenness centrality of individual nodes.
      */
     getNodeMetrics: {
-      name: "GetNodeMetrics",
+      name: 'GetNodeMetrics',
       requestType: NodeMetricsRequest,
       requestStream: false,
       responseType: NodeMetricsResponse,
@@ -26183,14 +27281,14 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `getchaninfo`
+     * Lncli: `getchaninfo`
      * GetChanInfo returns the latest authenticated network announcement for the
      * given channel identified by its channel ID: an 8-byte integer which
      * uniquely identifies the location of transaction's funding output within the
      * blockchain.
      */
     getChanInfo: {
-      name: "GetChanInfo",
+      name: 'GetChanInfo',
       requestType: ChanInfoRequest,
       requestStream: false,
       responseType: ChannelEdge,
@@ -26198,12 +27296,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `getnodeinfo`
+     * Lncli: `getnodeinfo`
      * GetNodeInfo returns the latest advertised, aggregated, and authenticated
      * channel information for the specified node identified by its public key.
      */
     getNodeInfo: {
-      name: "GetNodeInfo",
+      name: 'GetNodeInfo',
       requestType: NodeInfoRequest,
       requestStream: false,
       responseType: NodeInfo,
@@ -26211,7 +27309,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `queryroutes`
+     * Lncli: `queryroutes`
      * QueryRoutes attempts to query the daemon's Channel Router for a possible
      * route to a target destination capable of carrying a specific amount of
      * satoshis. The returned route contains the full details required to craft and
@@ -26224,7 +27322,7 @@ export const LightningDefinition = {
      * documentation because of a bug in the grpc-gateway library.
      */
     queryRoutes: {
-      name: "QueryRoutes",
+      name: 'QueryRoutes',
       requestType: QueryRoutesRequest,
       requestStream: false,
       responseType: QueryRoutesResponse,
@@ -26232,12 +27330,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `getnetworkinfo`
+     * Lncli: `getnetworkinfo`
      * GetNetworkInfo returns some basic stats about the known channel graph from
      * the point of view of the node.
      */
     getNetworkInfo: {
-      name: "GetNetworkInfo",
+      name: 'GetNetworkInfo',
       requestType: NetworkInfoRequest,
       requestStream: false,
       responseType: NetworkInfo,
@@ -26245,12 +27343,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `stop`
+     * Lncli: `stop`
      * StopDaemon will send a shutdown request to the interrupt handler, triggering
      * a graceful shutdown of the daemon.
      */
     stopDaemon: {
-      name: "StopDaemon",
+      name: 'StopDaemon',
       requestType: StopRequest,
       requestStream: false,
       responseType: StopResponse,
@@ -26266,7 +27364,7 @@ export const LightningDefinition = {
      * channel edge, and when channels are closed on-chain.
      */
     subscribeChannelGraph: {
-      name: "SubscribeChannelGraph",
+      name: 'SubscribeChannelGraph',
       requestType: GraphTopologySubscription,
       requestStream: false,
       responseType: GraphTopologyUpdate,
@@ -26274,14 +27372,14 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `debuglevel`
+     * Lncli: `debuglevel`
      * DebugLevel allows a caller to programmatically set the logging verbosity of
      * lnd. The logging can be targeted according to a coarse daemon-wide logging
      * level, or in a granular fashion to specify the logging for a target
      * sub-system.
      */
     debugLevel: {
-      name: "DebugLevel",
+      name: 'DebugLevel',
       requestType: DebugLevelRequest,
       requestStream: false,
       responseType: DebugLevelResponse,
@@ -26289,12 +27387,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `feereport`
+     * Lncli: `feereport`
      * FeeReport allows the caller to obtain a report detailing the current fee
      * schedule enforced by the node globally for each channel.
      */
     feeReport: {
-      name: "FeeReport",
+      name: 'FeeReport',
       requestType: FeeReportRequest,
       requestStream: false,
       responseType: FeeReportResponse,
@@ -26302,12 +27400,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `updatechanpolicy`
+     * Lncli: `updatechanpolicy`
      * UpdateChannelPolicy allows the caller to update the fee schedule and
      * channel policies for all channels globally, or a particular channel.
      */
     updateChannelPolicy: {
-      name: "UpdateChannelPolicy",
+      name: 'UpdateChannelPolicy',
       requestType: PolicyUpdateRequest,
       requestStream: false,
       responseType: PolicyUpdateResponse,
@@ -26315,7 +27413,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `fwdinghistory`
+     * Lncli: `fwdinghistory`
      * ForwardingHistory allows the caller to query the htlcswitch for a record of
      * all HTLCs forwarded within the target time range, and integer offset
      * within that time range, for a maximum number of events. If no maximum number
@@ -26329,7 +27427,7 @@ export const LightningDefinition = {
      * request to allow the caller to skip a series of records.
      */
     forwardingHistory: {
-      name: "ForwardingHistory",
+      name: 'ForwardingHistory',
       requestType: ForwardingHistoryRequest,
       requestStream: false,
       responseType: ForwardingHistoryResponse,
@@ -26337,7 +27435,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `exportchanbackup`
+     * Lncli: `exportchanbackup`
      * ExportChannelBackup attempts to return an encrypted static channel backup
      * for the target channel identified by it channel point. The backup is
      * encrypted with a key generated from the aezeed seed of the user. The
@@ -26346,7 +27444,7 @@ export const LightningDefinition = {
      * from the WalletUnlocker service.
      */
     exportChannelBackup: {
-      name: "ExportChannelBackup",
+      name: 'ExportChannelBackup',
       requestType: ExportChannelBackupRequest,
       requestStream: false,
       responseType: ChannelBackup,
@@ -26361,7 +27459,7 @@ export const LightningDefinition = {
      * each channel.
      */
     exportAllChannelBackups: {
-      name: "ExportAllChannelBackups",
+      name: 'ExportAllChannelBackups',
       requestType: ChanBackupExportRequest,
       requestStream: false,
       responseType: ChanBackupSnapshot,
@@ -26374,7 +27472,7 @@ export const LightningDefinition = {
      * Specifying both will result in an error.
      */
     verifyChanBackup: {
-      name: "VerifyChanBackup",
+      name: 'VerifyChanBackup',
       requestType: ChanBackupSnapshot,
       requestStream: false,
       responseType: VerifyChanBackupResponse,
@@ -26382,14 +27480,14 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `restorechanbackup`
+     * Lncli: `restorechanbackup`
      * RestoreChannelBackups accepts a set of singular channel backups, or a
      * single encrypted multi-chan backup and attempts to recover any funds
      * remaining within the channel. If we are able to unpack the backup, then the
      * new channel will be shown under listchannels, as well as pending channels.
      */
     restoreChannelBackups: {
-      name: "RestoreChannelBackups",
+      name: 'RestoreChannelBackups',
       requestType: RestoreChanBackupRequest,
       requestStream: false,
       responseType: RestoreBackupResponse,
@@ -26406,7 +27504,7 @@ export const LightningDefinition = {
      * channel(s) removed.
      */
     subscribeChannelBackups: {
-      name: "SubscribeChannelBackups",
+      name: 'SubscribeChannelBackups',
       requestType: ChannelBackupSubscription,
       requestStream: false,
       responseType: ChanBackupSnapshot,
@@ -26414,13 +27512,13 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `bakemacaroon`
+     * Lncli: `bakemacaroon`
      * BakeMacaroon allows the creation of a new macaroon with custom read and
      * write permissions. No first-party caveats are added since this can be done
      * offline.
      */
     bakeMacaroon: {
-      name: "BakeMacaroon",
+      name: 'BakeMacaroon',
       requestType: BakeMacaroonRequest,
       requestStream: false,
       responseType: BakeMacaroonResponse,
@@ -26428,11 +27526,11 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `listmacaroonids`
+     * Lncli: `listmacaroonids`
      * ListMacaroonIDs returns all root key IDs that are in use.
      */
     listMacaroonIDs: {
-      name: "ListMacaroonIDs",
+      name: 'ListMacaroonIDs',
       requestType: ListMacaroonIDsRequest,
       requestStream: false,
       responseType: ListMacaroonIDsResponse,
@@ -26440,12 +27538,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `deletemacaroonid`
+     * Lncli: `deletemacaroonid`
      * DeleteMacaroonID deletes the specified macaroon ID and invalidates all
      * macaroons derived from that ID.
      */
     deleteMacaroonID: {
-      name: "DeleteMacaroonID",
+      name: 'DeleteMacaroonID',
       requestType: DeleteMacaroonIDRequest,
       requestStream: false,
       responseType: DeleteMacaroonIDResponse,
@@ -26453,12 +27551,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `listpermissions`
+     * Lncli: `listpermissions`
      * ListPermissions lists all RPC method URIs and their required macaroon
      * permissions to access them.
      */
     listPermissions: {
-      name: "ListPermissions",
+      name: 'ListPermissions',
       requestType: ListPermissionsRequest,
       requestStream: false,
       responseType: ListPermissionsResponse,
@@ -26471,7 +27569,7 @@ export const LightningDefinition = {
      * provided permissions.
      */
     checkMacaroonPermissions: {
-      name: "CheckMacaroonPermissions",
+      name: 'CheckMacaroonPermissions',
       requestType: CheckMacPermRequest,
       requestStream: false,
       responseType: CheckMacPermResponse,
@@ -26493,7 +27591,7 @@ export const LightningDefinition = {
      * modify responses for requests made with _unencumbered_ macaroons!
      */
     registerRPCMiddleware: {
-      name: "RegisterRPCMiddleware",
+      name: 'RegisterRPCMiddleware',
       requestType: RPCMiddlewareResponse,
       requestStream: true,
       responseType: RPCMiddlewareRequest,
@@ -26501,11 +27599,11 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `sendcustom`
+     * Lncli: `sendcustom`
      * SendCustomMessage sends a custom peer message.
      */
     sendCustomMessage: {
-      name: "SendCustomMessage",
+      name: 'SendCustomMessage',
       requestType: SendCustomMessageRequest,
       requestStream: false,
       responseType: SendCustomMessageResponse,
@@ -26513,12 +27611,12 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * lncli: `subscribecustom`
+     * Lncli: `subscribecustom`
      * SubscribeCustomMessages subscribes to a stream of incoming custom peer
      * messages.
      */
     subscribeCustomMessages: {
-      name: "SubscribeCustomMessages",
+      name: 'SubscribeCustomMessages',
       requestType: SubscribeCustomMessagesRequest,
       requestStream: false,
       responseType: CustomMessage,
@@ -26528,38 +27626,40 @@ export const LightningDefinition = {
   },
 } as const;
 
-declare var self: any | undefined;
-declare var window: any | undefined;
-declare var global: any | undefined;
+declare let self: any | undefined;
+declare let window: any | undefined;
+declare let global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== "undefined") return globalThis;
-  if (typeof self !== "undefined") return self;
-  if (typeof window !== "undefined") return window;
-  if (typeof global !== "undefined") return global;
-  throw "Unable to locate global object";
+  if (typeof globalThis !== 'undefined') return globalThis;
+  if (typeof self !== 'undefined') return self;
+  if (typeof window !== 'undefined') return window;
+  if (typeof global !== 'undefined') return global;
+  throw 'Unable to locate global object';
 })();
 
 const atob: (b64: string) => string =
   globalThis.atob ||
-  ((b64) => globalThis.Buffer.from(b64, "base64").toString("binary"));
+  ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64: string): Uint8Array {
   const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
+  const array = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
+    array[i] = bin.charCodeAt(i);
   }
-  return arr;
+
+  return array;
 }
 
 const btoa: (bin: string) => string =
   globalThis.btoa ||
-  ((bin) => globalThis.Buffer.from(bin, "binary").toString("base64"));
-function base64FromBytes(arr: Uint8Array): string {
+  ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
+function base64FromBytes(array: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of arr) {
+  for (const byte of array) {
     bin.push(String.fromCharCode(byte));
   }
-  return btoa(bin.join(""));
+
+  return btoa(bin.join(''));
 }
 
 type Builtin =
@@ -26577,8 +27677,8 @@ export type DeepPartial<T> = T extends Builtin
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? { [K in keyof T]?: DeepPartial<T[K]> }
+  : T extends Record<string, unknown>
+  ? {[K in keyof T]?: DeepPartial<T[K]>}
   : Partial<T>;
 
 function longToString(long: Long) {
