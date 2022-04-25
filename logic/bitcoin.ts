@@ -143,7 +143,7 @@ export default class BitcoinLogic {
     const transactionObject = await this.#bitcoinClient.getRawTransaction(txid);
     const vintxid: string = Array.isArray(transactionObject.vin)
       ? transactionObject.vin[0].txid
-      : (<TxIn>(<unknown>transactionObject.vin)).txid;
+      : (transactionObject.vin as unknown as TxIn).txid;
     const vouttx: unknown = Array.isArray(transactionObject.vout)
       ? transactionObject.vout[0]
       : transactionObject.vout;

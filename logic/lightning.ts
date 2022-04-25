@@ -2,8 +2,8 @@
  * All Lightning business logic.
  */
 
+import {Buffer} from 'node:buffer';
 import {NodeError, convert} from '@runcitadel/utils';
-
 import {ServiceError} from '@grpc/grpc-js';
 import getLightning from '../services/lightning.js';
 
@@ -145,9 +145,10 @@ export async function estimateChannelOpenFee(
   const baseFeeEstimate = await estimateFee(address, amt, confTarget, sweep);
 
   if (confTarget === 0) {
-    const baseFeeEstimateTyped = <Record<string, EstimateFeeResponseExtended>>(
-      baseFeeEstimate
-    );
+    const baseFeeEstimateTyped = baseFeeEstimate as Record<
+      string,
+      EstimateFeeResponseExtended
+    >;
     const keys = Object.keys(baseFeeEstimateTyped);
 
     for (const key of keys) {
@@ -156,7 +157,7 @@ export async function estimateChannelOpenFee(
         baseFeeEstimate_key.feeSat = String(
           BigInt(baseFeeEstimate_key.feeSat) +
             BigInt(OPEN_CHANNEL_EXTRA_WEIGHT) *
-              BigInt((<EstimateFeeResponse>baseFeeEstimate_key).satPerVbyte),
+              BigInt((baseFeeEstimate_key as EstimateFeeResponse).satPerVbyte),
         );
       }
     }
@@ -228,8 +229,10 @@ export async function estimateFeeSweep(
   r: number | string,
 ): Promise<EstimateFeeResponseExtended> {
   const amtToEstimate =
-    Number.parseInt(<string>l) +
-    Math.floor((Number.parseInt(<string>r) - Number.parseInt(<string>l)) / 2);
+    Number.parseInt(l as string) +
+    Math.floor(
+      (Number.parseInt(r as string) - Number.parseInt(l as string)) / 2,
+    );
 
   try {
     const successfulEstimate: EstimateFeeResponseExtended =
@@ -378,11 +381,11 @@ export function handleEstimateFeeError(error: unknown): {
   code: string;
   text: string;
 } {
-  error = <ServiceError>error;
-  let realError: ServiceError = <ServiceError>error;
+  error = error as ServiceError;
+  let realError: ServiceError = error as ServiceError;
   // @ts-expect-error This works
   if (error.error) realError = error.error;
-  if ((<ServiceError>error).message === 'FEE_RATE_TOO_LOW') {
+  if ((error as ServiceError).message === 'FEE_RATE_TOO_LOW') {
     return FEE_RATE_TOO_LOW_ERROR;
   }
 
@@ -586,39 +589,39 @@ export async function getChannels(): Promise<Channel_extended[]> {
 
   // Combine all pending channel types
   for (const channel of pendingChannels.waitingCloseChannels) {
-    (<WaitingCloseChannel_extended>channel).type = 'WAITING_CLOSING_CHANNEL';
+    (channel as WaitingCloseChannel_extended).type = 'WAITING_CLOSING_CHANNEL';
     allChannels.push(channel);
   }
 
   for (const channel of pendingChannels.pendingForceClosingChannels) {
-    (<PendingForceClosedChannel_extended>channel).type =
+    (channel as PendingForceClosedChannel_extended).type =
       'FORCE_CLOSING_CHANNEL';
     allChannels.push(channel);
   }
 
   for (const channel of pendingChannels.pendingOpenChannels) {
-    (<PendingOpenChannel_extended>channel).type = 'PENDING_OPEN_CHANNEL';
+    (channel as PendingOpenChannel_extended).type = 'PENDING_OPEN_CHANNEL';
 
     // Make our best guess as to if this channel was created by us.
     if (channel.channel?.initiator === Initiator.INITIATOR_LOCAL) {
-      (<PendingOpenChannel_extended>channel).initiator = true;
+      (channel as PendingOpenChannel_extended).initiator = true;
     } else {
-      (<PendingOpenChannel_extended>channel).initiator = false;
+      (channel as PendingOpenChannel_extended).initiator = false;
     }
 
     switch (channel.channel?.initiator) {
       case Initiator.INITIATOR_LOCAL:
-        (<PendingOpenChannel_extended>channel).initiatorText = 'Your node';
+        (channel as PendingOpenChannel_extended).initiatorText = 'Your node';
         break;
       case Initiator.INITIATOR_REMOTE:
-        (<PendingOpenChannel_extended>channel).initiatorText = 'Remote peer';
+        (channel as PendingOpenChannel_extended).initiatorText = 'Remote peer';
         break;
       case Initiator.INITIATOR_BOTH:
-        (<PendingOpenChannel_extended>channel).initiatorText =
+        (channel as PendingOpenChannel_extended).initiatorText =
           'Both your node and remote peer';
         break;
       default:
-        (<PendingOpenChannel_extended>channel).initiatorText = 'Unknown';
+        (channel as PendingOpenChannel_extended).initiatorText = 'Unknown';
         break;
     }
 

@@ -262,7 +262,7 @@ export default class CLightningService implements ILightningClient {
 
   async getNodeAlias(pubKey: string): Promise<string> {
     const nodeInfo = await this.apiClient.getnode(pubKey);
-    return nodeInfo?.alias || '';
+    return nodeInfo?.alias ?? '';
   }
 
   // Returns a list of lnd's currently open channels. Channels are considered open by this node and it's directly
@@ -359,10 +359,10 @@ export default class CLightningService implements ILightningClient {
     const {invoices} = await this.apiClient.listinvoices();
     const invoicesLnd: Invoice[] = invoices.map((invoice) => {
       return {
-        memo: invoice.description || '',
-        value: Number((invoice.amount_msat || 0n) / 1000n),
+        memo: invoice.description ?? '',
+        value: Number((invoice.amount_msat ?? 0n) / 1000n),
         valueMsat: Number(invoice.amount_msat),
-        paymentRequest: invoice.bolt11 || invoice.bolt12 || '',
+        paymentRequest: invoice.bolt11 ?? invoice.bolt12 ?? '',
         /** The state the invoice is in. */
         state: convertToLndState(invoice.status),
       };
@@ -456,7 +456,7 @@ export default class CLightningService implements ILightningClient {
     const info = await this.apiClient.fundchannel({
       id: pubKey,
       amount: amt.toString(),
-      feerate: satPerVbyte?.toString() || 'normal',
+      feerate: satPerVbyte?.toString() ?? 'normal',
     });
     return {
       fundingTxidStr: info.txid,
@@ -474,7 +474,7 @@ export default class CLightningService implements ILightningClient {
     const info = await this.apiClient.withdraw({
       destination: addr,
       satoshi: amt!,
-      feerate: satPerVbyte || 'normal',
+      feerate: satPerVbyte ?? 'normal',
     });
     return {txid: info.txid};
   }

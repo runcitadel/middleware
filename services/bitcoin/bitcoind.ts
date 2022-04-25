@@ -28,8 +28,8 @@ export default class BitcoindClient implements IBitcoinClient {
   }
 
   public async getBlock(hash: string): Promise<Block> {
-    const block = await this.#client.getBlock(hash, 2);
-    return <Block>block;
+    const block = (await this.#client.getBlock(hash, 2)) as Block;
+    return block;
   }
 
   public async getRawTransaction(txid: string): Promise<FetchedRawTransaction> {
