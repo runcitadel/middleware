@@ -2,3 +2,4 @@ coverage
 .yarn
 node_modules
 lnd
+ping-manager.mjs

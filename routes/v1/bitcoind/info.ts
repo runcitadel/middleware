@@ -66,14 +66,14 @@ router.get('/stats', auth.jwt, async (ctx, next) => {
 
 router.get('/block', auth.jwt, async (ctx, next) => {
   if (ctx.request.query.hash !== undefined && ctx.request.query.hash !== null) {
-    ctx.body = await bitcoinLogic.getBlock(<string>ctx.request.query.hash);
+    ctx.body = await bitcoinLogic.getBlock(ctx.request.query.hash as string);
   } else if (
     ctx.request.query.height !== undefined &&
     ctx.request.query.height !== null
   ) {
     ctx.body = {
       hash: await bitcoinLogic.getBlockHash(
-        Number.parseInt(<string>ctx.request.query.height),
+        Number.parseInt(ctx.request.query.height as string),
       ),
     };
   }
@@ -82,8 +82,8 @@ router.get('/block', auth.jwt, async (ctx, next) => {
 });
 
 router.get('/blocks', auth.jwt, async (ctx, next) => {
-  const fromHeight = Number.parseInt(<string>ctx.request.query.from);
-  const toHeight = Number.parseInt(<string>ctx.request.query.to);
+  const fromHeight = Number.parseInt(ctx.request.query.from as string);
+  const toHeight = Number.parseInt(ctx.request.query.to as string);
   ctx.body = await bitcoinLogic.getBlocks(fromHeight, toHeight);
   await next();
 });

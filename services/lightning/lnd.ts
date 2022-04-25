@@ -1,3 +1,4 @@
+import {Buffer} from 'node:buffer';
 import * as fs from '@runcitadel/fs';
 import {createChannel, createClient, Client} from 'nice-grpc';
 import * as grpc from '@grpc/grpc-js';
@@ -59,109 +60,6 @@ export default class LNDService implements ILightningClient {
     private readonly cert: Buffer,
     private readonly macaroonFile: string,
   ) {}
-
-  protected async getCommunicationChannel(): Promise<grpc.Channel> {
-    if (this.#channel) return this.#channel;
-    const tlsCredentials = grpc.credentials.createSsl(this.cert);
-    // Read macaroons, they should exist in this state
-    const macaroon = await fs.readFile(this.macaroonFile);
-
-    // Build credentials from macaroons
-    const metadata = new grpc.Metadata();
-    metadata.add('macaroon', macaroon.toString('hex'));
-    const macaroonCreds = grpc.credentials.createFromMetadataGenerator(
-      (_args, callback) => {
-        callback(null, metadata);
-      },
-    );
-    const fullCredentials = grpc.credentials.combineChannelCredentials(
-      tlsCredentials,
-      macaroonCreds,
-    );
-
-    this.#channel = createChannel(this.connectionUrl, fullCredentials);
-    return this.#channel;
-  }
-
-  protected async initializeRPCClient(): Promise<RpcClientInfo> {
-    // Create credentials
-    const lndCert = this.cert;
-    const tlsCredentials = grpc.credentials.createSsl(lndCert);
-    const channel = createChannel(this.connectionUrl, tlsCredentials);
-
-    const walletUnlocker = createClient(WalletUnlockerDefinition, channel);
-
-    const stateService = createClient(StateDefinition, channel);
-
-    let walletState;
-    try {
-      walletState = await stateService.getState({});
-    } catch {
-      return {
-        WalletUnlocker: walletUnlocker,
-        State: stateService,
-        state: WalletState.NON_EXISTING,
-        offline: true,
-      };
-    }
-
-    /* WAIING_TO_START will be used in the future
-     * https://github.com/Lightningnetwork/lnd/blob/bb5c3f3b51c7c58296d120d5afe4ed0640d5751e/docs/leader_election.md
-     * Once we have stuff like that implemented on the Citadel dashboard
-     */
-    if (
-      walletState.state === WalletState.NON_EXISTING ||
-      walletState.state === WalletState.LOCKED ||
-      walletState.state === WalletState.WAITING_TO_START
-    ) {
-      return {
-        WalletUnlocker: walletUnlocker,
-        State: stateService,
-        state: walletState.state,
-      };
-    }
-
-    if (
-      walletState.state === WalletState.RPC_ACTIVE ||
-      walletState.state === WalletState.SERVER_ACTIVE
-    ) {
-      const authenticatedChannel = await this.getCommunicationChannel();
-
-      const LightningClient: Client<typeof LightningDefinition> = createClient(
-        LightningDefinition,
-        authenticatedChannel,
-      );
-
-      this.#wasOnline = true;
-
-      return {
-        WalletUnlocker: walletUnlocker,
-        State: stateService,
-        Lightning: LightningClient,
-        state: walletState.state,
-      };
-    }
-
-    throw new Error('Unexpected LND state!');
-  }
-
-  protected async expectWalletToExist(): Promise<RpcClientWithLightningForSure> {
-    const client = await this.initializeRPCClient();
-    if (!client.Lightning) throw new Error('Error: Wallet not ready');
-    return client as RpcClientWithLightningForSure;
-  }
-
-  protected async getLightningClient(): Promise<
-    Client<typeof LightningDefinition>
-  > {
-    if (this.#wasOnline) {
-      const channel = await this.getCommunicationChannel();
-      return createClient(LightningDefinition, channel);
-    }
-
-    const client = await this.expectWalletToExist();
-    return client.Lightning;
-  }
 
   // An amount, an options memo, and can only be paid to node that created it.
   async addInvoice(
@@ -328,7 +226,7 @@ export default class LNDService implements ILightningClient {
     };
     const Lightning = await this.getLightningClient();
     const nodeInfo = await Lightning.getNodeInfo(rpcPayload);
-    return nodeInfo.node?.alias || '';
+    return nodeInfo.node?.alias ?? '';
   }
 
   // Returns a list of lnd's currently open channels. Channels are considered open by this node and it's directly
@@ -440,6 +338,7 @@ export default class LNDService implements ILightningClient {
     amt: number,
     satPerVbyte: number | undefined,
   ): Promise<ChannelPoint> {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const rpcPayload: OpenChannelRequest = {
       nodePubkeyString: pubKey,
       localFundingAmount: amt.toString(),
@@ -461,6 +360,7 @@ export default class LNDService implements ILightningClient {
     satPerVbyte: number,
     sendAll: boolean,
   ): Promise<SendCoinsResponse> {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const rpcPayload: SendCoinsRequest = {
       addr,
       amount: amt?.toString(),
@@ -514,6 +414,7 @@ export default class LNDService implements ILightningClient {
     feeRate: number,
     timeLockDelta: number,
   ): Promise<void> {
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     const rpcPayload: PolicyUpdateRequest = {
       baseFeeMsat: baseFeeMsat.toString(),
       feeRate,
@@ -524,7 +425,8 @@ export default class LNDService implements ILightningClient {
     if (global) {
       rpcPayload.global = global;
     } else {
-      rpcPayload.chanPoint = <ChannelPoint>{
+      rpcPayload.chanPoint = {
+        fundingTxidBytes: undefined,
         fundingTxidStr: fundingTxid,
         outputIndex,
       };
@@ -563,5 +465,108 @@ export default class LNDService implements ILightningClient {
 
   async addOffer(): Promise<{bolt12: string; bolt12_unsigned: string}> {
     throw new Error('BOLT12 not supported!');
+  }
+
+  protected async getCommunicationChannel(): Promise<grpc.Channel> {
+    if (this.#channel) return this.#channel;
+    const tlsCredentials = grpc.credentials.createSsl(this.cert);
+    // Read macaroons, they should exist in this state
+    const macaroon = await fs.readFile(this.macaroonFile);
+
+    // Build credentials from macaroons
+    const metadata = new grpc.Metadata();
+    metadata.add('macaroon', macaroon.toString('hex'));
+    const macaroonCreds = grpc.credentials.createFromMetadataGenerator(
+      (_args, callback) => {
+        callback(null, metadata);
+      },
+    );
+    const fullCredentials = grpc.credentials.combineChannelCredentials(
+      tlsCredentials,
+      macaroonCreds,
+    );
+
+    this.#channel = createChannel(this.connectionUrl, fullCredentials);
+    return this.#channel;
+  }
+
+  protected async initializeRPCClient(): Promise<RpcClientInfo> {
+    // Create credentials
+    const lndCert = this.cert;
+    const tlsCredentials = grpc.credentials.createSsl(lndCert);
+    const channel = createChannel(this.connectionUrl, tlsCredentials);
+
+    const walletUnlocker = createClient(WalletUnlockerDefinition, channel);
+
+    const stateService = createClient(StateDefinition, channel);
+
+    let walletState;
+    try {
+      walletState = await stateService.getState({});
+    } catch {
+      return {
+        WalletUnlocker: walletUnlocker,
+        State: stateService,
+        state: WalletState.NON_EXISTING,
+        offline: true,
+      };
+    }
+
+    /* WAIING_TO_START will be used in the future
+     * https://github.com/Lightningnetwork/lnd/blob/bb5c3f3b51c7c58296d120d5afe4ed0640d5751e/docs/leader_election.md
+     * Once we have stuff like that implemented on the Citadel dashboard
+     */
+    if (
+      walletState.state === WalletState.NON_EXISTING ||
+      walletState.state === WalletState.LOCKED ||
+      walletState.state === WalletState.WAITING_TO_START
+    ) {
+      return {
+        WalletUnlocker: walletUnlocker,
+        State: stateService,
+        state: walletState.state,
+      };
+    }
+
+    if (
+      walletState.state === WalletState.RPC_ACTIVE ||
+      walletState.state === WalletState.SERVER_ACTIVE
+    ) {
+      const authenticatedChannel = await this.getCommunicationChannel();
+
+      const LightningClient: Client<typeof LightningDefinition> = createClient(
+        LightningDefinition,
+        authenticatedChannel,
+      );
+
+      this.#wasOnline = true;
+
+      return {
+        WalletUnlocker: walletUnlocker,
+        State: stateService,
+        Lightning: LightningClient,
+        state: walletState.state,
+      };
+    }
+
+    throw new Error('Unexpected LND state!');
+  }
+
+  protected async expectWalletToExist(): Promise<RpcClientWithLightningForSure> {
+    const client = await this.initializeRPCClient();
+    if (!client.Lightning) throw new Error('Error: Wallet not ready');
+    return client as RpcClientWithLightningForSure;
+  }
+
+  protected async getLightningClient(): Promise<
+    Client<typeof LightningDefinition>
+  > {
+    if (this.#wasOnline) {
+      const channel = await this.getCommunicationChannel();
+      return createClient(LightningDefinition, channel);
+    }
+
+    const client = await this.expectWalletToExist();
+    return client.Lightning;
   }
 }

@@ -1,12 +1,13 @@
+import process from 'node:process';
 import {IBitcoinClient} from './bitcoin/abstract.js';
 import BitcoindClient from './bitcoin/bitcoind.js';
 
 const BITCOIND_RPC_PORT: number = Number.parseInt(
-  process.env.RPC_PORT || '8332',
+  process.env.RPC_PORT ?? '8332',
 );
-const BITCOIND_HOST = process.env.BITCOIN_HOST || '127.0.0.1';
-const BITCOIND_RPC_USER = process.env.RPC_USER || '';
-const BITCOIND_RPC_PASSWORD = process.env.RPC_PASSWORD || '';
+const BITCOIND_HOST = process.env.BITCOIN_HOST ?? '127.0.0.1';
+const BITCOIND_RPC_USER = process.env.RPC_USER ?? '';
+const BITCOIND_RPC_PASSWORD = process.env.RPC_PASSWORD ?? '';
 
 export default function getClient(): IBitcoinClient {
   switch (process.env.BITCOIN_IMPL) {

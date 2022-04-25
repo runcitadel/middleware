@@ -2,16 +2,9 @@
   "prettier": true,
   "space": true,
   "rules": {
-    "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/naming-convention": "off",
-    "@typescript-eslint/consistent-type-assertions": "off",
-    "@typescript-eslint/prefer-nullish-coalescing": "off",
     "@typescript-eslint/no-unsafe-assignment": "off",
-    "@typescript-eslint/member-ordering": "off",
-    "node/prefer-global/process": "off",
-    "node/prefer-global/buffer": "off",
     "unicorn/no-abusive-eslint-disable": "off",
-    "unicorn/no-process-exit": "off",
     "radix": "off"
   }
 }

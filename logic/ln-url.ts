@@ -2,6 +2,7 @@
 /// <reference lib="dom" />
 // https://github.com/BlueWallet/BlueWallet/blob/82d387278bc3cc388cef9e2a084ee5d8db33616d/class/lnurl.js
 import crypto from 'node:crypto';
+import {Buffer} from 'node:buffer';
 import bech32Js from 'bech32';
 import CryptoJS from 'crypto-js';
 import getLightning from '../services/lightning.js';
@@ -63,16 +64,6 @@ type parsedLnURL = {
 export default class Lnurl {
   static TAG_PAY_REQUEST = 'payRequest'; // Type of LNURL
   static TAG_WITHDRAW_REQUEST = 'withdrawRequest'; // Type of LNURL
-  #preimage: boolean;
-  #lnurl: string;
-  #lnurlPayServiceBolt11Payload: false | LNUrlCallback;
-  #lnurlPayServicePayload?: parsedLnURL;
-
-  constructor(url: string) {
-    this.#lnurl = url;
-    this.#lnurlPayServiceBolt11Payload = false;
-    this.#preimage = false;
-  }
 
   static findlnurl(bodyOfText: string): string | undefined {
     const result =
@@ -103,6 +94,42 @@ export default class Lnurl {
     return Lnurl.findlnurl(url) !== null;
   }
 
+  static decipherAES(
+    ciphertextBase64: string,
+    preimageHex: string,
+    ivBase64: string,
+  ): string {
+    const iv = CryptoJS.enc.Base64.parse(ivBase64);
+    const key = CryptoJS.enc.Hex.parse(preimageHex);
+    return CryptoJS.AES.decrypt(
+      Buffer.from(ciphertextBase64, 'base64').toString('hex'),
+      key,
+      {
+        iv,
+        mode: CryptoJS.mode.CBC,
+        format: CryptoJS.format.Hex,
+      },
+    ).toString(CryptoJS.enc.Utf8);
+  }
+
+  static isLightningAddress(address: string): boolean {
+    // Ensure only 1 `@` present:
+    if (address.split('@').length !== 2) return false;
+    const splitted = address.split('@');
+    return Boolean(splitted[0].trim()) && Boolean(splitted[1].trim());
+  }
+
+  #preimage: boolean;
+  #lnurl: string;
+  #lnurlPayServiceBolt11Payload: false | LNUrlCallback;
+  #lnurlPayServicePayload?: parsedLnURL;
+
+  constructor(url: string) {
+    this.#lnurl = url;
+    this.#lnurlPayServiceBolt11Payload = false;
+    this.#preimage = false;
+  }
+
   async fetchGet<ResponseType>(url: string): Promise<ResponseType> {
     const resp = await fetch(url, {method: 'GET'});
     if (resp.status >= 300) {
@@ -130,7 +157,7 @@ export default class Lnurl {
       num_millisatoshis: invoiceInfo.numMsat
         ? invoiceInfo.numMsat.toString()
         : '0',
-      timestamp: invoiceInfo.timestamp?.toString() || '',
+      timestamp: invoiceInfo.timestamp?.toString() ?? '',
       fallback_addr: '',
       route_hints: [],
     };
@@ -236,7 +263,7 @@ export default class Lnurl {
     if (!this.#lnurl) throw new Error('this._lnurl is not set');
     const url = Lnurl.getUrlFromLnurl(this.#lnurl);
     // Calling the url
-    const reply = await this.fetchGet<LnURLServerReply>(<string>url);
+    const reply = await this.fetchGet<LnURLServerReply>(url as string);
 
     if (reply.tag !== Lnurl.TAG_PAY_REQUEST) {
       throw new Error('lnurl-pay expected, found tag ' + reply.tag);
@@ -315,36 +342,11 @@ export default class Lnurl {
     return this.#preimage;
   }
 
-  static decipherAES(
-    ciphertextBase64: string,
-    preimageHex: string,
-    ivBase64: string,
-  ): string {
-    const iv = CryptoJS.enc.Base64.parse(ivBase64);
-    const key = CryptoJS.enc.Hex.parse(preimageHex);
-    return CryptoJS.AES.decrypt(
-      Buffer.from(ciphertextBase64, 'base64').toString('hex'),
-      key,
-      {
-        iv,
-        mode: CryptoJS.mode.CBC,
-        format: CryptoJS.format.Hex,
-      },
-    ).toString(CryptoJS.enc.Utf8);
-  }
-
   get commentAllowed(): number | false {
     return this.#lnurlPayServicePayload?.commentAllowed
       ? Number.parseInt(
           this.#lnurlPayServicePayload.commentAllowed as unknown as string,
         )
       : false;
-  }
-
-  static isLightningAddress(address: string): boolean {
-    // Ensure only 1 `@` present:
-    if (address.split('@').length !== 2) return false;
-    const splitted = address.split('@');
-    return Boolean(splitted[0].trim()) && Boolean(splitted[1].trim());
   }
 }
