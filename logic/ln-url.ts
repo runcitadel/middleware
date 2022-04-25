@@ -1,3 +1,4 @@
+// eslint-disable-next-line @typescript-eslint/triple-slash-reference
 /// <reference lib="dom" />
 // https://github.com/BlueWallet/BlueWallet/blob/82d387278bc3cc388cef9e2a084ee5d8db33616d/class/lnurl.js
 import crypto from 'node:crypto';
