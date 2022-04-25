@@ -198,6 +198,7 @@ export default class LNDService implements ILightningClient {
   ): Promise<void> {
     const rpcPayload = {
       channelPoint: {
+        fundingTxidBytes: undefined,
         fundingTxidStr: fundingTxId,
         outputIndex: index,
       },
