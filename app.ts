@@ -6,6 +6,7 @@ import cors from '@koa/cors';
 import bodyParser from 'koa-body';
 
 import {errorHandler, corsOptions} from '@runcitadel/utils';
+import constants from './utils/const.js';
 import bitcoind from './routes/v1/bitcoind/info.js';
 import address from './routes/v1/lnd/address.js';
 import channel from './routes/v1/lnd/channel.js';
@@ -53,5 +54,9 @@ app.use(transaction.routes());
 app.use(wallet.routes());
 app.use(util.routes());
 app.use(pages.routes());
+if (constants.IS_LIQUID_INSTALLED) {
+  const liquid = await import('./routes/v1/liquid/info.js');
+  app.use(liquid.default.routes());
+}
 
 export default app;
