@@ -91,7 +91,7 @@ export default class Lnurl {
   }
 
   static isLnurl(url: string): boolean {
-    return Lnurl.findlnurl(url) !== null;
+    return Lnurl.findlnurl(url) !== undefined;
   }
 
   static decipherAES(
