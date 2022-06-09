@@ -392,11 +392,14 @@ export default class LNDService implements ILightningClient {
 
     const Lightning = await this.getLightningClient();
     const response = await Lightning.sendPaymentSync(rpcPayload);
-    // Sometimes the error comes in on the response...
+
     if (response.paymentError) {
-      throw new Error(
-        `Unable to send Lightning payment: ${response.paymentError}`,
-      );
+      return {
+        ...response,
+        paymentHash: '',
+        paymentPreimage: '',
+        paymentError: `Unable to send Lightning payment: ${response.paymentError}`,
+      };
     }
 
     return {
