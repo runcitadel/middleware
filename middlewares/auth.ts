@@ -33,7 +33,11 @@ const jwtOptions = await createJwtOptions();
 passport.use(
   JWT_AUTH,
   new JwtStrategy(jwtOptions, (jwtPayload, done) => {
-    done(null, {id: jwtPayload.id});
+    if (jwtPayload.id) {
+      done(null, {id: jwtPayload.id});
+    } else {
+      done(null, false);
+    }
   }),
 );
 
@@ -41,8 +45,12 @@ export async function jwt(ctx: Context, next: Next): Promise<void> {
   await passport.authenticate(
     JWT_AUTH,
     {session: false},
-    async (error, user) => {
-      if (error || user === false) {
+    async (error, user, info) => {
+      if (info) {
+        console.log(info);
+      }
+
+      if (error || !user.id || user === false) {
         ctx.throw(STATUS_CODES.UNAUTHORIZED, 'Invalid JWT');
       }
 
