@@ -37,7 +37,7 @@
     "long": "^4.0.0",
     "nice-grpc": "^1.0.7",
     "passport-jwt": "^4.0.0",
-    "protobufjs": "^6.11.2",
+    "protobufjs": "^6.11.3",
     "uuid": "^8.3.2",
     "validator": "^13.7.0"
   },
