@@ -4,6 +4,8 @@ export enum AddressType {
   NESTED_PUBKEY_HASH = 1,
   UNUSED_WITNESS_PUBKEY_HASH = 2,
   UNUSED_NESTED_PUBKEY_HASH = 3,
+  TAPROOT_PUBKEY = 4,
+  UNUSED_TAPROOT_PUBKEY = 5,
   UNRECOGNIZED = -1,
 }
 export interface SendCoinsResponse {
@@ -413,8 +415,6 @@ export interface PendingChannelsResponse_PendingChannel {
 export interface PendingChannelsResponse_PendingOpenChannel {
   /** The pending channel */
   channel: PendingChannelsResponse_PendingChannel | undefined;
-  /** The height at which this channel will be confirmed */
-  confirmationHeight: number | string;
   /**
    * The amount calculated to be paid in fees for the current set of
    * commitment transactions. The fee amount is persisted with the channel
