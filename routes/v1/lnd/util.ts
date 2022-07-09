@@ -13,9 +13,12 @@ const router = new Router({
 router.use(errorHandler);
 
 router.get('/download-channel-backup', auth.jwt, async (ctx, next) => {
-  ctx.set('Content-disposition', 'attachment; filename=channel.backup');
-  ctx.set('Content-type', 'application/octet-stream');
-  ctx.body = fs.createReadStream(constants.CHANNEL_BACKUP_FILE);
+  if (fs.existsSync(constants.CHANNEL_BACKUP_FILE)) {
+    ctx.body = fs.createReadStream(constants.CHANNEL_BACKUP_FILE);
+    ctx.attachment('channel.backup');
+  } else {
+    ctx.throw(400, 'No channel backup exists');
+  }
   await next();
 });
 
