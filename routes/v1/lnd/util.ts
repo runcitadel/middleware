@@ -14,11 +14,16 @@ router.use(errorHandler);
 
 router.get('/download-channel-backup', auth.jwt, async (ctx, next) => {
   if (fs.existsSync(constants.CHANNEL_BACKUP_FILE)) {
+    ctx.set('Content-disposition', 'attachment; filename=channel.backup');
+    ctx.set('Content-type', 'application/octet-stream');
     ctx.body = fs.createReadStream(constants.CHANNEL_BACKUP_FILE);
-    ctx.attachment('channel.backup');
+    // Todo: the modern way of setting the headers in koa is using this utility function
+    // But I am not sure if it can infer the file type since .backup is not a standard filetype
+    // ctx.attachment('channel.backup');
   } else {
     ctx.throw(400, 'No channel backup exists');
   }
+  await next();
   await next();
 });
 
