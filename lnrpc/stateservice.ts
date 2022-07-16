@@ -91,7 +91,7 @@ export const SubscribeStateRequest = {
     length?: number,
   ): SubscribeStateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSubscribeStateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -101,18 +101,16 @@ export const SubscribeStateRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): SubscribeStateRequest {
-    const message = createBaseSubscribeStateRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: SubscribeStateRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<SubscribeStateRequest>): SubscribeStateRequest {
@@ -133,7 +131,6 @@ export const SubscribeStateResponse = {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
-
     return writer;
   },
 
@@ -142,7 +139,7 @@ export const SubscribeStateResponse = {
     length?: number,
   ): SubscribeStateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSubscribeStateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -155,24 +152,20 @@ export const SubscribeStateResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SubscribeStateResponse {
-    const message = createBaseSubscribeStateResponse();
-    message.state =
-      object.state !== undefined && object.state !== null
-        ? walletStateFromJSON(object.state)
-        : 0;
-    return message;
+    return {
+      state: isSet(object.state) ? walletStateFromJSON(object.state) : 0,
+    };
   },
 
   toJSON(message: SubscribeStateResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.state !== undefined &&
-      (object.state = walletStateToJSON(message.state));
-    return object;
+      (obj.state = walletStateToJSON(message.state));
+    return obj;
   },
 
   fromPartial(
@@ -198,7 +191,7 @@ export const GetStateRequest = {
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetStateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetStateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -208,18 +201,16 @@ export const GetStateRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): GetStateRequest {
-    const message = createBaseGetStateRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: GetStateRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<GetStateRequest>): GetStateRequest {
@@ -240,13 +231,12 @@ export const GetStateResponse = {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetStateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetStateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -259,24 +249,20 @@ export const GetStateResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): GetStateResponse {
-    const message = createBaseGetStateResponse();
-    message.state =
-      object.state !== undefined && object.state !== null
-        ? walletStateFromJSON(object.state)
-        : 0;
-    return message;
+    return {
+      state: isSet(object.state) ? walletStateFromJSON(object.state) : 0,
+    };
   },
 
   toJSON(message: GetStateResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.state !== undefined &&
-      (object.state = walletStateToJSON(message.state));
-    return object;
+      (obj.state = walletStateToJSON(message.state));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<GetStateResponse>): GetStateResponse {
@@ -336,11 +322,15 @@ export type DeepPartial<T> = T extends Builtin
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
-  : T extends Record<string, unknown>
+  : T extends {}
   ? {[K in keyof T]?: DeepPartial<T[K]>}
   : Partial<T>;
 
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }

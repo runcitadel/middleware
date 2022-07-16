@@ -5,17 +5,94 @@ import _m0 from 'protobufjs/minimal.js';
 
 export const protobufPackage = 'lnrpc';
 
+export enum OutputScriptType {
+  SCRIPT_TYPE_PUBKEY_HASH = 0,
+  SCRIPT_TYPE_SCRIPT_HASH = 1,
+  SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH = 2,
+  SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH = 3,
+  SCRIPT_TYPE_PUBKEY = 4,
+  SCRIPT_TYPE_MULTISIG = 5,
+  SCRIPT_TYPE_NULLDATA = 6,
+  SCRIPT_TYPE_NON_STANDARD = 7,
+  SCRIPT_TYPE_WITNESS_UNKNOWN = 8,
+  UNRECOGNIZED = -1,
+}
+
+export function outputScriptTypeFromJSON(object: any): OutputScriptType {
+  switch (object) {
+    case 0:
+    case 'SCRIPT_TYPE_PUBKEY_HASH':
+      return OutputScriptType.SCRIPT_TYPE_PUBKEY_HASH;
+    case 1:
+    case 'SCRIPT_TYPE_SCRIPT_HASH':
+      return OutputScriptType.SCRIPT_TYPE_SCRIPT_HASH;
+    case 2:
+    case 'SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH':
+      return OutputScriptType.SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH;
+    case 3:
+    case 'SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH':
+      return OutputScriptType.SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH;
+    case 4:
+    case 'SCRIPT_TYPE_PUBKEY':
+      return OutputScriptType.SCRIPT_TYPE_PUBKEY;
+    case 5:
+    case 'SCRIPT_TYPE_MULTISIG':
+      return OutputScriptType.SCRIPT_TYPE_MULTISIG;
+    case 6:
+    case 'SCRIPT_TYPE_NULLDATA':
+      return OutputScriptType.SCRIPT_TYPE_NULLDATA;
+    case 7:
+    case 'SCRIPT_TYPE_NON_STANDARD':
+      return OutputScriptType.SCRIPT_TYPE_NON_STANDARD;
+    case 8:
+    case 'SCRIPT_TYPE_WITNESS_UNKNOWN':
+      return OutputScriptType.SCRIPT_TYPE_WITNESS_UNKNOWN;
+    case -1:
+    case 'UNRECOGNIZED':
+    default:
+      return OutputScriptType.UNRECOGNIZED;
+  }
+}
+
+export function outputScriptTypeToJSON(object: OutputScriptType): string {
+  switch (object) {
+    case OutputScriptType.SCRIPT_TYPE_PUBKEY_HASH:
+      return 'SCRIPT_TYPE_PUBKEY_HASH';
+    case OutputScriptType.SCRIPT_TYPE_SCRIPT_HASH:
+      return 'SCRIPT_TYPE_SCRIPT_HASH';
+    case OutputScriptType.SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH:
+      return 'SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH';
+    case OutputScriptType.SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH:
+      return 'SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH';
+    case OutputScriptType.SCRIPT_TYPE_PUBKEY:
+      return 'SCRIPT_TYPE_PUBKEY';
+    case OutputScriptType.SCRIPT_TYPE_MULTISIG:
+      return 'SCRIPT_TYPE_MULTISIG';
+    case OutputScriptType.SCRIPT_TYPE_NULLDATA:
+      return 'SCRIPT_TYPE_NULLDATA';
+    case OutputScriptType.SCRIPT_TYPE_NON_STANDARD:
+      return 'SCRIPT_TYPE_NON_STANDARD';
+    case OutputScriptType.SCRIPT_TYPE_WITNESS_UNKNOWN:
+      return 'SCRIPT_TYPE_WITNESS_UNKNOWN';
+    default:
+      return 'UNKNOWN';
+  }
+}
+
 /**
  * `AddressType` has to be one of:
  *
  * - `p2wkh`: Pay to witness key hash (`WITNESS_PUBKEY_HASH` = 0)
  * - `np2wkh`: Pay to nested witness key hash (`NESTED_PUBKEY_HASH` = 1)
+ * - `p2tr`: Pay to taproot pubkey (`TAPROOT_PUBKEY` = 4)
  */
 export enum AddressType {
   WITNESS_PUBKEY_HASH = 0,
   NESTED_PUBKEY_HASH = 1,
   UNUSED_WITNESS_PUBKEY_HASH = 2,
   UNUSED_NESTED_PUBKEY_HASH = 3,
+  TAPROOT_PUBKEY = 4,
+  UNUSED_TAPROOT_PUBKEY = 5,
   UNRECOGNIZED = -1,
 }
 
@@ -33,6 +110,12 @@ export function addressTypeFromJSON(object: any): AddressType {
     case 3:
     case 'UNUSED_NESTED_PUBKEY_HASH':
       return AddressType.UNUSED_NESTED_PUBKEY_HASH;
+    case 4:
+    case 'TAPROOT_PUBKEY':
+      return AddressType.TAPROOT_PUBKEY;
+    case 5:
+    case 'UNUSED_TAPROOT_PUBKEY':
+      return AddressType.UNUSED_TAPROOT_PUBKEY;
     case -1:
     case 'UNRECOGNIZED':
     default:
@@ -50,6 +133,10 @@ export function addressTypeToJSON(object: AddressType): string {
       return 'UNUSED_WITNESS_PUBKEY_HASH';
     case AddressType.UNUSED_NESTED_PUBKEY_HASH:
       return 'UNUSED_NESTED_PUBKEY_HASH';
+    case AddressType.TAPROOT_PUBKEY:
+      return 'TAPROOT_PUBKEY';
+    case AddressType.UNUSED_TAPROOT_PUBKEY:
+      return 'UNUSED_TAPROOT_PUBKEY';
     default:
       return 'UNKNOWN';
   }
@@ -704,6 +791,21 @@ export interface Utxo {
   confirmations: string;
 }
 
+export interface OutputDetail {
+  /** The type of the output */
+  outputType: OutputScriptType;
+  /** The address */
+  address: string;
+  /** The pkscript in hex */
+  pkScript: string;
+  /** The output index used in the raw transaction */
+  outputIndex: string;
+  /** The value of the output coin in satoshis */
+  amount: string;
+  /** Denotes if the output is controlled by the internal wallet */
+  isOurAddress: boolean;
+}
+
 export interface Transaction {
   /** The transaction hash */
   txHash: string;
@@ -719,8 +821,15 @@ export interface Transaction {
   timeStamp: string;
   /** Fees paid for this transaction */
   totalFees: string;
-  /** Addresses that received funds for this transaction */
+  /**
+   * Addresses that received funds for this transaction. Deprecated as it is
+   * now incorporated in the output_details field.
+   *
+   * @deprecated
+   */
   destAddresses: string[];
+  /** Outputs that received funds for this transaction */
+  outputDetails: OutputDetail[];
   /** The raw transaction hex. */
   rawTxHex: string;
   /** A label that was optionally set on transaction broadcast. */
@@ -819,7 +928,8 @@ export interface SendRequest {
    * The maximum number of satoshis that will be paid as a fee of the payment.
    * This value can be represented either as a percentage of the amount being
    * sent, or as a fixed amount of the maximum fee the user is willing the pay to
-   * send the payment.
+   * send the payment. If not specified, lnd will use a default value of 100%
+   * fees for small amounts (<=1k sat) or 5% fees for larger amounts.
    */
   feeLimit: FeeLimit | undefined;
   /**
@@ -842,7 +952,7 @@ export interface SendRequest {
    * required to be in the custom range >= 65536. When using REST, the values
    * must be encoded as base64.
    */
-  destCustomRecords: Record<string, Uint8Array>;
+  destCustomRecords: {[key: string]: Uint8Array};
   /** If set, circular payments to self are permitted. */
   allowSelfPayment: boolean;
   /**
@@ -1003,18 +1113,18 @@ export interface OutPoint {
 }
 
 export interface LightningAddress {
-  /** The identity pubkey of the Lightning node */
+  /** The identity pubkey of the Lightning node. */
   pubkey: string;
   /**
    * The network location of the lightning node, e.g. `69.69.69.69:1337` or
-   * `localhost:10011`
+   * `localhost:10011`.
    */
   host: string;
 }
 
 export interface EstimateFeeRequest {
   /** The map from addresses to amounts for the transaction. */
-  AddrToAmount: Record<string, string>;
+  AddrToAmount: {[key: string]: string};
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -1050,7 +1160,7 @@ export interface EstimateFeeResponse {
 
 export interface SendManyRequest {
   /** The map from addresses to amounts */
-  AddrToAmount: Record<string, string>;
+  AddrToAmount: {[key: string]: string};
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -1200,7 +1310,7 @@ export interface VerifyMessageResponse {
 }
 
 export interface ConnectPeerRequest {
-  /** Lightning address of the peer, in the format `<pubkey>@host` */
+  /** Lightning address of the peer to connect to. */
   addr: LightningAddress | undefined;
   /**
    * If set, the daemon will attempt to persistently connect to the target
@@ -1557,7 +1667,7 @@ export interface Peer {
   /** The type of sync we are currently performing with this peer. */
   syncType: Peer_SyncType;
   /** Features advertised by the remote peer in their init message. */
-  features: Record<number, Feature>;
+  features: {[key: number]: Feature};
   /**
    * The latest errors received from our peer with timestamps, limited to the 10
    * most recent errors. These errors are tracked across peer connections, but
@@ -1742,7 +1852,9 @@ export interface GetInfoResponse {
    * Features that our node has advertised in our init message, node
    * announcements and invoices.
    */
-  features: Record<number, Feature>;
+  features: {[key: number]: Feature};
+  /** Indicates whether the HTLC interceptor API is in always-on mode. */
+  requireHtlcInterceptor: boolean;
 }
 
 export interface GetInfoResponse_FeaturesEntry {
@@ -2275,13 +2387,15 @@ export interface PendingChannelsResponse_PendingChannel {
   commitmentType: CommitmentType;
   /** Total number of forwarding packages created in this channel. */
   numForwardingPackages: string;
+  /** A set of flags showing the current state of the channel. */
+  chanStatusFlags: string;
+  /** Whether this channel is advertised to the network or not. */
+  private: boolean;
 }
 
 export interface PendingChannelsResponse_PendingOpenChannel {
   /** The pending channel */
   channel: PendingChannelsResponse_PendingChannel | undefined;
-  /** The height at which this channel will be confirmed */
-  confirmationHeight: number;
   /**
    * The amount calculated to be paid in fees for the current set of
    * commitment transactions. The fee amount is persisted with the channel
@@ -2310,6 +2424,8 @@ export interface PendingChannelsResponse_WaitingCloseChannel {
    * this point.
    */
   commitments: PendingChannelsResponse_Commitments | undefined;
+  /** The transaction id of the closing transaction */
+  closingTxid: string;
 }
 
 export interface PendingChannelsResponse_Commitments {
@@ -2494,8 +2610,13 @@ export interface WalletBalanceResponse {
   confirmedBalance: string;
   /** The unconfirmed balance of a wallet(with 0 confirmations) */
   unconfirmedBalance: string;
+  /**
+   * The total amount of wallet UTXOs held in outputs that are locked for
+   * other usage.
+   */
+  lockedBalance: string;
   /** A mapping of each wallet account's name to its balance. */
-  accountBalance: Record<string, WalletAccountBalance>;
+  accountBalance: {[key: string]: WalletAccountBalance};
 }
 
 export interface WalletBalanceResponse_AccountBalanceEntry {
@@ -2566,7 +2687,8 @@ export interface QueryRoutesRequest {
    * The maximum number of satoshis that will be paid as a fee of the payment.
    * This value can be represented either as a percentage of the amount being
    * sent, or as a fixed amount of the maximum fee the user is willing the pay to
-   * send the payment.
+   * send the payment. If not specified, lnd will use a default value of 100%
+   * fees for small amounts (<=1k sat) or 5% fees for larger amounts.
    */
   feeLimit: FeeLimit | undefined;
   /**
@@ -2606,7 +2728,7 @@ export interface QueryRoutesRequest {
    * Record types are required to be in the custom range >= 65536. When using
    * REST, the values must be encoded as base64.
    */
-  destCustomRecords: Record<string, Uint8Array>;
+  destCustomRecords: {[key: string]: Uint8Array};
   /**
    * The channel id of the channel that must be taken to the first hop. If zero,
    * any channel may be used.
@@ -2624,6 +2746,11 @@ export interface QueryRoutesRequest {
    * fallback.
    */
   destFeatures: FeatureBit[];
+  /**
+   * The time preference for this payment. Set to -1 to optimize for fees
+   * only, to 1 to optimize for reliability only or a value inbetween for a mix.
+   */
+  timePref: number;
 }
 
 export interface QueryRoutesRequest_DestCustomRecordsEntry {
@@ -2694,6 +2821,8 @@ export interface Hop {
    * If set to true, then this hop will be encoded using the new variable length
    * TLV format. Note that if any custom tlv_records below are specified, then
    * this field MUST be set to true for them to be encoded properly.
+   *
+   * @deprecated
    */
   tlvPayload: boolean;
   /**
@@ -2717,7 +2846,9 @@ export interface Hop {
    * of the SendToRoute call as it allows callers to specify arbitrary K-V pairs
    * to drop off at each hop within the onion.
    */
-  customRecords: Record<string, Uint8Array>;
+  customRecords: {[key: string]: Uint8Array};
+  /** The payment metadata to send along with the payment to the payee. */
+  metadata: Uint8Array;
 }
 
 export interface Hop_CustomRecordsEntry {
@@ -2824,7 +2955,7 @@ export interface LightningNode {
   alias: string;
   addresses: NodeAddress[];
   color: string;
-  features: Record<number, Feature>;
+  features: {[key: number]: Feature};
 }
 
 export interface LightningNode_FeaturesEntry {
@@ -2901,7 +3032,7 @@ export interface NodeMetricsResponse {
    * Map of node pubkey to betweenness centrality of the node. Normalized
    * values are in the [0,1] closed interval.
    */
-  betweennessCentrality: Record<string, FloatMetric>;
+  betweennessCentrality: {[key: string]: FloatMetric};
 }
 
 export interface NodeMetricsResponse_BetweennessCentralityEntry {
@@ -2975,7 +3106,7 @@ export interface NodeUpdate {
    * Features that the node has advertised in the init message, node
    * announcements and invoices.
    */
-  features: Record<number, Feature>;
+  features: {[key: number]: Feature};
 }
 
 export interface NodeUpdate_FeaturesEntry {
@@ -3065,6 +3196,7 @@ export interface Invoice {
   /**
    * The hash of the preimage. When using REST, this field must be encoded as
    * base64.
+   * Note: Output only, don't specify for creating an invoice.
    */
   rHash: Uint8Array;
   /**
@@ -3085,14 +3217,21 @@ export interface Invoice {
    * @deprecated
    */
   settled: boolean;
-  /** When this invoice was created */
+  /**
+   * When this invoice was created.
+   * Note: Output only, don't specify for creating an invoice.
+   */
   creationDate: string;
-  /** When this invoice was settled */
+  /**
+   * When this invoice was settled.
+   * Note: Output only, don't specify for creating an invoice.
+   */
   settleDate: string;
   /**
    * A bare-bones invoice for a payment within the Lightning Network. With the
    * details of the invoice, the sender has all the data necessary to send a
    * payment to the recipient.
+   * Note: Output only, don't specify for creating an invoice.
    */
   paymentRequest: string;
   /**
@@ -3120,6 +3259,7 @@ export interface Invoice {
    * this index making it monotonically increasing. Callers to the
    * SubscribeInvoices call can use this to instantly get notified of all added
    * invoices with an add_index greater than this one.
+   * Note: Output only, don't specify for creating an invoice.
    */
   addIndex: string;
   /**
@@ -3127,6 +3267,7 @@ export interface Invoice {
    * increment this index making it monotonically increasing. Callers to the
    * SubscribeInvoices call can use this to instantly get notified of all
    * settled invoices with an settle_index greater than this one.
+   * Note: Output only, don't specify for creating an invoice.
    */
   settleIndex: string;
   /**
@@ -3142,6 +3283,7 @@ export interface Invoice {
    * was ultimately accepted. Additionally, it's possible that the sender paid
    * MORE that was specified in the original invoice. So we'll record that here
    * as well.
+   * Note: Output only, don't specify for creating an invoice.
    */
   amtPaidSat: string;
   /**
@@ -3151,23 +3293,35 @@ export interface Invoice {
    * amount was ultimately accepted. Additionally, it's possible that the sender
    * paid MORE that was specified in the original invoice. So we'll record that
    * here as well.
+   * Note: Output only, don't specify for creating an invoice.
    */
   amtPaidMsat: string;
-  /** The state the invoice is in. */
+  /**
+   * The state the invoice is in.
+   * Note: Output only, don't specify for creating an invoice.
+   */
   state: Invoice_InvoiceState;
-  /** List of HTLCs paying to this invoice [EXPERIMENTAL]. */
+  /**
+   * List of HTLCs paying to this invoice [EXPERIMENTAL].
+   * Note: Output only, don't specify for creating an invoice.
+   */
   htlcs: InvoiceHTLC[];
-  /** List of features advertised on the invoice. */
-  features: Record<number, Feature>;
+  /**
+   * List of features advertised on the invoice.
+   * Note: Output only, don't specify for creating an invoice.
+   */
+  features: {[key: number]: Feature};
   /**
    * Indicates if this invoice was a spontaneous payment that arrived via keysend
    * [EXPERIMENTAL].
+   * Note: Output only, don't specify for creating an invoice.
    */
   isKeysend: boolean;
   /**
    * The payment address of this invoice. This value will be used in MPP
    * payments, and also for newer invoices that always require the MPP payload
    * for added end-to-end security.
+   * Note: Output only, don't specify for creating an invoice.
    */
   paymentAddr: Uint8Array;
   /** Signals whether or not this is an AMP invoice. */
@@ -3179,8 +3333,9 @@ export interface Invoice {
    * given set ID. This field is always populated for AMP invoices, and can be
    * used along side LookupInvoice to obtain the HTLC information related to a
    * given sub-invoice.
+   * Note: Output only, don't specify for creating an invoice.
    */
-  ampInvoiceState: Record<string, AMPInvoiceState>;
+  ampInvoiceState: {[key: string]: AMPInvoiceState};
 }
 
 export enum Invoice_InvoiceState {
@@ -3260,7 +3415,7 @@ export interface InvoiceHTLC {
   /** Current state the htlc is in. */
   state: InvoiceHTLCState;
   /** Custom tlv records. */
-  customRecords: Record<string, Uint8Array>;
+  customRecords: {[key: string]: Uint8Array};
   /** The total amount of the mpp payment in msat. */
   mppTotalAmtMsat: string;
   /** Details relevant to AMP HTLCs, only populated if this is an AMP HTLC. */
@@ -3573,6 +3728,13 @@ export interface ListPaymentsRequest {
    * of the returned payments is always oldest first (ascending index order).
    */
   reversed: boolean;
+  /**
+   * If set, all payments (complete and incomplete, independent of the
+   * max_payments parameter) will be counted. Note that setting this to true will
+   * increase the run time of the call significantly on systems that have a lot
+   * of payments, as all of them have to be iterated through to be counted.
+   */
+  countTotalPayments: boolean;
 }
 
 export interface ListPaymentsResponse {
@@ -3588,6 +3750,13 @@ export interface ListPaymentsResponse {
    * as the index_offset to continue seeking forwards in the next request.
    */
   lastIndexOffset: string;
+  /**
+   * Will only be set if count_total_payments in the request was set. Represents
+   * the total number of payments (complete and incomplete, independent of the
+   * number of payments requested in the query) currently present in the payments
+   * database.
+   */
+  totalNumPayments: string;
 }
 
 export interface DeletePaymentRequest {
@@ -3648,7 +3817,7 @@ export interface PayReq {
   routeHints: RouteHint[];
   paymentAddr: Uint8Array;
   numMsat: string;
-  features: Record<number, Feature>;
+  features: {[key: number]: Feature};
 }
 
 export interface PayReq_FeaturesEntry {
@@ -3718,6 +3887,8 @@ export interface PolicyUpdateRequest {
    * goes up to 6 decimal places, so 1e-6.
    */
   feeRate: number;
+  /** The effective fee rate in micro-satoshis (parts per million). */
+  feeRatePpm: number;
   /** The required timelock delta for HTLCs forwarded over the channel. */
   timeLockDelta: number;
   /**
@@ -3948,7 +4119,7 @@ export interface ListPermissionsResponse {
    * A map between all RPC method URIs and their required macaroon permissions to
    * access them.
    */
-  methodPermissions: Record<string, MacaroonPermissionList>;
+  methodPermissions: {[key: string]: MacaroonPermissionList};
 }
 
 export interface ListPermissionsResponse_MethodPermissionsEntry {
@@ -4443,7 +4614,7 @@ export const SubscribeCustomMessagesRequest = {
     length?: number,
   ): SubscribeCustomMessagesRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSubscribeCustomMessagesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4453,18 +4624,16 @@ export const SubscribeCustomMessagesRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): SubscribeCustomMessagesRequest {
-    const message = createBaseSubscribeCustomMessagesRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: SubscribeCustomMessagesRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(
@@ -4484,24 +4653,21 @@ export const CustomMessage = {
     message: CustomMessage,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.peer.length > 0) {
+    if (message.peer.length !== 0) {
       writer.uint32(10).bytes(message.peer);
     }
-
     if (message.type !== 0) {
       writer.uint32(16).uint32(message.type);
     }
-
-    if (message.data.length > 0) {
+    if (message.data.length !== 0) {
       writer.uint32(26).bytes(message.data);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CustomMessage {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCustomMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4520,39 +4686,33 @@ export const CustomMessage = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): CustomMessage {
-    const message = createBaseCustomMessage();
-    message.peer =
-      object.peer !== undefined && object.peer !== null
+    return {
+      peer: isSet(object.peer)
         ? bytesFromBase64(object.peer)
-        : new Uint8Array();
-    message.type =
-      object.type !== undefined && object.type !== null
-        ? Number(object.type)
-        : 0;
-    message.data =
-      object.data !== undefined && object.data !== null
+        : new Uint8Array(),
+      type: isSet(object.type) ? Number(object.type) : 0,
+      data: isSet(object.data)
         ? bytesFromBase64(object.data)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: CustomMessage): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.peer !== undefined &&
-      (object.peer = base64FromBytes(
+      (obj.peer = base64FromBytes(
         message.peer !== undefined ? message.peer : new Uint8Array(),
       ));
-    message.type !== undefined && (object.type = Math.round(message.type));
+    message.type !== undefined && (obj.type = Math.round(message.type));
     message.data !== undefined &&
-      (object.data = base64FromBytes(
+      (obj.data = base64FromBytes(
         message.data !== undefined ? message.data : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<CustomMessage>): CustomMessage {
@@ -4573,18 +4733,15 @@ export const SendCustomMessageRequest = {
     message: SendCustomMessageRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.peer.length > 0) {
+    if (message.peer.length !== 0) {
       writer.uint32(10).bytes(message.peer);
     }
-
     if (message.type !== 0) {
       writer.uint32(16).uint32(message.type);
     }
-
-    if (message.data.length > 0) {
+    if (message.data.length !== 0) {
       writer.uint32(26).bytes(message.data);
     }
-
     return writer;
   },
 
@@ -4593,7 +4750,7 @@ export const SendCustomMessageRequest = {
     length?: number,
   ): SendCustomMessageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCustomMessageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4612,39 +4769,33 @@ export const SendCustomMessageRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendCustomMessageRequest {
-    const message = createBaseSendCustomMessageRequest();
-    message.peer =
-      object.peer !== undefined && object.peer !== null
+    return {
+      peer: isSet(object.peer)
         ? bytesFromBase64(object.peer)
-        : new Uint8Array();
-    message.type =
-      object.type !== undefined && object.type !== null
-        ? Number(object.type)
-        : 0;
-    message.data =
-      object.data !== undefined && object.data !== null
+        : new Uint8Array(),
+      type: isSet(object.type) ? Number(object.type) : 0,
+      data: isSet(object.data)
         ? bytesFromBase64(object.data)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: SendCustomMessageRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.peer !== undefined &&
-      (object.peer = base64FromBytes(
+      (obj.peer = base64FromBytes(
         message.peer !== undefined ? message.peer : new Uint8Array(),
       ));
-    message.type !== undefined && (object.type = Math.round(message.type));
+    message.type !== undefined && (obj.type = Math.round(message.type));
     message.data !== undefined &&
-      (object.data = base64FromBytes(
+      (obj.data = base64FromBytes(
         message.data !== undefined ? message.data : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -4675,7 +4826,7 @@ export const SendCustomMessageResponse = {
     length?: number,
   ): SendCustomMessageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCustomMessageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4685,18 +4836,16 @@ export const SendCustomMessageResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): SendCustomMessageResponse {
-    const message = createBaseSendCustomMessageResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: SendCustomMessageResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(
@@ -4723,33 +4872,27 @@ export const Utxo = {
     if (message.addressType !== 0) {
       writer.uint32(8).int32(message.addressType);
     }
-
     if (message.address !== '') {
       writer.uint32(18).string(message.address);
     }
-
     if (message.amountSat !== '0') {
       writer.uint32(24).int64(message.amountSat);
     }
-
     if (message.pkScript !== '') {
       writer.uint32(34).string(message.pkScript);
     }
-
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(42).fork()).ldelim();
     }
-
     if (message.confirmations !== '0') {
       writer.uint32(48).int64(message.confirmations);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Utxo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUtxo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4777,53 +4920,40 @@ export const Utxo = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Utxo {
-    const message = createBaseUtxo();
-    message.addressType =
-      object.addressType !== undefined && object.addressType !== null
+    return {
+      addressType: isSet(object.addressType)
         ? addressTypeFromJSON(object.addressType)
-        : 0;
-    message.address =
-      object.address !== undefined && object.address !== null
-        ? String(object.address)
-        : '';
-    message.amountSat =
-      object.amountSat !== undefined && object.amountSat !== null
-        ? String(object.amountSat)
-        : '0';
-    message.pkScript =
-      object.pkScript !== undefined && object.pkScript !== null
-        ? String(object.pkScript)
-        : '';
-    message.outpoint =
-      object.outpoint !== undefined && object.outpoint !== null
+        : 0,
+      address: isSet(object.address) ? String(object.address) : '',
+      amountSat: isSet(object.amountSat) ? String(object.amountSat) : '0',
+      pkScript: isSet(object.pkScript) ? String(object.pkScript) : '',
+      outpoint: isSet(object.outpoint)
         ? OutPoint.fromJSON(object.outpoint)
-        : undefined;
-    message.confirmations =
-      object.confirmations !== undefined && object.confirmations !== null
+        : undefined,
+      confirmations: isSet(object.confirmations)
         ? String(object.confirmations)
-        : '0';
-    return message;
+        : '0',
+    };
   },
 
   toJSON(message: Utxo): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.addressType !== undefined &&
-      (object.addressType = addressTypeToJSON(message.addressType));
-    message.address !== undefined && (object.address = message.address);
-    message.amountSat !== undefined && (object.amountSat = message.amountSat);
-    message.pkScript !== undefined && (object.pkScript = message.pkScript);
+      (obj.addressType = addressTypeToJSON(message.addressType));
+    message.address !== undefined && (obj.address = message.address);
+    message.amountSat !== undefined && (obj.amountSat = message.amountSat);
+    message.pkScript !== undefined && (obj.pkScript = message.pkScript);
     message.outpoint !== undefined &&
-      (object.outpoint = message.outpoint
+      (obj.outpoint = message.outpoint
         ? OutPoint.toJSON(message.outpoint)
         : undefined);
     message.confirmations !== undefined &&
-      (object.confirmations = message.confirmations);
-    return object;
+      (obj.confirmations = message.confirmations);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Utxo>): Utxo {
@@ -4841,6 +4971,117 @@ export const Utxo = {
   },
 };
 
+function createBaseOutputDetail(): OutputDetail {
+  return {
+    outputType: 0,
+    address: '',
+    pkScript: '',
+    outputIndex: '0',
+    amount: '0',
+    isOurAddress: false,
+  };
+}
+
+export const OutputDetail = {
+  encode(
+    message: OutputDetail,
+    writer: _m0.Writer = _m0.Writer.create(),
+  ): _m0.Writer {
+    if (message.outputType !== 0) {
+      writer.uint32(8).int32(message.outputType);
+    }
+    if (message.address !== '') {
+      writer.uint32(18).string(message.address);
+    }
+    if (message.pkScript !== '') {
+      writer.uint32(26).string(message.pkScript);
+    }
+    if (message.outputIndex !== '0') {
+      writer.uint32(32).int64(message.outputIndex);
+    }
+    if (message.amount !== '0') {
+      writer.uint32(40).int64(message.amount);
+    }
+    if (message.isOurAddress === true) {
+      writer.uint32(48).bool(message.isOurAddress);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): OutputDetail {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseOutputDetail();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.outputType = reader.int32() as any;
+          break;
+        case 2:
+          message.address = reader.string();
+          break;
+        case 3:
+          message.pkScript = reader.string();
+          break;
+        case 4:
+          message.outputIndex = longToString(reader.int64() as Long);
+          break;
+        case 5:
+          message.amount = longToString(reader.int64() as Long);
+          break;
+        case 6:
+          message.isOurAddress = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): OutputDetail {
+    return {
+      outputType: isSet(object.outputType)
+        ? outputScriptTypeFromJSON(object.outputType)
+        : 0,
+      address: isSet(object.address) ? String(object.address) : '',
+      pkScript: isSet(object.pkScript) ? String(object.pkScript) : '',
+      outputIndex: isSet(object.outputIndex) ? String(object.outputIndex) : '0',
+      amount: isSet(object.amount) ? String(object.amount) : '0',
+      isOurAddress: isSet(object.isOurAddress)
+        ? Boolean(object.isOurAddress)
+        : false,
+    };
+  },
+
+  toJSON(message: OutputDetail): unknown {
+    const obj: any = {};
+    message.outputType !== undefined &&
+      (obj.outputType = outputScriptTypeToJSON(message.outputType));
+    message.address !== undefined && (obj.address = message.address);
+    message.pkScript !== undefined && (obj.pkScript = message.pkScript);
+    message.outputIndex !== undefined &&
+      (obj.outputIndex = message.outputIndex);
+    message.amount !== undefined && (obj.amount = message.amount);
+    message.isOurAddress !== undefined &&
+      (obj.isOurAddress = message.isOurAddress);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<OutputDetail>): OutputDetail {
+    const message = createBaseOutputDetail();
+    message.outputType = object.outputType ?? 0;
+    message.address = object.address ?? '';
+    message.pkScript = object.pkScript ?? '';
+    message.outputIndex = object.outputIndex ?? '0';
+    message.amount = object.amount ?? '0';
+    message.isOurAddress = object.isOurAddress ?? false;
+    return message;
+  },
+};
+
 function createBaseTransaction(): Transaction {
   return {
     txHash: '',
@@ -4851,6 +5092,7 @@ function createBaseTransaction(): Transaction {
     timeStamp: '0',
     totalFees: '0',
     destAddresses: [],
+    outputDetails: [],
     rawTxHex: '',
     label: '',
   };
@@ -4864,49 +5106,42 @@ export const Transaction = {
     if (message.txHash !== '') {
       writer.uint32(10).string(message.txHash);
     }
-
     if (message.amount !== '0') {
       writer.uint32(16).int64(message.amount);
     }
-
     if (message.numConfirmations !== 0) {
       writer.uint32(24).int32(message.numConfirmations);
     }
-
     if (message.blockHash !== '') {
       writer.uint32(34).string(message.blockHash);
     }
-
     if (message.blockHeight !== 0) {
       writer.uint32(40).int32(message.blockHeight);
     }
-
     if (message.timeStamp !== '0') {
       writer.uint32(48).int64(message.timeStamp);
     }
-
     if (message.totalFees !== '0') {
       writer.uint32(56).int64(message.totalFees);
     }
-
     for (const v of message.destAddresses) {
-      writer.uint32(66).string(v);
+      writer.uint32(66).string(v!);
     }
-
+    for (const v of message.outputDetails) {
+      OutputDetail.encode(v!, writer.uint32(90).fork()).ldelim();
+    }
     if (message.rawTxHex !== '') {
       writer.uint32(74).string(message.rawTxHex);
     }
-
     if (message.label !== '') {
       writer.uint32(82).string(message.label);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Transaction {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTransaction();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -4935,6 +5170,11 @@ export const Transaction = {
         case 8:
           message.destAddresses.push(reader.string());
           break;
+        case 11:
+          message.outputDetails.push(
+            OutputDetail.decode(reader, reader.uint32()),
+          );
+          break;
         case 9:
           message.rawTxHex = reader.string();
           break;
@@ -4946,71 +5186,57 @@ export const Transaction = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Transaction {
-    const message = createBaseTransaction();
-    message.txHash =
-      object.txHash !== undefined && object.txHash !== null
-        ? String(object.txHash)
-        : '';
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? String(object.amount)
-        : '0';
-    message.numConfirmations =
-      object.numConfirmations !== undefined && object.numConfirmations !== null
+    return {
+      txHash: isSet(object.txHash) ? String(object.txHash) : '',
+      amount: isSet(object.amount) ? String(object.amount) : '0',
+      numConfirmations: isSet(object.numConfirmations)
         ? Number(object.numConfirmations)
-        : 0;
-    message.blockHash =
-      object.blockHash !== undefined && object.blockHash !== null
-        ? String(object.blockHash)
-        : '';
-    message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null
-        ? Number(object.blockHeight)
-        : 0;
-    message.timeStamp =
-      object.timeStamp !== undefined && object.timeStamp !== null
-        ? String(object.timeStamp)
-        : '0';
-    message.totalFees =
-      object.totalFees !== undefined && object.totalFees !== null
-        ? String(object.totalFees)
-        : '0';
-    message.destAddresses = (object.destAddresses ?? []).map((e: any) =>
-      String(e),
-    );
-    message.rawTxHex =
-      object.rawTxHex !== undefined && object.rawTxHex !== null
-        ? String(object.rawTxHex)
-        : '';
-    message.label =
-      object.label !== undefined && object.label !== null
-        ? String(object.label)
-        : '';
-    return message;
+        : 0,
+      blockHash: isSet(object.blockHash) ? String(object.blockHash) : '',
+      blockHeight: isSet(object.blockHeight) ? Number(object.blockHeight) : 0,
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : '0',
+      totalFees: isSet(object.totalFees) ? String(object.totalFees) : '0',
+      destAddresses: Array.isArray(object?.destAddresses)
+        ? object.destAddresses.map((e: any) => String(e))
+        : [],
+      outputDetails: Array.isArray(object?.outputDetails)
+        ? object.outputDetails.map((e: any) => OutputDetail.fromJSON(e))
+        : [],
+      rawTxHex: isSet(object.rawTxHex) ? String(object.rawTxHex) : '',
+      label: isSet(object.label) ? String(object.label) : '',
+    };
   },
 
   toJSON(message: Transaction): unknown {
-    const object: any = {};
-    message.txHash !== undefined && (object.txHash = message.txHash);
-    message.amount !== undefined && (object.amount = message.amount);
+    const obj: any = {};
+    message.txHash !== undefined && (obj.txHash = message.txHash);
+    message.amount !== undefined && (obj.amount = message.amount);
     message.numConfirmations !== undefined &&
-      (object.numConfirmations = Math.round(message.numConfirmations));
-    message.blockHash !== undefined && (object.blockHash = message.blockHash);
+      (obj.numConfirmations = Math.round(message.numConfirmations));
+    message.blockHash !== undefined && (obj.blockHash = message.blockHash);
     message.blockHeight !== undefined &&
-      (object.blockHeight = Math.round(message.blockHeight));
-    message.timeStamp !== undefined && (object.timeStamp = message.timeStamp);
-    message.totalFees !== undefined && (object.totalFees = message.totalFees);
-    object.destAddresses = message.destAddresses
-      ? message.destAddresses.map((e) => e)
-      : [];
-    message.rawTxHex !== undefined && (object.rawTxHex = message.rawTxHex);
-    message.label !== undefined && (object.label = message.label);
-    return object;
+      (obj.blockHeight = Math.round(message.blockHeight));
+    message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
+    message.totalFees !== undefined && (obj.totalFees = message.totalFees);
+    if (message.destAddresses) {
+      obj.destAddresses = message.destAddresses.map((e) => e);
+    } else {
+      obj.destAddresses = [];
+    }
+    if (message.outputDetails) {
+      obj.outputDetails = message.outputDetails.map((e) =>
+        e ? OutputDetail.toJSON(e) : undefined,
+      );
+    } else {
+      obj.outputDetails = [];
+    }
+    message.rawTxHex !== undefined && (obj.rawTxHex = message.rawTxHex);
+    message.label !== undefined && (obj.label = message.label);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Transaction>): Transaction {
@@ -5023,6 +5249,8 @@ export const Transaction = {
     message.timeStamp = object.timeStamp ?? '0';
     message.totalFees = object.totalFees ?? '0';
     message.destAddresses = object.destAddresses?.map((e) => e) || [];
+    message.outputDetails =
+      object.outputDetails?.map((e) => OutputDetail.fromPartial(e)) || [];
     message.rawTxHex = object.rawTxHex ?? '';
     message.label = object.label ?? '';
     return message;
@@ -5041,15 +5269,12 @@ export const GetTransactionsRequest = {
     if (message.startHeight !== 0) {
       writer.uint32(8).int32(message.startHeight);
     }
-
     if (message.endHeight !== 0) {
       writer.uint32(16).int32(message.endHeight);
     }
-
     if (message.account !== '') {
       writer.uint32(26).string(message.account);
     }
-
     return writer;
   },
 
@@ -5058,7 +5283,7 @@ export const GetTransactionsRequest = {
     length?: number,
   ): GetTransactionsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetTransactionsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5077,35 +5302,25 @@ export const GetTransactionsRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): GetTransactionsRequest {
-    const message = createBaseGetTransactionsRequest();
-    message.startHeight =
-      object.startHeight !== undefined && object.startHeight !== null
-        ? Number(object.startHeight)
-        : 0;
-    message.endHeight =
-      object.endHeight !== undefined && object.endHeight !== null
-        ? Number(object.endHeight)
-        : 0;
-    message.account =
-      object.account !== undefined && object.account !== null
-        ? String(object.account)
-        : '';
-    return message;
+    return {
+      startHeight: isSet(object.startHeight) ? Number(object.startHeight) : 0,
+      endHeight: isSet(object.endHeight) ? Number(object.endHeight) : 0,
+      account: isSet(object.account) ? String(object.account) : '',
+    };
   },
 
   toJSON(message: GetTransactionsRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.startHeight !== undefined &&
-      (object.startHeight = Math.round(message.startHeight));
+      (obj.startHeight = Math.round(message.startHeight));
     message.endHeight !== undefined &&
-      (object.endHeight = Math.round(message.endHeight));
-    message.account !== undefined && (object.account = message.account);
-    return object;
+      (obj.endHeight = Math.round(message.endHeight));
+    message.account !== undefined && (obj.account = message.account);
+    return obj;
   },
 
   fromPartial(
@@ -5129,15 +5344,14 @@ export const TransactionDetails = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.transactions) {
-      Transaction.encode(v, writer.uint32(10).fork()).ldelim();
+      Transaction.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): TransactionDetails {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTransactionDetails();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5152,29 +5366,27 @@ export const TransactionDetails = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): TransactionDetails {
-    const message = createBaseTransactionDetails();
-    message.transactions = (object.transactions ?? []).map((e: any) =>
-      Transaction.fromJSON(e),
-    );
-    return message;
+    return {
+      transactions: Array.isArray(object?.transactions)
+        ? object.transactions.map((e: any) => Transaction.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: TransactionDetails): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.transactions) {
-      object.transactions = message.transactions.map((e) =>
+      obj.transactions = message.transactions.map((e) =>
         e ? Transaction.toJSON(e) : undefined,
       );
     } else {
-      object.transactions = [];
+      obj.transactions = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<TransactionDetails>): TransactionDetails {
@@ -5197,21 +5409,18 @@ export const FeeLimit = {
     if (message.fixed !== undefined) {
       writer.uint32(8).int64(message.fixed);
     }
-
     if (message.fixedMsat !== undefined) {
       writer.uint32(24).int64(message.fixedMsat);
     }
-
     if (message.percent !== undefined) {
       writer.uint32(16).int64(message.percent);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FeeLimit {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeeLimit();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5230,33 +5439,23 @@ export const FeeLimit = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FeeLimit {
-    const message = createBaseFeeLimit();
-    message.fixed =
-      object.fixed !== undefined && object.fixed !== null
-        ? String(object.fixed)
-        : undefined;
-    message.fixedMsat =
-      object.fixedMsat !== undefined && object.fixedMsat !== null
-        ? String(object.fixedMsat)
-        : undefined;
-    message.percent =
-      object.percent !== undefined && object.percent !== null
-        ? String(object.percent)
-        : undefined;
-    return message;
+    return {
+      fixed: isSet(object.fixed) ? String(object.fixed) : undefined,
+      fixedMsat: isSet(object.fixedMsat) ? String(object.fixedMsat) : undefined,
+      percent: isSet(object.percent) ? String(object.percent) : undefined,
+    };
   },
 
   toJSON(message: FeeLimit): unknown {
-    const object: any = {};
-    message.fixed !== undefined && (object.fixed = message.fixed);
-    message.fixedMsat !== undefined && (object.fixedMsat = message.fixedMsat);
-    message.percent !== undefined && (object.percent = message.percent);
-    return object;
+    const obj: any = {};
+    message.fixed !== undefined && (obj.fixed = message.fixed);
+    message.fixedMsat !== undefined && (obj.fixedMsat = message.fixedMsat);
+    message.percent !== undefined && (obj.percent = message.percent);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FeeLimit>): FeeLimit {
@@ -5294,81 +5493,65 @@ export const SendRequest = {
     message: SendRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.dest.length > 0) {
+    if (message.dest.length !== 0) {
       writer.uint32(10).bytes(message.dest);
     }
-
     if (message.destString !== '') {
       writer.uint32(18).string(message.destString);
     }
-
     if (message.amt !== '0') {
       writer.uint32(24).int64(message.amt);
     }
-
     if (message.amtMsat !== '0') {
       writer.uint32(96).int64(message.amtMsat);
     }
-
-    if (message.paymentHash.length > 0) {
+    if (message.paymentHash.length !== 0) {
       writer.uint32(34).bytes(message.paymentHash);
     }
-
     if (message.paymentHashString !== '') {
       writer.uint32(42).string(message.paymentHashString);
     }
-
     if (message.paymentRequest !== '') {
       writer.uint32(50).string(message.paymentRequest);
     }
-
     if (message.finalCltvDelta !== 0) {
       writer.uint32(56).int32(message.finalCltvDelta);
     }
-
     if (message.feeLimit !== undefined) {
       FeeLimit.encode(message.feeLimit, writer.uint32(66).fork()).ldelim();
     }
-
     if (message.outgoingChanId !== '0') {
       writer.uint32(72).uint64(message.outgoingChanId);
     }
-
-    if (message.lastHopPubkey.length > 0) {
+    if (message.lastHopPubkey.length !== 0) {
       writer.uint32(106).bytes(message.lastHopPubkey);
     }
-
     if (message.cltvLimit !== 0) {
       writer.uint32(80).uint32(message.cltvLimit);
     }
-
-    for (const [key, value] of Object.entries(message.destCustomRecords)) {
+    Object.entries(message.destCustomRecords).forEach(([key, value]) => {
       SendRequest_DestCustomRecordsEntry.encode(
         {key: key as any, value},
         writer.uint32(90).fork(),
       ).ldelim();
-    }
-
-    if (message.allowSelfPayment) {
+    });
+    if (message.allowSelfPayment === true) {
       writer.uint32(112).bool(message.allowSelfPayment);
     }
-
     writer.uint32(122).fork();
     for (const v of message.destFeatures) {
       writer.int32(v);
     }
-
     writer.ldelim();
-    if (message.paymentAddr.length > 0) {
+    if (message.paymentAddr.length !== 0) {
       writer.uint32(130).bytes(message.paymentAddr);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5417,7 +5600,6 @@ export const SendRequest = {
           if (entry11.value !== undefined) {
             message.destCustomRecords[entry11.key] = entry11.value;
           }
-
           break;
         case 14:
           message.allowSelfPayment = reader.bool();
@@ -5431,7 +5613,6 @@ export const SendRequest = {
           } else {
             message.destFeatures.push(reader.int32() as any);
           }
-
           break;
         case 16:
           message.paymentAddr = reader.bytes();
@@ -5441,136 +5622,114 @@ export const SendRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendRequest {
-    const message = createBaseSendRequest();
-    message.dest =
-      object.dest !== undefined && object.dest !== null
+    return {
+      dest: isSet(object.dest)
         ? bytesFromBase64(object.dest)
-        : new Uint8Array();
-    message.destString =
-      object.destString !== undefined && object.destString !== null
-        ? String(object.destString)
-        : '';
-    message.amt =
-      object.amt !== undefined && object.amt !== null
-        ? String(object.amt)
-        : '0';
-    message.amtMsat =
-      object.amtMsat !== undefined && object.amtMsat !== null
-        ? String(object.amtMsat)
-        : '0';
-    message.paymentHash =
-      object.paymentHash !== undefined && object.paymentHash !== null
+        : new Uint8Array(),
+      destString: isSet(object.destString) ? String(object.destString) : '',
+      amt: isSet(object.amt) ? String(object.amt) : '0',
+      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : '0',
+      paymentHash: isSet(object.paymentHash)
         ? bytesFromBase64(object.paymentHash)
-        : new Uint8Array();
-    message.paymentHashString =
-      object.paymentHashString !== undefined &&
-      object.paymentHashString !== null
+        : new Uint8Array(),
+      paymentHashString: isSet(object.paymentHashString)
         ? String(object.paymentHashString)
-        : '';
-    message.paymentRequest =
-      object.paymentRequest !== undefined && object.paymentRequest !== null
+        : '',
+      paymentRequest: isSet(object.paymentRequest)
         ? String(object.paymentRequest)
-        : '';
-    message.finalCltvDelta =
-      object.finalCltvDelta !== undefined && object.finalCltvDelta !== null
+        : '',
+      finalCltvDelta: isSet(object.finalCltvDelta)
         ? Number(object.finalCltvDelta)
-        : 0;
-    message.feeLimit =
-      object.feeLimit !== undefined && object.feeLimit !== null
+        : 0,
+      feeLimit: isSet(object.feeLimit)
         ? FeeLimit.fromJSON(object.feeLimit)
-        : undefined;
-    message.outgoingChanId =
-      object.outgoingChanId !== undefined && object.outgoingChanId !== null
+        : undefined,
+      outgoingChanId: isSet(object.outgoingChanId)
         ? String(object.outgoingChanId)
-        : '0';
-    message.lastHopPubkey =
-      object.lastHopPubkey !== undefined && object.lastHopPubkey !== null
+        : '0',
+      lastHopPubkey: isSet(object.lastHopPubkey)
         ? bytesFromBase64(object.lastHopPubkey)
-        : new Uint8Array();
-    message.cltvLimit =
-      object.cltvLimit !== undefined && object.cltvLimit !== null
-        ? Number(object.cltvLimit)
-        : 0;
-    message.destCustomRecords = Object.entries(
-      object.destCustomRecords ?? {},
-    ).reduce<Record<string, Uint8Array>>((acc, [key, value]) => {
-      acc[key] = bytesFromBase64(value as string);
-      return acc;
-    }, {});
-    message.allowSelfPayment =
-      object.allowSelfPayment !== undefined && object.allowSelfPayment !== null
+        : new Uint8Array(),
+      cltvLimit: isSet(object.cltvLimit) ? Number(object.cltvLimit) : 0,
+      destCustomRecords: isObject(object.destCustomRecords)
+        ? Object.entries(object.destCustomRecords).reduce<{
+            [key: string]: Uint8Array;
+          }>((acc, [key, value]) => {
+            acc[key] = bytesFromBase64(value as string);
+            return acc;
+          }, {})
+        : {},
+      allowSelfPayment: isSet(object.allowSelfPayment)
         ? Boolean(object.allowSelfPayment)
-        : false;
-    message.destFeatures = (object.destFeatures ?? []).map((e: any) =>
-      featureBitFromJSON(e),
-    );
-    message.paymentAddr =
-      object.paymentAddr !== undefined && object.paymentAddr !== null
+        : false,
+      destFeatures: Array.isArray(object?.destFeatures)
+        ? object.destFeatures.map((e: any) => featureBitFromJSON(e))
+        : [],
+      paymentAddr: isSet(object.paymentAddr)
         ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: SendRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.dest !== undefined &&
-      (object.dest = base64FromBytes(
+      (obj.dest = base64FromBytes(
         message.dest !== undefined ? message.dest : new Uint8Array(),
       ));
-    message.destString !== undefined &&
-      (object.destString = message.destString);
-    message.amt !== undefined && (object.amt = message.amt);
-    message.amtMsat !== undefined && (object.amtMsat = message.amtMsat);
+    message.destString !== undefined && (obj.destString = message.destString);
+    message.amt !== undefined && (obj.amt = message.amt);
+    message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
     message.paymentHash !== undefined &&
-      (object.paymentHash = base64FromBytes(
+      (obj.paymentHash = base64FromBytes(
         message.paymentHash !== undefined
           ? message.paymentHash
           : new Uint8Array(),
       ));
     message.paymentHashString !== undefined &&
-      (object.paymentHashString = message.paymentHashString);
+      (obj.paymentHashString = message.paymentHashString);
     message.paymentRequest !== undefined &&
-      (object.paymentRequest = message.paymentRequest);
+      (obj.paymentRequest = message.paymentRequest);
     message.finalCltvDelta !== undefined &&
-      (object.finalCltvDelta = Math.round(message.finalCltvDelta));
+      (obj.finalCltvDelta = Math.round(message.finalCltvDelta));
     message.feeLimit !== undefined &&
-      (object.feeLimit = message.feeLimit
+      (obj.feeLimit = message.feeLimit
         ? FeeLimit.toJSON(message.feeLimit)
         : undefined);
     message.outgoingChanId !== undefined &&
-      (object.outgoingChanId = message.outgoingChanId);
+      (obj.outgoingChanId = message.outgoingChanId);
     message.lastHopPubkey !== undefined &&
-      (object.lastHopPubkey = base64FromBytes(
+      (obj.lastHopPubkey = base64FromBytes(
         message.lastHopPubkey !== undefined
           ? message.lastHopPubkey
           : new Uint8Array(),
       ));
     message.cltvLimit !== undefined &&
-      (object.cltvLimit = Math.round(message.cltvLimit));
-    object.destCustomRecords = {};
+      (obj.cltvLimit = Math.round(message.cltvLimit));
+    obj.destCustomRecords = {};
     if (message.destCustomRecords) {
-      for (const [k, v] of Object.entries(message.destCustomRecords)) {
-        object.destCustomRecords[k] = base64FromBytes(v);
-      }
+      Object.entries(message.destCustomRecords).forEach(([k, v]) => {
+        obj.destCustomRecords[k] = base64FromBytes(v);
+      });
     }
-
     message.allowSelfPayment !== undefined &&
-      (object.allowSelfPayment = message.allowSelfPayment);
-    object.destFeatures = message.destFeatures
-      ? message.destFeatures.map((e) => featureBitToJSON(e))
-      : [];
+      (obj.allowSelfPayment = message.allowSelfPayment);
+    if (message.destFeatures) {
+      obj.destFeatures = message.destFeatures.map((e) => featureBitToJSON(e));
+    } else {
+      obj.destFeatures = [];
+    }
     message.paymentAddr !== undefined &&
-      (object.paymentAddr = base64FromBytes(
+      (obj.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SendRequest>): SendRequest {
@@ -5592,11 +5751,10 @@ export const SendRequest = {
     message.cltvLimit = object.cltvLimit ?? 0;
     message.destCustomRecords = Object.entries(
       object.destCustomRecords ?? {},
-    ).reduce<Record<string, Uint8Array>>((acc, [key, value]) => {
+    ).reduce<{[key: string]: Uint8Array}>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = value;
       }
-
       return acc;
     }, {});
     message.allowSelfPayment = object.allowSelfPayment ?? false;
@@ -5618,11 +5776,9 @@ export const SendRequest_DestCustomRecordsEntry = {
     if (message.key !== '0') {
       writer.uint32(8).uint64(message.key);
     }
-
-    if (message.value.length > 0) {
+    if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
-
     return writer;
   },
 
@@ -5631,7 +5787,7 @@ export const SendRequest_DestCustomRecordsEntry = {
     length?: number,
   ): SendRequest_DestCustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendRequest_DestCustomRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5647,31 +5803,26 @@ export const SendRequest_DestCustomRecordsEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendRequest_DestCustomRecordsEntry {
-    const message = createBaseSendRequest_DestCustomRecordsEntry();
-    message.key =
-      object.key !== undefined && object.key !== null
-        ? String(object.key)
-        : '0';
-    message.value =
-      object.value !== undefined && object.value !== null
+    return {
+      key: isSet(object.key) ? String(object.key) : '0',
+      value: isSet(object.value)
         ? bytesFromBase64(object.value)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: SendRequest_DestCustomRecordsEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (object.value = base64FromBytes(
+      (obj.value = base64FromBytes(
         message.value !== undefined ? message.value : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -5701,25 +5852,21 @@ export const SendResponse = {
     if (message.paymentError !== '') {
       writer.uint32(10).string(message.paymentError);
     }
-
-    if (message.paymentPreimage.length > 0) {
+    if (message.paymentPreimage.length !== 0) {
       writer.uint32(18).bytes(message.paymentPreimage);
     }
-
     if (message.paymentRoute !== undefined) {
       Route.encode(message.paymentRoute, writer.uint32(26).fork()).ldelim();
     }
-
-    if (message.paymentHash.length > 0) {
+    if (message.paymentHash.length !== 0) {
       writer.uint32(34).bytes(message.paymentHash);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5741,52 +5888,47 @@ export const SendResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendResponse {
-    const message = createBaseSendResponse();
-    message.paymentError =
-      object.paymentError !== undefined && object.paymentError !== null
+    return {
+      paymentError: isSet(object.paymentError)
         ? String(object.paymentError)
-        : '';
-    message.paymentPreimage =
-      object.paymentPreimage !== undefined && object.paymentPreimage !== null
+        : '',
+      paymentPreimage: isSet(object.paymentPreimage)
         ? bytesFromBase64(object.paymentPreimage)
-        : new Uint8Array();
-    message.paymentRoute =
-      object.paymentRoute !== undefined && object.paymentRoute !== null
+        : new Uint8Array(),
+      paymentRoute: isSet(object.paymentRoute)
         ? Route.fromJSON(object.paymentRoute)
-        : undefined;
-    message.paymentHash =
-      object.paymentHash !== undefined && object.paymentHash !== null
+        : undefined,
+      paymentHash: isSet(object.paymentHash)
         ? bytesFromBase64(object.paymentHash)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: SendResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.paymentError !== undefined &&
-      (object.paymentError = message.paymentError);
+      (obj.paymentError = message.paymentError);
     message.paymentPreimage !== undefined &&
-      (object.paymentPreimage = base64FromBytes(
+      (obj.paymentPreimage = base64FromBytes(
         message.paymentPreimage !== undefined
           ? message.paymentPreimage
           : new Uint8Array(),
       ));
     message.paymentRoute !== undefined &&
-      (object.paymentRoute = message.paymentRoute
+      (obj.paymentRoute = message.paymentRoute
         ? Route.toJSON(message.paymentRoute)
         : undefined);
     message.paymentHash !== undefined &&
-      (object.paymentHash = base64FromBytes(
+      (obj.paymentHash = base64FromBytes(
         message.paymentHash !== undefined
           ? message.paymentHash
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SendResponse>): SendResponse {
@@ -5815,24 +5957,21 @@ export const SendToRouteRequest = {
     message: SendToRouteRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.paymentHash.length > 0) {
+    if (message.paymentHash.length !== 0) {
       writer.uint32(10).bytes(message.paymentHash);
     }
-
     if (message.paymentHashString !== '') {
       writer.uint32(18).string(message.paymentHashString);
     }
-
     if (message.route !== undefined) {
       Route.encode(message.route, writer.uint32(34).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendToRouteRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendToRouteRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -5851,41 +5990,34 @@ export const SendToRouteRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendToRouteRequest {
-    const message = createBaseSendToRouteRequest();
-    message.paymentHash =
-      object.paymentHash !== undefined && object.paymentHash !== null
+    return {
+      paymentHash: isSet(object.paymentHash)
         ? bytesFromBase64(object.paymentHash)
-        : new Uint8Array();
-    message.paymentHashString =
-      object.paymentHashString !== undefined &&
-      object.paymentHashString !== null
+        : new Uint8Array(),
+      paymentHashString: isSet(object.paymentHashString)
         ? String(object.paymentHashString)
-        : '';
-    message.route =
-      object.route !== undefined && object.route !== null
-        ? Route.fromJSON(object.route)
-        : undefined;
-    return message;
+        : '',
+      route: isSet(object.route) ? Route.fromJSON(object.route) : undefined,
+    };
   },
 
   toJSON(message: SendToRouteRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.paymentHash !== undefined &&
-      (object.paymentHash = base64FromBytes(
+      (obj.paymentHash = base64FromBytes(
         message.paymentHash !== undefined
           ? message.paymentHash
           : new Uint8Array(),
       ));
     message.paymentHashString !== undefined &&
-      (object.paymentHashString = message.paymentHashString);
+      (obj.paymentHashString = message.paymentHashString);
     message.route !== undefined &&
-      (object.route = message.route ? Route.toJSON(message.route) : undefined);
-    return object;
+      (obj.route = message.route ? Route.toJSON(message.route) : undefined);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SendToRouteRequest>): SendToRouteRequest {
@@ -5924,62 +6056,48 @@ export const ChannelAcceptRequest = {
     message: ChannelAcceptRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.nodePubkey.length > 0) {
+    if (message.nodePubkey.length !== 0) {
       writer.uint32(10).bytes(message.nodePubkey);
     }
-
-    if (message.chainHash.length > 0) {
+    if (message.chainHash.length !== 0) {
       writer.uint32(18).bytes(message.chainHash);
     }
-
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(26).bytes(message.pendingChanId);
     }
-
     if (message.fundingAmt !== '0') {
       writer.uint32(32).uint64(message.fundingAmt);
     }
-
     if (message.pushAmt !== '0') {
       writer.uint32(40).uint64(message.pushAmt);
     }
-
     if (message.dustLimit !== '0') {
       writer.uint32(48).uint64(message.dustLimit);
     }
-
     if (message.maxValueInFlight !== '0') {
       writer.uint32(56).uint64(message.maxValueInFlight);
     }
-
     if (message.channelReserve !== '0') {
       writer.uint32(64).uint64(message.channelReserve);
     }
-
     if (message.minHtlc !== '0') {
       writer.uint32(72).uint64(message.minHtlc);
     }
-
     if (message.feePerKw !== '0') {
       writer.uint32(80).uint64(message.feePerKw);
     }
-
     if (message.csvDelay !== 0) {
       writer.uint32(88).uint32(message.csvDelay);
     }
-
     if (message.maxAcceptedHtlcs !== 0) {
       writer.uint32(96).uint32(message.maxAcceptedHtlcs);
     }
-
     if (message.channelFlags !== 0) {
       writer.uint32(104).uint32(message.channelFlags);
     }
-
     if (message.commitmentType !== 0) {
       writer.uint32(112).int32(message.commitmentType);
     }
-
     return writer;
   },
 
@@ -5988,7 +6106,7 @@ export const ChannelAcceptRequest = {
     length?: number,
   ): ChannelAcceptRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelAcceptRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6040,108 +6158,80 @@ export const ChannelAcceptRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelAcceptRequest {
-    const message = createBaseChannelAcceptRequest();
-    message.nodePubkey =
-      object.nodePubkey !== undefined && object.nodePubkey !== null
+    return {
+      nodePubkey: isSet(object.nodePubkey)
         ? bytesFromBase64(object.nodePubkey)
-        : new Uint8Array();
-    message.chainHash =
-      object.chainHash !== undefined && object.chainHash !== null
+        : new Uint8Array(),
+      chainHash: isSet(object.chainHash)
         ? bytesFromBase64(object.chainHash)
-        : new Uint8Array();
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+        : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    message.fundingAmt =
-      object.fundingAmt !== undefined && object.fundingAmt !== null
-        ? String(object.fundingAmt)
-        : '0';
-    message.pushAmt =
-      object.pushAmt !== undefined && object.pushAmt !== null
-        ? String(object.pushAmt)
-        : '0';
-    message.dustLimit =
-      object.dustLimit !== undefined && object.dustLimit !== null
-        ? String(object.dustLimit)
-        : '0';
-    message.maxValueInFlight =
-      object.maxValueInFlight !== undefined && object.maxValueInFlight !== null
+        : new Uint8Array(),
+      fundingAmt: isSet(object.fundingAmt) ? String(object.fundingAmt) : '0',
+      pushAmt: isSet(object.pushAmt) ? String(object.pushAmt) : '0',
+      dustLimit: isSet(object.dustLimit) ? String(object.dustLimit) : '0',
+      maxValueInFlight: isSet(object.maxValueInFlight)
         ? String(object.maxValueInFlight)
-        : '0';
-    message.channelReserve =
-      object.channelReserve !== undefined && object.channelReserve !== null
+        : '0',
+      channelReserve: isSet(object.channelReserve)
         ? String(object.channelReserve)
-        : '0';
-    message.minHtlc =
-      object.minHtlc !== undefined && object.minHtlc !== null
-        ? String(object.minHtlc)
-        : '0';
-    message.feePerKw =
-      object.feePerKw !== undefined && object.feePerKw !== null
-        ? String(object.feePerKw)
-        : '0';
-    message.csvDelay =
-      object.csvDelay !== undefined && object.csvDelay !== null
-        ? Number(object.csvDelay)
-        : 0;
-    message.maxAcceptedHtlcs =
-      object.maxAcceptedHtlcs !== undefined && object.maxAcceptedHtlcs !== null
+        : '0',
+      minHtlc: isSet(object.minHtlc) ? String(object.minHtlc) : '0',
+      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : '0',
+      csvDelay: isSet(object.csvDelay) ? Number(object.csvDelay) : 0,
+      maxAcceptedHtlcs: isSet(object.maxAcceptedHtlcs)
         ? Number(object.maxAcceptedHtlcs)
-        : 0;
-    message.channelFlags =
-      object.channelFlags !== undefined && object.channelFlags !== null
+        : 0,
+      channelFlags: isSet(object.channelFlags)
         ? Number(object.channelFlags)
-        : 0;
-    message.commitmentType =
-      object.commitmentType !== undefined && object.commitmentType !== null
+        : 0,
+      commitmentType: isSet(object.commitmentType)
         ? commitmentTypeFromJSON(object.commitmentType)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: ChannelAcceptRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.nodePubkey !== undefined &&
-      (object.nodePubkey = base64FromBytes(
+      (obj.nodePubkey = base64FromBytes(
         message.nodePubkey !== undefined
           ? message.nodePubkey
           : new Uint8Array(),
       ));
     message.chainHash !== undefined &&
-      (object.chainHash = base64FromBytes(
+      (obj.chainHash = base64FromBytes(
         message.chainHash !== undefined ? message.chainHash : new Uint8Array(),
       ));
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
-    message.fundingAmt !== undefined &&
-      (object.fundingAmt = message.fundingAmt);
-    message.pushAmt !== undefined && (object.pushAmt = message.pushAmt);
-    message.dustLimit !== undefined && (object.dustLimit = message.dustLimit);
+    message.fundingAmt !== undefined && (obj.fundingAmt = message.fundingAmt);
+    message.pushAmt !== undefined && (obj.pushAmt = message.pushAmt);
+    message.dustLimit !== undefined && (obj.dustLimit = message.dustLimit);
     message.maxValueInFlight !== undefined &&
-      (object.maxValueInFlight = message.maxValueInFlight);
+      (obj.maxValueInFlight = message.maxValueInFlight);
     message.channelReserve !== undefined &&
-      (object.channelReserve = message.channelReserve);
-    message.minHtlc !== undefined && (object.minHtlc = message.minHtlc);
-    message.feePerKw !== undefined && (object.feePerKw = message.feePerKw);
+      (obj.channelReserve = message.channelReserve);
+    message.minHtlc !== undefined && (obj.minHtlc = message.minHtlc);
+    message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
     message.csvDelay !== undefined &&
-      (object.csvDelay = Math.round(message.csvDelay));
+      (obj.csvDelay = Math.round(message.csvDelay));
     message.maxAcceptedHtlcs !== undefined &&
-      (object.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
+      (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
     message.channelFlags !== undefined &&
-      (object.channelFlags = Math.round(message.channelFlags));
+      (obj.channelFlags = Math.round(message.channelFlags));
     message.commitmentType !== undefined &&
-      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    return object;
+      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelAcceptRequest>): ChannelAcceptRequest {
@@ -6184,46 +6274,36 @@ export const ChannelAcceptResponse = {
     message: ChannelAcceptResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.accept) {
+    if (message.accept === true) {
       writer.uint32(8).bool(message.accept);
     }
-
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(18).bytes(message.pendingChanId);
     }
-
     if (message.error !== '') {
       writer.uint32(26).string(message.error);
     }
-
     if (message.upfrontShutdown !== '') {
       writer.uint32(34).string(message.upfrontShutdown);
     }
-
     if (message.csvDelay !== 0) {
       writer.uint32(40).uint32(message.csvDelay);
     }
-
     if (message.reserveSat !== '0') {
       writer.uint32(48).uint64(message.reserveSat);
     }
-
     if (message.inFlightMaxMsat !== '0') {
       writer.uint32(56).uint64(message.inFlightMaxMsat);
     }
-
     if (message.maxHtlcCount !== 0) {
       writer.uint32(64).uint32(message.maxHtlcCount);
     }
-
     if (message.minHtlcIn !== '0') {
       writer.uint32(72).uint64(message.minHtlcIn);
     }
-
     if (message.minAcceptDepth !== 0) {
       writer.uint32(80).uint32(message.minAcceptDepth);
     }
-
     return writer;
   },
 
@@ -6232,7 +6312,7 @@ export const ChannelAcceptResponse = {
     length?: number,
   ): ChannelAcceptResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelAcceptResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6272,79 +6352,57 @@ export const ChannelAcceptResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelAcceptResponse {
-    const message = createBaseChannelAcceptResponse();
-    message.accept =
-      object.accept !== undefined && object.accept !== null
-        ? Boolean(object.accept)
-        : false;
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+    return {
+      accept: isSet(object.accept) ? Boolean(object.accept) : false,
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    message.error =
-      object.error !== undefined && object.error !== null
-        ? String(object.error)
-        : '';
-    message.upfrontShutdown =
-      object.upfrontShutdown !== undefined && object.upfrontShutdown !== null
+        : new Uint8Array(),
+      error: isSet(object.error) ? String(object.error) : '',
+      upfrontShutdown: isSet(object.upfrontShutdown)
         ? String(object.upfrontShutdown)
-        : '';
-    message.csvDelay =
-      object.csvDelay !== undefined && object.csvDelay !== null
-        ? Number(object.csvDelay)
-        : 0;
-    message.reserveSat =
-      object.reserveSat !== undefined && object.reserveSat !== null
-        ? String(object.reserveSat)
-        : '0';
-    message.inFlightMaxMsat =
-      object.inFlightMaxMsat !== undefined && object.inFlightMaxMsat !== null
+        : '',
+      csvDelay: isSet(object.csvDelay) ? Number(object.csvDelay) : 0,
+      reserveSat: isSet(object.reserveSat) ? String(object.reserveSat) : '0',
+      inFlightMaxMsat: isSet(object.inFlightMaxMsat)
         ? String(object.inFlightMaxMsat)
-        : '0';
-    message.maxHtlcCount =
-      object.maxHtlcCount !== undefined && object.maxHtlcCount !== null
+        : '0',
+      maxHtlcCount: isSet(object.maxHtlcCount)
         ? Number(object.maxHtlcCount)
-        : 0;
-    message.minHtlcIn =
-      object.minHtlcIn !== undefined && object.minHtlcIn !== null
-        ? String(object.minHtlcIn)
-        : '0';
-    message.minAcceptDepth =
-      object.minAcceptDepth !== undefined && object.minAcceptDepth !== null
+        : 0,
+      minHtlcIn: isSet(object.minHtlcIn) ? String(object.minHtlcIn) : '0',
+      minAcceptDepth: isSet(object.minAcceptDepth)
         ? Number(object.minAcceptDepth)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: ChannelAcceptResponse): unknown {
-    const object: any = {};
-    message.accept !== undefined && (object.accept = message.accept);
+    const obj: any = {};
+    message.accept !== undefined && (obj.accept = message.accept);
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
-    message.error !== undefined && (object.error = message.error);
+    message.error !== undefined && (obj.error = message.error);
     message.upfrontShutdown !== undefined &&
-      (object.upfrontShutdown = message.upfrontShutdown);
+      (obj.upfrontShutdown = message.upfrontShutdown);
     message.csvDelay !== undefined &&
-      (object.csvDelay = Math.round(message.csvDelay));
-    message.reserveSat !== undefined &&
-      (object.reserveSat = message.reserveSat);
+      (obj.csvDelay = Math.round(message.csvDelay));
+    message.reserveSat !== undefined && (obj.reserveSat = message.reserveSat);
     message.inFlightMaxMsat !== undefined &&
-      (object.inFlightMaxMsat = message.inFlightMaxMsat);
+      (obj.inFlightMaxMsat = message.inFlightMaxMsat);
     message.maxHtlcCount !== undefined &&
-      (object.maxHtlcCount = Math.round(message.maxHtlcCount));
-    message.minHtlcIn !== undefined && (object.minHtlcIn = message.minHtlcIn);
+      (obj.maxHtlcCount = Math.round(message.maxHtlcCount));
+    message.minHtlcIn !== undefined && (obj.minHtlcIn = message.minHtlcIn);
     message.minAcceptDepth !== undefined &&
-      (object.minAcceptDepth = Math.round(message.minAcceptDepth));
-    return object;
+      (obj.minAcceptDepth = Math.round(message.minAcceptDepth));
+    return obj;
   },
 
   fromPartial(
@@ -6381,21 +6439,18 @@ export const ChannelPoint = {
     if (message.fundingTxidBytes !== undefined) {
       writer.uint32(10).bytes(message.fundingTxidBytes);
     }
-
     if (message.fundingTxidStr !== undefined) {
       writer.uint32(18).string(message.fundingTxidStr);
     }
-
     if (message.outputIndex !== 0) {
       writer.uint32(24).uint32(message.outputIndex);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelPoint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelPoint();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6414,39 +6469,33 @@ export const ChannelPoint = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelPoint {
-    const message = createBaseChannelPoint();
-    message.fundingTxidBytes =
-      object.fundingTxidBytes !== undefined && object.fundingTxidBytes !== null
+    return {
+      fundingTxidBytes: isSet(object.fundingTxidBytes)
         ? bytesFromBase64(object.fundingTxidBytes)
-        : undefined;
-    message.fundingTxidStr =
-      object.fundingTxidStr !== undefined && object.fundingTxidStr !== null
+        : undefined,
+      fundingTxidStr: isSet(object.fundingTxidStr)
         ? String(object.fundingTxidStr)
-        : undefined;
-    message.outputIndex =
-      object.outputIndex !== undefined && object.outputIndex !== null
-        ? Number(object.outputIndex)
-        : 0;
-    return message;
+        : undefined,
+      outputIndex: isSet(object.outputIndex) ? Number(object.outputIndex) : 0,
+    };
   },
 
   toJSON(message: ChannelPoint): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.fundingTxidBytes !== undefined &&
-      (object.fundingTxidBytes =
+      (obj.fundingTxidBytes =
         message.fundingTxidBytes !== undefined
           ? base64FromBytes(message.fundingTxidBytes)
           : undefined);
     message.fundingTxidStr !== undefined &&
-      (object.fundingTxidStr = message.fundingTxidStr);
+      (obj.fundingTxidStr = message.fundingTxidStr);
     message.outputIndex !== undefined &&
-      (object.outputIndex = Math.round(message.outputIndex));
-    return object;
+      (obj.outputIndex = Math.round(message.outputIndex));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelPoint>): ChannelPoint {
@@ -6467,24 +6516,21 @@ export const OutPoint = {
     message: OutPoint,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.txidBytes.length > 0) {
+    if (message.txidBytes.length !== 0) {
       writer.uint32(10).bytes(message.txidBytes);
     }
-
     if (message.txidStr !== '') {
       writer.uint32(18).string(message.txidStr);
     }
-
     if (message.outputIndex !== 0) {
       writer.uint32(24).uint32(message.outputIndex);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): OutPoint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOutPoint();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6503,37 +6549,29 @@ export const OutPoint = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): OutPoint {
-    const message = createBaseOutPoint();
-    message.txidBytes =
-      object.txidBytes !== undefined && object.txidBytes !== null
+    return {
+      txidBytes: isSet(object.txidBytes)
         ? bytesFromBase64(object.txidBytes)
-        : new Uint8Array();
-    message.txidStr =
-      object.txidStr !== undefined && object.txidStr !== null
-        ? String(object.txidStr)
-        : '';
-    message.outputIndex =
-      object.outputIndex !== undefined && object.outputIndex !== null
-        ? Number(object.outputIndex)
-        : 0;
-    return message;
+        : new Uint8Array(),
+      txidStr: isSet(object.txidStr) ? String(object.txidStr) : '',
+      outputIndex: isSet(object.outputIndex) ? Number(object.outputIndex) : 0,
+    };
   },
 
   toJSON(message: OutPoint): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.txidBytes !== undefined &&
-      (object.txidBytes = base64FromBytes(
+      (obj.txidBytes = base64FromBytes(
         message.txidBytes !== undefined ? message.txidBytes : new Uint8Array(),
       ));
-    message.txidStr !== undefined && (object.txidStr = message.txidStr);
+    message.txidStr !== undefined && (obj.txidStr = message.txidStr);
     message.outputIndex !== undefined &&
-      (object.outputIndex = Math.round(message.outputIndex));
-    return object;
+      (obj.outputIndex = Math.round(message.outputIndex));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<OutPoint>): OutPoint {
@@ -6557,17 +6595,15 @@ export const LightningAddress = {
     if (message.pubkey !== '') {
       writer.uint32(10).string(message.pubkey);
     }
-
     if (message.host !== '') {
       writer.uint32(18).string(message.host);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LightningAddress {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightningAddress();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6583,28 +6619,21 @@ export const LightningAddress = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): LightningAddress {
-    const message = createBaseLightningAddress();
-    message.pubkey =
-      object.pubkey !== undefined && object.pubkey !== null
-        ? String(object.pubkey)
-        : '';
-    message.host =
-      object.host !== undefined && object.host !== null
-        ? String(object.host)
-        : '';
-    return message;
+    return {
+      pubkey: isSet(object.pubkey) ? String(object.pubkey) : '',
+      host: isSet(object.host) ? String(object.host) : '',
+    };
   },
 
   toJSON(message: LightningAddress): unknown {
-    const object: any = {};
-    message.pubkey !== undefined && (object.pubkey = message.pubkey);
-    message.host !== undefined && (object.host = message.host);
-    return object;
+    const obj: any = {};
+    message.pubkey !== undefined && (obj.pubkey = message.pubkey);
+    message.host !== undefined && (obj.host = message.host);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<LightningAddress>): LightningAddress {
@@ -6629,31 +6658,27 @@ export const EstimateFeeRequest = {
     message: EstimateFeeRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    for (const [key, value] of Object.entries(message.AddrToAmount)) {
+    Object.entries(message.AddrToAmount).forEach(([key, value]) => {
       EstimateFeeRequest_AddrToAmountEntry.encode(
         {key: key as any, value},
         writer.uint32(10).fork(),
       ).ldelim();
-    }
-
+    });
     if (message.targetConf !== 0) {
       writer.uint32(16).int32(message.targetConf);
     }
-
     if (message.minConfs !== 0) {
       writer.uint32(24).int32(message.minConfs);
     }
-
-    if (message.spendUnconfirmed) {
+    if (message.spendUnconfirmed === true) {
       writer.uint32(32).bool(message.spendUnconfirmed);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EstimateFeeRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEstimateFeeRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6666,7 +6691,6 @@ export const EstimateFeeRequest = {
           if (entry1.value !== undefined) {
             message.AddrToAmount[entry1.key] = entry1.value;
           }
-
           break;
         case 2:
           message.targetConf = reader.int32();
@@ -6682,60 +6706,53 @@ export const EstimateFeeRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): EstimateFeeRequest {
-    const message = createBaseEstimateFeeRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<
-      Record<string, string>
-    >((acc, [key, value]) => {
-      acc[key] = String(value);
-      return acc;
-    }, {});
-    message.targetConf =
-      object.targetConf !== undefined && object.targetConf !== null
-        ? Number(object.targetConf)
-        : 0;
-    message.minConfs =
-      object.minConfs !== undefined && object.minConfs !== null
-        ? Number(object.minConfs)
-        : 0;
-    message.spendUnconfirmed =
-      object.spendUnconfirmed !== undefined && object.spendUnconfirmed !== null
+    return {
+      AddrToAmount: isObject(object.AddrToAmount)
+        ? Object.entries(object.AddrToAmount).reduce<{[key: string]: string}>(
+            (acc, [key, value]) => {
+              acc[key] = String(value);
+              return acc;
+            },
+            {},
+          )
+        : {},
+      targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
+      minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
+      spendUnconfirmed: isSet(object.spendUnconfirmed)
         ? Boolean(object.spendUnconfirmed)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: EstimateFeeRequest): unknown {
-    const object: any = {};
-    object.AddrToAmount = {};
+    const obj: any = {};
+    obj.AddrToAmount = {};
     if (message.AddrToAmount) {
-      for (const [k, v] of Object.entries(message.AddrToAmount)) {
-        object.AddrToAmount[k] = v;
-      }
+      Object.entries(message.AddrToAmount).forEach(([k, v]) => {
+        obj.AddrToAmount[k] = v;
+      });
     }
-
     message.targetConf !== undefined &&
-      (object.targetConf = Math.round(message.targetConf));
+      (obj.targetConf = Math.round(message.targetConf));
     message.minConfs !== undefined &&
-      (object.minConfs = Math.round(message.minConfs));
+      (obj.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (object.spendUnconfirmed = message.spendUnconfirmed);
-    return object;
+      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<EstimateFeeRequest>): EstimateFeeRequest {
     const message = createBaseEstimateFeeRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<
-      Record<string, string>
-    >((acc, [key, value]) => {
+    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{
+      [key: string]: string;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = String(value);
       }
-
       return acc;
     }, {});
     message.targetConf = object.targetConf ?? 0;
@@ -6757,11 +6774,9 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
     if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-
     if (message.value !== '0') {
       writer.uint32(16).int64(message.value);
     }
-
     return writer;
   },
 
@@ -6770,7 +6785,7 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
     length?: number,
   ): EstimateFeeRequest_AddrToAmountEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEstimateFeeRequest_AddrToAmountEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6786,26 +6801,21 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): EstimateFeeRequest_AddrToAmountEntry {
-    const message = createBaseEstimateFeeRequest_AddrToAmountEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : '';
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? String(object.value)
-        : '0';
-    return message;
+    return {
+      key: isSet(object.key) ? String(object.key) : '',
+      value: isSet(object.value) ? String(object.value) : '0',
+    };
   },
 
   toJSON(message: EstimateFeeRequest_AddrToAmountEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
-    message.value !== undefined && (object.value = message.value);
-    return object;
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined && (obj.value = message.value);
+    return obj;
   },
 
   fromPartial(
@@ -6830,21 +6840,18 @@ export const EstimateFeeResponse = {
     if (message.feeSat !== '0') {
       writer.uint32(8).int64(message.feeSat);
     }
-
     if (message.feerateSatPerByte !== '0') {
       writer.uint32(16).int64(message.feerateSatPerByte);
     }
-
     if (message.satPerVbyte !== '0') {
       writer.uint32(24).uint64(message.satPerVbyte);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EstimateFeeResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEstimateFeeResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6863,36 +6870,27 @@ export const EstimateFeeResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): EstimateFeeResponse {
-    const message = createBaseEstimateFeeResponse();
-    message.feeSat =
-      object.feeSat !== undefined && object.feeSat !== null
-        ? String(object.feeSat)
-        : '0';
-    message.feerateSatPerByte =
-      object.feerateSatPerByte !== undefined &&
-      object.feerateSatPerByte !== null
+    return {
+      feeSat: isSet(object.feeSat) ? String(object.feeSat) : '0',
+      feerateSatPerByte: isSet(object.feerateSatPerByte)
         ? String(object.feerateSatPerByte)
-        : '0';
-    message.satPerVbyte =
-      object.satPerVbyte !== undefined && object.satPerVbyte !== null
-        ? String(object.satPerVbyte)
-        : '0';
-    return message;
+        : '0',
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+    };
   },
 
   toJSON(message: EstimateFeeResponse): unknown {
-    const object: any = {};
-    message.feeSat !== undefined && (object.feeSat = message.feeSat);
+    const obj: any = {};
+    message.feeSat !== undefined && (obj.feeSat = message.feeSat);
     message.feerateSatPerByte !== undefined &&
-      (object.feerateSatPerByte = message.feerateSatPerByte);
+      (obj.feerateSatPerByte = message.feerateSatPerByte);
     message.satPerVbyte !== undefined &&
-      (object.satPerVbyte = message.satPerVbyte);
-    return object;
+      (obj.satPerVbyte = message.satPerVbyte);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<EstimateFeeResponse>): EstimateFeeResponse {
@@ -6921,43 +6919,36 @@ export const SendManyRequest = {
     message: SendManyRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    for (const [key, value] of Object.entries(message.AddrToAmount)) {
+    Object.entries(message.AddrToAmount).forEach(([key, value]) => {
       SendManyRequest_AddrToAmountEntry.encode(
         {key: key as any, value},
         writer.uint32(10).fork(),
       ).ldelim();
-    }
-
+    });
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-
     if (message.satPerVbyte !== '0') {
       writer.uint32(32).uint64(message.satPerVbyte);
     }
-
     if (message.satPerByte !== '0') {
       writer.uint32(40).int64(message.satPerByte);
     }
-
     if (message.label !== '') {
       writer.uint32(50).string(message.label);
     }
-
     if (message.minConfs !== 0) {
       writer.uint32(56).int32(message.minConfs);
     }
-
-    if (message.spendUnconfirmed) {
+    if (message.spendUnconfirmed === true) {
       writer.uint32(64).bool(message.spendUnconfirmed);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendManyRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendManyRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -6970,7 +6961,6 @@ export const SendManyRequest = {
           if (entry1.value !== undefined) {
             message.AddrToAmount[entry1.key] = entry1.value;
           }
-
           break;
         case 3:
           message.targetConf = reader.int32();
@@ -6995,77 +6985,60 @@ export const SendManyRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendManyRequest {
-    const message = createBaseSendManyRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<
-      Record<string, string>
-    >((acc, [key, value]) => {
-      acc[key] = String(value);
-      return acc;
-    }, {});
-    message.targetConf =
-      object.targetConf !== undefined && object.targetConf !== null
-        ? Number(object.targetConf)
-        : 0;
-    message.satPerVbyte =
-      object.satPerVbyte !== undefined && object.satPerVbyte !== null
-        ? String(object.satPerVbyte)
-        : '0';
-    message.satPerByte =
-      object.satPerByte !== undefined && object.satPerByte !== null
-        ? String(object.satPerByte)
-        : '0';
-    message.label =
-      object.label !== undefined && object.label !== null
-        ? String(object.label)
-        : '';
-    message.minConfs =
-      object.minConfs !== undefined && object.minConfs !== null
-        ? Number(object.minConfs)
-        : 0;
-    message.spendUnconfirmed =
-      object.spendUnconfirmed !== undefined && object.spendUnconfirmed !== null
+    return {
+      AddrToAmount: isObject(object.AddrToAmount)
+        ? Object.entries(object.AddrToAmount).reduce<{[key: string]: string}>(
+            (acc, [key, value]) => {
+              acc[key] = String(value);
+              return acc;
+            },
+            {},
+          )
+        : {},
+      targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : '0',
+      label: isSet(object.label) ? String(object.label) : '',
+      minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
+      spendUnconfirmed: isSet(object.spendUnconfirmed)
         ? Boolean(object.spendUnconfirmed)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: SendManyRequest): unknown {
-    const object: any = {};
-    object.AddrToAmount = {};
+    const obj: any = {};
+    obj.AddrToAmount = {};
     if (message.AddrToAmount) {
-      for (const [k, v] of Object.entries(message.AddrToAmount)) {
-        object.AddrToAmount[k] = v;
-      }
+      Object.entries(message.AddrToAmount).forEach(([k, v]) => {
+        obj.AddrToAmount[k] = v;
+      });
     }
-
     message.targetConf !== undefined &&
-      (object.targetConf = Math.round(message.targetConf));
+      (obj.targetConf = Math.round(message.targetConf));
     message.satPerVbyte !== undefined &&
-      (object.satPerVbyte = message.satPerVbyte);
-    message.satPerByte !== undefined &&
-      (object.satPerByte = message.satPerByte);
-    message.label !== undefined && (object.label = message.label);
+      (obj.satPerVbyte = message.satPerVbyte);
+    message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
+    message.label !== undefined && (obj.label = message.label);
     message.minConfs !== undefined &&
-      (object.minConfs = Math.round(message.minConfs));
+      (obj.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (object.spendUnconfirmed = message.spendUnconfirmed);
-    return object;
+      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SendManyRequest>): SendManyRequest {
     const message = createBaseSendManyRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<
-      Record<string, string>
-    >((acc, [key, value]) => {
+    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{
+      [key: string]: string;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = String(value);
       }
-
       return acc;
     }, {});
     message.targetConf = object.targetConf ?? 0;
@@ -7090,11 +7063,9 @@ export const SendManyRequest_AddrToAmountEntry = {
     if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-
     if (message.value !== '0') {
       writer.uint32(16).int64(message.value);
     }
-
     return writer;
   },
 
@@ -7103,7 +7074,7 @@ export const SendManyRequest_AddrToAmountEntry = {
     length?: number,
   ): SendManyRequest_AddrToAmountEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendManyRequest_AddrToAmountEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7119,26 +7090,21 @@ export const SendManyRequest_AddrToAmountEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendManyRequest_AddrToAmountEntry {
-    const message = createBaseSendManyRequest_AddrToAmountEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : '';
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? String(object.value)
-        : '0';
-    return message;
+    return {
+      key: isSet(object.key) ? String(object.key) : '',
+      value: isSet(object.value) ? String(object.value) : '0',
+    };
   },
 
   toJSON(message: SendManyRequest_AddrToAmountEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
-    message.value !== undefined && (object.value = message.value);
-    return object;
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined && (obj.value = message.value);
+    return obj;
   },
 
   fromPartial(
@@ -7163,13 +7129,12 @@ export const SendManyResponse = {
     if (message.txid !== '') {
       writer.uint32(10).string(message.txid);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendManyResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendManyResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7182,23 +7147,19 @@ export const SendManyResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendManyResponse {
-    const message = createBaseSendManyResponse();
-    message.txid =
-      object.txid !== undefined && object.txid !== null
-        ? String(object.txid)
-        : '';
-    return message;
+    return {
+      txid: isSet(object.txid) ? String(object.txid) : '',
+    };
   },
 
   toJSON(message: SendManyResponse): unknown {
-    const object: any = {};
-    message.txid !== undefined && (object.txid = message.txid);
-    return object;
+    const obj: any = {};
+    message.txid !== undefined && (obj.txid = message.txid);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SendManyResponse>): SendManyResponse {
@@ -7230,45 +7191,36 @@ export const SendCoinsRequest = {
     if (message.addr !== '') {
       writer.uint32(10).string(message.addr);
     }
-
     if (message.amount !== '0') {
       writer.uint32(16).int64(message.amount);
     }
-
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-
     if (message.satPerVbyte !== '0') {
       writer.uint32(32).uint64(message.satPerVbyte);
     }
-
     if (message.satPerByte !== '0') {
       writer.uint32(40).int64(message.satPerByte);
     }
-
-    if (message.sendAll) {
+    if (message.sendAll === true) {
       writer.uint32(48).bool(message.sendAll);
     }
-
     if (message.label !== '') {
       writer.uint32(58).string(message.label);
     }
-
     if (message.minConfs !== 0) {
       writer.uint32(64).int32(message.minConfs);
     }
-
-    if (message.spendUnconfirmed) {
+    if (message.spendUnconfirmed === true) {
       writer.uint32(72).bool(message.spendUnconfirmed);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendCoinsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCoinsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7305,68 +7257,41 @@ export const SendCoinsRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendCoinsRequest {
-    const message = createBaseSendCoinsRequest();
-    message.addr =
-      object.addr !== undefined && object.addr !== null
-        ? String(object.addr)
-        : '';
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? String(object.amount)
-        : '0';
-    message.targetConf =
-      object.targetConf !== undefined && object.targetConf !== null
-        ? Number(object.targetConf)
-        : 0;
-    message.satPerVbyte =
-      object.satPerVbyte !== undefined && object.satPerVbyte !== null
-        ? String(object.satPerVbyte)
-        : '0';
-    message.satPerByte =
-      object.satPerByte !== undefined && object.satPerByte !== null
-        ? String(object.satPerByte)
-        : '0';
-    message.sendAll =
-      object.sendAll !== undefined && object.sendAll !== null
-        ? Boolean(object.sendAll)
-        : false;
-    message.label =
-      object.label !== undefined && object.label !== null
-        ? String(object.label)
-        : '';
-    message.minConfs =
-      object.minConfs !== undefined && object.minConfs !== null
-        ? Number(object.minConfs)
-        : 0;
-    message.spendUnconfirmed =
-      object.spendUnconfirmed !== undefined && object.spendUnconfirmed !== null
+    return {
+      addr: isSet(object.addr) ? String(object.addr) : '',
+      amount: isSet(object.amount) ? String(object.amount) : '0',
+      targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : '0',
+      sendAll: isSet(object.sendAll) ? Boolean(object.sendAll) : false,
+      label: isSet(object.label) ? String(object.label) : '',
+      minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
+      spendUnconfirmed: isSet(object.spendUnconfirmed)
         ? Boolean(object.spendUnconfirmed)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: SendCoinsRequest): unknown {
-    const object: any = {};
-    message.addr !== undefined && (object.addr = message.addr);
-    message.amount !== undefined && (object.amount = message.amount);
+    const obj: any = {};
+    message.addr !== undefined && (obj.addr = message.addr);
+    message.amount !== undefined && (obj.amount = message.amount);
     message.targetConf !== undefined &&
-      (object.targetConf = Math.round(message.targetConf));
+      (obj.targetConf = Math.round(message.targetConf));
     message.satPerVbyte !== undefined &&
-      (object.satPerVbyte = message.satPerVbyte);
-    message.satPerByte !== undefined &&
-      (object.satPerByte = message.satPerByte);
-    message.sendAll !== undefined && (object.sendAll = message.sendAll);
-    message.label !== undefined && (object.label = message.label);
+      (obj.satPerVbyte = message.satPerVbyte);
+    message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
+    message.sendAll !== undefined && (obj.sendAll = message.sendAll);
+    message.label !== undefined && (obj.label = message.label);
     message.minConfs !== undefined &&
-      (object.minConfs = Math.round(message.minConfs));
+      (obj.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (object.spendUnconfirmed = message.spendUnconfirmed);
-    return object;
+      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SendCoinsRequest>): SendCoinsRequest {
@@ -7396,13 +7321,12 @@ export const SendCoinsResponse = {
     if (message.txid !== '') {
       writer.uint32(10).string(message.txid);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SendCoinsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCoinsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7415,23 +7339,19 @@ export const SendCoinsResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SendCoinsResponse {
-    const message = createBaseSendCoinsResponse();
-    message.txid =
-      object.txid !== undefined && object.txid !== null
-        ? String(object.txid)
-        : '';
-    return message;
+    return {
+      txid: isSet(object.txid) ? String(object.txid) : '',
+    };
   },
 
   toJSON(message: SendCoinsResponse): unknown {
-    const object: any = {};
-    message.txid !== undefined && (object.txid = message.txid);
-    return object;
+    const obj: any = {};
+    message.txid !== undefined && (obj.txid = message.txid);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SendCoinsResponse>): SendCoinsResponse {
@@ -7453,21 +7373,18 @@ export const ListUnspentRequest = {
     if (message.minConfs !== 0) {
       writer.uint32(8).int32(message.minConfs);
     }
-
     if (message.maxConfs !== 0) {
       writer.uint32(16).int32(message.maxConfs);
     }
-
     if (message.account !== '') {
       writer.uint32(26).string(message.account);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListUnspentRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListUnspentRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7486,35 +7403,25 @@ export const ListUnspentRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListUnspentRequest {
-    const message = createBaseListUnspentRequest();
-    message.minConfs =
-      object.minConfs !== undefined && object.minConfs !== null
-        ? Number(object.minConfs)
-        : 0;
-    message.maxConfs =
-      object.maxConfs !== undefined && object.maxConfs !== null
-        ? Number(object.maxConfs)
-        : 0;
-    message.account =
-      object.account !== undefined && object.account !== null
-        ? String(object.account)
-        : '';
-    return message;
+    return {
+      minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
+      maxConfs: isSet(object.maxConfs) ? Number(object.maxConfs) : 0,
+      account: isSet(object.account) ? String(object.account) : '',
+    };
   },
 
   toJSON(message: ListUnspentRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.minConfs !== undefined &&
-      (object.minConfs = Math.round(message.minConfs));
+      (obj.minConfs = Math.round(message.minConfs));
     message.maxConfs !== undefined &&
-      (object.maxConfs = Math.round(message.maxConfs));
-    message.account !== undefined && (object.account = message.account);
-    return object;
+      (obj.maxConfs = Math.round(message.maxConfs));
+    message.account !== undefined && (obj.account = message.account);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListUnspentRequest>): ListUnspentRequest {
@@ -7536,15 +7443,14 @@ export const ListUnspentResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.utxos) {
-      Utxo.encode(v, writer.uint32(10).fork()).ldelim();
+      Utxo.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListUnspentResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListUnspentResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7557,22 +7463,25 @@ export const ListUnspentResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListUnspentResponse {
-    const message = createBaseListUnspentResponse();
-    message.utxos = (object.utxos ?? []).map((e: any) => Utxo.fromJSON(e));
-    return message;
+    return {
+      utxos: Array.isArray(object?.utxos)
+        ? object.utxos.map((e: any) => Utxo.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: ListUnspentResponse): unknown {
-    const object: any = {};
-    object.utxos = message.utxos
-      ? message.utxos.map((e) => (e ? Utxo.toJSON(e) : undefined))
-      : [];
-    return object;
+    const obj: any = {};
+    if (message.utxos) {
+      obj.utxos = message.utxos.map((e) => (e ? Utxo.toJSON(e) : undefined));
+    } else {
+      obj.utxos = [];
+    }
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListUnspentResponse>): ListUnspentResponse {
@@ -7594,17 +7503,15 @@ export const NewAddressRequest = {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
-
     if (message.account !== '') {
       writer.uint32(18).string(message.account);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NewAddressRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNewAddressRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7620,29 +7527,21 @@ export const NewAddressRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NewAddressRequest {
-    const message = createBaseNewAddressRequest();
-    message.type =
-      object.type !== undefined && object.type !== null
-        ? addressTypeFromJSON(object.type)
-        : 0;
-    message.account =
-      object.account !== undefined && object.account !== null
-        ? String(object.account)
-        : '';
-    return message;
+    return {
+      type: isSet(object.type) ? addressTypeFromJSON(object.type) : 0,
+      account: isSet(object.account) ? String(object.account) : '',
+    };
   },
 
   toJSON(message: NewAddressRequest): unknown {
-    const object: any = {};
-    message.type !== undefined &&
-      (object.type = addressTypeToJSON(message.type));
-    message.account !== undefined && (object.account = message.account);
-    return object;
+    const obj: any = {};
+    message.type !== undefined && (obj.type = addressTypeToJSON(message.type));
+    message.account !== undefined && (obj.account = message.account);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NewAddressRequest>): NewAddressRequest {
@@ -7665,13 +7564,12 @@ export const NewAddressResponse = {
     if (message.address !== '') {
       writer.uint32(10).string(message.address);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NewAddressResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNewAddressResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7684,23 +7582,19 @@ export const NewAddressResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NewAddressResponse {
-    const message = createBaseNewAddressResponse();
-    message.address =
-      object.address !== undefined && object.address !== null
-        ? String(object.address)
-        : '';
-    return message;
+    return {
+      address: isSet(object.address) ? String(object.address) : '',
+    };
   },
 
   toJSON(message: NewAddressResponse): unknown {
-    const object: any = {};
-    message.address !== undefined && (object.address = message.address);
-    return object;
+    const obj: any = {};
+    message.address !== undefined && (obj.address = message.address);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NewAddressResponse>): NewAddressResponse {
@@ -7719,20 +7613,18 @@ export const SignMessageRequest = {
     message: SignMessageRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.msg.length > 0) {
+    if (message.msg.length !== 0) {
       writer.uint32(10).bytes(message.msg);
     }
-
-    if (message.singleHash) {
+    if (message.singleHash === true) {
       writer.uint32(16).bool(message.singleHash);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SignMessageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignMessageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7748,32 +7640,24 @@ export const SignMessageRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SignMessageRequest {
-    const message = createBaseSignMessageRequest();
-    message.msg =
-      object.msg !== undefined && object.msg !== null
-        ? bytesFromBase64(object.msg)
-        : new Uint8Array();
-    message.singleHash =
-      object.singleHash !== undefined && object.singleHash !== null
-        ? Boolean(object.singleHash)
-        : false;
-    return message;
+    return {
+      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
+      singleHash: isSet(object.singleHash) ? Boolean(object.singleHash) : false,
+    };
   },
 
   toJSON(message: SignMessageRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.msg !== undefined &&
-      (object.msg = base64FromBytes(
+      (obj.msg = base64FromBytes(
         message.msg !== undefined ? message.msg : new Uint8Array(),
       ));
-    message.singleHash !== undefined &&
-      (object.singleHash = message.singleHash);
-    return object;
+    message.singleHash !== undefined && (obj.singleHash = message.singleHash);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SignMessageRequest>): SignMessageRequest {
@@ -7796,13 +7680,12 @@ export const SignMessageResponse = {
     if (message.signature !== '') {
       writer.uint32(10).string(message.signature);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SignMessageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSignMessageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7815,23 +7698,19 @@ export const SignMessageResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SignMessageResponse {
-    const message = createBaseSignMessageResponse();
-    message.signature =
-      object.signature !== undefined && object.signature !== null
-        ? String(object.signature)
-        : '';
-    return message;
+    return {
+      signature: isSet(object.signature) ? String(object.signature) : '',
+    };
   },
 
   toJSON(message: SignMessageResponse): unknown {
-    const object: any = {};
-    message.signature !== undefined && (object.signature = message.signature);
-    return object;
+    const obj: any = {};
+    message.signature !== undefined && (obj.signature = message.signature);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SignMessageResponse>): SignMessageResponse {
@@ -7850,14 +7729,12 @@ export const VerifyMessageRequest = {
     message: VerifyMessageRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.msg.length > 0) {
+    if (message.msg.length !== 0) {
       writer.uint32(10).bytes(message.msg);
     }
-
     if (message.signature !== '') {
       writer.uint32(18).string(message.signature);
     }
-
     return writer;
   },
 
@@ -7866,7 +7743,7 @@ export const VerifyMessageRequest = {
     length?: number,
   ): VerifyMessageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyMessageRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7882,31 +7759,24 @@ export const VerifyMessageRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): VerifyMessageRequest {
-    const message = createBaseVerifyMessageRequest();
-    message.msg =
-      object.msg !== undefined && object.msg !== null
-        ? bytesFromBase64(object.msg)
-        : new Uint8Array();
-    message.signature =
-      object.signature !== undefined && object.signature !== null
-        ? String(object.signature)
-        : '';
-    return message;
+    return {
+      msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
+      signature: isSet(object.signature) ? String(object.signature) : '',
+    };
   },
 
   toJSON(message: VerifyMessageRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.msg !== undefined &&
-      (object.msg = base64FromBytes(
+      (obj.msg = base64FromBytes(
         message.msg !== undefined ? message.msg : new Uint8Array(),
       ));
-    message.signature !== undefined && (object.signature = message.signature);
-    return object;
+    message.signature !== undefined && (obj.signature = message.signature);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<VerifyMessageRequest>): VerifyMessageRequest {
@@ -7926,14 +7796,12 @@ export const VerifyMessageResponse = {
     message: VerifyMessageResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.valid) {
+    if (message.valid === true) {
       writer.uint32(8).bool(message.valid);
     }
-
     if (message.pubkey !== '') {
       writer.uint32(18).string(message.pubkey);
     }
-
     return writer;
   },
 
@@ -7942,7 +7810,7 @@ export const VerifyMessageResponse = {
     length?: number,
   ): VerifyMessageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyMessageResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -7958,28 +7826,21 @@ export const VerifyMessageResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): VerifyMessageResponse {
-    const message = createBaseVerifyMessageResponse();
-    message.valid =
-      object.valid !== undefined && object.valid !== null
-        ? Boolean(object.valid)
-        : false;
-    message.pubkey =
-      object.pubkey !== undefined && object.pubkey !== null
-        ? String(object.pubkey)
-        : '';
-    return message;
+    return {
+      valid: isSet(object.valid) ? Boolean(object.valid) : false,
+      pubkey: isSet(object.pubkey) ? String(object.pubkey) : '',
+    };
   },
 
   toJSON(message: VerifyMessageResponse): unknown {
-    const object: any = {};
-    message.valid !== undefined && (object.valid = message.valid);
-    message.pubkey !== undefined && (object.pubkey = message.pubkey);
-    return object;
+    const obj: any = {};
+    message.valid !== undefined && (obj.valid = message.valid);
+    message.pubkey !== undefined && (obj.pubkey = message.pubkey);
+    return obj;
   },
 
   fromPartial(
@@ -8004,21 +7865,18 @@ export const ConnectPeerRequest = {
     if (message.addr !== undefined) {
       LightningAddress.encode(message.addr, writer.uint32(10).fork()).ldelim();
     }
-
-    if (message.perm) {
+    if (message.perm === true) {
       writer.uint32(16).bool(message.perm);
     }
-
     if (message.timeout !== '0') {
       writer.uint32(24).uint64(message.timeout);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConnectPeerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConnectPeerRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8037,36 +7895,28 @@ export const ConnectPeerRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ConnectPeerRequest {
-    const message = createBaseConnectPeerRequest();
-    message.addr =
-      object.addr !== undefined && object.addr !== null
+    return {
+      addr: isSet(object.addr)
         ? LightningAddress.fromJSON(object.addr)
-        : undefined;
-    message.perm =
-      object.perm !== undefined && object.perm !== null
-        ? Boolean(object.perm)
-        : false;
-    message.timeout =
-      object.timeout !== undefined && object.timeout !== null
-        ? String(object.timeout)
-        : '0';
-    return message;
+        : undefined,
+      perm: isSet(object.perm) ? Boolean(object.perm) : false,
+      timeout: isSet(object.timeout) ? String(object.timeout) : '0',
+    };
   },
 
   toJSON(message: ConnectPeerRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.addr !== undefined &&
-      (object.addr = message.addr
+      (obj.addr = message.addr
         ? LightningAddress.toJSON(message.addr)
         : undefined);
-    message.perm !== undefined && (object.perm = message.perm);
-    message.timeout !== undefined && (object.timeout = message.timeout);
-    return object;
+    message.perm !== undefined && (obj.perm = message.perm);
+    message.timeout !== undefined && (obj.timeout = message.timeout);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ConnectPeerRequest>): ConnectPeerRequest {
@@ -8095,7 +7945,7 @@ export const ConnectPeerResponse = {
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConnectPeerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConnectPeerResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8105,18 +7955,16 @@ export const ConnectPeerResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): ConnectPeerResponse {
-    const message = createBaseConnectPeerResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: ConnectPeerResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<ConnectPeerResponse>): ConnectPeerResponse {
@@ -8137,7 +7985,6 @@ export const DisconnectPeerRequest = {
     if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
-
     return writer;
   },
 
@@ -8146,7 +7993,7 @@ export const DisconnectPeerRequest = {
     length?: number,
   ): DisconnectPeerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDisconnectPeerRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8159,23 +8006,19 @@ export const DisconnectPeerRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): DisconnectPeerRequest {
-    const message = createBaseDisconnectPeerRequest();
-    message.pubKey =
-      object.pubKey !== undefined && object.pubKey !== null
-        ? String(object.pubKey)
-        : '';
-    return message;
+    return {
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+    };
   },
 
   toJSON(message: DisconnectPeerRequest): unknown {
-    const object: any = {};
-    message.pubKey !== undefined && (object.pubKey = message.pubKey);
-    return object;
+    const obj: any = {};
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
+    return obj;
   },
 
   fromPartial(
@@ -8204,7 +8047,7 @@ export const DisconnectPeerResponse = {
     length?: number,
   ): DisconnectPeerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDisconnectPeerResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8214,18 +8057,16 @@ export const DisconnectPeerResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): DisconnectPeerResponse {
-    const message = createBaseDisconnectPeerResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: DisconnectPeerResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<DisconnectPeerResponse>): DisconnectPeerResponse {
@@ -8248,40 +8089,33 @@ function createBaseHTLC(): HTLC {
 
 export const HTLC = {
   encode(message: HTLC, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.incoming) {
+    if (message.incoming === true) {
       writer.uint32(8).bool(message.incoming);
     }
-
     if (message.amount !== '0') {
       writer.uint32(16).int64(message.amount);
     }
-
-    if (message.hashLock.length > 0) {
+    if (message.hashLock.length !== 0) {
       writer.uint32(26).bytes(message.hashLock);
     }
-
     if (message.expirationHeight !== 0) {
       writer.uint32(32).uint32(message.expirationHeight);
     }
-
     if (message.htlcIndex !== '0') {
       writer.uint32(40).uint64(message.htlcIndex);
     }
-
     if (message.forwardingChannel !== '0') {
       writer.uint32(48).uint64(message.forwardingChannel);
     }
-
     if (message.forwardingHtlcIndex !== '0') {
       writer.uint32(56).uint64(message.forwardingHtlcIndex);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): HTLC {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHTLC();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8312,61 +8146,45 @@ export const HTLC = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): HTLC {
-    const message = createBaseHTLC();
-    message.incoming =
-      object.incoming !== undefined && object.incoming !== null
-        ? Boolean(object.incoming)
-        : false;
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? String(object.amount)
-        : '0';
-    message.hashLock =
-      object.hashLock !== undefined && object.hashLock !== null
+    return {
+      incoming: isSet(object.incoming) ? Boolean(object.incoming) : false,
+      amount: isSet(object.amount) ? String(object.amount) : '0',
+      hashLock: isSet(object.hashLock)
         ? bytesFromBase64(object.hashLock)
-        : new Uint8Array();
-    message.expirationHeight =
-      object.expirationHeight !== undefined && object.expirationHeight !== null
+        : new Uint8Array(),
+      expirationHeight: isSet(object.expirationHeight)
         ? Number(object.expirationHeight)
-        : 0;
-    message.htlcIndex =
-      object.htlcIndex !== undefined && object.htlcIndex !== null
-        ? String(object.htlcIndex)
-        : '0';
-    message.forwardingChannel =
-      object.forwardingChannel !== undefined &&
-      object.forwardingChannel !== null
+        : 0,
+      htlcIndex: isSet(object.htlcIndex) ? String(object.htlcIndex) : '0',
+      forwardingChannel: isSet(object.forwardingChannel)
         ? String(object.forwardingChannel)
-        : '0';
-    message.forwardingHtlcIndex =
-      object.forwardingHtlcIndex !== undefined &&
-      object.forwardingHtlcIndex !== null
+        : '0',
+      forwardingHtlcIndex: isSet(object.forwardingHtlcIndex)
         ? String(object.forwardingHtlcIndex)
-        : '0';
-    return message;
+        : '0',
+    };
   },
 
   toJSON(message: HTLC): unknown {
-    const object: any = {};
-    message.incoming !== undefined && (object.incoming = message.incoming);
-    message.amount !== undefined && (object.amount = message.amount);
+    const obj: any = {};
+    message.incoming !== undefined && (obj.incoming = message.incoming);
+    message.amount !== undefined && (obj.amount = message.amount);
     message.hashLock !== undefined &&
-      (object.hashLock = base64FromBytes(
+      (obj.hashLock = base64FromBytes(
         message.hashLock !== undefined ? message.hashLock : new Uint8Array(),
       ));
     message.expirationHeight !== undefined &&
-      (object.expirationHeight = Math.round(message.expirationHeight));
-    message.htlcIndex !== undefined && (object.htlcIndex = message.htlcIndex);
+      (obj.expirationHeight = Math.round(message.expirationHeight));
+    message.htlcIndex !== undefined && (obj.htlcIndex = message.htlcIndex);
     message.forwardingChannel !== undefined &&
-      (object.forwardingChannel = message.forwardingChannel);
+      (obj.forwardingChannel = message.forwardingChannel);
     message.forwardingHtlcIndex !== undefined &&
-      (object.forwardingHtlcIndex = message.forwardingHtlcIndex);
-    return object;
+      (obj.forwardingHtlcIndex = message.forwardingHtlcIndex);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<HTLC>): HTLC {
@@ -8401,33 +8219,27 @@ export const ChannelConstraints = {
     if (message.csvDelay !== 0) {
       writer.uint32(8).uint32(message.csvDelay);
     }
-
     if (message.chanReserveSat !== '0') {
       writer.uint32(16).uint64(message.chanReserveSat);
     }
-
     if (message.dustLimitSat !== '0') {
       writer.uint32(24).uint64(message.dustLimitSat);
     }
-
     if (message.maxPendingAmtMsat !== '0') {
       writer.uint32(32).uint64(message.maxPendingAmtMsat);
     }
-
     if (message.minHtlcMsat !== '0') {
       writer.uint32(40).uint64(message.minHtlcMsat);
     }
-
     if (message.maxAcceptedHtlcs !== 0) {
       writer.uint32(48).uint32(message.maxAcceptedHtlcs);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelConstraints {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelConstraints();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8455,55 +8267,43 @@ export const ChannelConstraints = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelConstraints {
-    const message = createBaseChannelConstraints();
-    message.csvDelay =
-      object.csvDelay !== undefined && object.csvDelay !== null
-        ? Number(object.csvDelay)
-        : 0;
-    message.chanReserveSat =
-      object.chanReserveSat !== undefined && object.chanReserveSat !== null
+    return {
+      csvDelay: isSet(object.csvDelay) ? Number(object.csvDelay) : 0,
+      chanReserveSat: isSet(object.chanReserveSat)
         ? String(object.chanReserveSat)
-        : '0';
-    message.dustLimitSat =
-      object.dustLimitSat !== undefined && object.dustLimitSat !== null
+        : '0',
+      dustLimitSat: isSet(object.dustLimitSat)
         ? String(object.dustLimitSat)
-        : '0';
-    message.maxPendingAmtMsat =
-      object.maxPendingAmtMsat !== undefined &&
-      object.maxPendingAmtMsat !== null
+        : '0',
+      maxPendingAmtMsat: isSet(object.maxPendingAmtMsat)
         ? String(object.maxPendingAmtMsat)
-        : '0';
-    message.minHtlcMsat =
-      object.minHtlcMsat !== undefined && object.minHtlcMsat !== null
-        ? String(object.minHtlcMsat)
-        : '0';
-    message.maxAcceptedHtlcs =
-      object.maxAcceptedHtlcs !== undefined && object.maxAcceptedHtlcs !== null
+        : '0',
+      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : '0',
+      maxAcceptedHtlcs: isSet(object.maxAcceptedHtlcs)
         ? Number(object.maxAcceptedHtlcs)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: ChannelConstraints): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.csvDelay !== undefined &&
-      (object.csvDelay = Math.round(message.csvDelay));
+      (obj.csvDelay = Math.round(message.csvDelay));
     message.chanReserveSat !== undefined &&
-      (object.chanReserveSat = message.chanReserveSat);
+      (obj.chanReserveSat = message.chanReserveSat);
     message.dustLimitSat !== undefined &&
-      (object.dustLimitSat = message.dustLimitSat);
+      (obj.dustLimitSat = message.dustLimitSat);
     message.maxPendingAmtMsat !== undefined &&
-      (object.maxPendingAmtMsat = message.maxPendingAmtMsat);
+      (obj.maxPendingAmtMsat = message.maxPendingAmtMsat);
     message.minHtlcMsat !== undefined &&
-      (object.minHtlcMsat = message.minHtlcMsat);
+      (obj.minHtlcMsat = message.minHtlcMsat);
     message.maxAcceptedHtlcs !== undefined &&
-      (object.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
-    return object;
+      (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelConstraints>): ChannelConstraints {
@@ -8558,138 +8358,108 @@ export const Channel = {
     message: Channel,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.active) {
+    if (message.active === true) {
       writer.uint32(8).bool(message.active);
     }
-
     if (message.remotePubkey !== '') {
       writer.uint32(18).string(message.remotePubkey);
     }
-
     if (message.channelPoint !== '') {
       writer.uint32(26).string(message.channelPoint);
     }
-
     if (message.chanId !== '0') {
       writer.uint32(32).uint64(message.chanId);
     }
-
     if (message.capacity !== '0') {
       writer.uint32(40).int64(message.capacity);
     }
-
     if (message.localBalance !== '0') {
       writer.uint32(48).int64(message.localBalance);
     }
-
     if (message.remoteBalance !== '0') {
       writer.uint32(56).int64(message.remoteBalance);
     }
-
     if (message.commitFee !== '0') {
       writer.uint32(64).int64(message.commitFee);
     }
-
     if (message.commitWeight !== '0') {
       writer.uint32(72).int64(message.commitWeight);
     }
-
     if (message.feePerKw !== '0') {
       writer.uint32(80).int64(message.feePerKw);
     }
-
     if (message.unsettledBalance !== '0') {
       writer.uint32(88).int64(message.unsettledBalance);
     }
-
     if (message.totalSatoshisSent !== '0') {
       writer.uint32(96).int64(message.totalSatoshisSent);
     }
-
     if (message.totalSatoshisReceived !== '0') {
       writer.uint32(104).int64(message.totalSatoshisReceived);
     }
-
     if (message.numUpdates !== '0') {
       writer.uint32(112).uint64(message.numUpdates);
     }
-
     for (const v of message.pendingHtlcs) {
-      HTLC.encode(v, writer.uint32(122).fork()).ldelim();
+      HTLC.encode(v!, writer.uint32(122).fork()).ldelim();
     }
-
     if (message.csvDelay !== 0) {
       writer.uint32(128).uint32(message.csvDelay);
     }
-
-    if (message.private) {
+    if (message.private === true) {
       writer.uint32(136).bool(message.private);
     }
-
-    if (message.initiator) {
+    if (message.initiator === true) {
       writer.uint32(144).bool(message.initiator);
     }
-
     if (message.chanStatusFlags !== '') {
       writer.uint32(154).string(message.chanStatusFlags);
     }
-
     if (message.localChanReserveSat !== '0') {
       writer.uint32(160).int64(message.localChanReserveSat);
     }
-
     if (message.remoteChanReserveSat !== '0') {
       writer.uint32(168).int64(message.remoteChanReserveSat);
     }
-
-    if (message.staticRemoteKey) {
+    if (message.staticRemoteKey === true) {
       writer.uint32(176).bool(message.staticRemoteKey);
     }
-
     if (message.commitmentType !== 0) {
       writer.uint32(208).int32(message.commitmentType);
     }
-
     if (message.lifetime !== '0') {
       writer.uint32(184).int64(message.lifetime);
     }
-
     if (message.uptime !== '0') {
       writer.uint32(192).int64(message.uptime);
     }
-
     if (message.closeAddress !== '') {
       writer.uint32(202).string(message.closeAddress);
     }
-
     if (message.pushAmountSat !== '0') {
       writer.uint32(216).uint64(message.pushAmountSat);
     }
-
     if (message.thawHeight !== 0) {
       writer.uint32(224).uint32(message.thawHeight);
     }
-
     if (message.localConstraints !== undefined) {
       ChannelConstraints.encode(
         message.localConstraints,
         writer.uint32(234).fork(),
       ).ldelim();
     }
-
     if (message.remoteConstraints !== undefined) {
       ChannelConstraints.encode(
         message.remoteConstraints,
         writer.uint32(242).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Channel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -8795,203 +8565,142 @@ export const Channel = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Channel {
-    const message = createBaseChannel();
-    message.active =
-      object.active !== undefined && object.active !== null
-        ? Boolean(object.active)
-        : false;
-    message.remotePubkey =
-      object.remotePubkey !== undefined && object.remotePubkey !== null
+    return {
+      active: isSet(object.active) ? Boolean(object.active) : false,
+      remotePubkey: isSet(object.remotePubkey)
         ? String(object.remotePubkey)
-        : '';
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
+        : '',
+      channelPoint: isSet(object.channelPoint)
         ? String(object.channelPoint)
-        : '';
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.capacity =
-      object.capacity !== undefined && object.capacity !== null
-        ? String(object.capacity)
-        : '0';
-    message.localBalance =
-      object.localBalance !== undefined && object.localBalance !== null
+        : '',
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
+      localBalance: isSet(object.localBalance)
         ? String(object.localBalance)
-        : '0';
-    message.remoteBalance =
-      object.remoteBalance !== undefined && object.remoteBalance !== null
+        : '0',
+      remoteBalance: isSet(object.remoteBalance)
         ? String(object.remoteBalance)
-        : '0';
-    message.commitFee =
-      object.commitFee !== undefined && object.commitFee !== null
-        ? String(object.commitFee)
-        : '0';
-    message.commitWeight =
-      object.commitWeight !== undefined && object.commitWeight !== null
+        : '0',
+      commitFee: isSet(object.commitFee) ? String(object.commitFee) : '0',
+      commitWeight: isSet(object.commitWeight)
         ? String(object.commitWeight)
-        : '0';
-    message.feePerKw =
-      object.feePerKw !== undefined && object.feePerKw !== null
-        ? String(object.feePerKw)
-        : '0';
-    message.unsettledBalance =
-      object.unsettledBalance !== undefined && object.unsettledBalance !== null
+        : '0',
+      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : '0',
+      unsettledBalance: isSet(object.unsettledBalance)
         ? String(object.unsettledBalance)
-        : '0';
-    message.totalSatoshisSent =
-      object.totalSatoshisSent !== undefined &&
-      object.totalSatoshisSent !== null
+        : '0',
+      totalSatoshisSent: isSet(object.totalSatoshisSent)
         ? String(object.totalSatoshisSent)
-        : '0';
-    message.totalSatoshisReceived =
-      object.totalSatoshisReceived !== undefined &&
-      object.totalSatoshisReceived !== null
+        : '0',
+      totalSatoshisReceived: isSet(object.totalSatoshisReceived)
         ? String(object.totalSatoshisReceived)
-        : '0';
-    message.numUpdates =
-      object.numUpdates !== undefined && object.numUpdates !== null
-        ? String(object.numUpdates)
-        : '0';
-    message.pendingHtlcs = (object.pendingHtlcs ?? []).map((e: any) =>
-      HTLC.fromJSON(e),
-    );
-    message.csvDelay =
-      object.csvDelay !== undefined && object.csvDelay !== null
-        ? Number(object.csvDelay)
-        : 0;
-    message.private =
-      object.private !== undefined && object.private !== null
-        ? Boolean(object.private)
-        : false;
-    message.initiator =
-      object.initiator !== undefined && object.initiator !== null
-        ? Boolean(object.initiator)
-        : false;
-    message.chanStatusFlags =
-      object.chanStatusFlags !== undefined && object.chanStatusFlags !== null
+        : '0',
+      numUpdates: isSet(object.numUpdates) ? String(object.numUpdates) : '0',
+      pendingHtlcs: Array.isArray(object?.pendingHtlcs)
+        ? object.pendingHtlcs.map((e: any) => HTLC.fromJSON(e))
+        : [],
+      csvDelay: isSet(object.csvDelay) ? Number(object.csvDelay) : 0,
+      private: isSet(object.private) ? Boolean(object.private) : false,
+      initiator: isSet(object.initiator) ? Boolean(object.initiator) : false,
+      chanStatusFlags: isSet(object.chanStatusFlags)
         ? String(object.chanStatusFlags)
-        : '';
-    message.localChanReserveSat =
-      object.localChanReserveSat !== undefined &&
-      object.localChanReserveSat !== null
+        : '',
+      localChanReserveSat: isSet(object.localChanReserveSat)
         ? String(object.localChanReserveSat)
-        : '0';
-    message.remoteChanReserveSat =
-      object.remoteChanReserveSat !== undefined &&
-      object.remoteChanReserveSat !== null
+        : '0',
+      remoteChanReserveSat: isSet(object.remoteChanReserveSat)
         ? String(object.remoteChanReserveSat)
-        : '0';
-    message.staticRemoteKey =
-      object.staticRemoteKey !== undefined && object.staticRemoteKey !== null
+        : '0',
+      staticRemoteKey: isSet(object.staticRemoteKey)
         ? Boolean(object.staticRemoteKey)
-        : false;
-    message.commitmentType =
-      object.commitmentType !== undefined && object.commitmentType !== null
+        : false,
+      commitmentType: isSet(object.commitmentType)
         ? commitmentTypeFromJSON(object.commitmentType)
-        : 0;
-    message.lifetime =
-      object.lifetime !== undefined && object.lifetime !== null
-        ? String(object.lifetime)
-        : '0';
-    message.uptime =
-      object.uptime !== undefined && object.uptime !== null
-        ? String(object.uptime)
-        : '0';
-    message.closeAddress =
-      object.closeAddress !== undefined && object.closeAddress !== null
+        : 0,
+      lifetime: isSet(object.lifetime) ? String(object.lifetime) : '0',
+      uptime: isSet(object.uptime) ? String(object.uptime) : '0',
+      closeAddress: isSet(object.closeAddress)
         ? String(object.closeAddress)
-        : '';
-    message.pushAmountSat =
-      object.pushAmountSat !== undefined && object.pushAmountSat !== null
+        : '',
+      pushAmountSat: isSet(object.pushAmountSat)
         ? String(object.pushAmountSat)
-        : '0';
-    message.thawHeight =
-      object.thawHeight !== undefined && object.thawHeight !== null
-        ? Number(object.thawHeight)
-        : 0;
-    message.localConstraints =
-      object.localConstraints !== undefined && object.localConstraints !== null
+        : '0',
+      thawHeight: isSet(object.thawHeight) ? Number(object.thawHeight) : 0,
+      localConstraints: isSet(object.localConstraints)
         ? ChannelConstraints.fromJSON(object.localConstraints)
-        : undefined;
-    message.remoteConstraints =
-      object.remoteConstraints !== undefined &&
-      object.remoteConstraints !== null
+        : undefined,
+      remoteConstraints: isSet(object.remoteConstraints)
         ? ChannelConstraints.fromJSON(object.remoteConstraints)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: Channel): unknown {
-    const object: any = {};
-    message.active !== undefined && (object.active = message.active);
+    const obj: any = {};
+    message.active !== undefined && (obj.active = message.active);
     message.remotePubkey !== undefined &&
-      (object.remotePubkey = message.remotePubkey);
+      (obj.remotePubkey = message.remotePubkey);
     message.channelPoint !== undefined &&
-      (object.channelPoint = message.channelPoint);
-    message.chanId !== undefined && (object.chanId = message.chanId);
-    message.capacity !== undefined && (object.capacity = message.capacity);
+      (obj.channelPoint = message.channelPoint);
+    message.chanId !== undefined && (obj.chanId = message.chanId);
+    message.capacity !== undefined && (obj.capacity = message.capacity);
     message.localBalance !== undefined &&
-      (object.localBalance = message.localBalance);
+      (obj.localBalance = message.localBalance);
     message.remoteBalance !== undefined &&
-      (object.remoteBalance = message.remoteBalance);
-    message.commitFee !== undefined && (object.commitFee = message.commitFee);
+      (obj.remoteBalance = message.remoteBalance);
+    message.commitFee !== undefined && (obj.commitFee = message.commitFee);
     message.commitWeight !== undefined &&
-      (object.commitWeight = message.commitWeight);
-    message.feePerKw !== undefined && (object.feePerKw = message.feePerKw);
+      (obj.commitWeight = message.commitWeight);
+    message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
     message.unsettledBalance !== undefined &&
-      (object.unsettledBalance = message.unsettledBalance);
+      (obj.unsettledBalance = message.unsettledBalance);
     message.totalSatoshisSent !== undefined &&
-      (object.totalSatoshisSent = message.totalSatoshisSent);
+      (obj.totalSatoshisSent = message.totalSatoshisSent);
     message.totalSatoshisReceived !== undefined &&
-      (object.totalSatoshisReceived = message.totalSatoshisReceived);
-    message.numUpdates !== undefined &&
-      (object.numUpdates = message.numUpdates);
+      (obj.totalSatoshisReceived = message.totalSatoshisReceived);
+    message.numUpdates !== undefined && (obj.numUpdates = message.numUpdates);
     if (message.pendingHtlcs) {
-      object.pendingHtlcs = message.pendingHtlcs.map((e) =>
+      obj.pendingHtlcs = message.pendingHtlcs.map((e) =>
         e ? HTLC.toJSON(e) : undefined,
       );
     } else {
-      object.pendingHtlcs = [];
+      obj.pendingHtlcs = [];
     }
-
     message.csvDelay !== undefined &&
-      (object.csvDelay = Math.round(message.csvDelay));
-    message.private !== undefined && (object.private = message.private);
-    message.initiator !== undefined && (object.initiator = message.initiator);
+      (obj.csvDelay = Math.round(message.csvDelay));
+    message.private !== undefined && (obj.private = message.private);
+    message.initiator !== undefined && (obj.initiator = message.initiator);
     message.chanStatusFlags !== undefined &&
-      (object.chanStatusFlags = message.chanStatusFlags);
+      (obj.chanStatusFlags = message.chanStatusFlags);
     message.localChanReserveSat !== undefined &&
-      (object.localChanReserveSat = message.localChanReserveSat);
+      (obj.localChanReserveSat = message.localChanReserveSat);
     message.remoteChanReserveSat !== undefined &&
-      (object.remoteChanReserveSat = message.remoteChanReserveSat);
+      (obj.remoteChanReserveSat = message.remoteChanReserveSat);
     message.staticRemoteKey !== undefined &&
-      (object.staticRemoteKey = message.staticRemoteKey);
+      (obj.staticRemoteKey = message.staticRemoteKey);
     message.commitmentType !== undefined &&
-      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    message.lifetime !== undefined && (object.lifetime = message.lifetime);
-    message.uptime !== undefined && (object.uptime = message.uptime);
+      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.lifetime !== undefined && (obj.lifetime = message.lifetime);
+    message.uptime !== undefined && (obj.uptime = message.uptime);
     message.closeAddress !== undefined &&
-      (object.closeAddress = message.closeAddress);
+      (obj.closeAddress = message.closeAddress);
     message.pushAmountSat !== undefined &&
-      (object.pushAmountSat = message.pushAmountSat);
+      (obj.pushAmountSat = message.pushAmountSat);
     message.thawHeight !== undefined &&
-      (object.thawHeight = Math.round(message.thawHeight));
+      (obj.thawHeight = Math.round(message.thawHeight));
     message.localConstraints !== undefined &&
-      (object.localConstraints = message.localConstraints
+      (obj.localConstraints = message.localConstraints
         ? ChannelConstraints.toJSON(message.localConstraints)
         : undefined);
     message.remoteConstraints !== undefined &&
-      (object.remoteConstraints = message.remoteConstraints
+      (obj.remoteConstraints = message.remoteConstraints
         ? ChannelConstraints.toJSON(message.remoteConstraints)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Channel>): Channel {
@@ -9053,32 +8762,27 @@ export const ListChannelsRequest = {
     message: ListChannelsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.activeOnly) {
+    if (message.activeOnly === true) {
       writer.uint32(8).bool(message.activeOnly);
     }
-
-    if (message.inactiveOnly) {
+    if (message.inactiveOnly === true) {
       writer.uint32(16).bool(message.inactiveOnly);
     }
-
-    if (message.publicOnly) {
+    if (message.publicOnly === true) {
       writer.uint32(24).bool(message.publicOnly);
     }
-
-    if (message.privateOnly) {
+    if (message.privateOnly === true) {
       writer.uint32(32).bool(message.privateOnly);
     }
-
-    if (message.peer.length > 0) {
+    if (message.peer.length !== 0) {
       writer.uint32(42).bytes(message.peer);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListChannelsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListChannelsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9103,50 +8807,38 @@ export const ListChannelsRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListChannelsRequest {
-    const message = createBaseListChannelsRequest();
-    message.activeOnly =
-      object.activeOnly !== undefined && object.activeOnly !== null
-        ? Boolean(object.activeOnly)
-        : false;
-    message.inactiveOnly =
-      object.inactiveOnly !== undefined && object.inactiveOnly !== null
+    return {
+      activeOnly: isSet(object.activeOnly) ? Boolean(object.activeOnly) : false,
+      inactiveOnly: isSet(object.inactiveOnly)
         ? Boolean(object.inactiveOnly)
-        : false;
-    message.publicOnly =
-      object.publicOnly !== undefined && object.publicOnly !== null
-        ? Boolean(object.publicOnly)
-        : false;
-    message.privateOnly =
-      object.privateOnly !== undefined && object.privateOnly !== null
+        : false,
+      publicOnly: isSet(object.publicOnly) ? Boolean(object.publicOnly) : false,
+      privateOnly: isSet(object.privateOnly)
         ? Boolean(object.privateOnly)
-        : false;
-    message.peer =
-      object.peer !== undefined && object.peer !== null
+        : false,
+      peer: isSet(object.peer)
         ? bytesFromBase64(object.peer)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: ListChannelsRequest): unknown {
-    const object: any = {};
-    message.activeOnly !== undefined &&
-      (object.activeOnly = message.activeOnly);
+    const obj: any = {};
+    message.activeOnly !== undefined && (obj.activeOnly = message.activeOnly);
     message.inactiveOnly !== undefined &&
-      (object.inactiveOnly = message.inactiveOnly);
-    message.publicOnly !== undefined &&
-      (object.publicOnly = message.publicOnly);
+      (obj.inactiveOnly = message.inactiveOnly);
+    message.publicOnly !== undefined && (obj.publicOnly = message.publicOnly);
     message.privateOnly !== undefined &&
-      (object.privateOnly = message.privateOnly);
+      (obj.privateOnly = message.privateOnly);
     message.peer !== undefined &&
-      (object.peer = base64FromBytes(
+      (obj.peer = base64FromBytes(
         message.peer !== undefined ? message.peer : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListChannelsRequest>): ListChannelsRequest {
@@ -9170,9 +8862,8 @@ export const ListChannelsResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.channels) {
-      Channel.encode(v, writer.uint32(90).fork()).ldelim();
+      Channel.encode(v!, writer.uint32(90).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -9181,7 +8872,7 @@ export const ListChannelsResponse = {
     length?: number,
   ): ListChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListChannelsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9194,29 +8885,27 @@ export const ListChannelsResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListChannelsResponse {
-    const message = createBaseListChannelsResponse();
-    message.channels = (object.channels ?? []).map((e: any) =>
-      Channel.fromJSON(e),
-    );
-    return message;
+    return {
+      channels: Array.isArray(object?.channels)
+        ? object.channels.map((e: any) => Channel.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: ListChannelsResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.channels) {
-      object.channels = message.channels.map((e) =>
+      obj.channels = message.channels.map((e) =>
         e ? Channel.toJSON(e) : undefined,
       );
     } else {
-      object.channels = [];
+      obj.channels = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListChannelsResponse>): ListChannelsResponse {
@@ -9253,61 +8942,48 @@ export const ChannelCloseSummary = {
     if (message.channelPoint !== '') {
       writer.uint32(10).string(message.channelPoint);
     }
-
     if (message.chanId !== '0') {
       writer.uint32(16).uint64(message.chanId);
     }
-
     if (message.chainHash !== '') {
       writer.uint32(26).string(message.chainHash);
     }
-
     if (message.closingTxHash !== '') {
       writer.uint32(34).string(message.closingTxHash);
     }
-
     if (message.remotePubkey !== '') {
       writer.uint32(42).string(message.remotePubkey);
     }
-
     if (message.capacity !== '0') {
       writer.uint32(48).int64(message.capacity);
     }
-
     if (message.closeHeight !== 0) {
       writer.uint32(56).uint32(message.closeHeight);
     }
-
     if (message.settledBalance !== '0') {
       writer.uint32(64).int64(message.settledBalance);
     }
-
     if (message.timeLockedBalance !== '0') {
       writer.uint32(72).int64(message.timeLockedBalance);
     }
-
     if (message.closeType !== 0) {
       writer.uint32(80).int32(message.closeType);
     }
-
     if (message.openInitiator !== 0) {
       writer.uint32(88).int32(message.openInitiator);
     }
-
     if (message.closeInitiator !== 0) {
       writer.uint32(96).int32(message.closeInitiator);
     }
-
     for (const v of message.resolutions) {
-      Resolution.encode(v, writer.uint32(106).fork()).ldelim();
+      Resolution.encode(v!, writer.uint32(106).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelCloseSummary {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelCloseSummary();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9356,101 +9032,78 @@ export const ChannelCloseSummary = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelCloseSummary {
-    const message = createBaseChannelCloseSummary();
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
+    return {
+      channelPoint: isSet(object.channelPoint)
         ? String(object.channelPoint)
-        : '';
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.chainHash =
-      object.chainHash !== undefined && object.chainHash !== null
-        ? String(object.chainHash)
-        : '';
-    message.closingTxHash =
-      object.closingTxHash !== undefined && object.closingTxHash !== null
+        : '',
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      chainHash: isSet(object.chainHash) ? String(object.chainHash) : '',
+      closingTxHash: isSet(object.closingTxHash)
         ? String(object.closingTxHash)
-        : '';
-    message.remotePubkey =
-      object.remotePubkey !== undefined && object.remotePubkey !== null
+        : '',
+      remotePubkey: isSet(object.remotePubkey)
         ? String(object.remotePubkey)
-        : '';
-    message.capacity =
-      object.capacity !== undefined && object.capacity !== null
-        ? String(object.capacity)
-        : '0';
-    message.closeHeight =
-      object.closeHeight !== undefined && object.closeHeight !== null
-        ? Number(object.closeHeight)
-        : 0;
-    message.settledBalance =
-      object.settledBalance !== undefined && object.settledBalance !== null
+        : '',
+      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
+      closeHeight: isSet(object.closeHeight) ? Number(object.closeHeight) : 0,
+      settledBalance: isSet(object.settledBalance)
         ? String(object.settledBalance)
-        : '0';
-    message.timeLockedBalance =
-      object.timeLockedBalance !== undefined &&
-      object.timeLockedBalance !== null
+        : '0',
+      timeLockedBalance: isSet(object.timeLockedBalance)
         ? String(object.timeLockedBalance)
-        : '0';
-    message.closeType =
-      object.closeType !== undefined && object.closeType !== null
+        : '0',
+      closeType: isSet(object.closeType)
         ? channelCloseSummary_ClosureTypeFromJSON(object.closeType)
-        : 0;
-    message.openInitiator =
-      object.openInitiator !== undefined && object.openInitiator !== null
+        : 0,
+      openInitiator: isSet(object.openInitiator)
         ? initiatorFromJSON(object.openInitiator)
-        : 0;
-    message.closeInitiator =
-      object.closeInitiator !== undefined && object.closeInitiator !== null
+        : 0,
+      closeInitiator: isSet(object.closeInitiator)
         ? initiatorFromJSON(object.closeInitiator)
-        : 0;
-    message.resolutions = (object.resolutions ?? []).map((e: any) =>
-      Resolution.fromJSON(e),
-    );
-    return message;
+        : 0,
+      resolutions: Array.isArray(object?.resolutions)
+        ? object.resolutions.map((e: any) => Resolution.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: ChannelCloseSummary): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.channelPoint !== undefined &&
-      (object.channelPoint = message.channelPoint);
-    message.chanId !== undefined && (object.chanId = message.chanId);
-    message.chainHash !== undefined && (object.chainHash = message.chainHash);
+      (obj.channelPoint = message.channelPoint);
+    message.chanId !== undefined && (obj.chanId = message.chanId);
+    message.chainHash !== undefined && (obj.chainHash = message.chainHash);
     message.closingTxHash !== undefined &&
-      (object.closingTxHash = message.closingTxHash);
+      (obj.closingTxHash = message.closingTxHash);
     message.remotePubkey !== undefined &&
-      (object.remotePubkey = message.remotePubkey);
-    message.capacity !== undefined && (object.capacity = message.capacity);
+      (obj.remotePubkey = message.remotePubkey);
+    message.capacity !== undefined && (obj.capacity = message.capacity);
     message.closeHeight !== undefined &&
-      (object.closeHeight = Math.round(message.closeHeight));
+      (obj.closeHeight = Math.round(message.closeHeight));
     message.settledBalance !== undefined &&
-      (object.settledBalance = message.settledBalance);
+      (obj.settledBalance = message.settledBalance);
     message.timeLockedBalance !== undefined &&
-      (object.timeLockedBalance = message.timeLockedBalance);
+      (obj.timeLockedBalance = message.timeLockedBalance);
     message.closeType !== undefined &&
-      (object.closeType = channelCloseSummary_ClosureTypeToJSON(
+      (obj.closeType = channelCloseSummary_ClosureTypeToJSON(
         message.closeType,
       ));
     message.openInitiator !== undefined &&
-      (object.openInitiator = initiatorToJSON(message.openInitiator));
+      (obj.openInitiator = initiatorToJSON(message.openInitiator));
     message.closeInitiator !== undefined &&
-      (object.closeInitiator = initiatorToJSON(message.closeInitiator));
+      (obj.closeInitiator = initiatorToJSON(message.closeInitiator));
     if (message.resolutions) {
-      object.resolutions = message.resolutions.map((e) =>
+      obj.resolutions = message.resolutions.map((e) =>
         e ? Resolution.toJSON(e) : undefined,
       );
     } else {
-      object.resolutions = [];
+      obj.resolutions = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelCloseSummary>): ChannelCloseSummary {
@@ -9491,29 +9144,24 @@ export const Resolution = {
     if (message.resolutionType !== 0) {
       writer.uint32(8).int32(message.resolutionType);
     }
-
     if (message.outcome !== 0) {
       writer.uint32(16).int32(message.outcome);
     }
-
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(26).fork()).ldelim();
     }
-
     if (message.amountSat !== '0') {
       writer.uint32(32).uint64(message.amountSat);
     }
-
     if (message.sweepTxid !== '') {
       writer.uint32(42).string(message.sweepTxid);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Resolution {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseResolution();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9538,48 +9186,38 @@ export const Resolution = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Resolution {
-    const message = createBaseResolution();
-    message.resolutionType =
-      object.resolutionType !== undefined && object.resolutionType !== null
+    return {
+      resolutionType: isSet(object.resolutionType)
         ? resolutionTypeFromJSON(object.resolutionType)
-        : 0;
-    message.outcome =
-      object.outcome !== undefined && object.outcome !== null
+        : 0,
+      outcome: isSet(object.outcome)
         ? resolutionOutcomeFromJSON(object.outcome)
-        : 0;
-    message.outpoint =
-      object.outpoint !== undefined && object.outpoint !== null
+        : 0,
+      outpoint: isSet(object.outpoint)
         ? OutPoint.fromJSON(object.outpoint)
-        : undefined;
-    message.amountSat =
-      object.amountSat !== undefined && object.amountSat !== null
-        ? String(object.amountSat)
-        : '0';
-    message.sweepTxid =
-      object.sweepTxid !== undefined && object.sweepTxid !== null
-        ? String(object.sweepTxid)
-        : '';
-    return message;
+        : undefined,
+      amountSat: isSet(object.amountSat) ? String(object.amountSat) : '0',
+      sweepTxid: isSet(object.sweepTxid) ? String(object.sweepTxid) : '',
+    };
   },
 
   toJSON(message: Resolution): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.resolutionType !== undefined &&
-      (object.resolutionType = resolutionTypeToJSON(message.resolutionType));
+      (obj.resolutionType = resolutionTypeToJSON(message.resolutionType));
     message.outcome !== undefined &&
-      (object.outcome = resolutionOutcomeToJSON(message.outcome));
+      (obj.outcome = resolutionOutcomeToJSON(message.outcome));
     message.outpoint !== undefined &&
-      (object.outpoint = message.outpoint
+      (obj.outpoint = message.outpoint
         ? OutPoint.toJSON(message.outpoint)
         : undefined);
-    message.amountSat !== undefined && (object.amountSat = message.amountSat);
-    message.sweepTxid !== undefined && (object.sweepTxid = message.sweepTxid);
-    return object;
+    message.amountSat !== undefined && (obj.amountSat = message.amountSat);
+    message.sweepTxid !== undefined && (obj.sweepTxid = message.sweepTxid);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Resolution>): Resolution {
@@ -9612,30 +9250,24 @@ export const ClosedChannelsRequest = {
     message: ClosedChannelsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.cooperative) {
+    if (message.cooperative === true) {
       writer.uint32(8).bool(message.cooperative);
     }
-
-    if (message.localForce) {
+    if (message.localForce === true) {
       writer.uint32(16).bool(message.localForce);
     }
-
-    if (message.remoteForce) {
+    if (message.remoteForce === true) {
       writer.uint32(24).bool(message.remoteForce);
     }
-
-    if (message.breach) {
+    if (message.breach === true) {
       writer.uint32(32).bool(message.breach);
     }
-
-    if (message.fundingCanceled) {
+    if (message.fundingCanceled === true) {
       writer.uint32(40).bool(message.fundingCanceled);
     }
-
-    if (message.abandoned) {
+    if (message.abandoned === true) {
       writer.uint32(48).bool(message.abandoned);
     }
-
     return writer;
   },
 
@@ -9644,7 +9276,7 @@ export const ClosedChannelsRequest = {
     length?: number,
   ): ClosedChannelsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClosedChannelsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9672,52 +9304,38 @@ export const ClosedChannelsRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ClosedChannelsRequest {
-    const message = createBaseClosedChannelsRequest();
-    message.cooperative =
-      object.cooperative !== undefined && object.cooperative !== null
+    return {
+      cooperative: isSet(object.cooperative)
         ? Boolean(object.cooperative)
-        : false;
-    message.localForce =
-      object.localForce !== undefined && object.localForce !== null
-        ? Boolean(object.localForce)
-        : false;
-    message.remoteForce =
-      object.remoteForce !== undefined && object.remoteForce !== null
+        : false,
+      localForce: isSet(object.localForce) ? Boolean(object.localForce) : false,
+      remoteForce: isSet(object.remoteForce)
         ? Boolean(object.remoteForce)
-        : false;
-    message.breach =
-      object.breach !== undefined && object.breach !== null
-        ? Boolean(object.breach)
-        : false;
-    message.fundingCanceled =
-      object.fundingCanceled !== undefined && object.fundingCanceled !== null
+        : false,
+      breach: isSet(object.breach) ? Boolean(object.breach) : false,
+      fundingCanceled: isSet(object.fundingCanceled)
         ? Boolean(object.fundingCanceled)
-        : false;
-    message.abandoned =
-      object.abandoned !== undefined && object.abandoned !== null
-        ? Boolean(object.abandoned)
-        : false;
-    return message;
+        : false,
+      abandoned: isSet(object.abandoned) ? Boolean(object.abandoned) : false,
+    };
   },
 
   toJSON(message: ClosedChannelsRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.cooperative !== undefined &&
-      (object.cooperative = message.cooperative);
-    message.localForce !== undefined &&
-      (object.localForce = message.localForce);
+      (obj.cooperative = message.cooperative);
+    message.localForce !== undefined && (obj.localForce = message.localForce);
     message.remoteForce !== undefined &&
-      (object.remoteForce = message.remoteForce);
-    message.breach !== undefined && (object.breach = message.breach);
+      (obj.remoteForce = message.remoteForce);
+    message.breach !== undefined && (obj.breach = message.breach);
     message.fundingCanceled !== undefined &&
-      (object.fundingCanceled = message.fundingCanceled);
-    message.abandoned !== undefined && (object.abandoned = message.abandoned);
-    return object;
+      (obj.fundingCanceled = message.fundingCanceled);
+    message.abandoned !== undefined && (obj.abandoned = message.abandoned);
+    return obj;
   },
 
   fromPartial(
@@ -9744,9 +9362,8 @@ export const ClosedChannelsResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.channels) {
-      ChannelCloseSummary.encode(v, writer.uint32(10).fork()).ldelim();
+      ChannelCloseSummary.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -9755,7 +9372,7 @@ export const ClosedChannelsResponse = {
     length?: number,
   ): ClosedChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClosedChannelsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9770,29 +9387,27 @@ export const ClosedChannelsResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ClosedChannelsResponse {
-    const message = createBaseClosedChannelsResponse();
-    message.channels = (object.channels ?? []).map((e: any) =>
-      ChannelCloseSummary.fromJSON(e),
-    );
-    return message;
+    return {
+      channels: Array.isArray(object?.channels)
+        ? object.channels.map((e: any) => ChannelCloseSummary.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: ClosedChannelsResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.channels) {
-      object.channels = message.channels.map((e) =>
+      obj.channels = message.channels.map((e) =>
         e ? ChannelCloseSummary.toJSON(e) : undefined,
       );
     } else {
-      object.channels = [];
+      obj.channels = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -9829,68 +9444,54 @@ export const Peer = {
     if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
-
     if (message.address !== '') {
       writer.uint32(26).string(message.address);
     }
-
     if (message.bytesSent !== '0') {
       writer.uint32(32).uint64(message.bytesSent);
     }
-
     if (message.bytesRecv !== '0') {
       writer.uint32(40).uint64(message.bytesRecv);
     }
-
     if (message.satSent !== '0') {
       writer.uint32(48).int64(message.satSent);
     }
-
     if (message.satRecv !== '0') {
       writer.uint32(56).int64(message.satRecv);
     }
-
-    if (message.inbound) {
+    if (message.inbound === true) {
       writer.uint32(64).bool(message.inbound);
     }
-
     if (message.pingTime !== '0') {
       writer.uint32(72).int64(message.pingTime);
     }
-
     if (message.syncType !== 0) {
       writer.uint32(80).int32(message.syncType);
     }
-
-    for (const [key, value] of Object.entries(message.features)) {
+    Object.entries(message.features).forEach(([key, value]) => {
       Peer_FeaturesEntry.encode(
         {key: key as any, value},
         writer.uint32(90).fork(),
       ).ldelim();
-    }
-
+    });
     for (const v of message.errors) {
-      TimestampedError.encode(v, writer.uint32(98).fork()).ldelim();
+      TimestampedError.encode(v!, writer.uint32(98).fork()).ldelim();
     }
-
     if (message.flapCount !== 0) {
       writer.uint32(104).int32(message.flapCount);
     }
-
     if (message.lastFlapNs !== '0') {
       writer.uint32(112).int64(message.lastFlapNs);
     }
-
-    if (message.lastPingPayload.length > 0) {
+    if (message.lastPingPayload.length !== 0) {
       writer.uint32(122).bytes(message.lastPingPayload);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Peer {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeer();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -9927,7 +9528,6 @@ export const Peer = {
           if (entry11.value !== undefined) {
             message.features[entry11.key] = entry11.value;
           }
-
           break;
         case 12:
           message.errors.push(TimestampedError.decode(reader, reader.uint32()));
@@ -9946,110 +9546,77 @@ export const Peer = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Peer {
-    const message = createBasePeer();
-    message.pubKey =
-      object.pubKey !== undefined && object.pubKey !== null
-        ? String(object.pubKey)
-        : '';
-    message.address =
-      object.address !== undefined && object.address !== null
-        ? String(object.address)
-        : '';
-    message.bytesSent =
-      object.bytesSent !== undefined && object.bytesSent !== null
-        ? String(object.bytesSent)
-        : '0';
-    message.bytesRecv =
-      object.bytesRecv !== undefined && object.bytesRecv !== null
-        ? String(object.bytesRecv)
-        : '0';
-    message.satSent =
-      object.satSent !== undefined && object.satSent !== null
-        ? String(object.satSent)
-        : '0';
-    message.satRecv =
-      object.satRecv !== undefined && object.satRecv !== null
-        ? String(object.satRecv)
-        : '0';
-    message.inbound =
-      object.inbound !== undefined && object.inbound !== null
-        ? Boolean(object.inbound)
-        : false;
-    message.pingTime =
-      object.pingTime !== undefined && object.pingTime !== null
-        ? String(object.pingTime)
-        : '0';
-    message.syncType =
-      object.syncType !== undefined && object.syncType !== null
+    return {
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+      address: isSet(object.address) ? String(object.address) : '',
+      bytesSent: isSet(object.bytesSent) ? String(object.bytesSent) : '0',
+      bytesRecv: isSet(object.bytesRecv) ? String(object.bytesRecv) : '0',
+      satSent: isSet(object.satSent) ? String(object.satSent) : '0',
+      satRecv: isSet(object.satRecv) ? String(object.satRecv) : '0',
+      inbound: isSet(object.inbound) ? Boolean(object.inbound) : false,
+      pingTime: isSet(object.pingTime) ? String(object.pingTime) : '0',
+      syncType: isSet(object.syncType)
         ? peer_SyncTypeFromJSON(object.syncType)
-        : 0;
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
-      acc[Number(key)] = Feature.fromJSON(value);
-      return acc;
-    }, {});
-    message.errors = (object.errors ?? []).map((e: any) =>
-      TimestampedError.fromJSON(e),
-    );
-    message.flapCount =
-      object.flapCount !== undefined && object.flapCount !== null
-        ? Number(object.flapCount)
-        : 0;
-    message.lastFlapNs =
-      object.lastFlapNs !== undefined && object.lastFlapNs !== null
-        ? String(object.lastFlapNs)
-        : '0';
-    message.lastPingPayload =
-      object.lastPingPayload !== undefined && object.lastPingPayload !== null
+        : 0,
+      features: isObject(object.features)
+        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
+            (acc, [key, value]) => {
+              acc[Number(key)] = Feature.fromJSON(value);
+              return acc;
+            },
+            {},
+          )
+        : {},
+      errors: Array.isArray(object?.errors)
+        ? object.errors.map((e: any) => TimestampedError.fromJSON(e))
+        : [],
+      flapCount: isSet(object.flapCount) ? Number(object.flapCount) : 0,
+      lastFlapNs: isSet(object.lastFlapNs) ? String(object.lastFlapNs) : '0',
+      lastPingPayload: isSet(object.lastPingPayload)
         ? bytesFromBase64(object.lastPingPayload)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: Peer): unknown {
-    const object: any = {};
-    message.pubKey !== undefined && (object.pubKey = message.pubKey);
-    message.address !== undefined && (object.address = message.address);
-    message.bytesSent !== undefined && (object.bytesSent = message.bytesSent);
-    message.bytesRecv !== undefined && (object.bytesRecv = message.bytesRecv);
-    message.satSent !== undefined && (object.satSent = message.satSent);
-    message.satRecv !== undefined && (object.satRecv = message.satRecv);
-    message.inbound !== undefined && (object.inbound = message.inbound);
-    message.pingTime !== undefined && (object.pingTime = message.pingTime);
+    const obj: any = {};
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
+    message.address !== undefined && (obj.address = message.address);
+    message.bytesSent !== undefined && (obj.bytesSent = message.bytesSent);
+    message.bytesRecv !== undefined && (obj.bytesRecv = message.bytesRecv);
+    message.satSent !== undefined && (obj.satSent = message.satSent);
+    message.satRecv !== undefined && (obj.satRecv = message.satRecv);
+    message.inbound !== undefined && (obj.inbound = message.inbound);
+    message.pingTime !== undefined && (obj.pingTime = message.pingTime);
     message.syncType !== undefined &&
-      (object.syncType = peer_SyncTypeToJSON(message.syncType));
-    object.features = {};
+      (obj.syncType = peer_SyncTypeToJSON(message.syncType));
+    obj.features = {};
     if (message.features) {
-      for (const [k, v] of Object.entries(message.features)) {
-        object.features[k] = Feature.toJSON(v);
-      }
+      Object.entries(message.features).forEach(([k, v]) => {
+        obj.features[k] = Feature.toJSON(v);
+      });
     }
-
     if (message.errors) {
-      object.errors = message.errors.map((e) =>
+      obj.errors = message.errors.map((e) =>
         e ? TimestampedError.toJSON(e) : undefined,
       );
     } else {
-      object.errors = [];
+      obj.errors = [];
     }
-
     message.flapCount !== undefined &&
-      (object.flapCount = Math.round(message.flapCount));
-    message.lastFlapNs !== undefined &&
-      (object.lastFlapNs = message.lastFlapNs);
+      (obj.flapCount = Math.round(message.flapCount));
+    message.lastFlapNs !== undefined && (obj.lastFlapNs = message.lastFlapNs);
     message.lastPingPayload !== undefined &&
-      (object.lastPingPayload = base64FromBytes(
+      (obj.lastPingPayload = base64FromBytes(
         message.lastPingPayload !== undefined
           ? message.lastPingPayload
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Peer>): Peer {
@@ -10063,13 +9630,12 @@ export const Peer = {
     message.inbound = object.inbound ?? false;
     message.pingTime = object.pingTime ?? '0';
     message.syncType = object.syncType ?? 0;
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{
+      [key: number]: Feature;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
-
       return acc;
     }, {});
     message.errors =
@@ -10093,17 +9659,15 @@ export const Peer_FeaturesEntry = {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
-
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Peer_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeer_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10119,29 +9683,22 @@ export const Peer_FeaturesEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Peer_FeaturesEntry {
-    const message = createBasePeer_FeaturesEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? Number(object.key) : 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromJSON(object.value)
-        : undefined;
-    return message;
+    return {
+      key: isSet(object.key) ? Number(object.key) : 0,
+      value: isSet(object.value) ? Feature.fromJSON(object.value) : undefined,
+    };
   },
 
   toJSON(message: Peer_FeaturesEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = Math.round(message.key));
+    const obj: any = {};
+    message.key !== undefined && (obj.key = Math.round(message.key));
     message.value !== undefined &&
-      (object.value = message.value
-        ? Feature.toJSON(message.value)
-        : undefined);
-    return object;
+      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Peer_FeaturesEntry>): Peer_FeaturesEntry {
@@ -10167,17 +9724,15 @@ export const TimestampedError = {
     if (message.timestamp !== '0') {
       writer.uint32(8).uint64(message.timestamp);
     }
-
     if (message.error !== '') {
       writer.uint32(18).string(message.error);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): TimestampedError {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseTimestampedError();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10193,28 +9748,21 @@ export const TimestampedError = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): TimestampedError {
-    const message = createBaseTimestampedError();
-    message.timestamp =
-      object.timestamp !== undefined && object.timestamp !== null
-        ? String(object.timestamp)
-        : '0';
-    message.error =
-      object.error !== undefined && object.error !== null
-        ? String(object.error)
-        : '';
-    return message;
+    return {
+      timestamp: isSet(object.timestamp) ? String(object.timestamp) : '0',
+      error: isSet(object.error) ? String(object.error) : '',
+    };
   },
 
   toJSON(message: TimestampedError): unknown {
-    const object: any = {};
-    message.timestamp !== undefined && (object.timestamp = message.timestamp);
-    message.error !== undefined && (object.error = message.error);
-    return object;
+    const obj: any = {};
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+    message.error !== undefined && (obj.error = message.error);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<TimestampedError>): TimestampedError {
@@ -10234,16 +9782,15 @@ export const ListPeersRequest = {
     message: ListPeersRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.latestError) {
+    if (message.latestError === true) {
       writer.uint32(8).bool(message.latestError);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListPeersRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPeersRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10256,24 +9803,22 @@ export const ListPeersRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListPeersRequest {
-    const message = createBaseListPeersRequest();
-    message.latestError =
-      object.latestError !== undefined && object.latestError !== null
+    return {
+      latestError: isSet(object.latestError)
         ? Boolean(object.latestError)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: ListPeersRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.latestError !== undefined &&
-      (object.latestError = message.latestError);
-    return object;
+      (obj.latestError = message.latestError);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListPeersRequest>): ListPeersRequest {
@@ -10293,15 +9838,14 @@ export const ListPeersResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.peers) {
-      Peer.encode(v, writer.uint32(10).fork()).ldelim();
+      Peer.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListPeersResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPeersResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10314,22 +9858,25 @@ export const ListPeersResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListPeersResponse {
-    const message = createBaseListPeersResponse();
-    message.peers = (object.peers ?? []).map((e: any) => Peer.fromJSON(e));
-    return message;
+    return {
+      peers: Array.isArray(object?.peers)
+        ? object.peers.map((e: any) => Peer.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: ListPeersResponse): unknown {
-    const object: any = {};
-    object.peers = message.peers
-      ? message.peers.map((e) => (e ? Peer.toJSON(e) : undefined))
-      : [];
-    return object;
+    const obj: any = {};
+    if (message.peers) {
+      obj.peers = message.peers.map((e) => (e ? Peer.toJSON(e) : undefined));
+    } else {
+      obj.peers = [];
+    }
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListPeersResponse>): ListPeersResponse {
@@ -10356,7 +9903,7 @@ export const PeerEventSubscription = {
     length?: number,
   ): PeerEventSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeerEventSubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10366,18 +9913,16 @@ export const PeerEventSubscription = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): PeerEventSubscription {
-    const message = createBasePeerEventSubscription();
-    return message;
+    return {};
   },
 
   toJSON(_: PeerEventSubscription): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<PeerEventSubscription>): PeerEventSubscription {
@@ -10398,17 +9943,15 @@ export const PeerEvent = {
     if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
-
     if (message.type !== 0) {
       writer.uint32(16).int32(message.type);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PeerEvent {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeerEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10424,29 +9967,22 @@ export const PeerEvent = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PeerEvent {
-    const message = createBasePeerEvent();
-    message.pubKey =
-      object.pubKey !== undefined && object.pubKey !== null
-        ? String(object.pubKey)
-        : '';
-    message.type =
-      object.type !== undefined && object.type !== null
-        ? peerEvent_EventTypeFromJSON(object.type)
-        : 0;
-    return message;
+    return {
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+      type: isSet(object.type) ? peerEvent_EventTypeFromJSON(object.type) : 0,
+    };
   },
 
   toJSON(message: PeerEvent): unknown {
-    const object: any = {};
-    message.pubKey !== undefined && (object.pubKey = message.pubKey);
+    const obj: any = {};
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
     message.type !== undefined &&
-      (object.type = peerEvent_EventTypeToJSON(message.type));
-    return object;
+      (obj.type = peerEvent_EventTypeToJSON(message.type));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PeerEvent>): PeerEvent {
@@ -10471,7 +10007,7 @@ export const GetInfoRequest = {
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10481,18 +10017,16 @@ export const GetInfoRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): GetInfoRequest {
-    const message = createBaseGetInfoRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: GetInfoRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<GetInfoRequest>): GetInfoRequest {
@@ -10521,6 +10055,7 @@ function createBaseGetInfoResponse(): GetInfoResponse {
     chains: [],
     uris: [],
     features: {},
+    requireHtlcInterceptor: false,
   };
 }
 
@@ -10532,84 +10067,69 @@ export const GetInfoResponse = {
     if (message.version !== '') {
       writer.uint32(114).string(message.version);
     }
-
     if (message.commitHash !== '') {
       writer.uint32(162).string(message.commitHash);
     }
-
     if (message.identityPubkey !== '') {
       writer.uint32(10).string(message.identityPubkey);
     }
-
     if (message.alias !== '') {
       writer.uint32(18).string(message.alias);
     }
-
     if (message.color !== '') {
       writer.uint32(138).string(message.color);
     }
-
     if (message.numPendingChannels !== 0) {
       writer.uint32(24).uint32(message.numPendingChannels);
     }
-
     if (message.numActiveChannels !== 0) {
       writer.uint32(32).uint32(message.numActiveChannels);
     }
-
     if (message.numInactiveChannels !== 0) {
       writer.uint32(120).uint32(message.numInactiveChannels);
     }
-
     if (message.numPeers !== 0) {
       writer.uint32(40).uint32(message.numPeers);
     }
-
     if (message.blockHeight !== 0) {
       writer.uint32(48).uint32(message.blockHeight);
     }
-
     if (message.blockHash !== '') {
       writer.uint32(66).string(message.blockHash);
     }
-
     if (message.bestHeaderTimestamp !== '0') {
       writer.uint32(104).int64(message.bestHeaderTimestamp);
     }
-
-    if (message.syncedToChain) {
+    if (message.syncedToChain === true) {
       writer.uint32(72).bool(message.syncedToChain);
     }
-
-    if (message.syncedToGraph) {
+    if (message.syncedToGraph === true) {
       writer.uint32(144).bool(message.syncedToGraph);
     }
-
-    if (message.testnet) {
+    if (message.testnet === true) {
       writer.uint32(80).bool(message.testnet);
     }
-
     for (const v of message.chains) {
-      Chain.encode(v, writer.uint32(130).fork()).ldelim();
+      Chain.encode(v!, writer.uint32(130).fork()).ldelim();
     }
-
     for (const v of message.uris) {
-      writer.uint32(98).string(v);
+      writer.uint32(98).string(v!);
     }
-
-    for (const [key, value] of Object.entries(message.features)) {
+    Object.entries(message.features).forEach(([key, value]) => {
       GetInfoResponse_FeaturesEntry.encode(
         {key: key as any, value},
         writer.uint32(154).fork(),
       ).ldelim();
+    });
+    if (message.requireHtlcInterceptor === true) {
+      writer.uint32(168).bool(message.requireHtlcInterceptor);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GetInfoResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetInfoResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10673,133 +10193,115 @@ export const GetInfoResponse = {
           if (entry19.value !== undefined) {
             message.features[entry19.key] = entry19.value;
           }
-
+          break;
+        case 21:
+          message.requireHtlcInterceptor = reader.bool();
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): GetInfoResponse {
-    const message = createBaseGetInfoResponse();
-    message.version =
-      object.version !== undefined && object.version !== null
-        ? String(object.version)
-        : '';
-    message.commitHash =
-      object.commitHash !== undefined && object.commitHash !== null
-        ? String(object.commitHash)
-        : '';
-    message.identityPubkey =
-      object.identityPubkey !== undefined && object.identityPubkey !== null
+    return {
+      version: isSet(object.version) ? String(object.version) : '',
+      commitHash: isSet(object.commitHash) ? String(object.commitHash) : '',
+      identityPubkey: isSet(object.identityPubkey)
         ? String(object.identityPubkey)
-        : '';
-    message.alias =
-      object.alias !== undefined && object.alias !== null
-        ? String(object.alias)
-        : '';
-    message.color =
-      object.color !== undefined && object.color !== null
-        ? String(object.color)
-        : '';
-    message.numPendingChannels =
-      object.numPendingChannels !== undefined &&
-      object.numPendingChannels !== null
+        : '',
+      alias: isSet(object.alias) ? String(object.alias) : '',
+      color: isSet(object.color) ? String(object.color) : '',
+      numPendingChannels: isSet(object.numPendingChannels)
         ? Number(object.numPendingChannels)
-        : 0;
-    message.numActiveChannels =
-      object.numActiveChannels !== undefined &&
-      object.numActiveChannels !== null
+        : 0,
+      numActiveChannels: isSet(object.numActiveChannels)
         ? Number(object.numActiveChannels)
-        : 0;
-    message.numInactiveChannels =
-      object.numInactiveChannels !== undefined &&
-      object.numInactiveChannels !== null
+        : 0,
+      numInactiveChannels: isSet(object.numInactiveChannels)
         ? Number(object.numInactiveChannels)
-        : 0;
-    message.numPeers =
-      object.numPeers !== undefined && object.numPeers !== null
-        ? Number(object.numPeers)
-        : 0;
-    message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null
-        ? Number(object.blockHeight)
-        : 0;
-    message.blockHash =
-      object.blockHash !== undefined && object.blockHash !== null
-        ? String(object.blockHash)
-        : '';
-    message.bestHeaderTimestamp =
-      object.bestHeaderTimestamp !== undefined &&
-      object.bestHeaderTimestamp !== null
+        : 0,
+      numPeers: isSet(object.numPeers) ? Number(object.numPeers) : 0,
+      blockHeight: isSet(object.blockHeight) ? Number(object.blockHeight) : 0,
+      blockHash: isSet(object.blockHash) ? String(object.blockHash) : '',
+      bestHeaderTimestamp: isSet(object.bestHeaderTimestamp)
         ? String(object.bestHeaderTimestamp)
-        : '0';
-    message.syncedToChain =
-      object.syncedToChain !== undefined && object.syncedToChain !== null
+        : '0',
+      syncedToChain: isSet(object.syncedToChain)
         ? Boolean(object.syncedToChain)
-        : false;
-    message.syncedToGraph =
-      object.syncedToGraph !== undefined && object.syncedToGraph !== null
+        : false,
+      syncedToGraph: isSet(object.syncedToGraph)
         ? Boolean(object.syncedToGraph)
-        : false;
-    message.testnet =
-      object.testnet !== undefined && object.testnet !== null
-        ? Boolean(object.testnet)
-        : false;
-    message.chains = (object.chains ?? []).map((e: any) => Chain.fromJSON(e));
-    message.uris = (object.uris ?? []).map((e: any) => String(e));
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
-      acc[Number(key)] = Feature.fromJSON(value);
-      return acc;
-    }, {});
-    return message;
+        : false,
+      testnet: isSet(object.testnet) ? Boolean(object.testnet) : false,
+      chains: Array.isArray(object?.chains)
+        ? object.chains.map((e: any) => Chain.fromJSON(e))
+        : [],
+      uris: Array.isArray(object?.uris)
+        ? object.uris.map((e: any) => String(e))
+        : [],
+      features: isObject(object.features)
+        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
+            (acc, [key, value]) => {
+              acc[Number(key)] = Feature.fromJSON(value);
+              return acc;
+            },
+            {},
+          )
+        : {},
+      requireHtlcInterceptor: isSet(object.requireHtlcInterceptor)
+        ? Boolean(object.requireHtlcInterceptor)
+        : false,
+    };
   },
 
   toJSON(message: GetInfoResponse): unknown {
-    const object: any = {};
-    message.version !== undefined && (object.version = message.version);
-    message.commitHash !== undefined &&
-      (object.commitHash = message.commitHash);
+    const obj: any = {};
+    message.version !== undefined && (obj.version = message.version);
+    message.commitHash !== undefined && (obj.commitHash = message.commitHash);
     message.identityPubkey !== undefined &&
-      (object.identityPubkey = message.identityPubkey);
-    message.alias !== undefined && (object.alias = message.alias);
-    message.color !== undefined && (object.color = message.color);
+      (obj.identityPubkey = message.identityPubkey);
+    message.alias !== undefined && (obj.alias = message.alias);
+    message.color !== undefined && (obj.color = message.color);
     message.numPendingChannels !== undefined &&
-      (object.numPendingChannels = Math.round(message.numPendingChannels));
+      (obj.numPendingChannels = Math.round(message.numPendingChannels));
     message.numActiveChannels !== undefined &&
-      (object.numActiveChannels = Math.round(message.numActiveChannels));
+      (obj.numActiveChannels = Math.round(message.numActiveChannels));
     message.numInactiveChannels !== undefined &&
-      (object.numInactiveChannels = Math.round(message.numInactiveChannels));
+      (obj.numInactiveChannels = Math.round(message.numInactiveChannels));
     message.numPeers !== undefined &&
-      (object.numPeers = Math.round(message.numPeers));
+      (obj.numPeers = Math.round(message.numPeers));
     message.blockHeight !== undefined &&
-      (object.blockHeight = Math.round(message.blockHeight));
-    message.blockHash !== undefined && (object.blockHash = message.blockHash);
+      (obj.blockHeight = Math.round(message.blockHeight));
+    message.blockHash !== undefined && (obj.blockHash = message.blockHash);
     message.bestHeaderTimestamp !== undefined &&
-      (object.bestHeaderTimestamp = message.bestHeaderTimestamp);
+      (obj.bestHeaderTimestamp = message.bestHeaderTimestamp);
     message.syncedToChain !== undefined &&
-      (object.syncedToChain = message.syncedToChain);
+      (obj.syncedToChain = message.syncedToChain);
     message.syncedToGraph !== undefined &&
-      (object.syncedToGraph = message.syncedToGraph);
-    message.testnet !== undefined && (object.testnet = message.testnet);
-    object.chains = message.chains
-      ? message.chains.map((e) => (e ? Chain.toJSON(e) : undefined))
-      : [];
-    object.uris = message.uris ? message.uris.map((e) => e) : [];
-    object.features = {};
-    if (message.features) {
-      for (const [k, v] of Object.entries(message.features)) {
-        object.features[k] = Feature.toJSON(v);
-      }
+      (obj.syncedToGraph = message.syncedToGraph);
+    message.testnet !== undefined && (obj.testnet = message.testnet);
+    if (message.chains) {
+      obj.chains = message.chains.map((e) => (e ? Chain.toJSON(e) : undefined));
+    } else {
+      obj.chains = [];
     }
-
-    return object;
+    if (message.uris) {
+      obj.uris = message.uris.map((e) => e);
+    } else {
+      obj.uris = [];
+    }
+    obj.features = {};
+    if (message.features) {
+      Object.entries(message.features).forEach(([k, v]) => {
+        obj.features[k] = Feature.toJSON(v);
+      });
+    }
+    message.requireHtlcInterceptor !== undefined &&
+      (obj.requireHtlcInterceptor = message.requireHtlcInterceptor);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<GetInfoResponse>): GetInfoResponse {
@@ -10821,15 +10323,15 @@ export const GetInfoResponse = {
     message.testnet = object.testnet ?? false;
     message.chains = object.chains?.map((e) => Chain.fromPartial(e)) || [];
     message.uris = object.uris?.map((e) => e) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{
+      [key: number]: Feature;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
-
       return acc;
     }, {});
+    message.requireHtlcInterceptor = object.requireHtlcInterceptor ?? false;
     return message;
   },
 };
@@ -10846,11 +10348,9 @@ export const GetInfoResponse_FeaturesEntry = {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
-
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -10859,7 +10359,7 @@ export const GetInfoResponse_FeaturesEntry = {
     length?: number,
   ): GetInfoResponse_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetInfoResponse_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10875,29 +10375,22 @@ export const GetInfoResponse_FeaturesEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): GetInfoResponse_FeaturesEntry {
-    const message = createBaseGetInfoResponse_FeaturesEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? Number(object.key) : 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromJSON(object.value)
-        : undefined;
-    return message;
+    return {
+      key: isSet(object.key) ? Number(object.key) : 0,
+      value: isSet(object.value) ? Feature.fromJSON(object.value) : undefined,
+    };
   },
 
   toJSON(message: GetInfoResponse_FeaturesEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = Math.round(message.key));
+    const obj: any = {};
+    message.key !== undefined && (obj.key = Math.round(message.key));
     message.value !== undefined &&
-      (object.value = message.value
-        ? Feature.toJSON(message.value)
-        : undefined);
-    return object;
+      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    return obj;
   },
 
   fromPartial(
@@ -10930,7 +10423,7 @@ export const GetRecoveryInfoRequest = {
     length?: number,
   ): GetRecoveryInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRecoveryInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -10940,18 +10433,16 @@ export const GetRecoveryInfoRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): GetRecoveryInfoRequest {
-    const message = createBaseGetRecoveryInfoRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: GetRecoveryInfoRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<GetRecoveryInfoRequest>): GetRecoveryInfoRequest {
@@ -10969,18 +10460,15 @@ export const GetRecoveryInfoResponse = {
     message: GetRecoveryInfoResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.recoveryMode) {
+    if (message.recoveryMode === true) {
       writer.uint32(8).bool(message.recoveryMode);
     }
-
-    if (message.recoveryFinished) {
+    if (message.recoveryFinished === true) {
       writer.uint32(16).bool(message.recoveryFinished);
     }
-
     if (message.progress !== 0) {
       writer.uint32(25).double(message.progress);
     }
-
     return writer;
   },
 
@@ -10989,7 +10477,7 @@ export const GetRecoveryInfoResponse = {
     length?: number,
   ): GetRecoveryInfoResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRecoveryInfoResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11008,35 +10496,29 @@ export const GetRecoveryInfoResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): GetRecoveryInfoResponse {
-    const message = createBaseGetRecoveryInfoResponse();
-    message.recoveryMode =
-      object.recoveryMode !== undefined && object.recoveryMode !== null
+    return {
+      recoveryMode: isSet(object.recoveryMode)
         ? Boolean(object.recoveryMode)
-        : false;
-    message.recoveryFinished =
-      object.recoveryFinished !== undefined && object.recoveryFinished !== null
+        : false,
+      recoveryFinished: isSet(object.recoveryFinished)
         ? Boolean(object.recoveryFinished)
-        : false;
-    message.progress =
-      object.progress !== undefined && object.progress !== null
-        ? Number(object.progress)
-        : 0;
-    return message;
+        : false,
+      progress: isSet(object.progress) ? Number(object.progress) : 0,
+    };
   },
 
   toJSON(message: GetRecoveryInfoResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.recoveryMode !== undefined &&
-      (object.recoveryMode = message.recoveryMode);
+      (obj.recoveryMode = message.recoveryMode);
     message.recoveryFinished !== undefined &&
-      (object.recoveryFinished = message.recoveryFinished);
-    message.progress !== undefined && (object.progress = message.progress);
-    return object;
+      (obj.recoveryFinished = message.recoveryFinished);
+    message.progress !== undefined && (obj.progress = message.progress);
+    return obj;
   },
 
   fromPartial(
@@ -11059,17 +10541,15 @@ export const Chain = {
     if (message.chain !== '') {
       writer.uint32(10).string(message.chain);
     }
-
     if (message.network !== '') {
       writer.uint32(18).string(message.network);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Chain {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChain();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11085,28 +10565,21 @@ export const Chain = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Chain {
-    const message = createBaseChain();
-    message.chain =
-      object.chain !== undefined && object.chain !== null
-        ? String(object.chain)
-        : '';
-    message.network =
-      object.network !== undefined && object.network !== null
-        ? String(object.network)
-        : '';
-    return message;
+    return {
+      chain: isSet(object.chain) ? String(object.chain) : '',
+      network: isSet(object.network) ? String(object.network) : '',
+    };
   },
 
   toJSON(message: Chain): unknown {
-    const object: any = {};
-    message.chain !== undefined && (object.chain = message.chain);
-    message.network !== undefined && (object.network = message.network);
-    return object;
+    const obj: any = {};
+    message.chain !== undefined && (obj.chain = message.chain);
+    message.network !== undefined && (obj.network = message.network);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Chain>): Chain {
@@ -11126,24 +10599,21 @@ export const ConfirmationUpdate = {
     message: ConfirmationUpdate,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.blockSha.length > 0) {
+    if (message.blockSha.length !== 0) {
       writer.uint32(10).bytes(message.blockSha);
     }
-
     if (message.blockHeight !== 0) {
       writer.uint32(16).int32(message.blockHeight);
     }
-
     if (message.numConfsLeft !== 0) {
       writer.uint32(24).uint32(message.numConfsLeft);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ConfirmationUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseConfirmationUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11162,38 +10632,32 @@ export const ConfirmationUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ConfirmationUpdate {
-    const message = createBaseConfirmationUpdate();
-    message.blockSha =
-      object.blockSha !== undefined && object.blockSha !== null
+    return {
+      blockSha: isSet(object.blockSha)
         ? bytesFromBase64(object.blockSha)
-        : new Uint8Array();
-    message.blockHeight =
-      object.blockHeight !== undefined && object.blockHeight !== null
-        ? Number(object.blockHeight)
-        : 0;
-    message.numConfsLeft =
-      object.numConfsLeft !== undefined && object.numConfsLeft !== null
+        : new Uint8Array(),
+      blockHeight: isSet(object.blockHeight) ? Number(object.blockHeight) : 0,
+      numConfsLeft: isSet(object.numConfsLeft)
         ? Number(object.numConfsLeft)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: ConfirmationUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.blockSha !== undefined &&
-      (object.blockSha = base64FromBytes(
+      (obj.blockSha = base64FromBytes(
         message.blockSha !== undefined ? message.blockSha : new Uint8Array(),
       ));
     message.blockHeight !== undefined &&
-      (object.blockHeight = Math.round(message.blockHeight));
+      (obj.blockHeight = Math.round(message.blockHeight));
     message.numConfsLeft !== undefined &&
-      (object.numConfsLeft = Math.round(message.numConfsLeft));
-    return object;
+      (obj.numConfsLeft = Math.round(message.numConfsLeft));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ConfirmationUpdate>): ConfirmationUpdate {
@@ -11220,13 +10684,12 @@ export const ChannelOpenUpdate = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelOpenUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelOpenUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11239,26 +10702,24 @@ export const ChannelOpenUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelOpenUpdate {
-    const message = createBaseChannelOpenUpdate();
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
+    return {
+      channelPoint: isSet(object.channelPoint)
         ? ChannelPoint.fromJSON(object.channelPoint)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: ChannelOpenUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.channelPoint !== undefined &&
-      (object.channelPoint = message.channelPoint
+      (obj.channelPoint = message.channelPoint
         ? ChannelPoint.toJSON(message.channelPoint)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelOpenUpdate>): ChannelOpenUpdate {
@@ -11280,20 +10741,18 @@ export const ChannelCloseUpdate = {
     message: ChannelCloseUpdate,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.closingTxid.length > 0) {
+    if (message.closingTxid.length !== 0) {
       writer.uint32(10).bytes(message.closingTxid);
     }
-
-    if (message.success) {
+    if (message.success === true) {
       writer.uint32(16).bool(message.success);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelCloseUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelCloseUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11309,33 +10768,28 @@ export const ChannelCloseUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelCloseUpdate {
-    const message = createBaseChannelCloseUpdate();
-    message.closingTxid =
-      object.closingTxid !== undefined && object.closingTxid !== null
+    return {
+      closingTxid: isSet(object.closingTxid)
         ? bytesFromBase64(object.closingTxid)
-        : new Uint8Array();
-    message.success =
-      object.success !== undefined && object.success !== null
-        ? Boolean(object.success)
-        : false;
-    return message;
+        : new Uint8Array(),
+      success: isSet(object.success) ? Boolean(object.success) : false,
+    };
   },
 
   toJSON(message: ChannelCloseUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.closingTxid !== undefined &&
-      (object.closingTxid = base64FromBytes(
+      (obj.closingTxid = base64FromBytes(
         message.closingTxid !== undefined
           ? message.closingTxid
           : new Uint8Array(),
       ));
-    message.success !== undefined && (object.success = message.success);
-    return object;
+    message.success !== undefined && (obj.success = message.success);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelCloseUpdate>): ChannelCloseUpdate {
@@ -11368,33 +10822,27 @@ export const CloseChannelRequest = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
-    if (message.force) {
+    if (message.force === true) {
       writer.uint32(16).bool(message.force);
     }
-
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-
     if (message.satPerByte !== '0') {
       writer.uint32(32).int64(message.satPerByte);
     }
-
     if (message.deliveryAddress !== '') {
       writer.uint32(42).string(message.deliveryAddress);
     }
-
     if (message.satPerVbyte !== '0') {
       writer.uint32(48).uint64(message.satPerVbyte);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CloseChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCloseChannelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11422,55 +10870,39 @@ export const CloseChannelRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): CloseChannelRequest {
-    const message = createBaseCloseChannelRequest();
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
+    return {
+      channelPoint: isSet(object.channelPoint)
         ? ChannelPoint.fromJSON(object.channelPoint)
-        : undefined;
-    message.force =
-      object.force !== undefined && object.force !== null
-        ? Boolean(object.force)
-        : false;
-    message.targetConf =
-      object.targetConf !== undefined && object.targetConf !== null
-        ? Number(object.targetConf)
-        : 0;
-    message.satPerByte =
-      object.satPerByte !== undefined && object.satPerByte !== null
-        ? String(object.satPerByte)
-        : '0';
-    message.deliveryAddress =
-      object.deliveryAddress !== undefined && object.deliveryAddress !== null
+        : undefined,
+      force: isSet(object.force) ? Boolean(object.force) : false,
+      targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
+      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : '0',
+      deliveryAddress: isSet(object.deliveryAddress)
         ? String(object.deliveryAddress)
-        : '';
-    message.satPerVbyte =
-      object.satPerVbyte !== undefined && object.satPerVbyte !== null
-        ? String(object.satPerVbyte)
-        : '0';
-    return message;
+        : '',
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+    };
   },
 
   toJSON(message: CloseChannelRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.channelPoint !== undefined &&
-      (object.channelPoint = message.channelPoint
+      (obj.channelPoint = message.channelPoint
         ? ChannelPoint.toJSON(message.channelPoint)
         : undefined);
-    message.force !== undefined && (object.force = message.force);
+    message.force !== undefined && (obj.force = message.force);
     message.targetConf !== undefined &&
-      (object.targetConf = Math.round(message.targetConf));
-    message.satPerByte !== undefined &&
-      (object.satPerByte = message.satPerByte);
+      (obj.targetConf = Math.round(message.targetConf));
+    message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
     message.deliveryAddress !== undefined &&
-      (object.deliveryAddress = message.deliveryAddress);
+      (obj.deliveryAddress = message.deliveryAddress);
     message.satPerVbyte !== undefined &&
-      (object.satPerVbyte = message.satPerVbyte);
-    return object;
+      (obj.satPerVbyte = message.satPerVbyte);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<CloseChannelRequest>): CloseChannelRequest {
@@ -11503,20 +10935,18 @@ export const CloseStatusUpdate = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.chanClose !== undefined) {
       ChannelCloseUpdate.encode(
         message.chanClose,
         writer.uint32(26).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CloseStatusUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCloseStatusUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11535,34 +10965,31 @@ export const CloseStatusUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): CloseStatusUpdate {
-    const message = createBaseCloseStatusUpdate();
-    message.closePending =
-      object.closePending !== undefined && object.closePending !== null
+    return {
+      closePending: isSet(object.closePending)
         ? PendingUpdate.fromJSON(object.closePending)
-        : undefined;
-    message.chanClose =
-      object.chanClose !== undefined && object.chanClose !== null
+        : undefined,
+      chanClose: isSet(object.chanClose)
         ? ChannelCloseUpdate.fromJSON(object.chanClose)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: CloseStatusUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.closePending !== undefined &&
-      (object.closePending = message.closePending
+      (obj.closePending = message.closePending
         ? PendingUpdate.toJSON(message.closePending)
         : undefined);
     message.chanClose !== undefined &&
-      (object.chanClose = message.chanClose
+      (obj.chanClose = message.chanClose
         ? ChannelCloseUpdate.toJSON(message.chanClose)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<CloseStatusUpdate>): CloseStatusUpdate {
@@ -11588,20 +11015,18 @@ export const PendingUpdate = {
     message: PendingUpdate,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.txid.length > 0) {
+    if (message.txid.length !== 0) {
       writer.uint32(10).bytes(message.txid);
     }
-
     if (message.outputIndex !== 0) {
       writer.uint32(16).uint32(message.outputIndex);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PendingUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11617,32 +11042,27 @@ export const PendingUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingUpdate {
-    const message = createBasePendingUpdate();
-    message.txid =
-      object.txid !== undefined && object.txid !== null
+    return {
+      txid: isSet(object.txid)
         ? bytesFromBase64(object.txid)
-        : new Uint8Array();
-    message.outputIndex =
-      object.outputIndex !== undefined && object.outputIndex !== null
-        ? Number(object.outputIndex)
-        : 0;
-    return message;
+        : new Uint8Array(),
+      outputIndex: isSet(object.outputIndex) ? Number(object.outputIndex) : 0,
+    };
   },
 
   toJSON(message: PendingUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.txid !== undefined &&
-      (object.txid = base64FromBytes(
+      (obj.txid = base64FromBytes(
         message.txid !== undefined ? message.txid : new Uint8Array(),
       ));
     message.outputIndex !== undefined &&
-      (object.outputIndex = Math.round(message.outputIndex));
-    return object;
+      (obj.outputIndex = Math.round(message.outputIndex));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PendingUpdate>): PendingUpdate {
@@ -11665,21 +11085,18 @@ export const ReadyForPsbtFunding = {
     if (message.fundingAddress !== '') {
       writer.uint32(10).string(message.fundingAddress);
     }
-
     if (message.fundingAmount !== '0') {
       writer.uint32(16).int64(message.fundingAmount);
     }
-
-    if (message.psbt.length > 0) {
+    if (message.psbt.length !== 0) {
       writer.uint32(26).bytes(message.psbt);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ReadyForPsbtFunding {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseReadyForPsbtFunding();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11698,38 +11115,34 @@ export const ReadyForPsbtFunding = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ReadyForPsbtFunding {
-    const message = createBaseReadyForPsbtFunding();
-    message.fundingAddress =
-      object.fundingAddress !== undefined && object.fundingAddress !== null
+    return {
+      fundingAddress: isSet(object.fundingAddress)
         ? String(object.fundingAddress)
-        : '';
-    message.fundingAmount =
-      object.fundingAmount !== undefined && object.fundingAmount !== null
+        : '',
+      fundingAmount: isSet(object.fundingAmount)
         ? String(object.fundingAmount)
-        : '0';
-    message.psbt =
-      object.psbt !== undefined && object.psbt !== null
+        : '0',
+      psbt: isSet(object.psbt)
         ? bytesFromBase64(object.psbt)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: ReadyForPsbtFunding): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.fundingAddress !== undefined &&
-      (object.fundingAddress = message.fundingAddress);
+      (obj.fundingAddress = message.fundingAddress);
     message.fundingAmount !== undefined &&
-      (object.fundingAmount = message.fundingAmount);
+      (obj.fundingAmount = message.fundingAmount);
     message.psbt !== undefined &&
-      (object.psbt = base64FromBytes(
+      (obj.psbt = base64FromBytes(
         message.psbt !== undefined ? message.psbt : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ReadyForPsbtFunding>): ReadyForPsbtFunding {
@@ -11758,29 +11171,23 @@ export const BatchOpenChannelRequest = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.channels) {
-      BatchOpenChannel.encode(v, writer.uint32(10).fork()).ldelim();
+      BatchOpenChannel.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.targetConf !== 0) {
       writer.uint32(16).int32(message.targetConf);
     }
-
     if (message.satPerVbyte !== '0') {
       writer.uint32(24).int64(message.satPerVbyte);
     }
-
     if (message.minConfs !== 0) {
       writer.uint32(32).int32(message.minConfs);
     }
-
-    if (message.spendUnconfirmed) {
+    if (message.spendUnconfirmed === true) {
       writer.uint32(40).bool(message.spendUnconfirmed);
     }
-
     if (message.label !== '') {
       writer.uint32(50).string(message.label);
     }
-
     return writer;
   },
 
@@ -11789,7 +11196,7 @@ export const BatchOpenChannelRequest = {
     length?: number,
   ): BatchOpenChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBatchOpenChannelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11819,58 +11226,43 @@ export const BatchOpenChannelRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): BatchOpenChannelRequest {
-    const message = createBaseBatchOpenChannelRequest();
-    message.channels = (object.channels ?? []).map((e: any) =>
-      BatchOpenChannel.fromJSON(e),
-    );
-    message.targetConf =
-      object.targetConf !== undefined && object.targetConf !== null
-        ? Number(object.targetConf)
-        : 0;
-    message.satPerVbyte =
-      object.satPerVbyte !== undefined && object.satPerVbyte !== null
-        ? String(object.satPerVbyte)
-        : '0';
-    message.minConfs =
-      object.minConfs !== undefined && object.minConfs !== null
-        ? Number(object.minConfs)
-        : 0;
-    message.spendUnconfirmed =
-      object.spendUnconfirmed !== undefined && object.spendUnconfirmed !== null
+    return {
+      channels: Array.isArray(object?.channels)
+        ? object.channels.map((e: any) => BatchOpenChannel.fromJSON(e))
+        : [],
+      targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+      minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
+      spendUnconfirmed: isSet(object.spendUnconfirmed)
         ? Boolean(object.spendUnconfirmed)
-        : false;
-    message.label =
-      object.label !== undefined && object.label !== null
-        ? String(object.label)
-        : '';
-    return message;
+        : false,
+      label: isSet(object.label) ? String(object.label) : '',
+    };
   },
 
   toJSON(message: BatchOpenChannelRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.channels) {
-      object.channels = message.channels.map((e) =>
+      obj.channels = message.channels.map((e) =>
         e ? BatchOpenChannel.toJSON(e) : undefined,
       );
     } else {
-      object.channels = [];
+      obj.channels = [];
     }
-
     message.targetConf !== undefined &&
-      (object.targetConf = Math.round(message.targetConf));
+      (obj.targetConf = Math.round(message.targetConf));
     message.satPerVbyte !== undefined &&
-      (object.satPerVbyte = message.satPerVbyte);
+      (obj.satPerVbyte = message.satPerVbyte);
     message.minConfs !== undefined &&
-      (object.minConfs = Math.round(message.minConfs));
+      (obj.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (object.spendUnconfirmed = message.spendUnconfirmed);
-    message.label !== undefined && (object.label = message.label);
-    return object;
+      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    message.label !== undefined && (obj.label = message.label);
+    return obj;
   },
 
   fromPartial(
@@ -11907,48 +11299,39 @@ export const BatchOpenChannel = {
     message: BatchOpenChannel,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.nodePubkey.length > 0) {
+    if (message.nodePubkey.length !== 0) {
       writer.uint32(10).bytes(message.nodePubkey);
     }
-
     if (message.localFundingAmount !== '0') {
       writer.uint32(16).int64(message.localFundingAmount);
     }
-
     if (message.pushSat !== '0') {
       writer.uint32(24).int64(message.pushSat);
     }
-
-    if (message.private) {
+    if (message.private === true) {
       writer.uint32(32).bool(message.private);
     }
-
     if (message.minHtlcMsat !== '0') {
       writer.uint32(40).int64(message.minHtlcMsat);
     }
-
     if (message.remoteCsvDelay !== 0) {
       writer.uint32(48).uint32(message.remoteCsvDelay);
     }
-
     if (message.closeAddress !== '') {
       writer.uint32(58).string(message.closeAddress);
     }
-
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(66).bytes(message.pendingChanId);
     }
-
     if (message.commitmentType !== 0) {
       writer.uint32(72).int32(message.commitmentType);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): BatchOpenChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBatchOpenChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -11985,79 +11368,62 @@ export const BatchOpenChannel = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): BatchOpenChannel {
-    const message = createBaseBatchOpenChannel();
-    message.nodePubkey =
-      object.nodePubkey !== undefined && object.nodePubkey !== null
+    return {
+      nodePubkey: isSet(object.nodePubkey)
         ? bytesFromBase64(object.nodePubkey)
-        : new Uint8Array();
-    message.localFundingAmount =
-      object.localFundingAmount !== undefined &&
-      object.localFundingAmount !== null
+        : new Uint8Array(),
+      localFundingAmount: isSet(object.localFundingAmount)
         ? String(object.localFundingAmount)
-        : '0';
-    message.pushSat =
-      object.pushSat !== undefined && object.pushSat !== null
-        ? String(object.pushSat)
-        : '0';
-    message.private =
-      object.private !== undefined && object.private !== null
-        ? Boolean(object.private)
-        : false;
-    message.minHtlcMsat =
-      object.minHtlcMsat !== undefined && object.minHtlcMsat !== null
-        ? String(object.minHtlcMsat)
-        : '0';
-    message.remoteCsvDelay =
-      object.remoteCsvDelay !== undefined && object.remoteCsvDelay !== null
+        : '0',
+      pushSat: isSet(object.pushSat) ? String(object.pushSat) : '0',
+      private: isSet(object.private) ? Boolean(object.private) : false,
+      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : '0',
+      remoteCsvDelay: isSet(object.remoteCsvDelay)
         ? Number(object.remoteCsvDelay)
-        : 0;
-    message.closeAddress =
-      object.closeAddress !== undefined && object.closeAddress !== null
+        : 0,
+      closeAddress: isSet(object.closeAddress)
         ? String(object.closeAddress)
-        : '';
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+        : '',
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    message.commitmentType =
-      object.commitmentType !== undefined && object.commitmentType !== null
+        : new Uint8Array(),
+      commitmentType: isSet(object.commitmentType)
         ? commitmentTypeFromJSON(object.commitmentType)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: BatchOpenChannel): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.nodePubkey !== undefined &&
-      (object.nodePubkey = base64FromBytes(
+      (obj.nodePubkey = base64FromBytes(
         message.nodePubkey !== undefined
           ? message.nodePubkey
           : new Uint8Array(),
       ));
     message.localFundingAmount !== undefined &&
-      (object.localFundingAmount = message.localFundingAmount);
-    message.pushSat !== undefined && (object.pushSat = message.pushSat);
-    message.private !== undefined && (object.private = message.private);
+      (obj.localFundingAmount = message.localFundingAmount);
+    message.pushSat !== undefined && (obj.pushSat = message.pushSat);
+    message.private !== undefined && (obj.private = message.private);
     message.minHtlcMsat !== undefined &&
-      (object.minHtlcMsat = message.minHtlcMsat);
+      (obj.minHtlcMsat = message.minHtlcMsat);
     message.remoteCsvDelay !== undefined &&
-      (object.remoteCsvDelay = Math.round(message.remoteCsvDelay));
+      (obj.remoteCsvDelay = Math.round(message.remoteCsvDelay));
     message.closeAddress !== undefined &&
-      (object.closeAddress = message.closeAddress);
+      (obj.closeAddress = message.closeAddress);
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
     message.commitmentType !== undefined &&
-      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    return object;
+      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<BatchOpenChannel>): BatchOpenChannel {
@@ -12085,9 +11451,8 @@ export const BatchOpenChannelResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.pendingChannels) {
-      PendingUpdate.encode(v, writer.uint32(10).fork()).ldelim();
+      PendingUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -12096,7 +11461,7 @@ export const BatchOpenChannelResponse = {
     length?: number,
   ): BatchOpenChannelResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBatchOpenChannelResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12111,29 +11476,27 @@ export const BatchOpenChannelResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): BatchOpenChannelResponse {
-    const message = createBaseBatchOpenChannelResponse();
-    message.pendingChannels = (object.pendingChannels ?? []).map((e: any) =>
-      PendingUpdate.fromJSON(e),
-    );
-    return message;
+    return {
+      pendingChannels: Array.isArray(object?.pendingChannels)
+        ? object.pendingChannels.map((e: any) => PendingUpdate.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: BatchOpenChannelResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.pendingChannels) {
-      object.pendingChannels = message.pendingChannels.map((e) =>
+      obj.pendingChannels = message.pendingChannels.map((e) =>
         e ? PendingUpdate.toJSON(e) : undefined,
       );
     } else {
-      object.pendingChannels = [];
+      obj.pendingChannels = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -12177,84 +11540,66 @@ export const OpenChannelRequest = {
     if (message.satPerVbyte !== '0') {
       writer.uint32(8).uint64(message.satPerVbyte);
     }
-
-    if (message.nodePubkey.length > 0) {
+    if (message.nodePubkey.length !== 0) {
       writer.uint32(18).bytes(message.nodePubkey);
     }
-
     if (message.nodePubkeyString !== '') {
       writer.uint32(26).string(message.nodePubkeyString);
     }
-
     if (message.localFundingAmount !== '0') {
       writer.uint32(32).int64(message.localFundingAmount);
     }
-
     if (message.pushSat !== '0') {
       writer.uint32(40).int64(message.pushSat);
     }
-
     if (message.targetConf !== 0) {
       writer.uint32(48).int32(message.targetConf);
     }
-
     if (message.satPerByte !== '0') {
       writer.uint32(56).int64(message.satPerByte);
     }
-
-    if (message.private) {
+    if (message.private === true) {
       writer.uint32(64).bool(message.private);
     }
-
     if (message.minHtlcMsat !== '0') {
       writer.uint32(72).int64(message.minHtlcMsat);
     }
-
     if (message.remoteCsvDelay !== 0) {
       writer.uint32(80).uint32(message.remoteCsvDelay);
     }
-
     if (message.minConfs !== 0) {
       writer.uint32(88).int32(message.minConfs);
     }
-
-    if (message.spendUnconfirmed) {
+    if (message.spendUnconfirmed === true) {
       writer.uint32(96).bool(message.spendUnconfirmed);
     }
-
     if (message.closeAddress !== '') {
       writer.uint32(106).string(message.closeAddress);
     }
-
     if (message.fundingShim !== undefined) {
       FundingShim.encode(
         message.fundingShim,
         writer.uint32(114).fork(),
       ).ldelim();
     }
-
     if (message.remoteMaxValueInFlightMsat !== '0') {
       writer.uint32(120).uint64(message.remoteMaxValueInFlightMsat);
     }
-
     if (message.remoteMaxHtlcs !== 0) {
       writer.uint32(128).uint32(message.remoteMaxHtlcs);
     }
-
     if (message.maxLocalCsv !== 0) {
       writer.uint32(136).uint32(message.maxLocalCsv);
     }
-
     if (message.commitmentType !== 0) {
       writer.uint32(144).int32(message.commitmentType);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): OpenChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOpenChannelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12320,132 +11665,94 @@ export const OpenChannelRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): OpenChannelRequest {
-    const message = createBaseOpenChannelRequest();
-    message.satPerVbyte =
-      object.satPerVbyte !== undefined && object.satPerVbyte !== null
-        ? String(object.satPerVbyte)
-        : '0';
-    message.nodePubkey =
-      object.nodePubkey !== undefined && object.nodePubkey !== null
+    return {
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+      nodePubkey: isSet(object.nodePubkey)
         ? bytesFromBase64(object.nodePubkey)
-        : new Uint8Array();
-    message.nodePubkeyString =
-      object.nodePubkeyString !== undefined && object.nodePubkeyString !== null
+        : new Uint8Array(),
+      nodePubkeyString: isSet(object.nodePubkeyString)
         ? String(object.nodePubkeyString)
-        : '';
-    message.localFundingAmount =
-      object.localFundingAmount !== undefined &&
-      object.localFundingAmount !== null
+        : '',
+      localFundingAmount: isSet(object.localFundingAmount)
         ? String(object.localFundingAmount)
-        : '0';
-    message.pushSat =
-      object.pushSat !== undefined && object.pushSat !== null
-        ? String(object.pushSat)
-        : '0';
-    message.targetConf =
-      object.targetConf !== undefined && object.targetConf !== null
-        ? Number(object.targetConf)
-        : 0;
-    message.satPerByte =
-      object.satPerByte !== undefined && object.satPerByte !== null
-        ? String(object.satPerByte)
-        : '0';
-    message.private =
-      object.private !== undefined && object.private !== null
-        ? Boolean(object.private)
-        : false;
-    message.minHtlcMsat =
-      object.minHtlcMsat !== undefined && object.minHtlcMsat !== null
-        ? String(object.minHtlcMsat)
-        : '0';
-    message.remoteCsvDelay =
-      object.remoteCsvDelay !== undefined && object.remoteCsvDelay !== null
+        : '0',
+      pushSat: isSet(object.pushSat) ? String(object.pushSat) : '0',
+      targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
+      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : '0',
+      private: isSet(object.private) ? Boolean(object.private) : false,
+      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : '0',
+      remoteCsvDelay: isSet(object.remoteCsvDelay)
         ? Number(object.remoteCsvDelay)
-        : 0;
-    message.minConfs =
-      object.minConfs !== undefined && object.minConfs !== null
-        ? Number(object.minConfs)
-        : 0;
-    message.spendUnconfirmed =
-      object.spendUnconfirmed !== undefined && object.spendUnconfirmed !== null
+        : 0,
+      minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
+      spendUnconfirmed: isSet(object.spendUnconfirmed)
         ? Boolean(object.spendUnconfirmed)
-        : false;
-    message.closeAddress =
-      object.closeAddress !== undefined && object.closeAddress !== null
+        : false,
+      closeAddress: isSet(object.closeAddress)
         ? String(object.closeAddress)
-        : '';
-    message.fundingShim =
-      object.fundingShim !== undefined && object.fundingShim !== null
+        : '',
+      fundingShim: isSet(object.fundingShim)
         ? FundingShim.fromJSON(object.fundingShim)
-        : undefined;
-    message.remoteMaxValueInFlightMsat =
-      object.remoteMaxValueInFlightMsat !== undefined &&
-      object.remoteMaxValueInFlightMsat !== null
+        : undefined,
+      remoteMaxValueInFlightMsat: isSet(object.remoteMaxValueInFlightMsat)
         ? String(object.remoteMaxValueInFlightMsat)
-        : '0';
-    message.remoteMaxHtlcs =
-      object.remoteMaxHtlcs !== undefined && object.remoteMaxHtlcs !== null
+        : '0',
+      remoteMaxHtlcs: isSet(object.remoteMaxHtlcs)
         ? Number(object.remoteMaxHtlcs)
-        : 0;
-    message.maxLocalCsv =
-      object.maxLocalCsv !== undefined && object.maxLocalCsv !== null
-        ? Number(object.maxLocalCsv)
-        : 0;
-    message.commitmentType =
-      object.commitmentType !== undefined && object.commitmentType !== null
+        : 0,
+      maxLocalCsv: isSet(object.maxLocalCsv) ? Number(object.maxLocalCsv) : 0,
+      commitmentType: isSet(object.commitmentType)
         ? commitmentTypeFromJSON(object.commitmentType)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: OpenChannelRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.satPerVbyte !== undefined &&
-      (object.satPerVbyte = message.satPerVbyte);
+      (obj.satPerVbyte = message.satPerVbyte);
     message.nodePubkey !== undefined &&
-      (object.nodePubkey = base64FromBytes(
+      (obj.nodePubkey = base64FromBytes(
         message.nodePubkey !== undefined
           ? message.nodePubkey
           : new Uint8Array(),
       ));
     message.nodePubkeyString !== undefined &&
-      (object.nodePubkeyString = message.nodePubkeyString);
+      (obj.nodePubkeyString = message.nodePubkeyString);
     message.localFundingAmount !== undefined &&
-      (object.localFundingAmount = message.localFundingAmount);
-    message.pushSat !== undefined && (object.pushSat = message.pushSat);
+      (obj.localFundingAmount = message.localFundingAmount);
+    message.pushSat !== undefined && (obj.pushSat = message.pushSat);
     message.targetConf !== undefined &&
-      (object.targetConf = Math.round(message.targetConf));
-    message.satPerByte !== undefined &&
-      (object.satPerByte = message.satPerByte);
-    message.private !== undefined && (object.private = message.private);
+      (obj.targetConf = Math.round(message.targetConf));
+    message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
+    message.private !== undefined && (obj.private = message.private);
     message.minHtlcMsat !== undefined &&
-      (object.minHtlcMsat = message.minHtlcMsat);
+      (obj.minHtlcMsat = message.minHtlcMsat);
     message.remoteCsvDelay !== undefined &&
-      (object.remoteCsvDelay = Math.round(message.remoteCsvDelay));
+      (obj.remoteCsvDelay = Math.round(message.remoteCsvDelay));
     message.minConfs !== undefined &&
-      (object.minConfs = Math.round(message.minConfs));
+      (obj.minConfs = Math.round(message.minConfs));
     message.spendUnconfirmed !== undefined &&
-      (object.spendUnconfirmed = message.spendUnconfirmed);
+      (obj.spendUnconfirmed = message.spendUnconfirmed);
     message.closeAddress !== undefined &&
-      (object.closeAddress = message.closeAddress);
+      (obj.closeAddress = message.closeAddress);
     message.fundingShim !== undefined &&
-      (object.fundingShim = message.fundingShim
+      (obj.fundingShim = message.fundingShim
         ? FundingShim.toJSON(message.fundingShim)
         : undefined);
     message.remoteMaxValueInFlightMsat !== undefined &&
-      (object.remoteMaxValueInFlightMsat = message.remoteMaxValueInFlightMsat);
+      (obj.remoteMaxValueInFlightMsat = message.remoteMaxValueInFlightMsat);
     message.remoteMaxHtlcs !== undefined &&
-      (object.remoteMaxHtlcs = Math.round(message.remoteMaxHtlcs));
+      (obj.remoteMaxHtlcs = Math.round(message.remoteMaxHtlcs));
     message.maxLocalCsv !== undefined &&
-      (object.maxLocalCsv = Math.round(message.maxLocalCsv));
+      (obj.maxLocalCsv = Math.round(message.maxLocalCsv));
     message.commitmentType !== undefined &&
-      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    return object;
+      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<OpenChannelRequest>): OpenChannelRequest {
@@ -12496,31 +11803,27 @@ export const OpenStatusUpdate = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.chanOpen !== undefined) {
       ChannelOpenUpdate.encode(
         message.chanOpen,
         writer.uint32(26).fork(),
       ).ldelim();
     }
-
     if (message.psbtFund !== undefined) {
       ReadyForPsbtFunding.encode(
         message.psbtFund,
         writer.uint32(42).fork(),
       ).ldelim();
     }
-
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(34).bytes(message.pendingChanId);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): OpenStatusUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOpenStatusUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12545,52 +11848,47 @@ export const OpenStatusUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): OpenStatusUpdate {
-    const message = createBaseOpenStatusUpdate();
-    message.chanPending =
-      object.chanPending !== undefined && object.chanPending !== null
+    return {
+      chanPending: isSet(object.chanPending)
         ? PendingUpdate.fromJSON(object.chanPending)
-        : undefined;
-    message.chanOpen =
-      object.chanOpen !== undefined && object.chanOpen !== null
+        : undefined,
+      chanOpen: isSet(object.chanOpen)
         ? ChannelOpenUpdate.fromJSON(object.chanOpen)
-        : undefined;
-    message.psbtFund =
-      object.psbtFund !== undefined && object.psbtFund !== null
+        : undefined,
+      psbtFund: isSet(object.psbtFund)
         ? ReadyForPsbtFunding.fromJSON(object.psbtFund)
-        : undefined;
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+        : undefined,
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: OpenStatusUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.chanPending !== undefined &&
-      (object.chanPending = message.chanPending
+      (obj.chanPending = message.chanPending
         ? PendingUpdate.toJSON(message.chanPending)
         : undefined);
     message.chanOpen !== undefined &&
-      (object.chanOpen = message.chanOpen
+      (obj.chanOpen = message.chanOpen
         ? ChannelOpenUpdate.toJSON(message.chanOpen)
         : undefined);
     message.psbtFund !== undefined &&
-      (object.psbtFund = message.psbtFund
+      (obj.psbtFund = message.psbtFund
         ? ReadyForPsbtFunding.toJSON(message.psbtFund)
         : undefined);
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<OpenStatusUpdate>): OpenStatusUpdate {
@@ -12624,17 +11922,15 @@ export const KeyLocator = {
     if (message.keyFamily !== 0) {
       writer.uint32(8).int32(message.keyFamily);
     }
-
     if (message.keyIndex !== 0) {
       writer.uint32(16).int32(message.keyIndex);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): KeyLocator {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseKeyLocator();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12650,30 +11946,23 @@ export const KeyLocator = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): KeyLocator {
-    const message = createBaseKeyLocator();
-    message.keyFamily =
-      object.keyFamily !== undefined && object.keyFamily !== null
-        ? Number(object.keyFamily)
-        : 0;
-    message.keyIndex =
-      object.keyIndex !== undefined && object.keyIndex !== null
-        ? Number(object.keyIndex)
-        : 0;
-    return message;
+    return {
+      keyFamily: isSet(object.keyFamily) ? Number(object.keyFamily) : 0,
+      keyIndex: isSet(object.keyIndex) ? Number(object.keyIndex) : 0,
+    };
   },
 
   toJSON(message: KeyLocator): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.keyFamily !== undefined &&
-      (object.keyFamily = Math.round(message.keyFamily));
+      (obj.keyFamily = Math.round(message.keyFamily));
     message.keyIndex !== undefined &&
-      (object.keyIndex = Math.round(message.keyIndex));
-    return object;
+      (obj.keyIndex = Math.round(message.keyIndex));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<KeyLocator>): KeyLocator {
@@ -12693,20 +11982,18 @@ export const KeyDescriptor = {
     message: KeyDescriptor,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.rawKeyBytes.length > 0) {
+    if (message.rawKeyBytes.length !== 0) {
       writer.uint32(10).bytes(message.rawKeyBytes);
     }
-
     if (message.keyLoc !== undefined) {
       KeyLocator.encode(message.keyLoc, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): KeyDescriptor {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseKeyDescriptor();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12722,36 +12009,33 @@ export const KeyDescriptor = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): KeyDescriptor {
-    const message = createBaseKeyDescriptor();
-    message.rawKeyBytes =
-      object.rawKeyBytes !== undefined && object.rawKeyBytes !== null
+    return {
+      rawKeyBytes: isSet(object.rawKeyBytes)
         ? bytesFromBase64(object.rawKeyBytes)
-        : new Uint8Array();
-    message.keyLoc =
-      object.keyLoc !== undefined && object.keyLoc !== null
+        : new Uint8Array(),
+      keyLoc: isSet(object.keyLoc)
         ? KeyLocator.fromJSON(object.keyLoc)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: KeyDescriptor): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.rawKeyBytes !== undefined &&
-      (object.rawKeyBytes = base64FromBytes(
+      (obj.rawKeyBytes = base64FromBytes(
         message.rawKeyBytes !== undefined
           ? message.rawKeyBytes
           : new Uint8Array(),
       ));
     message.keyLoc !== undefined &&
-      (object.keyLoc = message.keyLoc
+      (obj.keyLoc = message.keyLoc
         ? KeyLocator.toJSON(message.keyLoc)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<KeyDescriptor>): KeyDescriptor {
@@ -12784,33 +12068,27 @@ export const ChanPointShim = {
     if (message.amt !== '0') {
       writer.uint32(8).int64(message.amt);
     }
-
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-
     if (message.localKey !== undefined) {
       KeyDescriptor.encode(message.localKey, writer.uint32(26).fork()).ldelim();
     }
-
-    if (message.remoteKey.length > 0) {
+    if (message.remoteKey.length !== 0) {
       writer.uint32(34).bytes(message.remoteKey);
     }
-
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(42).bytes(message.pendingChanId);
     }
-
     if (message.thawHeight !== 0) {
       writer.uint32(48).uint32(message.thawHeight);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChanPointShim {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanPointShim();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12838,63 +12116,52 @@ export const ChanPointShim = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChanPointShim {
-    const message = createBaseChanPointShim();
-    message.amt =
-      object.amt !== undefined && object.amt !== null
-        ? String(object.amt)
-        : '0';
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
+    return {
+      amt: isSet(object.amt) ? String(object.amt) : '0',
+      chanPoint: isSet(object.chanPoint)
         ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined;
-    message.localKey =
-      object.localKey !== undefined && object.localKey !== null
+        : undefined,
+      localKey: isSet(object.localKey)
         ? KeyDescriptor.fromJSON(object.localKey)
-        : undefined;
-    message.remoteKey =
-      object.remoteKey !== undefined && object.remoteKey !== null
+        : undefined,
+      remoteKey: isSet(object.remoteKey)
         ? bytesFromBase64(object.remoteKey)
-        : new Uint8Array();
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+        : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    message.thawHeight =
-      object.thawHeight !== undefined && object.thawHeight !== null
-        ? Number(object.thawHeight)
-        : 0;
-    return message;
+        : new Uint8Array(),
+      thawHeight: isSet(object.thawHeight) ? Number(object.thawHeight) : 0,
+    };
   },
 
   toJSON(message: ChanPointShim): unknown {
-    const object: any = {};
-    message.amt !== undefined && (object.amt = message.amt);
+    const obj: any = {};
+    message.amt !== undefined && (obj.amt = message.amt);
     message.chanPoint !== undefined &&
-      (object.chanPoint = message.chanPoint
+      (obj.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
     message.localKey !== undefined &&
-      (object.localKey = message.localKey
+      (obj.localKey = message.localKey
         ? KeyDescriptor.toJSON(message.localKey)
         : undefined);
     message.remoteKey !== undefined &&
-      (object.remoteKey = base64FromBytes(
+      (obj.remoteKey = base64FromBytes(
         message.remoteKey !== undefined ? message.remoteKey : new Uint8Array(),
       ));
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
     message.thawHeight !== undefined &&
-      (object.thawHeight = Math.round(message.thawHeight));
-    return object;
+      (obj.thawHeight = Math.round(message.thawHeight));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChanPointShim>): ChanPointShim {
@@ -12928,24 +12195,21 @@ export const PsbtShim = {
     message: PsbtShim,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(10).bytes(message.pendingChanId);
     }
-
-    if (message.basePsbt.length > 0) {
+    if (message.basePsbt.length !== 0) {
       writer.uint32(18).bytes(message.basePsbt);
     }
-
-    if (message.noPublish) {
+    if (message.noPublish === true) {
       writer.uint32(24).bool(message.noPublish);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PsbtShim {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePsbtShim();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -12964,41 +12228,35 @@ export const PsbtShim = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PsbtShim {
-    const message = createBasePsbtShim();
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+    return {
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    message.basePsbt =
-      object.basePsbt !== undefined && object.basePsbt !== null
+        : new Uint8Array(),
+      basePsbt: isSet(object.basePsbt)
         ? bytesFromBase64(object.basePsbt)
-        : new Uint8Array();
-    message.noPublish =
-      object.noPublish !== undefined && object.noPublish !== null
-        ? Boolean(object.noPublish)
-        : false;
-    return message;
+        : new Uint8Array(),
+      noPublish: isSet(object.noPublish) ? Boolean(object.noPublish) : false,
+    };
   },
 
   toJSON(message: PsbtShim): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
     message.basePsbt !== undefined &&
-      (object.basePsbt = base64FromBytes(
+      (obj.basePsbt = base64FromBytes(
         message.basePsbt !== undefined ? message.basePsbt : new Uint8Array(),
       ));
-    message.noPublish !== undefined && (object.noPublish = message.noPublish);
-    return object;
+    message.noPublish !== undefined && (obj.noPublish = message.noPublish);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PsbtShim>): PsbtShim {
@@ -13025,17 +12283,15 @@ export const FundingShim = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.psbtShim !== undefined) {
       PsbtShim.encode(message.psbtShim, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingShim {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingShim();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13051,34 +12307,31 @@ export const FundingShim = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FundingShim {
-    const message = createBaseFundingShim();
-    message.chanPointShim =
-      object.chanPointShim !== undefined && object.chanPointShim !== null
+    return {
+      chanPointShim: isSet(object.chanPointShim)
         ? ChanPointShim.fromJSON(object.chanPointShim)
-        : undefined;
-    message.psbtShim =
-      object.psbtShim !== undefined && object.psbtShim !== null
+        : undefined,
+      psbtShim: isSet(object.psbtShim)
         ? PsbtShim.fromJSON(object.psbtShim)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: FundingShim): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.chanPointShim !== undefined &&
-      (object.chanPointShim = message.chanPointShim
+      (obj.chanPointShim = message.chanPointShim
         ? ChanPointShim.toJSON(message.chanPointShim)
         : undefined);
     message.psbtShim !== undefined &&
-      (object.psbtShim = message.psbtShim
+      (obj.psbtShim = message.psbtShim
         ? PsbtShim.toJSON(message.psbtShim)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FundingShim>): FundingShim {
@@ -13104,16 +12357,15 @@ export const FundingShimCancel = {
     message: FundingShimCancel,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(10).bytes(message.pendingChanId);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingShimCancel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingShimCancel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13126,28 +12378,26 @@ export const FundingShimCancel = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FundingShimCancel {
-    const message = createBaseFundingShimCancel();
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+    return {
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: FundingShimCancel): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FundingShimCancel>): FundingShimCancel {
@@ -13170,24 +12420,21 @@ export const FundingPsbtVerify = {
     message: FundingPsbtVerify,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.fundedPsbt.length > 0) {
+    if (message.fundedPsbt.length !== 0) {
       writer.uint32(10).bytes(message.fundedPsbt);
     }
-
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(18).bytes(message.pendingChanId);
     }
-
-    if (message.skipFinalize) {
+    if (message.skipFinalize === true) {
       writer.uint32(24).bool(message.skipFinalize);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingPsbtVerify {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingPsbtVerify();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13206,44 +12453,40 @@ export const FundingPsbtVerify = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FundingPsbtVerify {
-    const message = createBaseFundingPsbtVerify();
-    message.fundedPsbt =
-      object.fundedPsbt !== undefined && object.fundedPsbt !== null
+    return {
+      fundedPsbt: isSet(object.fundedPsbt)
         ? bytesFromBase64(object.fundedPsbt)
-        : new Uint8Array();
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+        : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    message.skipFinalize =
-      object.skipFinalize !== undefined && object.skipFinalize !== null
+        : new Uint8Array(),
+      skipFinalize: isSet(object.skipFinalize)
         ? Boolean(object.skipFinalize)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: FundingPsbtVerify): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.fundedPsbt !== undefined &&
-      (object.fundedPsbt = base64FromBytes(
+      (obj.fundedPsbt = base64FromBytes(
         message.fundedPsbt !== undefined
           ? message.fundedPsbt
           : new Uint8Array(),
       ));
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
     message.skipFinalize !== undefined &&
-      (object.skipFinalize = message.skipFinalize);
-    return object;
+      (obj.skipFinalize = message.skipFinalize);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FundingPsbtVerify>): FundingPsbtVerify {
@@ -13268,24 +12511,21 @@ export const FundingPsbtFinalize = {
     message: FundingPsbtFinalize,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.signedPsbt.length > 0) {
+    if (message.signedPsbt.length !== 0) {
       writer.uint32(10).bytes(message.signedPsbt);
     }
-
-    if (message.pendingChanId.length > 0) {
+    if (message.pendingChanId.length !== 0) {
       writer.uint32(18).bytes(message.pendingChanId);
     }
-
-    if (message.finalRawTx.length > 0) {
+    if (message.finalRawTx.length !== 0) {
       writer.uint32(26).bytes(message.finalRawTx);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FundingPsbtFinalize {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingPsbtFinalize();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13304,48 +12544,44 @@ export const FundingPsbtFinalize = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FundingPsbtFinalize {
-    const message = createBaseFundingPsbtFinalize();
-    message.signedPsbt =
-      object.signedPsbt !== undefined && object.signedPsbt !== null
+    return {
+      signedPsbt: isSet(object.signedPsbt)
         ? bytesFromBase64(object.signedPsbt)
-        : new Uint8Array();
-    message.pendingChanId =
-      object.pendingChanId !== undefined && object.pendingChanId !== null
+        : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId)
         ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array();
-    message.finalRawTx =
-      object.finalRawTx !== undefined && object.finalRawTx !== null
+        : new Uint8Array(),
+      finalRawTx: isSet(object.finalRawTx)
         ? bytesFromBase64(object.finalRawTx)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: FundingPsbtFinalize): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.signedPsbt !== undefined &&
-      (object.signedPsbt = base64FromBytes(
+      (obj.signedPsbt = base64FromBytes(
         message.signedPsbt !== undefined
           ? message.signedPsbt
           : new Uint8Array(),
       ));
     message.pendingChanId !== undefined &&
-      (object.pendingChanId = base64FromBytes(
+      (obj.pendingChanId = base64FromBytes(
         message.pendingChanId !== undefined
           ? message.pendingChanId
           : new Uint8Array(),
       ));
     message.finalRawTx !== undefined &&
-      (object.finalRawTx = base64FromBytes(
+      (obj.finalRawTx = base64FromBytes(
         message.finalRawTx !== undefined
           ? message.finalRawTx
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FundingPsbtFinalize>): FundingPsbtFinalize {
@@ -13357,7 +12593,7 @@ export const FundingPsbtFinalize = {
   },
 };
 
-function createBaseFundingTransitionMessage(): FundingTransitionMsg {
+function createBaseFundingTransitionMsg(): FundingTransitionMsg {
   return {
     shimRegister: undefined,
     shimCancel: undefined,
@@ -13377,28 +12613,24 @@ export const FundingTransitionMsg = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.shimCancel !== undefined) {
       FundingShimCancel.encode(
         message.shimCancel,
         writer.uint32(18).fork(),
       ).ldelim();
     }
-
     if (message.psbtVerify !== undefined) {
       FundingPsbtVerify.encode(
         message.psbtVerify,
         writer.uint32(26).fork(),
       ).ldelim();
     }
-
     if (message.psbtFinalize !== undefined) {
       FundingPsbtFinalize.encode(
         message.psbtFinalize,
         writer.uint32(34).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
@@ -13407,8 +12639,8 @@ export const FundingTransitionMsg = {
     length?: number,
   ): FundingTransitionMsg {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBaseFundingTransitionMessage();
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseFundingTransitionMsg();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -13438,54 +12670,49 @@ export const FundingTransitionMsg = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FundingTransitionMsg {
-    const message = createBaseFundingTransitionMessage();
-    message.shimRegister =
-      object.shimRegister !== undefined && object.shimRegister !== null
+    return {
+      shimRegister: isSet(object.shimRegister)
         ? FundingShim.fromJSON(object.shimRegister)
-        : undefined;
-    message.shimCancel =
-      object.shimCancel !== undefined && object.shimCancel !== null
+        : undefined,
+      shimCancel: isSet(object.shimCancel)
         ? FundingShimCancel.fromJSON(object.shimCancel)
-        : undefined;
-    message.psbtVerify =
-      object.psbtVerify !== undefined && object.psbtVerify !== null
+        : undefined,
+      psbtVerify: isSet(object.psbtVerify)
         ? FundingPsbtVerify.fromJSON(object.psbtVerify)
-        : undefined;
-    message.psbtFinalize =
-      object.psbtFinalize !== undefined && object.psbtFinalize !== null
+        : undefined,
+      psbtFinalize: isSet(object.psbtFinalize)
         ? FundingPsbtFinalize.fromJSON(object.psbtFinalize)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: FundingTransitionMsg): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.shimRegister !== undefined &&
-      (object.shimRegister = message.shimRegister
+      (obj.shimRegister = message.shimRegister
         ? FundingShim.toJSON(message.shimRegister)
         : undefined);
     message.shimCancel !== undefined &&
-      (object.shimCancel = message.shimCancel
+      (obj.shimCancel = message.shimCancel
         ? FundingShimCancel.toJSON(message.shimCancel)
         : undefined);
     message.psbtVerify !== undefined &&
-      (object.psbtVerify = message.psbtVerify
+      (obj.psbtVerify = message.psbtVerify
         ? FundingPsbtVerify.toJSON(message.psbtVerify)
         : undefined);
     message.psbtFinalize !== undefined &&
-      (object.psbtFinalize = message.psbtFinalize
+      (obj.psbtFinalize = message.psbtFinalize
         ? FundingPsbtFinalize.toJSON(message.psbtFinalize)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FundingTransitionMsg>): FundingTransitionMsg {
-    const message = createBaseFundingTransitionMessage();
+    const message = createBaseFundingTransitionMsg();
     message.shimRegister =
       object.shimRegister !== undefined && object.shimRegister !== null
         ? FundingShim.fromPartial(object.shimRegister)
@@ -13523,7 +12750,7 @@ export const FundingStateStepResp = {
     length?: number,
   ): FundingStateStepResp {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingStateStepResp();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13533,18 +12760,16 @@ export const FundingStateStepResp = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): FundingStateStepResp {
-    const message = createBaseFundingStateStepResp();
-    return message;
+    return {};
   },
 
   toJSON(_: FundingStateStepResp): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<FundingStateStepResp>): FundingStateStepResp {
@@ -13569,36 +12794,30 @@ export const PendingHTLC = {
     message: PendingHTLC,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.incoming) {
+    if (message.incoming === true) {
       writer.uint32(8).bool(message.incoming);
     }
-
     if (message.amount !== '0') {
       writer.uint32(16).int64(message.amount);
     }
-
     if (message.outpoint !== '') {
       writer.uint32(26).string(message.outpoint);
     }
-
     if (message.maturityHeight !== 0) {
       writer.uint32(32).uint32(message.maturityHeight);
     }
-
     if (message.blocksTilMaturity !== 0) {
       writer.uint32(40).int32(message.blocksTilMaturity);
     }
-
     if (message.stage !== 0) {
       writer.uint32(48).uint32(message.stage);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PendingHTLC {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingHTLC();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13626,51 +12845,35 @@ export const PendingHTLC = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingHTLC {
-    const message = createBasePendingHTLC();
-    message.incoming =
-      object.incoming !== undefined && object.incoming !== null
-        ? Boolean(object.incoming)
-        : false;
-    message.amount =
-      object.amount !== undefined && object.amount !== null
-        ? String(object.amount)
-        : '0';
-    message.outpoint =
-      object.outpoint !== undefined && object.outpoint !== null
-        ? String(object.outpoint)
-        : '';
-    message.maturityHeight =
-      object.maturityHeight !== undefined && object.maturityHeight !== null
+    return {
+      incoming: isSet(object.incoming) ? Boolean(object.incoming) : false,
+      amount: isSet(object.amount) ? String(object.amount) : '0',
+      outpoint: isSet(object.outpoint) ? String(object.outpoint) : '',
+      maturityHeight: isSet(object.maturityHeight)
         ? Number(object.maturityHeight)
-        : 0;
-    message.blocksTilMaturity =
-      object.blocksTilMaturity !== undefined &&
-      object.blocksTilMaturity !== null
+        : 0,
+      blocksTilMaturity: isSet(object.blocksTilMaturity)
         ? Number(object.blocksTilMaturity)
-        : 0;
-    message.stage =
-      object.stage !== undefined && object.stage !== null
-        ? Number(object.stage)
-        : 0;
-    return message;
+        : 0,
+      stage: isSet(object.stage) ? Number(object.stage) : 0,
+    };
   },
 
   toJSON(message: PendingHTLC): unknown {
-    const object: any = {};
-    message.incoming !== undefined && (object.incoming = message.incoming);
-    message.amount !== undefined && (object.amount = message.amount);
-    message.outpoint !== undefined && (object.outpoint = message.outpoint);
+    const obj: any = {};
+    message.incoming !== undefined && (obj.incoming = message.incoming);
+    message.amount !== undefined && (obj.amount = message.amount);
+    message.outpoint !== undefined && (obj.outpoint = message.outpoint);
     message.maturityHeight !== undefined &&
-      (object.maturityHeight = Math.round(message.maturityHeight));
+      (obj.maturityHeight = Math.round(message.maturityHeight));
     message.blocksTilMaturity !== undefined &&
-      (object.blocksTilMaturity = Math.round(message.blocksTilMaturity));
-    message.stage !== undefined && (object.stage = Math.round(message.stage));
-    return object;
+      (obj.blocksTilMaturity = Math.round(message.blocksTilMaturity));
+    message.stage !== undefined && (obj.stage = Math.round(message.stage));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PendingHTLC>): PendingHTLC {
@@ -13702,7 +12905,7 @@ export const PendingChannelsRequest = {
     length?: number,
   ): PendingChannelsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13712,18 +12915,16 @@ export const PendingChannelsRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): PendingChannelsRequest {
-    const message = createBasePendingChannelsRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: PendingChannelsRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<PendingChannelsRequest>): PendingChannelsRequest {
@@ -13750,35 +12951,30 @@ export const PendingChannelsResponse = {
     if (message.totalLimboBalance !== '0') {
       writer.uint32(8).int64(message.totalLimboBalance);
     }
-
     for (const v of message.pendingOpenChannels) {
       PendingChannelsResponse_PendingOpenChannel.encode(
-        v,
+        v!,
         writer.uint32(18).fork(),
       ).ldelim();
     }
-
     for (const v of message.pendingClosingChannels) {
       PendingChannelsResponse_ClosedChannel.encode(
-        v,
+        v!,
         writer.uint32(26).fork(),
       ).ldelim();
     }
-
     for (const v of message.pendingForceClosingChannels) {
       PendingChannelsResponse_ForceClosedChannel.encode(
-        v,
+        v!,
         writer.uint32(34).fork(),
       ).ldelim();
     }
-
     for (const v of message.waitingCloseChannels) {
       PendingChannelsResponse_WaitingCloseChannel.encode(
-        v,
+        v!,
         writer.uint32(42).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
@@ -13787,7 +12983,7 @@ export const PendingChannelsResponse = {
     length?: number,
   ): PendingChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -13832,70 +13028,73 @@ export const PendingChannelsResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingChannelsResponse {
-    const message = createBasePendingChannelsResponse();
-    message.totalLimboBalance =
-      object.totalLimboBalance !== undefined &&
-      object.totalLimboBalance !== null
+    return {
+      totalLimboBalance: isSet(object.totalLimboBalance)
         ? String(object.totalLimboBalance)
-        : '0';
-    message.pendingOpenChannels = (object.pendingOpenChannels ?? []).map(
-      (e: any) => PendingChannelsResponse_PendingOpenChannel.fromJSON(e),
-    );
-    message.pendingClosingChannels = (object.pendingClosingChannels ?? []).map(
-      (e: any) => PendingChannelsResponse_ClosedChannel.fromJSON(e),
-    );
-    message.pendingForceClosingChannels = (
-      object.pendingForceClosingChannels ?? []
-    ).map((e: any) => PendingChannelsResponse_ForceClosedChannel.fromJSON(e));
-    message.waitingCloseChannels = (object.waitingCloseChannels ?? []).map(
-      (e: any) => PendingChannelsResponse_WaitingCloseChannel.fromJSON(e),
-    );
-    return message;
+        : '0',
+      pendingOpenChannels: Array.isArray(object?.pendingOpenChannels)
+        ? object.pendingOpenChannels.map((e: any) =>
+            PendingChannelsResponse_PendingOpenChannel.fromJSON(e),
+          )
+        : [],
+      pendingClosingChannels: Array.isArray(object?.pendingClosingChannels)
+        ? object.pendingClosingChannels.map((e: any) =>
+            PendingChannelsResponse_ClosedChannel.fromJSON(e),
+          )
+        : [],
+      pendingForceClosingChannels: Array.isArray(
+        object?.pendingForceClosingChannels,
+      )
+        ? object.pendingForceClosingChannels.map((e: any) =>
+            PendingChannelsResponse_ForceClosedChannel.fromJSON(e),
+          )
+        : [],
+      waitingCloseChannels: Array.isArray(object?.waitingCloseChannels)
+        ? object.waitingCloseChannels.map((e: any) =>
+            PendingChannelsResponse_WaitingCloseChannel.fromJSON(e),
+          )
+        : [],
+    };
   },
 
   toJSON(message: PendingChannelsResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.totalLimboBalance !== undefined &&
-      (object.totalLimboBalance = message.totalLimboBalance);
+      (obj.totalLimboBalance = message.totalLimboBalance);
     if (message.pendingOpenChannels) {
-      object.pendingOpenChannels = message.pendingOpenChannels.map((e) =>
+      obj.pendingOpenChannels = message.pendingOpenChannels.map((e) =>
         e ? PendingChannelsResponse_PendingOpenChannel.toJSON(e) : undefined,
       );
     } else {
-      object.pendingOpenChannels = [];
+      obj.pendingOpenChannels = [];
     }
-
     if (message.pendingClosingChannels) {
-      object.pendingClosingChannels = message.pendingClosingChannels.map((e) =>
+      obj.pendingClosingChannels = message.pendingClosingChannels.map((e) =>
         e ? PendingChannelsResponse_ClosedChannel.toJSON(e) : undefined,
       );
     } else {
-      object.pendingClosingChannels = [];
+      obj.pendingClosingChannels = [];
     }
-
     if (message.pendingForceClosingChannels) {
-      object.pendingForceClosingChannels =
-        message.pendingForceClosingChannels.map((e) =>
+      obj.pendingForceClosingChannels = message.pendingForceClosingChannels.map(
+        (e) =>
           e ? PendingChannelsResponse_ForceClosedChannel.toJSON(e) : undefined,
-        );
+      );
     } else {
-      object.pendingForceClosingChannels = [];
+      obj.pendingForceClosingChannels = [];
     }
-
     if (message.waitingCloseChannels) {
-      object.waitingCloseChannels = message.waitingCloseChannels.map((e) =>
+      obj.waitingCloseChannels = message.waitingCloseChannels.map((e) =>
         e ? PendingChannelsResponse_WaitingCloseChannel.toJSON(e) : undefined,
       );
     } else {
-      object.waitingCloseChannels = [];
+      obj.waitingCloseChannels = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -13935,6 +13134,8 @@ function createBasePendingChannelsResponse_PendingChannel(): PendingChannelsResp
     initiator: 0,
     commitmentType: 0,
     numForwardingPackages: '0',
+    chanStatusFlags: '',
+    private: false,
   };
 }
 
@@ -13946,43 +13147,39 @@ export const PendingChannelsResponse_PendingChannel = {
     if (message.remoteNodePub !== '') {
       writer.uint32(10).string(message.remoteNodePub);
     }
-
     if (message.channelPoint !== '') {
       writer.uint32(18).string(message.channelPoint);
     }
-
     if (message.capacity !== '0') {
       writer.uint32(24).int64(message.capacity);
     }
-
     if (message.localBalance !== '0') {
       writer.uint32(32).int64(message.localBalance);
     }
-
     if (message.remoteBalance !== '0') {
       writer.uint32(40).int64(message.remoteBalance);
     }
-
     if (message.localChanReserveSat !== '0') {
       writer.uint32(48).int64(message.localChanReserveSat);
     }
-
     if (message.remoteChanReserveSat !== '0') {
       writer.uint32(56).int64(message.remoteChanReserveSat);
     }
-
     if (message.initiator !== 0) {
       writer.uint32(64).int32(message.initiator);
     }
-
     if (message.commitmentType !== 0) {
       writer.uint32(72).int32(message.commitmentType);
     }
-
     if (message.numForwardingPackages !== '0') {
       writer.uint32(80).int64(message.numForwardingPackages);
     }
-
+    if (message.chanStatusFlags !== '') {
+      writer.uint32(90).string(message.chanStatusFlags);
+    }
+    if (message.private === true) {
+      writer.uint32(96).bool(message.private);
+    }
     return writer;
   },
 
@@ -13991,7 +13188,7 @@ export const PendingChannelsResponse_PendingChannel = {
     length?: number,
   ): PendingChannelsResponse_PendingChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_PendingChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14026,85 +13223,82 @@ export const PendingChannelsResponse_PendingChannel = {
         case 10:
           message.numForwardingPackages = longToString(reader.int64() as Long);
           break;
+        case 11:
+          message.chanStatusFlags = reader.string();
+          break;
+        case 12:
+          message.private = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingChannelsResponse_PendingChannel {
-    const message = createBasePendingChannelsResponse_PendingChannel();
-    message.remoteNodePub =
-      object.remoteNodePub !== undefined && object.remoteNodePub !== null
+    return {
+      remoteNodePub: isSet(object.remoteNodePub)
         ? String(object.remoteNodePub)
-        : '';
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
+        : '',
+      channelPoint: isSet(object.channelPoint)
         ? String(object.channelPoint)
-        : '';
-    message.capacity =
-      object.capacity !== undefined && object.capacity !== null
-        ? String(object.capacity)
-        : '0';
-    message.localBalance =
-      object.localBalance !== undefined && object.localBalance !== null
+        : '',
+      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
+      localBalance: isSet(object.localBalance)
         ? String(object.localBalance)
-        : '0';
-    message.remoteBalance =
-      object.remoteBalance !== undefined && object.remoteBalance !== null
+        : '0',
+      remoteBalance: isSet(object.remoteBalance)
         ? String(object.remoteBalance)
-        : '0';
-    message.localChanReserveSat =
-      object.localChanReserveSat !== undefined &&
-      object.localChanReserveSat !== null
+        : '0',
+      localChanReserveSat: isSet(object.localChanReserveSat)
         ? String(object.localChanReserveSat)
-        : '0';
-    message.remoteChanReserveSat =
-      object.remoteChanReserveSat !== undefined &&
-      object.remoteChanReserveSat !== null
+        : '0',
+      remoteChanReserveSat: isSet(object.remoteChanReserveSat)
         ? String(object.remoteChanReserveSat)
-        : '0';
-    message.initiator =
-      object.initiator !== undefined && object.initiator !== null
+        : '0',
+      initiator: isSet(object.initiator)
         ? initiatorFromJSON(object.initiator)
-        : 0;
-    message.commitmentType =
-      object.commitmentType !== undefined && object.commitmentType !== null
+        : 0,
+      commitmentType: isSet(object.commitmentType)
         ? commitmentTypeFromJSON(object.commitmentType)
-        : 0;
-    message.numForwardingPackages =
-      object.numForwardingPackages !== undefined &&
-      object.numForwardingPackages !== null
+        : 0,
+      numForwardingPackages: isSet(object.numForwardingPackages)
         ? String(object.numForwardingPackages)
-        : '0';
-    return message;
+        : '0',
+      chanStatusFlags: isSet(object.chanStatusFlags)
+        ? String(object.chanStatusFlags)
+        : '',
+      private: isSet(object.private) ? Boolean(object.private) : false,
+    };
   },
 
   toJSON(message: PendingChannelsResponse_PendingChannel): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.remoteNodePub !== undefined &&
-      (object.remoteNodePub = message.remoteNodePub);
+      (obj.remoteNodePub = message.remoteNodePub);
     message.channelPoint !== undefined &&
-      (object.channelPoint = message.channelPoint);
-    message.capacity !== undefined && (object.capacity = message.capacity);
+      (obj.channelPoint = message.channelPoint);
+    message.capacity !== undefined && (obj.capacity = message.capacity);
     message.localBalance !== undefined &&
-      (object.localBalance = message.localBalance);
+      (obj.localBalance = message.localBalance);
     message.remoteBalance !== undefined &&
-      (object.remoteBalance = message.remoteBalance);
+      (obj.remoteBalance = message.remoteBalance);
     message.localChanReserveSat !== undefined &&
-      (object.localChanReserveSat = message.localChanReserveSat);
+      (obj.localChanReserveSat = message.localChanReserveSat);
     message.remoteChanReserveSat !== undefined &&
-      (object.remoteChanReserveSat = message.remoteChanReserveSat);
+      (obj.remoteChanReserveSat = message.remoteChanReserveSat);
     message.initiator !== undefined &&
-      (object.initiator = initiatorToJSON(message.initiator));
+      (obj.initiator = initiatorToJSON(message.initiator));
     message.commitmentType !== undefined &&
-      (object.commitmentType = commitmentTypeToJSON(message.commitmentType));
+      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
     message.numForwardingPackages !== undefined &&
-      (object.numForwardingPackages = message.numForwardingPackages);
-    return object;
+      (obj.numForwardingPackages = message.numForwardingPackages);
+    message.chanStatusFlags !== undefined &&
+      (obj.chanStatusFlags = message.chanStatusFlags);
+    message.private !== undefined && (obj.private = message.private);
+    return obj;
   },
 
   fromPartial(
@@ -14121,18 +13315,14 @@ export const PendingChannelsResponse_PendingChannel = {
     message.initiator = object.initiator ?? 0;
     message.commitmentType = object.commitmentType ?? 0;
     message.numForwardingPackages = object.numForwardingPackages ?? '0';
+    message.chanStatusFlags = object.chanStatusFlags ?? '';
+    message.private = object.private ?? false;
     return message;
   },
 };
 
 function createBasePendingChannelsResponse_PendingOpenChannel(): PendingChannelsResponse_PendingOpenChannel {
-  return {
-    channel: undefined,
-    confirmationHeight: 0,
-    commitFee: '0',
-    commitWeight: '0',
-    feePerKw: '0',
-  };
+  return {channel: undefined, commitFee: '0', commitWeight: '0', feePerKw: '0'};
 }
 
 export const PendingChannelsResponse_PendingOpenChannel = {
@@ -14146,23 +13336,15 @@ export const PendingChannelsResponse_PendingOpenChannel = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
-    if (message.confirmationHeight !== 0) {
-      writer.uint32(16).uint32(message.confirmationHeight);
-    }
-
     if (message.commitFee !== '0') {
       writer.uint32(32).int64(message.commitFee);
     }
-
     if (message.commitWeight !== '0') {
       writer.uint32(40).int64(message.commitWeight);
     }
-
     if (message.feePerKw !== '0') {
       writer.uint32(48).int64(message.feePerKw);
     }
-
     return writer;
   },
 
@@ -14171,7 +13353,7 @@ export const PendingChannelsResponse_PendingOpenChannel = {
     length?: number,
   ): PendingChannelsResponse_PendingOpenChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_PendingOpenChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14181,9 +13363,6 @@ export const PendingChannelsResponse_PendingOpenChannel = {
             reader,
             reader.uint32(),
           );
-          break;
-        case 2:
-          message.confirmationHeight = reader.uint32();
           break;
         case 4:
           message.commitFee = longToString(reader.int64() as Long);
@@ -14199,49 +13378,33 @@ export const PendingChannelsResponse_PendingOpenChannel = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingChannelsResponse_PendingOpenChannel {
-    const message = createBasePendingChannelsResponse_PendingOpenChannel();
-    message.channel =
-      object.channel !== undefined && object.channel !== null
+    return {
+      channel: isSet(object.channel)
         ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel)
-        : undefined;
-    message.confirmationHeight =
-      object.confirmationHeight !== undefined &&
-      object.confirmationHeight !== null
-        ? Number(object.confirmationHeight)
-        : 0;
-    message.commitFee =
-      object.commitFee !== undefined && object.commitFee !== null
-        ? String(object.commitFee)
-        : '0';
-    message.commitWeight =
-      object.commitWeight !== undefined && object.commitWeight !== null
+        : undefined,
+      commitFee: isSet(object.commitFee) ? String(object.commitFee) : '0',
+      commitWeight: isSet(object.commitWeight)
         ? String(object.commitWeight)
-        : '0';
-    message.feePerKw =
-      object.feePerKw !== undefined && object.feePerKw !== null
-        ? String(object.feePerKw)
-        : '0';
-    return message;
+        : '0',
+      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : '0',
+    };
   },
 
   toJSON(message: PendingChannelsResponse_PendingOpenChannel): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.channel !== undefined &&
-      (object.channel = message.channel
+      (obj.channel = message.channel
         ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
         : undefined);
-    message.confirmationHeight !== undefined &&
-      (object.confirmationHeight = Math.round(message.confirmationHeight));
-    message.commitFee !== undefined && (object.commitFee = message.commitFee);
+    message.commitFee !== undefined && (obj.commitFee = message.commitFee);
     message.commitWeight !== undefined &&
-      (object.commitWeight = message.commitWeight);
-    message.feePerKw !== undefined && (object.feePerKw = message.feePerKw);
-    return object;
+      (obj.commitWeight = message.commitWeight);
+    message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
+    return obj;
   },
 
   fromPartial(
@@ -14252,7 +13415,6 @@ export const PendingChannelsResponse_PendingOpenChannel = {
       object.channel !== undefined && object.channel !== null
         ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
         : undefined;
-    message.confirmationHeight = object.confirmationHeight ?? 0;
     message.commitFee = object.commitFee ?? '0';
     message.commitWeight = object.commitWeight ?? '0';
     message.feePerKw = object.feePerKw ?? '0';
@@ -14261,7 +13423,12 @@ export const PendingChannelsResponse_PendingOpenChannel = {
 };
 
 function createBasePendingChannelsResponse_WaitingCloseChannel(): PendingChannelsResponse_WaitingCloseChannel {
-  return {channel: undefined, limboBalance: '0', commitments: undefined};
+  return {
+    channel: undefined,
+    limboBalance: '0',
+    commitments: undefined,
+    closingTxid: '',
+  };
 }
 
 export const PendingChannelsResponse_WaitingCloseChannel = {
@@ -14275,18 +13442,18 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.limboBalance !== '0') {
       writer.uint32(16).int64(message.limboBalance);
     }
-
     if (message.commitments !== undefined) {
       PendingChannelsResponse_Commitments.encode(
         message.commitments,
         writer.uint32(26).fork(),
       ).ldelim();
     }
-
+    if (message.closingTxid !== '') {
+      writer.uint32(34).string(message.closingTxid);
+    }
     return writer;
   },
 
@@ -14295,7 +13462,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
     length?: number,
   ): PendingChannelsResponse_WaitingCloseChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_WaitingCloseChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14315,45 +13482,47 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
             reader.uint32(),
           );
           break;
+        case 4:
+          message.closingTxid = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingChannelsResponse_WaitingCloseChannel {
-    const message = createBasePendingChannelsResponse_WaitingCloseChannel();
-    message.channel =
-      object.channel !== undefined && object.channel !== null
+    return {
+      channel: isSet(object.channel)
         ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel)
-        : undefined;
-    message.limboBalance =
-      object.limboBalance !== undefined && object.limboBalance !== null
+        : undefined,
+      limboBalance: isSet(object.limboBalance)
         ? String(object.limboBalance)
-        : '0';
-    message.commitments =
-      object.commitments !== undefined && object.commitments !== null
+        : '0',
+      commitments: isSet(object.commitments)
         ? PendingChannelsResponse_Commitments.fromJSON(object.commitments)
-        : undefined;
-    return message;
+        : undefined,
+      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : '',
+    };
   },
 
   toJSON(message: PendingChannelsResponse_WaitingCloseChannel): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.channel !== undefined &&
-      (object.channel = message.channel
+      (obj.channel = message.channel
         ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
         : undefined);
     message.limboBalance !== undefined &&
-      (object.limboBalance = message.limboBalance);
+      (obj.limboBalance = message.limboBalance);
     message.commitments !== undefined &&
-      (object.commitments = message.commitments
+      (obj.commitments = message.commitments
         ? PendingChannelsResponse_Commitments.toJSON(message.commitments)
         : undefined);
-    return object;
+    message.closingTxid !== undefined &&
+      (obj.closingTxid = message.closingTxid);
+    return obj;
   },
 
   fromPartial(
@@ -14369,6 +13538,7 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
       object.commitments !== undefined && object.commitments !== null
         ? PendingChannelsResponse_Commitments.fromPartial(object.commitments)
         : undefined;
+    message.closingTxid = object.closingTxid ?? '';
     return message;
   },
 };
@@ -14392,27 +13562,21 @@ export const PendingChannelsResponse_Commitments = {
     if (message.localTxid !== '') {
       writer.uint32(10).string(message.localTxid);
     }
-
     if (message.remoteTxid !== '') {
       writer.uint32(18).string(message.remoteTxid);
     }
-
     if (message.remotePendingTxid !== '') {
       writer.uint32(26).string(message.remotePendingTxid);
     }
-
     if (message.localCommitFeeSat !== '0') {
       writer.uint32(32).uint64(message.localCommitFeeSat);
     }
-
     if (message.remoteCommitFeeSat !== '0') {
       writer.uint32(40).uint64(message.remoteCommitFeeSat);
     }
-
     if (message.remotePendingCommitFeeSat !== '0') {
       writer.uint32(48).uint64(message.remotePendingCommitFeeSat);
     }
-
     return writer;
   },
 
@@ -14421,7 +13585,7 @@ export const PendingChannelsResponse_Commitments = {
     length?: number,
   ): PendingChannelsResponse_Commitments {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_Commitments();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14451,57 +13615,41 @@ export const PendingChannelsResponse_Commitments = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingChannelsResponse_Commitments {
-    const message = createBasePendingChannelsResponse_Commitments();
-    message.localTxid =
-      object.localTxid !== undefined && object.localTxid !== null
-        ? String(object.localTxid)
-        : '';
-    message.remoteTxid =
-      object.remoteTxid !== undefined && object.remoteTxid !== null
-        ? String(object.remoteTxid)
-        : '';
-    message.remotePendingTxid =
-      object.remotePendingTxid !== undefined &&
-      object.remotePendingTxid !== null
+    return {
+      localTxid: isSet(object.localTxid) ? String(object.localTxid) : '',
+      remoteTxid: isSet(object.remoteTxid) ? String(object.remoteTxid) : '',
+      remotePendingTxid: isSet(object.remotePendingTxid)
         ? String(object.remotePendingTxid)
-        : '';
-    message.localCommitFeeSat =
-      object.localCommitFeeSat !== undefined &&
-      object.localCommitFeeSat !== null
+        : '',
+      localCommitFeeSat: isSet(object.localCommitFeeSat)
         ? String(object.localCommitFeeSat)
-        : '0';
-    message.remoteCommitFeeSat =
-      object.remoteCommitFeeSat !== undefined &&
-      object.remoteCommitFeeSat !== null
+        : '0',
+      remoteCommitFeeSat: isSet(object.remoteCommitFeeSat)
         ? String(object.remoteCommitFeeSat)
-        : '0';
-    message.remotePendingCommitFeeSat =
-      object.remotePendingCommitFeeSat !== undefined &&
-      object.remotePendingCommitFeeSat !== null
+        : '0',
+      remotePendingCommitFeeSat: isSet(object.remotePendingCommitFeeSat)
         ? String(object.remotePendingCommitFeeSat)
-        : '0';
-    return message;
+        : '0',
+    };
   },
 
   toJSON(message: PendingChannelsResponse_Commitments): unknown {
-    const object: any = {};
-    message.localTxid !== undefined && (object.localTxid = message.localTxid);
-    message.remoteTxid !== undefined &&
-      (object.remoteTxid = message.remoteTxid);
+    const obj: any = {};
+    message.localTxid !== undefined && (obj.localTxid = message.localTxid);
+    message.remoteTxid !== undefined && (obj.remoteTxid = message.remoteTxid);
     message.remotePendingTxid !== undefined &&
-      (object.remotePendingTxid = message.remotePendingTxid);
+      (obj.remotePendingTxid = message.remotePendingTxid);
     message.localCommitFeeSat !== undefined &&
-      (object.localCommitFeeSat = message.localCommitFeeSat);
+      (obj.localCommitFeeSat = message.localCommitFeeSat);
     message.remoteCommitFeeSat !== undefined &&
-      (object.remoteCommitFeeSat = message.remoteCommitFeeSat);
+      (obj.remoteCommitFeeSat = message.remoteCommitFeeSat);
     message.remotePendingCommitFeeSat !== undefined &&
-      (object.remotePendingCommitFeeSat = message.remotePendingCommitFeeSat);
-    return object;
+      (obj.remotePendingCommitFeeSat = message.remotePendingCommitFeeSat);
+    return obj;
   },
 
   fromPartial(
@@ -14533,11 +13681,9 @@ export const PendingChannelsResponse_ClosedChannel = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.closingTxid !== '') {
       writer.uint32(18).string(message.closingTxid);
     }
-
     return writer;
   },
 
@@ -14546,7 +13692,7 @@ export const PendingChannelsResponse_ClosedChannel = {
     length?: number,
   ): PendingChannelsResponse_ClosedChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_ClosedChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14565,32 +13711,27 @@ export const PendingChannelsResponse_ClosedChannel = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingChannelsResponse_ClosedChannel {
-    const message = createBasePendingChannelsResponse_ClosedChannel();
-    message.channel =
-      object.channel !== undefined && object.channel !== null
+    return {
+      channel: isSet(object.channel)
         ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel)
-        : undefined;
-    message.closingTxid =
-      object.closingTxid !== undefined && object.closingTxid !== null
-        ? String(object.closingTxid)
-        : '';
-    return message;
+        : undefined,
+      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : '',
+    };
   },
 
   toJSON(message: PendingChannelsResponse_ClosedChannel): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.channel !== undefined &&
-      (object.channel = message.channel
+      (obj.channel = message.channel
         ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
         : undefined);
     message.closingTxid !== undefined &&
-      (object.closingTxid = message.closingTxid);
-    return object;
+      (obj.closingTxid = message.closingTxid);
+    return obj;
   },
 
   fromPartial(
@@ -14630,35 +13771,27 @@ export const PendingChannelsResponse_ForceClosedChannel = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.closingTxid !== '') {
       writer.uint32(18).string(message.closingTxid);
     }
-
     if (message.limboBalance !== '0') {
       writer.uint32(24).int64(message.limboBalance);
     }
-
     if (message.maturityHeight !== 0) {
       writer.uint32(32).uint32(message.maturityHeight);
     }
-
     if (message.blocksTilMaturity !== 0) {
       writer.uint32(40).int32(message.blocksTilMaturity);
     }
-
     if (message.recoveredBalance !== '0') {
       writer.uint32(48).int64(message.recoveredBalance);
     }
-
     for (const v of message.pendingHtlcs) {
-      PendingHTLC.encode(v, writer.uint32(66).fork()).ldelim();
+      PendingHTLC.encode(v!, writer.uint32(66).fork()).ldelim();
     }
-
     if (message.anchor !== 0) {
       writer.uint32(72).int32(message.anchor);
     }
-
     return writer;
   },
 
@@ -14667,7 +13800,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     length?: number,
   ): PendingChannelsResponse_ForceClosedChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_ForceClosedChannel();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14706,79 +13839,67 @@ export const PendingChannelsResponse_ForceClosedChannel = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PendingChannelsResponse_ForceClosedChannel {
-    const message = createBasePendingChannelsResponse_ForceClosedChannel();
-    message.channel =
-      object.channel !== undefined && object.channel !== null
+    return {
+      channel: isSet(object.channel)
         ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel)
-        : undefined;
-    message.closingTxid =
-      object.closingTxid !== undefined && object.closingTxid !== null
-        ? String(object.closingTxid)
-        : '';
-    message.limboBalance =
-      object.limboBalance !== undefined && object.limboBalance !== null
+        : undefined,
+      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : '',
+      limboBalance: isSet(object.limboBalance)
         ? String(object.limboBalance)
-        : '0';
-    message.maturityHeight =
-      object.maturityHeight !== undefined && object.maturityHeight !== null
+        : '0',
+      maturityHeight: isSet(object.maturityHeight)
         ? Number(object.maturityHeight)
-        : 0;
-    message.blocksTilMaturity =
-      object.blocksTilMaturity !== undefined &&
-      object.blocksTilMaturity !== null
+        : 0,
+      blocksTilMaturity: isSet(object.blocksTilMaturity)
         ? Number(object.blocksTilMaturity)
-        : 0;
-    message.recoveredBalance =
-      object.recoveredBalance !== undefined && object.recoveredBalance !== null
+        : 0,
+      recoveredBalance: isSet(object.recoveredBalance)
         ? String(object.recoveredBalance)
-        : '0';
-    message.pendingHtlcs = (object.pendingHtlcs ?? []).map((e: any) =>
-      PendingHTLC.fromJSON(e),
-    );
-    message.anchor =
-      object.anchor !== undefined && object.anchor !== null
+        : '0',
+      pendingHtlcs: Array.isArray(object?.pendingHtlcs)
+        ? object.pendingHtlcs.map((e: any) => PendingHTLC.fromJSON(e))
+        : [],
+      anchor: isSet(object.anchor)
         ? pendingChannelsResponse_ForceClosedChannel_AnchorStateFromJSON(
             object.anchor,
           )
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: PendingChannelsResponse_ForceClosedChannel): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.channel !== undefined &&
-      (object.channel = message.channel
+      (obj.channel = message.channel
         ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
         : undefined);
     message.closingTxid !== undefined &&
-      (object.closingTxid = message.closingTxid);
+      (obj.closingTxid = message.closingTxid);
     message.limboBalance !== undefined &&
-      (object.limboBalance = message.limboBalance);
+      (obj.limboBalance = message.limboBalance);
     message.maturityHeight !== undefined &&
-      (object.maturityHeight = Math.round(message.maturityHeight));
+      (obj.maturityHeight = Math.round(message.maturityHeight));
     message.blocksTilMaturity !== undefined &&
-      (object.blocksTilMaturity = Math.round(message.blocksTilMaturity));
+      (obj.blocksTilMaturity = Math.round(message.blocksTilMaturity));
     message.recoveredBalance !== undefined &&
-      (object.recoveredBalance = message.recoveredBalance);
+      (obj.recoveredBalance = message.recoveredBalance);
     if (message.pendingHtlcs) {
-      object.pendingHtlcs = message.pendingHtlcs.map((e) =>
+      obj.pendingHtlcs = message.pendingHtlcs.map((e) =>
         e ? PendingHTLC.toJSON(e) : undefined,
       );
     } else {
-      object.pendingHtlcs = [];
+      obj.pendingHtlcs = [];
     }
-
     message.anchor !== undefined &&
-      (object.anchor =
+      (obj.anchor =
         pendingChannelsResponse_ForceClosedChannel_AnchorStateToJSON(
           message.anchor,
         ));
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -14818,7 +13939,7 @@ export const ChannelEventSubscription = {
     length?: number,
   ): ChannelEventSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEventSubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14828,18 +13949,16 @@ export const ChannelEventSubscription = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): ChannelEventSubscription {
-    const message = createBaseChannelEventSubscription();
-    return message;
+    return {};
   },
 
   toJSON(_: ChannelEventSubscription): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(
@@ -14870,52 +13989,45 @@ export const ChannelEventUpdate = {
     if (message.openChannel !== undefined) {
       Channel.encode(message.openChannel, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.closedChannel !== undefined) {
       ChannelCloseSummary.encode(
         message.closedChannel,
         writer.uint32(18).fork(),
       ).ldelim();
     }
-
     if (message.activeChannel !== undefined) {
       ChannelPoint.encode(
         message.activeChannel,
         writer.uint32(26).fork(),
       ).ldelim();
     }
-
     if (message.inactiveChannel !== undefined) {
       ChannelPoint.encode(
         message.inactiveChannel,
         writer.uint32(34).fork(),
       ).ldelim();
     }
-
     if (message.pendingOpenChannel !== undefined) {
       PendingUpdate.encode(
         message.pendingOpenChannel,
         writer.uint32(50).fork(),
       ).ldelim();
     }
-
     if (message.fullyResolvedChannel !== undefined) {
       ChannelPoint.encode(
         message.fullyResolvedChannel,
         writer.uint32(58).fork(),
       ).ldelim();
     }
-
     if (message.type !== 0) {
       writer.uint32(40).int32(message.type);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelEventUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEventUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -14958,74 +14070,64 @@ export const ChannelEventUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelEventUpdate {
-    const message = createBaseChannelEventUpdate();
-    message.openChannel =
-      object.openChannel !== undefined && object.openChannel !== null
+    return {
+      openChannel: isSet(object.openChannel)
         ? Channel.fromJSON(object.openChannel)
-        : undefined;
-    message.closedChannel =
-      object.closedChannel !== undefined && object.closedChannel !== null
+        : undefined,
+      closedChannel: isSet(object.closedChannel)
         ? ChannelCloseSummary.fromJSON(object.closedChannel)
-        : undefined;
-    message.activeChannel =
-      object.activeChannel !== undefined && object.activeChannel !== null
+        : undefined,
+      activeChannel: isSet(object.activeChannel)
         ? ChannelPoint.fromJSON(object.activeChannel)
-        : undefined;
-    message.inactiveChannel =
-      object.inactiveChannel !== undefined && object.inactiveChannel !== null
+        : undefined,
+      inactiveChannel: isSet(object.inactiveChannel)
         ? ChannelPoint.fromJSON(object.inactiveChannel)
-        : undefined;
-    message.pendingOpenChannel =
-      object.pendingOpenChannel !== undefined &&
-      object.pendingOpenChannel !== null
+        : undefined,
+      pendingOpenChannel: isSet(object.pendingOpenChannel)
         ? PendingUpdate.fromJSON(object.pendingOpenChannel)
-        : undefined;
-    message.fullyResolvedChannel =
-      object.fullyResolvedChannel !== undefined &&
-      object.fullyResolvedChannel !== null
+        : undefined,
+      fullyResolvedChannel: isSet(object.fullyResolvedChannel)
         ? ChannelPoint.fromJSON(object.fullyResolvedChannel)
-        : undefined;
-    message.type =
-      object.type !== undefined && object.type !== null
+        : undefined,
+      type: isSet(object.type)
         ? channelEventUpdate_UpdateTypeFromJSON(object.type)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: ChannelEventUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.openChannel !== undefined &&
-      (object.openChannel = message.openChannel
+      (obj.openChannel = message.openChannel
         ? Channel.toJSON(message.openChannel)
         : undefined);
     message.closedChannel !== undefined &&
-      (object.closedChannel = message.closedChannel
+      (obj.closedChannel = message.closedChannel
         ? ChannelCloseSummary.toJSON(message.closedChannel)
         : undefined);
     message.activeChannel !== undefined &&
-      (object.activeChannel = message.activeChannel
+      (obj.activeChannel = message.activeChannel
         ? ChannelPoint.toJSON(message.activeChannel)
         : undefined);
     message.inactiveChannel !== undefined &&
-      (object.inactiveChannel = message.inactiveChannel
+      (obj.inactiveChannel = message.inactiveChannel
         ? ChannelPoint.toJSON(message.inactiveChannel)
         : undefined);
     message.pendingOpenChannel !== undefined &&
-      (object.pendingOpenChannel = message.pendingOpenChannel
+      (obj.pendingOpenChannel = message.pendingOpenChannel
         ? PendingUpdate.toJSON(message.pendingOpenChannel)
         : undefined);
     message.fullyResolvedChannel !== undefined &&
-      (object.fullyResolvedChannel = message.fullyResolvedChannel
+      (obj.fullyResolvedChannel = message.fullyResolvedChannel
         ? ChannelPoint.toJSON(message.fullyResolvedChannel)
         : undefined);
     message.type !== undefined &&
-      (object.type = channelEventUpdate_UpdateTypeToJSON(message.type));
-    return object;
+      (obj.type = channelEventUpdate_UpdateTypeToJSON(message.type));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelEventUpdate>): ChannelEventUpdate {
@@ -15073,11 +14175,9 @@ export const WalletAccountBalance = {
     if (message.confirmedBalance !== '0') {
       writer.uint32(8).int64(message.confirmedBalance);
     }
-
     if (message.unconfirmedBalance !== '0') {
       writer.uint32(16).int64(message.unconfirmedBalance);
     }
-
     return writer;
   },
 
@@ -15086,7 +14186,7 @@ export const WalletAccountBalance = {
     length?: number,
   ): WalletAccountBalance {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletAccountBalance();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15102,31 +14202,27 @@ export const WalletAccountBalance = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): WalletAccountBalance {
-    const message = createBaseWalletAccountBalance();
-    message.confirmedBalance =
-      object.confirmedBalance !== undefined && object.confirmedBalance !== null
+    return {
+      confirmedBalance: isSet(object.confirmedBalance)
         ? String(object.confirmedBalance)
-        : '0';
-    message.unconfirmedBalance =
-      object.unconfirmedBalance !== undefined &&
-      object.unconfirmedBalance !== null
+        : '0',
+      unconfirmedBalance: isSet(object.unconfirmedBalance)
         ? String(object.unconfirmedBalance)
-        : '0';
-    return message;
+        : '0',
+    };
   },
 
   toJSON(message: WalletAccountBalance): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.confirmedBalance !== undefined &&
-      (object.confirmedBalance = message.confirmedBalance);
+      (obj.confirmedBalance = message.confirmedBalance);
     message.unconfirmedBalance !== undefined &&
-      (object.unconfirmedBalance = message.unconfirmedBalance);
-    return object;
+      (obj.unconfirmedBalance = message.unconfirmedBalance);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<WalletAccountBalance>): WalletAccountBalance {
@@ -15154,7 +14250,7 @@ export const WalletBalanceRequest = {
     length?: number,
   ): WalletBalanceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15164,18 +14260,16 @@ export const WalletBalanceRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): WalletBalanceRequest {
-    const message = createBaseWalletBalanceRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: WalletBalanceRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<WalletBalanceRequest>): WalletBalanceRequest {
@@ -15189,6 +14283,7 @@ function createBaseWalletBalanceResponse(): WalletBalanceResponse {
     totalBalance: '0',
     confirmedBalance: '0',
     unconfirmedBalance: '0',
+    lockedBalance: '0',
     accountBalance: {},
   };
 }
@@ -15201,22 +14296,21 @@ export const WalletBalanceResponse = {
     if (message.totalBalance !== '0') {
       writer.uint32(8).int64(message.totalBalance);
     }
-
     if (message.confirmedBalance !== '0') {
       writer.uint32(16).int64(message.confirmedBalance);
     }
-
     if (message.unconfirmedBalance !== '0') {
       writer.uint32(24).int64(message.unconfirmedBalance);
     }
-
-    for (const [key, value] of Object.entries(message.accountBalance)) {
+    if (message.lockedBalance !== '0') {
+      writer.uint32(40).int64(message.lockedBalance);
+    }
+    Object.entries(message.accountBalance).forEach(([key, value]) => {
       WalletBalanceResponse_AccountBalanceEntry.encode(
         {key: key as any, value},
         writer.uint32(34).fork(),
       ).ldelim();
-    }
-
+    });
     return writer;
   },
 
@@ -15225,7 +14319,7 @@ export const WalletBalanceResponse = {
     length?: number,
   ): WalletBalanceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15239,6 +14333,9 @@ export const WalletBalanceResponse = {
         case 3:
           message.unconfirmedBalance = longToString(reader.int64() as Long);
           break;
+        case 5:
+          message.lockedBalance = longToString(reader.int64() as Long);
+          break;
         case 4:
           const entry4 = WalletBalanceResponse_AccountBalanceEntry.decode(
             reader,
@@ -15247,57 +14344,57 @@ export const WalletBalanceResponse = {
           if (entry4.value !== undefined) {
             message.accountBalance[entry4.key] = entry4.value;
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): WalletBalanceResponse {
-    const message = createBaseWalletBalanceResponse();
-    message.totalBalance =
-      object.totalBalance !== undefined && object.totalBalance !== null
+    return {
+      totalBalance: isSet(object.totalBalance)
         ? String(object.totalBalance)
-        : '0';
-    message.confirmedBalance =
-      object.confirmedBalance !== undefined && object.confirmedBalance !== null
+        : '0',
+      confirmedBalance: isSet(object.confirmedBalance)
         ? String(object.confirmedBalance)
-        : '0';
-    message.unconfirmedBalance =
-      object.unconfirmedBalance !== undefined &&
-      object.unconfirmedBalance !== null
+        : '0',
+      unconfirmedBalance: isSet(object.unconfirmedBalance)
         ? String(object.unconfirmedBalance)
-        : '0';
-    message.accountBalance = Object.entries(object.accountBalance ?? {}).reduce<
-      Record<string, WalletAccountBalance>
-    >((acc, [key, value]) => {
-      acc[key] = WalletAccountBalance.fromJSON(value);
-      return acc;
-    }, {});
-    return message;
+        : '0',
+      lockedBalance: isSet(object.lockedBalance)
+        ? String(object.lockedBalance)
+        : '0',
+      accountBalance: isObject(object.accountBalance)
+        ? Object.entries(object.accountBalance).reduce<{
+            [key: string]: WalletAccountBalance;
+          }>((acc, [key, value]) => {
+            acc[key] = WalletAccountBalance.fromJSON(value);
+            return acc;
+          }, {})
+        : {},
+    };
   },
 
   toJSON(message: WalletBalanceResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.totalBalance !== undefined &&
-      (object.totalBalance = message.totalBalance);
+      (obj.totalBalance = message.totalBalance);
     message.confirmedBalance !== undefined &&
-      (object.confirmedBalance = message.confirmedBalance);
+      (obj.confirmedBalance = message.confirmedBalance);
     message.unconfirmedBalance !== undefined &&
-      (object.unconfirmedBalance = message.unconfirmedBalance);
-    object.accountBalance = {};
+      (obj.unconfirmedBalance = message.unconfirmedBalance);
+    message.lockedBalance !== undefined &&
+      (obj.lockedBalance = message.lockedBalance);
+    obj.accountBalance = {};
     if (message.accountBalance) {
-      for (const [k, v] of Object.entries(message.accountBalance)) {
-        object.accountBalance[k] = WalletAccountBalance.toJSON(v);
-      }
+      Object.entries(message.accountBalance).forEach(([k, v]) => {
+        obj.accountBalance[k] = WalletAccountBalance.toJSON(v);
+      });
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -15307,13 +14404,13 @@ export const WalletBalanceResponse = {
     message.totalBalance = object.totalBalance ?? '0';
     message.confirmedBalance = object.confirmedBalance ?? '0';
     message.unconfirmedBalance = object.unconfirmedBalance ?? '0';
-    message.accountBalance = Object.entries(object.accountBalance ?? {}).reduce<
-      Record<string, WalletAccountBalance>
-    >((acc, [key, value]) => {
+    message.lockedBalance = object.lockedBalance ?? '0';
+    message.accountBalance = Object.entries(
+      object.accountBalance ?? {},
+    ).reduce<{[key: string]: WalletAccountBalance}>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = WalletAccountBalance.fromPartial(value);
       }
-
       return acc;
     }, {});
     return message;
@@ -15332,14 +14429,12 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
     if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-
     if (message.value !== undefined) {
       WalletAccountBalance.encode(
         message.value,
         writer.uint32(18).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
@@ -15348,7 +14443,7 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
     length?: number,
   ): WalletBalanceResponse_AccountBalanceEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceResponse_AccountBalanceEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15364,29 +14459,26 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): WalletBalanceResponse_AccountBalanceEntry {
-    const message = createBaseWalletBalanceResponse_AccountBalanceEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : '';
-    message.value =
-      object.value !== undefined && object.value !== null
+    return {
+      key: isSet(object.key) ? String(object.key) : '',
+      value: isSet(object.value)
         ? WalletAccountBalance.fromJSON(object.value)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: WalletBalanceResponse_AccountBalanceEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (object.value = message.value
+      (obj.value = message.value
         ? WalletAccountBalance.toJSON(message.value)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -15414,17 +14506,15 @@ export const Amount = {
     if (message.sat !== '0') {
       writer.uint32(8).uint64(message.sat);
     }
-
     if (message.msat !== '0') {
       writer.uint32(16).uint64(message.msat);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Amount {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAmount();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15440,28 +14530,21 @@ export const Amount = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Amount {
-    const message = createBaseAmount();
-    message.sat =
-      object.sat !== undefined && object.sat !== null
-        ? String(object.sat)
-        : '0';
-    message.msat =
-      object.msat !== undefined && object.msat !== null
-        ? String(object.msat)
-        : '0';
-    return message;
+    return {
+      sat: isSet(object.sat) ? String(object.sat) : '0',
+      msat: isSet(object.msat) ? String(object.msat) : '0',
+    };
   },
 
   toJSON(message: Amount): unknown {
-    const object: any = {};
-    message.sat !== undefined && (object.sat = message.sat);
-    message.msat !== undefined && (object.msat = message.msat);
-    return object;
+    const obj: any = {};
+    message.sat !== undefined && (obj.sat = message.sat);
+    message.msat !== undefined && (obj.msat = message.msat);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Amount>): Amount {
@@ -15489,7 +14572,7 @@ export const ChannelBalanceRequest = {
     length?: number,
   ): ChannelBalanceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBalanceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15499,18 +14582,16 @@ export const ChannelBalanceRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): ChannelBalanceRequest {
-    const message = createBaseChannelBalanceRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: ChannelBalanceRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<ChannelBalanceRequest>): ChannelBalanceRequest {
@@ -15540,47 +14621,39 @@ export const ChannelBalanceResponse = {
     if (message.balance !== '0') {
       writer.uint32(8).int64(message.balance);
     }
-
     if (message.pendingOpenBalance !== '0') {
       writer.uint32(16).int64(message.pendingOpenBalance);
     }
-
     if (message.localBalance !== undefined) {
       Amount.encode(message.localBalance, writer.uint32(26).fork()).ldelim();
     }
-
     if (message.remoteBalance !== undefined) {
       Amount.encode(message.remoteBalance, writer.uint32(34).fork()).ldelim();
     }
-
     if (message.unsettledLocalBalance !== undefined) {
       Amount.encode(
         message.unsettledLocalBalance,
         writer.uint32(42).fork(),
       ).ldelim();
     }
-
     if (message.unsettledRemoteBalance !== undefined) {
       Amount.encode(
         message.unsettledRemoteBalance,
         writer.uint32(50).fork(),
       ).ldelim();
     }
-
     if (message.pendingOpenLocalBalance !== undefined) {
       Amount.encode(
         message.pendingOpenLocalBalance,
         writer.uint32(58).fork(),
       ).ldelim();
     }
-
     if (message.pendingOpenRemoteBalance !== undefined) {
       Amount.encode(
         message.pendingOpenRemoteBalance,
         writer.uint32(66).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
@@ -15589,7 +14662,7 @@ export const ChannelBalanceResponse = {
     length?: number,
   ): ChannelBalanceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBalanceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15635,82 +14708,66 @@ export const ChannelBalanceResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelBalanceResponse {
-    const message = createBaseChannelBalanceResponse();
-    message.balance =
-      object.balance !== undefined && object.balance !== null
-        ? String(object.balance)
-        : '0';
-    message.pendingOpenBalance =
-      object.pendingOpenBalance !== undefined &&
-      object.pendingOpenBalance !== null
+    return {
+      balance: isSet(object.balance) ? String(object.balance) : '0',
+      pendingOpenBalance: isSet(object.pendingOpenBalance)
         ? String(object.pendingOpenBalance)
-        : '0';
-    message.localBalance =
-      object.localBalance !== undefined && object.localBalance !== null
+        : '0',
+      localBalance: isSet(object.localBalance)
         ? Amount.fromJSON(object.localBalance)
-        : undefined;
-    message.remoteBalance =
-      object.remoteBalance !== undefined && object.remoteBalance !== null
+        : undefined,
+      remoteBalance: isSet(object.remoteBalance)
         ? Amount.fromJSON(object.remoteBalance)
-        : undefined;
-    message.unsettledLocalBalance =
-      object.unsettledLocalBalance !== undefined &&
-      object.unsettledLocalBalance !== null
+        : undefined,
+      unsettledLocalBalance: isSet(object.unsettledLocalBalance)
         ? Amount.fromJSON(object.unsettledLocalBalance)
-        : undefined;
-    message.unsettledRemoteBalance =
-      object.unsettledRemoteBalance !== undefined &&
-      object.unsettledRemoteBalance !== null
+        : undefined,
+      unsettledRemoteBalance: isSet(object.unsettledRemoteBalance)
         ? Amount.fromJSON(object.unsettledRemoteBalance)
-        : undefined;
-    message.pendingOpenLocalBalance =
-      object.pendingOpenLocalBalance !== undefined &&
-      object.pendingOpenLocalBalance !== null
+        : undefined,
+      pendingOpenLocalBalance: isSet(object.pendingOpenLocalBalance)
         ? Amount.fromJSON(object.pendingOpenLocalBalance)
-        : undefined;
-    message.pendingOpenRemoteBalance =
-      object.pendingOpenRemoteBalance !== undefined &&
-      object.pendingOpenRemoteBalance !== null
+        : undefined,
+      pendingOpenRemoteBalance: isSet(object.pendingOpenRemoteBalance)
         ? Amount.fromJSON(object.pendingOpenRemoteBalance)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: ChannelBalanceResponse): unknown {
-    const object: any = {};
-    message.balance !== undefined && (object.balance = message.balance);
+    const obj: any = {};
+    message.balance !== undefined && (obj.balance = message.balance);
     message.pendingOpenBalance !== undefined &&
-      (object.pendingOpenBalance = message.pendingOpenBalance);
+      (obj.pendingOpenBalance = message.pendingOpenBalance);
     message.localBalance !== undefined &&
-      (object.localBalance = message.localBalance
+      (obj.localBalance = message.localBalance
         ? Amount.toJSON(message.localBalance)
         : undefined);
     message.remoteBalance !== undefined &&
-      (object.remoteBalance = message.remoteBalance
+      (obj.remoteBalance = message.remoteBalance
         ? Amount.toJSON(message.remoteBalance)
         : undefined);
     message.unsettledLocalBalance !== undefined &&
-      (object.unsettledLocalBalance = message.unsettledLocalBalance
+      (obj.unsettledLocalBalance = message.unsettledLocalBalance
         ? Amount.toJSON(message.unsettledLocalBalance)
         : undefined);
     message.unsettledRemoteBalance !== undefined &&
-      (object.unsettledRemoteBalance = message.unsettledRemoteBalance
+      (obj.unsettledRemoteBalance = message.unsettledRemoteBalance
         ? Amount.toJSON(message.unsettledRemoteBalance)
         : undefined);
     message.pendingOpenLocalBalance !== undefined &&
-      (object.pendingOpenLocalBalance = message.pendingOpenLocalBalance
+      (obj.pendingOpenLocalBalance = message.pendingOpenLocalBalance
         ? Amount.toJSON(message.pendingOpenLocalBalance)
         : undefined);
     message.pendingOpenRemoteBalance !== undefined &&
-      (object.pendingOpenRemoteBalance = message.pendingOpenRemoteBalance
+      (obj.pendingOpenRemoteBalance = message.pendingOpenRemoteBalance
         ? Amount.toJSON(message.pendingOpenRemoteBalance)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -15769,6 +14826,7 @@ function createBaseQueryRoutesRequest(): QueryRoutesRequest {
     lastHopPubkey: new Uint8Array(),
     routeHints: [],
     destFeatures: [],
+    timePref: 0,
   };
 }
 
@@ -15780,78 +14838,65 @@ export const QueryRoutesRequest = {
     if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
-
     if (message.amt !== '0') {
       writer.uint32(16).int64(message.amt);
     }
-
     if (message.amtMsat !== '0') {
       writer.uint32(96).int64(message.amtMsat);
     }
-
     if (message.finalCltvDelta !== 0) {
       writer.uint32(32).int32(message.finalCltvDelta);
     }
-
     if (message.feeLimit !== undefined) {
       FeeLimit.encode(message.feeLimit, writer.uint32(42).fork()).ldelim();
     }
-
     for (const v of message.ignoredNodes) {
-      writer.uint32(50).bytes(v);
+      writer.uint32(50).bytes(v!);
     }
-
     for (const v of message.ignoredEdges) {
-      EdgeLocator.encode(v, writer.uint32(58).fork()).ldelim();
+      EdgeLocator.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-
     if (message.sourcePubKey !== '') {
       writer.uint32(66).string(message.sourcePubKey);
     }
-
-    if (message.useMissionControl) {
+    if (message.useMissionControl === true) {
       writer.uint32(72).bool(message.useMissionControl);
     }
-
     for (const v of message.ignoredPairs) {
-      NodePair.encode(v, writer.uint32(82).fork()).ldelim();
+      NodePair.encode(v!, writer.uint32(82).fork()).ldelim();
     }
-
     if (message.cltvLimit !== 0) {
       writer.uint32(88).uint32(message.cltvLimit);
     }
-
-    for (const [key, value] of Object.entries(message.destCustomRecords)) {
+    Object.entries(message.destCustomRecords).forEach(([key, value]) => {
       QueryRoutesRequest_DestCustomRecordsEntry.encode(
         {key: key as any, value},
         writer.uint32(106).fork(),
       ).ldelim();
-    }
-
+    });
     if (message.outgoingChanId !== '0') {
       writer.uint32(112).uint64(message.outgoingChanId);
     }
-
-    if (message.lastHopPubkey.length > 0) {
+    if (message.lastHopPubkey.length !== 0) {
       writer.uint32(122).bytes(message.lastHopPubkey);
     }
-
     for (const v of message.routeHints) {
-      RouteHint.encode(v, writer.uint32(130).fork()).ldelim();
+      RouteHint.encode(v!, writer.uint32(130).fork()).ldelim();
     }
-
     writer.uint32(138).fork();
     for (const v of message.destFeatures) {
       writer.int32(v);
     }
-
     writer.ldelim();
+    if (message.timePref !== 0) {
+      writer.uint32(145).double(message.timePref);
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryRoutesRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryRoutesRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -15899,7 +14944,6 @@ export const QueryRoutesRequest = {
           if (entry13.value !== undefined) {
             message.destCustomRecords[entry13.key] = entry13.value;
           }
-
           break;
         case 14:
           message.outgoingChanId = longToString(reader.uint64() as Long);
@@ -15919,152 +14963,135 @@ export const QueryRoutesRequest = {
           } else {
             message.destFeatures.push(reader.int32() as any);
           }
-
+          break;
+        case 18:
+          message.timePref = reader.double();
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): QueryRoutesRequest {
-    const message = createBaseQueryRoutesRequest();
-    message.pubKey =
-      object.pubKey !== undefined && object.pubKey !== null
-        ? String(object.pubKey)
-        : '';
-    message.amt =
-      object.amt !== undefined && object.amt !== null
-        ? String(object.amt)
-        : '0';
-    message.amtMsat =
-      object.amtMsat !== undefined && object.amtMsat !== null
-        ? String(object.amtMsat)
-        : '0';
-    message.finalCltvDelta =
-      object.finalCltvDelta !== undefined && object.finalCltvDelta !== null
+    return {
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+      amt: isSet(object.amt) ? String(object.amt) : '0',
+      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : '0',
+      finalCltvDelta: isSet(object.finalCltvDelta)
         ? Number(object.finalCltvDelta)
-        : 0;
-    message.feeLimit =
-      object.feeLimit !== undefined && object.feeLimit !== null
+        : 0,
+      feeLimit: isSet(object.feeLimit)
         ? FeeLimit.fromJSON(object.feeLimit)
-        : undefined;
-    message.ignoredNodes = (object.ignoredNodes ?? []).map((e: any) =>
-      bytesFromBase64(e),
-    );
-    message.ignoredEdges = (object.ignoredEdges ?? []).map((e: any) =>
-      EdgeLocator.fromJSON(e),
-    );
-    message.sourcePubKey =
-      object.sourcePubKey !== undefined && object.sourcePubKey !== null
+        : undefined,
+      ignoredNodes: Array.isArray(object?.ignoredNodes)
+        ? object.ignoredNodes.map((e: any) => bytesFromBase64(e))
+        : [],
+      ignoredEdges: Array.isArray(object?.ignoredEdges)
+        ? object.ignoredEdges.map((e: any) => EdgeLocator.fromJSON(e))
+        : [],
+      sourcePubKey: isSet(object.sourcePubKey)
         ? String(object.sourcePubKey)
-        : '';
-    message.useMissionControl =
-      object.useMissionControl !== undefined &&
-      object.useMissionControl !== null
+        : '',
+      useMissionControl: isSet(object.useMissionControl)
         ? Boolean(object.useMissionControl)
-        : false;
-    message.ignoredPairs = (object.ignoredPairs ?? []).map((e: any) =>
-      NodePair.fromJSON(e),
-    );
-    message.cltvLimit =
-      object.cltvLimit !== undefined && object.cltvLimit !== null
-        ? Number(object.cltvLimit)
-        : 0;
-    message.destCustomRecords = Object.entries(
-      object.destCustomRecords ?? {},
-    ).reduce<Record<string, Uint8Array>>((acc, [key, value]) => {
-      acc[key] = bytesFromBase64(value as string);
-      return acc;
-    }, {});
-    message.outgoingChanId =
-      object.outgoingChanId !== undefined && object.outgoingChanId !== null
+        : false,
+      ignoredPairs: Array.isArray(object?.ignoredPairs)
+        ? object.ignoredPairs.map((e: any) => NodePair.fromJSON(e))
+        : [],
+      cltvLimit: isSet(object.cltvLimit) ? Number(object.cltvLimit) : 0,
+      destCustomRecords: isObject(object.destCustomRecords)
+        ? Object.entries(object.destCustomRecords).reduce<{
+            [key: string]: Uint8Array;
+          }>((acc, [key, value]) => {
+            acc[key] = bytesFromBase64(value as string);
+            return acc;
+          }, {})
+        : {},
+      outgoingChanId: isSet(object.outgoingChanId)
         ? String(object.outgoingChanId)
-        : '0';
-    message.lastHopPubkey =
-      object.lastHopPubkey !== undefined && object.lastHopPubkey !== null
+        : '0',
+      lastHopPubkey: isSet(object.lastHopPubkey)
         ? bytesFromBase64(object.lastHopPubkey)
-        : new Uint8Array();
-    message.routeHints = (object.routeHints ?? []).map((e: any) =>
-      RouteHint.fromJSON(e),
-    );
-    message.destFeatures = (object.destFeatures ?? []).map((e: any) =>
-      featureBitFromJSON(e),
-    );
-    return message;
+        : new Uint8Array(),
+      routeHints: Array.isArray(object?.routeHints)
+        ? object.routeHints.map((e: any) => RouteHint.fromJSON(e))
+        : [],
+      destFeatures: Array.isArray(object?.destFeatures)
+        ? object.destFeatures.map((e: any) => featureBitFromJSON(e))
+        : [],
+      timePref: isSet(object.timePref) ? Number(object.timePref) : 0,
+    };
   },
 
   toJSON(message: QueryRoutesRequest): unknown {
-    const object: any = {};
-    message.pubKey !== undefined && (object.pubKey = message.pubKey);
-    message.amt !== undefined && (object.amt = message.amt);
-    message.amtMsat !== undefined && (object.amtMsat = message.amtMsat);
+    const obj: any = {};
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
+    message.amt !== undefined && (obj.amt = message.amt);
+    message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
     message.finalCltvDelta !== undefined &&
-      (object.finalCltvDelta = Math.round(message.finalCltvDelta));
+      (obj.finalCltvDelta = Math.round(message.finalCltvDelta));
     message.feeLimit !== undefined &&
-      (object.feeLimit = message.feeLimit
+      (obj.feeLimit = message.feeLimit
         ? FeeLimit.toJSON(message.feeLimit)
         : undefined);
     if (message.ignoredNodes) {
-      object.ignoredNodes = message.ignoredNodes.map((e) =>
+      obj.ignoredNodes = message.ignoredNodes.map((e) =>
         base64FromBytes(e !== undefined ? e : new Uint8Array()),
       );
     } else {
-      object.ignoredNodes = [];
+      obj.ignoredNodes = [];
     }
-
     if (message.ignoredEdges) {
-      object.ignoredEdges = message.ignoredEdges.map((e) =>
+      obj.ignoredEdges = message.ignoredEdges.map((e) =>
         e ? EdgeLocator.toJSON(e) : undefined,
       );
     } else {
-      object.ignoredEdges = [];
+      obj.ignoredEdges = [];
     }
-
     message.sourcePubKey !== undefined &&
-      (object.sourcePubKey = message.sourcePubKey);
+      (obj.sourcePubKey = message.sourcePubKey);
     message.useMissionControl !== undefined &&
-      (object.useMissionControl = message.useMissionControl);
+      (obj.useMissionControl = message.useMissionControl);
     if (message.ignoredPairs) {
-      object.ignoredPairs = message.ignoredPairs.map((e) =>
+      obj.ignoredPairs = message.ignoredPairs.map((e) =>
         e ? NodePair.toJSON(e) : undefined,
       );
     } else {
-      object.ignoredPairs = [];
+      obj.ignoredPairs = [];
     }
-
     message.cltvLimit !== undefined &&
-      (object.cltvLimit = Math.round(message.cltvLimit));
-    object.destCustomRecords = {};
+      (obj.cltvLimit = Math.round(message.cltvLimit));
+    obj.destCustomRecords = {};
     if (message.destCustomRecords) {
-      for (const [k, v] of Object.entries(message.destCustomRecords)) {
-        object.destCustomRecords[k] = base64FromBytes(v);
-      }
+      Object.entries(message.destCustomRecords).forEach(([k, v]) => {
+        obj.destCustomRecords[k] = base64FromBytes(v);
+      });
     }
-
     message.outgoingChanId !== undefined &&
-      (object.outgoingChanId = message.outgoingChanId);
+      (obj.outgoingChanId = message.outgoingChanId);
     message.lastHopPubkey !== undefined &&
-      (object.lastHopPubkey = base64FromBytes(
+      (obj.lastHopPubkey = base64FromBytes(
         message.lastHopPubkey !== undefined
           ? message.lastHopPubkey
           : new Uint8Array(),
       ));
     if (message.routeHints) {
-      object.routeHints = message.routeHints.map((e) =>
+      obj.routeHints = message.routeHints.map((e) =>
         e ? RouteHint.toJSON(e) : undefined,
       );
     } else {
-      object.routeHints = [];
+      obj.routeHints = [];
     }
-
-    object.destFeatures = message.destFeatures
-      ? message.destFeatures.map((e) => featureBitToJSON(e))
-      : [];
-    return object;
+    if (message.destFeatures) {
+      obj.destFeatures = message.destFeatures.map((e) => featureBitToJSON(e));
+    } else {
+      obj.destFeatures = [];
+    }
+    message.timePref !== undefined && (obj.timePref = message.timePref);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<QueryRoutesRequest>): QueryRoutesRequest {
@@ -16087,11 +15114,10 @@ export const QueryRoutesRequest = {
     message.cltvLimit = object.cltvLimit ?? 0;
     message.destCustomRecords = Object.entries(
       object.destCustomRecords ?? {},
-    ).reduce<Record<string, Uint8Array>>((acc, [key, value]) => {
+    ).reduce<{[key: string]: Uint8Array}>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = value;
       }
-
       return acc;
     }, {});
     message.outgoingChanId = object.outgoingChanId ?? '0';
@@ -16099,6 +15125,7 @@ export const QueryRoutesRequest = {
     message.routeHints =
       object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
     message.destFeatures = object.destFeatures?.map((e) => e) || [];
+    message.timePref = object.timePref ?? 0;
     return message;
   },
 };
@@ -16115,11 +15142,9 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
     if (message.key !== '0') {
       writer.uint32(8).uint64(message.key);
     }
-
-    if (message.value.length > 0) {
+    if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
-
     return writer;
   },
 
@@ -16128,7 +15153,7 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
     length?: number,
   ): QueryRoutesRequest_DestCustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryRoutesRequest_DestCustomRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16144,31 +15169,26 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): QueryRoutesRequest_DestCustomRecordsEntry {
-    const message = createBaseQueryRoutesRequest_DestCustomRecordsEntry();
-    message.key =
-      object.key !== undefined && object.key !== null
-        ? String(object.key)
-        : '0';
-    message.value =
-      object.value !== undefined && object.value !== null
+    return {
+      key: isSet(object.key) ? String(object.key) : '0',
+      value: isSet(object.value)
         ? bytesFromBase64(object.value)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: QueryRoutesRequest_DestCustomRecordsEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (object.value = base64FromBytes(
+      (obj.value = base64FromBytes(
         message.value !== undefined ? message.value : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -16190,20 +15210,18 @@ export const NodePair = {
     message: NodePair,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.from.length > 0) {
+    if (message.from.length !== 0) {
       writer.uint32(10).bytes(message.from);
     }
-
-    if (message.to.length > 0) {
+    if (message.to.length !== 0) {
       writer.uint32(18).bytes(message.to);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodePair {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodePair();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16219,34 +15237,29 @@ export const NodePair = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodePair {
-    const message = createBaseNodePair();
-    message.from =
-      object.from !== undefined && object.from !== null
+    return {
+      from: isSet(object.from)
         ? bytesFromBase64(object.from)
-        : new Uint8Array();
-    message.to =
-      object.to !== undefined && object.to !== null
-        ? bytesFromBase64(object.to)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+      to: isSet(object.to) ? bytesFromBase64(object.to) : new Uint8Array(),
+    };
   },
 
   toJSON(message: NodePair): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.from !== undefined &&
-      (object.from = base64FromBytes(
+      (obj.from = base64FromBytes(
         message.from !== undefined ? message.from : new Uint8Array(),
       ));
     message.to !== undefined &&
-      (object.to = base64FromBytes(
+      (obj.to = base64FromBytes(
         message.to !== undefined ? message.to : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NodePair>): NodePair {
@@ -16269,17 +15282,15 @@ export const EdgeLocator = {
     if (message.channelId !== '0') {
       writer.uint32(8).uint64(message.channelId);
     }
-
-    if (message.directionReverse) {
+    if (message.directionReverse === true) {
       writer.uint32(16).bool(message.directionReverse);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): EdgeLocator {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEdgeLocator();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16295,29 +15306,24 @@ export const EdgeLocator = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): EdgeLocator {
-    const message = createBaseEdgeLocator();
-    message.channelId =
-      object.channelId !== undefined && object.channelId !== null
-        ? String(object.channelId)
-        : '0';
-    message.directionReverse =
-      object.directionReverse !== undefined && object.directionReverse !== null
+    return {
+      channelId: isSet(object.channelId) ? String(object.channelId) : '0',
+      directionReverse: isSet(object.directionReverse)
         ? Boolean(object.directionReverse)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: EdgeLocator): unknown {
-    const object: any = {};
-    message.channelId !== undefined && (object.channelId = message.channelId);
+    const obj: any = {};
+    message.channelId !== undefined && (obj.channelId = message.channelId);
     message.directionReverse !== undefined &&
-      (object.directionReverse = message.directionReverse);
-    return object;
+      (obj.directionReverse = message.directionReverse);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<EdgeLocator>): EdgeLocator {
@@ -16338,19 +15344,17 @@ export const QueryRoutesResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.routes) {
-      Route.encode(v, writer.uint32(10).fork()).ldelim();
+      Route.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.successProb !== 0) {
       writer.uint32(17).double(message.successProb);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): QueryRoutesResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryRoutesResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16366,28 +15370,28 @@ export const QueryRoutesResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): QueryRoutesResponse {
-    const message = createBaseQueryRoutesResponse();
-    message.routes = (object.routes ?? []).map((e: any) => Route.fromJSON(e));
-    message.successProb =
-      object.successProb !== undefined && object.successProb !== null
-        ? Number(object.successProb)
-        : 0;
-    return message;
+    return {
+      routes: Array.isArray(object?.routes)
+        ? object.routes.map((e: any) => Route.fromJSON(e))
+        : [],
+      successProb: isSet(object.successProb) ? Number(object.successProb) : 0,
+    };
   },
 
   toJSON(message: QueryRoutesResponse): unknown {
-    const object: any = {};
-    object.routes = message.routes
-      ? message.routes.map((e) => (e ? Route.toJSON(e) : undefined))
-      : [];
+    const obj: any = {};
+    if (message.routes) {
+      obj.routes = message.routes.map((e) => (e ? Route.toJSON(e) : undefined));
+    } else {
+      obj.routes = [];
+    }
     message.successProb !== undefined &&
-      (object.successProb = message.successProb);
-    return object;
+      (obj.successProb = message.successProb);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<QueryRoutesResponse>): QueryRoutesResponse {
@@ -16412,6 +15416,7 @@ function createBaseHop(): Hop {
     mppRecord: undefined,
     ampRecord: undefined,
     customRecords: {},
+    metadata: new Uint8Array(),
   };
 }
 
@@ -16420,60 +15425,51 @@ export const Hop = {
     if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
-
     if (message.chanCapacity !== '0') {
       writer.uint32(16).int64(message.chanCapacity);
     }
-
     if (message.amtToForward !== '0') {
       writer.uint32(24).int64(message.amtToForward);
     }
-
     if (message.fee !== '0') {
       writer.uint32(32).int64(message.fee);
     }
-
     if (message.expiry !== 0) {
       writer.uint32(40).uint32(message.expiry);
     }
-
     if (message.amtToForwardMsat !== '0') {
       writer.uint32(48).int64(message.amtToForwardMsat);
     }
-
     if (message.feeMsat !== '0') {
       writer.uint32(56).int64(message.feeMsat);
     }
-
     if (message.pubKey !== '') {
       writer.uint32(66).string(message.pubKey);
     }
-
-    if (message.tlvPayload) {
+    if (message.tlvPayload === true) {
       writer.uint32(72).bool(message.tlvPayload);
     }
-
     if (message.mppRecord !== undefined) {
       MPPRecord.encode(message.mppRecord, writer.uint32(82).fork()).ldelim();
     }
-
     if (message.ampRecord !== undefined) {
       AMPRecord.encode(message.ampRecord, writer.uint32(98).fork()).ldelim();
     }
-
-    for (const [key, value] of Object.entries(message.customRecords)) {
+    Object.entries(message.customRecords).forEach(([key, value]) => {
       Hop_CustomRecordsEntry.encode(
         {key: key as any, value},
         writer.uint32(90).fork(),
       ).ldelim();
+    });
+    if (message.metadata.length !== 0) {
+      writer.uint32(106).bytes(message.metadata);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Hop {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHop();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16519,104 +15515,88 @@ export const Hop = {
           if (entry11.value !== undefined) {
             message.customRecords[entry11.key] = entry11.value;
           }
-
+          break;
+        case 13:
+          message.metadata = reader.bytes();
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Hop {
-    const message = createBaseHop();
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.chanCapacity =
-      object.chanCapacity !== undefined && object.chanCapacity !== null
+    return {
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      chanCapacity: isSet(object.chanCapacity)
         ? String(object.chanCapacity)
-        : '0';
-    message.amtToForward =
-      object.amtToForward !== undefined && object.amtToForward !== null
+        : '0',
+      amtToForward: isSet(object.amtToForward)
         ? String(object.amtToForward)
-        : '0';
-    message.fee =
-      object.fee !== undefined && object.fee !== null
-        ? String(object.fee)
-        : '0';
-    message.expiry =
-      object.expiry !== undefined && object.expiry !== null
-        ? Number(object.expiry)
-        : 0;
-    message.amtToForwardMsat =
-      object.amtToForwardMsat !== undefined && object.amtToForwardMsat !== null
+        : '0',
+      fee: isSet(object.fee) ? String(object.fee) : '0',
+      expiry: isSet(object.expiry) ? Number(object.expiry) : 0,
+      amtToForwardMsat: isSet(object.amtToForwardMsat)
         ? String(object.amtToForwardMsat)
-        : '0';
-    message.feeMsat =
-      object.feeMsat !== undefined && object.feeMsat !== null
-        ? String(object.feeMsat)
-        : '0';
-    message.pubKey =
-      object.pubKey !== undefined && object.pubKey !== null
-        ? String(object.pubKey)
-        : '';
-    message.tlvPayload =
-      object.tlvPayload !== undefined && object.tlvPayload !== null
-        ? Boolean(object.tlvPayload)
-        : false;
-    message.mppRecord =
-      object.mppRecord !== undefined && object.mppRecord !== null
+        : '0',
+      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : '0',
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+      tlvPayload: isSet(object.tlvPayload) ? Boolean(object.tlvPayload) : false,
+      mppRecord: isSet(object.mppRecord)
         ? MPPRecord.fromJSON(object.mppRecord)
-        : undefined;
-    message.ampRecord =
-      object.ampRecord !== undefined && object.ampRecord !== null
+        : undefined,
+      ampRecord: isSet(object.ampRecord)
         ? AMPRecord.fromJSON(object.ampRecord)
-        : undefined;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<
-      Record<string, Uint8Array>
-    >((acc, [key, value]) => {
-      acc[key] = bytesFromBase64(value as string);
-      return acc;
-    }, {});
-    return message;
+        : undefined,
+      customRecords: isObject(object.customRecords)
+        ? Object.entries(object.customRecords).reduce<{
+            [key: string]: Uint8Array;
+          }>((acc, [key, value]) => {
+            acc[key] = bytesFromBase64(value as string);
+            return acc;
+          }, {})
+        : {},
+      metadata: isSet(object.metadata)
+        ? bytesFromBase64(object.metadata)
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: Hop): unknown {
-    const object: any = {};
-    message.chanId !== undefined && (object.chanId = message.chanId);
+    const obj: any = {};
+    message.chanId !== undefined && (obj.chanId = message.chanId);
     message.chanCapacity !== undefined &&
-      (object.chanCapacity = message.chanCapacity);
+      (obj.chanCapacity = message.chanCapacity);
     message.amtToForward !== undefined &&
-      (object.amtToForward = message.amtToForward);
-    message.fee !== undefined && (object.fee = message.fee);
-    message.expiry !== undefined &&
-      (object.expiry = Math.round(message.expiry));
+      (obj.amtToForward = message.amtToForward);
+    message.fee !== undefined && (obj.fee = message.fee);
+    message.expiry !== undefined && (obj.expiry = Math.round(message.expiry));
     message.amtToForwardMsat !== undefined &&
-      (object.amtToForwardMsat = message.amtToForwardMsat);
-    message.feeMsat !== undefined && (object.feeMsat = message.feeMsat);
-    message.pubKey !== undefined && (object.pubKey = message.pubKey);
-    message.tlvPayload !== undefined &&
-      (object.tlvPayload = message.tlvPayload);
+      (obj.amtToForwardMsat = message.amtToForwardMsat);
+    message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
+    message.tlvPayload !== undefined && (obj.tlvPayload = message.tlvPayload);
     message.mppRecord !== undefined &&
-      (object.mppRecord = message.mppRecord
+      (obj.mppRecord = message.mppRecord
         ? MPPRecord.toJSON(message.mppRecord)
         : undefined);
     message.ampRecord !== undefined &&
-      (object.ampRecord = message.ampRecord
+      (obj.ampRecord = message.ampRecord
         ? AMPRecord.toJSON(message.ampRecord)
         : undefined);
-    object.customRecords = {};
+    obj.customRecords = {};
     if (message.customRecords) {
-      for (const [k, v] of Object.entries(message.customRecords)) {
-        object.customRecords[k] = base64FromBytes(v);
-      }
+      Object.entries(message.customRecords).forEach(([k, v]) => {
+        obj.customRecords[k] = base64FromBytes(v);
+      });
     }
-
-    return object;
+    message.metadata !== undefined &&
+      (obj.metadata = base64FromBytes(
+        message.metadata !== undefined ? message.metadata : new Uint8Array(),
+      ));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Hop>): Hop {
@@ -16638,15 +15618,15 @@ export const Hop = {
       object.ampRecord !== undefined && object.ampRecord !== null
         ? AMPRecord.fromPartial(object.ampRecord)
         : undefined;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<
-      Record<string, Uint8Array>
-    >((acc, [key, value]) => {
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{
+      [key: string]: Uint8Array;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = value;
       }
-
       return acc;
     }, {});
+    message.metadata = object.metadata ?? new Uint8Array();
     return message;
   },
 };
@@ -16663,11 +15643,9 @@ export const Hop_CustomRecordsEntry = {
     if (message.key !== '0') {
       writer.uint32(8).uint64(message.key);
     }
-
-    if (message.value.length > 0) {
+    if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
-
     return writer;
   },
 
@@ -16676,7 +15654,7 @@ export const Hop_CustomRecordsEntry = {
     length?: number,
   ): Hop_CustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHop_CustomRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16692,31 +15670,26 @@ export const Hop_CustomRecordsEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Hop_CustomRecordsEntry {
-    const message = createBaseHop_CustomRecordsEntry();
-    message.key =
-      object.key !== undefined && object.key !== null
-        ? String(object.key)
-        : '0';
-    message.value =
-      object.value !== undefined && object.value !== null
+    return {
+      key: isSet(object.key) ? String(object.key) : '0',
+      value: isSet(object.value)
         ? bytesFromBase64(object.value)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: Hop_CustomRecordsEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (object.value = base64FromBytes(
+      (obj.value = base64FromBytes(
         message.value !== undefined ? message.value : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -16738,20 +15711,18 @@ export const MPPRecord = {
     message: MPPRecord,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.paymentAddr.length > 0) {
+    if (message.paymentAddr.length !== 0) {
       writer.uint32(90).bytes(message.paymentAddr);
     }
-
     if (message.totalAmtMsat !== '0') {
       writer.uint32(80).int64(message.totalAmtMsat);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MPPRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMPPRecord();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16767,34 +15738,31 @@ export const MPPRecord = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): MPPRecord {
-    const message = createBaseMPPRecord();
-    message.paymentAddr =
-      object.paymentAddr !== undefined && object.paymentAddr !== null
+    return {
+      paymentAddr: isSet(object.paymentAddr)
         ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array();
-    message.totalAmtMsat =
-      object.totalAmtMsat !== undefined && object.totalAmtMsat !== null
+        : new Uint8Array(),
+      totalAmtMsat: isSet(object.totalAmtMsat)
         ? String(object.totalAmtMsat)
-        : '0';
-    return message;
+        : '0',
+    };
   },
 
   toJSON(message: MPPRecord): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.paymentAddr !== undefined &&
-      (object.paymentAddr = base64FromBytes(
+      (obj.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
           : new Uint8Array(),
       ));
     message.totalAmtMsat !== undefined &&
-      (object.totalAmtMsat = message.totalAmtMsat);
-    return object;
+      (obj.totalAmtMsat = message.totalAmtMsat);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<MPPRecord>): MPPRecord {
@@ -16806,11 +15774,7 @@ export const MPPRecord = {
 };
 
 function createBaseAMPRecord(): AMPRecord {
-  return {
-    rootShare: new Uint8Array(),
-    setId: new Uint8Array(),
-    childIndex: 0,
-  };
+  return {rootShare: new Uint8Array(), setId: new Uint8Array(), childIndex: 0};
 }
 
 export const AMPRecord = {
@@ -16818,24 +15782,21 @@ export const AMPRecord = {
     message: AMPRecord,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.rootShare.length > 0) {
+    if (message.rootShare.length !== 0) {
       writer.uint32(10).bytes(message.rootShare);
     }
-
-    if (message.setId.length > 0) {
+    if (message.setId.length !== 0) {
       writer.uint32(18).bytes(message.setId);
     }
-
     if (message.childIndex !== 0) {
       writer.uint32(24).uint32(message.childIndex);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AMPRecord {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAMPRecord();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16854,40 +15815,34 @@ export const AMPRecord = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): AMPRecord {
-    const message = createBaseAMPRecord();
-    message.rootShare =
-      object.rootShare !== undefined && object.rootShare !== null
+    return {
+      rootShare: isSet(object.rootShare)
         ? bytesFromBase64(object.rootShare)
-        : new Uint8Array();
-    message.setId =
-      object.setId !== undefined && object.setId !== null
+        : new Uint8Array(),
+      setId: isSet(object.setId)
         ? bytesFromBase64(object.setId)
-        : new Uint8Array();
-    message.childIndex =
-      object.childIndex !== undefined && object.childIndex !== null
-        ? Number(object.childIndex)
-        : 0;
-    return message;
+        : new Uint8Array(),
+      childIndex: isSet(object.childIndex) ? Number(object.childIndex) : 0,
+    };
   },
 
   toJSON(message: AMPRecord): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.rootShare !== undefined &&
-      (object.rootShare = base64FromBytes(
+      (obj.rootShare = base64FromBytes(
         message.rootShare !== undefined ? message.rootShare : new Uint8Array(),
       ));
     message.setId !== undefined &&
-      (object.setId = base64FromBytes(
+      (obj.setId = base64FromBytes(
         message.setId !== undefined ? message.setId : new Uint8Array(),
       ));
     message.childIndex !== undefined &&
-      (object.childIndex = Math.round(message.childIndex));
-    return object;
+      (obj.childIndex = Math.round(message.childIndex));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<AMPRecord>): AMPRecord {
@@ -16915,33 +15870,27 @@ export const Route = {
     if (message.totalTimeLock !== 0) {
       writer.uint32(8).uint32(message.totalTimeLock);
     }
-
     if (message.totalFees !== '0') {
       writer.uint32(16).int64(message.totalFees);
     }
-
     if (message.totalAmt !== '0') {
       writer.uint32(24).int64(message.totalAmt);
     }
-
     for (const v of message.hops) {
-      Hop.encode(v, writer.uint32(34).fork()).ldelim();
+      Hop.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-
     if (message.totalFeesMsat !== '0') {
       writer.uint32(40).int64(message.totalFeesMsat);
     }
-
     if (message.totalAmtMsat !== '0') {
       writer.uint32(48).int64(message.totalAmtMsat);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Route {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRoute();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -16969,50 +15918,44 @@ export const Route = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Route {
-    const message = createBaseRoute();
-    message.totalTimeLock =
-      object.totalTimeLock !== undefined && object.totalTimeLock !== null
+    return {
+      totalTimeLock: isSet(object.totalTimeLock)
         ? Number(object.totalTimeLock)
-        : 0;
-    message.totalFees =
-      object.totalFees !== undefined && object.totalFees !== null
-        ? String(object.totalFees)
-        : '0';
-    message.totalAmt =
-      object.totalAmt !== undefined && object.totalAmt !== null
-        ? String(object.totalAmt)
-        : '0';
-    message.hops = (object.hops ?? []).map((e: any) => Hop.fromJSON(e));
-    message.totalFeesMsat =
-      object.totalFeesMsat !== undefined && object.totalFeesMsat !== null
+        : 0,
+      totalFees: isSet(object.totalFees) ? String(object.totalFees) : '0',
+      totalAmt: isSet(object.totalAmt) ? String(object.totalAmt) : '0',
+      hops: Array.isArray(object?.hops)
+        ? object.hops.map((e: any) => Hop.fromJSON(e))
+        : [],
+      totalFeesMsat: isSet(object.totalFeesMsat)
         ? String(object.totalFeesMsat)
-        : '0';
-    message.totalAmtMsat =
-      object.totalAmtMsat !== undefined && object.totalAmtMsat !== null
+        : '0',
+      totalAmtMsat: isSet(object.totalAmtMsat)
         ? String(object.totalAmtMsat)
-        : '0';
-    return message;
+        : '0',
+    };
   },
 
   toJSON(message: Route): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.totalTimeLock !== undefined &&
-      (object.totalTimeLock = Math.round(message.totalTimeLock));
-    message.totalFees !== undefined && (object.totalFees = message.totalFees);
-    message.totalAmt !== undefined && (object.totalAmt = message.totalAmt);
-    object.hops = message.hops
-      ? message.hops.map((e) => (e ? Hop.toJSON(e) : undefined))
-      : [];
+      (obj.totalTimeLock = Math.round(message.totalTimeLock));
+    message.totalFees !== undefined && (obj.totalFees = message.totalFees);
+    message.totalAmt !== undefined && (obj.totalAmt = message.totalAmt);
+    if (message.hops) {
+      obj.hops = message.hops.map((e) => (e ? Hop.toJSON(e) : undefined));
+    } else {
+      obj.hops = [];
+    }
     message.totalFeesMsat !== undefined &&
-      (object.totalFeesMsat = message.totalFeesMsat);
+      (obj.totalFeesMsat = message.totalFeesMsat);
     message.totalAmtMsat !== undefined &&
-      (object.totalAmtMsat = message.totalAmtMsat);
-    return object;
+      (obj.totalAmtMsat = message.totalAmtMsat);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Route>): Route {
@@ -17039,17 +15982,15 @@ export const NodeInfoRequest = {
     if (message.pubKey !== '') {
       writer.uint32(10).string(message.pubKey);
     }
-
-    if (message.includeChannels) {
+    if (message.includeChannels === true) {
       writer.uint32(16).bool(message.includeChannels);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17065,29 +16006,24 @@ export const NodeInfoRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodeInfoRequest {
-    const message = createBaseNodeInfoRequest();
-    message.pubKey =
-      object.pubKey !== undefined && object.pubKey !== null
-        ? String(object.pubKey)
-        : '';
-    message.includeChannels =
-      object.includeChannels !== undefined && object.includeChannels !== null
+    return {
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+      includeChannels: isSet(object.includeChannels)
         ? Boolean(object.includeChannels)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: NodeInfoRequest): unknown {
-    const object: any = {};
-    message.pubKey !== undefined && (object.pubKey = message.pubKey);
+    const obj: any = {};
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
     message.includeChannels !== undefined &&
-      (object.includeChannels = message.includeChannels);
-    return object;
+      (obj.includeChannels = message.includeChannels);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NodeInfoRequest>): NodeInfoRequest {
@@ -17110,25 +16046,21 @@ export const NodeInfo = {
     if (message.node !== undefined) {
       LightningNode.encode(message.node, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.numChannels !== 0) {
       writer.uint32(16).uint32(message.numChannels);
     }
-
     if (message.totalCapacity !== '0') {
       writer.uint32(24).int64(message.totalCapacity);
     }
-
     for (const v of message.channels) {
-      ChannelEdge.encode(v, writer.uint32(34).fork()).ldelim();
+      ChannelEdge.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeInfo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17150,49 +16082,42 @@ export const NodeInfo = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodeInfo {
-    const message = createBaseNodeInfo();
-    message.node =
-      object.node !== undefined && object.node !== null
+    return {
+      node: isSet(object.node)
         ? LightningNode.fromJSON(object.node)
-        : undefined;
-    message.numChannels =
-      object.numChannels !== undefined && object.numChannels !== null
-        ? Number(object.numChannels)
-        : 0;
-    message.totalCapacity =
-      object.totalCapacity !== undefined && object.totalCapacity !== null
+        : undefined,
+      numChannels: isSet(object.numChannels) ? Number(object.numChannels) : 0,
+      totalCapacity: isSet(object.totalCapacity)
         ? String(object.totalCapacity)
-        : '0';
-    message.channels = (object.channels ?? []).map((e: any) =>
-      ChannelEdge.fromJSON(e),
-    );
-    return message;
+        : '0',
+      channels: Array.isArray(object?.channels)
+        ? object.channels.map((e: any) => ChannelEdge.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: NodeInfo): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.node !== undefined &&
-      (object.node = message.node
+      (obj.node = message.node
         ? LightningNode.toJSON(message.node)
         : undefined);
     message.numChannels !== undefined &&
-      (object.numChannels = Math.round(message.numChannels));
+      (obj.numChannels = Math.round(message.numChannels));
     message.totalCapacity !== undefined &&
-      (object.totalCapacity = message.totalCapacity);
+      (obj.totalCapacity = message.totalCapacity);
     if (message.channels) {
-      object.channels = message.channels.map((e) =>
+      obj.channels = message.channels.map((e) =>
         e ? ChannelEdge.toJSON(e) : undefined,
       );
     } else {
-      object.channels = [];
+      obj.channels = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NodeInfo>): NodeInfo {
@@ -17228,36 +16153,30 @@ export const LightningNode = {
     if (message.lastUpdate !== 0) {
       writer.uint32(8).uint32(message.lastUpdate);
     }
-
     if (message.pubKey !== '') {
       writer.uint32(18).string(message.pubKey);
     }
-
     if (message.alias !== '') {
       writer.uint32(26).string(message.alias);
     }
-
     for (const v of message.addresses) {
-      NodeAddress.encode(v, writer.uint32(34).fork()).ldelim();
+      NodeAddress.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-
     if (message.color !== '') {
       writer.uint32(42).string(message.color);
     }
-
-    for (const [key, value] of Object.entries(message.features)) {
+    Object.entries(message.features).forEach(([key, value]) => {
       LightningNode_FeaturesEntry.encode(
         {key: key as any, value},
         writer.uint32(50).fork(),
       ).ldelim();
-    }
-
+    });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): LightningNode {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightningNode();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17285,70 +16204,57 @@ export const LightningNode = {
           if (entry6.value !== undefined) {
             message.features[entry6.key] = entry6.value;
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): LightningNode {
-    const message = createBaseLightningNode();
-    message.lastUpdate =
-      object.lastUpdate !== undefined && object.lastUpdate !== null
-        ? Number(object.lastUpdate)
-        : 0;
-    message.pubKey =
-      object.pubKey !== undefined && object.pubKey !== null
-        ? String(object.pubKey)
-        : '';
-    message.alias =
-      object.alias !== undefined && object.alias !== null
-        ? String(object.alias)
-        : '';
-    message.addresses = (object.addresses ?? []).map((e: any) =>
-      NodeAddress.fromJSON(e),
-    );
-    message.color =
-      object.color !== undefined && object.color !== null
-        ? String(object.color)
-        : '';
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
-      acc[Number(key)] = Feature.fromJSON(value);
-      return acc;
-    }, {});
-    return message;
+    return {
+      lastUpdate: isSet(object.lastUpdate) ? Number(object.lastUpdate) : 0,
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+      alias: isSet(object.alias) ? String(object.alias) : '',
+      addresses: Array.isArray(object?.addresses)
+        ? object.addresses.map((e: any) => NodeAddress.fromJSON(e))
+        : [],
+      color: isSet(object.color) ? String(object.color) : '',
+      features: isObject(object.features)
+        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
+            (acc, [key, value]) => {
+              acc[Number(key)] = Feature.fromJSON(value);
+              return acc;
+            },
+            {},
+          )
+        : {},
+    };
   },
 
   toJSON(message: LightningNode): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.lastUpdate !== undefined &&
-      (object.lastUpdate = Math.round(message.lastUpdate));
-    message.pubKey !== undefined && (object.pubKey = message.pubKey);
-    message.alias !== undefined && (object.alias = message.alias);
+      (obj.lastUpdate = Math.round(message.lastUpdate));
+    message.pubKey !== undefined && (obj.pubKey = message.pubKey);
+    message.alias !== undefined && (obj.alias = message.alias);
     if (message.addresses) {
-      object.addresses = message.addresses.map((e) =>
+      obj.addresses = message.addresses.map((e) =>
         e ? NodeAddress.toJSON(e) : undefined,
       );
     } else {
-      object.addresses = [];
+      obj.addresses = [];
     }
-
-    message.color !== undefined && (object.color = message.color);
-    object.features = {};
+    message.color !== undefined && (obj.color = message.color);
+    obj.features = {};
     if (message.features) {
-      for (const [k, v] of Object.entries(message.features)) {
-        object.features[k] = Feature.toJSON(v);
-      }
+      Object.entries(message.features).forEach(([k, v]) => {
+        obj.features[k] = Feature.toJSON(v);
+      });
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<LightningNode>): LightningNode {
@@ -17359,13 +16265,12 @@ export const LightningNode = {
     message.addresses =
       object.addresses?.map((e) => NodeAddress.fromPartial(e)) || [];
     message.color = object.color ?? '';
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{
+      [key: number]: Feature;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
-
       return acc;
     }, {});
     return message;
@@ -17384,11 +16289,9 @@ export const LightningNode_FeaturesEntry = {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
-
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -17397,7 +16300,7 @@ export const LightningNode_FeaturesEntry = {
     length?: number,
   ): LightningNode_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightningNode_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17413,29 +16316,22 @@ export const LightningNode_FeaturesEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): LightningNode_FeaturesEntry {
-    const message = createBaseLightningNode_FeaturesEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? Number(object.key) : 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromJSON(object.value)
-        : undefined;
-    return message;
+    return {
+      key: isSet(object.key) ? Number(object.key) : 0,
+      value: isSet(object.value) ? Feature.fromJSON(object.value) : undefined,
+    };
   },
 
   toJSON(message: LightningNode_FeaturesEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = Math.round(message.key));
+    const obj: any = {};
+    message.key !== undefined && (obj.key = Math.round(message.key));
     message.value !== undefined &&
-      (object.value = message.value
-        ? Feature.toJSON(message.value)
-        : undefined);
-    return object;
+      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    return obj;
   },
 
   fromPartial(
@@ -17463,17 +16359,15 @@ export const NodeAddress = {
     if (message.network !== '') {
       writer.uint32(10).string(message.network);
     }
-
     if (message.addr !== '') {
       writer.uint32(18).string(message.addr);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeAddress {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeAddress();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17489,28 +16383,21 @@ export const NodeAddress = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodeAddress {
-    const message = createBaseNodeAddress();
-    message.network =
-      object.network !== undefined && object.network !== null
-        ? String(object.network)
-        : '';
-    message.addr =
-      object.addr !== undefined && object.addr !== null
-        ? String(object.addr)
-        : '';
-    return message;
+    return {
+      network: isSet(object.network) ? String(object.network) : '',
+      addr: isSet(object.addr) ? String(object.addr) : '',
+    };
   },
 
   toJSON(message: NodeAddress): unknown {
-    const object: any = {};
-    message.network !== undefined && (object.network = message.network);
-    message.addr !== undefined && (object.addr = message.addr);
-    return object;
+    const obj: any = {};
+    message.network !== undefined && (obj.network = message.network);
+    message.addr !== undefined && (obj.addr = message.addr);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NodeAddress>): NodeAddress {
@@ -17541,37 +16428,30 @@ export const RoutingPolicy = {
     if (message.timeLockDelta !== 0) {
       writer.uint32(8).uint32(message.timeLockDelta);
     }
-
     if (message.minHtlc !== '0') {
       writer.uint32(16).int64(message.minHtlc);
     }
-
     if (message.feeBaseMsat !== '0') {
       writer.uint32(24).int64(message.feeBaseMsat);
     }
-
     if (message.feeRateMilliMsat !== '0') {
       writer.uint32(32).int64(message.feeRateMilliMsat);
     }
-
-    if (message.disabled) {
+    if (message.disabled === true) {
       writer.uint32(40).bool(message.disabled);
     }
-
     if (message.maxHtlcMsat !== '0') {
       writer.uint32(48).uint64(message.maxHtlcMsat);
     }
-
     if (message.lastUpdate !== 0) {
       writer.uint32(56).uint32(message.lastUpdate);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): RoutingPolicy {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRoutingPolicy();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17602,58 +16482,40 @@ export const RoutingPolicy = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): RoutingPolicy {
-    const message = createBaseRoutingPolicy();
-    message.timeLockDelta =
-      object.timeLockDelta !== undefined && object.timeLockDelta !== null
+    return {
+      timeLockDelta: isSet(object.timeLockDelta)
         ? Number(object.timeLockDelta)
-        : 0;
-    message.minHtlc =
-      object.minHtlc !== undefined && object.minHtlc !== null
-        ? String(object.minHtlc)
-        : '0';
-    message.feeBaseMsat =
-      object.feeBaseMsat !== undefined && object.feeBaseMsat !== null
-        ? String(object.feeBaseMsat)
-        : '0';
-    message.feeRateMilliMsat =
-      object.feeRateMilliMsat !== undefined && object.feeRateMilliMsat !== null
+        : 0,
+      minHtlc: isSet(object.minHtlc) ? String(object.minHtlc) : '0',
+      feeBaseMsat: isSet(object.feeBaseMsat) ? String(object.feeBaseMsat) : '0',
+      feeRateMilliMsat: isSet(object.feeRateMilliMsat)
         ? String(object.feeRateMilliMsat)
-        : '0';
-    message.disabled =
-      object.disabled !== undefined && object.disabled !== null
-        ? Boolean(object.disabled)
-        : false;
-    message.maxHtlcMsat =
-      object.maxHtlcMsat !== undefined && object.maxHtlcMsat !== null
-        ? String(object.maxHtlcMsat)
-        : '0';
-    message.lastUpdate =
-      object.lastUpdate !== undefined && object.lastUpdate !== null
-        ? Number(object.lastUpdate)
-        : 0;
-    return message;
+        : '0',
+      disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
+      maxHtlcMsat: isSet(object.maxHtlcMsat) ? String(object.maxHtlcMsat) : '0',
+      lastUpdate: isSet(object.lastUpdate) ? Number(object.lastUpdate) : 0,
+    };
   },
 
   toJSON(message: RoutingPolicy): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.timeLockDelta !== undefined &&
-      (object.timeLockDelta = Math.round(message.timeLockDelta));
-    message.minHtlc !== undefined && (object.minHtlc = message.minHtlc);
+      (obj.timeLockDelta = Math.round(message.timeLockDelta));
+    message.minHtlc !== undefined && (obj.minHtlc = message.minHtlc);
     message.feeBaseMsat !== undefined &&
-      (object.feeBaseMsat = message.feeBaseMsat);
+      (obj.feeBaseMsat = message.feeBaseMsat);
     message.feeRateMilliMsat !== undefined &&
-      (object.feeRateMilliMsat = message.feeRateMilliMsat);
-    message.disabled !== undefined && (object.disabled = message.disabled);
+      (obj.feeRateMilliMsat = message.feeRateMilliMsat);
+    message.disabled !== undefined && (obj.disabled = message.disabled);
     message.maxHtlcMsat !== undefined &&
-      (object.maxHtlcMsat = message.maxHtlcMsat);
+      (obj.maxHtlcMsat = message.maxHtlcMsat);
     message.lastUpdate !== undefined &&
-      (object.lastUpdate = Math.round(message.lastUpdate));
-    return object;
+      (obj.lastUpdate = Math.round(message.lastUpdate));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<RoutingPolicy>): RoutingPolicy {
@@ -17690,47 +16552,39 @@ export const ChannelEdge = {
     if (message.channelId !== '0') {
       writer.uint32(8).uint64(message.channelId);
     }
-
     if (message.chanPoint !== '') {
       writer.uint32(18).string(message.chanPoint);
     }
-
     if (message.lastUpdate !== 0) {
       writer.uint32(24).uint32(message.lastUpdate);
     }
-
     if (message.node1Pub !== '') {
       writer.uint32(34).string(message.node1Pub);
     }
-
     if (message.node2Pub !== '') {
       writer.uint32(42).string(message.node2Pub);
     }
-
     if (message.capacity !== '0') {
       writer.uint32(48).int64(message.capacity);
     }
-
     if (message.node1Policy !== undefined) {
       RoutingPolicy.encode(
         message.node1Policy,
         writer.uint32(58).fork(),
       ).ldelim();
     }
-
     if (message.node2Policy !== undefined) {
       RoutingPolicy.encode(
         message.node2Policy,
         writer.uint32(66).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelEdge {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEdge();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17764,65 +16618,44 @@ export const ChannelEdge = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelEdge {
-    const message = createBaseChannelEdge();
-    message.channelId =
-      object.channelId !== undefined && object.channelId !== null
-        ? String(object.channelId)
-        : '0';
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
-        ? String(object.chanPoint)
-        : '';
-    message.lastUpdate =
-      object.lastUpdate !== undefined && object.lastUpdate !== null
-        ? Number(object.lastUpdate)
-        : 0;
-    message.node1Pub =
-      object.node1Pub !== undefined && object.node1Pub !== null
-        ? String(object.node1Pub)
-        : '';
-    message.node2Pub =
-      object.node2Pub !== undefined && object.node2Pub !== null
-        ? String(object.node2Pub)
-        : '';
-    message.capacity =
-      object.capacity !== undefined && object.capacity !== null
-        ? String(object.capacity)
-        : '0';
-    message.node1Policy =
-      object.node1Policy !== undefined && object.node1Policy !== null
+    return {
+      channelId: isSet(object.channelId) ? String(object.channelId) : '0',
+      chanPoint: isSet(object.chanPoint) ? String(object.chanPoint) : '',
+      lastUpdate: isSet(object.lastUpdate) ? Number(object.lastUpdate) : 0,
+      node1Pub: isSet(object.node1Pub) ? String(object.node1Pub) : '',
+      node2Pub: isSet(object.node2Pub) ? String(object.node2Pub) : '',
+      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
+      node1Policy: isSet(object.node1Policy)
         ? RoutingPolicy.fromJSON(object.node1Policy)
-        : undefined;
-    message.node2Policy =
-      object.node2Policy !== undefined && object.node2Policy !== null
+        : undefined,
+      node2Policy: isSet(object.node2Policy)
         ? RoutingPolicy.fromJSON(object.node2Policy)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: ChannelEdge): unknown {
-    const object: any = {};
-    message.channelId !== undefined && (object.channelId = message.channelId);
-    message.chanPoint !== undefined && (object.chanPoint = message.chanPoint);
+    const obj: any = {};
+    message.channelId !== undefined && (obj.channelId = message.channelId);
+    message.chanPoint !== undefined && (obj.chanPoint = message.chanPoint);
     message.lastUpdate !== undefined &&
-      (object.lastUpdate = Math.round(message.lastUpdate));
-    message.node1Pub !== undefined && (object.node1Pub = message.node1Pub);
-    message.node2Pub !== undefined && (object.node2Pub = message.node2Pub);
-    message.capacity !== undefined && (object.capacity = message.capacity);
+      (obj.lastUpdate = Math.round(message.lastUpdate));
+    message.node1Pub !== undefined && (obj.node1Pub = message.node1Pub);
+    message.node2Pub !== undefined && (obj.node2Pub = message.node2Pub);
+    message.capacity !== undefined && (obj.capacity = message.capacity);
     message.node1Policy !== undefined &&
-      (object.node1Policy = message.node1Policy
+      (obj.node1Policy = message.node1Policy
         ? RoutingPolicy.toJSON(message.node1Policy)
         : undefined);
     message.node2Policy !== undefined &&
-      (object.node2Policy = message.node2Policy
+      (obj.node2Policy = message.node2Policy
         ? RoutingPolicy.toJSON(message.node2Policy)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelEdge>): ChannelEdge {
@@ -17854,16 +16687,15 @@ export const ChannelGraphRequest = {
     message: ChannelGraphRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.includeUnannounced) {
+    if (message.includeUnannounced === true) {
       writer.uint32(8).bool(message.includeUnannounced);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelGraphRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelGraphRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17876,25 +16708,22 @@ export const ChannelGraphRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelGraphRequest {
-    const message = createBaseChannelGraphRequest();
-    message.includeUnannounced =
-      object.includeUnannounced !== undefined &&
-      object.includeUnannounced !== null
+    return {
+      includeUnannounced: isSet(object.includeUnannounced)
         ? Boolean(object.includeUnannounced)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: ChannelGraphRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.includeUnannounced !== undefined &&
-      (object.includeUnannounced = message.includeUnannounced);
-    return object;
+      (obj.includeUnannounced = message.includeUnannounced);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelGraphRequest>): ChannelGraphRequest {
@@ -17914,19 +16743,17 @@ export const ChannelGraph = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.nodes) {
-      LightningNode.encode(v, writer.uint32(10).fork()).ldelim();
+      LightningNode.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     for (const v of message.edges) {
-      ChannelEdge.encode(v, writer.uint32(18).fork()).ldelim();
+      ChannelEdge.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelGraph {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelGraph();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -17942,40 +16769,37 @@ export const ChannelGraph = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelGraph {
-    const message = createBaseChannelGraph();
-    message.nodes = (object.nodes ?? []).map((e: any) =>
-      LightningNode.fromJSON(e),
-    );
-    message.edges = (object.edges ?? []).map((e: any) =>
-      ChannelEdge.fromJSON(e),
-    );
-    return message;
+    return {
+      nodes: Array.isArray(object?.nodes)
+        ? object.nodes.map((e: any) => LightningNode.fromJSON(e))
+        : [],
+      edges: Array.isArray(object?.edges)
+        ? object.edges.map((e: any) => ChannelEdge.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: ChannelGraph): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.nodes) {
-      object.nodes = message.nodes.map((e) =>
+      obj.nodes = message.nodes.map((e) =>
         e ? LightningNode.toJSON(e) : undefined,
       );
     } else {
-      object.nodes = [];
+      obj.nodes = [];
     }
-
     if (message.edges) {
-      object.edges = message.edges.map((e) =>
+      obj.edges = message.edges.map((e) =>
         e ? ChannelEdge.toJSON(e) : undefined,
       );
     } else {
-      object.edges = [];
+      obj.edges = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelGraph>): ChannelGraph {
@@ -18000,14 +16824,13 @@ export const NodeMetricsRequest = {
     for (const v of message.types) {
       writer.int32(v);
     }
-
     writer.ldelim();
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeMetricsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeMetricsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18021,31 +16844,31 @@ export const NodeMetricsRequest = {
           } else {
             message.types.push(reader.int32() as any);
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodeMetricsRequest {
-    const message = createBaseNodeMetricsRequest();
-    message.types = (object.types ?? []).map((e: any) =>
-      nodeMetricTypeFromJSON(e),
-    );
-    return message;
+    return {
+      types: Array.isArray(object?.types)
+        ? object.types.map((e: any) => nodeMetricTypeFromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: NodeMetricsRequest): unknown {
-    const object: any = {};
-    object.types = message.types
-      ? message.types.map((e) => nodeMetricTypeToJSON(e))
-      : [];
-    return object;
+    const obj: any = {};
+    if (message.types) {
+      obj.types = message.types.map((e) => nodeMetricTypeToJSON(e));
+    } else {
+      obj.types = [];
+    }
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NodeMetricsRequest>): NodeMetricsRequest {
@@ -18064,19 +16887,18 @@ export const NodeMetricsResponse = {
     message: NodeMetricsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    for (const [key, value] of Object.entries(message.betweennessCentrality)) {
+    Object.entries(message.betweennessCentrality).forEach(([key, value]) => {
       NodeMetricsResponse_BetweennessCentralityEntry.encode(
         {key: key as any, value},
         writer.uint32(10).fork(),
       ).ldelim();
-    }
-
+    });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeMetricsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeMetricsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18089,49 +16911,47 @@ export const NodeMetricsResponse = {
           if (entry1.value !== undefined) {
             message.betweennessCentrality[entry1.key] = entry1.value;
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodeMetricsResponse {
-    const message = createBaseNodeMetricsResponse();
-    message.betweennessCentrality = Object.entries(
-      object.betweennessCentrality ?? {},
-    ).reduce<Record<string, FloatMetric>>((acc, [key, value]) => {
-      acc[key] = FloatMetric.fromJSON(value);
-      return acc;
-    }, {});
-    return message;
+    return {
+      betweennessCentrality: isObject(object.betweennessCentrality)
+        ? Object.entries(object.betweennessCentrality).reduce<{
+            [key: string]: FloatMetric;
+          }>((acc, [key, value]) => {
+            acc[key] = FloatMetric.fromJSON(value);
+            return acc;
+          }, {})
+        : {},
+    };
   },
 
   toJSON(message: NodeMetricsResponse): unknown {
-    const object: any = {};
-    object.betweennessCentrality = {};
+    const obj: any = {};
+    obj.betweennessCentrality = {};
     if (message.betweennessCentrality) {
-      for (const [k, v] of Object.entries(message.betweennessCentrality)) {
-        object.betweennessCentrality[k] = FloatMetric.toJSON(v);
-      }
+      Object.entries(message.betweennessCentrality).forEach(([k, v]) => {
+        obj.betweennessCentrality[k] = FloatMetric.toJSON(v);
+      });
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NodeMetricsResponse>): NodeMetricsResponse {
     const message = createBaseNodeMetricsResponse();
     message.betweennessCentrality = Object.entries(
       object.betweennessCentrality ?? {},
-    ).reduce<Record<string, FloatMetric>>((acc, [key, value]) => {
+    ).reduce<{[key: string]: FloatMetric}>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = FloatMetric.fromPartial(value);
       }
-
       return acc;
     }, {});
     return message;
@@ -18150,11 +16970,9 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
     if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-
     if (message.value !== undefined) {
       FloatMetric.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -18163,7 +16981,7 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
     length?: number,
   ): NodeMetricsResponse_BetweennessCentralityEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeMetricsResponse_BetweennessCentralityEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18179,29 +16997,26 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodeMetricsResponse_BetweennessCentralityEntry {
-    const message = createBaseNodeMetricsResponse_BetweennessCentralityEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : '';
-    message.value =
-      object.value !== undefined && object.value !== null
+    return {
+      key: isSet(object.key) ? String(object.key) : '',
+      value: isSet(object.value)
         ? FloatMetric.fromJSON(object.value)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: NodeMetricsResponse_BetweennessCentralityEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (object.value = message.value
+      (obj.value = message.value
         ? FloatMetric.toJSON(message.value)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -18229,17 +17044,15 @@ export const FloatMetric = {
     if (message.value !== 0) {
       writer.uint32(9).double(message.value);
     }
-
     if (message.normalizedValue !== 0) {
       writer.uint32(17).double(message.normalizedValue);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FloatMetric {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFloatMetric();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18255,29 +17068,24 @@ export const FloatMetric = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FloatMetric {
-    const message = createBaseFloatMetric();
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Number(object.value)
-        : 0;
-    message.normalizedValue =
-      object.normalizedValue !== undefined && object.normalizedValue !== null
+    return {
+      value: isSet(object.value) ? Number(object.value) : 0,
+      normalizedValue: isSet(object.normalizedValue)
         ? Number(object.normalizedValue)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: FloatMetric): unknown {
-    const object: any = {};
-    message.value !== undefined && (object.value = message.value);
+    const obj: any = {};
+    message.value !== undefined && (obj.value = message.value);
     message.normalizedValue !== undefined &&
-      (object.normalizedValue = message.normalizedValue);
-    return object;
+      (obj.normalizedValue = message.normalizedValue);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FloatMetric>): FloatMetric {
@@ -18300,13 +17108,12 @@ export const ChanInfoRequest = {
     if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChanInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18319,23 +17126,19 @@ export const ChanInfoRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChanInfoRequest {
-    const message = createBaseChanInfoRequest();
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    return message;
+    return {
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+    };
   },
 
   toJSON(message: ChanInfoRequest): unknown {
-    const object: any = {};
-    message.chanId !== undefined && (object.chanId = message.chanId);
-    return object;
+    const obj: any = {};
+    message.chanId !== undefined && (obj.chanId = message.chanId);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChanInfoRequest>): ChanInfoRequest {
@@ -18359,7 +17162,7 @@ export const NetworkInfoRequest = {
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NetworkInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNetworkInfoRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18369,18 +17172,16 @@ export const NetworkInfoRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): NetworkInfoRequest {
-    const message = createBaseNetworkInfoRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: NetworkInfoRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<NetworkInfoRequest>): NetworkInfoRequest {
@@ -18413,53 +17214,42 @@ export const NetworkInfo = {
     if (message.graphDiameter !== 0) {
       writer.uint32(8).uint32(message.graphDiameter);
     }
-
     if (message.avgOutDegree !== 0) {
       writer.uint32(17).double(message.avgOutDegree);
     }
-
     if (message.maxOutDegree !== 0) {
       writer.uint32(24).uint32(message.maxOutDegree);
     }
-
     if (message.numNodes !== 0) {
       writer.uint32(32).uint32(message.numNodes);
     }
-
     if (message.numChannels !== 0) {
       writer.uint32(40).uint32(message.numChannels);
     }
-
     if (message.totalNetworkCapacity !== '0') {
       writer.uint32(48).int64(message.totalNetworkCapacity);
     }
-
     if (message.avgChannelSize !== 0) {
       writer.uint32(57).double(message.avgChannelSize);
     }
-
     if (message.minChannelSize !== '0') {
       writer.uint32(64).int64(message.minChannelSize);
     }
-
     if (message.maxChannelSize !== '0') {
       writer.uint32(72).int64(message.maxChannelSize);
     }
-
     if (message.medianChannelSizeSat !== '0') {
       writer.uint32(80).int64(message.medianChannelSizeSat);
     }
-
     if (message.numZombieChans !== '0') {
       writer.uint32(88).uint64(message.numZombieChans);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NetworkInfo {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNetworkInfo();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18502,86 +17292,68 @@ export const NetworkInfo = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NetworkInfo {
-    const message = createBaseNetworkInfo();
-    message.graphDiameter =
-      object.graphDiameter !== undefined && object.graphDiameter !== null
+    return {
+      graphDiameter: isSet(object.graphDiameter)
         ? Number(object.graphDiameter)
-        : 0;
-    message.avgOutDegree =
-      object.avgOutDegree !== undefined && object.avgOutDegree !== null
+        : 0,
+      avgOutDegree: isSet(object.avgOutDegree)
         ? Number(object.avgOutDegree)
-        : 0;
-    message.maxOutDegree =
-      object.maxOutDegree !== undefined && object.maxOutDegree !== null
+        : 0,
+      maxOutDegree: isSet(object.maxOutDegree)
         ? Number(object.maxOutDegree)
-        : 0;
-    message.numNodes =
-      object.numNodes !== undefined && object.numNodes !== null
-        ? Number(object.numNodes)
-        : 0;
-    message.numChannels =
-      object.numChannels !== undefined && object.numChannels !== null
-        ? Number(object.numChannels)
-        : 0;
-    message.totalNetworkCapacity =
-      object.totalNetworkCapacity !== undefined &&
-      object.totalNetworkCapacity !== null
+        : 0,
+      numNodes: isSet(object.numNodes) ? Number(object.numNodes) : 0,
+      numChannels: isSet(object.numChannels) ? Number(object.numChannels) : 0,
+      totalNetworkCapacity: isSet(object.totalNetworkCapacity)
         ? String(object.totalNetworkCapacity)
-        : '0';
-    message.avgChannelSize =
-      object.avgChannelSize !== undefined && object.avgChannelSize !== null
+        : '0',
+      avgChannelSize: isSet(object.avgChannelSize)
         ? Number(object.avgChannelSize)
-        : 0;
-    message.minChannelSize =
-      object.minChannelSize !== undefined && object.minChannelSize !== null
+        : 0,
+      minChannelSize: isSet(object.minChannelSize)
         ? String(object.minChannelSize)
-        : '0';
-    message.maxChannelSize =
-      object.maxChannelSize !== undefined && object.maxChannelSize !== null
+        : '0',
+      maxChannelSize: isSet(object.maxChannelSize)
         ? String(object.maxChannelSize)
-        : '0';
-    message.medianChannelSizeSat =
-      object.medianChannelSizeSat !== undefined &&
-      object.medianChannelSizeSat !== null
+        : '0',
+      medianChannelSizeSat: isSet(object.medianChannelSizeSat)
         ? String(object.medianChannelSizeSat)
-        : '0';
-    message.numZombieChans =
-      object.numZombieChans !== undefined && object.numZombieChans !== null
+        : '0',
+      numZombieChans: isSet(object.numZombieChans)
         ? String(object.numZombieChans)
-        : '0';
-    return message;
+        : '0',
+    };
   },
 
   toJSON(message: NetworkInfo): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.graphDiameter !== undefined &&
-      (object.graphDiameter = Math.round(message.graphDiameter));
+      (obj.graphDiameter = Math.round(message.graphDiameter));
     message.avgOutDegree !== undefined &&
-      (object.avgOutDegree = message.avgOutDegree);
+      (obj.avgOutDegree = message.avgOutDegree);
     message.maxOutDegree !== undefined &&
-      (object.maxOutDegree = Math.round(message.maxOutDegree));
+      (obj.maxOutDegree = Math.round(message.maxOutDegree));
     message.numNodes !== undefined &&
-      (object.numNodes = Math.round(message.numNodes));
+      (obj.numNodes = Math.round(message.numNodes));
     message.numChannels !== undefined &&
-      (object.numChannels = Math.round(message.numChannels));
+      (obj.numChannels = Math.round(message.numChannels));
     message.totalNetworkCapacity !== undefined &&
-      (object.totalNetworkCapacity = message.totalNetworkCapacity);
+      (obj.totalNetworkCapacity = message.totalNetworkCapacity);
     message.avgChannelSize !== undefined &&
-      (object.avgChannelSize = message.avgChannelSize);
+      (obj.avgChannelSize = message.avgChannelSize);
     message.minChannelSize !== undefined &&
-      (object.minChannelSize = message.minChannelSize);
+      (obj.minChannelSize = message.minChannelSize);
     message.maxChannelSize !== undefined &&
-      (object.maxChannelSize = message.maxChannelSize);
+      (obj.maxChannelSize = message.maxChannelSize);
     message.medianChannelSizeSat !== undefined &&
-      (object.medianChannelSizeSat = message.medianChannelSizeSat);
+      (obj.medianChannelSizeSat = message.medianChannelSizeSat);
     message.numZombieChans !== undefined &&
-      (object.numZombieChans = message.numZombieChans);
-    return object;
+      (obj.numZombieChans = message.numZombieChans);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NetworkInfo>): NetworkInfo {
@@ -18612,7 +17384,7 @@ export const StopRequest = {
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StopRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStopRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18622,18 +17394,16 @@ export const StopRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): StopRequest {
-    const message = createBaseStopRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: StopRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<StopRequest>): StopRequest {
@@ -18656,7 +17426,7 @@ export const StopResponse = {
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StopResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStopResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18666,18 +17436,16 @@ export const StopResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): StopResponse {
-    const message = createBaseStopResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: StopResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<StopResponse>): StopResponse {
@@ -18703,7 +17471,7 @@ export const GraphTopologySubscription = {
     length?: number,
   ): GraphTopologySubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGraphTopologySubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18713,18 +17481,16 @@ export const GraphTopologySubscription = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): GraphTopologySubscription {
-    const message = createBaseGraphTopologySubscription();
-    return message;
+    return {};
   },
 
   toJSON(_: GraphTopologySubscription): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(
@@ -18745,23 +17511,20 @@ export const GraphTopologyUpdate = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.nodeUpdates) {
-      NodeUpdate.encode(v, writer.uint32(10).fork()).ldelim();
+      NodeUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     for (const v of message.channelUpdates) {
-      ChannelEdgeUpdate.encode(v, writer.uint32(18).fork()).ldelim();
+      ChannelEdgeUpdate.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-
     for (const v of message.closedChans) {
-      ClosedChannelUpdate.encode(v, writer.uint32(26).fork()).ldelim();
+      ClosedChannelUpdate.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): GraphTopologyUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGraphTopologyUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18784,51 +17547,47 @@ export const GraphTopologyUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): GraphTopologyUpdate {
-    const message = createBaseGraphTopologyUpdate();
-    message.nodeUpdates = (object.nodeUpdates ?? []).map((e: any) =>
-      NodeUpdate.fromJSON(e),
-    );
-    message.channelUpdates = (object.channelUpdates ?? []).map((e: any) =>
-      ChannelEdgeUpdate.fromJSON(e),
-    );
-    message.closedChans = (object.closedChans ?? []).map((e: any) =>
-      ClosedChannelUpdate.fromJSON(e),
-    );
-    return message;
+    return {
+      nodeUpdates: Array.isArray(object?.nodeUpdates)
+        ? object.nodeUpdates.map((e: any) => NodeUpdate.fromJSON(e))
+        : [],
+      channelUpdates: Array.isArray(object?.channelUpdates)
+        ? object.channelUpdates.map((e: any) => ChannelEdgeUpdate.fromJSON(e))
+        : [],
+      closedChans: Array.isArray(object?.closedChans)
+        ? object.closedChans.map((e: any) => ClosedChannelUpdate.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: GraphTopologyUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.nodeUpdates) {
-      object.nodeUpdates = message.nodeUpdates.map((e) =>
+      obj.nodeUpdates = message.nodeUpdates.map((e) =>
         e ? NodeUpdate.toJSON(e) : undefined,
       );
     } else {
-      object.nodeUpdates = [];
+      obj.nodeUpdates = [];
     }
-
     if (message.channelUpdates) {
-      object.channelUpdates = message.channelUpdates.map((e) =>
+      obj.channelUpdates = message.channelUpdates.map((e) =>
         e ? ChannelEdgeUpdate.toJSON(e) : undefined,
       );
     } else {
-      object.channelUpdates = [];
+      obj.channelUpdates = [];
     }
-
     if (message.closedChans) {
-      object.closedChans = message.closedChans.map((e) =>
+      obj.closedChans = message.closedChans.map((e) =>
         e ? ClosedChannelUpdate.toJSON(e) : undefined,
       );
     } else {
-      object.closedChans = [];
+      obj.closedChans = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<GraphTopologyUpdate>): GraphTopologyUpdate {
@@ -18861,42 +17620,35 @@ export const NodeUpdate = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.addresses) {
-      writer.uint32(10).string(v);
+      writer.uint32(10).string(v!);
     }
-
     if (message.identityKey !== '') {
       writer.uint32(18).string(message.identityKey);
     }
-
-    if (message.globalFeatures.length > 0) {
+    if (message.globalFeatures.length !== 0) {
       writer.uint32(26).bytes(message.globalFeatures);
     }
-
     if (message.alias !== '') {
       writer.uint32(34).string(message.alias);
     }
-
     if (message.color !== '') {
       writer.uint32(42).string(message.color);
     }
-
     for (const v of message.nodeAddresses) {
-      NodeAddress.encode(v, writer.uint32(58).fork()).ldelim();
+      NodeAddress.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-
-    for (const [key, value] of Object.entries(message.features)) {
+    Object.entries(message.features).forEach(([key, value]) => {
       NodeUpdate_FeaturesEntry.encode(
         {key: key as any, value},
         writer.uint32(50).fork(),
       ).ldelim();
-    }
-
+    });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): NodeUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -18929,77 +17681,72 @@ export const NodeUpdate = {
           if (entry6.value !== undefined) {
             message.features[entry6.key] = entry6.value;
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodeUpdate {
-    const message = createBaseNodeUpdate();
-    message.addresses = (object.addresses ?? []).map((e: any) => String(e));
-    message.identityKey =
-      object.identityKey !== undefined && object.identityKey !== null
-        ? String(object.identityKey)
-        : '';
-    message.globalFeatures =
-      object.globalFeatures !== undefined && object.globalFeatures !== null
+    return {
+      addresses: Array.isArray(object?.addresses)
+        ? object.addresses.map((e: any) => String(e))
+        : [],
+      identityKey: isSet(object.identityKey) ? String(object.identityKey) : '',
+      globalFeatures: isSet(object.globalFeatures)
         ? bytesFromBase64(object.globalFeatures)
-        : new Uint8Array();
-    message.alias =
-      object.alias !== undefined && object.alias !== null
-        ? String(object.alias)
-        : '';
-    message.color =
-      object.color !== undefined && object.color !== null
-        ? String(object.color)
-        : '';
-    message.nodeAddresses = (object.nodeAddresses ?? []).map((e: any) =>
-      NodeAddress.fromJSON(e),
-    );
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
-      acc[Number(key)] = Feature.fromJSON(value);
-      return acc;
-    }, {});
-    return message;
+        : new Uint8Array(),
+      alias: isSet(object.alias) ? String(object.alias) : '',
+      color: isSet(object.color) ? String(object.color) : '',
+      nodeAddresses: Array.isArray(object?.nodeAddresses)
+        ? object.nodeAddresses.map((e: any) => NodeAddress.fromJSON(e))
+        : [],
+      features: isObject(object.features)
+        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
+            (acc, [key, value]) => {
+              acc[Number(key)] = Feature.fromJSON(value);
+              return acc;
+            },
+            {},
+          )
+        : {},
+    };
   },
 
   toJSON(message: NodeUpdate): unknown {
-    const object: any = {};
-    object.addresses = message.addresses ? message.addresses.map((e) => e) : [];
+    const obj: any = {};
+    if (message.addresses) {
+      obj.addresses = message.addresses.map((e) => e);
+    } else {
+      obj.addresses = [];
+    }
     message.identityKey !== undefined &&
-      (object.identityKey = message.identityKey);
+      (obj.identityKey = message.identityKey);
     message.globalFeatures !== undefined &&
-      (object.globalFeatures = base64FromBytes(
+      (obj.globalFeatures = base64FromBytes(
         message.globalFeatures !== undefined
           ? message.globalFeatures
           : new Uint8Array(),
       ));
-    message.alias !== undefined && (object.alias = message.alias);
-    message.color !== undefined && (object.color = message.color);
+    message.alias !== undefined && (obj.alias = message.alias);
+    message.color !== undefined && (obj.color = message.color);
     if (message.nodeAddresses) {
-      object.nodeAddresses = message.nodeAddresses.map((e) =>
+      obj.nodeAddresses = message.nodeAddresses.map((e) =>
         e ? NodeAddress.toJSON(e) : undefined,
       );
     } else {
-      object.nodeAddresses = [];
+      obj.nodeAddresses = [];
     }
-
-    object.features = {};
+    obj.features = {};
     if (message.features) {
-      for (const [k, v] of Object.entries(message.features)) {
-        object.features[k] = Feature.toJSON(v);
-      }
+      Object.entries(message.features).forEach(([k, v]) => {
+        obj.features[k] = Feature.toJSON(v);
+      });
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<NodeUpdate>): NodeUpdate {
@@ -19011,13 +17758,12 @@ export const NodeUpdate = {
     message.color = object.color ?? '';
     message.nodeAddresses =
       object.nodeAddresses?.map((e) => NodeAddress.fromPartial(e)) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{
+      [key: number]: Feature;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
-
       return acc;
     }, {});
     return message;
@@ -19036,11 +17782,9 @@ export const NodeUpdate_FeaturesEntry = {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
-
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -19049,7 +17793,7 @@ export const NodeUpdate_FeaturesEntry = {
     length?: number,
   ): NodeUpdate_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeUpdate_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19065,29 +17809,22 @@ export const NodeUpdate_FeaturesEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): NodeUpdate_FeaturesEntry {
-    const message = createBaseNodeUpdate_FeaturesEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? Number(object.key) : 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromJSON(object.value)
-        : undefined;
-    return message;
+    return {
+      key: isSet(object.key) ? Number(object.key) : 0,
+      value: isSet(object.value) ? Feature.fromJSON(object.value) : undefined,
+    };
   },
 
   toJSON(message: NodeUpdate_FeaturesEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = Math.round(message.key));
+    const obj: any = {};
+    message.key !== undefined && (obj.key = Math.round(message.key));
     message.value !== undefined &&
-      (object.value = message.value
-        ? Feature.toJSON(message.value)
-        : undefined);
-    return object;
+      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    return obj;
   },
 
   fromPartial(
@@ -19122,36 +17859,30 @@ export const ChannelEdgeUpdate = {
     if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
-
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-
     if (message.capacity !== '0') {
       writer.uint32(24).int64(message.capacity);
     }
-
     if (message.routingPolicy !== undefined) {
       RoutingPolicy.encode(
         message.routingPolicy,
         writer.uint32(34).fork(),
       ).ldelim();
     }
-
     if (message.advertisingNode !== '') {
       writer.uint32(42).string(message.advertisingNode);
     }
-
     if (message.connectingNode !== '') {
       writer.uint32(50).string(message.connectingNode);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelEdgeUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEdgeUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19179,56 +17910,45 @@ export const ChannelEdgeUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelEdgeUpdate {
-    const message = createBaseChannelEdgeUpdate();
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
+    return {
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      chanPoint: isSet(object.chanPoint)
         ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined;
-    message.capacity =
-      object.capacity !== undefined && object.capacity !== null
-        ? String(object.capacity)
-        : '0';
-    message.routingPolicy =
-      object.routingPolicy !== undefined && object.routingPolicy !== null
+        : undefined,
+      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
+      routingPolicy: isSet(object.routingPolicy)
         ? RoutingPolicy.fromJSON(object.routingPolicy)
-        : undefined;
-    message.advertisingNode =
-      object.advertisingNode !== undefined && object.advertisingNode !== null
+        : undefined,
+      advertisingNode: isSet(object.advertisingNode)
         ? String(object.advertisingNode)
-        : '';
-    message.connectingNode =
-      object.connectingNode !== undefined && object.connectingNode !== null
+        : '',
+      connectingNode: isSet(object.connectingNode)
         ? String(object.connectingNode)
-        : '';
-    return message;
+        : '',
+    };
   },
 
   toJSON(message: ChannelEdgeUpdate): unknown {
-    const object: any = {};
-    message.chanId !== undefined && (object.chanId = message.chanId);
+    const obj: any = {};
+    message.chanId !== undefined && (obj.chanId = message.chanId);
     message.chanPoint !== undefined &&
-      (object.chanPoint = message.chanPoint
+      (obj.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
-    message.capacity !== undefined && (object.capacity = message.capacity);
+    message.capacity !== undefined && (obj.capacity = message.capacity);
     message.routingPolicy !== undefined &&
-      (object.routingPolicy = message.routingPolicy
+      (obj.routingPolicy = message.routingPolicy
         ? RoutingPolicy.toJSON(message.routingPolicy)
         : undefined);
     message.advertisingNode !== undefined &&
-      (object.advertisingNode = message.advertisingNode);
+      (obj.advertisingNode = message.advertisingNode);
     message.connectingNode !== undefined &&
-      (object.connectingNode = message.connectingNode);
-    return object;
+      (obj.connectingNode = message.connectingNode);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelEdgeUpdate>): ChannelEdgeUpdate {
@@ -19261,25 +17981,21 @@ export const ClosedChannelUpdate = {
     if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
-
     if (message.capacity !== '0') {
       writer.uint32(16).int64(message.capacity);
     }
-
     if (message.closedHeight !== 0) {
       writer.uint32(24).uint32(message.closedHeight);
     }
-
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(34).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ClosedChannelUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClosedChannelUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19301,42 +18017,33 @@ export const ClosedChannelUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ClosedChannelUpdate {
-    const message = createBaseClosedChannelUpdate();
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.capacity =
-      object.capacity !== undefined && object.capacity !== null
-        ? String(object.capacity)
-        : '0';
-    message.closedHeight =
-      object.closedHeight !== undefined && object.closedHeight !== null
+    return {
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
+      closedHeight: isSet(object.closedHeight)
         ? Number(object.closedHeight)
-        : 0;
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
+        : 0,
+      chanPoint: isSet(object.chanPoint)
         ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: ClosedChannelUpdate): unknown {
-    const object: any = {};
-    message.chanId !== undefined && (object.chanId = message.chanId);
-    message.capacity !== undefined && (object.capacity = message.capacity);
+    const obj: any = {};
+    message.chanId !== undefined && (obj.chanId = message.chanId);
+    message.capacity !== undefined && (obj.capacity = message.capacity);
     message.closedHeight !== undefined &&
-      (object.closedHeight = Math.round(message.closedHeight));
+      (obj.closedHeight = Math.round(message.closedHeight));
     message.chanPoint !== undefined &&
-      (object.chanPoint = message.chanPoint
+      (obj.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ClosedChannelUpdate>): ClosedChannelUpdate {
@@ -19370,29 +18077,24 @@ export const HopHint = {
     if (message.nodeId !== '') {
       writer.uint32(10).string(message.nodeId);
     }
-
     if (message.chanId !== '0') {
       writer.uint32(16).uint64(message.chanId);
     }
-
     if (message.feeBaseMsat !== 0) {
       writer.uint32(24).uint32(message.feeBaseMsat);
     }
-
     if (message.feeProportionalMillionths !== 0) {
       writer.uint32(32).uint32(message.feeProportionalMillionths);
     }
-
     if (message.cltvExpiryDelta !== 0) {
       writer.uint32(40).uint32(message.cltvExpiryDelta);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): HopHint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHopHint();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19417,49 +18119,36 @@ export const HopHint = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): HopHint {
-    const message = createBaseHopHint();
-    message.nodeId =
-      object.nodeId !== undefined && object.nodeId !== null
-        ? String(object.nodeId)
-        : '';
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.feeBaseMsat =
-      object.feeBaseMsat !== undefined && object.feeBaseMsat !== null
-        ? Number(object.feeBaseMsat)
-        : 0;
-    message.feeProportionalMillionths =
-      object.feeProportionalMillionths !== undefined &&
-      object.feeProportionalMillionths !== null
+    return {
+      nodeId: isSet(object.nodeId) ? String(object.nodeId) : '',
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      feeBaseMsat: isSet(object.feeBaseMsat) ? Number(object.feeBaseMsat) : 0,
+      feeProportionalMillionths: isSet(object.feeProportionalMillionths)
         ? Number(object.feeProportionalMillionths)
-        : 0;
-    message.cltvExpiryDelta =
-      object.cltvExpiryDelta !== undefined && object.cltvExpiryDelta !== null
+        : 0,
+      cltvExpiryDelta: isSet(object.cltvExpiryDelta)
         ? Number(object.cltvExpiryDelta)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: HopHint): unknown {
-    const object: any = {};
-    message.nodeId !== undefined && (object.nodeId = message.nodeId);
-    message.chanId !== undefined && (object.chanId = message.chanId);
+    const obj: any = {};
+    message.nodeId !== undefined && (obj.nodeId = message.nodeId);
+    message.chanId !== undefined && (obj.chanId = message.chanId);
     message.feeBaseMsat !== undefined &&
-      (object.feeBaseMsat = Math.round(message.feeBaseMsat));
+      (obj.feeBaseMsat = Math.round(message.feeBaseMsat));
     message.feeProportionalMillionths !== undefined &&
-      (object.feeProportionalMillionths = Math.round(
+      (obj.feeProportionalMillionths = Math.round(
         message.feeProportionalMillionths,
       ));
     message.cltvExpiryDelta !== undefined &&
-      (object.cltvExpiryDelta = Math.round(message.cltvExpiryDelta));
-    return object;
+      (obj.cltvExpiryDelta = Math.round(message.cltvExpiryDelta));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<HopHint>): HopHint {
@@ -19479,16 +18168,15 @@ function createBaseSetID(): SetID {
 
 export const SetID = {
   encode(message: SetID, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.setId.length > 0) {
+    if (message.setId.length !== 0) {
       writer.uint32(10).bytes(message.setId);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): SetID {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSetID();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19501,26 +18189,24 @@ export const SetID = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): SetID {
-    const message = createBaseSetID();
-    message.setId =
-      object.setId !== undefined && object.setId !== null
+    return {
+      setId: isSet(object.setId)
         ? bytesFromBase64(object.setId)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: SetID): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.setId !== undefined &&
-      (object.setId = base64FromBytes(
+      (obj.setId = base64FromBytes(
         message.setId !== undefined ? message.setId : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<SetID>): SetID {
@@ -19540,15 +18226,14 @@ export const RouteHint = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.hopHints) {
-      HopHint.encode(v, writer.uint32(10).fork()).ldelim();
+      HopHint.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): RouteHint {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRouteHint();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19561,29 +18246,27 @@ export const RouteHint = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): RouteHint {
-    const message = createBaseRouteHint();
-    message.hopHints = (object.hopHints ?? []).map((e: any) =>
-      HopHint.fromJSON(e),
-    );
-    return message;
+    return {
+      hopHints: Array.isArray(object?.hopHints)
+        ? object.hopHints.map((e: any) => HopHint.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: RouteHint): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.hopHints) {
-      object.hopHints = message.hopHints.map((e) =>
+      obj.hopHints = message.hopHints.map((e) =>
         e ? HopHint.toJSON(e) : undefined,
       );
     } else {
-      object.hopHints = [];
+      obj.hopHints = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<RouteHint>): RouteHint {
@@ -19606,25 +18289,21 @@ export const AMPInvoiceState = {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
-
     if (message.settleIndex !== '0') {
       writer.uint32(16).uint64(message.settleIndex);
     }
-
     if (message.settleTime !== '0') {
       writer.uint32(24).int64(message.settleTime);
     }
-
     if (message.amtPaidMsat !== '0') {
       writer.uint32(40).int64(message.amtPaidMsat);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AMPInvoiceState {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAMPInvoiceState();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19646,42 +18325,28 @@ export const AMPInvoiceState = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): AMPInvoiceState {
-    const message = createBaseAMPInvoiceState();
-    message.state =
-      object.state !== undefined && object.state !== null
-        ? invoiceHTLCStateFromJSON(object.state)
-        : 0;
-    message.settleIndex =
-      object.settleIndex !== undefined && object.settleIndex !== null
-        ? String(object.settleIndex)
-        : '0';
-    message.settleTime =
-      object.settleTime !== undefined && object.settleTime !== null
-        ? String(object.settleTime)
-        : '0';
-    message.amtPaidMsat =
-      object.amtPaidMsat !== undefined && object.amtPaidMsat !== null
-        ? String(object.amtPaidMsat)
-        : '0';
-    return message;
+    return {
+      state: isSet(object.state) ? invoiceHTLCStateFromJSON(object.state) : 0,
+      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : '0',
+      settleTime: isSet(object.settleTime) ? String(object.settleTime) : '0',
+      amtPaidMsat: isSet(object.amtPaidMsat) ? String(object.amtPaidMsat) : '0',
+    };
   },
 
   toJSON(message: AMPInvoiceState): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.state !== undefined &&
-      (object.state = invoiceHTLCStateToJSON(message.state));
+      (obj.state = invoiceHTLCStateToJSON(message.state));
     message.settleIndex !== undefined &&
-      (object.settleIndex = message.settleIndex);
-    message.settleTime !== undefined &&
-      (object.settleTime = message.settleTime);
+      (obj.settleIndex = message.settleIndex);
+    message.settleTime !== undefined && (obj.settleTime = message.settleTime);
     message.amtPaidMsat !== undefined &&
-      (object.amtPaidMsat = message.amtPaidMsat);
-    return object;
+      (obj.amtPaidMsat = message.amtPaidMsat);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<AMPInvoiceState>): AMPInvoiceState {
@@ -19734,123 +18399,96 @@ export const Invoice = {
     if (message.memo !== '') {
       writer.uint32(10).string(message.memo);
     }
-
-    if (message.rPreimage.length > 0) {
+    if (message.rPreimage.length !== 0) {
       writer.uint32(26).bytes(message.rPreimage);
     }
-
-    if (message.rHash.length > 0) {
+    if (message.rHash.length !== 0) {
       writer.uint32(34).bytes(message.rHash);
     }
-
     if (message.value !== '0') {
       writer.uint32(40).int64(message.value);
     }
-
     if (message.valueMsat !== '0') {
       writer.uint32(184).int64(message.valueMsat);
     }
-
-    if (message.settled) {
+    if (message.settled === true) {
       writer.uint32(48).bool(message.settled);
     }
-
     if (message.creationDate !== '0') {
       writer.uint32(56).int64(message.creationDate);
     }
-
     if (message.settleDate !== '0') {
       writer.uint32(64).int64(message.settleDate);
     }
-
     if (message.paymentRequest !== '') {
       writer.uint32(74).string(message.paymentRequest);
     }
-
-    if (message.descriptionHash.length > 0) {
+    if (message.descriptionHash.length !== 0) {
       writer.uint32(82).bytes(message.descriptionHash);
     }
-
     if (message.expiry !== '0') {
       writer.uint32(88).int64(message.expiry);
     }
-
     if (message.fallbackAddr !== '') {
       writer.uint32(98).string(message.fallbackAddr);
     }
-
     if (message.cltvExpiry !== '0') {
       writer.uint32(104).uint64(message.cltvExpiry);
     }
-
     for (const v of message.routeHints) {
-      RouteHint.encode(v, writer.uint32(114).fork()).ldelim();
+      RouteHint.encode(v!, writer.uint32(114).fork()).ldelim();
     }
-
-    if (message.private) {
+    if (message.private === true) {
       writer.uint32(120).bool(message.private);
     }
-
     if (message.addIndex !== '0') {
       writer.uint32(128).uint64(message.addIndex);
     }
-
     if (message.settleIndex !== '0') {
       writer.uint32(136).uint64(message.settleIndex);
     }
-
     if (message.amtPaid !== '0') {
       writer.uint32(144).int64(message.amtPaid);
     }
-
     if (message.amtPaidSat !== '0') {
       writer.uint32(152).int64(message.amtPaidSat);
     }
-
     if (message.amtPaidMsat !== '0') {
       writer.uint32(160).int64(message.amtPaidMsat);
     }
-
     if (message.state !== 0) {
       writer.uint32(168).int32(message.state);
     }
-
     for (const v of message.htlcs) {
-      InvoiceHTLC.encode(v, writer.uint32(178).fork()).ldelim();
+      InvoiceHTLC.encode(v!, writer.uint32(178).fork()).ldelim();
     }
-
-    for (const [key, value] of Object.entries(message.features)) {
+    Object.entries(message.features).forEach(([key, value]) => {
       Invoice_FeaturesEntry.encode(
         {key: key as any, value},
         writer.uint32(194).fork(),
       ).ldelim();
-    }
-
-    if (message.isKeysend) {
+    });
+    if (message.isKeysend === true) {
       writer.uint32(200).bool(message.isKeysend);
     }
-
-    if (message.paymentAddr.length > 0) {
+    if (message.paymentAddr.length !== 0) {
       writer.uint32(210).bytes(message.paymentAddr);
     }
-
-    if (message.isAmp) {
+    if (message.isAmp === true) {
       writer.uint32(216).bool(message.isAmp);
     }
-
-    for (const [key, value] of Object.entries(message.ampInvoiceState)) {
+    Object.entries(message.ampInvoiceState).forEach(([key, value]) => {
       Invoice_AmpInvoiceStateEntry.encode(
         {key: key as any, value},
         writer.uint32(226).fork(),
       ).ldelim();
-    }
-
+    });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Invoice {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoice();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -19926,7 +18564,6 @@ export const Invoice = {
           if (entry24.value !== undefined) {
             message.features[entry24.key] = entry24.value;
           }
-
           break;
         case 25:
           message.isKeysend = reader.bool();
@@ -19945,213 +18582,156 @@ export const Invoice = {
           if (entry28.value !== undefined) {
             message.ampInvoiceState[entry28.key] = entry28.value;
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Invoice {
-    const message = createBaseInvoice();
-    message.memo =
-      object.memo !== undefined && object.memo !== null
-        ? String(object.memo)
-        : '';
-    message.rPreimage =
-      object.rPreimage !== undefined && object.rPreimage !== null
+    return {
+      memo: isSet(object.memo) ? String(object.memo) : '',
+      rPreimage: isSet(object.rPreimage)
         ? bytesFromBase64(object.rPreimage)
-        : new Uint8Array();
-    message.rHash =
-      object.rHash !== undefined && object.rHash !== null
+        : new Uint8Array(),
+      rHash: isSet(object.rHash)
         ? bytesFromBase64(object.rHash)
-        : new Uint8Array();
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? String(object.value)
-        : '0';
-    message.valueMsat =
-      object.valueMsat !== undefined && object.valueMsat !== null
-        ? String(object.valueMsat)
-        : '0';
-    message.settled =
-      object.settled !== undefined && object.settled !== null
-        ? Boolean(object.settled)
-        : false;
-    message.creationDate =
-      object.creationDate !== undefined && object.creationDate !== null
+        : new Uint8Array(),
+      value: isSet(object.value) ? String(object.value) : '0',
+      valueMsat: isSet(object.valueMsat) ? String(object.valueMsat) : '0',
+      settled: isSet(object.settled) ? Boolean(object.settled) : false,
+      creationDate: isSet(object.creationDate)
         ? String(object.creationDate)
-        : '0';
-    message.settleDate =
-      object.settleDate !== undefined && object.settleDate !== null
-        ? String(object.settleDate)
-        : '0';
-    message.paymentRequest =
-      object.paymentRequest !== undefined && object.paymentRequest !== null
+        : '0',
+      settleDate: isSet(object.settleDate) ? String(object.settleDate) : '0',
+      paymentRequest: isSet(object.paymentRequest)
         ? String(object.paymentRequest)
-        : '';
-    message.descriptionHash =
-      object.descriptionHash !== undefined && object.descriptionHash !== null
+        : '',
+      descriptionHash: isSet(object.descriptionHash)
         ? bytesFromBase64(object.descriptionHash)
-        : new Uint8Array();
-    message.expiry =
-      object.expiry !== undefined && object.expiry !== null
-        ? String(object.expiry)
-        : '0';
-    message.fallbackAddr =
-      object.fallbackAddr !== undefined && object.fallbackAddr !== null
+        : new Uint8Array(),
+      expiry: isSet(object.expiry) ? String(object.expiry) : '0',
+      fallbackAddr: isSet(object.fallbackAddr)
         ? String(object.fallbackAddr)
-        : '';
-    message.cltvExpiry =
-      object.cltvExpiry !== undefined && object.cltvExpiry !== null
-        ? String(object.cltvExpiry)
-        : '0';
-    message.routeHints = (object.routeHints ?? []).map((e: any) =>
-      RouteHint.fromJSON(e),
-    );
-    message.private =
-      object.private !== undefined && object.private !== null
-        ? Boolean(object.private)
-        : false;
-    message.addIndex =
-      object.addIndex !== undefined && object.addIndex !== null
-        ? String(object.addIndex)
-        : '0';
-    message.settleIndex =
-      object.settleIndex !== undefined && object.settleIndex !== null
-        ? String(object.settleIndex)
-        : '0';
-    message.amtPaid =
-      object.amtPaid !== undefined && object.amtPaid !== null
-        ? String(object.amtPaid)
-        : '0';
-    message.amtPaidSat =
-      object.amtPaidSat !== undefined && object.amtPaidSat !== null
-        ? String(object.amtPaidSat)
-        : '0';
-    message.amtPaidMsat =
-      object.amtPaidMsat !== undefined && object.amtPaidMsat !== null
-        ? String(object.amtPaidMsat)
-        : '0';
-    message.state =
-      object.state !== undefined && object.state !== null
+        : '',
+      cltvExpiry: isSet(object.cltvExpiry) ? String(object.cltvExpiry) : '0',
+      routeHints: Array.isArray(object?.routeHints)
+        ? object.routeHints.map((e: any) => RouteHint.fromJSON(e))
+        : [],
+      private: isSet(object.private) ? Boolean(object.private) : false,
+      addIndex: isSet(object.addIndex) ? String(object.addIndex) : '0',
+      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : '0',
+      amtPaid: isSet(object.amtPaid) ? String(object.amtPaid) : '0',
+      amtPaidSat: isSet(object.amtPaidSat) ? String(object.amtPaidSat) : '0',
+      amtPaidMsat: isSet(object.amtPaidMsat) ? String(object.amtPaidMsat) : '0',
+      state: isSet(object.state)
         ? invoice_InvoiceStateFromJSON(object.state)
-        : 0;
-    message.htlcs = (object.htlcs ?? []).map((e: any) =>
-      InvoiceHTLC.fromJSON(e),
-    );
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
-      acc[Number(key)] = Feature.fromJSON(value);
-      return acc;
-    }, {});
-    message.isKeysend =
-      object.isKeysend !== undefined && object.isKeysend !== null
-        ? Boolean(object.isKeysend)
-        : false;
-    message.paymentAddr =
-      object.paymentAddr !== undefined && object.paymentAddr !== null
+        : 0,
+      htlcs: Array.isArray(object?.htlcs)
+        ? object.htlcs.map((e: any) => InvoiceHTLC.fromJSON(e))
+        : [],
+      features: isObject(object.features)
+        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
+            (acc, [key, value]) => {
+              acc[Number(key)] = Feature.fromJSON(value);
+              return acc;
+            },
+            {},
+          )
+        : {},
+      isKeysend: isSet(object.isKeysend) ? Boolean(object.isKeysend) : false,
+      paymentAddr: isSet(object.paymentAddr)
         ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array();
-    message.isAmp =
-      object.isAmp !== undefined && object.isAmp !== null
-        ? Boolean(object.isAmp)
-        : false;
-    message.ampInvoiceState = Object.entries(
-      object.ampInvoiceState ?? {},
-    ).reduce<Record<string, AMPInvoiceState>>((acc, [key, value]) => {
-      acc[key] = AMPInvoiceState.fromJSON(value);
-      return acc;
-    }, {});
-    return message;
+        : new Uint8Array(),
+      isAmp: isSet(object.isAmp) ? Boolean(object.isAmp) : false,
+      ampInvoiceState: isObject(object.ampInvoiceState)
+        ? Object.entries(object.ampInvoiceState).reduce<{
+            [key: string]: AMPInvoiceState;
+          }>((acc, [key, value]) => {
+            acc[key] = AMPInvoiceState.fromJSON(value);
+            return acc;
+          }, {})
+        : {},
+    };
   },
 
   toJSON(message: Invoice): unknown {
-    const object: any = {};
-    message.memo !== undefined && (object.memo = message.memo);
+    const obj: any = {};
+    message.memo !== undefined && (obj.memo = message.memo);
     message.rPreimage !== undefined &&
-      (object.rPreimage = base64FromBytes(
+      (obj.rPreimage = base64FromBytes(
         message.rPreimage !== undefined ? message.rPreimage : new Uint8Array(),
       ));
     message.rHash !== undefined &&
-      (object.rHash = base64FromBytes(
+      (obj.rHash = base64FromBytes(
         message.rHash !== undefined ? message.rHash : new Uint8Array(),
       ));
-    message.value !== undefined && (object.value = message.value);
-    message.valueMsat !== undefined && (object.valueMsat = message.valueMsat);
-    message.settled !== undefined && (object.settled = message.settled);
+    message.value !== undefined && (obj.value = message.value);
+    message.valueMsat !== undefined && (obj.valueMsat = message.valueMsat);
+    message.settled !== undefined && (obj.settled = message.settled);
     message.creationDate !== undefined &&
-      (object.creationDate = message.creationDate);
-    message.settleDate !== undefined &&
-      (object.settleDate = message.settleDate);
+      (obj.creationDate = message.creationDate);
+    message.settleDate !== undefined && (obj.settleDate = message.settleDate);
     message.paymentRequest !== undefined &&
-      (object.paymentRequest = message.paymentRequest);
+      (obj.paymentRequest = message.paymentRequest);
     message.descriptionHash !== undefined &&
-      (object.descriptionHash = base64FromBytes(
+      (obj.descriptionHash = base64FromBytes(
         message.descriptionHash !== undefined
           ? message.descriptionHash
           : new Uint8Array(),
       ));
-    message.expiry !== undefined && (object.expiry = message.expiry);
+    message.expiry !== undefined && (obj.expiry = message.expiry);
     message.fallbackAddr !== undefined &&
-      (object.fallbackAddr = message.fallbackAddr);
-    message.cltvExpiry !== undefined &&
-      (object.cltvExpiry = message.cltvExpiry);
+      (obj.fallbackAddr = message.fallbackAddr);
+    message.cltvExpiry !== undefined && (obj.cltvExpiry = message.cltvExpiry);
     if (message.routeHints) {
-      object.routeHints = message.routeHints.map((e) =>
+      obj.routeHints = message.routeHints.map((e) =>
         e ? RouteHint.toJSON(e) : undefined,
       );
     } else {
-      object.routeHints = [];
+      obj.routeHints = [];
     }
-
-    message.private !== undefined && (object.private = message.private);
-    message.addIndex !== undefined && (object.addIndex = message.addIndex);
+    message.private !== undefined && (obj.private = message.private);
+    message.addIndex !== undefined && (obj.addIndex = message.addIndex);
     message.settleIndex !== undefined &&
-      (object.settleIndex = message.settleIndex);
-    message.amtPaid !== undefined && (object.amtPaid = message.amtPaid);
-    message.amtPaidSat !== undefined &&
-      (object.amtPaidSat = message.amtPaidSat);
+      (obj.settleIndex = message.settleIndex);
+    message.amtPaid !== undefined && (obj.amtPaid = message.amtPaid);
+    message.amtPaidSat !== undefined && (obj.amtPaidSat = message.amtPaidSat);
     message.amtPaidMsat !== undefined &&
-      (object.amtPaidMsat = message.amtPaidMsat);
+      (obj.amtPaidMsat = message.amtPaidMsat);
     message.state !== undefined &&
-      (object.state = invoice_InvoiceStateToJSON(message.state));
+      (obj.state = invoice_InvoiceStateToJSON(message.state));
     if (message.htlcs) {
-      object.htlcs = message.htlcs.map((e) =>
+      obj.htlcs = message.htlcs.map((e) =>
         e ? InvoiceHTLC.toJSON(e) : undefined,
       );
     } else {
-      object.htlcs = [];
+      obj.htlcs = [];
     }
-
-    object.features = {};
+    obj.features = {};
     if (message.features) {
-      for (const [k, v] of Object.entries(message.features)) {
-        object.features[k] = Feature.toJSON(v);
-      }
+      Object.entries(message.features).forEach(([k, v]) => {
+        obj.features[k] = Feature.toJSON(v);
+      });
     }
-
-    message.isKeysend !== undefined && (object.isKeysend = message.isKeysend);
+    message.isKeysend !== undefined && (obj.isKeysend = message.isKeysend);
     message.paymentAddr !== undefined &&
-      (object.paymentAddr = base64FromBytes(
+      (obj.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
           : new Uint8Array(),
       ));
-    message.isAmp !== undefined && (object.isAmp = message.isAmp);
-    object.ampInvoiceState = {};
+    message.isAmp !== undefined && (obj.isAmp = message.isAmp);
+    obj.ampInvoiceState = {};
     if (message.ampInvoiceState) {
-      for (const [k, v] of Object.entries(message.ampInvoiceState)) {
-        object.ampInvoiceState[k] = AMPInvoiceState.toJSON(v);
-      }
+      Object.entries(message.ampInvoiceState).forEach(([k, v]) => {
+        obj.ampInvoiceState[k] = AMPInvoiceState.toJSON(v);
+      });
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Invoice>): Invoice {
@@ -20179,13 +18759,12 @@ export const Invoice = {
     message.amtPaidMsat = object.amtPaidMsat ?? '0';
     message.state = object.state ?? 0;
     message.htlcs = object.htlcs?.map((e) => InvoiceHTLC.fromPartial(e)) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{
+      [key: number]: Feature;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
-
       return acc;
     }, {});
     message.isKeysend = object.isKeysend ?? false;
@@ -20193,11 +18772,10 @@ export const Invoice = {
     message.isAmp = object.isAmp ?? false;
     message.ampInvoiceState = Object.entries(
       object.ampInvoiceState ?? {},
-    ).reduce<Record<string, AMPInvoiceState>>((acc, [key, value]) => {
+    ).reduce<{[key: string]: AMPInvoiceState}>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = AMPInvoiceState.fromPartial(value);
       }
-
       return acc;
     }, {});
     return message;
@@ -20216,11 +18794,9 @@ export const Invoice_FeaturesEntry = {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
-
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -20229,7 +18805,7 @@ export const Invoice_FeaturesEntry = {
     length?: number,
   ): Invoice_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoice_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20245,29 +18821,22 @@ export const Invoice_FeaturesEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Invoice_FeaturesEntry {
-    const message = createBaseInvoice_FeaturesEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? Number(object.key) : 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromJSON(object.value)
-        : undefined;
-    return message;
+    return {
+      key: isSet(object.key) ? Number(object.key) : 0,
+      value: isSet(object.value) ? Feature.fromJSON(object.value) : undefined,
+    };
   },
 
   toJSON(message: Invoice_FeaturesEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = Math.round(message.key));
+    const obj: any = {};
+    message.key !== undefined && (obj.key = Math.round(message.key));
     message.value !== undefined &&
-      (object.value = message.value
-        ? Feature.toJSON(message.value)
-        : undefined);
-    return object;
+      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    return obj;
   },
 
   fromPartial(
@@ -20295,11 +18864,9 @@ export const Invoice_AmpInvoiceStateEntry = {
     if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-
     if (message.value !== undefined) {
       AMPInvoiceState.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -20308,7 +18875,7 @@ export const Invoice_AmpInvoiceStateEntry = {
     length?: number,
   ): Invoice_AmpInvoiceStateEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoice_AmpInvoiceStateEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20324,29 +18891,26 @@ export const Invoice_AmpInvoiceStateEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Invoice_AmpInvoiceStateEntry {
-    const message = createBaseInvoice_AmpInvoiceStateEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : '';
-    message.value =
-      object.value !== undefined && object.value !== null
+    return {
+      key: isSet(object.key) ? String(object.key) : '',
+      value: isSet(object.value)
         ? AMPInvoiceState.fromJSON(object.value)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: Invoice_AmpInvoiceStateEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (object.value = message.value
+      (obj.value = message.value
         ? AMPInvoiceState.toJSON(message.value)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -20386,56 +18950,45 @@ export const InvoiceHTLC = {
     if (message.chanId !== '0') {
       writer.uint32(8).uint64(message.chanId);
     }
-
     if (message.htlcIndex !== '0') {
       writer.uint32(16).uint64(message.htlcIndex);
     }
-
     if (message.amtMsat !== '0') {
       writer.uint32(24).uint64(message.amtMsat);
     }
-
     if (message.acceptHeight !== 0) {
       writer.uint32(32).int32(message.acceptHeight);
     }
-
     if (message.acceptTime !== '0') {
       writer.uint32(40).int64(message.acceptTime);
     }
-
     if (message.resolveTime !== '0') {
       writer.uint32(48).int64(message.resolveTime);
     }
-
     if (message.expiryHeight !== 0) {
       writer.uint32(56).int32(message.expiryHeight);
     }
-
     if (message.state !== 0) {
       writer.uint32(64).int32(message.state);
     }
-
-    for (const [key, value] of Object.entries(message.customRecords)) {
+    Object.entries(message.customRecords).forEach(([key, value]) => {
       InvoiceHTLC_CustomRecordsEntry.encode(
         {key: key as any, value},
         writer.uint32(74).fork(),
       ).ldelim();
-    }
-
+    });
     if (message.mppTotalAmtMsat !== '0') {
       writer.uint32(80).uint64(message.mppTotalAmtMsat);
     }
-
     if (message.amp !== undefined) {
       AMP.encode(message.amp, writer.uint32(90).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InvoiceHTLC {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoiceHTLC();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20472,7 +19025,6 @@ export const InvoiceHTLC = {
           if (entry9.value !== undefined) {
             message.customRecords[entry9.key] = entry9.value;
           }
-
           break;
         case 10:
           message.mppTotalAmtMsat = longToString(reader.uint64() as Long);
@@ -20485,88 +19037,63 @@ export const InvoiceHTLC = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): InvoiceHTLC {
-    const message = createBaseInvoiceHTLC();
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.htlcIndex =
-      object.htlcIndex !== undefined && object.htlcIndex !== null
-        ? String(object.htlcIndex)
-        : '0';
-    message.amtMsat =
-      object.amtMsat !== undefined && object.amtMsat !== null
-        ? String(object.amtMsat)
-        : '0';
-    message.acceptHeight =
-      object.acceptHeight !== undefined && object.acceptHeight !== null
+    return {
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      htlcIndex: isSet(object.htlcIndex) ? String(object.htlcIndex) : '0',
+      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : '0',
+      acceptHeight: isSet(object.acceptHeight)
         ? Number(object.acceptHeight)
-        : 0;
-    message.acceptTime =
-      object.acceptTime !== undefined && object.acceptTime !== null
-        ? String(object.acceptTime)
-        : '0';
-    message.resolveTime =
-      object.resolveTime !== undefined && object.resolveTime !== null
-        ? String(object.resolveTime)
-        : '0';
-    message.expiryHeight =
-      object.expiryHeight !== undefined && object.expiryHeight !== null
+        : 0,
+      acceptTime: isSet(object.acceptTime) ? String(object.acceptTime) : '0',
+      resolveTime: isSet(object.resolveTime) ? String(object.resolveTime) : '0',
+      expiryHeight: isSet(object.expiryHeight)
         ? Number(object.expiryHeight)
-        : 0;
-    message.state =
-      object.state !== undefined && object.state !== null
-        ? invoiceHTLCStateFromJSON(object.state)
-        : 0;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<
-      Record<string, Uint8Array>
-    >((acc, [key, value]) => {
-      acc[key] = bytesFromBase64(value as string);
-      return acc;
-    }, {});
-    message.mppTotalAmtMsat =
-      object.mppTotalAmtMsat !== undefined && object.mppTotalAmtMsat !== null
+        : 0,
+      state: isSet(object.state) ? invoiceHTLCStateFromJSON(object.state) : 0,
+      customRecords: isObject(object.customRecords)
+        ? Object.entries(object.customRecords).reduce<{
+            [key: string]: Uint8Array;
+          }>((acc, [key, value]) => {
+            acc[key] = bytesFromBase64(value as string);
+            return acc;
+          }, {})
+        : {},
+      mppTotalAmtMsat: isSet(object.mppTotalAmtMsat)
         ? String(object.mppTotalAmtMsat)
-        : '0';
-    message.amp =
-      object.amp !== undefined && object.amp !== null
-        ? AMP.fromJSON(object.amp)
-        : undefined;
-    return message;
+        : '0',
+      amp: isSet(object.amp) ? AMP.fromJSON(object.amp) : undefined,
+    };
   },
 
   toJSON(message: InvoiceHTLC): unknown {
-    const object: any = {};
-    message.chanId !== undefined && (object.chanId = message.chanId);
-    message.htlcIndex !== undefined && (object.htlcIndex = message.htlcIndex);
-    message.amtMsat !== undefined && (object.amtMsat = message.amtMsat);
+    const obj: any = {};
+    message.chanId !== undefined && (obj.chanId = message.chanId);
+    message.htlcIndex !== undefined && (obj.htlcIndex = message.htlcIndex);
+    message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
     message.acceptHeight !== undefined &&
-      (object.acceptHeight = Math.round(message.acceptHeight));
-    message.acceptTime !== undefined &&
-      (object.acceptTime = message.acceptTime);
+      (obj.acceptHeight = Math.round(message.acceptHeight));
+    message.acceptTime !== undefined && (obj.acceptTime = message.acceptTime);
     message.resolveTime !== undefined &&
-      (object.resolveTime = message.resolveTime);
+      (obj.resolveTime = message.resolveTime);
     message.expiryHeight !== undefined &&
-      (object.expiryHeight = Math.round(message.expiryHeight));
+      (obj.expiryHeight = Math.round(message.expiryHeight));
     message.state !== undefined &&
-      (object.state = invoiceHTLCStateToJSON(message.state));
-    object.customRecords = {};
+      (obj.state = invoiceHTLCStateToJSON(message.state));
+    obj.customRecords = {};
     if (message.customRecords) {
-      for (const [k, v] of Object.entries(message.customRecords)) {
-        object.customRecords[k] = base64FromBytes(v);
-      }
+      Object.entries(message.customRecords).forEach(([k, v]) => {
+        obj.customRecords[k] = base64FromBytes(v);
+      });
     }
-
     message.mppTotalAmtMsat !== undefined &&
-      (object.mppTotalAmtMsat = message.mppTotalAmtMsat);
+      (obj.mppTotalAmtMsat = message.mppTotalAmtMsat);
     message.amp !== undefined &&
-      (object.amp = message.amp ? AMP.toJSON(message.amp) : undefined);
-    return object;
+      (obj.amp = message.amp ? AMP.toJSON(message.amp) : undefined);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<InvoiceHTLC>): InvoiceHTLC {
@@ -20579,13 +19106,12 @@ export const InvoiceHTLC = {
     message.resolveTime = object.resolveTime ?? '0';
     message.expiryHeight = object.expiryHeight ?? 0;
     message.state = object.state ?? 0;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<
-      Record<string, Uint8Array>
-    >((acc, [key, value]) => {
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{
+      [key: string]: Uint8Array;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = value;
       }
-
       return acc;
     }, {});
     message.mppTotalAmtMsat = object.mppTotalAmtMsat ?? '0';
@@ -20609,11 +19135,9 @@ export const InvoiceHTLC_CustomRecordsEntry = {
     if (message.key !== '0') {
       writer.uint32(8).uint64(message.key);
     }
-
-    if (message.value.length > 0) {
+    if (message.value.length !== 0) {
       writer.uint32(18).bytes(message.value);
     }
-
     return writer;
   },
 
@@ -20622,7 +19146,7 @@ export const InvoiceHTLC_CustomRecordsEntry = {
     length?: number,
   ): InvoiceHTLC_CustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoiceHTLC_CustomRecordsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20638,31 +19162,26 @@ export const InvoiceHTLC_CustomRecordsEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): InvoiceHTLC_CustomRecordsEntry {
-    const message = createBaseInvoiceHTLC_CustomRecordsEntry();
-    message.key =
-      object.key !== undefined && object.key !== null
-        ? String(object.key)
-        : '0';
-    message.value =
-      object.value !== undefined && object.value !== null
+    return {
+      key: isSet(object.key) ? String(object.key) : '0',
+      value: isSet(object.value)
         ? bytesFromBase64(object.value)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: InvoiceHTLC_CustomRecordsEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (object.value = base64FromBytes(
+      (obj.value = base64FromBytes(
         message.value !== undefined ? message.value : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -20687,32 +19206,27 @@ function createBaseAMP(): AMP {
 
 export const AMP = {
   encode(message: AMP, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.rootShare.length > 0) {
+    if (message.rootShare.length !== 0) {
       writer.uint32(10).bytes(message.rootShare);
     }
-
-    if (message.setId.length > 0) {
+    if (message.setId.length !== 0) {
       writer.uint32(18).bytes(message.setId);
     }
-
     if (message.childIndex !== 0) {
       writer.uint32(24).uint32(message.childIndex);
     }
-
-    if (message.hash.length > 0) {
+    if (message.hash.length !== 0) {
       writer.uint32(34).bytes(message.hash);
     }
-
-    if (message.preimage.length > 0) {
+    if (message.preimage.length !== 0) {
       writer.uint32(42).bytes(message.preimage);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AMP {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAMP();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20737,56 +19251,48 @@ export const AMP = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): AMP {
-    const message = createBaseAMP();
-    message.rootShare =
-      object.rootShare !== undefined && object.rootShare !== null
+    return {
+      rootShare: isSet(object.rootShare)
         ? bytesFromBase64(object.rootShare)
-        : new Uint8Array();
-    message.setId =
-      object.setId !== undefined && object.setId !== null
+        : new Uint8Array(),
+      setId: isSet(object.setId)
         ? bytesFromBase64(object.setId)
-        : new Uint8Array();
-    message.childIndex =
-      object.childIndex !== undefined && object.childIndex !== null
-        ? Number(object.childIndex)
-        : 0;
-    message.hash =
-      object.hash !== undefined && object.hash !== null
+        : new Uint8Array(),
+      childIndex: isSet(object.childIndex) ? Number(object.childIndex) : 0,
+      hash: isSet(object.hash)
         ? bytesFromBase64(object.hash)
-        : new Uint8Array();
-    message.preimage =
-      object.preimage !== undefined && object.preimage !== null
+        : new Uint8Array(),
+      preimage: isSet(object.preimage)
         ? bytesFromBase64(object.preimage)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: AMP): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.rootShare !== undefined &&
-      (object.rootShare = base64FromBytes(
+      (obj.rootShare = base64FromBytes(
         message.rootShare !== undefined ? message.rootShare : new Uint8Array(),
       ));
     message.setId !== undefined &&
-      (object.setId = base64FromBytes(
+      (obj.setId = base64FromBytes(
         message.setId !== undefined ? message.setId : new Uint8Array(),
       ));
     message.childIndex !== undefined &&
-      (object.childIndex = Math.round(message.childIndex));
+      (obj.childIndex = Math.round(message.childIndex));
     message.hash !== undefined &&
-      (object.hash = base64FromBytes(
+      (obj.hash = base64FromBytes(
         message.hash !== undefined ? message.hash : new Uint8Array(),
       ));
     message.preimage !== undefined &&
-      (object.preimage = base64FromBytes(
+      (obj.preimage = base64FromBytes(
         message.preimage !== undefined ? message.preimage : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<AMP>): AMP {
@@ -20814,28 +19320,24 @@ export const AddInvoiceResponse = {
     message: AddInvoiceResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.rHash.length > 0) {
+    if (message.rHash.length !== 0) {
       writer.uint32(10).bytes(message.rHash);
     }
-
     if (message.paymentRequest !== '') {
       writer.uint32(18).string(message.paymentRequest);
     }
-
     if (message.addIndex !== '0') {
       writer.uint32(128).uint64(message.addIndex);
     }
-
-    if (message.paymentAddr.length > 0) {
+    if (message.paymentAddr.length !== 0) {
       writer.uint32(138).bytes(message.paymentAddr);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): AddInvoiceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAddInvoiceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20857,47 +19359,40 @@ export const AddInvoiceResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): AddInvoiceResponse {
-    const message = createBaseAddInvoiceResponse();
-    message.rHash =
-      object.rHash !== undefined && object.rHash !== null
+    return {
+      rHash: isSet(object.rHash)
         ? bytesFromBase64(object.rHash)
-        : new Uint8Array();
-    message.paymentRequest =
-      object.paymentRequest !== undefined && object.paymentRequest !== null
+        : new Uint8Array(),
+      paymentRequest: isSet(object.paymentRequest)
         ? String(object.paymentRequest)
-        : '';
-    message.addIndex =
-      object.addIndex !== undefined && object.addIndex !== null
-        ? String(object.addIndex)
-        : '0';
-    message.paymentAddr =
-      object.paymentAddr !== undefined && object.paymentAddr !== null
+        : '',
+      addIndex: isSet(object.addIndex) ? String(object.addIndex) : '0',
+      paymentAddr: isSet(object.paymentAddr)
         ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: AddInvoiceResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.rHash !== undefined &&
-      (object.rHash = base64FromBytes(
+      (obj.rHash = base64FromBytes(
         message.rHash !== undefined ? message.rHash : new Uint8Array(),
       ));
     message.paymentRequest !== undefined &&
-      (object.paymentRequest = message.paymentRequest);
-    message.addIndex !== undefined && (object.addIndex = message.addIndex);
+      (obj.paymentRequest = message.paymentRequest);
+    message.addIndex !== undefined && (obj.addIndex = message.addIndex);
     message.paymentAddr !== undefined &&
-      (object.paymentAddr = base64FromBytes(
+      (obj.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<AddInvoiceResponse>): AddInvoiceResponse {
@@ -20922,17 +19417,15 @@ export const PaymentHash = {
     if (message.rHashStr !== '') {
       writer.uint32(10).string(message.rHashStr);
     }
-
-    if (message.rHash.length > 0) {
+    if (message.rHash.length !== 0) {
       writer.uint32(18).bytes(message.rHash);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PaymentHash {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePaymentHash();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -20948,31 +19441,26 @@ export const PaymentHash = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PaymentHash {
-    const message = createBasePaymentHash();
-    message.rHashStr =
-      object.rHashStr !== undefined && object.rHashStr !== null
-        ? String(object.rHashStr)
-        : '';
-    message.rHash =
-      object.rHash !== undefined && object.rHash !== null
+    return {
+      rHashStr: isSet(object.rHashStr) ? String(object.rHashStr) : '',
+      rHash: isSet(object.rHash)
         ? bytesFromBase64(object.rHash)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: PaymentHash): unknown {
-    const object: any = {};
-    message.rHashStr !== undefined && (object.rHashStr = message.rHashStr);
+    const obj: any = {};
+    message.rHashStr !== undefined && (obj.rHashStr = message.rHashStr);
     message.rHash !== undefined &&
-      (object.rHash = base64FromBytes(
+      (obj.rHash = base64FromBytes(
         message.rHash !== undefined ? message.rHash : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PaymentHash>): PaymentHash {
@@ -20997,28 +19485,24 @@ export const ListInvoiceRequest = {
     message: ListInvoiceRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.pendingOnly) {
+    if (message.pendingOnly === true) {
       writer.uint32(8).bool(message.pendingOnly);
     }
-
     if (message.indexOffset !== '0') {
       writer.uint32(32).uint64(message.indexOffset);
     }
-
     if (message.numMaxInvoices !== '0') {
       writer.uint32(40).uint64(message.numMaxInvoices);
     }
-
-    if (message.reversed) {
+    if (message.reversed === true) {
       writer.uint32(48).bool(message.reversed);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListInvoiceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListInvoiceRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21040,41 +19524,32 @@ export const ListInvoiceRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListInvoiceRequest {
-    const message = createBaseListInvoiceRequest();
-    message.pendingOnly =
-      object.pendingOnly !== undefined && object.pendingOnly !== null
+    return {
+      pendingOnly: isSet(object.pendingOnly)
         ? Boolean(object.pendingOnly)
-        : false;
-    message.indexOffset =
-      object.indexOffset !== undefined && object.indexOffset !== null
-        ? String(object.indexOffset)
-        : '0';
-    message.numMaxInvoices =
-      object.numMaxInvoices !== undefined && object.numMaxInvoices !== null
+        : false,
+      indexOffset: isSet(object.indexOffset) ? String(object.indexOffset) : '0',
+      numMaxInvoices: isSet(object.numMaxInvoices)
         ? String(object.numMaxInvoices)
-        : '0';
-    message.reversed =
-      object.reversed !== undefined && object.reversed !== null
-        ? Boolean(object.reversed)
-        : false;
-    return message;
+        : '0',
+      reversed: isSet(object.reversed) ? Boolean(object.reversed) : false,
+    };
   },
 
   toJSON(message: ListInvoiceRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.pendingOnly !== undefined &&
-      (object.pendingOnly = message.pendingOnly);
+      (obj.pendingOnly = message.pendingOnly);
     message.indexOffset !== undefined &&
-      (object.indexOffset = message.indexOffset);
+      (obj.indexOffset = message.indexOffset);
     message.numMaxInvoices !== undefined &&
-      (object.numMaxInvoices = message.numMaxInvoices);
-    message.reversed !== undefined && (object.reversed = message.reversed);
-    return object;
+      (obj.numMaxInvoices = message.numMaxInvoices);
+    message.reversed !== undefined && (obj.reversed = message.reversed);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListInvoiceRequest>): ListInvoiceRequest {
@@ -21097,23 +19572,20 @@ export const ListInvoiceResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.invoices) {
-      Invoice.encode(v, writer.uint32(10).fork()).ldelim();
+      Invoice.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.lastIndexOffset !== '0') {
       writer.uint32(16).uint64(message.lastIndexOffset);
     }
-
     if (message.firstIndexOffset !== '0') {
       writer.uint32(24).uint64(message.firstIndexOffset);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListInvoiceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListInvoiceResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21132,41 +19604,37 @@ export const ListInvoiceResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListInvoiceResponse {
-    const message = createBaseListInvoiceResponse();
-    message.invoices = (object.invoices ?? []).map((e: any) =>
-      Invoice.fromJSON(e),
-    );
-    message.lastIndexOffset =
-      object.lastIndexOffset !== undefined && object.lastIndexOffset !== null
+    return {
+      invoices: Array.isArray(object?.invoices)
+        ? object.invoices.map((e: any) => Invoice.fromJSON(e))
+        : [],
+      lastIndexOffset: isSet(object.lastIndexOffset)
         ? String(object.lastIndexOffset)
-        : '0';
-    message.firstIndexOffset =
-      object.firstIndexOffset !== undefined && object.firstIndexOffset !== null
+        : '0',
+      firstIndexOffset: isSet(object.firstIndexOffset)
         ? String(object.firstIndexOffset)
-        : '0';
-    return message;
+        : '0',
+    };
   },
 
   toJSON(message: ListInvoiceResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.invoices) {
-      object.invoices = message.invoices.map((e) =>
+      obj.invoices = message.invoices.map((e) =>
         e ? Invoice.toJSON(e) : undefined,
       );
     } else {
-      object.invoices = [];
+      obj.invoices = [];
     }
-
     message.lastIndexOffset !== undefined &&
-      (object.lastIndexOffset = message.lastIndexOffset);
+      (obj.lastIndexOffset = message.lastIndexOffset);
     message.firstIndexOffset !== undefined &&
-      (object.firstIndexOffset = message.firstIndexOffset);
-    return object;
+      (obj.firstIndexOffset = message.firstIndexOffset);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListInvoiceResponse>): ListInvoiceResponse {
@@ -21191,17 +19659,15 @@ export const InvoiceSubscription = {
     if (message.addIndex !== '0') {
       writer.uint32(8).uint64(message.addIndex);
     }
-
     if (message.settleIndex !== '0') {
       writer.uint32(16).uint64(message.settleIndex);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InvoiceSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoiceSubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21217,29 +19683,22 @@ export const InvoiceSubscription = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): InvoiceSubscription {
-    const message = createBaseInvoiceSubscription();
-    message.addIndex =
-      object.addIndex !== undefined && object.addIndex !== null
-        ? String(object.addIndex)
-        : '0';
-    message.settleIndex =
-      object.settleIndex !== undefined && object.settleIndex !== null
-        ? String(object.settleIndex)
-        : '0';
-    return message;
+    return {
+      addIndex: isSet(object.addIndex) ? String(object.addIndex) : '0',
+      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : '0',
+    };
   },
 
   toJSON(message: InvoiceSubscription): unknown {
-    const object: any = {};
-    message.addIndex !== undefined && (object.addIndex = message.addIndex);
+    const obj: any = {};
+    message.addIndex !== undefined && (obj.addIndex = message.addIndex);
     message.settleIndex !== undefined &&
-      (object.settleIndex = message.settleIndex);
-    return object;
+      (obj.settleIndex = message.settleIndex);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<InvoiceSubscription>): InvoiceSubscription {
@@ -21278,69 +19737,54 @@ export const Payment = {
     if (message.paymentHash !== '') {
       writer.uint32(10).string(message.paymentHash);
     }
-
     if (message.value !== '0') {
       writer.uint32(16).int64(message.value);
     }
-
     if (message.creationDate !== '0') {
       writer.uint32(24).int64(message.creationDate);
     }
-
     if (message.fee !== '0') {
       writer.uint32(40).int64(message.fee);
     }
-
     if (message.paymentPreimage !== '') {
       writer.uint32(50).string(message.paymentPreimage);
     }
-
     if (message.valueSat !== '0') {
       writer.uint32(56).int64(message.valueSat);
     }
-
     if (message.valueMsat !== '0') {
       writer.uint32(64).int64(message.valueMsat);
     }
-
     if (message.paymentRequest !== '') {
       writer.uint32(74).string(message.paymentRequest);
     }
-
     if (message.status !== 0) {
       writer.uint32(80).int32(message.status);
     }
-
     if (message.feeSat !== '0') {
       writer.uint32(88).int64(message.feeSat);
     }
-
     if (message.feeMsat !== '0') {
       writer.uint32(96).int64(message.feeMsat);
     }
-
     if (message.creationTimeNs !== '0') {
       writer.uint32(104).int64(message.creationTimeNs);
     }
-
     for (const v of message.htlcs) {
-      HTLCAttempt.encode(v, writer.uint32(114).fork()).ldelim();
+      HTLCAttempt.encode(v!, writer.uint32(114).fork()).ldelim();
     }
-
     if (message.paymentIndex !== '0') {
       writer.uint32(120).uint64(message.paymentIndex);
     }
-
     if (message.failureReason !== 0) {
       writer.uint32(128).int32(message.failureReason);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Payment {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePayment();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21395,109 +19839,77 @@ export const Payment = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Payment {
-    const message = createBasePayment();
-    message.paymentHash =
-      object.paymentHash !== undefined && object.paymentHash !== null
-        ? String(object.paymentHash)
-        : '';
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? String(object.value)
-        : '0';
-    message.creationDate =
-      object.creationDate !== undefined && object.creationDate !== null
+    return {
+      paymentHash: isSet(object.paymentHash) ? String(object.paymentHash) : '',
+      value: isSet(object.value) ? String(object.value) : '0',
+      creationDate: isSet(object.creationDate)
         ? String(object.creationDate)
-        : '0';
-    message.fee =
-      object.fee !== undefined && object.fee !== null
-        ? String(object.fee)
-        : '0';
-    message.paymentPreimage =
-      object.paymentPreimage !== undefined && object.paymentPreimage !== null
+        : '0',
+      fee: isSet(object.fee) ? String(object.fee) : '0',
+      paymentPreimage: isSet(object.paymentPreimage)
         ? String(object.paymentPreimage)
-        : '';
-    message.valueSat =
-      object.valueSat !== undefined && object.valueSat !== null
-        ? String(object.valueSat)
-        : '0';
-    message.valueMsat =
-      object.valueMsat !== undefined && object.valueMsat !== null
-        ? String(object.valueMsat)
-        : '0';
-    message.paymentRequest =
-      object.paymentRequest !== undefined && object.paymentRequest !== null
+        : '',
+      valueSat: isSet(object.valueSat) ? String(object.valueSat) : '0',
+      valueMsat: isSet(object.valueMsat) ? String(object.valueMsat) : '0',
+      paymentRequest: isSet(object.paymentRequest)
         ? String(object.paymentRequest)
-        : '';
-    message.status =
-      object.status !== undefined && object.status !== null
+        : '',
+      status: isSet(object.status)
         ? payment_PaymentStatusFromJSON(object.status)
-        : 0;
-    message.feeSat =
-      object.feeSat !== undefined && object.feeSat !== null
-        ? String(object.feeSat)
-        : '0';
-    message.feeMsat =
-      object.feeMsat !== undefined && object.feeMsat !== null
-        ? String(object.feeMsat)
-        : '0';
-    message.creationTimeNs =
-      object.creationTimeNs !== undefined && object.creationTimeNs !== null
+        : 0,
+      feeSat: isSet(object.feeSat) ? String(object.feeSat) : '0',
+      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : '0',
+      creationTimeNs: isSet(object.creationTimeNs)
         ? String(object.creationTimeNs)
-        : '0';
-    message.htlcs = (object.htlcs ?? []).map((e: any) =>
-      HTLCAttempt.fromJSON(e),
-    );
-    message.paymentIndex =
-      object.paymentIndex !== undefined && object.paymentIndex !== null
+        : '0',
+      htlcs: Array.isArray(object?.htlcs)
+        ? object.htlcs.map((e: any) => HTLCAttempt.fromJSON(e))
+        : [],
+      paymentIndex: isSet(object.paymentIndex)
         ? String(object.paymentIndex)
-        : '0';
-    message.failureReason =
-      object.failureReason !== undefined && object.failureReason !== null
+        : '0',
+      failureReason: isSet(object.failureReason)
         ? paymentFailureReasonFromJSON(object.failureReason)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: Payment): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.paymentHash !== undefined &&
-      (object.paymentHash = message.paymentHash);
-    message.value !== undefined && (object.value = message.value);
+      (obj.paymentHash = message.paymentHash);
+    message.value !== undefined && (obj.value = message.value);
     message.creationDate !== undefined &&
-      (object.creationDate = message.creationDate);
-    message.fee !== undefined && (object.fee = message.fee);
+      (obj.creationDate = message.creationDate);
+    message.fee !== undefined && (obj.fee = message.fee);
     message.paymentPreimage !== undefined &&
-      (object.paymentPreimage = message.paymentPreimage);
-    message.valueSat !== undefined && (object.valueSat = message.valueSat);
-    message.valueMsat !== undefined && (object.valueMsat = message.valueMsat);
+      (obj.paymentPreimage = message.paymentPreimage);
+    message.valueSat !== undefined && (obj.valueSat = message.valueSat);
+    message.valueMsat !== undefined && (obj.valueMsat = message.valueMsat);
     message.paymentRequest !== undefined &&
-      (object.paymentRequest = message.paymentRequest);
+      (obj.paymentRequest = message.paymentRequest);
     message.status !== undefined &&
-      (object.status = payment_PaymentStatusToJSON(message.status));
-    message.feeSat !== undefined && (object.feeSat = message.feeSat);
-    message.feeMsat !== undefined && (object.feeMsat = message.feeMsat);
+      (obj.status = payment_PaymentStatusToJSON(message.status));
+    message.feeSat !== undefined && (obj.feeSat = message.feeSat);
+    message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
     message.creationTimeNs !== undefined &&
-      (object.creationTimeNs = message.creationTimeNs);
+      (obj.creationTimeNs = message.creationTimeNs);
     if (message.htlcs) {
-      object.htlcs = message.htlcs.map((e) =>
+      obj.htlcs = message.htlcs.map((e) =>
         e ? HTLCAttempt.toJSON(e) : undefined,
       );
     } else {
-      object.htlcs = [];
+      obj.htlcs = [];
     }
-
     message.paymentIndex !== undefined &&
-      (object.paymentIndex = message.paymentIndex);
+      (obj.paymentIndex = message.paymentIndex);
     message.failureReason !== undefined &&
-      (object.failureReason = paymentFailureReasonToJSON(
-        message.failureReason,
-      ));
-    return object;
+      (obj.failureReason = paymentFailureReasonToJSON(message.failureReason));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Payment>): Payment {
@@ -21541,37 +19953,30 @@ export const HTLCAttempt = {
     if (message.attemptId !== '0') {
       writer.uint32(56).uint64(message.attemptId);
     }
-
     if (message.status !== 0) {
       writer.uint32(8).int32(message.status);
     }
-
     if (message.route !== undefined) {
       Route.encode(message.route, writer.uint32(18).fork()).ldelim();
     }
-
     if (message.attemptTimeNs !== '0') {
       writer.uint32(24).int64(message.attemptTimeNs);
     }
-
     if (message.resolveTimeNs !== '0') {
       writer.uint32(32).int64(message.resolveTimeNs);
     }
-
     if (message.failure !== undefined) {
       Failure.encode(message.failure, writer.uint32(42).fork()).ldelim();
     }
-
-    if (message.preimage.length > 0) {
+    if (message.preimage.length !== 0) {
       writer.uint32(50).bytes(message.preimage);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): HTLCAttempt {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHTLCAttempt();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21602,63 +20007,51 @@ export const HTLCAttempt = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): HTLCAttempt {
-    const message = createBaseHTLCAttempt();
-    message.attemptId =
-      object.attemptId !== undefined && object.attemptId !== null
-        ? String(object.attemptId)
-        : '0';
-    message.status =
-      object.status !== undefined && object.status !== null
+    return {
+      attemptId: isSet(object.attemptId) ? String(object.attemptId) : '0',
+      status: isSet(object.status)
         ? hTLCAttempt_HTLCStatusFromJSON(object.status)
-        : 0;
-    message.route =
-      object.route !== undefined && object.route !== null
-        ? Route.fromJSON(object.route)
-        : undefined;
-    message.attemptTimeNs =
-      object.attemptTimeNs !== undefined && object.attemptTimeNs !== null
+        : 0,
+      route: isSet(object.route) ? Route.fromJSON(object.route) : undefined,
+      attemptTimeNs: isSet(object.attemptTimeNs)
         ? String(object.attemptTimeNs)
-        : '0';
-    message.resolveTimeNs =
-      object.resolveTimeNs !== undefined && object.resolveTimeNs !== null
+        : '0',
+      resolveTimeNs: isSet(object.resolveTimeNs)
         ? String(object.resolveTimeNs)
-        : '0';
-    message.failure =
-      object.failure !== undefined && object.failure !== null
+        : '0',
+      failure: isSet(object.failure)
         ? Failure.fromJSON(object.failure)
-        : undefined;
-    message.preimage =
-      object.preimage !== undefined && object.preimage !== null
+        : undefined,
+      preimage: isSet(object.preimage)
         ? bytesFromBase64(object.preimage)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: HTLCAttempt): unknown {
-    const object: any = {};
-    message.attemptId !== undefined && (object.attemptId = message.attemptId);
+    const obj: any = {};
+    message.attemptId !== undefined && (obj.attemptId = message.attemptId);
     message.status !== undefined &&
-      (object.status = hTLCAttempt_HTLCStatusToJSON(message.status));
+      (obj.status = hTLCAttempt_HTLCStatusToJSON(message.status));
     message.route !== undefined &&
-      (object.route = message.route ? Route.toJSON(message.route) : undefined);
+      (obj.route = message.route ? Route.toJSON(message.route) : undefined);
     message.attemptTimeNs !== undefined &&
-      (object.attemptTimeNs = message.attemptTimeNs);
+      (obj.attemptTimeNs = message.attemptTimeNs);
     message.resolveTimeNs !== undefined &&
-      (object.resolveTimeNs = message.resolveTimeNs);
+      (obj.resolveTimeNs = message.resolveTimeNs);
     message.failure !== undefined &&
-      (object.failure = message.failure
+      (obj.failure = message.failure
         ? Failure.toJSON(message.failure)
         : undefined);
     message.preimage !== undefined &&
-      (object.preimage = base64FromBytes(
+      (obj.preimage = base64FromBytes(
         message.preimage !== undefined ? message.preimage : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<HTLCAttempt>): HTLCAttempt {
@@ -21686,6 +20079,7 @@ function createBaseListPaymentsRequest(): ListPaymentsRequest {
     indexOffset: '0',
     maxPayments: '0',
     reversed: false,
+    countTotalPayments: false,
   };
 }
 
@@ -21694,28 +20088,27 @@ export const ListPaymentsRequest = {
     message: ListPaymentsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.includeIncomplete) {
+    if (message.includeIncomplete === true) {
       writer.uint32(8).bool(message.includeIncomplete);
     }
-
     if (message.indexOffset !== '0') {
       writer.uint32(16).uint64(message.indexOffset);
     }
-
     if (message.maxPayments !== '0') {
       writer.uint32(24).uint64(message.maxPayments);
     }
-
-    if (message.reversed) {
+    if (message.reversed === true) {
       writer.uint32(32).bool(message.reversed);
     }
-
+    if (message.countTotalPayments === true) {
+      writer.uint32(40).bool(message.countTotalPayments);
+    }
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ListPaymentsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPaymentsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21732,47 +20125,43 @@ export const ListPaymentsRequest = {
         case 4:
           message.reversed = reader.bool();
           break;
+        case 5:
+          message.countTotalPayments = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListPaymentsRequest {
-    const message = createBaseListPaymentsRequest();
-    message.includeIncomplete =
-      object.includeIncomplete !== undefined &&
-      object.includeIncomplete !== null
+    return {
+      includeIncomplete: isSet(object.includeIncomplete)
         ? Boolean(object.includeIncomplete)
-        : false;
-    message.indexOffset =
-      object.indexOffset !== undefined && object.indexOffset !== null
-        ? String(object.indexOffset)
-        : '0';
-    message.maxPayments =
-      object.maxPayments !== undefined && object.maxPayments !== null
-        ? String(object.maxPayments)
-        : '0';
-    message.reversed =
-      object.reversed !== undefined && object.reversed !== null
-        ? Boolean(object.reversed)
-        : false;
-    return message;
+        : false,
+      indexOffset: isSet(object.indexOffset) ? String(object.indexOffset) : '0',
+      maxPayments: isSet(object.maxPayments) ? String(object.maxPayments) : '0',
+      reversed: isSet(object.reversed) ? Boolean(object.reversed) : false,
+      countTotalPayments: isSet(object.countTotalPayments)
+        ? Boolean(object.countTotalPayments)
+        : false,
+    };
   },
 
   toJSON(message: ListPaymentsRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.includeIncomplete !== undefined &&
-      (object.includeIncomplete = message.includeIncomplete);
+      (obj.includeIncomplete = message.includeIncomplete);
     message.indexOffset !== undefined &&
-      (object.indexOffset = message.indexOffset);
+      (obj.indexOffset = message.indexOffset);
     message.maxPayments !== undefined &&
-      (object.maxPayments = message.maxPayments);
-    message.reversed !== undefined && (object.reversed = message.reversed);
-    return object;
+      (obj.maxPayments = message.maxPayments);
+    message.reversed !== undefined && (obj.reversed = message.reversed);
+    message.countTotalPayments !== undefined &&
+      (obj.countTotalPayments = message.countTotalPayments);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListPaymentsRequest>): ListPaymentsRequest {
@@ -21781,12 +20170,18 @@ export const ListPaymentsRequest = {
     message.indexOffset = object.indexOffset ?? '0';
     message.maxPayments = object.maxPayments ?? '0';
     message.reversed = object.reversed ?? false;
+    message.countTotalPayments = object.countTotalPayments ?? false;
     return message;
   },
 };
 
 function createBaseListPaymentsResponse(): ListPaymentsResponse {
-  return {payments: [], firstIndexOffset: '0', lastIndexOffset: '0'};
+  return {
+    payments: [],
+    firstIndexOffset: '0',
+    lastIndexOffset: '0',
+    totalNumPayments: '0',
+  };
 }
 
 export const ListPaymentsResponse = {
@@ -21795,17 +20190,17 @@ export const ListPaymentsResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.payments) {
-      Payment.encode(v, writer.uint32(10).fork()).ldelim();
+      Payment.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.firstIndexOffset !== '0') {
       writer.uint32(16).uint64(message.firstIndexOffset);
     }
-
     if (message.lastIndexOffset !== '0') {
       writer.uint32(24).uint64(message.lastIndexOffset);
     }
-
+    if (message.totalNumPayments !== '0') {
+      writer.uint32(32).uint64(message.totalNumPayments);
+    }
     return writer;
   },
 
@@ -21814,7 +20209,7 @@ export const ListPaymentsResponse = {
     length?: number,
   ): ListPaymentsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPaymentsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21828,46 +20223,50 @@ export const ListPaymentsResponse = {
         case 3:
           message.lastIndexOffset = longToString(reader.uint64() as Long);
           break;
+        case 4:
+          message.totalNumPayments = longToString(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListPaymentsResponse {
-    const message = createBaseListPaymentsResponse();
-    message.payments = (object.payments ?? []).map((e: any) =>
-      Payment.fromJSON(e),
-    );
-    message.firstIndexOffset =
-      object.firstIndexOffset !== undefined && object.firstIndexOffset !== null
+    return {
+      payments: Array.isArray(object?.payments)
+        ? object.payments.map((e: any) => Payment.fromJSON(e))
+        : [],
+      firstIndexOffset: isSet(object.firstIndexOffset)
         ? String(object.firstIndexOffset)
-        : '0';
-    message.lastIndexOffset =
-      object.lastIndexOffset !== undefined && object.lastIndexOffset !== null
+        : '0',
+      lastIndexOffset: isSet(object.lastIndexOffset)
         ? String(object.lastIndexOffset)
-        : '0';
-    return message;
+        : '0',
+      totalNumPayments: isSet(object.totalNumPayments)
+        ? String(object.totalNumPayments)
+        : '0',
+    };
   },
 
   toJSON(message: ListPaymentsResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.payments) {
-      object.payments = message.payments.map((e) =>
+      obj.payments = message.payments.map((e) =>
         e ? Payment.toJSON(e) : undefined,
       );
     } else {
-      object.payments = [];
+      obj.payments = [];
     }
-
     message.firstIndexOffset !== undefined &&
-      (object.firstIndexOffset = message.firstIndexOffset);
+      (obj.firstIndexOffset = message.firstIndexOffset);
     message.lastIndexOffset !== undefined &&
-      (object.lastIndexOffset = message.lastIndexOffset);
-    return object;
+      (obj.lastIndexOffset = message.lastIndexOffset);
+    message.totalNumPayments !== undefined &&
+      (obj.totalNumPayments = message.totalNumPayments);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ListPaymentsResponse>): ListPaymentsResponse {
@@ -21876,6 +20275,7 @@ export const ListPaymentsResponse = {
       object.payments?.map((e) => Payment.fromPartial(e)) || [];
     message.firstIndexOffset = object.firstIndexOffset ?? '0';
     message.lastIndexOffset = object.lastIndexOffset ?? '0';
+    message.totalNumPayments = object.totalNumPayments ?? '0';
     return message;
   },
 };
@@ -21889,14 +20289,12 @@ export const DeletePaymentRequest = {
     message: DeletePaymentRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.paymentHash.length > 0) {
+    if (message.paymentHash.length !== 0) {
       writer.uint32(10).bytes(message.paymentHash);
     }
-
-    if (message.failedHtlcsOnly) {
+    if (message.failedHtlcsOnly === true) {
       writer.uint32(16).bool(message.failedHtlcsOnly);
     }
-
     return writer;
   },
 
@@ -21905,7 +20303,7 @@ export const DeletePaymentRequest = {
     length?: number,
   ): DeletePaymentRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeletePaymentRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -21921,34 +20319,31 @@ export const DeletePaymentRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): DeletePaymentRequest {
-    const message = createBaseDeletePaymentRequest();
-    message.paymentHash =
-      object.paymentHash !== undefined && object.paymentHash !== null
+    return {
+      paymentHash: isSet(object.paymentHash)
         ? bytesFromBase64(object.paymentHash)
-        : new Uint8Array();
-    message.failedHtlcsOnly =
-      object.failedHtlcsOnly !== undefined && object.failedHtlcsOnly !== null
+        : new Uint8Array(),
+      failedHtlcsOnly: isSet(object.failedHtlcsOnly)
         ? Boolean(object.failedHtlcsOnly)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: DeletePaymentRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.paymentHash !== undefined &&
-      (object.paymentHash = base64FromBytes(
+      (obj.paymentHash = base64FromBytes(
         message.paymentHash !== undefined
           ? message.paymentHash
           : new Uint8Array(),
       ));
     message.failedHtlcsOnly !== undefined &&
-      (object.failedHtlcsOnly = message.failedHtlcsOnly);
-    return object;
+      (obj.failedHtlcsOnly = message.failedHtlcsOnly);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<DeletePaymentRequest>): DeletePaymentRequest {
@@ -21968,14 +20363,12 @@ export const DeleteAllPaymentsRequest = {
     message: DeleteAllPaymentsRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.failedPaymentsOnly) {
+    if (message.failedPaymentsOnly === true) {
       writer.uint32(8).bool(message.failedPaymentsOnly);
     }
-
-    if (message.failedHtlcsOnly) {
+    if (message.failedHtlcsOnly === true) {
       writer.uint32(16).bool(message.failedHtlcsOnly);
     }
-
     return writer;
   },
 
@@ -21984,7 +20377,7 @@ export const DeleteAllPaymentsRequest = {
     length?: number,
   ): DeleteAllPaymentsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteAllPaymentsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22000,31 +20393,27 @@ export const DeleteAllPaymentsRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): DeleteAllPaymentsRequest {
-    const message = createBaseDeleteAllPaymentsRequest();
-    message.failedPaymentsOnly =
-      object.failedPaymentsOnly !== undefined &&
-      object.failedPaymentsOnly !== null
+    return {
+      failedPaymentsOnly: isSet(object.failedPaymentsOnly)
         ? Boolean(object.failedPaymentsOnly)
-        : false;
-    message.failedHtlcsOnly =
-      object.failedHtlcsOnly !== undefined && object.failedHtlcsOnly !== null
+        : false,
+      failedHtlcsOnly: isSet(object.failedHtlcsOnly)
         ? Boolean(object.failedHtlcsOnly)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: DeleteAllPaymentsRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.failedPaymentsOnly !== undefined &&
-      (object.failedPaymentsOnly = message.failedPaymentsOnly);
+      (obj.failedPaymentsOnly = message.failedPaymentsOnly);
     message.failedHtlcsOnly !== undefined &&
-      (object.failedHtlcsOnly = message.failedHtlcsOnly);
-    return object;
+      (obj.failedHtlcsOnly = message.failedHtlcsOnly);
+    return obj;
   },
 
   fromPartial(
@@ -22054,7 +20443,7 @@ export const DeletePaymentResponse = {
     length?: number,
   ): DeletePaymentResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeletePaymentResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22064,18 +20453,16 @@ export const DeletePaymentResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): DeletePaymentResponse {
-    const message = createBaseDeletePaymentResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: DeletePaymentResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<DeletePaymentResponse>): DeletePaymentResponse {
@@ -22101,7 +20488,7 @@ export const DeleteAllPaymentsResponse = {
     length?: number,
   ): DeleteAllPaymentsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteAllPaymentsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22111,18 +20498,16 @@ export const DeleteAllPaymentsResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): DeleteAllPaymentsResponse {
-    const message = createBaseDeleteAllPaymentsResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: DeleteAllPaymentsResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(
@@ -22152,15 +20537,12 @@ export const AbandonChannelRequest = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
-    if (message.pendingFundingShimOnly) {
+    if (message.pendingFundingShimOnly === true) {
       writer.uint32(16).bool(message.pendingFundingShimOnly);
     }
-
-    if (message.iKnowWhatIAmDoing) {
+    if (message.iKnowWhatIAmDoing === true) {
       writer.uint32(24).bool(message.iKnowWhatIAmDoing);
     }
-
     return writer;
   },
 
@@ -22169,7 +20551,7 @@ export const AbandonChannelRequest = {
     length?: number,
   ): AbandonChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAbandonChannelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22188,40 +20570,34 @@ export const AbandonChannelRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): AbandonChannelRequest {
-    const message = createBaseAbandonChannelRequest();
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
+    return {
+      channelPoint: isSet(object.channelPoint)
         ? ChannelPoint.fromJSON(object.channelPoint)
-        : undefined;
-    message.pendingFundingShimOnly =
-      object.pendingFundingShimOnly !== undefined &&
-      object.pendingFundingShimOnly !== null
+        : undefined,
+      pendingFundingShimOnly: isSet(object.pendingFundingShimOnly)
         ? Boolean(object.pendingFundingShimOnly)
-        : false;
-    message.iKnowWhatIAmDoing =
-      object.iKnowWhatIAmDoing !== undefined &&
-      object.iKnowWhatIAmDoing !== null
+        : false,
+      iKnowWhatIAmDoing: isSet(object.iKnowWhatIAmDoing)
         ? Boolean(object.iKnowWhatIAmDoing)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: AbandonChannelRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.channelPoint !== undefined &&
-      (object.channelPoint = message.channelPoint
+      (obj.channelPoint = message.channelPoint
         ? ChannelPoint.toJSON(message.channelPoint)
         : undefined);
     message.pendingFundingShimOnly !== undefined &&
-      (object.pendingFundingShimOnly = message.pendingFundingShimOnly);
+      (obj.pendingFundingShimOnly = message.pendingFundingShimOnly);
     message.iKnowWhatIAmDoing !== undefined &&
-      (object.iKnowWhatIAmDoing = message.iKnowWhatIAmDoing);
-    return object;
+      (obj.iKnowWhatIAmDoing = message.iKnowWhatIAmDoing);
+    return obj;
   },
 
   fromPartial(
@@ -22255,7 +20631,7 @@ export const AbandonChannelResponse = {
     length?: number,
   ): AbandonChannelResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAbandonChannelResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22265,18 +20641,16 @@ export const AbandonChannelResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): AbandonChannelResponse {
-    const message = createBaseAbandonChannelResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: AbandonChannelResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<AbandonChannelResponse>): AbandonChannelResponse {
@@ -22294,20 +20668,18 @@ export const DebugLevelRequest = {
     message: DebugLevelRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.show) {
+    if (message.show === true) {
       writer.uint32(8).bool(message.show);
     }
-
     if (message.levelSpec !== '') {
       writer.uint32(18).string(message.levelSpec);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DebugLevelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDebugLevelRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22323,28 +20695,21 @@ export const DebugLevelRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): DebugLevelRequest {
-    const message = createBaseDebugLevelRequest();
-    message.show =
-      object.show !== undefined && object.show !== null
-        ? Boolean(object.show)
-        : false;
-    message.levelSpec =
-      object.levelSpec !== undefined && object.levelSpec !== null
-        ? String(object.levelSpec)
-        : '';
-    return message;
+    return {
+      show: isSet(object.show) ? Boolean(object.show) : false,
+      levelSpec: isSet(object.levelSpec) ? String(object.levelSpec) : '',
+    };
   },
 
   toJSON(message: DebugLevelRequest): unknown {
-    const object: any = {};
-    message.show !== undefined && (object.show = message.show);
-    message.levelSpec !== undefined && (object.levelSpec = message.levelSpec);
-    return object;
+    const obj: any = {};
+    message.show !== undefined && (obj.show = message.show);
+    message.levelSpec !== undefined && (obj.levelSpec = message.levelSpec);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<DebugLevelRequest>): DebugLevelRequest {
@@ -22367,13 +20732,12 @@ export const DebugLevelResponse = {
     if (message.subSystems !== '') {
       writer.uint32(10).string(message.subSystems);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): DebugLevelResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDebugLevelResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22386,24 +20750,19 @@ export const DebugLevelResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): DebugLevelResponse {
-    const message = createBaseDebugLevelResponse();
-    message.subSystems =
-      object.subSystems !== undefined && object.subSystems !== null
-        ? String(object.subSystems)
-        : '';
-    return message;
+    return {
+      subSystems: isSet(object.subSystems) ? String(object.subSystems) : '',
+    };
   },
 
   toJSON(message: DebugLevelResponse): unknown {
-    const object: any = {};
-    message.subSystems !== undefined &&
-      (object.subSystems = message.subSystems);
-    return object;
+    const obj: any = {};
+    message.subSystems !== undefined && (obj.subSystems = message.subSystems);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<DebugLevelResponse>): DebugLevelResponse {
@@ -22413,7 +20772,7 @@ export const DebugLevelResponse = {
   },
 };
 
-function createBasePayRequestString(): PayReqString {
+function createBasePayReqString(): PayReqString {
   return {payReq: ''};
 }
 
@@ -22425,14 +20784,13 @@ export const PayReqString = {
     if (message.payReq !== '') {
       writer.uint32(10).string(message.payReq);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PayReqString {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePayRequestString();
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePayReqString();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -22444,33 +20802,29 @@ export const PayReqString = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PayReqString {
-    const message = createBasePayRequestString();
-    message.payReq =
-      object.payReq !== undefined && object.payReq !== null
-        ? String(object.payReq)
-        : '';
-    return message;
+    return {
+      payReq: isSet(object.payReq) ? String(object.payReq) : '',
+    };
   },
 
   toJSON(message: PayReqString): unknown {
-    const object: any = {};
-    message.payReq !== undefined && (object.payReq = message.payReq);
-    return object;
+    const obj: any = {};
+    message.payReq !== undefined && (obj.payReq = message.payReq);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PayReqString>): PayReqString {
-    const message = createBasePayRequestString();
+    const message = createBasePayReqString();
     message.payReq = object.payReq ?? '';
     return message;
   },
 };
 
-function createBasePayRequest(): PayReq {
+function createBasePayReq(): PayReq {
   return {
     destination: '',
     paymentHash: '',
@@ -22496,65 +20850,52 @@ export const PayReq = {
     if (message.destination !== '') {
       writer.uint32(10).string(message.destination);
     }
-
     if (message.paymentHash !== '') {
       writer.uint32(18).string(message.paymentHash);
     }
-
     if (message.numSatoshis !== '0') {
       writer.uint32(24).int64(message.numSatoshis);
     }
-
     if (message.timestamp !== '0') {
       writer.uint32(32).int64(message.timestamp);
     }
-
     if (message.expiry !== '0') {
       writer.uint32(40).int64(message.expiry);
     }
-
     if (message.description !== '') {
       writer.uint32(50).string(message.description);
     }
-
     if (message.descriptionHash !== '') {
       writer.uint32(58).string(message.descriptionHash);
     }
-
     if (message.fallbackAddr !== '') {
       writer.uint32(66).string(message.fallbackAddr);
     }
-
     if (message.cltvExpiry !== '0') {
       writer.uint32(72).int64(message.cltvExpiry);
     }
-
     for (const v of message.routeHints) {
-      RouteHint.encode(v, writer.uint32(82).fork()).ldelim();
+      RouteHint.encode(v!, writer.uint32(82).fork()).ldelim();
     }
-
-    if (message.paymentAddr.length > 0) {
+    if (message.paymentAddr.length !== 0) {
       writer.uint32(90).bytes(message.paymentAddr);
     }
-
     if (message.numMsat !== '0') {
       writer.uint32(96).int64(message.numMsat);
     }
-
-    for (const [key, value] of Object.entries(message.features)) {
+    Object.entries(message.features).forEach(([key, value]) => {
       PayReq_FeaturesEntry.encode(
         {key: key as any, value},
         writer.uint32(106).fork(),
       ).ldelim();
-    }
-
+    });
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PayReq {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePayRequest();
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePayReq();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -22599,120 +20940,91 @@ export const PayReq = {
           if (entry13.value !== undefined) {
             message.features[entry13.key] = entry13.value;
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PayReq {
-    const message = createBasePayRequest();
-    message.destination =
-      object.destination !== undefined && object.destination !== null
-        ? String(object.destination)
-        : '';
-    message.paymentHash =
-      object.paymentHash !== undefined && object.paymentHash !== null
-        ? String(object.paymentHash)
-        : '';
-    message.numSatoshis =
-      object.numSatoshis !== undefined && object.numSatoshis !== null
-        ? String(object.numSatoshis)
-        : '0';
-    message.timestamp =
-      object.timestamp !== undefined && object.timestamp !== null
-        ? String(object.timestamp)
-        : '0';
-    message.expiry =
-      object.expiry !== undefined && object.expiry !== null
-        ? String(object.expiry)
-        : '0';
-    message.description =
-      object.description !== undefined && object.description !== null
-        ? String(object.description)
-        : '';
-    message.descriptionHash =
-      object.descriptionHash !== undefined && object.descriptionHash !== null
+    return {
+      destination: isSet(object.destination) ? String(object.destination) : '',
+      paymentHash: isSet(object.paymentHash) ? String(object.paymentHash) : '',
+      numSatoshis: isSet(object.numSatoshis) ? String(object.numSatoshis) : '0',
+      timestamp: isSet(object.timestamp) ? String(object.timestamp) : '0',
+      expiry: isSet(object.expiry) ? String(object.expiry) : '0',
+      description: isSet(object.description) ? String(object.description) : '',
+      descriptionHash: isSet(object.descriptionHash)
         ? String(object.descriptionHash)
-        : '';
-    message.fallbackAddr =
-      object.fallbackAddr !== undefined && object.fallbackAddr !== null
+        : '',
+      fallbackAddr: isSet(object.fallbackAddr)
         ? String(object.fallbackAddr)
-        : '';
-    message.cltvExpiry =
-      object.cltvExpiry !== undefined && object.cltvExpiry !== null
-        ? String(object.cltvExpiry)
-        : '0';
-    message.routeHints = (object.routeHints ?? []).map((e: any) =>
-      RouteHint.fromJSON(e),
-    );
-    message.paymentAddr =
-      object.paymentAddr !== undefined && object.paymentAddr !== null
+        : '',
+      cltvExpiry: isSet(object.cltvExpiry) ? String(object.cltvExpiry) : '0',
+      routeHints: Array.isArray(object?.routeHints)
+        ? object.routeHints.map((e: any) => RouteHint.fromJSON(e))
+        : [],
+      paymentAddr: isSet(object.paymentAddr)
         ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array();
-    message.numMsat =
-      object.numMsat !== undefined && object.numMsat !== null
-        ? String(object.numMsat)
-        : '0';
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
-      acc[Number(key)] = Feature.fromJSON(value);
-      return acc;
-    }, {});
-    return message;
+        : new Uint8Array(),
+      numMsat: isSet(object.numMsat) ? String(object.numMsat) : '0',
+      features: isObject(object.features)
+        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
+            (acc, [key, value]) => {
+              acc[Number(key)] = Feature.fromJSON(value);
+              return acc;
+            },
+            {},
+          )
+        : {},
+    };
   },
 
   toJSON(message: PayReq): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.destination !== undefined &&
-      (object.destination = message.destination);
+      (obj.destination = message.destination);
     message.paymentHash !== undefined &&
-      (object.paymentHash = message.paymentHash);
+      (obj.paymentHash = message.paymentHash);
     message.numSatoshis !== undefined &&
-      (object.numSatoshis = message.numSatoshis);
-    message.timestamp !== undefined && (object.timestamp = message.timestamp);
-    message.expiry !== undefined && (object.expiry = message.expiry);
+      (obj.numSatoshis = message.numSatoshis);
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+    message.expiry !== undefined && (obj.expiry = message.expiry);
     message.description !== undefined &&
-      (object.description = message.description);
+      (obj.description = message.description);
     message.descriptionHash !== undefined &&
-      (object.descriptionHash = message.descriptionHash);
+      (obj.descriptionHash = message.descriptionHash);
     message.fallbackAddr !== undefined &&
-      (object.fallbackAddr = message.fallbackAddr);
-    message.cltvExpiry !== undefined &&
-      (object.cltvExpiry = message.cltvExpiry);
+      (obj.fallbackAddr = message.fallbackAddr);
+    message.cltvExpiry !== undefined && (obj.cltvExpiry = message.cltvExpiry);
     if (message.routeHints) {
-      object.routeHints = message.routeHints.map((e) =>
+      obj.routeHints = message.routeHints.map((e) =>
         e ? RouteHint.toJSON(e) : undefined,
       );
     } else {
-      object.routeHints = [];
+      obj.routeHints = [];
     }
-
     message.paymentAddr !== undefined &&
-      (object.paymentAddr = base64FromBytes(
+      (obj.paymentAddr = base64FromBytes(
         message.paymentAddr !== undefined
           ? message.paymentAddr
           : new Uint8Array(),
       ));
-    message.numMsat !== undefined && (object.numMsat = message.numMsat);
-    object.features = {};
+    message.numMsat !== undefined && (obj.numMsat = message.numMsat);
+    obj.features = {};
     if (message.features) {
-      for (const [k, v] of Object.entries(message.features)) {
-        object.features[k] = Feature.toJSON(v);
-      }
+      Object.entries(message.features).forEach(([k, v]) => {
+        obj.features[k] = Feature.toJSON(v);
+      });
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PayReq>): PayReq {
-    const message = createBasePayRequest();
+    const message = createBasePayReq();
     message.destination = object.destination ?? '';
     message.paymentHash = object.paymentHash ?? '';
     message.numSatoshis = object.numSatoshis ?? '0';
@@ -22726,20 +21038,19 @@ export const PayReq = {
       object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
     message.numMsat = object.numMsat ?? '0';
-    message.features = Object.entries(object.features ?? {}).reduce<
-      Record<number, Feature>
-    >((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{
+      [key: number]: Feature;
+    }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
-
       return acc;
     }, {});
     return message;
   },
 };
 
-function createBasePayRequest_FeaturesEntry(): PayReq_FeaturesEntry {
+function createBasePayReq_FeaturesEntry(): PayReq_FeaturesEntry {
   return {key: 0, value: undefined};
 }
 
@@ -22751,11 +21062,9 @@ export const PayReq_FeaturesEntry = {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
-
     if (message.value !== undefined) {
       Feature.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -22764,8 +21073,8 @@ export const PayReq_FeaturesEntry = {
     length?: number,
   ): PayReq_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
-    const message = createBasePayRequest_FeaturesEntry();
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePayReq_FeaturesEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
       switch (tag >>> 3) {
@@ -22780,33 +21089,26 @@ export const PayReq_FeaturesEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PayReq_FeaturesEntry {
-    const message = createBasePayRequest_FeaturesEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? Number(object.key) : 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromJSON(object.value)
-        : undefined;
-    return message;
+    return {
+      key: isSet(object.key) ? Number(object.key) : 0,
+      value: isSet(object.value) ? Feature.fromJSON(object.value) : undefined,
+    };
   },
 
   toJSON(message: PayReq_FeaturesEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = Math.round(message.key));
+    const obj: any = {};
+    message.key !== undefined && (obj.key = Math.round(message.key));
     message.value !== undefined &&
-      (object.value = message.value
-        ? Feature.toJSON(message.value)
-        : undefined);
-    return object;
+      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PayReq_FeaturesEntry>): PayReq_FeaturesEntry {
-    const message = createBasePayRequest_FeaturesEntry();
+    const message = createBasePayReq_FeaturesEntry();
     message.key = object.key ?? 0;
     message.value =
       object.value !== undefined && object.value !== null
@@ -22828,21 +21130,18 @@ export const Feature = {
     if (message.name !== '') {
       writer.uint32(18).string(message.name);
     }
-
-    if (message.isRequired) {
+    if (message.isRequired === true) {
       writer.uint32(24).bool(message.isRequired);
     }
-
-    if (message.isKnown) {
+    if (message.isKnown === true) {
       writer.uint32(32).bool(message.isKnown);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Feature {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeature();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22861,34 +21160,23 @@ export const Feature = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Feature {
-    const message = createBaseFeature();
-    message.name =
-      object.name !== undefined && object.name !== null
-        ? String(object.name)
-        : '';
-    message.isRequired =
-      object.isRequired !== undefined && object.isRequired !== null
-        ? Boolean(object.isRequired)
-        : false;
-    message.isKnown =
-      object.isKnown !== undefined && object.isKnown !== null
-        ? Boolean(object.isKnown)
-        : false;
-    return message;
+    return {
+      name: isSet(object.name) ? String(object.name) : '',
+      isRequired: isSet(object.isRequired) ? Boolean(object.isRequired) : false,
+      isKnown: isSet(object.isKnown) ? Boolean(object.isKnown) : false,
+    };
   },
 
   toJSON(message: Feature): unknown {
-    const object: any = {};
-    message.name !== undefined && (object.name = message.name);
-    message.isRequired !== undefined &&
-      (object.isRequired = message.isRequired);
-    message.isKnown !== undefined && (object.isKnown = message.isKnown);
-    return object;
+    const obj: any = {};
+    message.name !== undefined && (obj.name = message.name);
+    message.isRequired !== undefined && (obj.isRequired = message.isRequired);
+    message.isKnown !== undefined && (obj.isKnown = message.isKnown);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Feature>): Feature {
@@ -22914,7 +21202,7 @@ export const FeeReportRequest = {
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FeeReportRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeeReportRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -22924,18 +21212,16 @@ export const FeeReportRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): FeeReportRequest {
-    const message = createBaseFeeReportRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: FeeReportRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<FeeReportRequest>): FeeReportRequest {
@@ -22962,29 +21248,24 @@ export const ChannelFeeReport = {
     if (message.chanId !== '0') {
       writer.uint32(40).uint64(message.chanId);
     }
-
     if (message.channelPoint !== '') {
       writer.uint32(10).string(message.channelPoint);
     }
-
     if (message.baseFeeMsat !== '0') {
       writer.uint32(16).int64(message.baseFeeMsat);
     }
-
     if (message.feePerMil !== '0') {
       writer.uint32(24).int64(message.feePerMil);
     }
-
     if (message.feeRate !== 0) {
       writer.uint32(33).double(message.feeRate);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelFeeReport {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelFeeReport();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23009,45 +21290,31 @@ export const ChannelFeeReport = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelFeeReport {
-    const message = createBaseChannelFeeReport();
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
+    return {
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      channelPoint: isSet(object.channelPoint)
         ? String(object.channelPoint)
-        : '';
-    message.baseFeeMsat =
-      object.baseFeeMsat !== undefined && object.baseFeeMsat !== null
-        ? String(object.baseFeeMsat)
-        : '0';
-    message.feePerMil =
-      object.feePerMil !== undefined && object.feePerMil !== null
-        ? String(object.feePerMil)
-        : '0';
-    message.feeRate =
-      object.feeRate !== undefined && object.feeRate !== null
-        ? Number(object.feeRate)
-        : 0;
-    return message;
+        : '',
+      baseFeeMsat: isSet(object.baseFeeMsat) ? String(object.baseFeeMsat) : '0',
+      feePerMil: isSet(object.feePerMil) ? String(object.feePerMil) : '0',
+      feeRate: isSet(object.feeRate) ? Number(object.feeRate) : 0,
+    };
   },
 
   toJSON(message: ChannelFeeReport): unknown {
-    const object: any = {};
-    message.chanId !== undefined && (object.chanId = message.chanId);
+    const obj: any = {};
+    message.chanId !== undefined && (obj.chanId = message.chanId);
     message.channelPoint !== undefined &&
-      (object.channelPoint = message.channelPoint);
+      (obj.channelPoint = message.channelPoint);
     message.baseFeeMsat !== undefined &&
-      (object.baseFeeMsat = message.baseFeeMsat);
-    message.feePerMil !== undefined && (object.feePerMil = message.feePerMil);
-    message.feeRate !== undefined && (object.feeRate = message.feeRate);
-    return object;
+      (obj.baseFeeMsat = message.baseFeeMsat);
+    message.feePerMil !== undefined && (obj.feePerMil = message.feePerMil);
+    message.feeRate !== undefined && (obj.feeRate = message.feeRate);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelFeeReport>): ChannelFeeReport {
@@ -23071,27 +21338,23 @@ export const FeeReportResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.channelFees) {
-      ChannelFeeReport.encode(v, writer.uint32(10).fork()).ldelim();
+      ChannelFeeReport.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.dayFeeSum !== '0') {
       writer.uint32(16).uint64(message.dayFeeSum);
     }
-
     if (message.weekFeeSum !== '0') {
       writer.uint32(24).uint64(message.weekFeeSum);
     }
-
     if (message.monthFeeSum !== '0') {
       writer.uint32(32).uint64(message.monthFeeSum);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FeeReportResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFeeReportResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23115,46 +21378,34 @@ export const FeeReportResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FeeReportResponse {
-    const message = createBaseFeeReportResponse();
-    message.channelFees = (object.channelFees ?? []).map((e: any) =>
-      ChannelFeeReport.fromJSON(e),
-    );
-    message.dayFeeSum =
-      object.dayFeeSum !== undefined && object.dayFeeSum !== null
-        ? String(object.dayFeeSum)
-        : '0';
-    message.weekFeeSum =
-      object.weekFeeSum !== undefined && object.weekFeeSum !== null
-        ? String(object.weekFeeSum)
-        : '0';
-    message.monthFeeSum =
-      object.monthFeeSum !== undefined && object.monthFeeSum !== null
-        ? String(object.monthFeeSum)
-        : '0';
-    return message;
+    return {
+      channelFees: Array.isArray(object?.channelFees)
+        ? object.channelFees.map((e: any) => ChannelFeeReport.fromJSON(e))
+        : [],
+      dayFeeSum: isSet(object.dayFeeSum) ? String(object.dayFeeSum) : '0',
+      weekFeeSum: isSet(object.weekFeeSum) ? String(object.weekFeeSum) : '0',
+      monthFeeSum: isSet(object.monthFeeSum) ? String(object.monthFeeSum) : '0',
+    };
   },
 
   toJSON(message: FeeReportResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.channelFees) {
-      object.channelFees = message.channelFees.map((e) =>
+      obj.channelFees = message.channelFees.map((e) =>
         e ? ChannelFeeReport.toJSON(e) : undefined,
       );
     } else {
-      object.channelFees = [];
+      obj.channelFees = [];
     }
-
-    message.dayFeeSum !== undefined && (object.dayFeeSum = message.dayFeeSum);
-    message.weekFeeSum !== undefined &&
-      (object.weekFeeSum = message.weekFeeSum);
+    message.dayFeeSum !== undefined && (obj.dayFeeSum = message.dayFeeSum);
+    message.weekFeeSum !== undefined && (obj.weekFeeSum = message.weekFeeSum);
     message.monthFeeSum !== undefined &&
-      (object.monthFeeSum = message.monthFeeSum);
-    return object;
+      (obj.monthFeeSum = message.monthFeeSum);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FeeReportResponse>): FeeReportResponse {
@@ -23174,6 +21425,7 @@ function createBasePolicyUpdateRequest(): PolicyUpdateRequest {
     chanPoint: undefined,
     baseFeeMsat: '0',
     feeRate: 0,
+    feeRatePpm: 0,
     timeLockDelta: 0,
     maxHtlcMsat: '0',
     minHtlcMsat: '0',
@@ -23189,41 +21441,36 @@ export const PolicyUpdateRequest = {
     if (message.global !== undefined) {
       writer.uint32(8).bool(message.global);
     }
-
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-
     if (message.baseFeeMsat !== '0') {
       writer.uint32(24).int64(message.baseFeeMsat);
     }
-
     if (message.feeRate !== 0) {
       writer.uint32(33).double(message.feeRate);
     }
-
+    if (message.feeRatePpm !== 0) {
+      writer.uint32(72).uint32(message.feeRatePpm);
+    }
     if (message.timeLockDelta !== 0) {
       writer.uint32(40).uint32(message.timeLockDelta);
     }
-
     if (message.maxHtlcMsat !== '0') {
       writer.uint32(48).uint64(message.maxHtlcMsat);
     }
-
     if (message.minHtlcMsat !== '0') {
       writer.uint32(56).uint64(message.minHtlcMsat);
     }
-
-    if (message.minHtlcMsatSpecified) {
+    if (message.minHtlcMsatSpecified === true) {
       writer.uint32(64).bool(message.minHtlcMsatSpecified);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): PolicyUpdateRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePolicyUpdateRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23239,6 +21486,9 @@ export const PolicyUpdateRequest = {
           break;
         case 4:
           message.feeRate = reader.double();
+          break;
+        case 9:
+          message.feeRatePpm = reader.uint32();
           break;
         case 5:
           message.timeLockDelta = reader.uint32();
@@ -23257,67 +21507,50 @@ export const PolicyUpdateRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PolicyUpdateRequest {
-    const message = createBasePolicyUpdateRequest();
-    message.global =
-      object.global !== undefined && object.global !== null
-        ? Boolean(object.global)
-        : undefined;
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
+    return {
+      global: isSet(object.global) ? Boolean(object.global) : undefined,
+      chanPoint: isSet(object.chanPoint)
         ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined;
-    message.baseFeeMsat =
-      object.baseFeeMsat !== undefined && object.baseFeeMsat !== null
-        ? String(object.baseFeeMsat)
-        : '0';
-    message.feeRate =
-      object.feeRate !== undefined && object.feeRate !== null
-        ? Number(object.feeRate)
-        : 0;
-    message.timeLockDelta =
-      object.timeLockDelta !== undefined && object.timeLockDelta !== null
+        : undefined,
+      baseFeeMsat: isSet(object.baseFeeMsat) ? String(object.baseFeeMsat) : '0',
+      feeRate: isSet(object.feeRate) ? Number(object.feeRate) : 0,
+      feeRatePpm: isSet(object.feeRatePpm) ? Number(object.feeRatePpm) : 0,
+      timeLockDelta: isSet(object.timeLockDelta)
         ? Number(object.timeLockDelta)
-        : 0;
-    message.maxHtlcMsat =
-      object.maxHtlcMsat !== undefined && object.maxHtlcMsat !== null
-        ? String(object.maxHtlcMsat)
-        : '0';
-    message.minHtlcMsat =
-      object.minHtlcMsat !== undefined && object.minHtlcMsat !== null
-        ? String(object.minHtlcMsat)
-        : '0';
-    message.minHtlcMsatSpecified =
-      object.minHtlcMsatSpecified !== undefined &&
-      object.minHtlcMsatSpecified !== null
+        : 0,
+      maxHtlcMsat: isSet(object.maxHtlcMsat) ? String(object.maxHtlcMsat) : '0',
+      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : '0',
+      minHtlcMsatSpecified: isSet(object.minHtlcMsatSpecified)
         ? Boolean(object.minHtlcMsatSpecified)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: PolicyUpdateRequest): unknown {
-    const object: any = {};
-    message.global !== undefined && (object.global = message.global);
+    const obj: any = {};
+    message.global !== undefined && (obj.global = message.global);
     message.chanPoint !== undefined &&
-      (object.chanPoint = message.chanPoint
+      (obj.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
     message.baseFeeMsat !== undefined &&
-      (object.baseFeeMsat = message.baseFeeMsat);
-    message.feeRate !== undefined && (object.feeRate = message.feeRate);
+      (obj.baseFeeMsat = message.baseFeeMsat);
+    message.feeRate !== undefined && (obj.feeRate = message.feeRate);
+    message.feeRatePpm !== undefined &&
+      (obj.feeRatePpm = Math.round(message.feeRatePpm));
     message.timeLockDelta !== undefined &&
-      (object.timeLockDelta = Math.round(message.timeLockDelta));
+      (obj.timeLockDelta = Math.round(message.timeLockDelta));
     message.maxHtlcMsat !== undefined &&
-      (object.maxHtlcMsat = message.maxHtlcMsat);
+      (obj.maxHtlcMsat = message.maxHtlcMsat);
     message.minHtlcMsat !== undefined &&
-      (object.minHtlcMsat = message.minHtlcMsat);
+      (obj.minHtlcMsat = message.minHtlcMsat);
     message.minHtlcMsatSpecified !== undefined &&
-      (object.minHtlcMsatSpecified = message.minHtlcMsatSpecified);
-    return object;
+      (obj.minHtlcMsatSpecified = message.minHtlcMsatSpecified);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PolicyUpdateRequest>): PolicyUpdateRequest {
@@ -23329,6 +21562,7 @@ export const PolicyUpdateRequest = {
         : undefined;
     message.baseFeeMsat = object.baseFeeMsat ?? '0';
     message.feeRate = object.feeRate ?? 0;
+    message.feeRatePpm = object.feeRatePpm ?? 0;
     message.timeLockDelta = object.timeLockDelta ?? 0;
     message.maxHtlcMsat = object.maxHtlcMsat ?? '0';
     message.minHtlcMsat = object.minHtlcMsat ?? '0';
@@ -23349,21 +21583,18 @@ export const FailedUpdate = {
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.reason !== 0) {
       writer.uint32(16).int32(message.reason);
     }
-
     if (message.updateError !== '') {
       writer.uint32(26).string(message.updateError);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): FailedUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFailedUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23382,38 +21613,30 @@ export const FailedUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): FailedUpdate {
-    const message = createBaseFailedUpdate();
-    message.outpoint =
-      object.outpoint !== undefined && object.outpoint !== null
+    return {
+      outpoint: isSet(object.outpoint)
         ? OutPoint.fromJSON(object.outpoint)
-        : undefined;
-    message.reason =
-      object.reason !== undefined && object.reason !== null
-        ? updateFailureFromJSON(object.reason)
-        : 0;
-    message.updateError =
-      object.updateError !== undefined && object.updateError !== null
-        ? String(object.updateError)
-        : '';
-    return message;
+        : undefined,
+      reason: isSet(object.reason) ? updateFailureFromJSON(object.reason) : 0,
+      updateError: isSet(object.updateError) ? String(object.updateError) : '',
+    };
   },
 
   toJSON(message: FailedUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.outpoint !== undefined &&
-      (object.outpoint = message.outpoint
+      (obj.outpoint = message.outpoint
         ? OutPoint.toJSON(message.outpoint)
         : undefined);
     message.reason !== undefined &&
-      (object.reason = updateFailureToJSON(message.reason));
+      (obj.reason = updateFailureToJSON(message.reason));
     message.updateError !== undefined &&
-      (object.updateError = message.updateError);
-    return object;
+      (obj.updateError = message.updateError);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<FailedUpdate>): FailedUpdate {
@@ -23438,9 +21661,8 @@ export const PolicyUpdateResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.failedUpdates) {
-      FailedUpdate.encode(v, writer.uint32(10).fork()).ldelim();
+      FailedUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -23449,7 +21671,7 @@ export const PolicyUpdateResponse = {
     length?: number,
   ): PolicyUpdateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePolicyUpdateResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23464,29 +21686,27 @@ export const PolicyUpdateResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): PolicyUpdateResponse {
-    const message = createBasePolicyUpdateResponse();
-    message.failedUpdates = (object.failedUpdates ?? []).map((e: any) =>
-      FailedUpdate.fromJSON(e),
-    );
-    return message;
+    return {
+      failedUpdates: Array.isArray(object?.failedUpdates)
+        ? object.failedUpdates.map((e: any) => FailedUpdate.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: PolicyUpdateResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.failedUpdates) {
-      object.failedUpdates = message.failedUpdates.map((e) =>
+      obj.failedUpdates = message.failedUpdates.map((e) =>
         e ? FailedUpdate.toJSON(e) : undefined,
       );
     } else {
-      object.failedUpdates = [];
+      obj.failedUpdates = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<PolicyUpdateResponse>): PolicyUpdateResponse {
@@ -23509,19 +21729,15 @@ export const ForwardingHistoryRequest = {
     if (message.startTime !== '0') {
       writer.uint32(8).uint64(message.startTime);
     }
-
     if (message.endTime !== '0') {
       writer.uint32(16).uint64(message.endTime);
     }
-
     if (message.indexOffset !== 0) {
       writer.uint32(24).uint32(message.indexOffset);
     }
-
     if (message.numMaxEvents !== 0) {
       writer.uint32(32).uint32(message.numMaxEvents);
     }
-
     return writer;
   },
 
@@ -23530,7 +21746,7 @@ export const ForwardingHistoryRequest = {
     length?: number,
   ): ForwardingHistoryRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseForwardingHistoryRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23552,40 +21768,29 @@ export const ForwardingHistoryRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ForwardingHistoryRequest {
-    const message = createBaseForwardingHistoryRequest();
-    message.startTime =
-      object.startTime !== undefined && object.startTime !== null
-        ? String(object.startTime)
-        : '0';
-    message.endTime =
-      object.endTime !== undefined && object.endTime !== null
-        ? String(object.endTime)
-        : '0';
-    message.indexOffset =
-      object.indexOffset !== undefined && object.indexOffset !== null
-        ? Number(object.indexOffset)
-        : 0;
-    message.numMaxEvents =
-      object.numMaxEvents !== undefined && object.numMaxEvents !== null
+    return {
+      startTime: isSet(object.startTime) ? String(object.startTime) : '0',
+      endTime: isSet(object.endTime) ? String(object.endTime) : '0',
+      indexOffset: isSet(object.indexOffset) ? Number(object.indexOffset) : 0,
+      numMaxEvents: isSet(object.numMaxEvents)
         ? Number(object.numMaxEvents)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: ForwardingHistoryRequest): unknown {
-    const object: any = {};
-    message.startTime !== undefined && (object.startTime = message.startTime);
-    message.endTime !== undefined && (object.endTime = message.endTime);
+    const obj: any = {};
+    message.startTime !== undefined && (obj.startTime = message.startTime);
+    message.endTime !== undefined && (obj.endTime = message.endTime);
     message.indexOffset !== undefined &&
-      (object.indexOffset = Math.round(message.indexOffset));
+      (obj.indexOffset = Math.round(message.indexOffset));
     message.numMaxEvents !== undefined &&
-      (object.numMaxEvents = Math.round(message.numMaxEvents));
-    return object;
+      (obj.numMaxEvents = Math.round(message.numMaxEvents));
+    return obj;
   },
 
   fromPartial(
@@ -23623,49 +21828,39 @@ export const ForwardingEvent = {
     if (message.timestamp !== '0') {
       writer.uint32(8).uint64(message.timestamp);
     }
-
     if (message.chanIdIn !== '0') {
       writer.uint32(16).uint64(message.chanIdIn);
     }
-
     if (message.chanIdOut !== '0') {
       writer.uint32(32).uint64(message.chanIdOut);
     }
-
     if (message.amtIn !== '0') {
       writer.uint32(40).uint64(message.amtIn);
     }
-
     if (message.amtOut !== '0') {
       writer.uint32(48).uint64(message.amtOut);
     }
-
     if (message.fee !== '0') {
       writer.uint32(56).uint64(message.fee);
     }
-
     if (message.feeMsat !== '0') {
       writer.uint32(64).uint64(message.feeMsat);
     }
-
     if (message.amtInMsat !== '0') {
       writer.uint32(72).uint64(message.amtInMsat);
     }
-
     if (message.amtOutMsat !== '0') {
       writer.uint32(80).uint64(message.amtOutMsat);
     }
-
     if (message.timestampNs !== '0') {
       writer.uint32(88).uint64(message.timestampNs);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ForwardingEvent {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseForwardingEvent();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23705,70 +21900,38 @@ export const ForwardingEvent = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ForwardingEvent {
-    const message = createBaseForwardingEvent();
-    message.timestamp =
-      object.timestamp !== undefined && object.timestamp !== null
-        ? String(object.timestamp)
-        : '0';
-    message.chanIdIn =
-      object.chanIdIn !== undefined && object.chanIdIn !== null
-        ? String(object.chanIdIn)
-        : '0';
-    message.chanIdOut =
-      object.chanIdOut !== undefined && object.chanIdOut !== null
-        ? String(object.chanIdOut)
-        : '0';
-    message.amtIn =
-      object.amtIn !== undefined && object.amtIn !== null
-        ? String(object.amtIn)
-        : '0';
-    message.amtOut =
-      object.amtOut !== undefined && object.amtOut !== null
-        ? String(object.amtOut)
-        : '0';
-    message.fee =
-      object.fee !== undefined && object.fee !== null
-        ? String(object.fee)
-        : '0';
-    message.feeMsat =
-      object.feeMsat !== undefined && object.feeMsat !== null
-        ? String(object.feeMsat)
-        : '0';
-    message.amtInMsat =
-      object.amtInMsat !== undefined && object.amtInMsat !== null
-        ? String(object.amtInMsat)
-        : '0';
-    message.amtOutMsat =
-      object.amtOutMsat !== undefined && object.amtOutMsat !== null
-        ? String(object.amtOutMsat)
-        : '0';
-    message.timestampNs =
-      object.timestampNs !== undefined && object.timestampNs !== null
-        ? String(object.timestampNs)
-        : '0';
-    return message;
+    return {
+      timestamp: isSet(object.timestamp) ? String(object.timestamp) : '0',
+      chanIdIn: isSet(object.chanIdIn) ? String(object.chanIdIn) : '0',
+      chanIdOut: isSet(object.chanIdOut) ? String(object.chanIdOut) : '0',
+      amtIn: isSet(object.amtIn) ? String(object.amtIn) : '0',
+      amtOut: isSet(object.amtOut) ? String(object.amtOut) : '0',
+      fee: isSet(object.fee) ? String(object.fee) : '0',
+      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : '0',
+      amtInMsat: isSet(object.amtInMsat) ? String(object.amtInMsat) : '0',
+      amtOutMsat: isSet(object.amtOutMsat) ? String(object.amtOutMsat) : '0',
+      timestampNs: isSet(object.timestampNs) ? String(object.timestampNs) : '0',
+    };
   },
 
   toJSON(message: ForwardingEvent): unknown {
-    const object: any = {};
-    message.timestamp !== undefined && (object.timestamp = message.timestamp);
-    message.chanIdIn !== undefined && (object.chanIdIn = message.chanIdIn);
-    message.chanIdOut !== undefined && (object.chanIdOut = message.chanIdOut);
-    message.amtIn !== undefined && (object.amtIn = message.amtIn);
-    message.amtOut !== undefined && (object.amtOut = message.amtOut);
-    message.fee !== undefined && (object.fee = message.fee);
-    message.feeMsat !== undefined && (object.feeMsat = message.feeMsat);
-    message.amtInMsat !== undefined && (object.amtInMsat = message.amtInMsat);
-    message.amtOutMsat !== undefined &&
-      (object.amtOutMsat = message.amtOutMsat);
+    const obj: any = {};
+    message.timestamp !== undefined && (obj.timestamp = message.timestamp);
+    message.chanIdIn !== undefined && (obj.chanIdIn = message.chanIdIn);
+    message.chanIdOut !== undefined && (obj.chanIdOut = message.chanIdOut);
+    message.amtIn !== undefined && (obj.amtIn = message.amtIn);
+    message.amtOut !== undefined && (obj.amtOut = message.amtOut);
+    message.fee !== undefined && (obj.fee = message.fee);
+    message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
+    message.amtInMsat !== undefined && (obj.amtInMsat = message.amtInMsat);
+    message.amtOutMsat !== undefined && (obj.amtOutMsat = message.amtOutMsat);
     message.timestampNs !== undefined &&
-      (object.timestampNs = message.timestampNs);
-    return object;
+      (obj.timestampNs = message.timestampNs);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ForwardingEvent>): ForwardingEvent {
@@ -23797,13 +21960,11 @@ export const ForwardingHistoryResponse = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.forwardingEvents) {
-      ForwardingEvent.encode(v, writer.uint32(10).fork()).ldelim();
+      ForwardingEvent.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.lastOffsetIndex !== 0) {
       writer.uint32(16).uint32(message.lastOffsetIndex);
     }
-
     return writer;
   },
 
@@ -23812,7 +21973,7 @@ export const ForwardingHistoryResponse = {
     length?: number,
   ): ForwardingHistoryResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseForwardingHistoryResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23830,35 +21991,32 @@ export const ForwardingHistoryResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ForwardingHistoryResponse {
-    const message = createBaseForwardingHistoryResponse();
-    message.forwardingEvents = (object.forwardingEvents ?? []).map((e: any) =>
-      ForwardingEvent.fromJSON(e),
-    );
-    message.lastOffsetIndex =
-      object.lastOffsetIndex !== undefined && object.lastOffsetIndex !== null
+    return {
+      forwardingEvents: Array.isArray(object?.forwardingEvents)
+        ? object.forwardingEvents.map((e: any) => ForwardingEvent.fromJSON(e))
+        : [],
+      lastOffsetIndex: isSet(object.lastOffsetIndex)
         ? Number(object.lastOffsetIndex)
-        : 0;
-    return message;
+        : 0,
+    };
   },
 
   toJSON(message: ForwardingHistoryResponse): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.forwardingEvents) {
-      object.forwardingEvents = message.forwardingEvents.map((e) =>
+      obj.forwardingEvents = message.forwardingEvents.map((e) =>
         e ? ForwardingEvent.toJSON(e) : undefined,
       );
     } else {
-      object.forwardingEvents = [];
+      obj.forwardingEvents = [];
     }
-
     message.lastOffsetIndex !== undefined &&
-      (object.lastOffsetIndex = Math.round(message.lastOffsetIndex));
-    return object;
+      (obj.lastOffsetIndex = Math.round(message.lastOffsetIndex));
+    return obj;
   },
 
   fromPartial(
@@ -23884,7 +22042,6 @@ export const ExportChannelBackupRequest = {
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -23893,7 +22050,7 @@ export const ExportChannelBackupRequest = {
     length?: number,
   ): ExportChannelBackupRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExportChannelBackupRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23906,26 +22063,24 @@ export const ExportChannelBackupRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ExportChannelBackupRequest {
-    const message = createBaseExportChannelBackupRequest();
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
+    return {
+      chanPoint: isSet(object.chanPoint)
         ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: ExportChannelBackupRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.chanPoint !== undefined &&
-      (object.chanPoint = message.chanPoint
+      (obj.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -23952,17 +22107,15 @@ export const ChannelBackup = {
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(10).fork()).ldelim();
     }
-
-    if (message.chanBackup.length > 0) {
+    if (message.chanBackup.length !== 0) {
       writer.uint32(18).bytes(message.chanBackup);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelBackup {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBackup();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -23978,36 +22131,33 @@ export const ChannelBackup = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelBackup {
-    const message = createBaseChannelBackup();
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
+    return {
+      chanPoint: isSet(object.chanPoint)
         ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined;
-    message.chanBackup =
-      object.chanBackup !== undefined && object.chanBackup !== null
+        : undefined,
+      chanBackup: isSet(object.chanBackup)
         ? bytesFromBase64(object.chanBackup)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: ChannelBackup): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.chanPoint !== undefined &&
-      (object.chanPoint = message.chanPoint
+      (obj.chanPoint = message.chanPoint
         ? ChannelPoint.toJSON(message.chanPoint)
         : undefined);
     message.chanBackup !== undefined &&
-      (object.chanBackup = base64FromBytes(
+      (obj.chanBackup = base64FromBytes(
         message.chanBackup !== undefined
           ? message.chanBackup
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelBackup>): ChannelBackup {
@@ -24031,19 +22181,17 @@ export const MultiChanBackup = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.chanPoints) {
-      ChannelPoint.encode(v, writer.uint32(10).fork()).ldelim();
+      ChannelPoint.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
-    if (message.multiChanBackup.length > 0) {
+    if (message.multiChanBackup.length !== 0) {
       writer.uint32(18).bytes(message.multiChanBackup);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MultiChanBackup {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMultiChanBackup();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24059,39 +22207,36 @@ export const MultiChanBackup = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): MultiChanBackup {
-    const message = createBaseMultiChanBackup();
-    message.chanPoints = (object.chanPoints ?? []).map((e: any) =>
-      ChannelPoint.fromJSON(e),
-    );
-    message.multiChanBackup =
-      object.multiChanBackup !== undefined && object.multiChanBackup !== null
+    return {
+      chanPoints: Array.isArray(object?.chanPoints)
+        ? object.chanPoints.map((e: any) => ChannelPoint.fromJSON(e))
+        : [],
+      multiChanBackup: isSet(object.multiChanBackup)
         ? bytesFromBase64(object.multiChanBackup)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: MultiChanBackup): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.chanPoints) {
-      object.chanPoints = message.chanPoints.map((e) =>
+      obj.chanPoints = message.chanPoints.map((e) =>
         e ? ChannelPoint.toJSON(e) : undefined,
       );
     } else {
-      object.chanPoints = [];
+      obj.chanPoints = [];
     }
-
     message.multiChanBackup !== undefined &&
-      (object.multiChanBackup = base64FromBytes(
+      (obj.multiChanBackup = base64FromBytes(
         message.multiChanBackup !== undefined
           ? message.multiChanBackup
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<MultiChanBackup>): MultiChanBackup {
@@ -24120,7 +22265,7 @@ export const ChanBackupExportRequest = {
     length?: number,
   ): ChanBackupExportRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanBackupExportRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24130,18 +22275,16 @@ export const ChanBackupExportRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): ChanBackupExportRequest {
-    const message = createBaseChanBackupExportRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: ChanBackupExportRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(
@@ -24167,20 +22310,18 @@ export const ChanBackupSnapshot = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.multiChanBackup !== undefined) {
       MultiChanBackup.encode(
         message.multiChanBackup,
         writer.uint32(18).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChanBackupSnapshot {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanBackupSnapshot();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24202,35 +22343,31 @@ export const ChanBackupSnapshot = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChanBackupSnapshot {
-    const message = createBaseChanBackupSnapshot();
-    message.singleChanBackups =
-      object.singleChanBackups !== undefined &&
-      object.singleChanBackups !== null
+    return {
+      singleChanBackups: isSet(object.singleChanBackups)
         ? ChannelBackups.fromJSON(object.singleChanBackups)
-        : undefined;
-    message.multiChanBackup =
-      object.multiChanBackup !== undefined && object.multiChanBackup !== null
+        : undefined,
+      multiChanBackup: isSet(object.multiChanBackup)
         ? MultiChanBackup.fromJSON(object.multiChanBackup)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: ChanBackupSnapshot): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.singleChanBackups !== undefined &&
-      (object.singleChanBackups = message.singleChanBackups
+      (obj.singleChanBackups = message.singleChanBackups
         ? ChannelBackups.toJSON(message.singleChanBackups)
         : undefined);
     message.multiChanBackup !== undefined &&
-      (object.multiChanBackup = message.multiChanBackup
+      (obj.multiChanBackup = message.multiChanBackup
         ? MultiChanBackup.toJSON(message.multiChanBackup)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChanBackupSnapshot>): ChanBackupSnapshot {
@@ -24258,15 +22395,14 @@ export const ChannelBackups = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.chanBackups) {
-      ChannelBackup.encode(v, writer.uint32(10).fork()).ldelim();
+      ChannelBackup.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelBackups {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBackups();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24281,29 +22417,27 @@ export const ChannelBackups = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelBackups {
-    const message = createBaseChannelBackups();
-    message.chanBackups = (object.chanBackups ?? []).map((e: any) =>
-      ChannelBackup.fromJSON(e),
-    );
-    return message;
+    return {
+      chanBackups: Array.isArray(object?.chanBackups)
+        ? object.chanBackups.map((e: any) => ChannelBackup.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: ChannelBackups): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.chanBackups) {
-      object.chanBackups = message.chanBackups.map((e) =>
+      obj.chanBackups = message.chanBackups.map((e) =>
         e ? ChannelBackup.toJSON(e) : undefined,
       );
     } else {
-      object.chanBackups = [];
+      obj.chanBackups = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelBackups>): ChannelBackups {
@@ -24329,11 +22463,9 @@ export const RestoreChanBackupRequest = {
         writer.uint32(10).fork(),
       ).ldelim();
     }
-
     if (message.multiChanBackup !== undefined) {
       writer.uint32(18).bytes(message.multiChanBackup);
     }
-
     return writer;
   },
 
@@ -24342,7 +22474,7 @@ export const RestoreChanBackupRequest = {
     length?: number,
   ): RestoreChanBackupRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRestoreChanBackupRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24358,35 +22490,32 @@ export const RestoreChanBackupRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): RestoreChanBackupRequest {
-    const message = createBaseRestoreChanBackupRequest();
-    message.chanBackups =
-      object.chanBackups !== undefined && object.chanBackups !== null
+    return {
+      chanBackups: isSet(object.chanBackups)
         ? ChannelBackups.fromJSON(object.chanBackups)
-        : undefined;
-    message.multiChanBackup =
-      object.multiChanBackup !== undefined && object.multiChanBackup !== null
+        : undefined,
+      multiChanBackup: isSet(object.multiChanBackup)
         ? bytesFromBase64(object.multiChanBackup)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: RestoreChanBackupRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.chanBackups !== undefined &&
-      (object.chanBackups = message.chanBackups
+      (obj.chanBackups = message.chanBackups
         ? ChannelBackups.toJSON(message.chanBackups)
         : undefined);
     message.multiChanBackup !== undefined &&
-      (object.multiChanBackup =
+      (obj.multiChanBackup =
         message.multiChanBackup !== undefined
           ? base64FromBytes(message.multiChanBackup)
           : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -24419,7 +22548,7 @@ export const RestoreBackupResponse = {
     length?: number,
   ): RestoreBackupResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRestoreBackupResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24429,18 +22558,16 @@ export const RestoreBackupResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): RestoreBackupResponse {
-    const message = createBaseRestoreBackupResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: RestoreBackupResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<RestoreBackupResponse>): RestoreBackupResponse {
@@ -24466,7 +22593,7 @@ export const ChannelBackupSubscription = {
     length?: number,
   ): ChannelBackupSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBackupSubscription();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24476,18 +22603,16 @@ export const ChannelBackupSubscription = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): ChannelBackupSubscription {
-    const message = createBaseChannelBackupSubscription();
-    return message;
+    return {};
   },
 
   toJSON(_: ChannelBackupSubscription): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(
@@ -24515,7 +22640,7 @@ export const VerifyChanBackupResponse = {
     length?: number,
   ): VerifyChanBackupResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyChanBackupResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24525,18 +22650,16 @@ export const VerifyChanBackupResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): VerifyChanBackupResponse {
-    const message = createBaseVerifyChanBackupResponse();
-    return message;
+    return {};
   },
 
   toJSON(_: VerifyChanBackupResponse): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(
@@ -24559,17 +22682,15 @@ export const MacaroonPermission = {
     if (message.entity !== '') {
       writer.uint32(10).string(message.entity);
     }
-
     if (message.action !== '') {
       writer.uint32(18).string(message.action);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MacaroonPermission {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMacaroonPermission();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24585,28 +22706,21 @@ export const MacaroonPermission = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): MacaroonPermission {
-    const message = createBaseMacaroonPermission();
-    message.entity =
-      object.entity !== undefined && object.entity !== null
-        ? String(object.entity)
-        : '';
-    message.action =
-      object.action !== undefined && object.action !== null
-        ? String(object.action)
-        : '';
-    return message;
+    return {
+      entity: isSet(object.entity) ? String(object.entity) : '',
+      action: isSet(object.action) ? String(object.action) : '',
+    };
   },
 
   toJSON(message: MacaroonPermission): unknown {
-    const object: any = {};
-    message.entity !== undefined && (object.entity = message.entity);
-    message.action !== undefined && (object.action = message.action);
-    return object;
+    const obj: any = {};
+    message.entity !== undefined && (obj.entity = message.entity);
+    message.action !== undefined && (obj.action = message.action);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<MacaroonPermission>): MacaroonPermission {
@@ -24627,23 +22741,20 @@ export const BakeMacaroonRequest = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.permissions) {
-      MacaroonPermission.encode(v, writer.uint32(10).fork()).ldelim();
+      MacaroonPermission.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     if (message.rootKeyId !== '0') {
       writer.uint32(16).uint64(message.rootKeyId);
     }
-
-    if (message.allowExternalPermissions) {
+    if (message.allowExternalPermissions === true) {
       writer.uint32(24).bool(message.allowExternalPermissions);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): BakeMacaroonRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBakeMacaroonRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24664,41 +22775,34 @@ export const BakeMacaroonRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): BakeMacaroonRequest {
-    const message = createBaseBakeMacaroonRequest();
-    message.permissions = (object.permissions ?? []).map((e: any) =>
-      MacaroonPermission.fromJSON(e),
-    );
-    message.rootKeyId =
-      object.rootKeyId !== undefined && object.rootKeyId !== null
-        ? String(object.rootKeyId)
-        : '0';
-    message.allowExternalPermissions =
-      object.allowExternalPermissions !== undefined &&
-      object.allowExternalPermissions !== null
+    return {
+      permissions: Array.isArray(object?.permissions)
+        ? object.permissions.map((e: any) => MacaroonPermission.fromJSON(e))
+        : [],
+      rootKeyId: isSet(object.rootKeyId) ? String(object.rootKeyId) : '0',
+      allowExternalPermissions: isSet(object.allowExternalPermissions)
         ? Boolean(object.allowExternalPermissions)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: BakeMacaroonRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.permissions) {
-      object.permissions = message.permissions.map((e) =>
+      obj.permissions = message.permissions.map((e) =>
         e ? MacaroonPermission.toJSON(e) : undefined,
       );
     } else {
-      object.permissions = [];
+      obj.permissions = [];
     }
-
-    message.rootKeyId !== undefined && (object.rootKeyId = message.rootKeyId);
+    message.rootKeyId !== undefined && (obj.rootKeyId = message.rootKeyId);
     message.allowExternalPermissions !== undefined &&
-      (object.allowExternalPermissions = message.allowExternalPermissions);
-    return object;
+      (obj.allowExternalPermissions = message.allowExternalPermissions);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<BakeMacaroonRequest>): BakeMacaroonRequest {
@@ -24723,7 +22827,6 @@ export const BakeMacaroonResponse = {
     if (message.macaroon !== '') {
       writer.uint32(10).string(message.macaroon);
     }
-
     return writer;
   },
 
@@ -24732,7 +22835,7 @@ export const BakeMacaroonResponse = {
     length?: number,
   ): BakeMacaroonResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBakeMacaroonResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24745,23 +22848,19 @@ export const BakeMacaroonResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): BakeMacaroonResponse {
-    const message = createBaseBakeMacaroonResponse();
-    message.macaroon =
-      object.macaroon !== undefined && object.macaroon !== null
-        ? String(object.macaroon)
-        : '';
-    return message;
+    return {
+      macaroon: isSet(object.macaroon) ? String(object.macaroon) : '',
+    };
   },
 
   toJSON(message: BakeMacaroonResponse): unknown {
-    const object: any = {};
-    message.macaroon !== undefined && (object.macaroon = message.macaroon);
-    return object;
+    const obj: any = {};
+    message.macaroon !== undefined && (obj.macaroon = message.macaroon);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<BakeMacaroonResponse>): BakeMacaroonResponse {
@@ -24788,7 +22887,7 @@ export const ListMacaroonIDsRequest = {
     length?: number,
   ): ListMacaroonIDsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListMacaroonIDsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24798,18 +22897,16 @@ export const ListMacaroonIDsRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): ListMacaroonIDsRequest {
-    const message = createBaseListMacaroonIDsRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: ListMacaroonIDsRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<ListMacaroonIDsRequest>): ListMacaroonIDsRequest {
@@ -24831,7 +22928,6 @@ export const ListMacaroonIDsResponse = {
     for (const v of message.rootKeyIds) {
       writer.uint64(v);
     }
-
     writer.ldelim();
     return writer;
   },
@@ -24841,7 +22937,7 @@ export const ListMacaroonIDsResponse = {
     length?: number,
   ): ListMacaroonIDsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListMacaroonIDsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24855,29 +22951,31 @@ export const ListMacaroonIDsResponse = {
           } else {
             message.rootKeyIds.push(longToString(reader.uint64() as Long));
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListMacaroonIDsResponse {
-    const message = createBaseListMacaroonIDsResponse();
-    message.rootKeyIds = (object.rootKeyIds ?? []).map((e: any) => String(e));
-    return message;
+    return {
+      rootKeyIds: Array.isArray(object?.rootKeyIds)
+        ? object.rootKeyIds.map((e: any) => String(e))
+        : [],
+    };
   },
 
   toJSON(message: ListMacaroonIDsResponse): unknown {
-    const object: any = {};
-    object.rootKeyIds = message.rootKeyIds
-      ? message.rootKeyIds.map((e) => e)
-      : [];
-    return object;
+    const obj: any = {};
+    if (message.rootKeyIds) {
+      obj.rootKeyIds = message.rootKeyIds.map((e) => e);
+    } else {
+      obj.rootKeyIds = [];
+    }
+    return obj;
   },
 
   fromPartial(
@@ -24901,7 +22999,6 @@ export const DeleteMacaroonIDRequest = {
     if (message.rootKeyId !== '0') {
       writer.uint32(8).uint64(message.rootKeyId);
     }
-
     return writer;
   },
 
@@ -24910,7 +23007,7 @@ export const DeleteMacaroonIDRequest = {
     length?: number,
   ): DeleteMacaroonIDRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteMacaroonIDRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24923,23 +23020,19 @@ export const DeleteMacaroonIDRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): DeleteMacaroonIDRequest {
-    const message = createBaseDeleteMacaroonIDRequest();
-    message.rootKeyId =
-      object.rootKeyId !== undefined && object.rootKeyId !== null
-        ? String(object.rootKeyId)
-        : '0';
-    return message;
+    return {
+      rootKeyId: isSet(object.rootKeyId) ? String(object.rootKeyId) : '0',
+    };
   },
 
   toJSON(message: DeleteMacaroonIDRequest): unknown {
-    const object: any = {};
-    message.rootKeyId !== undefined && (object.rootKeyId = message.rootKeyId);
-    return object;
+    const obj: any = {};
+    message.rootKeyId !== undefined && (obj.rootKeyId = message.rootKeyId);
+    return obj;
   },
 
   fromPartial(
@@ -24960,10 +23053,9 @@ export const DeleteMacaroonIDResponse = {
     message: DeleteMacaroonIDResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.deleted) {
+    if (message.deleted === true) {
       writer.uint32(8).bool(message.deleted);
     }
-
     return writer;
   },
 
@@ -24972,7 +23064,7 @@ export const DeleteMacaroonIDResponse = {
     length?: number,
   ): DeleteMacaroonIDResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteMacaroonIDResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -24985,23 +23077,19 @@ export const DeleteMacaroonIDResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): DeleteMacaroonIDResponse {
-    const message = createBaseDeleteMacaroonIDResponse();
-    message.deleted =
-      object.deleted !== undefined && object.deleted !== null
-        ? Boolean(object.deleted)
-        : false;
-    return message;
+    return {
+      deleted: isSet(object.deleted) ? Boolean(object.deleted) : false,
+    };
   },
 
   toJSON(message: DeleteMacaroonIDResponse): unknown {
-    const object: any = {};
-    message.deleted !== undefined && (object.deleted = message.deleted);
-    return object;
+    const obj: any = {};
+    message.deleted !== undefined && (obj.deleted = message.deleted);
+    return obj;
   },
 
   fromPartial(
@@ -25023,9 +23111,8 @@ export const MacaroonPermissionList = {
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
     for (const v of message.permissions) {
-      MacaroonPermission.encode(v, writer.uint32(10).fork()).ldelim();
+      MacaroonPermission.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-
     return writer;
   },
 
@@ -25034,7 +23121,7 @@ export const MacaroonPermissionList = {
     length?: number,
   ): MacaroonPermissionList {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMacaroonPermissionList();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25049,29 +23136,27 @@ export const MacaroonPermissionList = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): MacaroonPermissionList {
-    const message = createBaseMacaroonPermissionList();
-    message.permissions = (object.permissions ?? []).map((e: any) =>
-      MacaroonPermission.fromJSON(e),
-    );
-    return message;
+    return {
+      permissions: Array.isArray(object?.permissions)
+        ? object.permissions.map((e: any) => MacaroonPermission.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: MacaroonPermissionList): unknown {
-    const object: any = {};
+    const obj: any = {};
     if (message.permissions) {
-      object.permissions = message.permissions.map((e) =>
+      obj.permissions = message.permissions.map((e) =>
         e ? MacaroonPermission.toJSON(e) : undefined,
       );
     } else {
-      object.permissions = [];
+      obj.permissions = [];
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -25101,7 +23186,7 @@ export const ListPermissionsRequest = {
     length?: number,
   ): ListPermissionsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25111,18 +23196,16 @@ export const ListPermissionsRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(_: any): ListPermissionsRequest {
-    const message = createBaseListPermissionsRequest();
-    return message;
+    return {};
   },
 
   toJSON(_: ListPermissionsRequest): unknown {
-    const object: any = {};
-    return object;
+    const obj: any = {};
+    return obj;
   },
 
   fromPartial(_: DeepPartial<ListPermissionsRequest>): ListPermissionsRequest {
@@ -25140,13 +23223,12 @@ export const ListPermissionsResponse = {
     message: ListPermissionsResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    for (const [key, value] of Object.entries(message.methodPermissions)) {
+    Object.entries(message.methodPermissions).forEach(([key, value]) => {
       ListPermissionsResponse_MethodPermissionsEntry.encode(
         {key: key as any, value},
         writer.uint32(10).fork(),
       ).ldelim();
-    }
-
+    });
     return writer;
   },
 
@@ -25155,7 +23237,7 @@ export const ListPermissionsResponse = {
     length?: number,
   ): ListPermissionsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25168,38 +23250,37 @@ export const ListPermissionsResponse = {
           if (entry1.value !== undefined) {
             message.methodPermissions[entry1.key] = entry1.value;
           }
-
           break;
         default:
           reader.skipType(tag & 7);
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListPermissionsResponse {
-    const message = createBaseListPermissionsResponse();
-    message.methodPermissions = Object.entries(
-      object.methodPermissions ?? {},
-    ).reduce<Record<string, MacaroonPermissionList>>((acc, [key, value]) => {
-      acc[key] = MacaroonPermissionList.fromJSON(value);
-      return acc;
-    }, {});
-    return message;
+    return {
+      methodPermissions: isObject(object.methodPermissions)
+        ? Object.entries(object.methodPermissions).reduce<{
+            [key: string]: MacaroonPermissionList;
+          }>((acc, [key, value]) => {
+            acc[key] = MacaroonPermissionList.fromJSON(value);
+            return acc;
+          }, {})
+        : {},
+    };
   },
 
   toJSON(message: ListPermissionsResponse): unknown {
-    const object: any = {};
-    object.methodPermissions = {};
+    const obj: any = {};
+    obj.methodPermissions = {};
     if (message.methodPermissions) {
-      for (const [k, v] of Object.entries(message.methodPermissions)) {
-        object.methodPermissions[k] = MacaroonPermissionList.toJSON(v);
-      }
+      Object.entries(message.methodPermissions).forEach(([k, v]) => {
+        obj.methodPermissions[k] = MacaroonPermissionList.toJSON(v);
+      });
     }
-
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -25208,11 +23289,10 @@ export const ListPermissionsResponse = {
     const message = createBaseListPermissionsResponse();
     message.methodPermissions = Object.entries(
       object.methodPermissions ?? {},
-    ).reduce<Record<string, MacaroonPermissionList>>((acc, [key, value]) => {
+    ).reduce<{[key: string]: MacaroonPermissionList}>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = MacaroonPermissionList.fromPartial(value);
       }
-
       return acc;
     }, {});
     return message;
@@ -25231,14 +23311,12 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
     if (message.key !== '') {
       writer.uint32(10).string(message.key);
     }
-
     if (message.value !== undefined) {
       MacaroonPermissionList.encode(
         message.value,
         writer.uint32(18).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
@@ -25247,7 +23325,7 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
     length?: number,
   ): ListPermissionsResponse_MethodPermissionsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsResponse_MethodPermissionsEntry();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25266,29 +23344,26 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ListPermissionsResponse_MethodPermissionsEntry {
-    const message = createBaseListPermissionsResponse_MethodPermissionsEntry();
-    message.key =
-      object.key !== undefined && object.key !== null ? String(object.key) : '';
-    message.value =
-      object.value !== undefined && object.value !== null
+    return {
+      key: isSet(object.key) ? String(object.key) : '',
+      value: isSet(object.value)
         ? MacaroonPermissionList.fromJSON(object.value)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: ListPermissionsResponse_MethodPermissionsEntry): unknown {
-    const object: any = {};
-    message.key !== undefined && (object.key = message.key);
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (object.value = message.value
+      (obj.value = message.value
         ? MacaroonPermissionList.toJSON(message.value)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -25325,44 +23400,36 @@ export const Failure = {
     if (message.code !== 0) {
       writer.uint32(8).int32(message.code);
     }
-
     if (message.channelUpdate !== undefined) {
       ChannelUpdate.encode(
         message.channelUpdate,
         writer.uint32(26).fork(),
       ).ldelim();
     }
-
     if (message.htlcMsat !== '0') {
       writer.uint32(32).uint64(message.htlcMsat);
     }
-
-    if (message.onionSha256.length > 0) {
+    if (message.onionSha256.length !== 0) {
       writer.uint32(42).bytes(message.onionSha256);
     }
-
     if (message.cltvExpiry !== 0) {
       writer.uint32(48).uint32(message.cltvExpiry);
     }
-
     if (message.flags !== 0) {
       writer.uint32(56).uint32(message.flags);
     }
-
     if (message.failureSourceIndex !== 0) {
       writer.uint32(64).uint32(message.failureSourceIndex);
     }
-
     if (message.height !== 0) {
       writer.uint32(72).uint32(message.height);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Failure {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFailure();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25396,71 +23463,50 @@ export const Failure = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Failure {
-    const message = createBaseFailure();
-    message.code =
-      object.code !== undefined && object.code !== null
-        ? failure_FailureCodeFromJSON(object.code)
-        : 0;
-    message.channelUpdate =
-      object.channelUpdate !== undefined && object.channelUpdate !== null
+    return {
+      code: isSet(object.code) ? failure_FailureCodeFromJSON(object.code) : 0,
+      channelUpdate: isSet(object.channelUpdate)
         ? ChannelUpdate.fromJSON(object.channelUpdate)
-        : undefined;
-    message.htlcMsat =
-      object.htlcMsat !== undefined && object.htlcMsat !== null
-        ? String(object.htlcMsat)
-        : '0';
-    message.onionSha256 =
-      object.onionSha256 !== undefined && object.onionSha256 !== null
+        : undefined,
+      htlcMsat: isSet(object.htlcMsat) ? String(object.htlcMsat) : '0',
+      onionSha256: isSet(object.onionSha256)
         ? bytesFromBase64(object.onionSha256)
-        : new Uint8Array();
-    message.cltvExpiry =
-      object.cltvExpiry !== undefined && object.cltvExpiry !== null
-        ? Number(object.cltvExpiry)
-        : 0;
-    message.flags =
-      object.flags !== undefined && object.flags !== null
-        ? Number(object.flags)
-        : 0;
-    message.failureSourceIndex =
-      object.failureSourceIndex !== undefined &&
-      object.failureSourceIndex !== null
+        : new Uint8Array(),
+      cltvExpiry: isSet(object.cltvExpiry) ? Number(object.cltvExpiry) : 0,
+      flags: isSet(object.flags) ? Number(object.flags) : 0,
+      failureSourceIndex: isSet(object.failureSourceIndex)
         ? Number(object.failureSourceIndex)
-        : 0;
-    message.height =
-      object.height !== undefined && object.height !== null
-        ? Number(object.height)
-        : 0;
-    return message;
+        : 0,
+      height: isSet(object.height) ? Number(object.height) : 0,
+    };
   },
 
   toJSON(message: Failure): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.code !== undefined &&
-      (object.code = failure_FailureCodeToJSON(message.code));
+      (obj.code = failure_FailureCodeToJSON(message.code));
     message.channelUpdate !== undefined &&
-      (object.channelUpdate = message.channelUpdate
+      (obj.channelUpdate = message.channelUpdate
         ? ChannelUpdate.toJSON(message.channelUpdate)
         : undefined);
-    message.htlcMsat !== undefined && (object.htlcMsat = message.htlcMsat);
+    message.htlcMsat !== undefined && (obj.htlcMsat = message.htlcMsat);
     message.onionSha256 !== undefined &&
-      (object.onionSha256 = base64FromBytes(
+      (obj.onionSha256 = base64FromBytes(
         message.onionSha256 !== undefined
           ? message.onionSha256
           : new Uint8Array(),
       ));
     message.cltvExpiry !== undefined &&
-      (object.cltvExpiry = Math.round(message.cltvExpiry));
-    message.flags !== undefined && (object.flags = Math.round(message.flags));
+      (obj.cltvExpiry = Math.round(message.cltvExpiry));
+    message.flags !== undefined && (obj.flags = Math.round(message.flags));
     message.failureSourceIndex !== undefined &&
-      (object.failureSourceIndex = Math.round(message.failureSourceIndex));
-    message.height !== undefined &&
-      (object.height = Math.round(message.height));
-    return object;
+      (obj.failureSourceIndex = Math.round(message.failureSourceIndex));
+    message.height !== undefined && (obj.height = Math.round(message.height));
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Failure>): Failure {
@@ -25502,60 +23548,48 @@ export const ChannelUpdate = {
     message: ChannelUpdate,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.signature.length > 0) {
+    if (message.signature.length !== 0) {
       writer.uint32(10).bytes(message.signature);
     }
-
-    if (message.chainHash.length > 0) {
+    if (message.chainHash.length !== 0) {
       writer.uint32(18).bytes(message.chainHash);
     }
-
     if (message.chanId !== '0') {
       writer.uint32(24).uint64(message.chanId);
     }
-
     if (message.timestamp !== 0) {
       writer.uint32(32).uint32(message.timestamp);
     }
-
     if (message.messageFlags !== 0) {
       writer.uint32(80).uint32(message.messageFlags);
     }
-
     if (message.channelFlags !== 0) {
       writer.uint32(40).uint32(message.channelFlags);
     }
-
     if (message.timeLockDelta !== 0) {
       writer.uint32(48).uint32(message.timeLockDelta);
     }
-
     if (message.htlcMinimumMsat !== '0') {
       writer.uint32(56).uint64(message.htlcMinimumMsat);
     }
-
     if (message.baseFee !== 0) {
       writer.uint32(64).uint32(message.baseFee);
     }
-
     if (message.feeRate !== 0) {
       writer.uint32(72).uint32(message.feeRate);
     }
-
     if (message.htlcMaximumMsat !== '0') {
       writer.uint32(88).uint64(message.htlcMaximumMsat);
     }
-
-    if (message.extraOpaqueData.length > 0) {
+    if (message.extraOpaqueData.length !== 0) {
       writer.uint32(98).bytes(message.extraOpaqueData);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): ChannelUpdate {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelUpdate();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25601,97 +23635,76 @@ export const ChannelUpdate = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): ChannelUpdate {
-    const message = createBaseChannelUpdate();
-    message.signature =
-      object.signature !== undefined && object.signature !== null
+    return {
+      signature: isSet(object.signature)
         ? bytesFromBase64(object.signature)
-        : new Uint8Array();
-    message.chainHash =
-      object.chainHash !== undefined && object.chainHash !== null
+        : new Uint8Array(),
+      chainHash: isSet(object.chainHash)
         ? bytesFromBase64(object.chainHash)
-        : new Uint8Array();
-    message.chanId =
-      object.chanId !== undefined && object.chanId !== null
-        ? String(object.chanId)
-        : '0';
-    message.timestamp =
-      object.timestamp !== undefined && object.timestamp !== null
-        ? Number(object.timestamp)
-        : 0;
-    message.messageFlags =
-      object.messageFlags !== undefined && object.messageFlags !== null
+        : new Uint8Array(),
+      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
+      messageFlags: isSet(object.messageFlags)
         ? Number(object.messageFlags)
-        : 0;
-    message.channelFlags =
-      object.channelFlags !== undefined && object.channelFlags !== null
+        : 0,
+      channelFlags: isSet(object.channelFlags)
         ? Number(object.channelFlags)
-        : 0;
-    message.timeLockDelta =
-      object.timeLockDelta !== undefined && object.timeLockDelta !== null
+        : 0,
+      timeLockDelta: isSet(object.timeLockDelta)
         ? Number(object.timeLockDelta)
-        : 0;
-    message.htlcMinimumMsat =
-      object.htlcMinimumMsat !== undefined && object.htlcMinimumMsat !== null
+        : 0,
+      htlcMinimumMsat: isSet(object.htlcMinimumMsat)
         ? String(object.htlcMinimumMsat)
-        : '0';
-    message.baseFee =
-      object.baseFee !== undefined && object.baseFee !== null
-        ? Number(object.baseFee)
-        : 0;
-    message.feeRate =
-      object.feeRate !== undefined && object.feeRate !== null
-        ? Number(object.feeRate)
-        : 0;
-    message.htlcMaximumMsat =
-      object.htlcMaximumMsat !== undefined && object.htlcMaximumMsat !== null
+        : '0',
+      baseFee: isSet(object.baseFee) ? Number(object.baseFee) : 0,
+      feeRate: isSet(object.feeRate) ? Number(object.feeRate) : 0,
+      htlcMaximumMsat: isSet(object.htlcMaximumMsat)
         ? String(object.htlcMaximumMsat)
-        : '0';
-    message.extraOpaqueData =
-      object.extraOpaqueData !== undefined && object.extraOpaqueData !== null
+        : '0',
+      extraOpaqueData: isSet(object.extraOpaqueData)
         ? bytesFromBase64(object.extraOpaqueData)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: ChannelUpdate): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.signature !== undefined &&
-      (object.signature = base64FromBytes(
+      (obj.signature = base64FromBytes(
         message.signature !== undefined ? message.signature : new Uint8Array(),
       ));
     message.chainHash !== undefined &&
-      (object.chainHash = base64FromBytes(
+      (obj.chainHash = base64FromBytes(
         message.chainHash !== undefined ? message.chainHash : new Uint8Array(),
       ));
-    message.chanId !== undefined && (object.chanId = message.chanId);
+    message.chanId !== undefined && (obj.chanId = message.chanId);
     message.timestamp !== undefined &&
-      (object.timestamp = Math.round(message.timestamp));
+      (obj.timestamp = Math.round(message.timestamp));
     message.messageFlags !== undefined &&
-      (object.messageFlags = Math.round(message.messageFlags));
+      (obj.messageFlags = Math.round(message.messageFlags));
     message.channelFlags !== undefined &&
-      (object.channelFlags = Math.round(message.channelFlags));
+      (obj.channelFlags = Math.round(message.channelFlags));
     message.timeLockDelta !== undefined &&
-      (object.timeLockDelta = Math.round(message.timeLockDelta));
+      (obj.timeLockDelta = Math.round(message.timeLockDelta));
     message.htlcMinimumMsat !== undefined &&
-      (object.htlcMinimumMsat = message.htlcMinimumMsat);
+      (obj.htlcMinimumMsat = message.htlcMinimumMsat);
     message.baseFee !== undefined &&
-      (object.baseFee = Math.round(message.baseFee));
+      (obj.baseFee = Math.round(message.baseFee));
     message.feeRate !== undefined &&
-      (object.feeRate = Math.round(message.feeRate));
+      (obj.feeRate = Math.round(message.feeRate));
     message.htlcMaximumMsat !== undefined &&
-      (object.htlcMaximumMsat = message.htlcMaximumMsat);
+      (obj.htlcMaximumMsat = message.htlcMaximumMsat);
     message.extraOpaqueData !== undefined &&
-      (object.extraOpaqueData = base64FromBytes(
+      (obj.extraOpaqueData = base64FromBytes(
         message.extraOpaqueData !== undefined
           ? message.extraOpaqueData
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelUpdate>): ChannelUpdate {
@@ -25721,24 +23734,21 @@ export const MacaroonId = {
     message: MacaroonId,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.nonce.length > 0) {
+    if (message.nonce.length !== 0) {
       writer.uint32(10).bytes(message.nonce);
     }
-
-    if (message.storageId.length > 0) {
+    if (message.storageId.length !== 0) {
       writer.uint32(18).bytes(message.storageId);
     }
-
     for (const v of message.ops) {
-      Op.encode(v, writer.uint32(26).fork()).ldelim();
+      Op.encode(v!, writer.uint32(26).fork()).ldelim();
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): MacaroonId {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMacaroonId();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25757,38 +23767,39 @@ export const MacaroonId = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): MacaroonId {
-    const message = createBaseMacaroonId();
-    message.nonce =
-      object.nonce !== undefined && object.nonce !== null
+    return {
+      nonce: isSet(object.nonce)
         ? bytesFromBase64(object.nonce)
-        : new Uint8Array();
-    message.storageId =
-      object.storageId !== undefined && object.storageId !== null
+        : new Uint8Array(),
+      storageId: isSet(object.storageId)
         ? bytesFromBase64(object.storageId)
-        : new Uint8Array();
-    message.ops = (object.ops ?? []).map((e: any) => Op.fromJSON(e));
-    return message;
+        : new Uint8Array(),
+      ops: Array.isArray(object?.ops)
+        ? object.ops.map((e: any) => Op.fromJSON(e))
+        : [],
+    };
   },
 
   toJSON(message: MacaroonId): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.nonce !== undefined &&
-      (object.nonce = base64FromBytes(
+      (obj.nonce = base64FromBytes(
         message.nonce !== undefined ? message.nonce : new Uint8Array(),
       ));
     message.storageId !== undefined &&
-      (object.storageId = base64FromBytes(
+      (obj.storageId = base64FromBytes(
         message.storageId !== undefined ? message.storageId : new Uint8Array(),
       ));
-    object.ops = message.ops
-      ? message.ops.map((e) => (e ? Op.toJSON(e) : undefined))
-      : [];
-    return object;
+    if (message.ops) {
+      obj.ops = message.ops.map((e) => (e ? Op.toJSON(e) : undefined));
+    } else {
+      obj.ops = [];
+    }
+    return obj;
   },
 
   fromPartial(object: DeepPartial<MacaroonId>): MacaroonId {
@@ -25809,17 +23820,15 @@ export const Op = {
     if (message.entity !== '') {
       writer.uint32(10).string(message.entity);
     }
-
     for (const v of message.actions) {
-      writer.uint32(18).string(v);
+      writer.uint32(18).string(v!);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): Op {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseOp();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25835,25 +23844,27 @@ export const Op = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): Op {
-    const message = createBaseOp();
-    message.entity =
-      object.entity !== undefined && object.entity !== null
-        ? String(object.entity)
-        : '';
-    message.actions = (object.actions ?? []).map((e: any) => String(e));
-    return message;
+    return {
+      entity: isSet(object.entity) ? String(object.entity) : '',
+      actions: Array.isArray(object?.actions)
+        ? object.actions.map((e: any) => String(e))
+        : [],
+    };
   },
 
   toJSON(message: Op): unknown {
-    const object: any = {};
-    message.entity !== undefined && (object.entity = message.entity);
-    object.actions = message.actions ? message.actions.map((e) => e) : [];
-    return object;
+    const obj: any = {};
+    message.entity !== undefined && (obj.entity = message.entity);
+    if (message.actions) {
+      obj.actions = message.actions.map((e) => e);
+    } else {
+      obj.actions = [];
+    }
+    return obj;
   },
 
   fromPartial(object: DeepPartial<Op>): Op {
@@ -25873,24 +23884,21 @@ export const CheckMacPermRequest = {
     message: CheckMacPermRequest,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.macaroon.length > 0) {
+    if (message.macaroon.length !== 0) {
       writer.uint32(10).bytes(message.macaroon);
     }
-
     for (const v of message.permissions) {
-      MacaroonPermission.encode(v, writer.uint32(18).fork()).ldelim();
+      MacaroonPermission.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-
     if (message.fullMethod !== '') {
       writer.uint32(26).string(message.fullMethod);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): CheckMacPermRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCheckMacPermRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25911,43 +23919,36 @@ export const CheckMacPermRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): CheckMacPermRequest {
-    const message = createBaseCheckMacPermRequest();
-    message.macaroon =
-      object.macaroon !== undefined && object.macaroon !== null
+    return {
+      macaroon: isSet(object.macaroon)
         ? bytesFromBase64(object.macaroon)
-        : new Uint8Array();
-    message.permissions = (object.permissions ?? []).map((e: any) =>
-      MacaroonPermission.fromJSON(e),
-    );
-    message.fullMethod =
-      object.fullMethod !== undefined && object.fullMethod !== null
-        ? String(object.fullMethod)
-        : '';
-    return message;
+        : new Uint8Array(),
+      permissions: Array.isArray(object?.permissions)
+        ? object.permissions.map((e: any) => MacaroonPermission.fromJSON(e))
+        : [],
+      fullMethod: isSet(object.fullMethod) ? String(object.fullMethod) : '',
+    };
   },
 
   toJSON(message: CheckMacPermRequest): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.macaroon !== undefined &&
-      (object.macaroon = base64FromBytes(
+      (obj.macaroon = base64FromBytes(
         message.macaroon !== undefined ? message.macaroon : new Uint8Array(),
       ));
     if (message.permissions) {
-      object.permissions = message.permissions.map((e) =>
+      obj.permissions = message.permissions.map((e) =>
         e ? MacaroonPermission.toJSON(e) : undefined,
       );
     } else {
-      object.permissions = [];
+      obj.permissions = [];
     }
-
-    message.fullMethod !== undefined &&
-      (object.fullMethod = message.fullMethod);
-    return object;
+    message.fullMethod !== undefined && (obj.fullMethod = message.fullMethod);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<CheckMacPermRequest>): CheckMacPermRequest {
@@ -25969,10 +23970,9 @@ export const CheckMacPermResponse = {
     message: CheckMacPermResponse,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.valid) {
+    if (message.valid === true) {
       writer.uint32(8).bool(message.valid);
     }
-
     return writer;
   },
 
@@ -25981,7 +23981,7 @@ export const CheckMacPermResponse = {
     length?: number,
   ): CheckMacPermResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCheckMacPermResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -25994,23 +23994,19 @@ export const CheckMacPermResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): CheckMacPermResponse {
-    const message = createBaseCheckMacPermResponse();
-    message.valid =
-      object.valid !== undefined && object.valid !== null
-        ? Boolean(object.valid)
-        : false;
-    return message;
+    return {
+      valid: isSet(object.valid) ? Boolean(object.valid) : false,
+    };
   },
 
   toJSON(message: CheckMacPermResponse): unknown {
-    const object: any = {};
-    message.valid !== undefined && (object.valid = message.valid);
-    return object;
+    const obj: any = {};
+    message.valid !== undefined && (obj.valid = message.valid);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<CheckMacPermResponse>): CheckMacPermResponse {
@@ -26040,31 +24036,24 @@ export const RPCMiddlewareRequest = {
     if (message.requestId !== '0') {
       writer.uint32(8).uint64(message.requestId);
     }
-
-    if (message.rawMacaroon.length > 0) {
+    if (message.rawMacaroon.length !== 0) {
       writer.uint32(18).bytes(message.rawMacaroon);
     }
-
     if (message.customCaveatCondition !== '') {
       writer.uint32(26).string(message.customCaveatCondition);
     }
-
     if (message.streamAuth !== undefined) {
       StreamAuth.encode(message.streamAuth, writer.uint32(34).fork()).ldelim();
     }
-
     if (message.request !== undefined) {
       RPCMessage.encode(message.request, writer.uint32(42).fork()).ldelim();
     }
-
     if (message.response !== undefined) {
       RPCMessage.encode(message.response, writer.uint32(50).fork()).ldelim();
     }
-
     if (message.msgId !== '0') {
       writer.uint32(56).uint64(message.msgId);
     }
-
     return writer;
   },
 
@@ -26073,7 +24062,7 @@ export const RPCMiddlewareRequest = {
     length?: number,
   ): RPCMiddlewareRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRPCMiddlewareRequest();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -26104,69 +24093,56 @@ export const RPCMiddlewareRequest = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): RPCMiddlewareRequest {
-    const message = createBaseRPCMiddlewareRequest();
-    message.requestId =
-      object.requestId !== undefined && object.requestId !== null
-        ? String(object.requestId)
-        : '0';
-    message.rawMacaroon =
-      object.rawMacaroon !== undefined && object.rawMacaroon !== null
+    return {
+      requestId: isSet(object.requestId) ? String(object.requestId) : '0',
+      rawMacaroon: isSet(object.rawMacaroon)
         ? bytesFromBase64(object.rawMacaroon)
-        : new Uint8Array();
-    message.customCaveatCondition =
-      object.customCaveatCondition !== undefined &&
-      object.customCaveatCondition !== null
+        : new Uint8Array(),
+      customCaveatCondition: isSet(object.customCaveatCondition)
         ? String(object.customCaveatCondition)
-        : '';
-    message.streamAuth =
-      object.streamAuth !== undefined && object.streamAuth !== null
+        : '',
+      streamAuth: isSet(object.streamAuth)
         ? StreamAuth.fromJSON(object.streamAuth)
-        : undefined;
-    message.request =
-      object.request !== undefined && object.request !== null
+        : undefined,
+      request: isSet(object.request)
         ? RPCMessage.fromJSON(object.request)
-        : undefined;
-    message.response =
-      object.response !== undefined && object.response !== null
+        : undefined,
+      response: isSet(object.response)
         ? RPCMessage.fromJSON(object.response)
-        : undefined;
-    message.msgId =
-      object.msgId !== undefined && object.msgId !== null
-        ? String(object.msgId)
-        : '0';
-    return message;
+        : undefined,
+      msgId: isSet(object.msgId) ? String(object.msgId) : '0',
+    };
   },
 
   toJSON(message: RPCMiddlewareRequest): unknown {
-    const object: any = {};
-    message.requestId !== undefined && (object.requestId = message.requestId);
+    const obj: any = {};
+    message.requestId !== undefined && (obj.requestId = message.requestId);
     message.rawMacaroon !== undefined &&
-      (object.rawMacaroon = base64FromBytes(
+      (obj.rawMacaroon = base64FromBytes(
         message.rawMacaroon !== undefined
           ? message.rawMacaroon
           : new Uint8Array(),
       ));
     message.customCaveatCondition !== undefined &&
-      (object.customCaveatCondition = message.customCaveatCondition);
+      (obj.customCaveatCondition = message.customCaveatCondition);
     message.streamAuth !== undefined &&
-      (object.streamAuth = message.streamAuth
+      (obj.streamAuth = message.streamAuth
         ? StreamAuth.toJSON(message.streamAuth)
         : undefined);
     message.request !== undefined &&
-      (object.request = message.request
+      (obj.request = message.request
         ? RPCMessage.toJSON(message.request)
         : undefined);
     message.response !== undefined &&
-      (object.response = message.response
+      (obj.response = message.response
         ? RPCMessage.toJSON(message.response)
         : undefined);
-    message.msgId !== undefined && (object.msgId = message.msgId);
-    return object;
+    message.msgId !== undefined && (obj.msgId = message.msgId);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<RPCMiddlewareRequest>): RPCMiddlewareRequest {
@@ -26203,13 +24179,12 @@ export const StreamAuth = {
     if (message.methodFullUri !== '') {
       writer.uint32(10).string(message.methodFullUri);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): StreamAuth {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseStreamAuth();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -26222,24 +24197,22 @@ export const StreamAuth = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): StreamAuth {
-    const message = createBaseStreamAuth();
-    message.methodFullUri =
-      object.methodFullUri !== undefined && object.methodFullUri !== null
+    return {
+      methodFullUri: isSet(object.methodFullUri)
         ? String(object.methodFullUri)
-        : '';
-    return message;
+        : '',
+    };
   },
 
   toJSON(message: StreamAuth): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.methodFullUri !== undefined &&
-      (object.methodFullUri = message.methodFullUri);
-    return object;
+      (obj.methodFullUri = message.methodFullUri);
+    return obj;
   },
 
   fromPartial(object: DeepPartial<StreamAuth>): StreamAuth {
@@ -26266,25 +24239,21 @@ export const RPCMessage = {
     if (message.methodFullUri !== '') {
       writer.uint32(10).string(message.methodFullUri);
     }
-
-    if (message.streamRpc) {
+    if (message.streamRpc === true) {
       writer.uint32(16).bool(message.streamRpc);
     }
-
     if (message.typeName !== '') {
       writer.uint32(26).string(message.typeName);
     }
-
-    if (message.serialized.length > 0) {
+    if (message.serialized.length !== 0) {
       writer.uint32(34).bytes(message.serialized);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): RPCMessage {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRPCMessage();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -26306,44 +24275,35 @@ export const RPCMessage = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): RPCMessage {
-    const message = createBaseRPCMessage();
-    message.methodFullUri =
-      object.methodFullUri !== undefined && object.methodFullUri !== null
+    return {
+      methodFullUri: isSet(object.methodFullUri)
         ? String(object.methodFullUri)
-        : '';
-    message.streamRpc =
-      object.streamRpc !== undefined && object.streamRpc !== null
-        ? Boolean(object.streamRpc)
-        : false;
-    message.typeName =
-      object.typeName !== undefined && object.typeName !== null
-        ? String(object.typeName)
-        : '';
-    message.serialized =
-      object.serialized !== undefined && object.serialized !== null
+        : '',
+      streamRpc: isSet(object.streamRpc) ? Boolean(object.streamRpc) : false,
+      typeName: isSet(object.typeName) ? String(object.typeName) : '',
+      serialized: isSet(object.serialized)
         ? bytesFromBase64(object.serialized)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: RPCMessage): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.methodFullUri !== undefined &&
-      (object.methodFullUri = message.methodFullUri);
-    message.streamRpc !== undefined && (object.streamRpc = message.streamRpc);
-    message.typeName !== undefined && (object.typeName = message.typeName);
+      (obj.methodFullUri = message.methodFullUri);
+    message.streamRpc !== undefined && (obj.streamRpc = message.streamRpc);
+    message.typeName !== undefined && (obj.typeName = message.typeName);
     message.serialized !== undefined &&
-      (object.serialized = base64FromBytes(
+      (obj.serialized = base64FromBytes(
         message.serialized !== undefined
           ? message.serialized
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<RPCMessage>): RPCMessage {
@@ -26368,21 +24328,18 @@ export const RPCMiddlewareResponse = {
     if (message.refMsgId !== '0') {
       writer.uint32(8).uint64(message.refMsgId);
     }
-
     if (message.register !== undefined) {
       MiddlewareRegistration.encode(
         message.register,
         writer.uint32(18).fork(),
       ).ldelim();
     }
-
     if (message.feedback !== undefined) {
       InterceptFeedback.encode(
         message.feedback,
         writer.uint32(26).fork(),
       ).ldelim();
     }
-
     return writer;
   },
 
@@ -26391,7 +24348,7 @@ export const RPCMiddlewareResponse = {
     length?: number,
   ): RPCMiddlewareResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRPCMiddlewareResponse();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -26413,39 +24370,33 @@ export const RPCMiddlewareResponse = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): RPCMiddlewareResponse {
-    const message = createBaseRPCMiddlewareResponse();
-    message.refMsgId =
-      object.refMsgId !== undefined && object.refMsgId !== null
-        ? String(object.refMsgId)
-        : '0';
-    message.register =
-      object.register !== undefined && object.register !== null
+    return {
+      refMsgId: isSet(object.refMsgId) ? String(object.refMsgId) : '0',
+      register: isSet(object.register)
         ? MiddlewareRegistration.fromJSON(object.register)
-        : undefined;
-    message.feedback =
-      object.feedback !== undefined && object.feedback !== null
+        : undefined,
+      feedback: isSet(object.feedback)
         ? InterceptFeedback.fromJSON(object.feedback)
-        : undefined;
-    return message;
+        : undefined,
+    };
   },
 
   toJSON(message: RPCMiddlewareResponse): unknown {
-    const object: any = {};
-    message.refMsgId !== undefined && (object.refMsgId = message.refMsgId);
+    const obj: any = {};
+    message.refMsgId !== undefined && (obj.refMsgId = message.refMsgId);
     message.register !== undefined &&
-      (object.register = message.register
+      (obj.register = message.register
         ? MiddlewareRegistration.toJSON(message.register)
         : undefined);
     message.feedback !== undefined &&
-      (object.feedback = message.feedback
+      (obj.feedback = message.feedback
         ? InterceptFeedback.toJSON(message.feedback)
         : undefined);
-    return object;
+    return obj;
   },
 
   fromPartial(
@@ -26481,15 +24432,12 @@ export const MiddlewareRegistration = {
     if (message.middlewareName !== '') {
       writer.uint32(10).string(message.middlewareName);
     }
-
     if (message.customMacaroonCaveatName !== '') {
       writer.uint32(18).string(message.customMacaroonCaveatName);
     }
-
-    if (message.readOnlyMode) {
+    if (message.readOnlyMode === true) {
       writer.uint32(24).bool(message.readOnlyMode);
     }
-
     return writer;
   },
 
@@ -26498,7 +24446,7 @@ export const MiddlewareRegistration = {
     length?: number,
   ): MiddlewareRegistration {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMiddlewareRegistration();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -26517,37 +24465,32 @@ export const MiddlewareRegistration = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): MiddlewareRegistration {
-    const message = createBaseMiddlewareRegistration();
-    message.middlewareName =
-      object.middlewareName !== undefined && object.middlewareName !== null
+    return {
+      middlewareName: isSet(object.middlewareName)
         ? String(object.middlewareName)
-        : '';
-    message.customMacaroonCaveatName =
-      object.customMacaroonCaveatName !== undefined &&
-      object.customMacaroonCaveatName !== null
+        : '',
+      customMacaroonCaveatName: isSet(object.customMacaroonCaveatName)
         ? String(object.customMacaroonCaveatName)
-        : '';
-    message.readOnlyMode =
-      object.readOnlyMode !== undefined && object.readOnlyMode !== null
+        : '',
+      readOnlyMode: isSet(object.readOnlyMode)
         ? Boolean(object.readOnlyMode)
-        : false;
-    return message;
+        : false,
+    };
   },
 
   toJSON(message: MiddlewareRegistration): unknown {
-    const object: any = {};
+    const obj: any = {};
     message.middlewareName !== undefined &&
-      (object.middlewareName = message.middlewareName);
+      (obj.middlewareName = message.middlewareName);
     message.customMacaroonCaveatName !== undefined &&
-      (object.customMacaroonCaveatName = message.customMacaroonCaveatName);
+      (obj.customMacaroonCaveatName = message.customMacaroonCaveatName);
     message.readOnlyMode !== undefined &&
-      (object.readOnlyMode = message.readOnlyMode);
-    return object;
+      (obj.readOnlyMode = message.readOnlyMode);
+    return obj;
   },
 
   fromPartial(
@@ -26577,21 +24520,18 @@ export const InterceptFeedback = {
     if (message.error !== '') {
       writer.uint32(10).string(message.error);
     }
-
-    if (message.replaceResponse) {
+    if (message.replaceResponse === true) {
       writer.uint32(16).bool(message.replaceResponse);
     }
-
-    if (message.replacementSerialized.length > 0) {
+    if (message.replacementSerialized.length !== 0) {
       writer.uint32(26).bytes(message.replacementSerialized);
     }
-
     return writer;
   },
 
   decode(input: _m0.Reader | Uint8Array, length?: number): InterceptFeedback {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
-    const end = length === undefined ? reader.len : reader.pos + length;
+    let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInterceptFeedback();
     while (reader.pos < end) {
       const tag = reader.uint32();
@@ -26610,40 +24550,33 @@ export const InterceptFeedback = {
           break;
       }
     }
-
     return message;
   },
 
   fromJSON(object: any): InterceptFeedback {
-    const message = createBaseInterceptFeedback();
-    message.error =
-      object.error !== undefined && object.error !== null
-        ? String(object.error)
-        : '';
-    message.replaceResponse =
-      object.replaceResponse !== undefined && object.replaceResponse !== null
+    return {
+      error: isSet(object.error) ? String(object.error) : '',
+      replaceResponse: isSet(object.replaceResponse)
         ? Boolean(object.replaceResponse)
-        : false;
-    message.replacementSerialized =
-      object.replacementSerialized !== undefined &&
-      object.replacementSerialized !== null
+        : false,
+      replacementSerialized: isSet(object.replacementSerialized)
         ? bytesFromBase64(object.replacementSerialized)
-        : new Uint8Array();
-    return message;
+        : new Uint8Array(),
+    };
   },
 
   toJSON(message: InterceptFeedback): unknown {
-    const object: any = {};
-    message.error !== undefined && (object.error = message.error);
+    const obj: any = {};
+    message.error !== undefined && (obj.error = message.error);
     message.replaceResponse !== undefined &&
-      (object.replaceResponse = message.replaceResponse);
+      (obj.replaceResponse = message.replaceResponse);
     message.replacementSerialized !== undefined &&
-      (object.replacementSerialized = base64FromBytes(
+      (obj.replacementSerialized = base64FromBytes(
         message.replacementSerialized !== undefined
           ? message.replacementSerialized
           : new Uint8Array(),
       ));
-    return object;
+    return obj;
   },
 
   fromPartial(object: DeepPartial<InterceptFeedback>): InterceptFeedback {
@@ -26662,7 +24595,7 @@ export const LightningDefinition = {
   fullName: 'lnrpc.Lightning',
   methods: {
     /**
-     * Lncli: `walletbalance`
+     * lncli: `walletbalance`
      * WalletBalance returns total unspent outputs(confirmed and unconfirmed), all
      * confirmed unspent outputs and all unconfirmed unspent outputs under control
      * of the wallet.
@@ -26676,7 +24609,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `channelbalance`
+     * lncli: `channelbalance`
      * ChannelBalance returns a report on the total funds across all open channels,
      * categorized in local/remote, pending local/remote and unsettled local/remote
      * balances.
@@ -26690,7 +24623,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `listchaintxns`
+     * lncli: `listchaintxns`
      * GetTransactions returns a list describing all the known transactions
      * relevant to the wallet.
      */
@@ -26703,7 +24636,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `estimatefee`
+     * lncli: `estimatefee`
      * EstimateFee asks the chain backend to estimate the fee rate and total fees
      * for a transaction that pays to multiple specified outputs.
      *
@@ -26721,7 +24654,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `sendcoins`
+     * lncli: `sendcoins`
      * SendCoins executes a request to send coins to a particular address. Unlike
      * SendMany, this RPC call only allows creating a single output at a time. If
      * neither target_conf, or sat_per_vbyte are set, then the internal wallet will
@@ -26737,7 +24670,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `listunspent`
+     * lncli: `listunspent`
      * Deprecated, use walletrpc.ListUnspent instead.
      *
      * ListUnspent returns a list of all utxos spendable by the wallet with a
@@ -26765,7 +24698,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `sendmany`
+     * lncli: `sendmany`
      * SendMany handles a request for a transaction that creates multiple specified
      * outputs in parallel. If neither target_conf, or sat_per_vbyte are set, then
      * the internal wallet will consult its fee model to determine a fee for the
@@ -26780,7 +24713,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `newaddress`
+     * lncli: `newaddress`
      * NewAddress creates a new address under control of the local wallet.
      */
     newAddress: {
@@ -26792,7 +24725,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `signmessage`
+     * lncli: `signmessage`
      * SignMessage signs a message with this node's private key. The returned
      * signature string is `zbase32` encoded and pubkey recoverable, meaning that
      * only the message digest and signature are needed for verification.
@@ -26806,7 +24739,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `verifymessage`
+     * lncli: `verifymessage`
      * VerifyMessage verifies a signature over a msg. The signature must be
      * zbase32 encoded and signed by an active node in the resident node's
      * channel database. In addition to returning the validity of the signature,
@@ -26821,7 +24754,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `connect`
+     * lncli: `connect`
      * ConnectPeer attempts to establish a connection to a remote peer. This is at
      * the networking level, and is used for communication between nodes. This is
      * distinct from establishing a channel with a peer.
@@ -26835,7 +24768,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `disconnect`
+     * lncli: `disconnect`
      * DisconnectPeer attempts to disconnect one peer from another identified by a
      * given pubKey. In the case that we currently have a pending or active channel
      * with the target peer, then this action will be not be allowed.
@@ -26849,7 +24782,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `listpeers`
+     * lncli: `listpeers`
      * ListPeers returns a verbose listing of all currently active peers.
      */
     listPeers: {
@@ -26874,7 +24807,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `getinfo`
+     * lncli: `getinfo`
      * GetInfo returns general information concerning the lightning node including
      * it's identity pubkey, alias, the chains it is connected to, and information
      * concerning the number of open+pending channels.
@@ -26888,7 +24821,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `getrecoveryinfo`
+     * lncli: `getrecoveryinfo`
      * GetRecoveryInfo returns information concerning the recovery mode including
      * whether it's in a recovery mode, whether the recovery is finished, and the
      * progress made so far.
@@ -26902,7 +24835,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `pendingchannels`
+     * lncli: `pendingchannels`
      * PendingChannels returns a list of all the channels that are currently
      * considered "pending". A channel is pending if it has finished the funding
      * workflow and is waiting for confirmations for the funding txn, or is in the
@@ -26917,7 +24850,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `listchannels`
+     * lncli: `listchannels`
      * ListChannels returns a description of all the open channels that this node
      * is a participant in.
      */
@@ -26944,7 +24877,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `closedchannels`
+     * lncli: `closedchannels`
      * ClosedChannels returns a description of all the closed channels that
      * this node was a participant in.
      */
@@ -26971,7 +24904,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `openchannel`
+     * lncli: `openchannel`
      * OpenChannel attempts to open a singly funded channel specified in the
      * request to a remote peer. Users are able to specify a target number of
      * blocks that the funding transaction should be confirmed in, or a manual fee
@@ -26990,7 +24923,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `batchopenchannel`
+     * lncli: `batchopenchannel`
      * BatchOpenChannel attempts to open multiple single-funded channels in a
      * single transaction in an atomic way. This means either all channel open
      * requests succeed at once or all attempts are aborted if any of them fail.
@@ -27039,7 +24972,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `closechannel`
+     * lncli: `closechannel`
      * CloseChannel attempts to close an active channel identified by its channel
      * outpoint (ChannelPoint). The actions of this method can additionally be
      * augmented to attempt a force close after a timeout period in the case of an
@@ -27057,7 +24990,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `abandonchannel`
+     * lncli: `abandonchannel`
      * AbandonChannel removes all channel state from the database except for a
      * close summary. This method can be used to get rid of permanently unusable
      * channels due to bugs fixed in newer versions of lnd. This method can also be
@@ -27074,7 +25007,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `sendpayment`
+     * lncli: `sendpayment`
      * Deprecated, use routerrpc.SendPaymentV2. SendPayment dispatches a
      * bi-directional streaming RPC for sending payments through the Lightning
      * Network. A single RPC invocation creates a persistent bi-directional
@@ -27106,7 +25039,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `sendtoroute`
+     * lncli: `sendtoroute`
      * Deprecated, use routerrpc.SendToRouteV2. SendToRoute is a bi-directional
      * streaming RPC for sending payment through the Lightning Network. This
      * method differs from SendPayment in that it allows users to specify a full
@@ -27136,7 +25069,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `addinvoice`
+     * lncli: `addinvoice`
      * AddInvoice attempts to add a new invoice to the invoice database. Any
      * duplicated invoices are rejected, therefore all invoices *must* have a
      * unique payment preimage.
@@ -27150,7 +25083,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `listinvoices`
+     * lncli: `listinvoices`
      * ListInvoices returns a list of all the invoices currently stored within the
      * database. Any active debug invoices are ignored. It has full support for
      * paginated responses, allowing users to query for specific invoices through
@@ -27168,7 +25101,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `lookupinvoice`
+     * lncli: `lookupinvoice`
      * LookupInvoice attempts to look up an invoice according to its payment hash.
      * The passed payment hash *must* be exactly 32 bytes, if not, an error is
      * returned.
@@ -27201,7 +25134,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `decodepayreq`
+     * lncli: `decodepayreq`
      * DecodePayReq takes an encoded payment request string and attempts to decode
      * it, returning a full description of the conditions encoded within the
      * payment request.
@@ -27215,7 +25148,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `listpayments`
+     * lncli: `listpayments`
      * ListPayments returns a list of all outgoing payments.
      */
     listPayments: {
@@ -27251,7 +25184,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `describegraph`
+     * lncli: `describegraph`
      * DescribeGraph returns a description of the latest graph state from the
      * point of view of the node. The graph information is partitioned into two
      * components: all the nodes/vertexes, and all the edges that connect the
@@ -27268,7 +25201,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `getnodemetrics`
+     * lncli: `getnodemetrics`
      * GetNodeMetrics returns node metrics calculated from the graph. Currently
      * the only supported metric is betweenness centrality of individual nodes.
      */
@@ -27281,7 +25214,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `getchaninfo`
+     * lncli: `getchaninfo`
      * GetChanInfo returns the latest authenticated network announcement for the
      * given channel identified by its channel ID: an 8-byte integer which
      * uniquely identifies the location of transaction's funding output within the
@@ -27296,7 +25229,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `getnodeinfo`
+     * lncli: `getnodeinfo`
      * GetNodeInfo returns the latest advertised, aggregated, and authenticated
      * channel information for the specified node identified by its public key.
      */
@@ -27309,7 +25242,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `queryroutes`
+     * lncli: `queryroutes`
      * QueryRoutes attempts to query the daemon's Channel Router for a possible
      * route to a target destination capable of carrying a specific amount of
      * satoshis. The returned route contains the full details required to craft and
@@ -27330,7 +25263,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `getnetworkinfo`
+     * lncli: `getnetworkinfo`
      * GetNetworkInfo returns some basic stats about the known channel graph from
      * the point of view of the node.
      */
@@ -27343,7 +25276,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `stop`
+     * lncli: `stop`
      * StopDaemon will send a shutdown request to the interrupt handler, triggering
      * a graceful shutdown of the daemon.
      */
@@ -27372,7 +25305,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `debuglevel`
+     * lncli: `debuglevel`
      * DebugLevel allows a caller to programmatically set the logging verbosity of
      * lnd. The logging can be targeted according to a coarse daemon-wide logging
      * level, or in a granular fashion to specify the logging for a target
@@ -27387,7 +25320,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `feereport`
+     * lncli: `feereport`
      * FeeReport allows the caller to obtain a report detailing the current fee
      * schedule enforced by the node globally for each channel.
      */
@@ -27400,7 +25333,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `updatechanpolicy`
+     * lncli: `updatechanpolicy`
      * UpdateChannelPolicy allows the caller to update the fee schedule and
      * channel policies for all channels globally, or a particular channel.
      */
@@ -27413,7 +25346,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `fwdinghistory`
+     * lncli: `fwdinghistory`
      * ForwardingHistory allows the caller to query the htlcswitch for a record of
      * all HTLCs forwarded within the target time range, and integer offset
      * within that time range, for a maximum number of events. If no maximum number
@@ -27435,7 +25368,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `exportchanbackup`
+     * lncli: `exportchanbackup`
      * ExportChannelBackup attempts to return an encrypted static channel backup
      * for the target channel identified by it channel point. The backup is
      * encrypted with a key generated from the aezeed seed of the user. The
@@ -27480,7 +25413,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `restorechanbackup`
+     * lncli: `restorechanbackup`
      * RestoreChannelBackups accepts a set of singular channel backups, or a
      * single encrypted multi-chan backup and attempts to recover any funds
      * remaining within the channel. If we are able to unpack the backup, then the
@@ -27512,7 +25445,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `bakemacaroon`
+     * lncli: `bakemacaroon`
      * BakeMacaroon allows the creation of a new macaroon with custom read and
      * write permissions. No first-party caveats are added since this can be done
      * offline.
@@ -27526,7 +25459,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `listmacaroonids`
+     * lncli: `listmacaroonids`
      * ListMacaroonIDs returns all root key IDs that are in use.
      */
     listMacaroonIDs: {
@@ -27538,7 +25471,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `deletemacaroonid`
+     * lncli: `deletemacaroonid`
      * DeleteMacaroonID deletes the specified macaroon ID and invalidates all
      * macaroons derived from that ID.
      */
@@ -27551,7 +25484,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `listpermissions`
+     * lncli: `listpermissions`
      * ListPermissions lists all RPC method URIs and their required macaroon
      * permissions to access them.
      */
@@ -27599,7 +25532,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `sendcustom`
+     * lncli: `sendcustom`
      * SendCustomMessage sends a custom peer message.
      */
     sendCustomMessage: {
@@ -27611,7 +25544,7 @@ export const LightningDefinition = {
       options: {},
     },
     /**
-     * Lncli: `subscribecustom`
+     * lncli: `subscribecustom`
      * SubscribeCustomMessages subscribes to a stream of incoming custom peer
      * messages.
      */
@@ -27626,9 +25559,9 @@ export const LightningDefinition = {
   },
 } as const;
 
-declare let self: any | undefined;
-declare let window: any | undefined;
-declare let global: any | undefined;
+declare var self: any | undefined;
+declare var window: any | undefined;
+declare var global: any | undefined;
 var globalThis: any = (() => {
   if (typeof globalThis !== 'undefined') return globalThis;
   if (typeof self !== 'undefined') return self;
@@ -27642,23 +25575,21 @@ const atob: (b64: string) => string =
   ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64: string): Uint8Array {
   const bin = atob(b64);
-  const array = new Uint8Array(bin.length);
+  const arr = new Uint8Array(bin.length);
   for (let i = 0; i < bin.length; ++i) {
-    array[i] = bin.charCodeAt(i);
+    arr[i] = bin.charCodeAt(i);
   }
-
-  return array;
+  return arr;
 }
 
 const btoa: (bin: string) => string =
   globalThis.btoa ||
   ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
-function base64FromBytes(array: Uint8Array): string {
+function base64FromBytes(arr: Uint8Array): string {
   const bin: string[] = [];
-  for (const byte of array) {
+  for (const byte of arr) {
     bin.push(String.fromCharCode(byte));
   }
-
   return btoa(bin.join(''));
 }
 
@@ -27677,7 +25608,7 @@ export type DeepPartial<T> = T extends Builtin
   ? Array<DeepPartial<U>>
   : T extends ReadonlyArray<infer U>
   ? ReadonlyArray<DeepPartial<U>>
-  : T extends Record<string, unknown>
+  : T extends {}
   ? {[K in keyof T]?: DeepPartial<T[K]>}
   : Partial<T>;
 
@@ -27688,4 +25619,12 @@ function longToString(long: Long) {
 if (_m0.util.Long !== Long) {
   _m0.util.Long = Long as any;
   _m0.configure();
+}
+
+function isObject(value: any): boolean {
+  return typeof value === 'object' && value !== null;
+}
+
+function isSet(value: any): boolean {
+  return value !== null && value !== undefined;
 }
