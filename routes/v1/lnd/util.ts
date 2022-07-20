@@ -24,7 +24,6 @@ router.get('/download-channel-backup', auth.jwt, async (ctx, next) => {
     ctx.throw(400, 'No channel backup exists');
   }
   await next();
-  await next();
 });
 
 router.post('/sign-message', auth.jwt, async (ctx, next) => {
