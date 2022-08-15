@@ -391,35 +391,39 @@ export default class CLightningService implements ILightningClient {
 
   // Returns a list of all on chain transactions.
   async getOnChainTransactions(): Promise<Transaction[]> {
+    const funds = await this.apiClient.listfunds();
     const transactions = await this.apiClient.listtransactions();
     const info = await this.getInfo();
     const currentBlockHeight = Number.parseInt(info.blockHeight.toString());
-    const newTransactions: Transaction[] = transactions.transactions.map(
-      (transaction) => {
-        return {
-          /** The transaction hash */
-          txHash: transaction.hash,
-          /** The transaction amount, denominated in satoshis */
-          amount: 0,
-          /** The number of confirmations */
-          numConfirmations: currentBlockHeight - transaction.blockheight,
-          /** The hash of the block this transaction was included in */
-          blockHash: 'none',
-          /** The height of the block this transaction was included in */
-          blockHeight: transaction.blockheight,
-          /** Timestamp of this transaction */
-          timeStamp: 0,
-          /** Fees paid for this transaction */
-          totalFees: 0,
-          /** Addresses that received funds for this transaction */
-          destAddresses: [],
-          /** The raw transaction hex. */
-          rawTxHex: transaction.rawtx,
-          /** A label that was optionally set on transaction broadcast. */
-          label: '',
-        };
-      },
-    );
+    const newTransactions: Transaction[] = funds.outputs.map((transaction) => {
+      const _transaction = transactions.transactions.find(
+        (value) => value.hash === transaction.txid,
+      );
+      return {
+        /** The transaction hash */
+        txHash: transaction.txid,
+        /** The transaction amount, denominated in satoshis */
+        amount: Number(transaction.amount_msat / 1000n),
+        /** The number of confirmations */
+        numConfirmations: transaction.blockheight
+          ? currentBlockHeight - transaction.blockheight
+          : 0,
+        /** The hash of the block this transaction was included in */
+        blockHash: '',
+        /** The height of the block this transaction was included in */
+        blockHeight: transaction.blockheight ?? 'unconfirmed',
+        /** Timestamp of this transaction */
+        timeStamp: 0,
+        /** Fees paid for this transaction */
+        totalFees: 0,
+        /** Addresses that received funds for this transaction */
+        destAddresses: [],
+        /** The raw transaction hex. */
+        rawTxHex: _transaction?.rawtx ?? '',
+        /** A label that was optionally set on transaction broadcast. */
+        label: '',
+      };
+    });
     return newTransactions;
   }
 
