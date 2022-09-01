@@ -1,0 +1,72 @@
+syntax = "proto3";
+package manage;
+
+service NodeManager {
+    rpc CreateWallet (CreateWalletRequest) returns (CreateWalletResponse);
+    rpc GenSeed (GenSeedRequest) returns (GenSeedResponse);
+    rpc DeleteWallet (DeleteWalletRequest) returns (DeleteWalletResponse);
+    rpc StartDaemon (StartDaemonRequest) returns (StartDaemonResponse);
+}
+
+message CreateWalletRequest {
+    repeated string bip39 = 1;
+    string passphrase = 2;
+}
+
+enum CreateWalletResult {
+    CREATE_WALLET_SUCCESS = 0;
+    CREATE_WALLET_ERROR_ALREADY_EXISTS = 1;
+    CREATE_WALLET_ERROR_PERMISSION_DENIED = 2;
+    CREATE_WALLET_ERROR_UNKNOWN = 3;
+    CREATE_WALLET_ERROR_INVALID_MNEMONIC = 4;
+}
+
+  
+message CreateWalletResponse {
+    CreateWalletResult result = 1;
+}
+
+message DeleteWalletRequest {}
+
+enum DeleteWalletResult {
+    DELETE_WALLET_SUCCESS = 0;
+    DELETE_WALLET_ERROR_DOESNT_EXISTS = 1;
+    DELETE_WALLET_ERROR_PERMISSION_DENIED = 2;
+    DELETE_WALLET_ERROR_UNKNOWN = 3;
+}
+
+message DeleteWalletResponse {
+    DeleteWalletResult result = 1;
+}
+
+enum GenSeedLength {
+    GEN_SEED_12_WORDS = 0;
+    GEN_SEED_15_WORDS = 1;
+    GEN_SEED_18_WORDS = 2;
+    GEN_SEED_21_WORDS = 3;
+    GEN_SEED_24_WORDS = 4;
+}
+
+message GenSeedRequest {
+    GenSeedLength length = 1;
+}
+
+message GenSeedResponse {
+    repeated string bip39 = 1;
+}
+
+message StartDaemonRequest {
+    repeated string args = 1;
+}
+
+enum StartDaemonResult {
+    START_DAEMON_SUCCESS = 0;
+    START_DAEMON_ERROR_ALREADY_RUNNING = 1;
+    START_DAEMON_ERROR_PERMISSION_DENIED = 2;
+    START_DAEMON_ERROR_NOT_FOUND = 3;
+    START_DAEMON_ERROR_UNKNOWN = 4;
+}
+
+message StartDaemonResponse {
+    StartDaemonResult result = 1;
+}

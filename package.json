@@ -15,10 +15,11 @@
     "lint": "xo --fix .",
     "lint:check": "xo .",
     "build-types": "cd resources && protoc --plugin=../node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=../lnrpc --ts_proto_opt=esModuleInterop=true --ts_proto_opt=useExactTypes=false --ts_proto_opt=outputServices=generic-definitions --ts_proto_opt=forceLong=string lightning.proto walletunlocker.proto stateservice.proto",
+    "build-cln-types": "cd resources && protoc --plugin=../node_modules/.bin/protoc-gen-ts_proto --ts_proto_out=../cln-init --ts_proto_opt=esModuleInterop=true --ts_proto_opt=useExactTypes=false --ts_proto_opt=outputServices=generic-definitions --ts_proto_opt=forceLong=string manage.proto",
     "postinstall": "husky install"
   },
   "dependencies": {
-    "@core-ln/core": "^0.0.1",
+    "@core-ln/core": "^0.3.0-rc.2",
     "@grpc/grpc-js": "^1.5.1",
     "@koa/cors": "^3.1.0",
     "@koa/router": "^10.1.1",
