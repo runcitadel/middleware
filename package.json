@@ -39,7 +39,6 @@
     "nice-grpc": "^1.0.7",
     "passport-jwt": "^4.0.0",
     "protobufjs": "^6.11.3",
-    "uuid": "^8.3.2",
     "validator": "^13.7.0"
   },
   "devDependencies": {
@@ -52,7 +51,6 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^17",
     "@types/passport-jwt": "^3.0.6",
-    "@types/uuid": "^8",
     "@types/validator": "^13.7.1",
     "@types/xo": "^0",
     "concurrently": "^7.0.0",
@@ -61,5 +59,8 @@
     "typescript": "^4.6.2",
     "xo": "^0.48.0"
   },
-  "packageManager": "yarn@3.2.0"
+  "packageManager": "yarn@3.2.0",
+  "resolutions": {
+    "@core-ln/base": "npm:@core-ln/base@0.3.0-rc.2"
+  }
 }
