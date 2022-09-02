@@ -326,8 +326,8 @@ export default class CLightningService implements ILightningClient {
 
   async getWalletBalance(): Promise<WalletBalanceResponse> {
     const data = await this.apiClient.listfunds();
-    let confirmedBalanceMsat = 0n;
-    let unconfirmedBalanceMsat = 0n;
+    let confirmedBalanceMsat = 0;
+    let unconfirmedBalanceMsat = 0;
     for (const output of data.outputs) {
       if (output.status === 'confirmed')
         confirmedBalanceMsat += output.amount_msat;

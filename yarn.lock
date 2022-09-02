@@ -32,19 +32,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@core-ln/base@npm:@core-ln/base@0.3.0-rc.2":
-  version: 0.3.0-rc.2
-  resolution: "@core-ln/base@npm:0.3.0-rc.2"
-  checksum: 3a6d08b602b35a30689bc964c870aa1c9bde6137c88c32b9648b0c7a475df280a171df228b12990a031cb68de8fe7a8d28646e81de6eaccdddd55f85c529ea5d
+"@core-ln/base@npm:^0.3.0-rc.4":
+  version: 0.3.0-rc.4
+  resolution: "@core-ln/base@npm:0.3.0-rc.4"
+  checksum: 7c2b50b27d64265ba297b7d14f12d0e970363bccc041e05c1ea9f14c705ac42cd8ddd2a8dd0ca04854e83dd82e358cdfd4ff198e242596d316917408c4e37dd8
   languageName: node
   linkType: hard
 
-"@core-ln/core@npm:^0.3.0-rc.2":
-  version: 0.3.0-rc.2
-  resolution: "@core-ln/core@npm:0.3.0-rc.2"
+"@core-ln/core@npm:^0.3.0-rc.3":
+  version: 0.3.0-rc.4
+  resolution: "@core-ln/core@npm:0.3.0-rc.4"
   dependencies:
-    "@core-ln/base": ^0.2.1-beta.1
-  checksum: 9d39292b1a308d75bba4459b3676f95e194da0bbf6fc7706680d94a6823797504d8fd20f6572b4a85fb6e9bc456855f1e94e29d43810cfe289c60dce27d8e6d8
+    "@core-ln/base": ^0.3.0-rc.4
+  checksum: 07833596afb956e33aa6d31bd330b52947f69db82e1596249747707b7ebb24b4fc200022586c52ac7c95a4147c39808918215832d02f50af2963823f21e20cb8
   languageName: node
   linkType: hard
 
@@ -279,7 +279,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@runcitadel/middleware@workspace:."
   dependencies:
-    "@core-ln/core": ^0.3.0-rc.2
+    "@core-ln/core": ^0.3.0-rc.3
     "@grpc/grpc-js": ^1.5.1
     "@koa/cors": ^3.1.0
     "@koa/router": ^10.1.1
