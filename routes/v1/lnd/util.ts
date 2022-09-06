@@ -25,6 +25,7 @@ router.post('/sign-message', auth.jwt, async (ctx, next) => {
   };
   await next();
 });
+
 router.post('/verify-message', auth.jwt, async (ctx, next) => {
   ctx.body = await lightningLogic.verifyMessage(
     ctx.request.body.message,
@@ -32,5 +33,14 @@ router.post('/verify-message', auth.jwt, async (ctx, next) => {
   );
   await next();
 });
+
+router.post('/start-lightning', auth.jwt, async (ctx, next) => {
+  ctx.body = await lightningLogic.verifyMessage(
+    ctx.request.body.message,
+    ctx.request.body.signature,
+  );
+  await next();
+});
+
 
 export default router;

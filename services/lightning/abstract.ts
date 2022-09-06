@@ -110,4 +110,5 @@ export default interface ILightningClient {
     bolt12_unsigned: string;
   }>;
   isInvoiceSettled(paymentHash: string): Promise<boolean>;
+  startNode(): Promise<void>;
 }

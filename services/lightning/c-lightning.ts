@@ -6,6 +6,8 @@ import ApiClient, {
 } from '@core-ln/core';
 import {randomUUID as uuidv4} from 'crypto';
 import ILightningClient, {extendedPaymentRequest} from './abstract.js';
+import {createChannel, createClient, Client} from 'nice-grpc';
+import {GenSeedLength, NodeManagerDefinition, StartDaemonResult} from "../../cln-init/manage";
 import {
   Channel,
   ChannelBalanceResponse,
@@ -53,7 +55,19 @@ export default class CLightningService implements ILightningClient {
   }
 
   apiClient: ApiClient;
-  constructor(socketPath: string) {
+  #client: Client<typeof NodeManagerDefinition> | undefined = undefined;
+  protected async getLightningClient(): Promise<
+    Client<typeof NodeManagerDefinition>
+  > {
+    if (!this.#client) {
+      const channel = createChannel(this.connectionUrl);
+      this.#client = createClient(NodeManagerDefinition, channel);
+    }
+    
+    
+    return this.#client as Client<typeof NodeManagerDefinition>;
+  }
+  constructor(socketPath: string, private readonly connectionUrl: string) {
     this.apiClient = new ApiClient(socketPath);
   }
 
@@ -152,7 +166,13 @@ export default class CLightningService implements ILightningClient {
   }
 
   async generateSeed(): Promise<GenSeedResponse> {
-    throw new Error('Not supported on c-lightning');
+    const client = await this.getLightningClient();;
+    const seed = await client.genSeed({
+      length: GenSeedLength.GEN_SEED_24_WORDS,
+    });
+    return {
+      cipherSeedMnemonic: seed.bip39,
+    }
   }
 
   async getChannelBalance(): Promise<ChannelBalanceResponse> {
@@ -560,5 +580,15 @@ export default class CLightningService implements ILightningClient {
     });
 
     return offerData;
+  }
+
+  async startNode(): Promise<void> {
+    const client = await this.getLightningClient();;
+    const response = await client.startDaemon({
+      args: process.env.LIGHTNINGD_ARGS?.split(" ") || [],
+    });
+    if (response.result !== StartDaemonResult.START_DAEMON_SUCCESS) {
+      throw new Error(`Failed to start CLN: ${response.result}`);
+    }
   }
 }

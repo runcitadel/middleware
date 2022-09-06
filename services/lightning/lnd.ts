@@ -572,4 +572,8 @@ export default class LNDService implements ILightningClient {
     const client = await this.expectWalletToExist();
     return client.Lightning;
   }
+
+  async startNode() {
+    // Only used by CLN right now
+  }
 }
