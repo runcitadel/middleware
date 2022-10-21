@@ -52,7 +52,7 @@
     "@types/node": "^18",
     "@types/passport-jwt": "^3.0.6",
     "@types/uuid": "^8",
-    "@types/validator": "^13.7.1",
+    "@types/validator": "^13.7.8",
     "@types/xo": "^0",
     "concurrently": "^7.0.0",
     "nodemon": "^2.0.20",
