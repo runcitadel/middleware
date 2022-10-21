@@ -35,7 +35,7 @@
     "koa-morgan": "^1.0.1",
     "koa-passport": "^5.0.0",
     "long": "^4.0.0",
-    "nice-grpc": "^1.0.7",
+    "nice-grpc": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "protobufjs": "^6.11.3",
     "uuid": "^8.3.2",
