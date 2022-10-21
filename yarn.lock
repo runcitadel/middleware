@@ -82,6 +82,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@grpc/grpc-js@npm:^1.6.1":
+  version: 1.7.2
+  resolution: "@grpc/grpc-js@npm:1.7.2"
+  dependencies:
+    "@grpc/proto-loader": ^0.7.0
+    "@types/node": ">=12.12.47"
+  checksum: e863c1fe54f09439ae40325e0b610fa295f53b903a26b98521114f781479d7d277e705ca5cb41a6b1124c8d535e3a6e22f51acad913a67ec99049b5934687b80
+  languageName: node
+  linkType: hard
+
 "@grpc/proto-loader@npm:^0.6.4":
   version: 0.6.9
   resolution: "@grpc/proto-loader@npm:0.6.9"
@@ -94,6 +104,21 @@ __metadata:
   bin:
     proto-loader-gen-types: build/bin/proto-loader-gen-types.js
   checksum: 30081a5a6e866506d8e799ebed00367024a2710b9b990104d804fe23c60d81d5ccaa74ad14bd0bedfab6fb313eccbc18e0bbcf3bda7f3288d8eb31cab040255f
+  languageName: node
+  linkType: hard
+
+"@grpc/proto-loader@npm:^0.7.0":
+  version: 0.7.3
+  resolution: "@grpc/proto-loader@npm:0.7.3"
+  dependencies:
+    "@types/long": ^4.0.1
+    lodash.camelcase: ^4.3.0
+    long: ^4.0.0
+    protobufjs: ^7.0.0
+    yargs: ^16.2.0
+  bin:
+    proto-loader-gen-types: build/bin/proto-loader-gen-types.js
+  checksum: a37712bca61da8d3b3dbf3fe39fa04447d748fd1f96f0758a1e99ede652b0afdfc17ce8093b596f64e9b685be57214e83821e3795905cc2a410336884458ac6d
   languageName: node
   linkType: hard
 
@@ -309,7 +334,7 @@ __metadata:
     koa-morgan: ^1.0.1
     koa-passport: ^4.1.4
     long: ^4.0.0
-    nice-grpc: ^1.0.7
+    nice-grpc: ^2.0.0
     nodemon: ^2.0.20
     passport-jwt: ^4.0.0
     protobufjs: ^6.11.3
@@ -836,12 +861,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"abort-controller-x@npm:^0.2.4":
-  version: 0.2.6
-  resolution: "abort-controller-x@npm:0.2.6"
-  dependencies:
-    node-abort-controller: ^1.2.1 || ^2.0.0
-  checksum: 7823e3ecc3ddbf88f8f51b3e824dc6d9f1ae890cf042e2e883a4b69ffd0b47d31f9d4a1bb71b97d8cea08c1947ea92c074877c44d7e3bd86f9c41b9bb73489cf
+"abort-controller-x@npm:^0.4.0":
+  version: 0.4.1
+  resolution: "abort-controller-x@npm:0.4.1"
+  checksum: 6b129b7dc99ad02cb168b40dc2a5b12a3819373dcbf32b65a18f2db8399040a09283b11c4248e26855d93a3d9a5ae7966ce90b2c8374bd20521e9de2994a95e6
   languageName: node
   linkType: hard
 
@@ -3510,6 +3533,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"long@npm:^5.0.0":
+  version: 5.2.0
+  resolution: "long@npm:5.2.0"
+  checksum: 37aa4e67b9c3eebc6d9d675adcc9d06f06059ca268922a71273de389746bf07f0ff282f9e604d17fdf84c4149099b44e936ea2b621a6c4759a216621afa97efd
+  languageName: node
+  linkType: hard
+
 "lowercase-keys@npm:^1.0.0":
   version: 1.0.1
   resolution: "lowercase-keys@npm:1.0.1"
@@ -3829,39 +3859,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nice-grpc-common@npm:^1.0.5":
-  version: 1.0.5
-  resolution: "nice-grpc-common@npm:1.0.5"
-  dependencies:
-    node-abort-controller: ^2.0.0
-    ts-error: ^1.0.6
-  checksum: 9f8c70e85321014265988c52cb415eb6076cc28b36e5ec5dc2881dcf58e6d2be8fb507115c57d5b0c21a905b28f48be556c59d999c5231b112243e986a9f4046
-  languageName: node
-  linkType: hard
-
-"nice-grpc@npm:^1.0.7":
-  version: 1.0.7
-  resolution: "nice-grpc@npm:1.0.7"
-  dependencies:
-    "@grpc/grpc-js": ^1.5.1
-    abort-controller-x: ^0.2.4
-    nice-grpc-common: ^1.0.5
-    node-abort-controller: ^1.2.1
-  checksum: ae594be9d281916c1c982da974ab6ab7a8cd6c7def15a9ed7b8e0f1312230a09ab873546aa3653c417f2f4ce5be1f9308a4cae8a584d9fbf04d51d8bce9ec55d
-  languageName: node
-  linkType: hard
-
-"node-abort-controller@npm:^1.2.1":
-  version: 1.2.1
-  resolution: "node-abort-controller@npm:1.2.1"
-  checksum: 7505ecba9614116fe075c01c4016a359122c44741db98c2b7759fd3adeb4c505ab39daeb45f16e3db6ac6f22e14c5f27d910432ba7d3fe1a6f9730487aa2f23e
-  languageName: node
-  linkType: hard
-
-"node-abort-controller@npm:^1.2.1 || ^2.0.0, node-abort-controller@npm:^2.0.0":
+"nice-grpc-common@npm:^2.0.0":
   version: 2.0.0
-  resolution: "node-abort-controller@npm:2.0.0"
-  checksum: 9276dab2dbd02444efcc61a1444a6f6909ead98cb708bff2f0bdd188bcee32c0d9ac32897f610512a369a9078cde9dff75caa2b7b5766ce66ce7d6ce0c8ccbf9
+  resolution: "nice-grpc-common@npm:2.0.0"
+  dependencies:
+    ts-error: ^1.0.6
+  checksum: a684f60f0b99b8fd2471ac1b0c34bf07b20cd11b1152573c1628e8aef94d2b011a178e10e516d73082b0b136fe04c865fa4bed586be192281dbd20e9b22091ba
+  languageName: node
+  linkType: hard
+
+"nice-grpc@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "nice-grpc@npm:2.0.0"
+  dependencies:
+    "@grpc/grpc-js": ^1.6.1
+    abort-controller-x: ^0.4.0
+    nice-grpc-common: ^2.0.0
+  checksum: 288e28996ac79731af911e36430e545768ef4c8b23a1cdaeb17b86d5230bf3961ee11f2b243a256fca7488e92e125202749fa8d06a0079e5041c600514283938
   languageName: node
   linkType: hard
 
@@ -4441,6 +4455,26 @@ __metadata:
     pbjs: bin/pbjs
     pbts: bin/pbts
   checksum: 4a6ce1964167e4c45c53fd8a312d7646415c777dd31b4ba346719947b88e61654912326101f927da387d6b6473ab52a7ea4f54d6f15d63b31130ce28e2e15070
+  languageName: node
+  linkType: hard
+
+"protobufjs@npm:^7.0.0":
+  version: 7.1.2
+  resolution: "protobufjs@npm:7.1.2"
+  dependencies:
+    "@protobufjs/aspromise": ^1.1.2
+    "@protobufjs/base64": ^1.1.2
+    "@protobufjs/codegen": ^2.0.4
+    "@protobufjs/eventemitter": ^1.1.0
+    "@protobufjs/fetch": ^1.1.0
+    "@protobufjs/float": ^1.0.2
+    "@protobufjs/inquire": ^1.1.0
+    "@protobufjs/path": ^1.1.2
+    "@protobufjs/pool": ^1.1.0
+    "@protobufjs/utf8": ^1.1.0
+    "@types/node": ">=13.7.0"
+    long: ^5.0.0
+  checksum: ae41669b1b0372fb1d49f506f2d1f2b0fb3dc3cece85987b17bcb544e4cef7c8d27f480486cdec324146ad0a5d22a327166a7ea864a9b3e49cc3c92a5d3f6500
   languageName: node
   linkType: hard
 
