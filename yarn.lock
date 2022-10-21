@@ -336,7 +336,7 @@ __metadata:
     nice-grpc: ^2.0.0
     nodemon: ^2.0.20
     passport-jwt: ^4.0.0
-    protobufjs: ^6.11.3
+    protobufjs: ^7.1.2
     ts-proto: ^1.129.0
     typescript: ^4.6.2
     uuid: ^8.3.2
@@ -4492,7 +4492,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"protobufjs@npm:^7.0.0":
+"protobufjs@npm:^7.0.0, protobufjs@npm:^7.1.2":
   version: 7.1.2
   resolution: "protobufjs@npm:7.1.2"
   dependencies:
