@@ -72,38 +72,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grpc/grpc-js@npm:^1.5.1":
-  version: 1.5.5
-  resolution: "@grpc/grpc-js@npm:1.5.5"
-  dependencies:
-    "@grpc/proto-loader": ^0.6.4
-    "@types/node": ">=12.12.47"
-  checksum: ccbe8267c150f98e4047bf74bf436ede71f05136697e6f299c1b9d005d133c6f132d67b392433298df884d9ebd639d08f9845b6cd2bfd9657d5704a78de281d0
-  languageName: node
-  linkType: hard
-
-"@grpc/grpc-js@npm:^1.6.1":
+"@grpc/grpc-js@npm:^1.6.1, @grpc/grpc-js@npm:^1.7.2":
   version: 1.7.2
   resolution: "@grpc/grpc-js@npm:1.7.2"
   dependencies:
     "@grpc/proto-loader": ^0.7.0
     "@types/node": ">=12.12.47"
   checksum: e863c1fe54f09439ae40325e0b610fa295f53b903a26b98521114f781479d7d277e705ca5cb41a6b1124c8d535e3a6e22f51acad913a67ec99049b5934687b80
-  languageName: node
-  linkType: hard
-
-"@grpc/proto-loader@npm:^0.6.4":
-  version: 0.6.9
-  resolution: "@grpc/proto-loader@npm:0.6.9"
-  dependencies:
-    "@types/long": ^4.0.1
-    lodash.camelcase: ^4.3.0
-    long: ^4.0.0
-    protobufjs: ^6.10.0
-    yargs: ^16.2.0
-  bin:
-    proto-loader-gen-types: build/bin/proto-loader-gen-types.js
-  checksum: 30081a5a6e866506d8e799ebed00367024a2710b9b990104d804fe23c60d81d5ccaa74ad14bd0bedfab6fb313eccbc18e0bbcf3bda7f3288d8eb31cab040255f
   languageName: node
   linkType: hard
 
@@ -304,7 +279,7 @@ __metadata:
   resolution: "@runcitadel/middleware@workspace:."
   dependencies:
     "@core-ln/core": ^0.0.1
-    "@grpc/grpc-js": ^1.5.1
+    "@grpc/grpc-js": ^1.7.2
     "@koa/cors": ^3.1.0
     "@koa/router": ^12.0.0
     "@runcitadel/bitcoin-rpc": ^0.0.4
@@ -4468,7 +4443,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"protobufjs@npm:^6.10.0, protobufjs@npm:^6.11.3, protobufjs@npm:^6.8.8":
+"protobufjs@npm:^6.11.3, protobufjs@npm:^6.8.8":
   version: 6.11.3
   resolution: "protobufjs@npm:6.11.3"
   dependencies:
