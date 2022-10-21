@@ -33,7 +33,7 @@
     "koa": "^2.13.4",
     "koa-body": "^4.2.0",
     "koa-morgan": "^1.0.1",
-    "koa-passport": "^4.1.4",
+    "koa-passport": "^5.0.0",
     "long": "^4.0.0",
     "nice-grpc": "^1.0.7",
     "passport-jwt": "^4.0.0",
