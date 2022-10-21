@@ -313,7 +313,7 @@ __metadata:
     nodemon: ^2.0.20
     passport-jwt: ^4.0.0
     protobufjs: ^6.11.3
-    ts-proto: ^1.108.0
+    ts-proto: ^1.129.0
     typescript: ^4.6.2
     uuid: ^8.3.2
     validator: ^13.7.0
@@ -1572,6 +1572,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"detect-libc@npm:^1.0.3":
+  version: 1.0.3
+  resolution: "detect-libc@npm:1.0.3"
+  bin:
+    detect-libc: ./bin/detect-libc.js
+  checksum: daaaed925ffa7889bd91d56e9624e6c8033911bb60f3a50a74a87500680652969dbaab9526d1e200a4c94acf80fc862a22131841145a0a8482d60a99c24f4a3e
+  languageName: node
+  linkType: hard
+
 "dir-glob@npm:^3.0.1":
   version: 3.0.1
   resolution: "dir-glob@npm:3.0.1"
@@ -1603,6 +1612,15 @@ __metadata:
   version: 16.0.0
   resolution: "dotenv@npm:16.0.0"
   checksum: 664cebb51f0a9a1d1b930f51f0271e72e26d62feaecc9dc03df39453dd494b4e724809ca480fb3ec3213382b1ed3f791aaeb83569a137f9329ce58efd4853dbf
+  languageName: node
+  linkType: hard
+
+"dprint-node@npm:^1.0.7":
+  version: 1.0.7
+  resolution: "dprint-node@npm:1.0.7"
+  dependencies:
+    detect-libc: ^1.0.3
+  checksum: cd29f8e2b7de334273b4f53d24072718139635408b015963bcc80829cc785a84591462585b5b569791c8b1420c5672bec7499bda70d7298c58c8a3f43796e659
   languageName: node
   linkType: hard
 
@@ -3486,7 +3504,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash@npm:^4.13.1, lodash@npm:^4.17.15, lodash@npm:^4.17.21":
+"lodash@npm:^4.13.1, lodash@npm:^4.17.21":
   version: 4.17.21
   resolution: "lodash@npm:4.17.21"
   checksum: eb835a2e51d381e561e508ce932ea50a8e5a68f4ebdd771ea240d3048244a8d13658acbd502cd4829768c56f2e16bdd4340b9ea141297d472517b83868e677f7
@@ -5126,39 +5144,38 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-poet@npm:^4.5.0":
-  version: 4.10.0
-  resolution: "ts-poet@npm:4.10.0"
+"ts-poet@npm:^6.1.0":
+  version: 6.1.0
+  resolution: "ts-poet@npm:6.1.0"
   dependencies:
-    lodash: ^4.17.15
-    prettier: ^2.5.1
-  checksum: ffb3890a429f7ab59d96a7a17d9cc161bce786695af0fd77156e5779cfaeda92eaae4f15995a8c71a83cfb528d61bd2518bae19c4adec147bff8dce6f27c57d3
+    dprint-node: ^1.0.7
+  checksum: cd4cb34c0d3bb1046fac435163a5393d28ef7b872f8453be267462594f509b3668d132e77da99672581ce551aa99a421a5bba3695d3bd577af4b273eaed04647
   languageName: node
   linkType: hard
 
-"ts-proto-descriptors@npm:1.6.0":
-  version: 1.6.0
-  resolution: "ts-proto-descriptors@npm:1.6.0"
+"ts-proto-descriptors@npm:1.7.1":
+  version: 1.7.1
+  resolution: "ts-proto-descriptors@npm:1.7.1"
   dependencies:
     long: ^4.0.0
     protobufjs: ^6.8.8
-  checksum: 72de9826c2408efb979495c66add49200ea550c6540ebbf05c144cf5d66d21c09722a56cd183e25936196e04a24258e6af2dbdc2ef9e47e8dd19f094de681e89
+  checksum: 51e6bd7aeb0527f2e5b9cf70611d653fc6b27a2aca20987217acfdd63dfc10de660c7431f378f6f1769d503fd8e4e334ed28d957b777720abc3ef02f50e7460a
   languageName: node
   linkType: hard
 
-"ts-proto@npm:^1.108.0":
-  version: 1.108.0
-  resolution: "ts-proto@npm:1.108.0"
+"ts-proto@npm:^1.129.0":
+  version: 1.129.0
+  resolution: "ts-proto@npm:1.129.0"
   dependencies:
     "@types/object-hash": ^1.3.0
     dataloader: ^1.4.0
     object-hash: ^1.3.1
-    protobufjs: ^6.8.8
-    ts-poet: ^4.5.0
-    ts-proto-descriptors: 1.6.0
+    protobufjs: ^6.11.3
+    ts-poet: ^6.1.0
+    ts-proto-descriptors: 1.7.1
   bin:
     protoc-gen-ts_proto: protoc-gen-ts_proto
-  checksum: 10824ad209b1215be23e4e31d081d12b522fefcab1a422bbfd302397876491b4b36a2d5d2e992fac061ad9d13a4e7d3b223cd2c383435eda62dc11fe2bd3452a
+  checksum: fb14081b5c26754b111cfcc900c41baedf247a7257158be347e25454b1a36786296a023a8121a2ae260c4a2063b2d63c12dfd0ffe2758e6e63fae8106c9fc15e
   languageName: node
   linkType: hard
 
