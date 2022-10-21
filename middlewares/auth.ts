@@ -23,7 +23,7 @@ async function createJwtOptions(): Promise<{
   const pubKey = await fs.readFile(constants.JWT_PUBLIC_KEY_FILE);
   return {
     jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
-    secretOrKey: pubKey.toString('utf-8'),
+    secretOrKey: pubKey.toString('utf8'),
     algorithm: 'RS256',
   };
 }

@@ -1,9 +1,8 @@
 /* eslint-disable */
-import Long from 'long';
-// Manually patched with the extension
-import _m0 from 'protobufjs/minimal.js';
+import Long from "long";
+import _m0 from "protobufjs/minimal";
 
-export const protobufPackage = 'lnrpc';
+export const protobufPackage = "lnrpc";
 
 export enum OutputScriptType {
   SCRIPT_TYPE_PUBKEY_HASH = 0,
@@ -21,34 +20,34 @@ export enum OutputScriptType {
 export function outputScriptTypeFromJSON(object: any): OutputScriptType {
   switch (object) {
     case 0:
-    case 'SCRIPT_TYPE_PUBKEY_HASH':
+    case "SCRIPT_TYPE_PUBKEY_HASH":
       return OutputScriptType.SCRIPT_TYPE_PUBKEY_HASH;
     case 1:
-    case 'SCRIPT_TYPE_SCRIPT_HASH':
+    case "SCRIPT_TYPE_SCRIPT_HASH":
       return OutputScriptType.SCRIPT_TYPE_SCRIPT_HASH;
     case 2:
-    case 'SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH':
+    case "SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH":
       return OutputScriptType.SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH;
     case 3:
-    case 'SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH':
+    case "SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH":
       return OutputScriptType.SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH;
     case 4:
-    case 'SCRIPT_TYPE_PUBKEY':
+    case "SCRIPT_TYPE_PUBKEY":
       return OutputScriptType.SCRIPT_TYPE_PUBKEY;
     case 5:
-    case 'SCRIPT_TYPE_MULTISIG':
+    case "SCRIPT_TYPE_MULTISIG":
       return OutputScriptType.SCRIPT_TYPE_MULTISIG;
     case 6:
-    case 'SCRIPT_TYPE_NULLDATA':
+    case "SCRIPT_TYPE_NULLDATA":
       return OutputScriptType.SCRIPT_TYPE_NULLDATA;
     case 7:
-    case 'SCRIPT_TYPE_NON_STANDARD':
+    case "SCRIPT_TYPE_NON_STANDARD":
       return OutputScriptType.SCRIPT_TYPE_NON_STANDARD;
     case 8:
-    case 'SCRIPT_TYPE_WITNESS_UNKNOWN':
+    case "SCRIPT_TYPE_WITNESS_UNKNOWN":
       return OutputScriptType.SCRIPT_TYPE_WITNESS_UNKNOWN;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return OutputScriptType.UNRECOGNIZED;
   }
@@ -57,25 +56,26 @@ export function outputScriptTypeFromJSON(object: any): OutputScriptType {
 export function outputScriptTypeToJSON(object: OutputScriptType): string {
   switch (object) {
     case OutputScriptType.SCRIPT_TYPE_PUBKEY_HASH:
-      return 'SCRIPT_TYPE_PUBKEY_HASH';
+      return "SCRIPT_TYPE_PUBKEY_HASH";
     case OutputScriptType.SCRIPT_TYPE_SCRIPT_HASH:
-      return 'SCRIPT_TYPE_SCRIPT_HASH';
+      return "SCRIPT_TYPE_SCRIPT_HASH";
     case OutputScriptType.SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH:
-      return 'SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH';
+      return "SCRIPT_TYPE_WITNESS_V0_PUBKEY_HASH";
     case OutputScriptType.SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH:
-      return 'SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH';
+      return "SCRIPT_TYPE_WITNESS_V0_SCRIPT_HASH";
     case OutputScriptType.SCRIPT_TYPE_PUBKEY:
-      return 'SCRIPT_TYPE_PUBKEY';
+      return "SCRIPT_TYPE_PUBKEY";
     case OutputScriptType.SCRIPT_TYPE_MULTISIG:
-      return 'SCRIPT_TYPE_MULTISIG';
+      return "SCRIPT_TYPE_MULTISIG";
     case OutputScriptType.SCRIPT_TYPE_NULLDATA:
-      return 'SCRIPT_TYPE_NULLDATA';
+      return "SCRIPT_TYPE_NULLDATA";
     case OutputScriptType.SCRIPT_TYPE_NON_STANDARD:
-      return 'SCRIPT_TYPE_NON_STANDARD';
+      return "SCRIPT_TYPE_NON_STANDARD";
     case OutputScriptType.SCRIPT_TYPE_WITNESS_UNKNOWN:
-      return 'SCRIPT_TYPE_WITNESS_UNKNOWN';
+      return "SCRIPT_TYPE_WITNESS_UNKNOWN";
+    case OutputScriptType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -99,25 +99,25 @@ export enum AddressType {
 export function addressTypeFromJSON(object: any): AddressType {
   switch (object) {
     case 0:
-    case 'WITNESS_PUBKEY_HASH':
+    case "WITNESS_PUBKEY_HASH":
       return AddressType.WITNESS_PUBKEY_HASH;
     case 1:
-    case 'NESTED_PUBKEY_HASH':
+    case "NESTED_PUBKEY_HASH":
       return AddressType.NESTED_PUBKEY_HASH;
     case 2:
-    case 'UNUSED_WITNESS_PUBKEY_HASH':
+    case "UNUSED_WITNESS_PUBKEY_HASH":
       return AddressType.UNUSED_WITNESS_PUBKEY_HASH;
     case 3:
-    case 'UNUSED_NESTED_PUBKEY_HASH':
+    case "UNUSED_NESTED_PUBKEY_HASH":
       return AddressType.UNUSED_NESTED_PUBKEY_HASH;
     case 4:
-    case 'TAPROOT_PUBKEY':
+    case "TAPROOT_PUBKEY":
       return AddressType.TAPROOT_PUBKEY;
     case 5:
-    case 'UNUSED_TAPROOT_PUBKEY':
+    case "UNUSED_TAPROOT_PUBKEY":
       return AddressType.UNUSED_TAPROOT_PUBKEY;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return AddressType.UNRECOGNIZED;
   }
@@ -126,19 +126,20 @@ export function addressTypeFromJSON(object: any): AddressType {
 export function addressTypeToJSON(object: AddressType): string {
   switch (object) {
     case AddressType.WITNESS_PUBKEY_HASH:
-      return 'WITNESS_PUBKEY_HASH';
+      return "WITNESS_PUBKEY_HASH";
     case AddressType.NESTED_PUBKEY_HASH:
-      return 'NESTED_PUBKEY_HASH';
+      return "NESTED_PUBKEY_HASH";
     case AddressType.UNUSED_WITNESS_PUBKEY_HASH:
-      return 'UNUSED_WITNESS_PUBKEY_HASH';
+      return "UNUSED_WITNESS_PUBKEY_HASH";
     case AddressType.UNUSED_NESTED_PUBKEY_HASH:
-      return 'UNUSED_NESTED_PUBKEY_HASH';
+      return "UNUSED_NESTED_PUBKEY_HASH";
     case AddressType.TAPROOT_PUBKEY:
-      return 'TAPROOT_PUBKEY';
+      return "TAPROOT_PUBKEY";
     case AddressType.UNUSED_TAPROOT_PUBKEY:
-      return 'UNUSED_TAPROOT_PUBKEY';
+      return "UNUSED_TAPROOT_PUBKEY";
+    case AddressType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -177,22 +178,22 @@ export enum CommitmentType {
 export function commitmentTypeFromJSON(object: any): CommitmentType {
   switch (object) {
     case 0:
-    case 'UNKNOWN_COMMITMENT_TYPE':
+    case "UNKNOWN_COMMITMENT_TYPE":
       return CommitmentType.UNKNOWN_COMMITMENT_TYPE;
     case 1:
-    case 'LEGACY':
+    case "LEGACY":
       return CommitmentType.LEGACY;
     case 2:
-    case 'STATIC_REMOTE_KEY':
+    case "STATIC_REMOTE_KEY":
       return CommitmentType.STATIC_REMOTE_KEY;
     case 3:
-    case 'ANCHORS':
+    case "ANCHORS":
       return CommitmentType.ANCHORS;
     case 4:
-    case 'SCRIPT_ENFORCED_LEASE':
+    case "SCRIPT_ENFORCED_LEASE":
       return CommitmentType.SCRIPT_ENFORCED_LEASE;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return CommitmentType.UNRECOGNIZED;
   }
@@ -201,17 +202,18 @@ export function commitmentTypeFromJSON(object: any): CommitmentType {
 export function commitmentTypeToJSON(object: CommitmentType): string {
   switch (object) {
     case CommitmentType.UNKNOWN_COMMITMENT_TYPE:
-      return 'UNKNOWN_COMMITMENT_TYPE';
+      return "UNKNOWN_COMMITMENT_TYPE";
     case CommitmentType.LEGACY:
-      return 'LEGACY';
+      return "LEGACY";
     case CommitmentType.STATIC_REMOTE_KEY:
-      return 'STATIC_REMOTE_KEY';
+      return "STATIC_REMOTE_KEY";
     case CommitmentType.ANCHORS:
-      return 'ANCHORS';
+      return "ANCHORS";
     case CommitmentType.SCRIPT_ENFORCED_LEASE:
-      return 'SCRIPT_ENFORCED_LEASE';
+      return "SCRIPT_ENFORCED_LEASE";
+    case CommitmentType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -226,19 +228,19 @@ export enum Initiator {
 export function initiatorFromJSON(object: any): Initiator {
   switch (object) {
     case 0:
-    case 'INITIATOR_UNKNOWN':
+    case "INITIATOR_UNKNOWN":
       return Initiator.INITIATOR_UNKNOWN;
     case 1:
-    case 'INITIATOR_LOCAL':
+    case "INITIATOR_LOCAL":
       return Initiator.INITIATOR_LOCAL;
     case 2:
-    case 'INITIATOR_REMOTE':
+    case "INITIATOR_REMOTE":
       return Initiator.INITIATOR_REMOTE;
     case 3:
-    case 'INITIATOR_BOTH':
+    case "INITIATOR_BOTH":
       return Initiator.INITIATOR_BOTH;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return Initiator.UNRECOGNIZED;
   }
@@ -247,15 +249,16 @@ export function initiatorFromJSON(object: any): Initiator {
 export function initiatorToJSON(object: Initiator): string {
   switch (object) {
     case Initiator.INITIATOR_UNKNOWN:
-      return 'INITIATOR_UNKNOWN';
+      return "INITIATOR_UNKNOWN";
     case Initiator.INITIATOR_LOCAL:
-      return 'INITIATOR_LOCAL';
+      return "INITIATOR_LOCAL";
     case Initiator.INITIATOR_REMOTE:
-      return 'INITIATOR_REMOTE';
+      return "INITIATOR_REMOTE";
     case Initiator.INITIATOR_BOTH:
-      return 'INITIATOR_BOTH';
+      return "INITIATOR_BOTH";
+    case Initiator.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -283,22 +286,22 @@ export enum ResolutionType {
 export function resolutionTypeFromJSON(object: any): ResolutionType {
   switch (object) {
     case 0:
-    case 'TYPE_UNKNOWN':
+    case "TYPE_UNKNOWN":
       return ResolutionType.TYPE_UNKNOWN;
     case 1:
-    case 'ANCHOR':
+    case "ANCHOR":
       return ResolutionType.ANCHOR;
     case 2:
-    case 'INCOMING_HTLC':
+    case "INCOMING_HTLC":
       return ResolutionType.INCOMING_HTLC;
     case 3:
-    case 'OUTGOING_HTLC':
+    case "OUTGOING_HTLC":
       return ResolutionType.OUTGOING_HTLC;
     case 4:
-    case 'COMMIT':
+    case "COMMIT":
       return ResolutionType.COMMIT;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return ResolutionType.UNRECOGNIZED;
   }
@@ -307,17 +310,18 @@ export function resolutionTypeFromJSON(object: any): ResolutionType {
 export function resolutionTypeToJSON(object: ResolutionType): string {
   switch (object) {
     case ResolutionType.TYPE_UNKNOWN:
-      return 'TYPE_UNKNOWN';
+      return "TYPE_UNKNOWN";
     case ResolutionType.ANCHOR:
-      return 'ANCHOR';
+      return "ANCHOR";
     case ResolutionType.INCOMING_HTLC:
-      return 'INCOMING_HTLC';
+      return "INCOMING_HTLC";
     case ResolutionType.OUTGOING_HTLC:
-      return 'OUTGOING_HTLC';
+      return "OUTGOING_HTLC";
     case ResolutionType.COMMIT:
-      return 'COMMIT';
+      return "COMMIT";
+    case ResolutionType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -349,25 +353,25 @@ export enum ResolutionOutcome {
 export function resolutionOutcomeFromJSON(object: any): ResolutionOutcome {
   switch (object) {
     case 0:
-    case 'OUTCOME_UNKNOWN':
+    case "OUTCOME_UNKNOWN":
       return ResolutionOutcome.OUTCOME_UNKNOWN;
     case 1:
-    case 'CLAIMED':
+    case "CLAIMED":
       return ResolutionOutcome.CLAIMED;
     case 2:
-    case 'UNCLAIMED':
+    case "UNCLAIMED":
       return ResolutionOutcome.UNCLAIMED;
     case 3:
-    case 'ABANDONED':
+    case "ABANDONED":
       return ResolutionOutcome.ABANDONED;
     case 4:
-    case 'FIRST_STAGE':
+    case "FIRST_STAGE":
       return ResolutionOutcome.FIRST_STAGE;
     case 5:
-    case 'TIMEOUT':
+    case "TIMEOUT":
       return ResolutionOutcome.TIMEOUT;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return ResolutionOutcome.UNRECOGNIZED;
   }
@@ -376,19 +380,20 @@ export function resolutionOutcomeFromJSON(object: any): ResolutionOutcome {
 export function resolutionOutcomeToJSON(object: ResolutionOutcome): string {
   switch (object) {
     case ResolutionOutcome.OUTCOME_UNKNOWN:
-      return 'OUTCOME_UNKNOWN';
+      return "OUTCOME_UNKNOWN";
     case ResolutionOutcome.CLAIMED:
-      return 'CLAIMED';
+      return "CLAIMED";
     case ResolutionOutcome.UNCLAIMED:
-      return 'UNCLAIMED';
+      return "UNCLAIMED";
     case ResolutionOutcome.ABANDONED:
-      return 'ABANDONED';
+      return "ABANDONED";
     case ResolutionOutcome.FIRST_STAGE:
-      return 'FIRST_STAGE';
+      return "FIRST_STAGE";
     case ResolutionOutcome.TIMEOUT:
-      return 'TIMEOUT';
+      return "TIMEOUT";
+    case ResolutionOutcome.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -401,13 +406,13 @@ export enum NodeMetricType {
 export function nodeMetricTypeFromJSON(object: any): NodeMetricType {
   switch (object) {
     case 0:
-    case 'UNKNOWN':
+    case "UNKNOWN":
       return NodeMetricType.UNKNOWN;
     case 1:
-    case 'BETWEENNESS_CENTRALITY':
+    case "BETWEENNESS_CENTRALITY":
       return NodeMetricType.BETWEENNESS_CENTRALITY;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return NodeMetricType.UNRECOGNIZED;
   }
@@ -416,11 +421,12 @@ export function nodeMetricTypeFromJSON(object: any): NodeMetricType {
 export function nodeMetricTypeToJSON(object: NodeMetricType): string {
   switch (object) {
     case NodeMetricType.UNKNOWN:
-      return 'UNKNOWN';
+      return "UNKNOWN";
     case NodeMetricType.BETWEENNESS_CENTRALITY:
-      return 'BETWEENNESS_CENTRALITY';
+      return "BETWEENNESS_CENTRALITY";
+    case NodeMetricType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -434,16 +440,16 @@ export enum InvoiceHTLCState {
 export function invoiceHTLCStateFromJSON(object: any): InvoiceHTLCState {
   switch (object) {
     case 0:
-    case 'ACCEPTED':
+    case "ACCEPTED":
       return InvoiceHTLCState.ACCEPTED;
     case 1:
-    case 'SETTLED':
+    case "SETTLED":
       return InvoiceHTLCState.SETTLED;
     case 2:
-    case 'CANCELED':
+    case "CANCELED":
       return InvoiceHTLCState.CANCELED;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return InvoiceHTLCState.UNRECOGNIZED;
   }
@@ -452,13 +458,14 @@ export function invoiceHTLCStateFromJSON(object: any): InvoiceHTLCState {
 export function invoiceHTLCStateToJSON(object: InvoiceHTLCState): string {
   switch (object) {
     case InvoiceHTLCState.ACCEPTED:
-      return 'ACCEPTED';
+      return "ACCEPTED";
     case InvoiceHTLCState.SETTLED:
-      return 'SETTLED';
+      return "SETTLED";
     case InvoiceHTLCState.CANCELED:
-      return 'CANCELED';
+      return "CANCELED";
+    case InvoiceHTLCState.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -484,53 +491,50 @@ export enum PaymentFailureReason {
   UNRECOGNIZED = -1,
 }
 
-export function paymentFailureReasonFromJSON(
-  object: any,
-): PaymentFailureReason {
+export function paymentFailureReasonFromJSON(object: any): PaymentFailureReason {
   switch (object) {
     case 0:
-    case 'FAILURE_REASON_NONE':
+    case "FAILURE_REASON_NONE":
       return PaymentFailureReason.FAILURE_REASON_NONE;
     case 1:
-    case 'FAILURE_REASON_TIMEOUT':
+    case "FAILURE_REASON_TIMEOUT":
       return PaymentFailureReason.FAILURE_REASON_TIMEOUT;
     case 2:
-    case 'FAILURE_REASON_NO_ROUTE':
+    case "FAILURE_REASON_NO_ROUTE":
       return PaymentFailureReason.FAILURE_REASON_NO_ROUTE;
     case 3:
-    case 'FAILURE_REASON_ERROR':
+    case "FAILURE_REASON_ERROR":
       return PaymentFailureReason.FAILURE_REASON_ERROR;
     case 4:
-    case 'FAILURE_REASON_INCORRECT_PAYMENT_DETAILS':
+    case "FAILURE_REASON_INCORRECT_PAYMENT_DETAILS":
       return PaymentFailureReason.FAILURE_REASON_INCORRECT_PAYMENT_DETAILS;
     case 5:
-    case 'FAILURE_REASON_INSUFFICIENT_BALANCE':
+    case "FAILURE_REASON_INSUFFICIENT_BALANCE":
       return PaymentFailureReason.FAILURE_REASON_INSUFFICIENT_BALANCE;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return PaymentFailureReason.UNRECOGNIZED;
   }
 }
 
-export function paymentFailureReasonToJSON(
-  object: PaymentFailureReason,
-): string {
+export function paymentFailureReasonToJSON(object: PaymentFailureReason): string {
   switch (object) {
     case PaymentFailureReason.FAILURE_REASON_NONE:
-      return 'FAILURE_REASON_NONE';
+      return "FAILURE_REASON_NONE";
     case PaymentFailureReason.FAILURE_REASON_TIMEOUT:
-      return 'FAILURE_REASON_TIMEOUT';
+      return "FAILURE_REASON_TIMEOUT";
     case PaymentFailureReason.FAILURE_REASON_NO_ROUTE:
-      return 'FAILURE_REASON_NO_ROUTE';
+      return "FAILURE_REASON_NO_ROUTE";
     case PaymentFailureReason.FAILURE_REASON_ERROR:
-      return 'FAILURE_REASON_ERROR';
+      return "FAILURE_REASON_ERROR";
     case PaymentFailureReason.FAILURE_REASON_INCORRECT_PAYMENT_DETAILS:
-      return 'FAILURE_REASON_INCORRECT_PAYMENT_DETAILS';
+      return "FAILURE_REASON_INCORRECT_PAYMENT_DETAILS";
     case PaymentFailureReason.FAILURE_REASON_INSUFFICIENT_BALANCE:
-      return 'FAILURE_REASON_INSUFFICIENT_BALANCE';
+      return "FAILURE_REASON_INSUFFICIENT_BALANCE";
+    case PaymentFailureReason.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -566,82 +570,82 @@ export enum FeatureBit {
 export function featureBitFromJSON(object: any): FeatureBit {
   switch (object) {
     case 0:
-    case 'DATALOSS_PROTECT_REQ':
+    case "DATALOSS_PROTECT_REQ":
       return FeatureBit.DATALOSS_PROTECT_REQ;
     case 1:
-    case 'DATALOSS_PROTECT_OPT':
+    case "DATALOSS_PROTECT_OPT":
       return FeatureBit.DATALOSS_PROTECT_OPT;
     case 3:
-    case 'INITIAL_ROUING_SYNC':
+    case "INITIAL_ROUING_SYNC":
       return FeatureBit.INITIAL_ROUING_SYNC;
     case 4:
-    case 'UPFRONT_SHUTDOWN_SCRIPT_REQ':
+    case "UPFRONT_SHUTDOWN_SCRIPT_REQ":
       return FeatureBit.UPFRONT_SHUTDOWN_SCRIPT_REQ;
     case 5:
-    case 'UPFRONT_SHUTDOWN_SCRIPT_OPT':
+    case "UPFRONT_SHUTDOWN_SCRIPT_OPT":
       return FeatureBit.UPFRONT_SHUTDOWN_SCRIPT_OPT;
     case 6:
-    case 'GOSSIP_QUERIES_REQ':
+    case "GOSSIP_QUERIES_REQ":
       return FeatureBit.GOSSIP_QUERIES_REQ;
     case 7:
-    case 'GOSSIP_QUERIES_OPT':
+    case "GOSSIP_QUERIES_OPT":
       return FeatureBit.GOSSIP_QUERIES_OPT;
     case 8:
-    case 'TLV_ONION_REQ':
+    case "TLV_ONION_REQ":
       return FeatureBit.TLV_ONION_REQ;
     case 9:
-    case 'TLV_ONION_OPT':
+    case "TLV_ONION_OPT":
       return FeatureBit.TLV_ONION_OPT;
     case 10:
-    case 'EXT_GOSSIP_QUERIES_REQ':
+    case "EXT_GOSSIP_QUERIES_REQ":
       return FeatureBit.EXT_GOSSIP_QUERIES_REQ;
     case 11:
-    case 'EXT_GOSSIP_QUERIES_OPT':
+    case "EXT_GOSSIP_QUERIES_OPT":
       return FeatureBit.EXT_GOSSIP_QUERIES_OPT;
     case 12:
-    case 'STATIC_REMOTE_KEY_REQ':
+    case "STATIC_REMOTE_KEY_REQ":
       return FeatureBit.STATIC_REMOTE_KEY_REQ;
     case 13:
-    case 'STATIC_REMOTE_KEY_OPT':
+    case "STATIC_REMOTE_KEY_OPT":
       return FeatureBit.STATIC_REMOTE_KEY_OPT;
     case 14:
-    case 'PAYMENT_ADDR_REQ':
+    case "PAYMENT_ADDR_REQ":
       return FeatureBit.PAYMENT_ADDR_REQ;
     case 15:
-    case 'PAYMENT_ADDR_OPT':
+    case "PAYMENT_ADDR_OPT":
       return FeatureBit.PAYMENT_ADDR_OPT;
     case 16:
-    case 'MPP_REQ':
+    case "MPP_REQ":
       return FeatureBit.MPP_REQ;
     case 17:
-    case 'MPP_OPT':
+    case "MPP_OPT":
       return FeatureBit.MPP_OPT;
     case 18:
-    case 'WUMBO_CHANNELS_REQ':
+    case "WUMBO_CHANNELS_REQ":
       return FeatureBit.WUMBO_CHANNELS_REQ;
     case 19:
-    case 'WUMBO_CHANNELS_OPT':
+    case "WUMBO_CHANNELS_OPT":
       return FeatureBit.WUMBO_CHANNELS_OPT;
     case 20:
-    case 'ANCHORS_REQ':
+    case "ANCHORS_REQ":
       return FeatureBit.ANCHORS_REQ;
     case 21:
-    case 'ANCHORS_OPT':
+    case "ANCHORS_OPT":
       return FeatureBit.ANCHORS_OPT;
     case 22:
-    case 'ANCHORS_ZERO_FEE_HTLC_REQ':
+    case "ANCHORS_ZERO_FEE_HTLC_REQ":
       return FeatureBit.ANCHORS_ZERO_FEE_HTLC_REQ;
     case 23:
-    case 'ANCHORS_ZERO_FEE_HTLC_OPT':
+    case "ANCHORS_ZERO_FEE_HTLC_OPT":
       return FeatureBit.ANCHORS_ZERO_FEE_HTLC_OPT;
     case 30:
-    case 'AMP_REQ':
+    case "AMP_REQ":
       return FeatureBit.AMP_REQ;
     case 31:
-    case 'AMP_OPT':
+    case "AMP_OPT":
       return FeatureBit.AMP_OPT;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return FeatureBit.UNRECOGNIZED;
   }
@@ -650,57 +654,58 @@ export function featureBitFromJSON(object: any): FeatureBit {
 export function featureBitToJSON(object: FeatureBit): string {
   switch (object) {
     case FeatureBit.DATALOSS_PROTECT_REQ:
-      return 'DATALOSS_PROTECT_REQ';
+      return "DATALOSS_PROTECT_REQ";
     case FeatureBit.DATALOSS_PROTECT_OPT:
-      return 'DATALOSS_PROTECT_OPT';
+      return "DATALOSS_PROTECT_OPT";
     case FeatureBit.INITIAL_ROUING_SYNC:
-      return 'INITIAL_ROUING_SYNC';
+      return "INITIAL_ROUING_SYNC";
     case FeatureBit.UPFRONT_SHUTDOWN_SCRIPT_REQ:
-      return 'UPFRONT_SHUTDOWN_SCRIPT_REQ';
+      return "UPFRONT_SHUTDOWN_SCRIPT_REQ";
     case FeatureBit.UPFRONT_SHUTDOWN_SCRIPT_OPT:
-      return 'UPFRONT_SHUTDOWN_SCRIPT_OPT';
+      return "UPFRONT_SHUTDOWN_SCRIPT_OPT";
     case FeatureBit.GOSSIP_QUERIES_REQ:
-      return 'GOSSIP_QUERIES_REQ';
+      return "GOSSIP_QUERIES_REQ";
     case FeatureBit.GOSSIP_QUERIES_OPT:
-      return 'GOSSIP_QUERIES_OPT';
+      return "GOSSIP_QUERIES_OPT";
     case FeatureBit.TLV_ONION_REQ:
-      return 'TLV_ONION_REQ';
+      return "TLV_ONION_REQ";
     case FeatureBit.TLV_ONION_OPT:
-      return 'TLV_ONION_OPT';
+      return "TLV_ONION_OPT";
     case FeatureBit.EXT_GOSSIP_QUERIES_REQ:
-      return 'EXT_GOSSIP_QUERIES_REQ';
+      return "EXT_GOSSIP_QUERIES_REQ";
     case FeatureBit.EXT_GOSSIP_QUERIES_OPT:
-      return 'EXT_GOSSIP_QUERIES_OPT';
+      return "EXT_GOSSIP_QUERIES_OPT";
     case FeatureBit.STATIC_REMOTE_KEY_REQ:
-      return 'STATIC_REMOTE_KEY_REQ';
+      return "STATIC_REMOTE_KEY_REQ";
     case FeatureBit.STATIC_REMOTE_KEY_OPT:
-      return 'STATIC_REMOTE_KEY_OPT';
+      return "STATIC_REMOTE_KEY_OPT";
     case FeatureBit.PAYMENT_ADDR_REQ:
-      return 'PAYMENT_ADDR_REQ';
+      return "PAYMENT_ADDR_REQ";
     case FeatureBit.PAYMENT_ADDR_OPT:
-      return 'PAYMENT_ADDR_OPT';
+      return "PAYMENT_ADDR_OPT";
     case FeatureBit.MPP_REQ:
-      return 'MPP_REQ';
+      return "MPP_REQ";
     case FeatureBit.MPP_OPT:
-      return 'MPP_OPT';
+      return "MPP_OPT";
     case FeatureBit.WUMBO_CHANNELS_REQ:
-      return 'WUMBO_CHANNELS_REQ';
+      return "WUMBO_CHANNELS_REQ";
     case FeatureBit.WUMBO_CHANNELS_OPT:
-      return 'WUMBO_CHANNELS_OPT';
+      return "WUMBO_CHANNELS_OPT";
     case FeatureBit.ANCHORS_REQ:
-      return 'ANCHORS_REQ';
+      return "ANCHORS_REQ";
     case FeatureBit.ANCHORS_OPT:
-      return 'ANCHORS_OPT';
+      return "ANCHORS_OPT";
     case FeatureBit.ANCHORS_ZERO_FEE_HTLC_REQ:
-      return 'ANCHORS_ZERO_FEE_HTLC_REQ';
+      return "ANCHORS_ZERO_FEE_HTLC_REQ";
     case FeatureBit.ANCHORS_ZERO_FEE_HTLC_OPT:
-      return 'ANCHORS_ZERO_FEE_HTLC_OPT';
+      return "ANCHORS_ZERO_FEE_HTLC_OPT";
     case FeatureBit.AMP_REQ:
-      return 'AMP_REQ';
+      return "AMP_REQ";
     case FeatureBit.AMP_OPT:
-      return 'AMP_OPT';
+      return "AMP_OPT";
+    case FeatureBit.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -716,22 +721,22 @@ export enum UpdateFailure {
 export function updateFailureFromJSON(object: any): UpdateFailure {
   switch (object) {
     case 0:
-    case 'UPDATE_FAILURE_UNKNOWN':
+    case "UPDATE_FAILURE_UNKNOWN":
       return UpdateFailure.UPDATE_FAILURE_UNKNOWN;
     case 1:
-    case 'UPDATE_FAILURE_PENDING':
+    case "UPDATE_FAILURE_PENDING":
       return UpdateFailure.UPDATE_FAILURE_PENDING;
     case 2:
-    case 'UPDATE_FAILURE_NOT_FOUND':
+    case "UPDATE_FAILURE_NOT_FOUND":
       return UpdateFailure.UPDATE_FAILURE_NOT_FOUND;
     case 3:
-    case 'UPDATE_FAILURE_INTERNAL_ERR':
+    case "UPDATE_FAILURE_INTERNAL_ERR":
       return UpdateFailure.UPDATE_FAILURE_INTERNAL_ERR;
     case 4:
-    case 'UPDATE_FAILURE_INVALID_PARAMETER':
+    case "UPDATE_FAILURE_INVALID_PARAMETER":
       return UpdateFailure.UPDATE_FAILURE_INVALID_PARAMETER;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return UpdateFailure.UNRECOGNIZED;
   }
@@ -740,21 +745,23 @@ export function updateFailureFromJSON(object: any): UpdateFailure {
 export function updateFailureToJSON(object: UpdateFailure): string {
   switch (object) {
     case UpdateFailure.UPDATE_FAILURE_UNKNOWN:
-      return 'UPDATE_FAILURE_UNKNOWN';
+      return "UPDATE_FAILURE_UNKNOWN";
     case UpdateFailure.UPDATE_FAILURE_PENDING:
-      return 'UPDATE_FAILURE_PENDING';
+      return "UPDATE_FAILURE_PENDING";
     case UpdateFailure.UPDATE_FAILURE_NOT_FOUND:
-      return 'UPDATE_FAILURE_NOT_FOUND';
+      return "UPDATE_FAILURE_NOT_FOUND";
     case UpdateFailure.UPDATE_FAILURE_INTERNAL_ERR:
-      return 'UPDATE_FAILURE_INTERNAL_ERR';
+      return "UPDATE_FAILURE_INTERNAL_ERR";
     case UpdateFailure.UPDATE_FAILURE_INVALID_PARAMETER:
-      return 'UPDATE_FAILURE_INVALID_PARAMETER';
+      return "UPDATE_FAILURE_INVALID_PARAMETER";
+    case UpdateFailure.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
-export interface SubscribeCustomMessagesRequest {}
+export interface SubscribeCustomMessagesRequest {
+}
 
 export interface CustomMessage {
   /** Peer from which the message originates */
@@ -774,7 +781,8 @@ export interface SendCustomMessageRequest {
   data: Uint8Array;
 }
 
-export interface SendCustomMessageResponse {}
+export interface SendCustomMessageResponse {
+}
 
 export interface Utxo {
   /** The type of address */
@@ -786,7 +794,9 @@ export interface Utxo {
   /** The pkscript in hex */
   pkScript: string;
   /** The outpoint in format txid:n */
-  outpoint: OutPoint | undefined;
+  outpoint:
+    | OutPoint
+    | undefined;
   /** The number of confirmations for the Utxo */
   confirmations: string;
 }
@@ -865,13 +875,17 @@ export interface FeeLimit {
    *
    * The fields fixed and fixed_msat are mutually exclusive.
    */
-  fixed: string | undefined;
+  fixed:
+    | string
+    | undefined;
   /**
    * The fee limit expressed as a fixed amount of millisatoshis.
    *
    * The fields fixed and fixed_msat are mutually exclusive.
    */
-  fixedMsat: string | undefined;
+  fixedMsat:
+    | string
+    | undefined;
   /** The fee limit expressed as a percentage of the payment amount. */
   percent: string | undefined;
 }
@@ -931,7 +945,9 @@ export interface SendRequest {
    * send the payment. If not specified, lnd will use a default value of 100%
    * fees for small amounts (<=1k sat) or 5% fees for larger amounts.
    */
-  feeLimit: FeeLimit | undefined;
+  feeLimit:
+    | FeeLimit
+    | undefined;
   /**
    * The channel id of the channel that must be taken to the first hop. If zero,
    * any channel may be used.
@@ -952,7 +968,7 @@ export interface SendRequest {
    * required to be in the custom range >= 65536. When using REST, the values
    * must be encoded as base64.
    */
-  destCustomRecords: {[key: string]: Uint8Array};
+  destCustomRecords: { [key: string]: Uint8Array };
   /** If set, circular payments to self are permitted. */
   allowSelfPayment: boolean;
   /**
@@ -1093,12 +1109,16 @@ export interface ChannelPoint {
    * Txid of the funding transaction. When using REST, this field must be
    * encoded as base64.
    */
-  fundingTxidBytes: Uint8Array | undefined;
+  fundingTxidBytes:
+    | Uint8Array
+    | undefined;
   /**
    * Hex-encoded string representing the byte-reversed hash of the funding
    * transaction.
    */
-  fundingTxidStr: string | undefined;
+  fundingTxidStr:
+    | string
+    | undefined;
   /** The index of the output of the funding transaction */
   outputIndex: number;
 }
@@ -1124,7 +1144,7 @@ export interface LightningAddress {
 
 export interface EstimateFeeRequest {
   /** The map from addresses to amounts for the transaction. */
-  AddrToAmount: {[key: string]: string};
+  AddrToAmount: { [key: string]: string };
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -1160,7 +1180,7 @@ export interface EstimateFeeResponse {
 
 export interface SendManyRequest {
   /** The map from addresses to amounts */
-  AddrToAmount: {[key: string]: string};
+  AddrToAmount: { [key: string]: string };
   /**
    * The target number of blocks that this transaction should be confirmed
    * by.
@@ -1311,7 +1331,9 @@ export interface VerifyMessageResponse {
 
 export interface ConnectPeerRequest {
   /** Lightning address of the peer to connect to. */
-  addr: LightningAddress | undefined;
+  addr:
+    | LightningAddress
+    | undefined;
   /**
    * If set, the daemon will attempt to persistently connect to the target
    * peer. Otherwise, the call will be synchronous.
@@ -1324,14 +1346,16 @@ export interface ConnectPeerRequest {
   timeout: string;
 }
 
-export interface ConnectPeerResponse {}
+export interface ConnectPeerResponse {
+}
 
 export interface DisconnectPeerRequest {
   /** The pubkey of the node to disconnect from */
   pubKey: string;
 }
 
-export interface DisconnectPeerResponse {}
+export interface DisconnectPeerResponse {
+}
 
 export interface HTLC {
   incoming: boolean;
@@ -1498,7 +1522,9 @@ export interface Channel {
    */
   thawHeight: number;
   /** List constraints for the local node. */
-  localConstraints: ChannelConstraints | undefined;
+  localConstraints:
+    | ChannelConstraints
+    | undefined;
   /** List constraints for the remote node. */
   remoteConstraints: ChannelConstraints | undefined;
 }
@@ -1568,53 +1594,50 @@ export enum ChannelCloseSummary_ClosureType {
   UNRECOGNIZED = -1,
 }
 
-export function channelCloseSummary_ClosureTypeFromJSON(
-  object: any,
-): ChannelCloseSummary_ClosureType {
+export function channelCloseSummary_ClosureTypeFromJSON(object: any): ChannelCloseSummary_ClosureType {
   switch (object) {
     case 0:
-    case 'COOPERATIVE_CLOSE':
+    case "COOPERATIVE_CLOSE":
       return ChannelCloseSummary_ClosureType.COOPERATIVE_CLOSE;
     case 1:
-    case 'LOCAL_FORCE_CLOSE':
+    case "LOCAL_FORCE_CLOSE":
       return ChannelCloseSummary_ClosureType.LOCAL_FORCE_CLOSE;
     case 2:
-    case 'REMOTE_FORCE_CLOSE':
+    case "REMOTE_FORCE_CLOSE":
       return ChannelCloseSummary_ClosureType.REMOTE_FORCE_CLOSE;
     case 3:
-    case 'BREACH_CLOSE':
+    case "BREACH_CLOSE":
       return ChannelCloseSummary_ClosureType.BREACH_CLOSE;
     case 4:
-    case 'FUNDING_CANCELED':
+    case "FUNDING_CANCELED":
       return ChannelCloseSummary_ClosureType.FUNDING_CANCELED;
     case 5:
-    case 'ABANDONED':
+    case "ABANDONED":
       return ChannelCloseSummary_ClosureType.ABANDONED;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return ChannelCloseSummary_ClosureType.UNRECOGNIZED;
   }
 }
 
-export function channelCloseSummary_ClosureTypeToJSON(
-  object: ChannelCloseSummary_ClosureType,
-): string {
+export function channelCloseSummary_ClosureTypeToJSON(object: ChannelCloseSummary_ClosureType): string {
   switch (object) {
     case ChannelCloseSummary_ClosureType.COOPERATIVE_CLOSE:
-      return 'COOPERATIVE_CLOSE';
+      return "COOPERATIVE_CLOSE";
     case ChannelCloseSummary_ClosureType.LOCAL_FORCE_CLOSE:
-      return 'LOCAL_FORCE_CLOSE';
+      return "LOCAL_FORCE_CLOSE";
     case ChannelCloseSummary_ClosureType.REMOTE_FORCE_CLOSE:
-      return 'REMOTE_FORCE_CLOSE';
+      return "REMOTE_FORCE_CLOSE";
     case ChannelCloseSummary_ClosureType.BREACH_CLOSE:
-      return 'BREACH_CLOSE';
+      return "BREACH_CLOSE";
     case ChannelCloseSummary_ClosureType.FUNDING_CANCELED:
-      return 'FUNDING_CANCELED';
+      return "FUNDING_CANCELED";
     case ChannelCloseSummary_ClosureType.ABANDONED:
-      return 'ABANDONED';
+      return "ABANDONED";
+    case ChannelCloseSummary_ClosureType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -1624,7 +1647,9 @@ export interface Resolution {
   /** The outcome of our on chain action that resolved the outpoint. */
   outcome: ResolutionOutcome;
   /** The outpoint that was spent by the resolution. */
-  outpoint: OutPoint | undefined;
+  outpoint:
+    | OutPoint
+    | undefined;
   /** The amount that was claimed by the resolution. */
   amountSat: string;
   /**
@@ -1667,7 +1692,7 @@ export interface Peer {
   /** The type of sync we are currently performing with this peer. */
   syncType: Peer_SyncType;
   /** Features advertised by the remote peer in their init message. */
-  features: {[key: number]: Feature};
+  features: { [key: number]: Feature };
   /**
    * The latest errors received from our peer with timestamps, limited to the 10
    * most recent errors. These errors are tracked across peer connections, but
@@ -1707,19 +1732,19 @@ export enum Peer_SyncType {
 export function peer_SyncTypeFromJSON(object: any): Peer_SyncType {
   switch (object) {
     case 0:
-    case 'UNKNOWN_SYNC':
+    case "UNKNOWN_SYNC":
       return Peer_SyncType.UNKNOWN_SYNC;
     case 1:
-    case 'ACTIVE_SYNC':
+    case "ACTIVE_SYNC":
       return Peer_SyncType.ACTIVE_SYNC;
     case 2:
-    case 'PASSIVE_SYNC':
+    case "PASSIVE_SYNC":
       return Peer_SyncType.PASSIVE_SYNC;
     case 3:
-    case 'PINNED_SYNC':
+    case "PINNED_SYNC":
       return Peer_SyncType.PINNED_SYNC;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return Peer_SyncType.UNRECOGNIZED;
   }
@@ -1728,15 +1753,16 @@ export function peer_SyncTypeFromJSON(object: any): Peer_SyncType {
 export function peer_SyncTypeToJSON(object: Peer_SyncType): string {
   switch (object) {
     case Peer_SyncType.UNKNOWN_SYNC:
-      return 'UNKNOWN_SYNC';
+      return "UNKNOWN_SYNC";
     case Peer_SyncType.ACTIVE_SYNC:
-      return 'ACTIVE_SYNC';
+      return "ACTIVE_SYNC";
     case Peer_SyncType.PASSIVE_SYNC:
-      return 'PASSIVE_SYNC';
+      return "PASSIVE_SYNC";
     case Peer_SyncType.PINNED_SYNC:
-      return 'PINNED_SYNC';
+      return "PINNED_SYNC";
+    case Peer_SyncType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -1766,7 +1792,8 @@ export interface ListPeersResponse {
   peers: Peer[];
 }
 
-export interface PeerEventSubscription {}
+export interface PeerEventSubscription {
+}
 
 export interface PeerEvent {
   /** The identity pubkey of the peer. */
@@ -1783,13 +1810,13 @@ export enum PeerEvent_EventType {
 export function peerEvent_EventTypeFromJSON(object: any): PeerEvent_EventType {
   switch (object) {
     case 0:
-    case 'PEER_ONLINE':
+    case "PEER_ONLINE":
       return PeerEvent_EventType.PEER_ONLINE;
     case 1:
-    case 'PEER_OFFLINE':
+    case "PEER_OFFLINE":
       return PeerEvent_EventType.PEER_OFFLINE;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return PeerEvent_EventType.UNRECOGNIZED;
   }
@@ -1798,15 +1825,17 @@ export function peerEvent_EventTypeFromJSON(object: any): PeerEvent_EventType {
 export function peerEvent_EventTypeToJSON(object: PeerEvent_EventType): string {
   switch (object) {
     case PeerEvent_EventType.PEER_ONLINE:
-      return 'PEER_ONLINE';
+      return "PEER_ONLINE";
     case PeerEvent_EventType.PEER_OFFLINE:
-      return 'PEER_OFFLINE';
+      return "PEER_OFFLINE";
+    case PeerEvent_EventType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
-export interface GetInfoRequest {}
+export interface GetInfoRequest {
+}
 
 export interface GetInfoResponse {
   /** The version of the LND software that the node is running. */
@@ -1852,7 +1881,7 @@ export interface GetInfoResponse {
    * Features that our node has advertised in our init message, node
    * announcements and invoices.
    */
-  features: {[key: number]: Feature};
+  features: { [key: number]: Feature };
   /** Indicates whether the HTLC interceptor API is in always-on mode. */
   requireHtlcInterceptor: boolean;
 }
@@ -1862,7 +1891,8 @@ export interface GetInfoResponse_FeaturesEntry {
   value: Feature | undefined;
 }
 
-export interface GetRecoveryInfoRequest {}
+export interface GetRecoveryInfoRequest {
+}
 
 export interface GetRecoveryInfoResponse {
   /** Whether the wallet is in recovery mode */
@@ -1901,7 +1931,9 @@ export interface CloseChannelRequest {
    * will be able to generate a signature for Alice's version of the commitment
    * transaction.
    */
-  channelPoint: ChannelPoint | undefined;
+  channelPoint:
+    | ChannelPoint
+    | undefined;
   /**
    * If true, then the channel will be closed forcibly. This means the
    * current commitment transaction will be signed and broadcast.
@@ -2128,7 +2160,9 @@ export interface OpenChannelRequest {
    * that is generated by the wallet as normal, or signal that signing will be
    * carried out in an interactive manner (PSBT based).
    */
-  fundingShim: FundingShim | undefined;
+  fundingShim:
+    | FundingShim
+    | undefined;
   /**
    * The maximum amount of coins in millisatoshi that can be pending within
    * the channel. It only applies to the remote party.
@@ -2156,17 +2190,23 @@ export interface OpenStatusUpdate {
    * Signals that the channel is now fully negotiated and the funding
    * transaction published.
    */
-  chanPending: PendingUpdate | undefined;
+  chanPending:
+    | PendingUpdate
+    | undefined;
   /**
    * Signals that the channel's funding transaction has now reached the
    * required number of confirmations on chain and can be used.
    */
-  chanOpen: ChannelOpenUpdate | undefined;
+  chanOpen:
+    | ChannelOpenUpdate
+    | undefined;
   /**
    * Signals that the funding process has been suspended and the construction
    * of a PSBT that funds the channel PK script is now required.
    */
-  psbtFund: ReadyForPsbtFunding | undefined;
+  psbtFund:
+    | ReadyForPsbtFunding
+    | undefined;
   /**
    * The pending channel ID of the created channel. This value may be used to
    * further the funding flow manually via the FundingStateStep method.
@@ -2195,9 +2235,13 @@ export interface ChanPointShim {
    */
   amt: string;
   /** The target channel point to refrence in created commitment transactions. */
-  chanPoint: ChannelPoint | undefined;
+  chanPoint:
+    | ChannelPoint
+    | undefined;
   /** Our local key to use when creating the multi-sig output. */
-  localKey: KeyDescriptor | undefined;
+  localKey:
+    | KeyDescriptor
+    | undefined;
   /** The key of the remote party to use when creating the multi-sig output. */
   remoteKey: Uint8Array;
   /**
@@ -2245,7 +2289,9 @@ export interface FundingShim {
    * A channel shim where the channel point was fully constructed outside
    * of lnd's wallet and the transaction might already be published.
    */
-  chanPointShim: ChanPointShim | undefined;
+  chanPointShim:
+    | ChanPointShim
+    | undefined;
   /**
    * A channel shim that uses a PSBT to fund and sign the channel funding
    * transaction.
@@ -2305,15 +2351,21 @@ export interface FundingTransitionMsg {
    * channel funding has began by the remote party, as it is intended as a
    * preparatory step for the full channel funding.
    */
-  shimRegister: FundingShim | undefined;
+  shimRegister:
+    | FundingShim
+    | undefined;
   /** Used to cancel an existing registered funding shim. */
-  shimCancel: FundingShimCancel | undefined;
+  shimCancel:
+    | FundingShimCancel
+    | undefined;
   /**
    * Used to continue a funding flow that was initiated to be executed
    * through a PSBT. This step verifies that the PSBT contains the correct
    * outputs to fund the channel.
    */
-  psbtVerify: FundingPsbtVerify | undefined;
+  psbtVerify:
+    | FundingPsbtVerify
+    | undefined;
   /**
    * Used to continue a funding flow that was initiated to be executed
    * through a PSBT. This step finalizes the funded and signed PSBT, finishes
@@ -2323,7 +2375,8 @@ export interface FundingTransitionMsg {
   psbtFinalize: FundingPsbtFinalize | undefined;
 }
 
-export interface FundingStateStepResp {}
+export interface FundingStateStepResp {
+}
 
 export interface PendingHTLC {
   /** The direction within the channel that the htlc was sent */
@@ -2344,7 +2397,8 @@ export interface PendingHTLC {
   stage: number;
 }
 
-export interface PendingChannelsRequest {}
+export interface PendingChannelsRequest {
+}
 
 export interface PendingChannelsResponse {
   /** The balance in satoshis encumbered in pending channels */
@@ -2395,7 +2449,9 @@ export interface PendingChannelsResponse_PendingChannel {
 
 export interface PendingChannelsResponse_PendingOpenChannel {
   /** The pending channel */
-  channel: PendingChannelsResponse_PendingChannel | undefined;
+  channel:
+    | PendingChannelsResponse_PendingChannel
+    | undefined;
   /**
    * The amount calculated to be paid in fees for the current set of
    * commitment transactions. The fee amount is persisted with the channel
@@ -2416,14 +2472,18 @@ export interface PendingChannelsResponse_PendingOpenChannel {
 
 export interface PendingChannelsResponse_WaitingCloseChannel {
   /** The pending channel waiting for closing tx to confirm */
-  channel: PendingChannelsResponse_PendingChannel | undefined;
+  channel:
+    | PendingChannelsResponse_PendingChannel
+    | undefined;
   /** The balance in satoshis encumbered in this channel */
   limboBalance: string;
   /**
    * A list of valid commitment transactions. Any of these can confirm at
    * this point.
    */
-  commitments: PendingChannelsResponse_Commitments | undefined;
+  commitments:
+    | PendingChannelsResponse_Commitments
+    | undefined;
   /** The transaction id of the closing transaction */
   closingTxid: string;
 }
@@ -2454,14 +2514,18 @@ export interface PendingChannelsResponse_Commitments {
 
 export interface PendingChannelsResponse_ClosedChannel {
   /** The pending channel to be closed */
-  channel: PendingChannelsResponse_PendingChannel | undefined;
+  channel:
+    | PendingChannelsResponse_PendingChannel
+    | undefined;
   /** The transaction id of the closing transaction */
   closingTxid: string;
 }
 
 export interface PendingChannelsResponse_ForceClosedChannel {
   /** The pending channel to be force closed */
-  channel: PendingChannelsResponse_PendingChannel | undefined;
+  channel:
+    | PendingChannelsResponse_PendingChannel
+    | undefined;
   /** The transaction id of the closing transaction */
   closingTxid: string;
   /** The balance in satoshis encumbered in this pending channel */
@@ -2492,16 +2556,16 @@ export function pendingChannelsResponse_ForceClosedChannel_AnchorStateFromJSON(
 ): PendingChannelsResponse_ForceClosedChannel_AnchorState {
   switch (object) {
     case 0:
-    case 'LIMBO':
+    case "LIMBO":
       return PendingChannelsResponse_ForceClosedChannel_AnchorState.LIMBO;
     case 1:
-    case 'RECOVERED':
+    case "RECOVERED":
       return PendingChannelsResponse_ForceClosedChannel_AnchorState.RECOVERED;
     case 2:
-    case 'LOST':
+    case "LOST":
       return PendingChannelsResponse_ForceClosedChannel_AnchorState.LOST;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return PendingChannelsResponse_ForceClosedChannel_AnchorState.UNRECOGNIZED;
   }
@@ -2512,17 +2576,19 @@ export function pendingChannelsResponse_ForceClosedChannel_AnchorStateToJSON(
 ): string {
   switch (object) {
     case PendingChannelsResponse_ForceClosedChannel_AnchorState.LIMBO:
-      return 'LIMBO';
+      return "LIMBO";
     case PendingChannelsResponse_ForceClosedChannel_AnchorState.RECOVERED:
-      return 'RECOVERED';
+      return "RECOVERED";
     case PendingChannelsResponse_ForceClosedChannel_AnchorState.LOST:
-      return 'LOST';
+      return "LOST";
+    case PendingChannelsResponse_ForceClosedChannel_AnchorState.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
-export interface ChannelEventSubscription {}
+export interface ChannelEventSubscription {
+}
 
 export interface ChannelEventUpdate {
   openChannel: Channel | undefined;
@@ -2544,53 +2610,50 @@ export enum ChannelEventUpdate_UpdateType {
   UNRECOGNIZED = -1,
 }
 
-export function channelEventUpdate_UpdateTypeFromJSON(
-  object: any,
-): ChannelEventUpdate_UpdateType {
+export function channelEventUpdate_UpdateTypeFromJSON(object: any): ChannelEventUpdate_UpdateType {
   switch (object) {
     case 0:
-    case 'OPEN_CHANNEL':
+    case "OPEN_CHANNEL":
       return ChannelEventUpdate_UpdateType.OPEN_CHANNEL;
     case 1:
-    case 'CLOSED_CHANNEL':
+    case "CLOSED_CHANNEL":
       return ChannelEventUpdate_UpdateType.CLOSED_CHANNEL;
     case 2:
-    case 'ACTIVE_CHANNEL':
+    case "ACTIVE_CHANNEL":
       return ChannelEventUpdate_UpdateType.ACTIVE_CHANNEL;
     case 3:
-    case 'INACTIVE_CHANNEL':
+    case "INACTIVE_CHANNEL":
       return ChannelEventUpdate_UpdateType.INACTIVE_CHANNEL;
     case 4:
-    case 'PENDING_OPEN_CHANNEL':
+    case "PENDING_OPEN_CHANNEL":
       return ChannelEventUpdate_UpdateType.PENDING_OPEN_CHANNEL;
     case 5:
-    case 'FULLY_RESOLVED_CHANNEL':
+    case "FULLY_RESOLVED_CHANNEL":
       return ChannelEventUpdate_UpdateType.FULLY_RESOLVED_CHANNEL;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return ChannelEventUpdate_UpdateType.UNRECOGNIZED;
   }
 }
 
-export function channelEventUpdate_UpdateTypeToJSON(
-  object: ChannelEventUpdate_UpdateType,
-): string {
+export function channelEventUpdate_UpdateTypeToJSON(object: ChannelEventUpdate_UpdateType): string {
   switch (object) {
     case ChannelEventUpdate_UpdateType.OPEN_CHANNEL:
-      return 'OPEN_CHANNEL';
+      return "OPEN_CHANNEL";
     case ChannelEventUpdate_UpdateType.CLOSED_CHANNEL:
-      return 'CLOSED_CHANNEL';
+      return "CLOSED_CHANNEL";
     case ChannelEventUpdate_UpdateType.ACTIVE_CHANNEL:
-      return 'ACTIVE_CHANNEL';
+      return "ACTIVE_CHANNEL";
     case ChannelEventUpdate_UpdateType.INACTIVE_CHANNEL:
-      return 'INACTIVE_CHANNEL';
+      return "INACTIVE_CHANNEL";
     case ChannelEventUpdate_UpdateType.PENDING_OPEN_CHANNEL:
-      return 'PENDING_OPEN_CHANNEL';
+      return "PENDING_OPEN_CHANNEL";
     case ChannelEventUpdate_UpdateType.FULLY_RESOLVED_CHANNEL:
-      return 'FULLY_RESOLVED_CHANNEL';
+      return "FULLY_RESOLVED_CHANNEL";
+    case ChannelEventUpdate_UpdateType.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -2601,7 +2664,8 @@ export interface WalletAccountBalance {
   unconfirmedBalance: string;
 }
 
-export interface WalletBalanceRequest {}
+export interface WalletBalanceRequest {
+}
 
 export interface WalletBalanceResponse {
   /** The balance of the wallet */
@@ -2616,7 +2680,7 @@ export interface WalletBalanceResponse {
    */
   lockedBalance: string;
   /** A mapping of each wallet account's name to its balance. */
-  accountBalance: {[key: string]: WalletAccountBalance};
+  accountBalance: { [key: string]: WalletAccountBalance };
 }
 
 export interface WalletBalanceResponse_AccountBalanceEntry {
@@ -2631,7 +2695,8 @@ export interface Amount {
   msat: string;
 }
 
-export interface ChannelBalanceRequest {}
+export interface ChannelBalanceRequest {
+}
 
 export interface ChannelBalanceResponse {
   /**
@@ -2647,15 +2712,25 @@ export interface ChannelBalanceResponse {
    */
   pendingOpenBalance: string;
   /** Sum of channels local balances. */
-  localBalance: Amount | undefined;
+  localBalance:
+    | Amount
+    | undefined;
   /** Sum of channels remote balances. */
-  remoteBalance: Amount | undefined;
+  remoteBalance:
+    | Amount
+    | undefined;
   /** Sum of channels local unsettled balances. */
-  unsettledLocalBalance: Amount | undefined;
+  unsettledLocalBalance:
+    | Amount
+    | undefined;
   /** Sum of channels remote unsettled balances. */
-  unsettledRemoteBalance: Amount | undefined;
+  unsettledRemoteBalance:
+    | Amount
+    | undefined;
   /** Sum of channels pending local balances. */
-  pendingOpenLocalBalance: Amount | undefined;
+  pendingOpenLocalBalance:
+    | Amount
+    | undefined;
   /** Sum of channels pending remote balances. */
   pendingOpenRemoteBalance: Amount | undefined;
 }
@@ -2690,7 +2765,9 @@ export interface QueryRoutesRequest {
    * send the payment. If not specified, lnd will use a default value of 100%
    * fees for small amounts (<=1k sat) or 5% fees for larger amounts.
    */
-  feeLimit: FeeLimit | undefined;
+  feeLimit:
+    | FeeLimit
+    | undefined;
   /**
    * A list of nodes to ignore during path finding. When using REST, these fields
    * must be encoded as base64.
@@ -2728,7 +2805,7 @@ export interface QueryRoutesRequest {
    * Record types are required to be in the custom range >= 65536. When using
    * REST, the values must be encoded as base64.
    */
-  destCustomRecords: {[key: string]: Uint8Array};
+  destCustomRecords: { [key: string]: Uint8Array };
   /**
    * The channel id of the channel that must be taken to the first hop. If zero,
    * any channel may be used.
@@ -2831,7 +2908,9 @@ export interface Hop {
    * hop payload of all non-zero payments in the HTLC set. If empty, a regular
    * single-shot payment is or was attempted.
    */
-  mppRecord: MPPRecord | undefined;
+  mppRecord:
+    | MPPRecord
+    | undefined;
   /**
    * An optional TLV record that signals the use of an AMP payment. If present,
    * the receiver will treat all received payments including the same
@@ -2840,13 +2919,15 @@ export interface Hop {
    * child hashes and preimages according to BOLT XX. Must be used in conjunction
    * with mpp_record.
    */
-  ampRecord: AMPRecord | undefined;
+  ampRecord:
+    | AMPRecord
+    | undefined;
   /**
    * An optional set of key-value TLV records. This is useful within the context
    * of the SendToRoute call as it allows callers to specify arbitrary K-V pairs
    * to drop off at each hop within the onion.
    */
-  customRecords: {[key: string]: Uint8Array};
+  customRecords: { [key: string]: Uint8Array };
   /** The payment metadata to send along with the payment to the payee. */
   metadata: Uint8Array;
 }
@@ -2934,7 +3015,9 @@ export interface NodeInfo {
    * the graph is directed, a node will also have an incoming edge attached to
    * it for each outgoing edge.
    */
-  node: LightningNode | undefined;
+  node:
+    | LightningNode
+    | undefined;
   /** The total number of channels for the node. */
   numChannels: number;
   /** The sum of all channels capacity for the node, denominated in satoshis. */
@@ -2955,7 +3038,7 @@ export interface LightningNode {
   alias: string;
   addresses: NodeAddress[];
   color: string;
-  features: {[key: number]: Feature};
+  features: { [key: number]: Feature };
 }
 
 export interface LightningNode_FeaturesEntry {
@@ -3032,7 +3115,7 @@ export interface NodeMetricsResponse {
    * Map of node pubkey to betweenness centrality of the node. Normalized
    * values are in the [0,1] closed interval.
    */
-  betweennessCentrality: {[key: string]: FloatMetric};
+  betweennessCentrality: { [key: string]: FloatMetric };
 }
 
 export interface NodeMetricsResponse_BetweennessCentralityEntry {
@@ -3056,7 +3139,8 @@ export interface ChanInfoRequest {
   chanId: string;
 }
 
-export interface NetworkInfoRequest {}
+export interface NetworkInfoRequest {
+}
 
 export interface NetworkInfo {
   graphDiameter: number;
@@ -3073,11 +3157,14 @@ export interface NetworkInfo {
   numZombieChans: string;
 }
 
-export interface StopRequest {}
+export interface StopRequest {
+}
 
-export interface StopResponse {}
+export interface StopResponse {
+}
 
-export interface GraphTopologySubscription {}
+export interface GraphTopologySubscription {
+}
 
 export interface GraphTopologyUpdate {
   nodeUpdates: NodeUpdate[];
@@ -3106,7 +3193,7 @@ export interface NodeUpdate {
    * Features that the node has advertised in the init message, node
    * announcements and invoices.
    */
-  features: {[key: number]: Feature};
+  features: { [key: number]: Feature };
 }
 
 export interface NodeUpdate_FeaturesEntry {
@@ -3310,7 +3397,7 @@ export interface Invoice {
    * List of features advertised on the invoice.
    * Note: Output only, don't specify for creating an invoice.
    */
-  features: {[key: number]: Feature};
+  features: { [key: number]: Feature };
   /**
    * Indicates if this invoice was a spontaneous payment that arrived via keysend
    * [EXPERIMENTAL].
@@ -3335,7 +3422,7 @@ export interface Invoice {
    * given sub-invoice.
    * Note: Output only, don't specify for creating an invoice.
    */
-  ampInvoiceState: {[key: string]: AMPInvoiceState};
+  ampInvoiceState: { [key: string]: AMPInvoiceState };
 }
 
 export enum Invoice_InvoiceState {
@@ -3346,43 +3433,40 @@ export enum Invoice_InvoiceState {
   UNRECOGNIZED = -1,
 }
 
-export function invoice_InvoiceStateFromJSON(
-  object: any,
-): Invoice_InvoiceState {
+export function invoice_InvoiceStateFromJSON(object: any): Invoice_InvoiceState {
   switch (object) {
     case 0:
-    case 'OPEN':
+    case "OPEN":
       return Invoice_InvoiceState.OPEN;
     case 1:
-    case 'SETTLED':
+    case "SETTLED":
       return Invoice_InvoiceState.SETTLED;
     case 2:
-    case 'CANCELED':
+    case "CANCELED":
       return Invoice_InvoiceState.CANCELED;
     case 3:
-    case 'ACCEPTED':
+    case "ACCEPTED":
       return Invoice_InvoiceState.ACCEPTED;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return Invoice_InvoiceState.UNRECOGNIZED;
   }
 }
 
-export function invoice_InvoiceStateToJSON(
-  object: Invoice_InvoiceState,
-): string {
+export function invoice_InvoiceStateToJSON(object: Invoice_InvoiceState): string {
   switch (object) {
     case Invoice_InvoiceState.OPEN:
-      return 'OPEN';
+      return "OPEN";
     case Invoice_InvoiceState.SETTLED:
-      return 'SETTLED';
+      return "SETTLED";
     case Invoice_InvoiceState.CANCELED:
-      return 'CANCELED';
+      return "CANCELED";
     case Invoice_InvoiceState.ACCEPTED:
-      return 'ACCEPTED';
+      return "ACCEPTED";
+    case Invoice_InvoiceState.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -3415,7 +3499,7 @@ export interface InvoiceHTLC {
   /** Current state the htlc is in. */
   state: InvoiceHTLCState;
   /** Custom tlv records. */
-  customRecords: {[key: string]: Uint8Array};
+  customRecords: { [key: string]: Uint8Array };
   /** The total amount of the mpp payment in msat. */
   mppTotalAmtMsat: string;
   /** Details relevant to AMP HTLCs, only populated if this is an AMP HTLC. */
@@ -3602,43 +3686,40 @@ export enum Payment_PaymentStatus {
   UNRECOGNIZED = -1,
 }
 
-export function payment_PaymentStatusFromJSON(
-  object: any,
-): Payment_PaymentStatus {
+export function payment_PaymentStatusFromJSON(object: any): Payment_PaymentStatus {
   switch (object) {
     case 0:
-    case 'UNKNOWN':
+    case "UNKNOWN":
       return Payment_PaymentStatus.UNKNOWN;
     case 1:
-    case 'IN_FLIGHT':
+    case "IN_FLIGHT":
       return Payment_PaymentStatus.IN_FLIGHT;
     case 2:
-    case 'SUCCEEDED':
+    case "SUCCEEDED":
       return Payment_PaymentStatus.SUCCEEDED;
     case 3:
-    case 'FAILED':
+    case "FAILED":
       return Payment_PaymentStatus.FAILED;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return Payment_PaymentStatus.UNRECOGNIZED;
   }
 }
 
-export function payment_PaymentStatusToJSON(
-  object: Payment_PaymentStatus,
-): string {
+export function payment_PaymentStatusToJSON(object: Payment_PaymentStatus): string {
   switch (object) {
     case Payment_PaymentStatus.UNKNOWN:
-      return 'UNKNOWN';
+      return "UNKNOWN";
     case Payment_PaymentStatus.IN_FLIGHT:
-      return 'IN_FLIGHT';
+      return "IN_FLIGHT";
     case Payment_PaymentStatus.SUCCEEDED:
-      return 'SUCCEEDED';
+      return "SUCCEEDED";
     case Payment_PaymentStatus.FAILED:
-      return 'FAILED';
+      return "FAILED";
+    case Payment_PaymentStatus.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -3648,7 +3729,9 @@ export interface HTLCAttempt {
   /** The status of the HTLC. */
   status: HTLCAttempt_HTLCStatus;
   /** The route taken by this HTLC. */
-  route: Route | undefined;
+  route:
+    | Route
+    | undefined;
   /** The time in UNIX nanoseconds at which this HTLC was sent. */
   attemptTimeNs: string;
   /**
@@ -3657,7 +3740,9 @@ export interface HTLCAttempt {
    */
   resolveTimeNs: string;
   /** Detailed htlc failure info. */
-  failure: Failure | undefined;
+  failure:
+    | Failure
+    | undefined;
   /** The preimage that was used to settle the HTLC. */
   preimage: Uint8Array;
 }
@@ -3669,38 +3754,35 @@ export enum HTLCAttempt_HTLCStatus {
   UNRECOGNIZED = -1,
 }
 
-export function hTLCAttempt_HTLCStatusFromJSON(
-  object: any,
-): HTLCAttempt_HTLCStatus {
+export function hTLCAttempt_HTLCStatusFromJSON(object: any): HTLCAttempt_HTLCStatus {
   switch (object) {
     case 0:
-    case 'IN_FLIGHT':
+    case "IN_FLIGHT":
       return HTLCAttempt_HTLCStatus.IN_FLIGHT;
     case 1:
-    case 'SUCCEEDED':
+    case "SUCCEEDED":
       return HTLCAttempt_HTLCStatus.SUCCEEDED;
     case 2:
-    case 'FAILED':
+    case "FAILED":
       return HTLCAttempt_HTLCStatus.FAILED;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return HTLCAttempt_HTLCStatus.UNRECOGNIZED;
   }
 }
 
-export function hTLCAttempt_HTLCStatusToJSON(
-  object: HTLCAttempt_HTLCStatus,
-): string {
+export function hTLCAttempt_HTLCStatusToJSON(object: HTLCAttempt_HTLCStatus): string {
   switch (object) {
     case HTLCAttempt_HTLCStatus.IN_FLIGHT:
-      return 'IN_FLIGHT';
+      return "IN_FLIGHT";
     case HTLCAttempt_HTLCStatus.SUCCEEDED:
-      return 'SUCCEEDED';
+      return "SUCCEEDED";
     case HTLCAttempt_HTLCStatus.FAILED:
-      return 'FAILED';
+      return "FAILED";
+    case HTLCAttempt_HTLCStatus.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -3773,9 +3855,11 @@ export interface DeleteAllPaymentsRequest {
   failedHtlcsOnly: boolean;
 }
 
-export interface DeletePaymentResponse {}
+export interface DeletePaymentResponse {
+}
 
-export interface DeleteAllPaymentsResponse {}
+export interface DeleteAllPaymentsResponse {
+}
 
 export interface AbandonChannelRequest {
   channelPoint: ChannelPoint | undefined;
@@ -3788,7 +3872,8 @@ export interface AbandonChannelRequest {
   iKnowWhatIAmDoing: boolean;
 }
 
-export interface AbandonChannelResponse {}
+export interface AbandonChannelResponse {
+}
 
 export interface DebugLevelRequest {
   show: boolean;
@@ -3817,7 +3902,7 @@ export interface PayReq {
   routeHints: RouteHint[];
   paymentAddr: Uint8Array;
   numMsat: string;
-  features: {[key: number]: Feature};
+  features: { [key: number]: Feature };
 }
 
 export interface PayReq_FeaturesEntry {
@@ -3831,7 +3916,8 @@ export interface Feature {
   isKnown: boolean;
 }
 
-export interface FeeReportRequest {}
+export interface FeeReportRequest {
+}
 
 export interface ChannelFeeReport {
   /** The short channel id that this fee report belongs to. */
@@ -3877,9 +3963,13 @@ export interface FeeReportResponse {
 
 export interface PolicyUpdateRequest {
   /** If set, then this update applies to all currently active channels. */
-  global: boolean | undefined;
+  global:
+    | boolean
+    | undefined;
   /** If set, this update will target a specific channel. */
-  chanPoint: ChannelPoint | undefined;
+  chanPoint:
+    | ChannelPoint
+    | undefined;
   /** The base fee charged regardless of the number of milli-satoshis sent. */
   baseFeeMsat: string;
   /**
@@ -3907,7 +3997,9 @@ export interface PolicyUpdateRequest {
 
 export interface FailedUpdate {
   /** The outpoint in format txid:n */
-  outpoint: OutPoint | undefined;
+  outpoint:
+    | OutPoint
+    | undefined;
   /** Reason for the policy update failure. */
   reason: UpdateFailure;
   /** A string representation of the policy update error. */
@@ -4008,7 +4100,9 @@ export interface ExportChannelBackupRequest {
 
 export interface ChannelBackup {
   /** Identifies the channel that this backup belongs to. */
-  chanPoint: ChannelPoint | undefined;
+  chanPoint:
+    | ChannelPoint
+    | undefined;
   /**
    * Is an encrypted single-chan backup. this can be passed to
    * RestoreChannelBackups, or the WalletUnlocker Init and Unlock methods in
@@ -4030,14 +4124,17 @@ export interface MultiChanBackup {
   multiChanBackup: Uint8Array;
 }
 
-export interface ChanBackupExportRequest {}
+export interface ChanBackupExportRequest {
+}
 
 export interface ChanBackupSnapshot {
   /**
    * The set of new channels that have been added since the last channel backup
    * snapshot was requested.
    */
-  singleChanBackups: ChannelBackups | undefined;
+  singleChanBackups:
+    | ChannelBackups
+    | undefined;
   /**
    * A multi-channel backup that covers all open channels currently known to
    * lnd.
@@ -4052,7 +4149,9 @@ export interface ChannelBackups {
 
 export interface RestoreChanBackupRequest {
   /** The channels to restore as a list of channel/backup pairs. */
-  chanBackups: ChannelBackups | undefined;
+  chanBackups:
+    | ChannelBackups
+    | undefined;
   /**
    * The channels to restore in the packed multi backup format. When using
    * REST, this field must be encoded as base64.
@@ -4060,11 +4159,14 @@ export interface RestoreChanBackupRequest {
   multiChanBackup: Uint8Array | undefined;
 }
 
-export interface RestoreBackupResponse {}
+export interface RestoreBackupResponse {
+}
 
-export interface ChannelBackupSubscription {}
+export interface ChannelBackupSubscription {
+}
 
-export interface VerifyChanBackupResponse {}
+export interface VerifyChanBackupResponse {
+}
 
 export interface MacaroonPermission {
   /** The entity a permission grants access to. */
@@ -4090,7 +4192,8 @@ export interface BakeMacaroonResponse {
   macaroon: string;
 }
 
-export interface ListMacaroonIDsRequest {}
+export interface ListMacaroonIDsRequest {
+}
 
 export interface ListMacaroonIDsResponse {
   /** The list of root key IDs that are in use. */
@@ -4112,14 +4215,15 @@ export interface MacaroonPermissionList {
   permissions: MacaroonPermission[];
 }
 
-export interface ListPermissionsRequest {}
+export interface ListPermissionsRequest {
+}
 
 export interface ListPermissionsResponse {
   /**
    * A map between all RPC method URIs and their required macaroon permissions to
    * access them.
    */
-  methodPermissions: {[key: string]: MacaroonPermissionList};
+  methodPermissions: { [key: string]: MacaroonPermissionList };
 }
 
 export interface ListPermissionsResponse_MethodPermissionsEntry {
@@ -4131,7 +4235,9 @@ export interface Failure {
   /** Failure code as defined in the Lightning spec */
   code: Failure_FailureCode;
   /** An optional channel update message. */
-  channelUpdate: ChannelUpdate | undefined;
+  channelUpdate:
+    | ChannelUpdate
+    | undefined;
   /** A failure type-dependent htlc value. */
   htlcMsat: string;
   /** The sha256 sum of the onion payload. */
@@ -4195,91 +4301,91 @@ export enum Failure_FailureCode {
 export function failure_FailureCodeFromJSON(object: any): Failure_FailureCode {
   switch (object) {
     case 0:
-    case 'RESERVED':
+    case "RESERVED":
       return Failure_FailureCode.RESERVED;
     case 1:
-    case 'INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS':
+    case "INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS":
       return Failure_FailureCode.INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS;
     case 2:
-    case 'INCORRECT_PAYMENT_AMOUNT':
+    case "INCORRECT_PAYMENT_AMOUNT":
       return Failure_FailureCode.INCORRECT_PAYMENT_AMOUNT;
     case 3:
-    case 'FINAL_INCORRECT_CLTV_EXPIRY':
+    case "FINAL_INCORRECT_CLTV_EXPIRY":
       return Failure_FailureCode.FINAL_INCORRECT_CLTV_EXPIRY;
     case 4:
-    case 'FINAL_INCORRECT_HTLC_AMOUNT':
+    case "FINAL_INCORRECT_HTLC_AMOUNT":
       return Failure_FailureCode.FINAL_INCORRECT_HTLC_AMOUNT;
     case 5:
-    case 'FINAL_EXPIRY_TOO_SOON':
+    case "FINAL_EXPIRY_TOO_SOON":
       return Failure_FailureCode.FINAL_EXPIRY_TOO_SOON;
     case 6:
-    case 'INVALID_REALM':
+    case "INVALID_REALM":
       return Failure_FailureCode.INVALID_REALM;
     case 7:
-    case 'EXPIRY_TOO_SOON':
+    case "EXPIRY_TOO_SOON":
       return Failure_FailureCode.EXPIRY_TOO_SOON;
     case 8:
-    case 'INVALID_ONION_VERSION':
+    case "INVALID_ONION_VERSION":
       return Failure_FailureCode.INVALID_ONION_VERSION;
     case 9:
-    case 'INVALID_ONION_HMAC':
+    case "INVALID_ONION_HMAC":
       return Failure_FailureCode.INVALID_ONION_HMAC;
     case 10:
-    case 'INVALID_ONION_KEY':
+    case "INVALID_ONION_KEY":
       return Failure_FailureCode.INVALID_ONION_KEY;
     case 11:
-    case 'AMOUNT_BELOW_MINIMUM':
+    case "AMOUNT_BELOW_MINIMUM":
       return Failure_FailureCode.AMOUNT_BELOW_MINIMUM;
     case 12:
-    case 'FEE_INSUFFICIENT':
+    case "FEE_INSUFFICIENT":
       return Failure_FailureCode.FEE_INSUFFICIENT;
     case 13:
-    case 'INCORRECT_CLTV_EXPIRY':
+    case "INCORRECT_CLTV_EXPIRY":
       return Failure_FailureCode.INCORRECT_CLTV_EXPIRY;
     case 14:
-    case 'CHANNEL_DISABLED':
+    case "CHANNEL_DISABLED":
       return Failure_FailureCode.CHANNEL_DISABLED;
     case 15:
-    case 'TEMPORARY_CHANNEL_FAILURE':
+    case "TEMPORARY_CHANNEL_FAILURE":
       return Failure_FailureCode.TEMPORARY_CHANNEL_FAILURE;
     case 16:
-    case 'REQUIRED_NODE_FEATURE_MISSING':
+    case "REQUIRED_NODE_FEATURE_MISSING":
       return Failure_FailureCode.REQUIRED_NODE_FEATURE_MISSING;
     case 17:
-    case 'REQUIRED_CHANNEL_FEATURE_MISSING':
+    case "REQUIRED_CHANNEL_FEATURE_MISSING":
       return Failure_FailureCode.REQUIRED_CHANNEL_FEATURE_MISSING;
     case 18:
-    case 'UNKNOWN_NEXT_PEER':
+    case "UNKNOWN_NEXT_PEER":
       return Failure_FailureCode.UNKNOWN_NEXT_PEER;
     case 19:
-    case 'TEMPORARY_NODE_FAILURE':
+    case "TEMPORARY_NODE_FAILURE":
       return Failure_FailureCode.TEMPORARY_NODE_FAILURE;
     case 20:
-    case 'PERMANENT_NODE_FAILURE':
+    case "PERMANENT_NODE_FAILURE":
       return Failure_FailureCode.PERMANENT_NODE_FAILURE;
     case 21:
-    case 'PERMANENT_CHANNEL_FAILURE':
+    case "PERMANENT_CHANNEL_FAILURE":
       return Failure_FailureCode.PERMANENT_CHANNEL_FAILURE;
     case 22:
-    case 'EXPIRY_TOO_FAR':
+    case "EXPIRY_TOO_FAR":
       return Failure_FailureCode.EXPIRY_TOO_FAR;
     case 23:
-    case 'MPP_TIMEOUT':
+    case "MPP_TIMEOUT":
       return Failure_FailureCode.MPP_TIMEOUT;
     case 24:
-    case 'INVALID_ONION_PAYLOAD':
+    case "INVALID_ONION_PAYLOAD":
       return Failure_FailureCode.INVALID_ONION_PAYLOAD;
     case 997:
-    case 'INTERNAL_FAILURE':
+    case "INTERNAL_FAILURE":
       return Failure_FailureCode.INTERNAL_FAILURE;
     case 998:
-    case 'UNKNOWN_FAILURE':
+    case "UNKNOWN_FAILURE":
       return Failure_FailureCode.UNKNOWN_FAILURE;
     case 999:
-    case 'UNREADABLE_FAILURE':
+    case "UNREADABLE_FAILURE":
       return Failure_FailureCode.UNREADABLE_FAILURE;
     case -1:
-    case 'UNRECOGNIZED':
+    case "UNRECOGNIZED":
     default:
       return Failure_FailureCode.UNRECOGNIZED;
   }
@@ -4288,63 +4394,64 @@ export function failure_FailureCodeFromJSON(object: any): Failure_FailureCode {
 export function failure_FailureCodeToJSON(object: Failure_FailureCode): string {
   switch (object) {
     case Failure_FailureCode.RESERVED:
-      return 'RESERVED';
+      return "RESERVED";
     case Failure_FailureCode.INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS:
-      return 'INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS';
+      return "INCORRECT_OR_UNKNOWN_PAYMENT_DETAILS";
     case Failure_FailureCode.INCORRECT_PAYMENT_AMOUNT:
-      return 'INCORRECT_PAYMENT_AMOUNT';
+      return "INCORRECT_PAYMENT_AMOUNT";
     case Failure_FailureCode.FINAL_INCORRECT_CLTV_EXPIRY:
-      return 'FINAL_INCORRECT_CLTV_EXPIRY';
+      return "FINAL_INCORRECT_CLTV_EXPIRY";
     case Failure_FailureCode.FINAL_INCORRECT_HTLC_AMOUNT:
-      return 'FINAL_INCORRECT_HTLC_AMOUNT';
+      return "FINAL_INCORRECT_HTLC_AMOUNT";
     case Failure_FailureCode.FINAL_EXPIRY_TOO_SOON:
-      return 'FINAL_EXPIRY_TOO_SOON';
+      return "FINAL_EXPIRY_TOO_SOON";
     case Failure_FailureCode.INVALID_REALM:
-      return 'INVALID_REALM';
+      return "INVALID_REALM";
     case Failure_FailureCode.EXPIRY_TOO_SOON:
-      return 'EXPIRY_TOO_SOON';
+      return "EXPIRY_TOO_SOON";
     case Failure_FailureCode.INVALID_ONION_VERSION:
-      return 'INVALID_ONION_VERSION';
+      return "INVALID_ONION_VERSION";
     case Failure_FailureCode.INVALID_ONION_HMAC:
-      return 'INVALID_ONION_HMAC';
+      return "INVALID_ONION_HMAC";
     case Failure_FailureCode.INVALID_ONION_KEY:
-      return 'INVALID_ONION_KEY';
+      return "INVALID_ONION_KEY";
     case Failure_FailureCode.AMOUNT_BELOW_MINIMUM:
-      return 'AMOUNT_BELOW_MINIMUM';
+      return "AMOUNT_BELOW_MINIMUM";
     case Failure_FailureCode.FEE_INSUFFICIENT:
-      return 'FEE_INSUFFICIENT';
+      return "FEE_INSUFFICIENT";
     case Failure_FailureCode.INCORRECT_CLTV_EXPIRY:
-      return 'INCORRECT_CLTV_EXPIRY';
+      return "INCORRECT_CLTV_EXPIRY";
     case Failure_FailureCode.CHANNEL_DISABLED:
-      return 'CHANNEL_DISABLED';
+      return "CHANNEL_DISABLED";
     case Failure_FailureCode.TEMPORARY_CHANNEL_FAILURE:
-      return 'TEMPORARY_CHANNEL_FAILURE';
+      return "TEMPORARY_CHANNEL_FAILURE";
     case Failure_FailureCode.REQUIRED_NODE_FEATURE_MISSING:
-      return 'REQUIRED_NODE_FEATURE_MISSING';
+      return "REQUIRED_NODE_FEATURE_MISSING";
     case Failure_FailureCode.REQUIRED_CHANNEL_FEATURE_MISSING:
-      return 'REQUIRED_CHANNEL_FEATURE_MISSING';
+      return "REQUIRED_CHANNEL_FEATURE_MISSING";
     case Failure_FailureCode.UNKNOWN_NEXT_PEER:
-      return 'UNKNOWN_NEXT_PEER';
+      return "UNKNOWN_NEXT_PEER";
     case Failure_FailureCode.TEMPORARY_NODE_FAILURE:
-      return 'TEMPORARY_NODE_FAILURE';
+      return "TEMPORARY_NODE_FAILURE";
     case Failure_FailureCode.PERMANENT_NODE_FAILURE:
-      return 'PERMANENT_NODE_FAILURE';
+      return "PERMANENT_NODE_FAILURE";
     case Failure_FailureCode.PERMANENT_CHANNEL_FAILURE:
-      return 'PERMANENT_CHANNEL_FAILURE';
+      return "PERMANENT_CHANNEL_FAILURE";
     case Failure_FailureCode.EXPIRY_TOO_FAR:
-      return 'EXPIRY_TOO_FAR';
+      return "EXPIRY_TOO_FAR";
     case Failure_FailureCode.MPP_TIMEOUT:
-      return 'MPP_TIMEOUT';
+      return "MPP_TIMEOUT";
     case Failure_FailureCode.INVALID_ONION_PAYLOAD:
-      return 'INVALID_ONION_PAYLOAD';
+      return "INVALID_ONION_PAYLOAD";
     case Failure_FailureCode.INTERNAL_FAILURE:
-      return 'INTERNAL_FAILURE';
+      return "INTERNAL_FAILURE";
     case Failure_FailureCode.UNKNOWN_FAILURE:
-      return 'UNKNOWN_FAILURE';
+      return "UNKNOWN_FAILURE";
     case Failure_FailureCode.UNREADABLE_FAILURE:
-      return 'UNREADABLE_FAILURE';
+      return "UNREADABLE_FAILURE";
+    case Failure_FailureCode.UNRECOGNIZED:
     default:
-      return 'UNKNOWN';
+      return "UNRECOGNIZED";
   }
 }
 
@@ -4462,14 +4569,18 @@ export interface RPCMiddlewareRequest {
    * must handle the macaroon authentication in the request interception to
    * avoid an additional message round trip between lnd and the middleware.
    */
-  streamAuth: StreamAuth | undefined;
+  streamAuth:
+    | StreamAuth
+    | undefined;
   /**
    * Intercept incoming gRPC client request message: all incoming messages,
    * both on streaming and unary RPCs, are forwarded to the middleware for
    * inspection. For unary RPC messages the middleware is also expected to
    * validate the custom macaroon caveat of the request.
    */
-  request: RPCMessage | undefined;
+  request:
+    | RPCMessage
+    | undefined;
   /**
    * Intercept outgoing gRPC response message: all outgoing messages, both on
    * streaming and unary RPCs, are forwarded to the middleware for inspection
@@ -4478,7 +4589,9 @@ export interface RPCMiddlewareRequest {
    * (=forwarded to the client), replaced/overwritten with a new message of
    * the same type, or replaced by an error message.
    */
-  response: RPCMessage | undefined;
+  response:
+    | RPCMessage
+    | undefined;
   /**
    * The unique message ID of this middleware intercept message. There can be
    * multiple middleware intercept messages per single gRPC request (one for the
@@ -4538,7 +4651,9 @@ export interface RPCMiddlewareResponse {
    * measure, _no_ middleware can intercept requests made with _unencumbered_
    * macaroons!
    */
-  register: MiddlewareRegistration | undefined;
+  register:
+    | MiddlewareRegistration
+    | undefined;
   /**
    * The middleware received an interception request and gives feedback to
    * it. The request_id indicates what message the feedback refers to.
@@ -4602,17 +4717,11 @@ function createBaseSubscribeCustomMessagesRequest(): SubscribeCustomMessagesRequ
 }
 
 export const SubscribeCustomMessagesRequest = {
-  encode(
-    _: SubscribeCustomMessagesRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: SubscribeCustomMessagesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): SubscribeCustomMessagesRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): SubscribeCustomMessagesRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSubscribeCustomMessagesRequest();
@@ -4636,23 +4745,18 @@ export const SubscribeCustomMessagesRequest = {
     return obj;
   },
 
-  fromPartial(
-    _: DeepPartial<SubscribeCustomMessagesRequest>,
-  ): SubscribeCustomMessagesRequest {
+  fromPartial(_: DeepPartial<SubscribeCustomMessagesRequest>): SubscribeCustomMessagesRequest {
     const message = createBaseSubscribeCustomMessagesRequest();
     return message;
   },
 };
 
 function createBaseCustomMessage(): CustomMessage {
-  return {peer: new Uint8Array(), type: 0, data: new Uint8Array()};
+  return { peer: new Uint8Array(), type: 0, data: new Uint8Array() };
 }
 
 export const CustomMessage = {
-  encode(
-    message: CustomMessage,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: CustomMessage, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.peer.length !== 0) {
       writer.uint32(10).bytes(message.peer);
     }
@@ -4691,27 +4795,19 @@ export const CustomMessage = {
 
   fromJSON(object: any): CustomMessage {
     return {
-      peer: isSet(object.peer)
-        ? bytesFromBase64(object.peer)
-        : new Uint8Array(),
+      peer: isSet(object.peer) ? bytesFromBase64(object.peer) : new Uint8Array(),
       type: isSet(object.type) ? Number(object.type) : 0,
-      data: isSet(object.data)
-        ? bytesFromBase64(object.data)
-        : new Uint8Array(),
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
     };
   },
 
   toJSON(message: CustomMessage): unknown {
     const obj: any = {};
     message.peer !== undefined &&
-      (obj.peer = base64FromBytes(
-        message.peer !== undefined ? message.peer : new Uint8Array(),
-      ));
+      (obj.peer = base64FromBytes(message.peer !== undefined ? message.peer : new Uint8Array()));
     message.type !== undefined && (obj.type = Math.round(message.type));
     message.data !== undefined &&
-      (obj.data = base64FromBytes(
-        message.data !== undefined ? message.data : new Uint8Array(),
-      ));
+      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
     return obj;
   },
 
@@ -4725,14 +4821,11 @@ export const CustomMessage = {
 };
 
 function createBaseSendCustomMessageRequest(): SendCustomMessageRequest {
-  return {peer: new Uint8Array(), type: 0, data: new Uint8Array()};
+  return { peer: new Uint8Array(), type: 0, data: new Uint8Array() };
 }
 
 export const SendCustomMessageRequest = {
-  encode(
-    message: SendCustomMessageRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SendCustomMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.peer.length !== 0) {
       writer.uint32(10).bytes(message.peer);
     }
@@ -4745,10 +4838,7 @@ export const SendCustomMessageRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): SendCustomMessageRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): SendCustomMessageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCustomMessageRequest();
@@ -4774,33 +4864,23 @@ export const SendCustomMessageRequest = {
 
   fromJSON(object: any): SendCustomMessageRequest {
     return {
-      peer: isSet(object.peer)
-        ? bytesFromBase64(object.peer)
-        : new Uint8Array(),
+      peer: isSet(object.peer) ? bytesFromBase64(object.peer) : new Uint8Array(),
       type: isSet(object.type) ? Number(object.type) : 0,
-      data: isSet(object.data)
-        ? bytesFromBase64(object.data)
-        : new Uint8Array(),
+      data: isSet(object.data) ? bytesFromBase64(object.data) : new Uint8Array(),
     };
   },
 
   toJSON(message: SendCustomMessageRequest): unknown {
     const obj: any = {};
     message.peer !== undefined &&
-      (obj.peer = base64FromBytes(
-        message.peer !== undefined ? message.peer : new Uint8Array(),
-      ));
+      (obj.peer = base64FromBytes(message.peer !== undefined ? message.peer : new Uint8Array()));
     message.type !== undefined && (obj.type = Math.round(message.type));
     message.data !== undefined &&
-      (obj.data = base64FromBytes(
-        message.data !== undefined ? message.data : new Uint8Array(),
-      ));
+      (obj.data = base64FromBytes(message.data !== undefined ? message.data : new Uint8Array()));
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<SendCustomMessageRequest>,
-  ): SendCustomMessageRequest {
+  fromPartial(object: DeepPartial<SendCustomMessageRequest>): SendCustomMessageRequest {
     const message = createBaseSendCustomMessageRequest();
     message.peer = object.peer ?? new Uint8Array();
     message.type = object.type ?? 0;
@@ -4814,17 +4894,11 @@ function createBaseSendCustomMessageResponse(): SendCustomMessageResponse {
 }
 
 export const SendCustomMessageResponse = {
-  encode(
-    _: SendCustomMessageResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: SendCustomMessageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): SendCustomMessageResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): SendCustomMessageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendCustomMessageResponse();
@@ -4848,23 +4922,14 @@ export const SendCustomMessageResponse = {
     return obj;
   },
 
-  fromPartial(
-    _: DeepPartial<SendCustomMessageResponse>,
-  ): SendCustomMessageResponse {
+  fromPartial(_: DeepPartial<SendCustomMessageResponse>): SendCustomMessageResponse {
     const message = createBaseSendCustomMessageResponse();
     return message;
   },
 };
 
 function createBaseUtxo(): Utxo {
-  return {
-    addressType: 0,
-    address: '',
-    amountSat: '0',
-    pkScript: '',
-    outpoint: undefined,
-    confirmations: '0',
-  };
+  return { addressType: 0, address: "", amountSat: "0", pkScript: "", outpoint: undefined, confirmations: "0" };
 }
 
 export const Utxo = {
@@ -4872,19 +4937,19 @@ export const Utxo = {
     if (message.addressType !== 0) {
       writer.uint32(8).int32(message.addressType);
     }
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(18).string(message.address);
     }
-    if (message.amountSat !== '0') {
+    if (message.amountSat !== "0") {
       writer.uint32(24).int64(message.amountSat);
     }
-    if (message.pkScript !== '') {
+    if (message.pkScript !== "") {
       writer.uint32(34).string(message.pkScript);
     }
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(42).fork()).ldelim();
     }
-    if (message.confirmations !== '0') {
+    if (message.confirmations !== "0") {
       writer.uint32(48).int64(message.confirmations);
     }
     return writer;
@@ -4925,81 +4990,59 @@ export const Utxo = {
 
   fromJSON(object: any): Utxo {
     return {
-      addressType: isSet(object.addressType)
-        ? addressTypeFromJSON(object.addressType)
-        : 0,
-      address: isSet(object.address) ? String(object.address) : '',
-      amountSat: isSet(object.amountSat) ? String(object.amountSat) : '0',
-      pkScript: isSet(object.pkScript) ? String(object.pkScript) : '',
-      outpoint: isSet(object.outpoint)
-        ? OutPoint.fromJSON(object.outpoint)
-        : undefined,
-      confirmations: isSet(object.confirmations)
-        ? String(object.confirmations)
-        : '0',
+      addressType: isSet(object.addressType) ? addressTypeFromJSON(object.addressType) : 0,
+      address: isSet(object.address) ? String(object.address) : "",
+      amountSat: isSet(object.amountSat) ? String(object.amountSat) : "0",
+      pkScript: isSet(object.pkScript) ? String(object.pkScript) : "",
+      outpoint: isSet(object.outpoint) ? OutPoint.fromJSON(object.outpoint) : undefined,
+      confirmations: isSet(object.confirmations) ? String(object.confirmations) : "0",
     };
   },
 
   toJSON(message: Utxo): unknown {
     const obj: any = {};
-    message.addressType !== undefined &&
-      (obj.addressType = addressTypeToJSON(message.addressType));
+    message.addressType !== undefined && (obj.addressType = addressTypeToJSON(message.addressType));
     message.address !== undefined && (obj.address = message.address);
     message.amountSat !== undefined && (obj.amountSat = message.amountSat);
     message.pkScript !== undefined && (obj.pkScript = message.pkScript);
-    message.outpoint !== undefined &&
-      (obj.outpoint = message.outpoint
-        ? OutPoint.toJSON(message.outpoint)
-        : undefined);
-    message.confirmations !== undefined &&
-      (obj.confirmations = message.confirmations);
+    message.outpoint !== undefined && (obj.outpoint = message.outpoint ? OutPoint.toJSON(message.outpoint) : undefined);
+    message.confirmations !== undefined && (obj.confirmations = message.confirmations);
     return obj;
   },
 
   fromPartial(object: DeepPartial<Utxo>): Utxo {
     const message = createBaseUtxo();
     message.addressType = object.addressType ?? 0;
-    message.address = object.address ?? '';
-    message.amountSat = object.amountSat ?? '0';
-    message.pkScript = object.pkScript ?? '';
-    message.outpoint =
-      object.outpoint !== undefined && object.outpoint !== null
-        ? OutPoint.fromPartial(object.outpoint)
-        : undefined;
-    message.confirmations = object.confirmations ?? '0';
+    message.address = object.address ?? "";
+    message.amountSat = object.amountSat ?? "0";
+    message.pkScript = object.pkScript ?? "";
+    message.outpoint = (object.outpoint !== undefined && object.outpoint !== null)
+      ? OutPoint.fromPartial(object.outpoint)
+      : undefined;
+    message.confirmations = object.confirmations ?? "0";
     return message;
   },
 };
 
 function createBaseOutputDetail(): OutputDetail {
-  return {
-    outputType: 0,
-    address: '',
-    pkScript: '',
-    outputIndex: '0',
-    amount: '0',
-    isOurAddress: false,
-  };
+  return { outputType: 0, address: "", pkScript: "", outputIndex: "0", amount: "0", isOurAddress: false };
 }
 
 export const OutputDetail = {
-  encode(
-    message: OutputDetail,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: OutputDetail, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.outputType !== 0) {
       writer.uint32(8).int32(message.outputType);
     }
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(18).string(message.address);
     }
-    if (message.pkScript !== '') {
+    if (message.pkScript !== "") {
       writer.uint32(26).string(message.pkScript);
     }
-    if (message.outputIndex !== '0') {
+    if (message.outputIndex !== "0") {
       writer.uint32(32).int64(message.outputIndex);
     }
-    if (message.amount !== '0') {
+    if (message.amount !== "0") {
       writer.uint32(40).int64(message.amount);
     }
     if (message.isOurAddress === true) {
@@ -5043,40 +5086,33 @@ export const OutputDetail = {
 
   fromJSON(object: any): OutputDetail {
     return {
-      outputType: isSet(object.outputType)
-        ? outputScriptTypeFromJSON(object.outputType)
-        : 0,
-      address: isSet(object.address) ? String(object.address) : '',
-      pkScript: isSet(object.pkScript) ? String(object.pkScript) : '',
-      outputIndex: isSet(object.outputIndex) ? String(object.outputIndex) : '0',
-      amount: isSet(object.amount) ? String(object.amount) : '0',
-      isOurAddress: isSet(object.isOurAddress)
-        ? Boolean(object.isOurAddress)
-        : false,
+      outputType: isSet(object.outputType) ? outputScriptTypeFromJSON(object.outputType) : 0,
+      address: isSet(object.address) ? String(object.address) : "",
+      pkScript: isSet(object.pkScript) ? String(object.pkScript) : "",
+      outputIndex: isSet(object.outputIndex) ? String(object.outputIndex) : "0",
+      amount: isSet(object.amount) ? String(object.amount) : "0",
+      isOurAddress: isSet(object.isOurAddress) ? Boolean(object.isOurAddress) : false,
     };
   },
 
   toJSON(message: OutputDetail): unknown {
     const obj: any = {};
-    message.outputType !== undefined &&
-      (obj.outputType = outputScriptTypeToJSON(message.outputType));
+    message.outputType !== undefined && (obj.outputType = outputScriptTypeToJSON(message.outputType));
     message.address !== undefined && (obj.address = message.address);
     message.pkScript !== undefined && (obj.pkScript = message.pkScript);
-    message.outputIndex !== undefined &&
-      (obj.outputIndex = message.outputIndex);
+    message.outputIndex !== undefined && (obj.outputIndex = message.outputIndex);
     message.amount !== undefined && (obj.amount = message.amount);
-    message.isOurAddress !== undefined &&
-      (obj.isOurAddress = message.isOurAddress);
+    message.isOurAddress !== undefined && (obj.isOurAddress = message.isOurAddress);
     return obj;
   },
 
   fromPartial(object: DeepPartial<OutputDetail>): OutputDetail {
     const message = createBaseOutputDetail();
     message.outputType = object.outputType ?? 0;
-    message.address = object.address ?? '';
-    message.pkScript = object.pkScript ?? '';
-    message.outputIndex = object.outputIndex ?? '0';
-    message.amount = object.amount ?? '0';
+    message.address = object.address ?? "";
+    message.pkScript = object.pkScript ?? "";
+    message.outputIndex = object.outputIndex ?? "0";
+    message.amount = object.amount ?? "0";
     message.isOurAddress = object.isOurAddress ?? false;
     return message;
   },
@@ -5084,44 +5120,41 @@ export const OutputDetail = {
 
 function createBaseTransaction(): Transaction {
   return {
-    txHash: '',
-    amount: '0',
+    txHash: "",
+    amount: "0",
     numConfirmations: 0,
-    blockHash: '',
+    blockHash: "",
     blockHeight: 0,
-    timeStamp: '0',
-    totalFees: '0',
+    timeStamp: "0",
+    totalFees: "0",
     destAddresses: [],
     outputDetails: [],
-    rawTxHex: '',
-    label: '',
+    rawTxHex: "",
+    label: "",
   };
 }
 
 export const Transaction = {
-  encode(
-    message: Transaction,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.txHash !== '') {
+  encode(message: Transaction, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.txHash !== "") {
       writer.uint32(10).string(message.txHash);
     }
-    if (message.amount !== '0') {
+    if (message.amount !== "0") {
       writer.uint32(16).int64(message.amount);
     }
     if (message.numConfirmations !== 0) {
       writer.uint32(24).int32(message.numConfirmations);
     }
-    if (message.blockHash !== '') {
+    if (message.blockHash !== "") {
       writer.uint32(34).string(message.blockHash);
     }
     if (message.blockHeight !== 0) {
       writer.uint32(40).int32(message.blockHeight);
     }
-    if (message.timeStamp !== '0') {
+    if (message.timeStamp !== "0") {
       writer.uint32(48).int64(message.timeStamp);
     }
-    if (message.totalFees !== '0') {
+    if (message.totalFees !== "0") {
       writer.uint32(56).int64(message.totalFees);
     }
     for (const v of message.destAddresses) {
@@ -5130,10 +5163,10 @@ export const Transaction = {
     for (const v of message.outputDetails) {
       OutputDetail.encode(v!, writer.uint32(90).fork()).ldelim();
     }
-    if (message.rawTxHex !== '') {
+    if (message.rawTxHex !== "") {
       writer.uint32(74).string(message.rawTxHex);
     }
-    if (message.label !== '') {
+    if (message.label !== "") {
       writer.uint32(82).string(message.label);
     }
     return writer;
@@ -5171,9 +5204,7 @@ export const Transaction = {
           message.destAddresses.push(reader.string());
           break;
         case 11:
-          message.outputDetails.push(
-            OutputDetail.decode(reader, reader.uint32()),
-          );
+          message.outputDetails.push(OutputDetail.decode(reader, reader.uint32()));
           break;
         case 9:
           message.rawTxHex = reader.string();
@@ -5191,23 +5222,19 @@ export const Transaction = {
 
   fromJSON(object: any): Transaction {
     return {
-      txHash: isSet(object.txHash) ? String(object.txHash) : '',
-      amount: isSet(object.amount) ? String(object.amount) : '0',
-      numConfirmations: isSet(object.numConfirmations)
-        ? Number(object.numConfirmations)
-        : 0,
-      blockHash: isSet(object.blockHash) ? String(object.blockHash) : '',
+      txHash: isSet(object.txHash) ? String(object.txHash) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "0",
+      numConfirmations: isSet(object.numConfirmations) ? Number(object.numConfirmations) : 0,
+      blockHash: isSet(object.blockHash) ? String(object.blockHash) : "",
       blockHeight: isSet(object.blockHeight) ? Number(object.blockHeight) : 0,
-      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : '0',
-      totalFees: isSet(object.totalFees) ? String(object.totalFees) : '0',
-      destAddresses: Array.isArray(object?.destAddresses)
-        ? object.destAddresses.map((e: any) => String(e))
-        : [],
+      timeStamp: isSet(object.timeStamp) ? String(object.timeStamp) : "0",
+      totalFees: isSet(object.totalFees) ? String(object.totalFees) : "0",
+      destAddresses: Array.isArray(object?.destAddresses) ? object.destAddresses.map((e: any) => String(e)) : [],
       outputDetails: Array.isArray(object?.outputDetails)
         ? object.outputDetails.map((e: any) => OutputDetail.fromJSON(e))
         : [],
-      rawTxHex: isSet(object.rawTxHex) ? String(object.rawTxHex) : '',
-      label: isSet(object.label) ? String(object.label) : '',
+      rawTxHex: isSet(object.rawTxHex) ? String(object.rawTxHex) : "",
+      label: isSet(object.label) ? String(object.label) : "",
     };
   },
 
@@ -5215,11 +5242,9 @@ export const Transaction = {
     const obj: any = {};
     message.txHash !== undefined && (obj.txHash = message.txHash);
     message.amount !== undefined && (obj.amount = message.amount);
-    message.numConfirmations !== undefined &&
-      (obj.numConfirmations = Math.round(message.numConfirmations));
+    message.numConfirmations !== undefined && (obj.numConfirmations = Math.round(message.numConfirmations));
     message.blockHash !== undefined && (obj.blockHash = message.blockHash);
-    message.blockHeight !== undefined &&
-      (obj.blockHeight = Math.round(message.blockHeight));
+    message.blockHeight !== undefined && (obj.blockHeight = Math.round(message.blockHeight));
     message.timeStamp !== undefined && (obj.timeStamp = message.timeStamp);
     message.totalFees !== undefined && (obj.totalFees = message.totalFees);
     if (message.destAddresses) {
@@ -5228,9 +5253,7 @@ export const Transaction = {
       obj.destAddresses = [];
     }
     if (message.outputDetails) {
-      obj.outputDetails = message.outputDetails.map((e) =>
-        e ? OutputDetail.toJSON(e) : undefined,
-      );
+      obj.outputDetails = message.outputDetails.map((e) => e ? OutputDetail.toJSON(e) : undefined);
     } else {
       obj.outputDetails = [];
     }
@@ -5241,47 +5264,40 @@ export const Transaction = {
 
   fromPartial(object: DeepPartial<Transaction>): Transaction {
     const message = createBaseTransaction();
-    message.txHash = object.txHash ?? '';
-    message.amount = object.amount ?? '0';
+    message.txHash = object.txHash ?? "";
+    message.amount = object.amount ?? "0";
     message.numConfirmations = object.numConfirmations ?? 0;
-    message.blockHash = object.blockHash ?? '';
+    message.blockHash = object.blockHash ?? "";
     message.blockHeight = object.blockHeight ?? 0;
-    message.timeStamp = object.timeStamp ?? '0';
-    message.totalFees = object.totalFees ?? '0';
+    message.timeStamp = object.timeStamp ?? "0";
+    message.totalFees = object.totalFees ?? "0";
     message.destAddresses = object.destAddresses?.map((e) => e) || [];
-    message.outputDetails =
-      object.outputDetails?.map((e) => OutputDetail.fromPartial(e)) || [];
-    message.rawTxHex = object.rawTxHex ?? '';
-    message.label = object.label ?? '';
+    message.outputDetails = object.outputDetails?.map((e) => OutputDetail.fromPartial(e)) || [];
+    message.rawTxHex = object.rawTxHex ?? "";
+    message.label = object.label ?? "";
     return message;
   },
 };
 
 function createBaseGetTransactionsRequest(): GetTransactionsRequest {
-  return {startHeight: 0, endHeight: 0, account: ''};
+  return { startHeight: 0, endHeight: 0, account: "" };
 }
 
 export const GetTransactionsRequest = {
-  encode(
-    message: GetTransactionsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: GetTransactionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.startHeight !== 0) {
       writer.uint32(8).int32(message.startHeight);
     }
     if (message.endHeight !== 0) {
       writer.uint32(16).int32(message.endHeight);
     }
-    if (message.account !== '') {
+    if (message.account !== "") {
       writer.uint32(26).string(message.account);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): GetTransactionsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetTransactionsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetTransactionsRequest();
@@ -5309,40 +5325,33 @@ export const GetTransactionsRequest = {
     return {
       startHeight: isSet(object.startHeight) ? Number(object.startHeight) : 0,
       endHeight: isSet(object.endHeight) ? Number(object.endHeight) : 0,
-      account: isSet(object.account) ? String(object.account) : '',
+      account: isSet(object.account) ? String(object.account) : "",
     };
   },
 
   toJSON(message: GetTransactionsRequest): unknown {
     const obj: any = {};
-    message.startHeight !== undefined &&
-      (obj.startHeight = Math.round(message.startHeight));
-    message.endHeight !== undefined &&
-      (obj.endHeight = Math.round(message.endHeight));
+    message.startHeight !== undefined && (obj.startHeight = Math.round(message.startHeight));
+    message.endHeight !== undefined && (obj.endHeight = Math.round(message.endHeight));
     message.account !== undefined && (obj.account = message.account);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<GetTransactionsRequest>,
-  ): GetTransactionsRequest {
+  fromPartial(object: DeepPartial<GetTransactionsRequest>): GetTransactionsRequest {
     const message = createBaseGetTransactionsRequest();
     message.startHeight = object.startHeight ?? 0;
     message.endHeight = object.endHeight ?? 0;
-    message.account = object.account ?? '';
+    message.account = object.account ?? "";
     return message;
   },
 };
 
 function createBaseTransactionDetails(): TransactionDetails {
-  return {transactions: []};
+  return { transactions: [] };
 }
 
 export const TransactionDetails = {
-  encode(
-    message: TransactionDetails,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: TransactionDetails, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.transactions) {
       Transaction.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -5357,9 +5366,7 @@ export const TransactionDetails = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.transactions.push(
-            Transaction.decode(reader, reader.uint32()),
-          );
+          message.transactions.push(Transaction.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -5380,9 +5387,7 @@ export const TransactionDetails = {
   toJSON(message: TransactionDetails): unknown {
     const obj: any = {};
     if (message.transactions) {
-      obj.transactions = message.transactions.map((e) =>
-        e ? Transaction.toJSON(e) : undefined,
-      );
+      obj.transactions = message.transactions.map((e) => e ? Transaction.toJSON(e) : undefined);
     } else {
       obj.transactions = [];
     }
@@ -5391,21 +5396,17 @@ export const TransactionDetails = {
 
   fromPartial(object: DeepPartial<TransactionDetails>): TransactionDetails {
     const message = createBaseTransactionDetails();
-    message.transactions =
-      object.transactions?.map((e) => Transaction.fromPartial(e)) || [];
+    message.transactions = object.transactions?.map((e) => Transaction.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseFeeLimit(): FeeLimit {
-  return {fixed: undefined, fixedMsat: undefined, percent: undefined};
+  return { fixed: undefined, fixedMsat: undefined, percent: undefined };
 }
 
 export const FeeLimit = {
-  encode(
-    message: FeeLimit,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FeeLimit, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.fixed !== undefined) {
       writer.uint32(8).int64(message.fixed);
     }
@@ -5470,15 +5471,15 @@ export const FeeLimit = {
 function createBaseSendRequest(): SendRequest {
   return {
     dest: new Uint8Array(),
-    destString: '',
-    amt: '0',
-    amtMsat: '0',
+    destString: "",
+    amt: "0",
+    amtMsat: "0",
     paymentHash: new Uint8Array(),
-    paymentHashString: '',
-    paymentRequest: '',
+    paymentHashString: "",
+    paymentRequest: "",
     finalCltvDelta: 0,
     feeLimit: undefined,
-    outgoingChanId: '0',
+    outgoingChanId: "0",
     lastHopPubkey: new Uint8Array(),
     cltvLimit: 0,
     destCustomRecords: {},
@@ -5489,29 +5490,26 @@ function createBaseSendRequest(): SendRequest {
 }
 
 export const SendRequest = {
-  encode(
-    message: SendRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SendRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.dest.length !== 0) {
       writer.uint32(10).bytes(message.dest);
     }
-    if (message.destString !== '') {
+    if (message.destString !== "") {
       writer.uint32(18).string(message.destString);
     }
-    if (message.amt !== '0') {
+    if (message.amt !== "0") {
       writer.uint32(24).int64(message.amt);
     }
-    if (message.amtMsat !== '0') {
+    if (message.amtMsat !== "0") {
       writer.uint32(96).int64(message.amtMsat);
     }
     if (message.paymentHash.length !== 0) {
       writer.uint32(34).bytes(message.paymentHash);
     }
-    if (message.paymentHashString !== '') {
+    if (message.paymentHashString !== "") {
       writer.uint32(42).string(message.paymentHashString);
     }
-    if (message.paymentRequest !== '') {
+    if (message.paymentRequest !== "") {
       writer.uint32(50).string(message.paymentRequest);
     }
     if (message.finalCltvDelta !== 0) {
@@ -5520,7 +5518,7 @@ export const SendRequest = {
     if (message.feeLimit !== undefined) {
       FeeLimit.encode(message.feeLimit, writer.uint32(66).fork()).ldelim();
     }
-    if (message.outgoingChanId !== '0') {
+    if (message.outgoingChanId !== "0") {
       writer.uint32(72).uint64(message.outgoingChanId);
     }
     if (message.lastHopPubkey.length !== 0) {
@@ -5530,10 +5528,7 @@ export const SendRequest = {
       writer.uint32(80).uint32(message.cltvLimit);
     }
     Object.entries(message.destCustomRecords).forEach(([key, value]) => {
-      SendRequest_DestCustomRecordsEntry.encode(
-        {key: key as any, value},
-        writer.uint32(90).fork(),
-      ).ldelim();
+      SendRequest_DestCustomRecordsEntry.encode({ key: key as any, value }, writer.uint32(90).fork()).ldelim();
     });
     if (message.allowSelfPayment === true) {
       writer.uint32(112).bool(message.allowSelfPayment);
@@ -5593,10 +5588,7 @@ export const SendRequest = {
           message.cltvLimit = reader.uint32();
           break;
         case 11:
-          const entry11 = SendRequest_DestCustomRecordsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry11 = SendRequest_DestCustomRecordsEntry.decode(reader, reader.uint32());
           if (entry11.value !== undefined) {
             message.destCustomRecords[entry11.key] = entry11.value;
           }
@@ -5627,136 +5619,93 @@ export const SendRequest = {
 
   fromJSON(object: any): SendRequest {
     return {
-      dest: isSet(object.dest)
-        ? bytesFromBase64(object.dest)
-        : new Uint8Array(),
-      destString: isSet(object.destString) ? String(object.destString) : '',
-      amt: isSet(object.amt) ? String(object.amt) : '0',
-      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : '0',
-      paymentHash: isSet(object.paymentHash)
-        ? bytesFromBase64(object.paymentHash)
-        : new Uint8Array(),
-      paymentHashString: isSet(object.paymentHashString)
-        ? String(object.paymentHashString)
-        : '',
-      paymentRequest: isSet(object.paymentRequest)
-        ? String(object.paymentRequest)
-        : '',
-      finalCltvDelta: isSet(object.finalCltvDelta)
-        ? Number(object.finalCltvDelta)
-        : 0,
-      feeLimit: isSet(object.feeLimit)
-        ? FeeLimit.fromJSON(object.feeLimit)
-        : undefined,
-      outgoingChanId: isSet(object.outgoingChanId)
-        ? String(object.outgoingChanId)
-        : '0',
-      lastHopPubkey: isSet(object.lastHopPubkey)
-        ? bytesFromBase64(object.lastHopPubkey)
-        : new Uint8Array(),
+      dest: isSet(object.dest) ? bytesFromBase64(object.dest) : new Uint8Array(),
+      destString: isSet(object.destString) ? String(object.destString) : "",
+      amt: isSet(object.amt) ? String(object.amt) : "0",
+      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : "0",
+      paymentHash: isSet(object.paymentHash) ? bytesFromBase64(object.paymentHash) : new Uint8Array(),
+      paymentHashString: isSet(object.paymentHashString) ? String(object.paymentHashString) : "",
+      paymentRequest: isSet(object.paymentRequest) ? String(object.paymentRequest) : "",
+      finalCltvDelta: isSet(object.finalCltvDelta) ? Number(object.finalCltvDelta) : 0,
+      feeLimit: isSet(object.feeLimit) ? FeeLimit.fromJSON(object.feeLimit) : undefined,
+      outgoingChanId: isSet(object.outgoingChanId) ? String(object.outgoingChanId) : "0",
+      lastHopPubkey: isSet(object.lastHopPubkey) ? bytesFromBase64(object.lastHopPubkey) : new Uint8Array(),
       cltvLimit: isSet(object.cltvLimit) ? Number(object.cltvLimit) : 0,
       destCustomRecords: isObject(object.destCustomRecords)
-        ? Object.entries(object.destCustomRecords).reduce<{
-            [key: string]: Uint8Array;
-          }>((acc, [key, value]) => {
-            acc[key] = bytesFromBase64(value as string);
-            return acc;
-          }, {})
+        ? Object.entries(object.destCustomRecords).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+          acc[key] = bytesFromBase64(value as string);
+          return acc;
+        }, {})
         : {},
-      allowSelfPayment: isSet(object.allowSelfPayment)
-        ? Boolean(object.allowSelfPayment)
-        : false,
+      allowSelfPayment: isSet(object.allowSelfPayment) ? Boolean(object.allowSelfPayment) : false,
       destFeatures: Array.isArray(object?.destFeatures)
         ? object.destFeatures.map((e: any) => featureBitFromJSON(e))
         : [],
-      paymentAddr: isSet(object.paymentAddr)
-        ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array(),
+      paymentAddr: isSet(object.paymentAddr) ? bytesFromBase64(object.paymentAddr) : new Uint8Array(),
     };
   },
 
   toJSON(message: SendRequest): unknown {
     const obj: any = {};
     message.dest !== undefined &&
-      (obj.dest = base64FromBytes(
-        message.dest !== undefined ? message.dest : new Uint8Array(),
-      ));
+      (obj.dest = base64FromBytes(message.dest !== undefined ? message.dest : new Uint8Array()));
     message.destString !== undefined && (obj.destString = message.destString);
     message.amt !== undefined && (obj.amt = message.amt);
     message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
     message.paymentHash !== undefined &&
-      (obj.paymentHash = base64FromBytes(
-        message.paymentHash !== undefined
-          ? message.paymentHash
-          : new Uint8Array(),
-      ));
-    message.paymentHashString !== undefined &&
-      (obj.paymentHashString = message.paymentHashString);
-    message.paymentRequest !== undefined &&
-      (obj.paymentRequest = message.paymentRequest);
-    message.finalCltvDelta !== undefined &&
-      (obj.finalCltvDelta = Math.round(message.finalCltvDelta));
-    message.feeLimit !== undefined &&
-      (obj.feeLimit = message.feeLimit
-        ? FeeLimit.toJSON(message.feeLimit)
-        : undefined);
-    message.outgoingChanId !== undefined &&
-      (obj.outgoingChanId = message.outgoingChanId);
+      (obj.paymentHash = base64FromBytes(message.paymentHash !== undefined ? message.paymentHash : new Uint8Array()));
+    message.paymentHashString !== undefined && (obj.paymentHashString = message.paymentHashString);
+    message.paymentRequest !== undefined && (obj.paymentRequest = message.paymentRequest);
+    message.finalCltvDelta !== undefined && (obj.finalCltvDelta = Math.round(message.finalCltvDelta));
+    message.feeLimit !== undefined && (obj.feeLimit = message.feeLimit ? FeeLimit.toJSON(message.feeLimit) : undefined);
+    message.outgoingChanId !== undefined && (obj.outgoingChanId = message.outgoingChanId);
     message.lastHopPubkey !== undefined &&
       (obj.lastHopPubkey = base64FromBytes(
-        message.lastHopPubkey !== undefined
-          ? message.lastHopPubkey
-          : new Uint8Array(),
+        message.lastHopPubkey !== undefined ? message.lastHopPubkey : new Uint8Array(),
       ));
-    message.cltvLimit !== undefined &&
-      (obj.cltvLimit = Math.round(message.cltvLimit));
+    message.cltvLimit !== undefined && (obj.cltvLimit = Math.round(message.cltvLimit));
     obj.destCustomRecords = {};
     if (message.destCustomRecords) {
       Object.entries(message.destCustomRecords).forEach(([k, v]) => {
         obj.destCustomRecords[k] = base64FromBytes(v);
       });
     }
-    message.allowSelfPayment !== undefined &&
-      (obj.allowSelfPayment = message.allowSelfPayment);
+    message.allowSelfPayment !== undefined && (obj.allowSelfPayment = message.allowSelfPayment);
     if (message.destFeatures) {
       obj.destFeatures = message.destFeatures.map((e) => featureBitToJSON(e));
     } else {
       obj.destFeatures = [];
     }
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
-        message.paymentAddr !== undefined
-          ? message.paymentAddr
-          : new Uint8Array(),
-      ));
+      (obj.paymentAddr = base64FromBytes(message.paymentAddr !== undefined ? message.paymentAddr : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<SendRequest>): SendRequest {
     const message = createBaseSendRequest();
     message.dest = object.dest ?? new Uint8Array();
-    message.destString = object.destString ?? '';
-    message.amt = object.amt ?? '0';
-    message.amtMsat = object.amtMsat ?? '0';
+    message.destString = object.destString ?? "";
+    message.amt = object.amt ?? "0";
+    message.amtMsat = object.amtMsat ?? "0";
     message.paymentHash = object.paymentHash ?? new Uint8Array();
-    message.paymentHashString = object.paymentHashString ?? '';
-    message.paymentRequest = object.paymentRequest ?? '';
+    message.paymentHashString = object.paymentHashString ?? "";
+    message.paymentRequest = object.paymentRequest ?? "";
     message.finalCltvDelta = object.finalCltvDelta ?? 0;
-    message.feeLimit =
-      object.feeLimit !== undefined && object.feeLimit !== null
-        ? FeeLimit.fromPartial(object.feeLimit)
-        : undefined;
-    message.outgoingChanId = object.outgoingChanId ?? '0';
+    message.feeLimit = (object.feeLimit !== undefined && object.feeLimit !== null)
+      ? FeeLimit.fromPartial(object.feeLimit)
+      : undefined;
+    message.outgoingChanId = object.outgoingChanId ?? "0";
     message.lastHopPubkey = object.lastHopPubkey ?? new Uint8Array();
     message.cltvLimit = object.cltvLimit ?? 0;
-    message.destCustomRecords = Object.entries(
-      object.destCustomRecords ?? {},
-    ).reduce<{[key: string]: Uint8Array}>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = value;
-      }
-      return acc;
-    }, {});
+    message.destCustomRecords = Object.entries(object.destCustomRecords ?? {}).reduce<{ [key: string]: Uint8Array }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {},
+    );
     message.allowSelfPayment = object.allowSelfPayment ?? false;
     message.destFeatures = object.destFeatures?.map((e) => e) || [];
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
@@ -5765,15 +5714,12 @@ export const SendRequest = {
 };
 
 function createBaseSendRequest_DestCustomRecordsEntry(): SendRequest_DestCustomRecordsEntry {
-  return {key: '0', value: new Uint8Array()};
+  return { key: "0", value: new Uint8Array() };
 }
 
 export const SendRequest_DestCustomRecordsEntry = {
-  encode(
-    message: SendRequest_DestCustomRecordsEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.key !== '0') {
+  encode(message: SendRequest_DestCustomRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "0") {
       writer.uint32(8).uint64(message.key);
     }
     if (message.value.length !== 0) {
@@ -5782,10 +5728,7 @@ export const SendRequest_DestCustomRecordsEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): SendRequest_DestCustomRecordsEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): SendRequest_DestCustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendRequest_DestCustomRecordsEntry();
@@ -5808,10 +5751,8 @@ export const SendRequest_DestCustomRecordsEntry = {
 
   fromJSON(object: any): SendRequest_DestCustomRecordsEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '0',
-      value: isSet(object.value)
-        ? bytesFromBase64(object.value)
-        : new Uint8Array(),
+      key: isSet(object.key) ? String(object.key) : "0",
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
     };
   },
 
@@ -5819,17 +5760,13 @@ export const SendRequest_DestCustomRecordsEntry = {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(
-        message.value !== undefined ? message.value : new Uint8Array(),
-      ));
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<SendRequest_DestCustomRecordsEntry>,
-  ): SendRequest_DestCustomRecordsEntry {
+  fromPartial(object: DeepPartial<SendRequest_DestCustomRecordsEntry>): SendRequest_DestCustomRecordsEntry {
     const message = createBaseSendRequest_DestCustomRecordsEntry();
-    message.key = object.key ?? '0';
+    message.key = object.key ?? "0";
     message.value = object.value ?? new Uint8Array();
     return message;
   },
@@ -5837,7 +5774,7 @@ export const SendRequest_DestCustomRecordsEntry = {
 
 function createBaseSendResponse(): SendResponse {
   return {
-    paymentError: '',
+    paymentError: "",
     paymentPreimage: new Uint8Array(),
     paymentRoute: undefined,
     paymentHash: new Uint8Array(),
@@ -5845,11 +5782,8 @@ function createBaseSendResponse(): SendResponse {
 }
 
 export const SendResponse = {
-  encode(
-    message: SendResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.paymentError !== '') {
+  encode(message: SendResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.paymentError !== "") {
       writer.uint32(10).string(message.paymentError);
     }
     if (message.paymentPreimage.length !== 0) {
@@ -5893,74 +5827,49 @@ export const SendResponse = {
 
   fromJSON(object: any): SendResponse {
     return {
-      paymentError: isSet(object.paymentError)
-        ? String(object.paymentError)
-        : '',
-      paymentPreimage: isSet(object.paymentPreimage)
-        ? bytesFromBase64(object.paymentPreimage)
-        : new Uint8Array(),
-      paymentRoute: isSet(object.paymentRoute)
-        ? Route.fromJSON(object.paymentRoute)
-        : undefined,
-      paymentHash: isSet(object.paymentHash)
-        ? bytesFromBase64(object.paymentHash)
-        : new Uint8Array(),
+      paymentError: isSet(object.paymentError) ? String(object.paymentError) : "",
+      paymentPreimage: isSet(object.paymentPreimage) ? bytesFromBase64(object.paymentPreimage) : new Uint8Array(),
+      paymentRoute: isSet(object.paymentRoute) ? Route.fromJSON(object.paymentRoute) : undefined,
+      paymentHash: isSet(object.paymentHash) ? bytesFromBase64(object.paymentHash) : new Uint8Array(),
     };
   },
 
   toJSON(message: SendResponse): unknown {
     const obj: any = {};
-    message.paymentError !== undefined &&
-      (obj.paymentError = message.paymentError);
+    message.paymentError !== undefined && (obj.paymentError = message.paymentError);
     message.paymentPreimage !== undefined &&
       (obj.paymentPreimage = base64FromBytes(
-        message.paymentPreimage !== undefined
-          ? message.paymentPreimage
-          : new Uint8Array(),
+        message.paymentPreimage !== undefined ? message.paymentPreimage : new Uint8Array(),
       ));
     message.paymentRoute !== undefined &&
-      (obj.paymentRoute = message.paymentRoute
-        ? Route.toJSON(message.paymentRoute)
-        : undefined);
+      (obj.paymentRoute = message.paymentRoute ? Route.toJSON(message.paymentRoute) : undefined);
     message.paymentHash !== undefined &&
-      (obj.paymentHash = base64FromBytes(
-        message.paymentHash !== undefined
-          ? message.paymentHash
-          : new Uint8Array(),
-      ));
+      (obj.paymentHash = base64FromBytes(message.paymentHash !== undefined ? message.paymentHash : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<SendResponse>): SendResponse {
     const message = createBaseSendResponse();
-    message.paymentError = object.paymentError ?? '';
+    message.paymentError = object.paymentError ?? "";
     message.paymentPreimage = object.paymentPreimage ?? new Uint8Array();
-    message.paymentRoute =
-      object.paymentRoute !== undefined && object.paymentRoute !== null
-        ? Route.fromPartial(object.paymentRoute)
-        : undefined;
+    message.paymentRoute = (object.paymentRoute !== undefined && object.paymentRoute !== null)
+      ? Route.fromPartial(object.paymentRoute)
+      : undefined;
     message.paymentHash = object.paymentHash ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseSendToRouteRequest(): SendToRouteRequest {
-  return {
-    paymentHash: new Uint8Array(),
-    paymentHashString: '',
-    route: undefined,
-  };
+  return { paymentHash: new Uint8Array(), paymentHashString: "", route: undefined };
 }
 
 export const SendToRouteRequest = {
-  encode(
-    message: SendToRouteRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SendToRouteRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.paymentHash.length !== 0) {
       writer.uint32(10).bytes(message.paymentHash);
     }
-    if (message.paymentHashString !== '') {
+    if (message.paymentHashString !== "") {
       writer.uint32(18).string(message.paymentHashString);
     }
     if (message.route !== undefined) {
@@ -5995,12 +5904,8 @@ export const SendToRouteRequest = {
 
   fromJSON(object: any): SendToRouteRequest {
     return {
-      paymentHash: isSet(object.paymentHash)
-        ? bytesFromBase64(object.paymentHash)
-        : new Uint8Array(),
-      paymentHashString: isSet(object.paymentHashString)
-        ? String(object.paymentHashString)
-        : '',
+      paymentHash: isSet(object.paymentHash) ? bytesFromBase64(object.paymentHash) : new Uint8Array(),
+      paymentHashString: isSet(object.paymentHashString) ? String(object.paymentHashString) : "",
       route: isSet(object.route) ? Route.fromJSON(object.route) : undefined,
     };
   },
@@ -6008,26 +5913,17 @@ export const SendToRouteRequest = {
   toJSON(message: SendToRouteRequest): unknown {
     const obj: any = {};
     message.paymentHash !== undefined &&
-      (obj.paymentHash = base64FromBytes(
-        message.paymentHash !== undefined
-          ? message.paymentHash
-          : new Uint8Array(),
-      ));
-    message.paymentHashString !== undefined &&
-      (obj.paymentHashString = message.paymentHashString);
-    message.route !== undefined &&
-      (obj.route = message.route ? Route.toJSON(message.route) : undefined);
+      (obj.paymentHash = base64FromBytes(message.paymentHash !== undefined ? message.paymentHash : new Uint8Array()));
+    message.paymentHashString !== undefined && (obj.paymentHashString = message.paymentHashString);
+    message.route !== undefined && (obj.route = message.route ? Route.toJSON(message.route) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<SendToRouteRequest>): SendToRouteRequest {
     const message = createBaseSendToRouteRequest();
     message.paymentHash = object.paymentHash ?? new Uint8Array();
-    message.paymentHashString = object.paymentHashString ?? '';
-    message.route =
-      object.route !== undefined && object.route !== null
-        ? Route.fromPartial(object.route)
-        : undefined;
+    message.paymentHashString = object.paymentHashString ?? "";
+    message.route = (object.route !== undefined && object.route !== null) ? Route.fromPartial(object.route) : undefined;
     return message;
   },
 };
@@ -6037,13 +5933,13 @@ function createBaseChannelAcceptRequest(): ChannelAcceptRequest {
     nodePubkey: new Uint8Array(),
     chainHash: new Uint8Array(),
     pendingChanId: new Uint8Array(),
-    fundingAmt: '0',
-    pushAmt: '0',
-    dustLimit: '0',
-    maxValueInFlight: '0',
-    channelReserve: '0',
-    minHtlc: '0',
-    feePerKw: '0',
+    fundingAmt: "0",
+    pushAmt: "0",
+    dustLimit: "0",
+    maxValueInFlight: "0",
+    channelReserve: "0",
+    minHtlc: "0",
+    feePerKw: "0",
     csvDelay: 0,
     maxAcceptedHtlcs: 0,
     channelFlags: 0,
@@ -6052,10 +5948,7 @@ function createBaseChannelAcceptRequest(): ChannelAcceptRequest {
 }
 
 export const ChannelAcceptRequest = {
-  encode(
-    message: ChannelAcceptRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelAcceptRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.nodePubkey.length !== 0) {
       writer.uint32(10).bytes(message.nodePubkey);
     }
@@ -6065,25 +5958,25 @@ export const ChannelAcceptRequest = {
     if (message.pendingChanId.length !== 0) {
       writer.uint32(26).bytes(message.pendingChanId);
     }
-    if (message.fundingAmt !== '0') {
+    if (message.fundingAmt !== "0") {
       writer.uint32(32).uint64(message.fundingAmt);
     }
-    if (message.pushAmt !== '0') {
+    if (message.pushAmt !== "0") {
       writer.uint32(40).uint64(message.pushAmt);
     }
-    if (message.dustLimit !== '0') {
+    if (message.dustLimit !== "0") {
       writer.uint32(48).uint64(message.dustLimit);
     }
-    if (message.maxValueInFlight !== '0') {
+    if (message.maxValueInFlight !== "0") {
       writer.uint32(56).uint64(message.maxValueInFlight);
     }
-    if (message.channelReserve !== '0') {
+    if (message.channelReserve !== "0") {
       writer.uint32(64).uint64(message.channelReserve);
     }
-    if (message.minHtlc !== '0') {
+    if (message.minHtlc !== "0") {
       writer.uint32(72).uint64(message.minHtlc);
     }
-    if (message.feePerKw !== '0') {
+    if (message.feePerKw !== "0") {
       writer.uint32(80).uint64(message.feePerKw);
     }
     if (message.csvDelay !== 0) {
@@ -6101,10 +5994,7 @@ export const ChannelAcceptRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChannelAcceptRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChannelAcceptRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelAcceptRequest();
@@ -6163,74 +6053,44 @@ export const ChannelAcceptRequest = {
 
   fromJSON(object: any): ChannelAcceptRequest {
     return {
-      nodePubkey: isSet(object.nodePubkey)
-        ? bytesFromBase64(object.nodePubkey)
-        : new Uint8Array(),
-      chainHash: isSet(object.chainHash)
-        ? bytesFromBase64(object.chainHash)
-        : new Uint8Array(),
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
-      fundingAmt: isSet(object.fundingAmt) ? String(object.fundingAmt) : '0',
-      pushAmt: isSet(object.pushAmt) ? String(object.pushAmt) : '0',
-      dustLimit: isSet(object.dustLimit) ? String(object.dustLimit) : '0',
-      maxValueInFlight: isSet(object.maxValueInFlight)
-        ? String(object.maxValueInFlight)
-        : '0',
-      channelReserve: isSet(object.channelReserve)
-        ? String(object.channelReserve)
-        : '0',
-      minHtlc: isSet(object.minHtlc) ? String(object.minHtlc) : '0',
-      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : '0',
+      nodePubkey: isSet(object.nodePubkey) ? bytesFromBase64(object.nodePubkey) : new Uint8Array(),
+      chainHash: isSet(object.chainHash) ? bytesFromBase64(object.chainHash) : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array(),
+      fundingAmt: isSet(object.fundingAmt) ? String(object.fundingAmt) : "0",
+      pushAmt: isSet(object.pushAmt) ? String(object.pushAmt) : "0",
+      dustLimit: isSet(object.dustLimit) ? String(object.dustLimit) : "0",
+      maxValueInFlight: isSet(object.maxValueInFlight) ? String(object.maxValueInFlight) : "0",
+      channelReserve: isSet(object.channelReserve) ? String(object.channelReserve) : "0",
+      minHtlc: isSet(object.minHtlc) ? String(object.minHtlc) : "0",
+      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : "0",
       csvDelay: isSet(object.csvDelay) ? Number(object.csvDelay) : 0,
-      maxAcceptedHtlcs: isSet(object.maxAcceptedHtlcs)
-        ? Number(object.maxAcceptedHtlcs)
-        : 0,
-      channelFlags: isSet(object.channelFlags)
-        ? Number(object.channelFlags)
-        : 0,
-      commitmentType: isSet(object.commitmentType)
-        ? commitmentTypeFromJSON(object.commitmentType)
-        : 0,
+      maxAcceptedHtlcs: isSet(object.maxAcceptedHtlcs) ? Number(object.maxAcceptedHtlcs) : 0,
+      channelFlags: isSet(object.channelFlags) ? Number(object.channelFlags) : 0,
+      commitmentType: isSet(object.commitmentType) ? commitmentTypeFromJSON(object.commitmentType) : 0,
     };
   },
 
   toJSON(message: ChannelAcceptRequest): unknown {
     const obj: any = {};
     message.nodePubkey !== undefined &&
-      (obj.nodePubkey = base64FromBytes(
-        message.nodePubkey !== undefined
-          ? message.nodePubkey
-          : new Uint8Array(),
-      ));
+      (obj.nodePubkey = base64FromBytes(message.nodePubkey !== undefined ? message.nodePubkey : new Uint8Array()));
     message.chainHash !== undefined &&
-      (obj.chainHash = base64FromBytes(
-        message.chainHash !== undefined ? message.chainHash : new Uint8Array(),
-      ));
+      (obj.chainHash = base64FromBytes(message.chainHash !== undefined ? message.chainHash : new Uint8Array()));
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
     message.fundingAmt !== undefined && (obj.fundingAmt = message.fundingAmt);
     message.pushAmt !== undefined && (obj.pushAmt = message.pushAmt);
     message.dustLimit !== undefined && (obj.dustLimit = message.dustLimit);
-    message.maxValueInFlight !== undefined &&
-      (obj.maxValueInFlight = message.maxValueInFlight);
-    message.channelReserve !== undefined &&
-      (obj.channelReserve = message.channelReserve);
+    message.maxValueInFlight !== undefined && (obj.maxValueInFlight = message.maxValueInFlight);
+    message.channelReserve !== undefined && (obj.channelReserve = message.channelReserve);
     message.minHtlc !== undefined && (obj.minHtlc = message.minHtlc);
     message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
-    message.csvDelay !== undefined &&
-      (obj.csvDelay = Math.round(message.csvDelay));
-    message.maxAcceptedHtlcs !== undefined &&
-      (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
-    message.channelFlags !== undefined &&
-      (obj.channelFlags = Math.round(message.channelFlags));
-    message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.csvDelay !== undefined && (obj.csvDelay = Math.round(message.csvDelay));
+    message.maxAcceptedHtlcs !== undefined && (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
+    message.channelFlags !== undefined && (obj.channelFlags = Math.round(message.channelFlags));
+    message.commitmentType !== undefined && (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
     return obj;
   },
 
@@ -6239,13 +6099,13 @@ export const ChannelAcceptRequest = {
     message.nodePubkey = object.nodePubkey ?? new Uint8Array();
     message.chainHash = object.chainHash ?? new Uint8Array();
     message.pendingChanId = object.pendingChanId ?? new Uint8Array();
-    message.fundingAmt = object.fundingAmt ?? '0';
-    message.pushAmt = object.pushAmt ?? '0';
-    message.dustLimit = object.dustLimit ?? '0';
-    message.maxValueInFlight = object.maxValueInFlight ?? '0';
-    message.channelReserve = object.channelReserve ?? '0';
-    message.minHtlc = object.minHtlc ?? '0';
-    message.feePerKw = object.feePerKw ?? '0';
+    message.fundingAmt = object.fundingAmt ?? "0";
+    message.pushAmt = object.pushAmt ?? "0";
+    message.dustLimit = object.dustLimit ?? "0";
+    message.maxValueInFlight = object.maxValueInFlight ?? "0";
+    message.channelReserve = object.channelReserve ?? "0";
+    message.minHtlc = object.minHtlc ?? "0";
+    message.feePerKw = object.feePerKw ?? "0";
     message.csvDelay = object.csvDelay ?? 0;
     message.maxAcceptedHtlcs = object.maxAcceptedHtlcs ?? 0;
     message.channelFlags = object.channelFlags ?? 0;
@@ -6258,47 +6118,44 @@ function createBaseChannelAcceptResponse(): ChannelAcceptResponse {
   return {
     accept: false,
     pendingChanId: new Uint8Array(),
-    error: '',
-    upfrontShutdown: '',
+    error: "",
+    upfrontShutdown: "",
     csvDelay: 0,
-    reserveSat: '0',
-    inFlightMaxMsat: '0',
+    reserveSat: "0",
+    inFlightMaxMsat: "0",
     maxHtlcCount: 0,
-    minHtlcIn: '0',
+    minHtlcIn: "0",
     minAcceptDepth: 0,
   };
 }
 
 export const ChannelAcceptResponse = {
-  encode(
-    message: ChannelAcceptResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelAcceptResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.accept === true) {
       writer.uint32(8).bool(message.accept);
     }
     if (message.pendingChanId.length !== 0) {
       writer.uint32(18).bytes(message.pendingChanId);
     }
-    if (message.error !== '') {
+    if (message.error !== "") {
       writer.uint32(26).string(message.error);
     }
-    if (message.upfrontShutdown !== '') {
+    if (message.upfrontShutdown !== "") {
       writer.uint32(34).string(message.upfrontShutdown);
     }
     if (message.csvDelay !== 0) {
       writer.uint32(40).uint32(message.csvDelay);
     }
-    if (message.reserveSat !== '0') {
+    if (message.reserveSat !== "0") {
       writer.uint32(48).uint64(message.reserveSat);
     }
-    if (message.inFlightMaxMsat !== '0') {
+    if (message.inFlightMaxMsat !== "0") {
       writer.uint32(56).uint64(message.inFlightMaxMsat);
     }
     if (message.maxHtlcCount !== 0) {
       writer.uint32(64).uint32(message.maxHtlcCount);
     }
-    if (message.minHtlcIn !== '0') {
+    if (message.minHtlcIn !== "0") {
       writer.uint32(72).uint64(message.minHtlcIn);
     }
     if (message.minAcceptDepth !== 0) {
@@ -6307,10 +6164,7 @@ export const ChannelAcceptResponse = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChannelAcceptResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChannelAcceptResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelAcceptResponse();
@@ -6358,25 +6212,15 @@ export const ChannelAcceptResponse = {
   fromJSON(object: any): ChannelAcceptResponse {
     return {
       accept: isSet(object.accept) ? Boolean(object.accept) : false,
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
-      error: isSet(object.error) ? String(object.error) : '',
-      upfrontShutdown: isSet(object.upfrontShutdown)
-        ? String(object.upfrontShutdown)
-        : '',
+      pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array(),
+      error: isSet(object.error) ? String(object.error) : "",
+      upfrontShutdown: isSet(object.upfrontShutdown) ? String(object.upfrontShutdown) : "",
       csvDelay: isSet(object.csvDelay) ? Number(object.csvDelay) : 0,
-      reserveSat: isSet(object.reserveSat) ? String(object.reserveSat) : '0',
-      inFlightMaxMsat: isSet(object.inFlightMaxMsat)
-        ? String(object.inFlightMaxMsat)
-        : '0',
-      maxHtlcCount: isSet(object.maxHtlcCount)
-        ? Number(object.maxHtlcCount)
-        : 0,
-      minHtlcIn: isSet(object.minHtlcIn) ? String(object.minHtlcIn) : '0',
-      minAcceptDepth: isSet(object.minAcceptDepth)
-        ? Number(object.minAcceptDepth)
-        : 0,
+      reserveSat: isSet(object.reserveSat) ? String(object.reserveSat) : "0",
+      inFlightMaxMsat: isSet(object.inFlightMaxMsat) ? String(object.inFlightMaxMsat) : "0",
+      maxHtlcCount: isSet(object.maxHtlcCount) ? Number(object.maxHtlcCount) : 0,
+      minHtlcIn: isSet(object.minHtlcIn) ? String(object.minHtlcIn) : "0",
+      minAcceptDepth: isSet(object.minAcceptDepth) ? Number(object.minAcceptDepth) : 0,
     };
   },
 
@@ -6385,57 +6229,41 @@ export const ChannelAcceptResponse = {
     message.accept !== undefined && (obj.accept = message.accept);
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
     message.error !== undefined && (obj.error = message.error);
-    message.upfrontShutdown !== undefined &&
-      (obj.upfrontShutdown = message.upfrontShutdown);
-    message.csvDelay !== undefined &&
-      (obj.csvDelay = Math.round(message.csvDelay));
+    message.upfrontShutdown !== undefined && (obj.upfrontShutdown = message.upfrontShutdown);
+    message.csvDelay !== undefined && (obj.csvDelay = Math.round(message.csvDelay));
     message.reserveSat !== undefined && (obj.reserveSat = message.reserveSat);
-    message.inFlightMaxMsat !== undefined &&
-      (obj.inFlightMaxMsat = message.inFlightMaxMsat);
-    message.maxHtlcCount !== undefined &&
-      (obj.maxHtlcCount = Math.round(message.maxHtlcCount));
+    message.inFlightMaxMsat !== undefined && (obj.inFlightMaxMsat = message.inFlightMaxMsat);
+    message.maxHtlcCount !== undefined && (obj.maxHtlcCount = Math.round(message.maxHtlcCount));
     message.minHtlcIn !== undefined && (obj.minHtlcIn = message.minHtlcIn);
-    message.minAcceptDepth !== undefined &&
-      (obj.minAcceptDepth = Math.round(message.minAcceptDepth));
+    message.minAcceptDepth !== undefined && (obj.minAcceptDepth = Math.round(message.minAcceptDepth));
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ChannelAcceptResponse>,
-  ): ChannelAcceptResponse {
+  fromPartial(object: DeepPartial<ChannelAcceptResponse>): ChannelAcceptResponse {
     const message = createBaseChannelAcceptResponse();
     message.accept = object.accept ?? false;
     message.pendingChanId = object.pendingChanId ?? new Uint8Array();
-    message.error = object.error ?? '';
-    message.upfrontShutdown = object.upfrontShutdown ?? '';
+    message.error = object.error ?? "";
+    message.upfrontShutdown = object.upfrontShutdown ?? "";
     message.csvDelay = object.csvDelay ?? 0;
-    message.reserveSat = object.reserveSat ?? '0';
-    message.inFlightMaxMsat = object.inFlightMaxMsat ?? '0';
+    message.reserveSat = object.reserveSat ?? "0";
+    message.inFlightMaxMsat = object.inFlightMaxMsat ?? "0";
     message.maxHtlcCount = object.maxHtlcCount ?? 0;
-    message.minHtlcIn = object.minHtlcIn ?? '0';
+    message.minHtlcIn = object.minHtlcIn ?? "0";
     message.minAcceptDepth = object.minAcceptDepth ?? 0;
     return message;
   },
 };
 
 function createBaseChannelPoint(): ChannelPoint {
-  return {
-    fundingTxidBytes: undefined,
-    fundingTxidStr: undefined,
-    outputIndex: 0,
-  };
+  return { fundingTxidBytes: undefined, fundingTxidStr: undefined, outputIndex: 0 };
 }
 
 export const ChannelPoint = {
-  encode(
-    message: ChannelPoint,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelPoint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.fundingTxidBytes !== undefined) {
       writer.uint32(10).bytes(message.fundingTxidBytes);
     }
@@ -6474,27 +6302,19 @@ export const ChannelPoint = {
 
   fromJSON(object: any): ChannelPoint {
     return {
-      fundingTxidBytes: isSet(object.fundingTxidBytes)
-        ? bytesFromBase64(object.fundingTxidBytes)
-        : undefined,
-      fundingTxidStr: isSet(object.fundingTxidStr)
-        ? String(object.fundingTxidStr)
-        : undefined,
+      fundingTxidBytes: isSet(object.fundingTxidBytes) ? bytesFromBase64(object.fundingTxidBytes) : undefined,
+      fundingTxidStr: isSet(object.fundingTxidStr) ? String(object.fundingTxidStr) : undefined,
       outputIndex: isSet(object.outputIndex) ? Number(object.outputIndex) : 0,
     };
   },
 
   toJSON(message: ChannelPoint): unknown {
     const obj: any = {};
-    message.fundingTxidBytes !== undefined &&
-      (obj.fundingTxidBytes =
-        message.fundingTxidBytes !== undefined
-          ? base64FromBytes(message.fundingTxidBytes)
-          : undefined);
-    message.fundingTxidStr !== undefined &&
-      (obj.fundingTxidStr = message.fundingTxidStr);
-    message.outputIndex !== undefined &&
-      (obj.outputIndex = Math.round(message.outputIndex));
+    message.fundingTxidBytes !== undefined && (obj.fundingTxidBytes = message.fundingTxidBytes !== undefined
+      ? base64FromBytes(message.fundingTxidBytes)
+      : undefined);
+    message.fundingTxidStr !== undefined && (obj.fundingTxidStr = message.fundingTxidStr);
+    message.outputIndex !== undefined && (obj.outputIndex = Math.round(message.outputIndex));
     return obj;
   },
 
@@ -6508,18 +6328,15 @@ export const ChannelPoint = {
 };
 
 function createBaseOutPoint(): OutPoint {
-  return {txidBytes: new Uint8Array(), txidStr: '', outputIndex: 0};
+  return { txidBytes: new Uint8Array(), txidStr: "", outputIndex: 0 };
 }
 
 export const OutPoint = {
-  encode(
-    message: OutPoint,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: OutPoint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.txidBytes.length !== 0) {
       writer.uint32(10).bytes(message.txidBytes);
     }
-    if (message.txidStr !== '') {
+    if (message.txidStr !== "") {
       writer.uint32(18).string(message.txidStr);
     }
     if (message.outputIndex !== 0) {
@@ -6554,10 +6371,8 @@ export const OutPoint = {
 
   fromJSON(object: any): OutPoint {
     return {
-      txidBytes: isSet(object.txidBytes)
-        ? bytesFromBase64(object.txidBytes)
-        : new Uint8Array(),
-      txidStr: isSet(object.txidStr) ? String(object.txidStr) : '',
+      txidBytes: isSet(object.txidBytes) ? bytesFromBase64(object.txidBytes) : new Uint8Array(),
+      txidStr: isSet(object.txidStr) ? String(object.txidStr) : "",
       outputIndex: isSet(object.outputIndex) ? Number(object.outputIndex) : 0,
     };
   },
@@ -6565,37 +6380,31 @@ export const OutPoint = {
   toJSON(message: OutPoint): unknown {
     const obj: any = {};
     message.txidBytes !== undefined &&
-      (obj.txidBytes = base64FromBytes(
-        message.txidBytes !== undefined ? message.txidBytes : new Uint8Array(),
-      ));
+      (obj.txidBytes = base64FromBytes(message.txidBytes !== undefined ? message.txidBytes : new Uint8Array()));
     message.txidStr !== undefined && (obj.txidStr = message.txidStr);
-    message.outputIndex !== undefined &&
-      (obj.outputIndex = Math.round(message.outputIndex));
+    message.outputIndex !== undefined && (obj.outputIndex = Math.round(message.outputIndex));
     return obj;
   },
 
   fromPartial(object: DeepPartial<OutPoint>): OutPoint {
     const message = createBaseOutPoint();
     message.txidBytes = object.txidBytes ?? new Uint8Array();
-    message.txidStr = object.txidStr ?? '';
+    message.txidStr = object.txidStr ?? "";
     message.outputIndex = object.outputIndex ?? 0;
     return message;
   },
 };
 
 function createBaseLightningAddress(): LightningAddress {
-  return {pubkey: '', host: ''};
+  return { pubkey: "", host: "" };
 }
 
 export const LightningAddress = {
-  encode(
-    message: LightningAddress,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.pubkey !== '') {
+  encode(message: LightningAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pubkey !== "") {
       writer.uint32(10).string(message.pubkey);
     }
-    if (message.host !== '') {
+    if (message.host !== "") {
       writer.uint32(18).string(message.host);
     }
     return writer;
@@ -6624,8 +6433,8 @@ export const LightningAddress = {
 
   fromJSON(object: any): LightningAddress {
     return {
-      pubkey: isSet(object.pubkey) ? String(object.pubkey) : '',
-      host: isSet(object.host) ? String(object.host) : '',
+      pubkey: isSet(object.pubkey) ? String(object.pubkey) : "",
+      host: isSet(object.host) ? String(object.host) : "",
     };
   },
 
@@ -6638,31 +6447,20 @@ export const LightningAddress = {
 
   fromPartial(object: DeepPartial<LightningAddress>): LightningAddress {
     const message = createBaseLightningAddress();
-    message.pubkey = object.pubkey ?? '';
-    message.host = object.host ?? '';
+    message.pubkey = object.pubkey ?? "";
+    message.host = object.host ?? "";
     return message;
   },
 };
 
 function createBaseEstimateFeeRequest(): EstimateFeeRequest {
-  return {
-    AddrToAmount: {},
-    targetConf: 0,
-    minConfs: 0,
-    spendUnconfirmed: false,
-  };
+  return { AddrToAmount: {}, targetConf: 0, minConfs: 0, spendUnconfirmed: false };
 }
 
 export const EstimateFeeRequest = {
-  encode(
-    message: EstimateFeeRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: EstimateFeeRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     Object.entries(message.AddrToAmount).forEach(([key, value]) => {
-      EstimateFeeRequest_AddrToAmountEntry.encode(
-        {key: key as any, value},
-        writer.uint32(10).fork(),
-      ).ldelim();
+      EstimateFeeRequest_AddrToAmountEntry.encode({ key: key as any, value }, writer.uint32(10).fork()).ldelim();
     });
     if (message.targetConf !== 0) {
       writer.uint32(16).int32(message.targetConf);
@@ -6684,10 +6482,7 @@ export const EstimateFeeRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          const entry1 = EstimateFeeRequest_AddrToAmountEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry1 = EstimateFeeRequest_AddrToAmountEntry.decode(reader, reader.uint32());
           if (entry1.value !== undefined) {
             message.AddrToAmount[entry1.key] = entry1.value;
           }
@@ -6712,19 +6507,14 @@ export const EstimateFeeRequest = {
   fromJSON(object: any): EstimateFeeRequest {
     return {
       AddrToAmount: isObject(object.AddrToAmount)
-        ? Object.entries(object.AddrToAmount).reduce<{[key: string]: string}>(
-            (acc, [key, value]) => {
-              acc[key] = String(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.AddrToAmount).reduce<{ [key: string]: string }>((acc, [key, value]) => {
+          acc[key] = String(value);
+          return acc;
+        }, {})
         : {},
       targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
       minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
-      spendUnconfirmed: isSet(object.spendUnconfirmed)
-        ? Boolean(object.spendUnconfirmed)
-        : false,
+      spendUnconfirmed: isSet(object.spendUnconfirmed) ? Boolean(object.spendUnconfirmed) : false,
     };
   },
 
@@ -6736,25 +6526,23 @@ export const EstimateFeeRequest = {
         obj.AddrToAmount[k] = v;
       });
     }
-    message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
-    message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
-    message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    message.targetConf !== undefined && (obj.targetConf = Math.round(message.targetConf));
+    message.minConfs !== undefined && (obj.minConfs = Math.round(message.minConfs));
+    message.spendUnconfirmed !== undefined && (obj.spendUnconfirmed = message.spendUnconfirmed);
     return obj;
   },
 
   fromPartial(object: DeepPartial<EstimateFeeRequest>): EstimateFeeRequest {
     const message = createBaseEstimateFeeRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{
-      [key: string]: string;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = String(value);
-      }
-      return acc;
-    }, {});
+    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{ [key: string]: string }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = String(value);
+        }
+        return acc;
+      },
+      {},
+    );
     message.targetConf = object.targetConf ?? 0;
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
@@ -6763,27 +6551,21 @@ export const EstimateFeeRequest = {
 };
 
 function createBaseEstimateFeeRequest_AddrToAmountEntry(): EstimateFeeRequest_AddrToAmountEntry {
-  return {key: '', value: '0'};
+  return { key: "", value: "0" };
 }
 
 export const EstimateFeeRequest_AddrToAmountEntry = {
-  encode(
-    message: EstimateFeeRequest_AddrToAmountEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.key !== '') {
+  encode(message: EstimateFeeRequest_AddrToAmountEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== '0') {
+    if (message.value !== "0") {
       writer.uint32(16).int64(message.value);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): EstimateFeeRequest_AddrToAmountEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): EstimateFeeRequest_AddrToAmountEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseEstimateFeeRequest_AddrToAmountEntry();
@@ -6806,8 +6588,8 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
 
   fromJSON(object: any): EstimateFeeRequest_AddrToAmountEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '',
-      value: isSet(object.value) ? String(object.value) : '0',
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? String(object.value) : "0",
     };
   },
 
@@ -6818,32 +6600,27 @@ export const EstimateFeeRequest_AddrToAmountEntry = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<EstimateFeeRequest_AddrToAmountEntry>,
-  ): EstimateFeeRequest_AddrToAmountEntry {
+  fromPartial(object: DeepPartial<EstimateFeeRequest_AddrToAmountEntry>): EstimateFeeRequest_AddrToAmountEntry {
     const message = createBaseEstimateFeeRequest_AddrToAmountEntry();
-    message.key = object.key ?? '';
-    message.value = object.value ?? '0';
+    message.key = object.key ?? "";
+    message.value = object.value ?? "0";
     return message;
   },
 };
 
 function createBaseEstimateFeeResponse(): EstimateFeeResponse {
-  return {feeSat: '0', feerateSatPerByte: '0', satPerVbyte: '0'};
+  return { feeSat: "0", feerateSatPerByte: "0", satPerVbyte: "0" };
 }
 
 export const EstimateFeeResponse = {
-  encode(
-    message: EstimateFeeResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.feeSat !== '0') {
+  encode(message: EstimateFeeResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.feeSat !== "0") {
       writer.uint32(8).int64(message.feeSat);
     }
-    if (message.feerateSatPerByte !== '0') {
+    if (message.feerateSatPerByte !== "0") {
       writer.uint32(16).int64(message.feerateSatPerByte);
     }
-    if (message.satPerVbyte !== '0') {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(24).uint64(message.satPerVbyte);
     }
     return writer;
@@ -6875,29 +6652,25 @@ export const EstimateFeeResponse = {
 
   fromJSON(object: any): EstimateFeeResponse {
     return {
-      feeSat: isSet(object.feeSat) ? String(object.feeSat) : '0',
-      feerateSatPerByte: isSet(object.feerateSatPerByte)
-        ? String(object.feerateSatPerByte)
-        : '0',
-      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+      feeSat: isSet(object.feeSat) ? String(object.feeSat) : "0",
+      feerateSatPerByte: isSet(object.feerateSatPerByte) ? String(object.feerateSatPerByte) : "0",
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : "0",
     };
   },
 
   toJSON(message: EstimateFeeResponse): unknown {
     const obj: any = {};
     message.feeSat !== undefined && (obj.feeSat = message.feeSat);
-    message.feerateSatPerByte !== undefined &&
-      (obj.feerateSatPerByte = message.feerateSatPerByte);
-    message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
+    message.feerateSatPerByte !== undefined && (obj.feerateSatPerByte = message.feerateSatPerByte);
+    message.satPerVbyte !== undefined && (obj.satPerVbyte = message.satPerVbyte);
     return obj;
   },
 
   fromPartial(object: DeepPartial<EstimateFeeResponse>): EstimateFeeResponse {
     const message = createBaseEstimateFeeResponse();
-    message.feeSat = object.feeSat ?? '0';
-    message.feerateSatPerByte = object.feerateSatPerByte ?? '0';
-    message.satPerVbyte = object.satPerVbyte ?? '0';
+    message.feeSat = object.feeSat ?? "0";
+    message.feerateSatPerByte = object.feerateSatPerByte ?? "0";
+    message.satPerVbyte = object.satPerVbyte ?? "0";
     return message;
   },
 };
@@ -6906,35 +6679,29 @@ function createBaseSendManyRequest(): SendManyRequest {
   return {
     AddrToAmount: {},
     targetConf: 0,
-    satPerVbyte: '0',
-    satPerByte: '0',
-    label: '',
+    satPerVbyte: "0",
+    satPerByte: "0",
+    label: "",
     minConfs: 0,
     spendUnconfirmed: false,
   };
 }
 
 export const SendManyRequest = {
-  encode(
-    message: SendManyRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SendManyRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     Object.entries(message.AddrToAmount).forEach(([key, value]) => {
-      SendManyRequest_AddrToAmountEntry.encode(
-        {key: key as any, value},
-        writer.uint32(10).fork(),
-      ).ldelim();
+      SendManyRequest_AddrToAmountEntry.encode({ key: key as any, value }, writer.uint32(10).fork()).ldelim();
     });
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerVbyte !== '0') {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(32).uint64(message.satPerVbyte);
     }
-    if (message.satPerByte !== '0') {
+    if (message.satPerByte !== "0") {
       writer.uint32(40).int64(message.satPerByte);
     }
-    if (message.label !== '') {
+    if (message.label !== "") {
       writer.uint32(50).string(message.label);
     }
     if (message.minConfs !== 0) {
@@ -6954,10 +6721,7 @@ export const SendManyRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          const entry1 = SendManyRequest_AddrToAmountEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry1 = SendManyRequest_AddrToAmountEntry.decode(reader, reader.uint32());
           if (entry1.value !== undefined) {
             message.AddrToAmount[entry1.key] = entry1.value;
           }
@@ -6991,22 +6755,17 @@ export const SendManyRequest = {
   fromJSON(object: any): SendManyRequest {
     return {
       AddrToAmount: isObject(object.AddrToAmount)
-        ? Object.entries(object.AddrToAmount).reduce<{[key: string]: string}>(
-            (acc, [key, value]) => {
-              acc[key] = String(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.AddrToAmount).reduce<{ [key: string]: string }>((acc, [key, value]) => {
+          acc[key] = String(value);
+          return acc;
+        }, {})
         : {},
       targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
-      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
-      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : '0',
-      label: isSet(object.label) ? String(object.label) : '',
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : "0",
+      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : "0",
+      label: isSet(object.label) ? String(object.label) : "",
       minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
-      spendUnconfirmed: isSet(object.spendUnconfirmed)
-        ? Boolean(object.spendUnconfirmed)
-        : false,
+      spendUnconfirmed: isSet(object.spendUnconfirmed) ? Boolean(object.spendUnconfirmed) : false,
     };
   },
 
@@ -7018,33 +6777,30 @@ export const SendManyRequest = {
         obj.AddrToAmount[k] = v;
       });
     }
-    message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
-    message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
+    message.targetConf !== undefined && (obj.targetConf = Math.round(message.targetConf));
+    message.satPerVbyte !== undefined && (obj.satPerVbyte = message.satPerVbyte);
     message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
     message.label !== undefined && (obj.label = message.label);
-    message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
-    message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    message.minConfs !== undefined && (obj.minConfs = Math.round(message.minConfs));
+    message.spendUnconfirmed !== undefined && (obj.spendUnconfirmed = message.spendUnconfirmed);
     return obj;
   },
 
   fromPartial(object: DeepPartial<SendManyRequest>): SendManyRequest {
     const message = createBaseSendManyRequest();
-    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{
-      [key: string]: string;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = String(value);
-      }
-      return acc;
-    }, {});
+    message.AddrToAmount = Object.entries(object.AddrToAmount ?? {}).reduce<{ [key: string]: string }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = String(value);
+        }
+        return acc;
+      },
+      {},
+    );
     message.targetConf = object.targetConf ?? 0;
-    message.satPerVbyte = object.satPerVbyte ?? '0';
-    message.satPerByte = object.satPerByte ?? '0';
-    message.label = object.label ?? '';
+    message.satPerVbyte = object.satPerVbyte ?? "0";
+    message.satPerByte = object.satPerByte ?? "0";
+    message.label = object.label ?? "";
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
     return message;
@@ -7052,27 +6808,21 @@ export const SendManyRequest = {
 };
 
 function createBaseSendManyRequest_AddrToAmountEntry(): SendManyRequest_AddrToAmountEntry {
-  return {key: '', value: '0'};
+  return { key: "", value: "0" };
 }
 
 export const SendManyRequest_AddrToAmountEntry = {
-  encode(
-    message: SendManyRequest_AddrToAmountEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.key !== '') {
+  encode(message: SendManyRequest_AddrToAmountEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
-    if (message.value !== '0') {
+    if (message.value !== "0") {
       writer.uint32(16).int64(message.value);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): SendManyRequest_AddrToAmountEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): SendManyRequest_AddrToAmountEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseSendManyRequest_AddrToAmountEntry();
@@ -7095,8 +6845,8 @@ export const SendManyRequest_AddrToAmountEntry = {
 
   fromJSON(object: any): SendManyRequest_AddrToAmountEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '',
-      value: isSet(object.value) ? String(object.value) : '0',
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? String(object.value) : "0",
     };
   },
 
@@ -7107,26 +6857,21 @@ export const SendManyRequest_AddrToAmountEntry = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<SendManyRequest_AddrToAmountEntry>,
-  ): SendManyRequest_AddrToAmountEntry {
+  fromPartial(object: DeepPartial<SendManyRequest_AddrToAmountEntry>): SendManyRequest_AddrToAmountEntry {
     const message = createBaseSendManyRequest_AddrToAmountEntry();
-    message.key = object.key ?? '';
-    message.value = object.value ?? '0';
+    message.key = object.key ?? "";
+    message.value = object.value ?? "0";
     return message;
   },
 };
 
 function createBaseSendManyResponse(): SendManyResponse {
-  return {txid: ''};
+  return { txid: "" };
 }
 
 export const SendManyResponse = {
-  encode(
-    message: SendManyResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.txid !== '') {
+  encode(message: SendManyResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.txid !== "") {
       writer.uint32(10).string(message.txid);
     }
     return writer;
@@ -7151,9 +6896,7 @@ export const SendManyResponse = {
   },
 
   fromJSON(object: any): SendManyResponse {
-    return {
-      txid: isSet(object.txid) ? String(object.txid) : '',
-    };
+    return { txid: isSet(object.txid) ? String(object.txid) : "" };
   },
 
   toJSON(message: SendManyResponse): unknown {
@@ -7164,49 +6907,46 @@ export const SendManyResponse = {
 
   fromPartial(object: DeepPartial<SendManyResponse>): SendManyResponse {
     const message = createBaseSendManyResponse();
-    message.txid = object.txid ?? '';
+    message.txid = object.txid ?? "";
     return message;
   },
 };
 
 function createBaseSendCoinsRequest(): SendCoinsRequest {
   return {
-    addr: '',
-    amount: '0',
+    addr: "",
+    amount: "0",
     targetConf: 0,
-    satPerVbyte: '0',
-    satPerByte: '0',
+    satPerVbyte: "0",
+    satPerByte: "0",
     sendAll: false,
-    label: '',
+    label: "",
     minConfs: 0,
     spendUnconfirmed: false,
   };
 }
 
 export const SendCoinsRequest = {
-  encode(
-    message: SendCoinsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.addr !== '') {
+  encode(message: SendCoinsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.addr !== "") {
       writer.uint32(10).string(message.addr);
     }
-    if (message.amount !== '0') {
+    if (message.amount !== "0") {
       writer.uint32(16).int64(message.amount);
     }
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerVbyte !== '0') {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(32).uint64(message.satPerVbyte);
     }
-    if (message.satPerByte !== '0') {
+    if (message.satPerByte !== "0") {
       writer.uint32(40).int64(message.satPerByte);
     }
     if (message.sendAll === true) {
       writer.uint32(48).bool(message.sendAll);
     }
-    if (message.label !== '') {
+    if (message.label !== "") {
       writer.uint32(58).string(message.label);
     }
     if (message.minConfs !== 0) {
@@ -7262,17 +7002,15 @@ export const SendCoinsRequest = {
 
   fromJSON(object: any): SendCoinsRequest {
     return {
-      addr: isSet(object.addr) ? String(object.addr) : '',
-      amount: isSet(object.amount) ? String(object.amount) : '0',
+      addr: isSet(object.addr) ? String(object.addr) : "",
+      amount: isSet(object.amount) ? String(object.amount) : "0",
       targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
-      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
-      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : '0',
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : "0",
+      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : "0",
       sendAll: isSet(object.sendAll) ? Boolean(object.sendAll) : false,
-      label: isSet(object.label) ? String(object.label) : '',
+      label: isSet(object.label) ? String(object.label) : "",
       minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
-      spendUnconfirmed: isSet(object.spendUnconfirmed)
-        ? Boolean(object.spendUnconfirmed)
-        : false,
+      spendUnconfirmed: isSet(object.spendUnconfirmed) ? Boolean(object.spendUnconfirmed) : false,
     };
   },
 
@@ -7280,29 +7018,25 @@ export const SendCoinsRequest = {
     const obj: any = {};
     message.addr !== undefined && (obj.addr = message.addr);
     message.amount !== undefined && (obj.amount = message.amount);
-    message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
-    message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
+    message.targetConf !== undefined && (obj.targetConf = Math.round(message.targetConf));
+    message.satPerVbyte !== undefined && (obj.satPerVbyte = message.satPerVbyte);
     message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
     message.sendAll !== undefined && (obj.sendAll = message.sendAll);
     message.label !== undefined && (obj.label = message.label);
-    message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
-    message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    message.minConfs !== undefined && (obj.minConfs = Math.round(message.minConfs));
+    message.spendUnconfirmed !== undefined && (obj.spendUnconfirmed = message.spendUnconfirmed);
     return obj;
   },
 
   fromPartial(object: DeepPartial<SendCoinsRequest>): SendCoinsRequest {
     const message = createBaseSendCoinsRequest();
-    message.addr = object.addr ?? '';
-    message.amount = object.amount ?? '0';
+    message.addr = object.addr ?? "";
+    message.amount = object.amount ?? "0";
     message.targetConf = object.targetConf ?? 0;
-    message.satPerVbyte = object.satPerVbyte ?? '0';
-    message.satPerByte = object.satPerByte ?? '0';
+    message.satPerVbyte = object.satPerVbyte ?? "0";
+    message.satPerByte = object.satPerByte ?? "0";
     message.sendAll = object.sendAll ?? false;
-    message.label = object.label ?? '';
+    message.label = object.label ?? "";
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
     return message;
@@ -7310,15 +7044,12 @@ export const SendCoinsRequest = {
 };
 
 function createBaseSendCoinsResponse(): SendCoinsResponse {
-  return {txid: ''};
+  return { txid: "" };
 }
 
 export const SendCoinsResponse = {
-  encode(
-    message: SendCoinsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.txid !== '') {
+  encode(message: SendCoinsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.txid !== "") {
       writer.uint32(10).string(message.txid);
     }
     return writer;
@@ -7343,9 +7074,7 @@ export const SendCoinsResponse = {
   },
 
   fromJSON(object: any): SendCoinsResponse {
-    return {
-      txid: isSet(object.txid) ? String(object.txid) : '',
-    };
+    return { txid: isSet(object.txid) ? String(object.txid) : "" };
   },
 
   toJSON(message: SendCoinsResponse): unknown {
@@ -7356,27 +7085,24 @@ export const SendCoinsResponse = {
 
   fromPartial(object: DeepPartial<SendCoinsResponse>): SendCoinsResponse {
     const message = createBaseSendCoinsResponse();
-    message.txid = object.txid ?? '';
+    message.txid = object.txid ?? "";
     return message;
   },
 };
 
 function createBaseListUnspentRequest(): ListUnspentRequest {
-  return {minConfs: 0, maxConfs: 0, account: ''};
+  return { minConfs: 0, maxConfs: 0, account: "" };
 }
 
 export const ListUnspentRequest = {
-  encode(
-    message: ListUnspentRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListUnspentRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.minConfs !== 0) {
       writer.uint32(8).int32(message.minConfs);
     }
     if (message.maxConfs !== 0) {
       writer.uint32(16).int32(message.maxConfs);
     }
-    if (message.account !== '') {
+    if (message.account !== "") {
       writer.uint32(26).string(message.account);
     }
     return writer;
@@ -7410,16 +7136,14 @@ export const ListUnspentRequest = {
     return {
       minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
       maxConfs: isSet(object.maxConfs) ? Number(object.maxConfs) : 0,
-      account: isSet(object.account) ? String(object.account) : '',
+      account: isSet(object.account) ? String(object.account) : "",
     };
   },
 
   toJSON(message: ListUnspentRequest): unknown {
     const obj: any = {};
-    message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
-    message.maxConfs !== undefined &&
-      (obj.maxConfs = Math.round(message.maxConfs));
+    message.minConfs !== undefined && (obj.minConfs = Math.round(message.minConfs));
+    message.maxConfs !== undefined && (obj.maxConfs = Math.round(message.maxConfs));
     message.account !== undefined && (obj.account = message.account);
     return obj;
   },
@@ -7428,20 +7152,17 @@ export const ListUnspentRequest = {
     const message = createBaseListUnspentRequest();
     message.minConfs = object.minConfs ?? 0;
     message.maxConfs = object.maxConfs ?? 0;
-    message.account = object.account ?? '';
+    message.account = object.account ?? "";
     return message;
   },
 };
 
 function createBaseListUnspentResponse(): ListUnspentResponse {
-  return {utxos: []};
+  return { utxos: [] };
 }
 
 export const ListUnspentResponse = {
-  encode(
-    message: ListUnspentResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListUnspentResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.utxos) {
       Utxo.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -7467,17 +7188,13 @@ export const ListUnspentResponse = {
   },
 
   fromJSON(object: any): ListUnspentResponse {
-    return {
-      utxos: Array.isArray(object?.utxos)
-        ? object.utxos.map((e: any) => Utxo.fromJSON(e))
-        : [],
-    };
+    return { utxos: Array.isArray(object?.utxos) ? object.utxos.map((e: any) => Utxo.fromJSON(e)) : [] };
   },
 
   toJSON(message: ListUnspentResponse): unknown {
     const obj: any = {};
     if (message.utxos) {
-      obj.utxos = message.utxos.map((e) => (e ? Utxo.toJSON(e) : undefined));
+      obj.utxos = message.utxos.map((e) => e ? Utxo.toJSON(e) : undefined);
     } else {
       obj.utxos = [];
     }
@@ -7492,18 +7209,15 @@ export const ListUnspentResponse = {
 };
 
 function createBaseNewAddressRequest(): NewAddressRequest {
-  return {type: 0, account: ''};
+  return { type: 0, account: "" };
 }
 
 export const NewAddressRequest = {
-  encode(
-    message: NewAddressRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NewAddressRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.type !== 0) {
       writer.uint32(8).int32(message.type);
     }
-    if (message.account !== '') {
+    if (message.account !== "") {
       writer.uint32(18).string(message.account);
     }
     return writer;
@@ -7533,7 +7247,7 @@ export const NewAddressRequest = {
   fromJSON(object: any): NewAddressRequest {
     return {
       type: isSet(object.type) ? addressTypeFromJSON(object.type) : 0,
-      account: isSet(object.account) ? String(object.account) : '',
+      account: isSet(object.account) ? String(object.account) : "",
     };
   },
 
@@ -7547,21 +7261,18 @@ export const NewAddressRequest = {
   fromPartial(object: DeepPartial<NewAddressRequest>): NewAddressRequest {
     const message = createBaseNewAddressRequest();
     message.type = object.type ?? 0;
-    message.account = object.account ?? '';
+    message.account = object.account ?? "";
     return message;
   },
 };
 
 function createBaseNewAddressResponse(): NewAddressResponse {
-  return {address: ''};
+  return { address: "" };
 }
 
 export const NewAddressResponse = {
-  encode(
-    message: NewAddressResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.address !== '') {
+  encode(message: NewAddressResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.address !== "") {
       writer.uint32(10).string(message.address);
     }
     return writer;
@@ -7586,9 +7297,7 @@ export const NewAddressResponse = {
   },
 
   fromJSON(object: any): NewAddressResponse {
-    return {
-      address: isSet(object.address) ? String(object.address) : '',
-    };
+    return { address: isSet(object.address) ? String(object.address) : "" };
   },
 
   toJSON(message: NewAddressResponse): unknown {
@@ -7599,20 +7308,17 @@ export const NewAddressResponse = {
 
   fromPartial(object: DeepPartial<NewAddressResponse>): NewAddressResponse {
     const message = createBaseNewAddressResponse();
-    message.address = object.address ?? '';
+    message.address = object.address ?? "";
     return message;
   },
 };
 
 function createBaseSignMessageRequest(): SignMessageRequest {
-  return {msg: new Uint8Array(), singleHash: false};
+  return { msg: new Uint8Array(), singleHash: false };
 }
 
 export const SignMessageRequest = {
-  encode(
-    message: SignMessageRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: SignMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.msg.length !== 0) {
       writer.uint32(10).bytes(message.msg);
     }
@@ -7653,9 +7359,7 @@ export const SignMessageRequest = {
   toJSON(message: SignMessageRequest): unknown {
     const obj: any = {};
     message.msg !== undefined &&
-      (obj.msg = base64FromBytes(
-        message.msg !== undefined ? message.msg : new Uint8Array(),
-      ));
+      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
     message.singleHash !== undefined && (obj.singleHash = message.singleHash);
     return obj;
   },
@@ -7669,15 +7373,12 @@ export const SignMessageRequest = {
 };
 
 function createBaseSignMessageResponse(): SignMessageResponse {
-  return {signature: ''};
+  return { signature: "" };
 }
 
 export const SignMessageResponse = {
-  encode(
-    message: SignMessageResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.signature !== '') {
+  encode(message: SignMessageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.signature !== "") {
       writer.uint32(10).string(message.signature);
     }
     return writer;
@@ -7702,9 +7403,7 @@ export const SignMessageResponse = {
   },
 
   fromJSON(object: any): SignMessageResponse {
-    return {
-      signature: isSet(object.signature) ? String(object.signature) : '',
-    };
+    return { signature: isSet(object.signature) ? String(object.signature) : "" };
   },
 
   toJSON(message: SignMessageResponse): unknown {
@@ -7715,33 +7414,27 @@ export const SignMessageResponse = {
 
   fromPartial(object: DeepPartial<SignMessageResponse>): SignMessageResponse {
     const message = createBaseSignMessageResponse();
-    message.signature = object.signature ?? '';
+    message.signature = object.signature ?? "";
     return message;
   },
 };
 
 function createBaseVerifyMessageRequest(): VerifyMessageRequest {
-  return {msg: new Uint8Array(), signature: ''};
+  return { msg: new Uint8Array(), signature: "" };
 }
 
 export const VerifyMessageRequest = {
-  encode(
-    message: VerifyMessageRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: VerifyMessageRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.msg.length !== 0) {
       writer.uint32(10).bytes(message.msg);
     }
-    if (message.signature !== '') {
+    if (message.signature !== "") {
       writer.uint32(18).string(message.signature);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): VerifyMessageRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): VerifyMessageRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyMessageRequest();
@@ -7765,16 +7458,14 @@ export const VerifyMessageRequest = {
   fromJSON(object: any): VerifyMessageRequest {
     return {
       msg: isSet(object.msg) ? bytesFromBase64(object.msg) : new Uint8Array(),
-      signature: isSet(object.signature) ? String(object.signature) : '',
+      signature: isSet(object.signature) ? String(object.signature) : "",
     };
   },
 
   toJSON(message: VerifyMessageRequest): unknown {
     const obj: any = {};
     message.msg !== undefined &&
-      (obj.msg = base64FromBytes(
-        message.msg !== undefined ? message.msg : new Uint8Array(),
-      ));
+      (obj.msg = base64FromBytes(message.msg !== undefined ? message.msg : new Uint8Array()));
     message.signature !== undefined && (obj.signature = message.signature);
     return obj;
   },
@@ -7782,33 +7473,27 @@ export const VerifyMessageRequest = {
   fromPartial(object: DeepPartial<VerifyMessageRequest>): VerifyMessageRequest {
     const message = createBaseVerifyMessageRequest();
     message.msg = object.msg ?? new Uint8Array();
-    message.signature = object.signature ?? '';
+    message.signature = object.signature ?? "";
     return message;
   },
 };
 
 function createBaseVerifyMessageResponse(): VerifyMessageResponse {
-  return {valid: false, pubkey: ''};
+  return { valid: false, pubkey: "" };
 }
 
 export const VerifyMessageResponse = {
-  encode(
-    message: VerifyMessageResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: VerifyMessageResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.valid === true) {
       writer.uint32(8).bool(message.valid);
     }
-    if (message.pubkey !== '') {
+    if (message.pubkey !== "") {
       writer.uint32(18).string(message.pubkey);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): VerifyMessageResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): VerifyMessageResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyMessageResponse();
@@ -7832,7 +7517,7 @@ export const VerifyMessageResponse = {
   fromJSON(object: any): VerifyMessageResponse {
     return {
       valid: isSet(object.valid) ? Boolean(object.valid) : false,
-      pubkey: isSet(object.pubkey) ? String(object.pubkey) : '',
+      pubkey: isSet(object.pubkey) ? String(object.pubkey) : "",
     };
   },
 
@@ -7843,32 +7528,27 @@ export const VerifyMessageResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<VerifyMessageResponse>,
-  ): VerifyMessageResponse {
+  fromPartial(object: DeepPartial<VerifyMessageResponse>): VerifyMessageResponse {
     const message = createBaseVerifyMessageResponse();
     message.valid = object.valid ?? false;
-    message.pubkey = object.pubkey ?? '';
+    message.pubkey = object.pubkey ?? "";
     return message;
   },
 };
 
 function createBaseConnectPeerRequest(): ConnectPeerRequest {
-  return {addr: undefined, perm: false, timeout: '0'};
+  return { addr: undefined, perm: false, timeout: "0" };
 }
 
 export const ConnectPeerRequest = {
-  encode(
-    message: ConnectPeerRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ConnectPeerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.addr !== undefined) {
       LightningAddress.encode(message.addr, writer.uint32(10).fork()).ldelim();
     }
     if (message.perm === true) {
       writer.uint32(16).bool(message.perm);
     }
-    if (message.timeout !== '0') {
+    if (message.timeout !== "0") {
       writer.uint32(24).uint64(message.timeout);
     }
     return writer;
@@ -7900,20 +7580,15 @@ export const ConnectPeerRequest = {
 
   fromJSON(object: any): ConnectPeerRequest {
     return {
-      addr: isSet(object.addr)
-        ? LightningAddress.fromJSON(object.addr)
-        : undefined,
+      addr: isSet(object.addr) ? LightningAddress.fromJSON(object.addr) : undefined,
       perm: isSet(object.perm) ? Boolean(object.perm) : false,
-      timeout: isSet(object.timeout) ? String(object.timeout) : '0',
+      timeout: isSet(object.timeout) ? String(object.timeout) : "0",
     };
   },
 
   toJSON(message: ConnectPeerRequest): unknown {
     const obj: any = {};
-    message.addr !== undefined &&
-      (obj.addr = message.addr
-        ? LightningAddress.toJSON(message.addr)
-        : undefined);
+    message.addr !== undefined && (obj.addr = message.addr ? LightningAddress.toJSON(message.addr) : undefined);
     message.perm !== undefined && (obj.perm = message.perm);
     message.timeout !== undefined && (obj.timeout = message.timeout);
     return obj;
@@ -7921,12 +7596,11 @@ export const ConnectPeerRequest = {
 
   fromPartial(object: DeepPartial<ConnectPeerRequest>): ConnectPeerRequest {
     const message = createBaseConnectPeerRequest();
-    message.addr =
-      object.addr !== undefined && object.addr !== null
-        ? LightningAddress.fromPartial(object.addr)
-        : undefined;
+    message.addr = (object.addr !== undefined && object.addr !== null)
+      ? LightningAddress.fromPartial(object.addr)
+      : undefined;
     message.perm = object.perm ?? false;
-    message.timeout = object.timeout ?? '0';
+    message.timeout = object.timeout ?? "0";
     return message;
   },
 };
@@ -7936,10 +7610,7 @@ function createBaseConnectPeerResponse(): ConnectPeerResponse {
 }
 
 export const ConnectPeerResponse = {
-  encode(
-    _: ConnectPeerResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: ConnectPeerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -7974,24 +7645,18 @@ export const ConnectPeerResponse = {
 };
 
 function createBaseDisconnectPeerRequest(): DisconnectPeerRequest {
-  return {pubKey: ''};
+  return { pubKey: "" };
 }
 
 export const DisconnectPeerRequest = {
-  encode(
-    message: DisconnectPeerRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.pubKey !== '') {
+  encode(message: DisconnectPeerRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pubKey !== "") {
       writer.uint32(10).string(message.pubKey);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DisconnectPeerRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DisconnectPeerRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDisconnectPeerRequest();
@@ -8010,9 +7675,7 @@ export const DisconnectPeerRequest = {
   },
 
   fromJSON(object: any): DisconnectPeerRequest {
-    return {
-      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
-    };
+    return { pubKey: isSet(object.pubKey) ? String(object.pubKey) : "" };
   },
 
   toJSON(message: DisconnectPeerRequest): unknown {
@@ -8021,11 +7684,9 @@ export const DisconnectPeerRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<DisconnectPeerRequest>,
-  ): DisconnectPeerRequest {
+  fromPartial(object: DeepPartial<DisconnectPeerRequest>): DisconnectPeerRequest {
     const message = createBaseDisconnectPeerRequest();
-    message.pubKey = object.pubKey ?? '';
+    message.pubKey = object.pubKey ?? "";
     return message;
   },
 };
@@ -8035,17 +7696,11 @@ function createBaseDisconnectPeerResponse(): DisconnectPeerResponse {
 }
 
 export const DisconnectPeerResponse = {
-  encode(
-    _: DisconnectPeerResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: DisconnectPeerResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DisconnectPeerResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DisconnectPeerResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDisconnectPeerResponse();
@@ -8078,12 +7733,12 @@ export const DisconnectPeerResponse = {
 function createBaseHTLC(): HTLC {
   return {
     incoming: false,
-    amount: '0',
+    amount: "0",
     hashLock: new Uint8Array(),
     expirationHeight: 0,
-    htlcIndex: '0',
-    forwardingChannel: '0',
-    forwardingHtlcIndex: '0',
+    htlcIndex: "0",
+    forwardingChannel: "0",
+    forwardingHtlcIndex: "0",
   };
 }
 
@@ -8092,7 +7747,7 @@ export const HTLC = {
     if (message.incoming === true) {
       writer.uint32(8).bool(message.incoming);
     }
-    if (message.amount !== '0') {
+    if (message.amount !== "0") {
       writer.uint32(16).int64(message.amount);
     }
     if (message.hashLock.length !== 0) {
@@ -8101,13 +7756,13 @@ export const HTLC = {
     if (message.expirationHeight !== 0) {
       writer.uint32(32).uint32(message.expirationHeight);
     }
-    if (message.htlcIndex !== '0') {
+    if (message.htlcIndex !== "0") {
       writer.uint32(40).uint64(message.htlcIndex);
     }
-    if (message.forwardingChannel !== '0') {
+    if (message.forwardingChannel !== "0") {
       writer.uint32(48).uint64(message.forwardingChannel);
     }
-    if (message.forwardingHtlcIndex !== '0') {
+    if (message.forwardingHtlcIndex !== "0") {
       writer.uint32(56).uint64(message.forwardingHtlcIndex);
     }
     return writer;
@@ -8152,20 +7807,12 @@ export const HTLC = {
   fromJSON(object: any): HTLC {
     return {
       incoming: isSet(object.incoming) ? Boolean(object.incoming) : false,
-      amount: isSet(object.amount) ? String(object.amount) : '0',
-      hashLock: isSet(object.hashLock)
-        ? bytesFromBase64(object.hashLock)
-        : new Uint8Array(),
-      expirationHeight: isSet(object.expirationHeight)
-        ? Number(object.expirationHeight)
-        : 0,
-      htlcIndex: isSet(object.htlcIndex) ? String(object.htlcIndex) : '0',
-      forwardingChannel: isSet(object.forwardingChannel)
-        ? String(object.forwardingChannel)
-        : '0',
-      forwardingHtlcIndex: isSet(object.forwardingHtlcIndex)
-        ? String(object.forwardingHtlcIndex)
-        : '0',
+      amount: isSet(object.amount) ? String(object.amount) : "0",
+      hashLock: isSet(object.hashLock) ? bytesFromBase64(object.hashLock) : new Uint8Array(),
+      expirationHeight: isSet(object.expirationHeight) ? Number(object.expirationHeight) : 0,
+      htlcIndex: isSet(object.htlcIndex) ? String(object.htlcIndex) : "0",
+      forwardingChannel: isSet(object.forwardingChannel) ? String(object.forwardingChannel) : "0",
+      forwardingHtlcIndex: isSet(object.forwardingHtlcIndex) ? String(object.forwardingHtlcIndex) : "0",
     };
   },
 
@@ -8174,28 +7821,23 @@ export const HTLC = {
     message.incoming !== undefined && (obj.incoming = message.incoming);
     message.amount !== undefined && (obj.amount = message.amount);
     message.hashLock !== undefined &&
-      (obj.hashLock = base64FromBytes(
-        message.hashLock !== undefined ? message.hashLock : new Uint8Array(),
-      ));
-    message.expirationHeight !== undefined &&
-      (obj.expirationHeight = Math.round(message.expirationHeight));
+      (obj.hashLock = base64FromBytes(message.hashLock !== undefined ? message.hashLock : new Uint8Array()));
+    message.expirationHeight !== undefined && (obj.expirationHeight = Math.round(message.expirationHeight));
     message.htlcIndex !== undefined && (obj.htlcIndex = message.htlcIndex);
-    message.forwardingChannel !== undefined &&
-      (obj.forwardingChannel = message.forwardingChannel);
-    message.forwardingHtlcIndex !== undefined &&
-      (obj.forwardingHtlcIndex = message.forwardingHtlcIndex);
+    message.forwardingChannel !== undefined && (obj.forwardingChannel = message.forwardingChannel);
+    message.forwardingHtlcIndex !== undefined && (obj.forwardingHtlcIndex = message.forwardingHtlcIndex);
     return obj;
   },
 
   fromPartial(object: DeepPartial<HTLC>): HTLC {
     const message = createBaseHTLC();
     message.incoming = object.incoming ?? false;
-    message.amount = object.amount ?? '0';
+    message.amount = object.amount ?? "0";
     message.hashLock = object.hashLock ?? new Uint8Array();
     message.expirationHeight = object.expirationHeight ?? 0;
-    message.htlcIndex = object.htlcIndex ?? '0';
-    message.forwardingChannel = object.forwardingChannel ?? '0';
-    message.forwardingHtlcIndex = object.forwardingHtlcIndex ?? '0';
+    message.htlcIndex = object.htlcIndex ?? "0";
+    message.forwardingChannel = object.forwardingChannel ?? "0";
+    message.forwardingHtlcIndex = object.forwardingHtlcIndex ?? "0";
     return message;
   },
 };
@@ -8203,32 +7845,29 @@ export const HTLC = {
 function createBaseChannelConstraints(): ChannelConstraints {
   return {
     csvDelay: 0,
-    chanReserveSat: '0',
-    dustLimitSat: '0',
-    maxPendingAmtMsat: '0',
-    minHtlcMsat: '0',
+    chanReserveSat: "0",
+    dustLimitSat: "0",
+    maxPendingAmtMsat: "0",
+    minHtlcMsat: "0",
     maxAcceptedHtlcs: 0,
   };
 }
 
 export const ChannelConstraints = {
-  encode(
-    message: ChannelConstraints,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelConstraints, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.csvDelay !== 0) {
       writer.uint32(8).uint32(message.csvDelay);
     }
-    if (message.chanReserveSat !== '0') {
+    if (message.chanReserveSat !== "0") {
       writer.uint32(16).uint64(message.chanReserveSat);
     }
-    if (message.dustLimitSat !== '0') {
+    if (message.dustLimitSat !== "0") {
       writer.uint32(24).uint64(message.dustLimitSat);
     }
-    if (message.maxPendingAmtMsat !== '0') {
+    if (message.maxPendingAmtMsat !== "0") {
       writer.uint32(32).uint64(message.maxPendingAmtMsat);
     }
-    if (message.minHtlcMsat !== '0') {
+    if (message.minHtlcMsat !== "0") {
       writer.uint32(40).uint64(message.minHtlcMsat);
     }
     if (message.maxAcceptedHtlcs !== 0) {
@@ -8273,46 +7912,32 @@ export const ChannelConstraints = {
   fromJSON(object: any): ChannelConstraints {
     return {
       csvDelay: isSet(object.csvDelay) ? Number(object.csvDelay) : 0,
-      chanReserveSat: isSet(object.chanReserveSat)
-        ? String(object.chanReserveSat)
-        : '0',
-      dustLimitSat: isSet(object.dustLimitSat)
-        ? String(object.dustLimitSat)
-        : '0',
-      maxPendingAmtMsat: isSet(object.maxPendingAmtMsat)
-        ? String(object.maxPendingAmtMsat)
-        : '0',
-      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : '0',
-      maxAcceptedHtlcs: isSet(object.maxAcceptedHtlcs)
-        ? Number(object.maxAcceptedHtlcs)
-        : 0,
+      chanReserveSat: isSet(object.chanReserveSat) ? String(object.chanReserveSat) : "0",
+      dustLimitSat: isSet(object.dustLimitSat) ? String(object.dustLimitSat) : "0",
+      maxPendingAmtMsat: isSet(object.maxPendingAmtMsat) ? String(object.maxPendingAmtMsat) : "0",
+      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : "0",
+      maxAcceptedHtlcs: isSet(object.maxAcceptedHtlcs) ? Number(object.maxAcceptedHtlcs) : 0,
     };
   },
 
   toJSON(message: ChannelConstraints): unknown {
     const obj: any = {};
-    message.csvDelay !== undefined &&
-      (obj.csvDelay = Math.round(message.csvDelay));
-    message.chanReserveSat !== undefined &&
-      (obj.chanReserveSat = message.chanReserveSat);
-    message.dustLimitSat !== undefined &&
-      (obj.dustLimitSat = message.dustLimitSat);
-    message.maxPendingAmtMsat !== undefined &&
-      (obj.maxPendingAmtMsat = message.maxPendingAmtMsat);
-    message.minHtlcMsat !== undefined &&
-      (obj.minHtlcMsat = message.minHtlcMsat);
-    message.maxAcceptedHtlcs !== undefined &&
-      (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
+    message.csvDelay !== undefined && (obj.csvDelay = Math.round(message.csvDelay));
+    message.chanReserveSat !== undefined && (obj.chanReserveSat = message.chanReserveSat);
+    message.dustLimitSat !== undefined && (obj.dustLimitSat = message.dustLimitSat);
+    message.maxPendingAmtMsat !== undefined && (obj.maxPendingAmtMsat = message.maxPendingAmtMsat);
+    message.minHtlcMsat !== undefined && (obj.minHtlcMsat = message.minHtlcMsat);
+    message.maxAcceptedHtlcs !== undefined && (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
     return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelConstraints>): ChannelConstraints {
     const message = createBaseChannelConstraints();
     message.csvDelay = object.csvDelay ?? 0;
-    message.chanReserveSat = object.chanReserveSat ?? '0';
-    message.dustLimitSat = object.dustLimitSat ?? '0';
-    message.maxPendingAmtMsat = object.maxPendingAmtMsat ?? '0';
-    message.minHtlcMsat = object.minHtlcMsat ?? '0';
+    message.chanReserveSat = object.chanReserveSat ?? "0";
+    message.dustLimitSat = object.dustLimitSat ?? "0";
+    message.maxPendingAmtMsat = object.maxPendingAmtMsat ?? "0";
+    message.minHtlcMsat = object.minHtlcMsat ?? "0";
     message.maxAcceptedHtlcs = object.maxAcceptedHtlcs ?? 0;
     return message;
   },
@@ -8321,32 +7946,32 @@ export const ChannelConstraints = {
 function createBaseChannel(): Channel {
   return {
     active: false,
-    remotePubkey: '',
-    channelPoint: '',
-    chanId: '0',
-    capacity: '0',
-    localBalance: '0',
-    remoteBalance: '0',
-    commitFee: '0',
-    commitWeight: '0',
-    feePerKw: '0',
-    unsettledBalance: '0',
-    totalSatoshisSent: '0',
-    totalSatoshisReceived: '0',
-    numUpdates: '0',
+    remotePubkey: "",
+    channelPoint: "",
+    chanId: "0",
+    capacity: "0",
+    localBalance: "0",
+    remoteBalance: "0",
+    commitFee: "0",
+    commitWeight: "0",
+    feePerKw: "0",
+    unsettledBalance: "0",
+    totalSatoshisSent: "0",
+    totalSatoshisReceived: "0",
+    numUpdates: "0",
     pendingHtlcs: [],
     csvDelay: 0,
     private: false,
     initiator: false,
-    chanStatusFlags: '',
-    localChanReserveSat: '0',
-    remoteChanReserveSat: '0',
+    chanStatusFlags: "",
+    localChanReserveSat: "0",
+    remoteChanReserveSat: "0",
     staticRemoteKey: false,
     commitmentType: 0,
-    lifetime: '0',
-    uptime: '0',
-    closeAddress: '',
-    pushAmountSat: '0',
+    lifetime: "0",
+    uptime: "0",
+    closeAddress: "",
+    pushAmountSat: "0",
     thawHeight: 0,
     localConstraints: undefined,
     remoteConstraints: undefined,
@@ -8354,50 +7979,47 @@ function createBaseChannel(): Channel {
 }
 
 export const Channel = {
-  encode(
-    message: Channel,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Channel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.active === true) {
       writer.uint32(8).bool(message.active);
     }
-    if (message.remotePubkey !== '') {
+    if (message.remotePubkey !== "") {
       writer.uint32(18).string(message.remotePubkey);
     }
-    if (message.channelPoint !== '') {
+    if (message.channelPoint !== "") {
       writer.uint32(26).string(message.channelPoint);
     }
-    if (message.chanId !== '0') {
+    if (message.chanId !== "0") {
       writer.uint32(32).uint64(message.chanId);
     }
-    if (message.capacity !== '0') {
+    if (message.capacity !== "0") {
       writer.uint32(40).int64(message.capacity);
     }
-    if (message.localBalance !== '0') {
+    if (message.localBalance !== "0") {
       writer.uint32(48).int64(message.localBalance);
     }
-    if (message.remoteBalance !== '0') {
+    if (message.remoteBalance !== "0") {
       writer.uint32(56).int64(message.remoteBalance);
     }
-    if (message.commitFee !== '0') {
+    if (message.commitFee !== "0") {
       writer.uint32(64).int64(message.commitFee);
     }
-    if (message.commitWeight !== '0') {
+    if (message.commitWeight !== "0") {
       writer.uint32(72).int64(message.commitWeight);
     }
-    if (message.feePerKw !== '0') {
+    if (message.feePerKw !== "0") {
       writer.uint32(80).int64(message.feePerKw);
     }
-    if (message.unsettledBalance !== '0') {
+    if (message.unsettledBalance !== "0") {
       writer.uint32(88).int64(message.unsettledBalance);
     }
-    if (message.totalSatoshisSent !== '0') {
+    if (message.totalSatoshisSent !== "0") {
       writer.uint32(96).int64(message.totalSatoshisSent);
     }
-    if (message.totalSatoshisReceived !== '0') {
+    if (message.totalSatoshisReceived !== "0") {
       writer.uint32(104).int64(message.totalSatoshisReceived);
     }
-    if (message.numUpdates !== '0') {
+    if (message.numUpdates !== "0") {
       writer.uint32(112).uint64(message.numUpdates);
     }
     for (const v of message.pendingHtlcs) {
@@ -8412,13 +8034,13 @@ export const Channel = {
     if (message.initiator === true) {
       writer.uint32(144).bool(message.initiator);
     }
-    if (message.chanStatusFlags !== '') {
+    if (message.chanStatusFlags !== "") {
       writer.uint32(154).string(message.chanStatusFlags);
     }
-    if (message.localChanReserveSat !== '0') {
+    if (message.localChanReserveSat !== "0") {
       writer.uint32(160).int64(message.localChanReserveSat);
     }
-    if (message.remoteChanReserveSat !== '0') {
+    if (message.remoteChanReserveSat !== "0") {
       writer.uint32(168).int64(message.remoteChanReserveSat);
     }
     if (message.staticRemoteKey === true) {
@@ -8427,32 +8049,26 @@ export const Channel = {
     if (message.commitmentType !== 0) {
       writer.uint32(208).int32(message.commitmentType);
     }
-    if (message.lifetime !== '0') {
+    if (message.lifetime !== "0") {
       writer.uint32(184).int64(message.lifetime);
     }
-    if (message.uptime !== '0') {
+    if (message.uptime !== "0") {
       writer.uint32(192).int64(message.uptime);
     }
-    if (message.closeAddress !== '') {
+    if (message.closeAddress !== "") {
       writer.uint32(202).string(message.closeAddress);
     }
-    if (message.pushAmountSat !== '0') {
+    if (message.pushAmountSat !== "0") {
       writer.uint32(216).uint64(message.pushAmountSat);
     }
     if (message.thawHeight !== 0) {
       writer.uint32(224).uint32(message.thawHeight);
     }
     if (message.localConstraints !== undefined) {
-      ChannelConstraints.encode(
-        message.localConstraints,
-        writer.uint32(234).fork(),
-      ).ldelim();
+      ChannelConstraints.encode(message.localConstraints, writer.uint32(234).fork()).ldelim();
     }
     if (message.remoteConstraints !== undefined) {
-      ChannelConstraints.encode(
-        message.remoteConstraints,
-        writer.uint32(242).fork(),
-      ).ldelim();
+      ChannelConstraints.encode(message.remoteConstraints, writer.uint32(242).fork()).ldelim();
     }
     return writer;
   },
@@ -8549,16 +8165,10 @@ export const Channel = {
           message.thawHeight = reader.uint32();
           break;
         case 29:
-          message.localConstraints = ChannelConstraints.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.localConstraints = ChannelConstraints.decode(reader, reader.uint32());
           break;
         case 30:
-          message.remoteConstraints = ChannelConstraints.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.remoteConstraints = ChannelConstraints.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -8571,64 +8181,32 @@ export const Channel = {
   fromJSON(object: any): Channel {
     return {
       active: isSet(object.active) ? Boolean(object.active) : false,
-      remotePubkey: isSet(object.remotePubkey)
-        ? String(object.remotePubkey)
-        : '',
-      channelPoint: isSet(object.channelPoint)
-        ? String(object.channelPoint)
-        : '',
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
-      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
-      localBalance: isSet(object.localBalance)
-        ? String(object.localBalance)
-        : '0',
-      remoteBalance: isSet(object.remoteBalance)
-        ? String(object.remoteBalance)
-        : '0',
-      commitFee: isSet(object.commitFee) ? String(object.commitFee) : '0',
-      commitWeight: isSet(object.commitWeight)
-        ? String(object.commitWeight)
-        : '0',
-      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : '0',
-      unsettledBalance: isSet(object.unsettledBalance)
-        ? String(object.unsettledBalance)
-        : '0',
-      totalSatoshisSent: isSet(object.totalSatoshisSent)
-        ? String(object.totalSatoshisSent)
-        : '0',
-      totalSatoshisReceived: isSet(object.totalSatoshisReceived)
-        ? String(object.totalSatoshisReceived)
-        : '0',
-      numUpdates: isSet(object.numUpdates) ? String(object.numUpdates) : '0',
-      pendingHtlcs: Array.isArray(object?.pendingHtlcs)
-        ? object.pendingHtlcs.map((e: any) => HTLC.fromJSON(e))
-        : [],
+      remotePubkey: isSet(object.remotePubkey) ? String(object.remotePubkey) : "",
+      channelPoint: isSet(object.channelPoint) ? String(object.channelPoint) : "",
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
+      capacity: isSet(object.capacity) ? String(object.capacity) : "0",
+      localBalance: isSet(object.localBalance) ? String(object.localBalance) : "0",
+      remoteBalance: isSet(object.remoteBalance) ? String(object.remoteBalance) : "0",
+      commitFee: isSet(object.commitFee) ? String(object.commitFee) : "0",
+      commitWeight: isSet(object.commitWeight) ? String(object.commitWeight) : "0",
+      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : "0",
+      unsettledBalance: isSet(object.unsettledBalance) ? String(object.unsettledBalance) : "0",
+      totalSatoshisSent: isSet(object.totalSatoshisSent) ? String(object.totalSatoshisSent) : "0",
+      totalSatoshisReceived: isSet(object.totalSatoshisReceived) ? String(object.totalSatoshisReceived) : "0",
+      numUpdates: isSet(object.numUpdates) ? String(object.numUpdates) : "0",
+      pendingHtlcs: Array.isArray(object?.pendingHtlcs) ? object.pendingHtlcs.map((e: any) => HTLC.fromJSON(e)) : [],
       csvDelay: isSet(object.csvDelay) ? Number(object.csvDelay) : 0,
       private: isSet(object.private) ? Boolean(object.private) : false,
       initiator: isSet(object.initiator) ? Boolean(object.initiator) : false,
-      chanStatusFlags: isSet(object.chanStatusFlags)
-        ? String(object.chanStatusFlags)
-        : '',
-      localChanReserveSat: isSet(object.localChanReserveSat)
-        ? String(object.localChanReserveSat)
-        : '0',
-      remoteChanReserveSat: isSet(object.remoteChanReserveSat)
-        ? String(object.remoteChanReserveSat)
-        : '0',
-      staticRemoteKey: isSet(object.staticRemoteKey)
-        ? Boolean(object.staticRemoteKey)
-        : false,
-      commitmentType: isSet(object.commitmentType)
-        ? commitmentTypeFromJSON(object.commitmentType)
-        : 0,
-      lifetime: isSet(object.lifetime) ? String(object.lifetime) : '0',
-      uptime: isSet(object.uptime) ? String(object.uptime) : '0',
-      closeAddress: isSet(object.closeAddress)
-        ? String(object.closeAddress)
-        : '',
-      pushAmountSat: isSet(object.pushAmountSat)
-        ? String(object.pushAmountSat)
-        : '0',
+      chanStatusFlags: isSet(object.chanStatusFlags) ? String(object.chanStatusFlags) : "",
+      localChanReserveSat: isSet(object.localChanReserveSat) ? String(object.localChanReserveSat) : "0",
+      remoteChanReserveSat: isSet(object.remoteChanReserveSat) ? String(object.remoteChanReserveSat) : "0",
+      staticRemoteKey: isSet(object.staticRemoteKey) ? Boolean(object.staticRemoteKey) : false,
+      commitmentType: isSet(object.commitmentType) ? commitmentTypeFromJSON(object.commitmentType) : 0,
+      lifetime: isSet(object.lifetime) ? String(object.lifetime) : "0",
+      uptime: isSet(object.uptime) ? String(object.uptime) : "0",
+      closeAddress: isSet(object.closeAddress) ? String(object.closeAddress) : "",
+      pushAmountSat: isSet(object.pushAmountSat) ? String(object.pushAmountSat) : "0",
       thawHeight: isSet(object.thawHeight) ? Number(object.thawHeight) : 0,
       localConstraints: isSet(object.localConstraints)
         ? ChannelConstraints.fromJSON(object.localConstraints)
@@ -8642,126 +8220,93 @@ export const Channel = {
   toJSON(message: Channel): unknown {
     const obj: any = {};
     message.active !== undefined && (obj.active = message.active);
-    message.remotePubkey !== undefined &&
-      (obj.remotePubkey = message.remotePubkey);
-    message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint);
+    message.remotePubkey !== undefined && (obj.remotePubkey = message.remotePubkey);
+    message.channelPoint !== undefined && (obj.channelPoint = message.channelPoint);
     message.chanId !== undefined && (obj.chanId = message.chanId);
     message.capacity !== undefined && (obj.capacity = message.capacity);
-    message.localBalance !== undefined &&
-      (obj.localBalance = message.localBalance);
-    message.remoteBalance !== undefined &&
-      (obj.remoteBalance = message.remoteBalance);
+    message.localBalance !== undefined && (obj.localBalance = message.localBalance);
+    message.remoteBalance !== undefined && (obj.remoteBalance = message.remoteBalance);
     message.commitFee !== undefined && (obj.commitFee = message.commitFee);
-    message.commitWeight !== undefined &&
-      (obj.commitWeight = message.commitWeight);
+    message.commitWeight !== undefined && (obj.commitWeight = message.commitWeight);
     message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
-    message.unsettledBalance !== undefined &&
-      (obj.unsettledBalance = message.unsettledBalance);
-    message.totalSatoshisSent !== undefined &&
-      (obj.totalSatoshisSent = message.totalSatoshisSent);
-    message.totalSatoshisReceived !== undefined &&
-      (obj.totalSatoshisReceived = message.totalSatoshisReceived);
+    message.unsettledBalance !== undefined && (obj.unsettledBalance = message.unsettledBalance);
+    message.totalSatoshisSent !== undefined && (obj.totalSatoshisSent = message.totalSatoshisSent);
+    message.totalSatoshisReceived !== undefined && (obj.totalSatoshisReceived = message.totalSatoshisReceived);
     message.numUpdates !== undefined && (obj.numUpdates = message.numUpdates);
     if (message.pendingHtlcs) {
-      obj.pendingHtlcs = message.pendingHtlcs.map((e) =>
-        e ? HTLC.toJSON(e) : undefined,
-      );
+      obj.pendingHtlcs = message.pendingHtlcs.map((e) => e ? HTLC.toJSON(e) : undefined);
     } else {
       obj.pendingHtlcs = [];
     }
-    message.csvDelay !== undefined &&
-      (obj.csvDelay = Math.round(message.csvDelay));
+    message.csvDelay !== undefined && (obj.csvDelay = Math.round(message.csvDelay));
     message.private !== undefined && (obj.private = message.private);
     message.initiator !== undefined && (obj.initiator = message.initiator);
-    message.chanStatusFlags !== undefined &&
-      (obj.chanStatusFlags = message.chanStatusFlags);
-    message.localChanReserveSat !== undefined &&
-      (obj.localChanReserveSat = message.localChanReserveSat);
-    message.remoteChanReserveSat !== undefined &&
-      (obj.remoteChanReserveSat = message.remoteChanReserveSat);
-    message.staticRemoteKey !== undefined &&
-      (obj.staticRemoteKey = message.staticRemoteKey);
-    message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.chanStatusFlags !== undefined && (obj.chanStatusFlags = message.chanStatusFlags);
+    message.localChanReserveSat !== undefined && (obj.localChanReserveSat = message.localChanReserveSat);
+    message.remoteChanReserveSat !== undefined && (obj.remoteChanReserveSat = message.remoteChanReserveSat);
+    message.staticRemoteKey !== undefined && (obj.staticRemoteKey = message.staticRemoteKey);
+    message.commitmentType !== undefined && (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
     message.lifetime !== undefined && (obj.lifetime = message.lifetime);
     message.uptime !== undefined && (obj.uptime = message.uptime);
-    message.closeAddress !== undefined &&
-      (obj.closeAddress = message.closeAddress);
-    message.pushAmountSat !== undefined &&
-      (obj.pushAmountSat = message.pushAmountSat);
-    message.thawHeight !== undefined &&
-      (obj.thawHeight = Math.round(message.thawHeight));
+    message.closeAddress !== undefined && (obj.closeAddress = message.closeAddress);
+    message.pushAmountSat !== undefined && (obj.pushAmountSat = message.pushAmountSat);
+    message.thawHeight !== undefined && (obj.thawHeight = Math.round(message.thawHeight));
     message.localConstraints !== undefined &&
       (obj.localConstraints = message.localConstraints
         ? ChannelConstraints.toJSON(message.localConstraints)
         : undefined);
-    message.remoteConstraints !== undefined &&
-      (obj.remoteConstraints = message.remoteConstraints
-        ? ChannelConstraints.toJSON(message.remoteConstraints)
-        : undefined);
+    message.remoteConstraints !== undefined && (obj.remoteConstraints = message.remoteConstraints
+      ? ChannelConstraints.toJSON(message.remoteConstraints)
+      : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<Channel>): Channel {
     const message = createBaseChannel();
     message.active = object.active ?? false;
-    message.remotePubkey = object.remotePubkey ?? '';
-    message.channelPoint = object.channelPoint ?? '';
-    message.chanId = object.chanId ?? '0';
-    message.capacity = object.capacity ?? '0';
-    message.localBalance = object.localBalance ?? '0';
-    message.remoteBalance = object.remoteBalance ?? '0';
-    message.commitFee = object.commitFee ?? '0';
-    message.commitWeight = object.commitWeight ?? '0';
-    message.feePerKw = object.feePerKw ?? '0';
-    message.unsettledBalance = object.unsettledBalance ?? '0';
-    message.totalSatoshisSent = object.totalSatoshisSent ?? '0';
-    message.totalSatoshisReceived = object.totalSatoshisReceived ?? '0';
-    message.numUpdates = object.numUpdates ?? '0';
-    message.pendingHtlcs =
-      object.pendingHtlcs?.map((e) => HTLC.fromPartial(e)) || [];
+    message.remotePubkey = object.remotePubkey ?? "";
+    message.channelPoint = object.channelPoint ?? "";
+    message.chanId = object.chanId ?? "0";
+    message.capacity = object.capacity ?? "0";
+    message.localBalance = object.localBalance ?? "0";
+    message.remoteBalance = object.remoteBalance ?? "0";
+    message.commitFee = object.commitFee ?? "0";
+    message.commitWeight = object.commitWeight ?? "0";
+    message.feePerKw = object.feePerKw ?? "0";
+    message.unsettledBalance = object.unsettledBalance ?? "0";
+    message.totalSatoshisSent = object.totalSatoshisSent ?? "0";
+    message.totalSatoshisReceived = object.totalSatoshisReceived ?? "0";
+    message.numUpdates = object.numUpdates ?? "0";
+    message.pendingHtlcs = object.pendingHtlcs?.map((e) => HTLC.fromPartial(e)) || [];
     message.csvDelay = object.csvDelay ?? 0;
     message.private = object.private ?? false;
     message.initiator = object.initiator ?? false;
-    message.chanStatusFlags = object.chanStatusFlags ?? '';
-    message.localChanReserveSat = object.localChanReserveSat ?? '0';
-    message.remoteChanReserveSat = object.remoteChanReserveSat ?? '0';
+    message.chanStatusFlags = object.chanStatusFlags ?? "";
+    message.localChanReserveSat = object.localChanReserveSat ?? "0";
+    message.remoteChanReserveSat = object.remoteChanReserveSat ?? "0";
     message.staticRemoteKey = object.staticRemoteKey ?? false;
     message.commitmentType = object.commitmentType ?? 0;
-    message.lifetime = object.lifetime ?? '0';
-    message.uptime = object.uptime ?? '0';
-    message.closeAddress = object.closeAddress ?? '';
-    message.pushAmountSat = object.pushAmountSat ?? '0';
+    message.lifetime = object.lifetime ?? "0";
+    message.uptime = object.uptime ?? "0";
+    message.closeAddress = object.closeAddress ?? "";
+    message.pushAmountSat = object.pushAmountSat ?? "0";
     message.thawHeight = object.thawHeight ?? 0;
-    message.localConstraints =
-      object.localConstraints !== undefined && object.localConstraints !== null
-        ? ChannelConstraints.fromPartial(object.localConstraints)
-        : undefined;
-    message.remoteConstraints =
-      object.remoteConstraints !== undefined &&
-      object.remoteConstraints !== null
-        ? ChannelConstraints.fromPartial(object.remoteConstraints)
-        : undefined;
+    message.localConstraints = (object.localConstraints !== undefined && object.localConstraints !== null)
+      ? ChannelConstraints.fromPartial(object.localConstraints)
+      : undefined;
+    message.remoteConstraints = (object.remoteConstraints !== undefined && object.remoteConstraints !== null)
+      ? ChannelConstraints.fromPartial(object.remoteConstraints)
+      : undefined;
     return message;
   },
 };
 
 function createBaseListChannelsRequest(): ListChannelsRequest {
-  return {
-    activeOnly: false,
-    inactiveOnly: false,
-    publicOnly: false,
-    privateOnly: false,
-    peer: new Uint8Array(),
-  };
+  return { activeOnly: false, inactiveOnly: false, publicOnly: false, privateOnly: false, peer: new Uint8Array() };
 }
 
 export const ListChannelsRequest = {
-  encode(
-    message: ListChannelsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListChannelsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.activeOnly === true) {
       writer.uint32(8).bool(message.activeOnly);
     }
@@ -8813,31 +8358,21 @@ export const ListChannelsRequest = {
   fromJSON(object: any): ListChannelsRequest {
     return {
       activeOnly: isSet(object.activeOnly) ? Boolean(object.activeOnly) : false,
-      inactiveOnly: isSet(object.inactiveOnly)
-        ? Boolean(object.inactiveOnly)
-        : false,
+      inactiveOnly: isSet(object.inactiveOnly) ? Boolean(object.inactiveOnly) : false,
       publicOnly: isSet(object.publicOnly) ? Boolean(object.publicOnly) : false,
-      privateOnly: isSet(object.privateOnly)
-        ? Boolean(object.privateOnly)
-        : false,
-      peer: isSet(object.peer)
-        ? bytesFromBase64(object.peer)
-        : new Uint8Array(),
+      privateOnly: isSet(object.privateOnly) ? Boolean(object.privateOnly) : false,
+      peer: isSet(object.peer) ? bytesFromBase64(object.peer) : new Uint8Array(),
     };
   },
 
   toJSON(message: ListChannelsRequest): unknown {
     const obj: any = {};
     message.activeOnly !== undefined && (obj.activeOnly = message.activeOnly);
-    message.inactiveOnly !== undefined &&
-      (obj.inactiveOnly = message.inactiveOnly);
+    message.inactiveOnly !== undefined && (obj.inactiveOnly = message.inactiveOnly);
     message.publicOnly !== undefined && (obj.publicOnly = message.publicOnly);
-    message.privateOnly !== undefined &&
-      (obj.privateOnly = message.privateOnly);
+    message.privateOnly !== undefined && (obj.privateOnly = message.privateOnly);
     message.peer !== undefined &&
-      (obj.peer = base64FromBytes(
-        message.peer !== undefined ? message.peer : new Uint8Array(),
-      ));
+      (obj.peer = base64FromBytes(message.peer !== undefined ? message.peer : new Uint8Array()));
     return obj;
   },
 
@@ -8853,24 +8388,18 @@ export const ListChannelsRequest = {
 };
 
 function createBaseListChannelsResponse(): ListChannelsResponse {
-  return {channels: []};
+  return { channels: [] };
 }
 
 export const ListChannelsResponse = {
-  encode(
-    message: ListChannelsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListChannelsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.channels) {
       Channel.encode(v!, writer.uint32(90).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ListChannelsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListChannelsResponse();
@@ -8889,19 +8418,13 @@ export const ListChannelsResponse = {
   },
 
   fromJSON(object: any): ListChannelsResponse {
-    return {
-      channels: Array.isArray(object?.channels)
-        ? object.channels.map((e: any) => Channel.fromJSON(e))
-        : [],
-    };
+    return { channels: Array.isArray(object?.channels) ? object.channels.map((e: any) => Channel.fromJSON(e)) : [] };
   },
 
   toJSON(message: ListChannelsResponse): unknown {
     const obj: any = {};
     if (message.channels) {
-      obj.channels = message.channels.map((e) =>
-        e ? Channel.toJSON(e) : undefined,
-      );
+      obj.channels = message.channels.map((e) => e ? Channel.toJSON(e) : undefined);
     } else {
       obj.channels = [];
     }
@@ -8910,23 +8433,22 @@ export const ListChannelsResponse = {
 
   fromPartial(object: DeepPartial<ListChannelsResponse>): ListChannelsResponse {
     const message = createBaseListChannelsResponse();
-    message.channels =
-      object.channels?.map((e) => Channel.fromPartial(e)) || [];
+    message.channels = object.channels?.map((e) => Channel.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseChannelCloseSummary(): ChannelCloseSummary {
   return {
-    channelPoint: '',
-    chanId: '0',
-    chainHash: '',
-    closingTxHash: '',
-    remotePubkey: '',
-    capacity: '0',
+    channelPoint: "",
+    chanId: "0",
+    chainHash: "",
+    closingTxHash: "",
+    remotePubkey: "",
+    capacity: "0",
     closeHeight: 0,
-    settledBalance: '0',
-    timeLockedBalance: '0',
+    settledBalance: "0",
+    timeLockedBalance: "0",
     closeType: 0,
     openInitiator: 0,
     closeInitiator: 0,
@@ -8935,35 +8457,32 @@ function createBaseChannelCloseSummary(): ChannelCloseSummary {
 }
 
 export const ChannelCloseSummary = {
-  encode(
-    message: ChannelCloseSummary,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.channelPoint !== '') {
+  encode(message: ChannelCloseSummary, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.channelPoint !== "") {
       writer.uint32(10).string(message.channelPoint);
     }
-    if (message.chanId !== '0') {
+    if (message.chanId !== "0") {
       writer.uint32(16).uint64(message.chanId);
     }
-    if (message.chainHash !== '') {
+    if (message.chainHash !== "") {
       writer.uint32(26).string(message.chainHash);
     }
-    if (message.closingTxHash !== '') {
+    if (message.closingTxHash !== "") {
       writer.uint32(34).string(message.closingTxHash);
     }
-    if (message.remotePubkey !== '') {
+    if (message.remotePubkey !== "") {
       writer.uint32(42).string(message.remotePubkey);
     }
-    if (message.capacity !== '0') {
+    if (message.capacity !== "0") {
       writer.uint32(48).int64(message.capacity);
     }
     if (message.closeHeight !== 0) {
       writer.uint32(56).uint32(message.closeHeight);
     }
-    if (message.settledBalance !== '0') {
+    if (message.settledBalance !== "0") {
       writer.uint32(64).int64(message.settledBalance);
     }
-    if (message.timeLockedBalance !== '0') {
+    if (message.timeLockedBalance !== "0") {
       writer.uint32(72).int64(message.timeLockedBalance);
     }
     if (message.closeType !== 0) {
@@ -9037,69 +8556,38 @@ export const ChannelCloseSummary = {
 
   fromJSON(object: any): ChannelCloseSummary {
     return {
-      channelPoint: isSet(object.channelPoint)
-        ? String(object.channelPoint)
-        : '',
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
-      chainHash: isSet(object.chainHash) ? String(object.chainHash) : '',
-      closingTxHash: isSet(object.closingTxHash)
-        ? String(object.closingTxHash)
-        : '',
-      remotePubkey: isSet(object.remotePubkey)
-        ? String(object.remotePubkey)
-        : '',
-      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
+      channelPoint: isSet(object.channelPoint) ? String(object.channelPoint) : "",
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
+      chainHash: isSet(object.chainHash) ? String(object.chainHash) : "",
+      closingTxHash: isSet(object.closingTxHash) ? String(object.closingTxHash) : "",
+      remotePubkey: isSet(object.remotePubkey) ? String(object.remotePubkey) : "",
+      capacity: isSet(object.capacity) ? String(object.capacity) : "0",
       closeHeight: isSet(object.closeHeight) ? Number(object.closeHeight) : 0,
-      settledBalance: isSet(object.settledBalance)
-        ? String(object.settledBalance)
-        : '0',
-      timeLockedBalance: isSet(object.timeLockedBalance)
-        ? String(object.timeLockedBalance)
-        : '0',
-      closeType: isSet(object.closeType)
-        ? channelCloseSummary_ClosureTypeFromJSON(object.closeType)
-        : 0,
-      openInitiator: isSet(object.openInitiator)
-        ? initiatorFromJSON(object.openInitiator)
-        : 0,
-      closeInitiator: isSet(object.closeInitiator)
-        ? initiatorFromJSON(object.closeInitiator)
-        : 0,
-      resolutions: Array.isArray(object?.resolutions)
-        ? object.resolutions.map((e: any) => Resolution.fromJSON(e))
-        : [],
+      settledBalance: isSet(object.settledBalance) ? String(object.settledBalance) : "0",
+      timeLockedBalance: isSet(object.timeLockedBalance) ? String(object.timeLockedBalance) : "0",
+      closeType: isSet(object.closeType) ? channelCloseSummary_ClosureTypeFromJSON(object.closeType) : 0,
+      openInitiator: isSet(object.openInitiator) ? initiatorFromJSON(object.openInitiator) : 0,
+      closeInitiator: isSet(object.closeInitiator) ? initiatorFromJSON(object.closeInitiator) : 0,
+      resolutions: Array.isArray(object?.resolutions) ? object.resolutions.map((e: any) => Resolution.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: ChannelCloseSummary): unknown {
     const obj: any = {};
-    message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint);
+    message.channelPoint !== undefined && (obj.channelPoint = message.channelPoint);
     message.chanId !== undefined && (obj.chanId = message.chanId);
     message.chainHash !== undefined && (obj.chainHash = message.chainHash);
-    message.closingTxHash !== undefined &&
-      (obj.closingTxHash = message.closingTxHash);
-    message.remotePubkey !== undefined &&
-      (obj.remotePubkey = message.remotePubkey);
+    message.closingTxHash !== undefined && (obj.closingTxHash = message.closingTxHash);
+    message.remotePubkey !== undefined && (obj.remotePubkey = message.remotePubkey);
     message.capacity !== undefined && (obj.capacity = message.capacity);
-    message.closeHeight !== undefined &&
-      (obj.closeHeight = Math.round(message.closeHeight));
-    message.settledBalance !== undefined &&
-      (obj.settledBalance = message.settledBalance);
-    message.timeLockedBalance !== undefined &&
-      (obj.timeLockedBalance = message.timeLockedBalance);
-    message.closeType !== undefined &&
-      (obj.closeType = channelCloseSummary_ClosureTypeToJSON(
-        message.closeType,
-      ));
-    message.openInitiator !== undefined &&
-      (obj.openInitiator = initiatorToJSON(message.openInitiator));
-    message.closeInitiator !== undefined &&
-      (obj.closeInitiator = initiatorToJSON(message.closeInitiator));
+    message.closeHeight !== undefined && (obj.closeHeight = Math.round(message.closeHeight));
+    message.settledBalance !== undefined && (obj.settledBalance = message.settledBalance);
+    message.timeLockedBalance !== undefined && (obj.timeLockedBalance = message.timeLockedBalance);
+    message.closeType !== undefined && (obj.closeType = channelCloseSummary_ClosureTypeToJSON(message.closeType));
+    message.openInitiator !== undefined && (obj.openInitiator = initiatorToJSON(message.openInitiator));
+    message.closeInitiator !== undefined && (obj.closeInitiator = initiatorToJSON(message.closeInitiator));
     if (message.resolutions) {
-      obj.resolutions = message.resolutions.map((e) =>
-        e ? Resolution.toJSON(e) : undefined,
-      );
+      obj.resolutions = message.resolutions.map((e) => e ? Resolution.toJSON(e) : undefined);
     } else {
       obj.resolutions = [];
     }
@@ -9108,39 +8596,29 @@ export const ChannelCloseSummary = {
 
   fromPartial(object: DeepPartial<ChannelCloseSummary>): ChannelCloseSummary {
     const message = createBaseChannelCloseSummary();
-    message.channelPoint = object.channelPoint ?? '';
-    message.chanId = object.chanId ?? '0';
-    message.chainHash = object.chainHash ?? '';
-    message.closingTxHash = object.closingTxHash ?? '';
-    message.remotePubkey = object.remotePubkey ?? '';
-    message.capacity = object.capacity ?? '0';
+    message.channelPoint = object.channelPoint ?? "";
+    message.chanId = object.chanId ?? "0";
+    message.chainHash = object.chainHash ?? "";
+    message.closingTxHash = object.closingTxHash ?? "";
+    message.remotePubkey = object.remotePubkey ?? "";
+    message.capacity = object.capacity ?? "0";
     message.closeHeight = object.closeHeight ?? 0;
-    message.settledBalance = object.settledBalance ?? '0';
-    message.timeLockedBalance = object.timeLockedBalance ?? '0';
+    message.settledBalance = object.settledBalance ?? "0";
+    message.timeLockedBalance = object.timeLockedBalance ?? "0";
     message.closeType = object.closeType ?? 0;
     message.openInitiator = object.openInitiator ?? 0;
     message.closeInitiator = object.closeInitiator ?? 0;
-    message.resolutions =
-      object.resolutions?.map((e) => Resolution.fromPartial(e)) || [];
+    message.resolutions = object.resolutions?.map((e) => Resolution.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseResolution(): Resolution {
-  return {
-    resolutionType: 0,
-    outcome: 0,
-    outpoint: undefined,
-    amountSat: '0',
-    sweepTxid: '',
-  };
+  return { resolutionType: 0, outcome: 0, outpoint: undefined, amountSat: "0", sweepTxid: "" };
 }
 
 export const Resolution = {
-  encode(
-    message: Resolution,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Resolution, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.resolutionType !== 0) {
       writer.uint32(8).int32(message.resolutionType);
     }
@@ -9150,10 +8628,10 @@ export const Resolution = {
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(26).fork()).ldelim();
     }
-    if (message.amountSat !== '0') {
+    if (message.amountSat !== "0") {
       writer.uint32(32).uint64(message.amountSat);
     }
-    if (message.sweepTxid !== '') {
+    if (message.sweepTxid !== "") {
       writer.uint32(42).string(message.sweepTxid);
     }
     return writer;
@@ -9191,30 +8669,19 @@ export const Resolution = {
 
   fromJSON(object: any): Resolution {
     return {
-      resolutionType: isSet(object.resolutionType)
-        ? resolutionTypeFromJSON(object.resolutionType)
-        : 0,
-      outcome: isSet(object.outcome)
-        ? resolutionOutcomeFromJSON(object.outcome)
-        : 0,
-      outpoint: isSet(object.outpoint)
-        ? OutPoint.fromJSON(object.outpoint)
-        : undefined,
-      amountSat: isSet(object.amountSat) ? String(object.amountSat) : '0',
-      sweepTxid: isSet(object.sweepTxid) ? String(object.sweepTxid) : '',
+      resolutionType: isSet(object.resolutionType) ? resolutionTypeFromJSON(object.resolutionType) : 0,
+      outcome: isSet(object.outcome) ? resolutionOutcomeFromJSON(object.outcome) : 0,
+      outpoint: isSet(object.outpoint) ? OutPoint.fromJSON(object.outpoint) : undefined,
+      amountSat: isSet(object.amountSat) ? String(object.amountSat) : "0",
+      sweepTxid: isSet(object.sweepTxid) ? String(object.sweepTxid) : "",
     };
   },
 
   toJSON(message: Resolution): unknown {
     const obj: any = {};
-    message.resolutionType !== undefined &&
-      (obj.resolutionType = resolutionTypeToJSON(message.resolutionType));
-    message.outcome !== undefined &&
-      (obj.outcome = resolutionOutcomeToJSON(message.outcome));
-    message.outpoint !== undefined &&
-      (obj.outpoint = message.outpoint
-        ? OutPoint.toJSON(message.outpoint)
-        : undefined);
+    message.resolutionType !== undefined && (obj.resolutionType = resolutionTypeToJSON(message.resolutionType));
+    message.outcome !== undefined && (obj.outcome = resolutionOutcomeToJSON(message.outcome));
+    message.outpoint !== undefined && (obj.outpoint = message.outpoint ? OutPoint.toJSON(message.outpoint) : undefined);
     message.amountSat !== undefined && (obj.amountSat = message.amountSat);
     message.sweepTxid !== undefined && (obj.sweepTxid = message.sweepTxid);
     return obj;
@@ -9224,12 +8691,11 @@ export const Resolution = {
     const message = createBaseResolution();
     message.resolutionType = object.resolutionType ?? 0;
     message.outcome = object.outcome ?? 0;
-    message.outpoint =
-      object.outpoint !== undefined && object.outpoint !== null
-        ? OutPoint.fromPartial(object.outpoint)
-        : undefined;
-    message.amountSat = object.amountSat ?? '0';
-    message.sweepTxid = object.sweepTxid ?? '';
+    message.outpoint = (object.outpoint !== undefined && object.outpoint !== null)
+      ? OutPoint.fromPartial(object.outpoint)
+      : undefined;
+    message.amountSat = object.amountSat ?? "0";
+    message.sweepTxid = object.sweepTxid ?? "";
     return message;
   },
 };
@@ -9246,10 +8712,7 @@ function createBaseClosedChannelsRequest(): ClosedChannelsRequest {
 }
 
 export const ClosedChannelsRequest = {
-  encode(
-    message: ClosedChannelsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ClosedChannelsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.cooperative === true) {
       writer.uint32(8).bool(message.cooperative);
     }
@@ -9271,10 +8734,7 @@ export const ClosedChannelsRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ClosedChannelsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ClosedChannelsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClosedChannelsRequest();
@@ -9309,38 +8769,27 @@ export const ClosedChannelsRequest = {
 
   fromJSON(object: any): ClosedChannelsRequest {
     return {
-      cooperative: isSet(object.cooperative)
-        ? Boolean(object.cooperative)
-        : false,
+      cooperative: isSet(object.cooperative) ? Boolean(object.cooperative) : false,
       localForce: isSet(object.localForce) ? Boolean(object.localForce) : false,
-      remoteForce: isSet(object.remoteForce)
-        ? Boolean(object.remoteForce)
-        : false,
+      remoteForce: isSet(object.remoteForce) ? Boolean(object.remoteForce) : false,
       breach: isSet(object.breach) ? Boolean(object.breach) : false,
-      fundingCanceled: isSet(object.fundingCanceled)
-        ? Boolean(object.fundingCanceled)
-        : false,
+      fundingCanceled: isSet(object.fundingCanceled) ? Boolean(object.fundingCanceled) : false,
       abandoned: isSet(object.abandoned) ? Boolean(object.abandoned) : false,
     };
   },
 
   toJSON(message: ClosedChannelsRequest): unknown {
     const obj: any = {};
-    message.cooperative !== undefined &&
-      (obj.cooperative = message.cooperative);
+    message.cooperative !== undefined && (obj.cooperative = message.cooperative);
     message.localForce !== undefined && (obj.localForce = message.localForce);
-    message.remoteForce !== undefined &&
-      (obj.remoteForce = message.remoteForce);
+    message.remoteForce !== undefined && (obj.remoteForce = message.remoteForce);
     message.breach !== undefined && (obj.breach = message.breach);
-    message.fundingCanceled !== undefined &&
-      (obj.fundingCanceled = message.fundingCanceled);
+    message.fundingCanceled !== undefined && (obj.fundingCanceled = message.fundingCanceled);
     message.abandoned !== undefined && (obj.abandoned = message.abandoned);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ClosedChannelsRequest>,
-  ): ClosedChannelsRequest {
+  fromPartial(object: DeepPartial<ClosedChannelsRequest>): ClosedChannelsRequest {
     const message = createBaseClosedChannelsRequest();
     message.cooperative = object.cooperative ?? false;
     message.localForce = object.localForce ?? false;
@@ -9353,24 +8802,18 @@ export const ClosedChannelsRequest = {
 };
 
 function createBaseClosedChannelsResponse(): ClosedChannelsResponse {
-  return {channels: []};
+  return { channels: [] };
 }
 
 export const ClosedChannelsResponse = {
-  encode(
-    message: ClosedChannelsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ClosedChannelsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.channels) {
       ChannelCloseSummary.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ClosedChannelsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ClosedChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseClosedChannelsResponse();
@@ -9378,9 +8821,7 @@ export const ClosedChannelsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channels.push(
-            ChannelCloseSummary.decode(reader, reader.uint32()),
-          );
+          message.channels.push(ChannelCloseSummary.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -9392,87 +8833,77 @@ export const ClosedChannelsResponse = {
 
   fromJSON(object: any): ClosedChannelsResponse {
     return {
-      channels: Array.isArray(object?.channels)
-        ? object.channels.map((e: any) => ChannelCloseSummary.fromJSON(e))
-        : [],
+      channels: Array.isArray(object?.channels) ? object.channels.map((e: any) => ChannelCloseSummary.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: ClosedChannelsResponse): unknown {
     const obj: any = {};
     if (message.channels) {
-      obj.channels = message.channels.map((e) =>
-        e ? ChannelCloseSummary.toJSON(e) : undefined,
-      );
+      obj.channels = message.channels.map((e) => e ? ChannelCloseSummary.toJSON(e) : undefined);
     } else {
       obj.channels = [];
     }
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ClosedChannelsResponse>,
-  ): ClosedChannelsResponse {
+  fromPartial(object: DeepPartial<ClosedChannelsResponse>): ClosedChannelsResponse {
     const message = createBaseClosedChannelsResponse();
-    message.channels =
-      object.channels?.map((e) => ChannelCloseSummary.fromPartial(e)) || [];
+    message.channels = object.channels?.map((e) => ChannelCloseSummary.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBasePeer(): Peer {
   return {
-    pubKey: '',
-    address: '',
-    bytesSent: '0',
-    bytesRecv: '0',
-    satSent: '0',
-    satRecv: '0',
+    pubKey: "",
+    address: "",
+    bytesSent: "0",
+    bytesRecv: "0",
+    satSent: "0",
+    satRecv: "0",
     inbound: false,
-    pingTime: '0',
+    pingTime: "0",
     syncType: 0,
     features: {},
     errors: [],
     flapCount: 0,
-    lastFlapNs: '0',
+    lastFlapNs: "0",
     lastPingPayload: new Uint8Array(),
   };
 }
 
 export const Peer = {
   encode(message: Peer, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.pubKey !== '') {
+    if (message.pubKey !== "") {
       writer.uint32(10).string(message.pubKey);
     }
-    if (message.address !== '') {
+    if (message.address !== "") {
       writer.uint32(26).string(message.address);
     }
-    if (message.bytesSent !== '0') {
+    if (message.bytesSent !== "0") {
       writer.uint32(32).uint64(message.bytesSent);
     }
-    if (message.bytesRecv !== '0') {
+    if (message.bytesRecv !== "0") {
       writer.uint32(40).uint64(message.bytesRecv);
     }
-    if (message.satSent !== '0') {
+    if (message.satSent !== "0") {
       writer.uint32(48).int64(message.satSent);
     }
-    if (message.satRecv !== '0') {
+    if (message.satRecv !== "0") {
       writer.uint32(56).int64(message.satRecv);
     }
     if (message.inbound === true) {
       writer.uint32(64).bool(message.inbound);
     }
-    if (message.pingTime !== '0') {
+    if (message.pingTime !== "0") {
       writer.uint32(72).int64(message.pingTime);
     }
     if (message.syncType !== 0) {
       writer.uint32(80).int32(message.syncType);
     }
     Object.entries(message.features).forEach(([key, value]) => {
-      Peer_FeaturesEntry.encode(
-        {key: key as any, value},
-        writer.uint32(90).fork(),
-      ).ldelim();
+      Peer_FeaturesEntry.encode({ key: key as any, value }, writer.uint32(90).fork()).ldelim();
     });
     for (const v of message.errors) {
       TimestampedError.encode(v!, writer.uint32(98).fork()).ldelim();
@@ -9480,7 +8911,7 @@ export const Peer = {
     if (message.flapCount !== 0) {
       writer.uint32(104).int32(message.flapCount);
     }
-    if (message.lastFlapNs !== '0') {
+    if (message.lastFlapNs !== "0") {
       writer.uint32(112).int64(message.lastFlapNs);
     }
     if (message.lastPingPayload.length !== 0) {
@@ -9551,34 +8982,25 @@ export const Peer = {
 
   fromJSON(object: any): Peer {
     return {
-      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
-      address: isSet(object.address) ? String(object.address) : '',
-      bytesSent: isSet(object.bytesSent) ? String(object.bytesSent) : '0',
-      bytesRecv: isSet(object.bytesRecv) ? String(object.bytesRecv) : '0',
-      satSent: isSet(object.satSent) ? String(object.satSent) : '0',
-      satRecv: isSet(object.satRecv) ? String(object.satRecv) : '0',
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : "",
+      address: isSet(object.address) ? String(object.address) : "",
+      bytesSent: isSet(object.bytesSent) ? String(object.bytesSent) : "0",
+      bytesRecv: isSet(object.bytesRecv) ? String(object.bytesRecv) : "0",
+      satSent: isSet(object.satSent) ? String(object.satSent) : "0",
+      satRecv: isSet(object.satRecv) ? String(object.satRecv) : "0",
       inbound: isSet(object.inbound) ? Boolean(object.inbound) : false,
-      pingTime: isSet(object.pingTime) ? String(object.pingTime) : '0',
-      syncType: isSet(object.syncType)
-        ? peer_SyncTypeFromJSON(object.syncType)
-        : 0,
+      pingTime: isSet(object.pingTime) ? String(object.pingTime) : "0",
+      syncType: isSet(object.syncType) ? peer_SyncTypeFromJSON(object.syncType) : 0,
       features: isObject(object.features)
-        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
-            (acc, [key, value]) => {
-              acc[Number(key)] = Feature.fromJSON(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.features).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
+          acc[Number(key)] = Feature.fromJSON(value);
+          return acc;
+        }, {})
         : {},
-      errors: Array.isArray(object?.errors)
-        ? object.errors.map((e: any) => TimestampedError.fromJSON(e))
-        : [],
+      errors: Array.isArray(object?.errors) ? object.errors.map((e: any) => TimestampedError.fromJSON(e)) : [],
       flapCount: isSet(object.flapCount) ? Number(object.flapCount) : 0,
-      lastFlapNs: isSet(object.lastFlapNs) ? String(object.lastFlapNs) : '0',
-      lastPingPayload: isSet(object.lastPingPayload)
-        ? bytesFromBase64(object.lastPingPayload)
-        : new Uint8Array(),
+      lastFlapNs: isSet(object.lastFlapNs) ? String(object.lastFlapNs) : "0",
+      lastPingPayload: isSet(object.lastPingPayload) ? bytesFromBase64(object.lastPingPayload) : new Uint8Array(),
     };
   },
 
@@ -9592,8 +9014,7 @@ export const Peer = {
     message.satRecv !== undefined && (obj.satRecv = message.satRecv);
     message.inbound !== undefined && (obj.inbound = message.inbound);
     message.pingTime !== undefined && (obj.pingTime = message.pingTime);
-    message.syncType !== undefined &&
-      (obj.syncType = peer_SyncTypeToJSON(message.syncType));
+    message.syncType !== undefined && (obj.syncType = peer_SyncTypeToJSON(message.syncType));
     obj.features = {};
     if (message.features) {
       Object.entries(message.features).forEach(([k, v]) => {
@@ -9601,61 +9022,50 @@ export const Peer = {
       });
     }
     if (message.errors) {
-      obj.errors = message.errors.map((e) =>
-        e ? TimestampedError.toJSON(e) : undefined,
-      );
+      obj.errors = message.errors.map((e) => e ? TimestampedError.toJSON(e) : undefined);
     } else {
       obj.errors = [];
     }
-    message.flapCount !== undefined &&
-      (obj.flapCount = Math.round(message.flapCount));
+    message.flapCount !== undefined && (obj.flapCount = Math.round(message.flapCount));
     message.lastFlapNs !== undefined && (obj.lastFlapNs = message.lastFlapNs);
     message.lastPingPayload !== undefined &&
       (obj.lastPingPayload = base64FromBytes(
-        message.lastPingPayload !== undefined
-          ? message.lastPingPayload
-          : new Uint8Array(),
+        message.lastPingPayload !== undefined ? message.lastPingPayload : new Uint8Array(),
       ));
     return obj;
   },
 
   fromPartial(object: DeepPartial<Peer>): Peer {
     const message = createBasePeer();
-    message.pubKey = object.pubKey ?? '';
-    message.address = object.address ?? '';
-    message.bytesSent = object.bytesSent ?? '0';
-    message.bytesRecv = object.bytesRecv ?? '0';
-    message.satSent = object.satSent ?? '0';
-    message.satRecv = object.satRecv ?? '0';
+    message.pubKey = object.pubKey ?? "";
+    message.address = object.address ?? "";
+    message.bytesSent = object.bytesSent ?? "0";
+    message.bytesRecv = object.bytesRecv ?? "0";
+    message.satSent = object.satSent ?? "0";
+    message.satRecv = object.satRecv ?? "0";
     message.inbound = object.inbound ?? false;
-    message.pingTime = object.pingTime ?? '0';
+    message.pingTime = object.pingTime ?? "0";
     message.syncType = object.syncType ?? 0;
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
       return acc;
     }, {});
-    message.errors =
-      object.errors?.map((e) => TimestampedError.fromPartial(e)) || [];
+    message.errors = object.errors?.map((e) => TimestampedError.fromPartial(e)) || [];
     message.flapCount = object.flapCount ?? 0;
-    message.lastFlapNs = object.lastFlapNs ?? '0';
+    message.lastFlapNs = object.lastFlapNs ?? "0";
     message.lastPingPayload = object.lastPingPayload ?? new Uint8Array();
     return message;
   },
 };
 
 function createBasePeer_FeaturesEntry(): Peer_FeaturesEntry {
-  return {key: 0, value: undefined};
+  return { key: 0, value: undefined };
 }
 
 export const Peer_FeaturesEntry = {
-  encode(
-    message: Peer_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Peer_FeaturesEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
@@ -9696,35 +9106,30 @@ export const Peer_FeaturesEntry = {
   toJSON(message: Peer_FeaturesEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = Math.round(message.key));
-    message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    message.value !== undefined && (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<Peer_FeaturesEntry>): Peer_FeaturesEntry {
     const message = createBasePeer_FeaturesEntry();
     message.key = object.key ?? 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromPartial(object.value)
-        : undefined;
+    message.value = (object.value !== undefined && object.value !== null)
+      ? Feature.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
 
 function createBaseTimestampedError(): TimestampedError {
-  return {timestamp: '0', error: ''};
+  return { timestamp: "0", error: "" };
 }
 
 export const TimestampedError = {
-  encode(
-    message: TimestampedError,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.timestamp !== '0') {
+  encode(message: TimestampedError, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.timestamp !== "0") {
       writer.uint32(8).uint64(message.timestamp);
     }
-    if (message.error !== '') {
+    if (message.error !== "") {
       writer.uint32(18).string(message.error);
     }
     return writer;
@@ -9753,8 +9158,8 @@ export const TimestampedError = {
 
   fromJSON(object: any): TimestampedError {
     return {
-      timestamp: isSet(object.timestamp) ? String(object.timestamp) : '0',
-      error: isSet(object.error) ? String(object.error) : '',
+      timestamp: isSet(object.timestamp) ? String(object.timestamp) : "0",
+      error: isSet(object.error) ? String(object.error) : "",
     };
   },
 
@@ -9767,21 +9172,18 @@ export const TimestampedError = {
 
   fromPartial(object: DeepPartial<TimestampedError>): TimestampedError {
     const message = createBaseTimestampedError();
-    message.timestamp = object.timestamp ?? '0';
-    message.error = object.error ?? '';
+    message.timestamp = object.timestamp ?? "0";
+    message.error = object.error ?? "";
     return message;
   },
 };
 
 function createBaseListPeersRequest(): ListPeersRequest {
-  return {latestError: false};
+  return { latestError: false };
 }
 
 export const ListPeersRequest = {
-  encode(
-    message: ListPeersRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListPeersRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.latestError === true) {
       writer.uint32(8).bool(message.latestError);
     }
@@ -9807,17 +9209,12 @@ export const ListPeersRequest = {
   },
 
   fromJSON(object: any): ListPeersRequest {
-    return {
-      latestError: isSet(object.latestError)
-        ? Boolean(object.latestError)
-        : false,
-    };
+    return { latestError: isSet(object.latestError) ? Boolean(object.latestError) : false };
   },
 
   toJSON(message: ListPeersRequest): unknown {
     const obj: any = {};
-    message.latestError !== undefined &&
-      (obj.latestError = message.latestError);
+    message.latestError !== undefined && (obj.latestError = message.latestError);
     return obj;
   },
 
@@ -9829,14 +9226,11 @@ export const ListPeersRequest = {
 };
 
 function createBaseListPeersResponse(): ListPeersResponse {
-  return {peers: []};
+  return { peers: [] };
 }
 
 export const ListPeersResponse = {
-  encode(
-    message: ListPeersResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListPeersResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.peers) {
       Peer.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -9862,17 +9256,13 @@ export const ListPeersResponse = {
   },
 
   fromJSON(object: any): ListPeersResponse {
-    return {
-      peers: Array.isArray(object?.peers)
-        ? object.peers.map((e: any) => Peer.fromJSON(e))
-        : [],
-    };
+    return { peers: Array.isArray(object?.peers) ? object.peers.map((e: any) => Peer.fromJSON(e)) : [] };
   },
 
   toJSON(message: ListPeersResponse): unknown {
     const obj: any = {};
     if (message.peers) {
-      obj.peers = message.peers.map((e) => (e ? Peer.toJSON(e) : undefined));
+      obj.peers = message.peers.map((e) => e ? Peer.toJSON(e) : undefined);
     } else {
       obj.peers = [];
     }
@@ -9891,17 +9281,11 @@ function createBasePeerEventSubscription(): PeerEventSubscription {
 }
 
 export const PeerEventSubscription = {
-  encode(
-    _: PeerEventSubscription,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: PeerEventSubscription, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PeerEventSubscription {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PeerEventSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePeerEventSubscription();
@@ -9932,15 +9316,12 @@ export const PeerEventSubscription = {
 };
 
 function createBasePeerEvent(): PeerEvent {
-  return {pubKey: '', type: 0};
+  return { pubKey: "", type: 0 };
 }
 
 export const PeerEvent = {
-  encode(
-    message: PeerEvent,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.pubKey !== '') {
+  encode(message: PeerEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pubKey !== "") {
       writer.uint32(10).string(message.pubKey);
     }
     if (message.type !== 0) {
@@ -9972,7 +9353,7 @@ export const PeerEvent = {
 
   fromJSON(object: any): PeerEvent {
     return {
-      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : "",
       type: isSet(object.type) ? peerEvent_EventTypeFromJSON(object.type) : 0,
     };
   },
@@ -9980,14 +9361,13 @@ export const PeerEvent = {
   toJSON(message: PeerEvent): unknown {
     const obj: any = {};
     message.pubKey !== undefined && (obj.pubKey = message.pubKey);
-    message.type !== undefined &&
-      (obj.type = peerEvent_EventTypeToJSON(message.type));
+    message.type !== undefined && (obj.type = peerEvent_EventTypeToJSON(message.type));
     return obj;
   },
 
   fromPartial(object: DeepPartial<PeerEvent>): PeerEvent {
     const message = createBasePeerEvent();
-    message.pubKey = object.pubKey ?? '';
+    message.pubKey = object.pubKey ?? "";
     message.type = object.type ?? 0;
     return message;
   },
@@ -9998,10 +9378,7 @@ function createBaseGetInfoRequest(): GetInfoRequest {
 }
 
 export const GetInfoRequest = {
-  encode(
-    _: GetInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: GetInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -10037,18 +9414,18 @@ export const GetInfoRequest = {
 
 function createBaseGetInfoResponse(): GetInfoResponse {
   return {
-    version: '',
-    commitHash: '',
-    identityPubkey: '',
-    alias: '',
-    color: '',
+    version: "",
+    commitHash: "",
+    identityPubkey: "",
+    alias: "",
+    color: "",
     numPendingChannels: 0,
     numActiveChannels: 0,
     numInactiveChannels: 0,
     numPeers: 0,
     blockHeight: 0,
-    blockHash: '',
-    bestHeaderTimestamp: '0',
+    blockHash: "",
+    bestHeaderTimestamp: "0",
     syncedToChain: false,
     syncedToGraph: false,
     testnet: false,
@@ -10060,23 +9437,20 @@ function createBaseGetInfoResponse(): GetInfoResponse {
 }
 
 export const GetInfoResponse = {
-  encode(
-    message: GetInfoResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.version !== '') {
+  encode(message: GetInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.version !== "") {
       writer.uint32(114).string(message.version);
     }
-    if (message.commitHash !== '') {
+    if (message.commitHash !== "") {
       writer.uint32(162).string(message.commitHash);
     }
-    if (message.identityPubkey !== '') {
+    if (message.identityPubkey !== "") {
       writer.uint32(10).string(message.identityPubkey);
     }
-    if (message.alias !== '') {
+    if (message.alias !== "") {
       writer.uint32(18).string(message.alias);
     }
-    if (message.color !== '') {
+    if (message.color !== "") {
       writer.uint32(138).string(message.color);
     }
     if (message.numPendingChannels !== 0) {
@@ -10094,10 +9468,10 @@ export const GetInfoResponse = {
     if (message.blockHeight !== 0) {
       writer.uint32(48).uint32(message.blockHeight);
     }
-    if (message.blockHash !== '') {
+    if (message.blockHash !== "") {
       writer.uint32(66).string(message.blockHash);
     }
-    if (message.bestHeaderTimestamp !== '0') {
+    if (message.bestHeaderTimestamp !== "0") {
       writer.uint32(104).int64(message.bestHeaderTimestamp);
     }
     if (message.syncedToChain === true) {
@@ -10116,10 +9490,7 @@ export const GetInfoResponse = {
       writer.uint32(98).string(v!);
     }
     Object.entries(message.features).forEach(([key, value]) => {
-      GetInfoResponse_FeaturesEntry.encode(
-        {key: key as any, value},
-        writer.uint32(154).fork(),
-      ).ldelim();
+      GetInfoResponse_FeaturesEntry.encode({ key: key as any, value }, writer.uint32(154).fork()).ldelim();
     });
     if (message.requireHtlcInterceptor === true) {
       writer.uint32(168).bool(message.requireHtlcInterceptor);
@@ -10186,10 +9557,7 @@ export const GetInfoResponse = {
           message.uris.push(reader.string());
           break;
         case 19:
-          const entry19 = GetInfoResponse_FeaturesEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry19 = GetInfoResponse_FeaturesEntry.decode(reader, reader.uint32());
           if (entry19.value !== undefined) {
             message.features[entry19.key] = entry19.value;
           }
@@ -10207,53 +9575,30 @@ export const GetInfoResponse = {
 
   fromJSON(object: any): GetInfoResponse {
     return {
-      version: isSet(object.version) ? String(object.version) : '',
-      commitHash: isSet(object.commitHash) ? String(object.commitHash) : '',
-      identityPubkey: isSet(object.identityPubkey)
-        ? String(object.identityPubkey)
-        : '',
-      alias: isSet(object.alias) ? String(object.alias) : '',
-      color: isSet(object.color) ? String(object.color) : '',
-      numPendingChannels: isSet(object.numPendingChannels)
-        ? Number(object.numPendingChannels)
-        : 0,
-      numActiveChannels: isSet(object.numActiveChannels)
-        ? Number(object.numActiveChannels)
-        : 0,
-      numInactiveChannels: isSet(object.numInactiveChannels)
-        ? Number(object.numInactiveChannels)
-        : 0,
+      version: isSet(object.version) ? String(object.version) : "",
+      commitHash: isSet(object.commitHash) ? String(object.commitHash) : "",
+      identityPubkey: isSet(object.identityPubkey) ? String(object.identityPubkey) : "",
+      alias: isSet(object.alias) ? String(object.alias) : "",
+      color: isSet(object.color) ? String(object.color) : "",
+      numPendingChannels: isSet(object.numPendingChannels) ? Number(object.numPendingChannels) : 0,
+      numActiveChannels: isSet(object.numActiveChannels) ? Number(object.numActiveChannels) : 0,
+      numInactiveChannels: isSet(object.numInactiveChannels) ? Number(object.numInactiveChannels) : 0,
       numPeers: isSet(object.numPeers) ? Number(object.numPeers) : 0,
       blockHeight: isSet(object.blockHeight) ? Number(object.blockHeight) : 0,
-      blockHash: isSet(object.blockHash) ? String(object.blockHash) : '',
-      bestHeaderTimestamp: isSet(object.bestHeaderTimestamp)
-        ? String(object.bestHeaderTimestamp)
-        : '0',
-      syncedToChain: isSet(object.syncedToChain)
-        ? Boolean(object.syncedToChain)
-        : false,
-      syncedToGraph: isSet(object.syncedToGraph)
-        ? Boolean(object.syncedToGraph)
-        : false,
+      blockHash: isSet(object.blockHash) ? String(object.blockHash) : "",
+      bestHeaderTimestamp: isSet(object.bestHeaderTimestamp) ? String(object.bestHeaderTimestamp) : "0",
+      syncedToChain: isSet(object.syncedToChain) ? Boolean(object.syncedToChain) : false,
+      syncedToGraph: isSet(object.syncedToGraph) ? Boolean(object.syncedToGraph) : false,
       testnet: isSet(object.testnet) ? Boolean(object.testnet) : false,
-      chains: Array.isArray(object?.chains)
-        ? object.chains.map((e: any) => Chain.fromJSON(e))
-        : [],
-      uris: Array.isArray(object?.uris)
-        ? object.uris.map((e: any) => String(e))
-        : [],
+      chains: Array.isArray(object?.chains) ? object.chains.map((e: any) => Chain.fromJSON(e)) : [],
+      uris: Array.isArray(object?.uris) ? object.uris.map((e: any) => String(e)) : [],
       features: isObject(object.features)
-        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
-            (acc, [key, value]) => {
-              acc[Number(key)] = Feature.fromJSON(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.features).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
+          acc[Number(key)] = Feature.fromJSON(value);
+          return acc;
+        }, {})
         : {},
-      requireHtlcInterceptor: isSet(object.requireHtlcInterceptor)
-        ? Boolean(object.requireHtlcInterceptor)
-        : false,
+      requireHtlcInterceptor: isSet(object.requireHtlcInterceptor) ? Boolean(object.requireHtlcInterceptor) : false,
     };
   },
 
@@ -10261,30 +9606,21 @@ export const GetInfoResponse = {
     const obj: any = {};
     message.version !== undefined && (obj.version = message.version);
     message.commitHash !== undefined && (obj.commitHash = message.commitHash);
-    message.identityPubkey !== undefined &&
-      (obj.identityPubkey = message.identityPubkey);
+    message.identityPubkey !== undefined && (obj.identityPubkey = message.identityPubkey);
     message.alias !== undefined && (obj.alias = message.alias);
     message.color !== undefined && (obj.color = message.color);
-    message.numPendingChannels !== undefined &&
-      (obj.numPendingChannels = Math.round(message.numPendingChannels));
-    message.numActiveChannels !== undefined &&
-      (obj.numActiveChannels = Math.round(message.numActiveChannels));
-    message.numInactiveChannels !== undefined &&
-      (obj.numInactiveChannels = Math.round(message.numInactiveChannels));
-    message.numPeers !== undefined &&
-      (obj.numPeers = Math.round(message.numPeers));
-    message.blockHeight !== undefined &&
-      (obj.blockHeight = Math.round(message.blockHeight));
+    message.numPendingChannels !== undefined && (obj.numPendingChannels = Math.round(message.numPendingChannels));
+    message.numActiveChannels !== undefined && (obj.numActiveChannels = Math.round(message.numActiveChannels));
+    message.numInactiveChannels !== undefined && (obj.numInactiveChannels = Math.round(message.numInactiveChannels));
+    message.numPeers !== undefined && (obj.numPeers = Math.round(message.numPeers));
+    message.blockHeight !== undefined && (obj.blockHeight = Math.round(message.blockHeight));
     message.blockHash !== undefined && (obj.blockHash = message.blockHash);
-    message.bestHeaderTimestamp !== undefined &&
-      (obj.bestHeaderTimestamp = message.bestHeaderTimestamp);
-    message.syncedToChain !== undefined &&
-      (obj.syncedToChain = message.syncedToChain);
-    message.syncedToGraph !== undefined &&
-      (obj.syncedToGraph = message.syncedToGraph);
+    message.bestHeaderTimestamp !== undefined && (obj.bestHeaderTimestamp = message.bestHeaderTimestamp);
+    message.syncedToChain !== undefined && (obj.syncedToChain = message.syncedToChain);
+    message.syncedToGraph !== undefined && (obj.syncedToGraph = message.syncedToGraph);
     message.testnet !== undefined && (obj.testnet = message.testnet);
     if (message.chains) {
-      obj.chains = message.chains.map((e) => (e ? Chain.toJSON(e) : undefined));
+      obj.chains = message.chains.map((e) => e ? Chain.toJSON(e) : undefined);
     } else {
       obj.chains = [];
     }
@@ -10299,33 +9635,30 @@ export const GetInfoResponse = {
         obj.features[k] = Feature.toJSON(v);
       });
     }
-    message.requireHtlcInterceptor !== undefined &&
-      (obj.requireHtlcInterceptor = message.requireHtlcInterceptor);
+    message.requireHtlcInterceptor !== undefined && (obj.requireHtlcInterceptor = message.requireHtlcInterceptor);
     return obj;
   },
 
   fromPartial(object: DeepPartial<GetInfoResponse>): GetInfoResponse {
     const message = createBaseGetInfoResponse();
-    message.version = object.version ?? '';
-    message.commitHash = object.commitHash ?? '';
-    message.identityPubkey = object.identityPubkey ?? '';
-    message.alias = object.alias ?? '';
-    message.color = object.color ?? '';
+    message.version = object.version ?? "";
+    message.commitHash = object.commitHash ?? "";
+    message.identityPubkey = object.identityPubkey ?? "";
+    message.alias = object.alias ?? "";
+    message.color = object.color ?? "";
     message.numPendingChannels = object.numPendingChannels ?? 0;
     message.numActiveChannels = object.numActiveChannels ?? 0;
     message.numInactiveChannels = object.numInactiveChannels ?? 0;
     message.numPeers = object.numPeers ?? 0;
     message.blockHeight = object.blockHeight ?? 0;
-    message.blockHash = object.blockHash ?? '';
-    message.bestHeaderTimestamp = object.bestHeaderTimestamp ?? '0';
+    message.blockHash = object.blockHash ?? "";
+    message.bestHeaderTimestamp = object.bestHeaderTimestamp ?? "0";
     message.syncedToChain = object.syncedToChain ?? false;
     message.syncedToGraph = object.syncedToGraph ?? false;
     message.testnet = object.testnet ?? false;
     message.chains = object.chains?.map((e) => Chain.fromPartial(e)) || [];
     message.uris = object.uris?.map((e) => e) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
@@ -10337,14 +9670,11 @@ export const GetInfoResponse = {
 };
 
 function createBaseGetInfoResponse_FeaturesEntry(): GetInfoResponse_FeaturesEntry {
-  return {key: 0, value: undefined};
+  return { key: 0, value: undefined };
 }
 
 export const GetInfoResponse_FeaturesEntry = {
-  encode(
-    message: GetInfoResponse_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: GetInfoResponse_FeaturesEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
@@ -10354,10 +9684,7 @@ export const GetInfoResponse_FeaturesEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): GetInfoResponse_FeaturesEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetInfoResponse_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetInfoResponse_FeaturesEntry();
@@ -10388,20 +9715,16 @@ export const GetInfoResponse_FeaturesEntry = {
   toJSON(message: GetInfoResponse_FeaturesEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = Math.round(message.key));
-    message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    message.value !== undefined && (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<GetInfoResponse_FeaturesEntry>,
-  ): GetInfoResponse_FeaturesEntry {
+  fromPartial(object: DeepPartial<GetInfoResponse_FeaturesEntry>): GetInfoResponse_FeaturesEntry {
     const message = createBaseGetInfoResponse_FeaturesEntry();
     message.key = object.key ?? 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromPartial(object.value)
-        : undefined;
+    message.value = (object.value !== undefined && object.value !== null)
+      ? Feature.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
@@ -10411,17 +9734,11 @@ function createBaseGetRecoveryInfoRequest(): GetRecoveryInfoRequest {
 }
 
 export const GetRecoveryInfoRequest = {
-  encode(
-    _: GetRecoveryInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: GetRecoveryInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): GetRecoveryInfoRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetRecoveryInfoRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRecoveryInfoRequest();
@@ -10452,14 +9769,11 @@ export const GetRecoveryInfoRequest = {
 };
 
 function createBaseGetRecoveryInfoResponse(): GetRecoveryInfoResponse {
-  return {recoveryMode: false, recoveryFinished: false, progress: 0};
+  return { recoveryMode: false, recoveryFinished: false, progress: 0 };
 }
 
 export const GetRecoveryInfoResponse = {
-  encode(
-    message: GetRecoveryInfoResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: GetRecoveryInfoResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.recoveryMode === true) {
       writer.uint32(8).bool(message.recoveryMode);
     }
@@ -10472,10 +9786,7 @@ export const GetRecoveryInfoResponse = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): GetRecoveryInfoResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GetRecoveryInfoResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGetRecoveryInfoResponse();
@@ -10501,29 +9812,21 @@ export const GetRecoveryInfoResponse = {
 
   fromJSON(object: any): GetRecoveryInfoResponse {
     return {
-      recoveryMode: isSet(object.recoveryMode)
-        ? Boolean(object.recoveryMode)
-        : false,
-      recoveryFinished: isSet(object.recoveryFinished)
-        ? Boolean(object.recoveryFinished)
-        : false,
+      recoveryMode: isSet(object.recoveryMode) ? Boolean(object.recoveryMode) : false,
+      recoveryFinished: isSet(object.recoveryFinished) ? Boolean(object.recoveryFinished) : false,
       progress: isSet(object.progress) ? Number(object.progress) : 0,
     };
   },
 
   toJSON(message: GetRecoveryInfoResponse): unknown {
     const obj: any = {};
-    message.recoveryMode !== undefined &&
-      (obj.recoveryMode = message.recoveryMode);
-    message.recoveryFinished !== undefined &&
-      (obj.recoveryFinished = message.recoveryFinished);
+    message.recoveryMode !== undefined && (obj.recoveryMode = message.recoveryMode);
+    message.recoveryFinished !== undefined && (obj.recoveryFinished = message.recoveryFinished);
     message.progress !== undefined && (obj.progress = message.progress);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<GetRecoveryInfoResponse>,
-  ): GetRecoveryInfoResponse {
+  fromPartial(object: DeepPartial<GetRecoveryInfoResponse>): GetRecoveryInfoResponse {
     const message = createBaseGetRecoveryInfoResponse();
     message.recoveryMode = object.recoveryMode ?? false;
     message.recoveryFinished = object.recoveryFinished ?? false;
@@ -10533,15 +9836,15 @@ export const GetRecoveryInfoResponse = {
 };
 
 function createBaseChain(): Chain {
-  return {chain: '', network: ''};
+  return { chain: "", network: "" };
 }
 
 export const Chain = {
   encode(message: Chain, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chain !== '') {
+    if (message.chain !== "") {
       writer.uint32(10).string(message.chain);
     }
-    if (message.network !== '') {
+    if (message.network !== "") {
       writer.uint32(18).string(message.network);
     }
     return writer;
@@ -10570,8 +9873,8 @@ export const Chain = {
 
   fromJSON(object: any): Chain {
     return {
-      chain: isSet(object.chain) ? String(object.chain) : '',
-      network: isSet(object.network) ? String(object.network) : '',
+      chain: isSet(object.chain) ? String(object.chain) : "",
+      network: isSet(object.network) ? String(object.network) : "",
     };
   },
 
@@ -10584,21 +9887,18 @@ export const Chain = {
 
   fromPartial(object: DeepPartial<Chain>): Chain {
     const message = createBaseChain();
-    message.chain = object.chain ?? '';
-    message.network = object.network ?? '';
+    message.chain = object.chain ?? "";
+    message.network = object.network ?? "";
     return message;
   },
 };
 
 function createBaseConfirmationUpdate(): ConfirmationUpdate {
-  return {blockSha: new Uint8Array(), blockHeight: 0, numConfsLeft: 0};
+  return { blockSha: new Uint8Array(), blockHeight: 0, numConfsLeft: 0 };
 }
 
 export const ConfirmationUpdate = {
-  encode(
-    message: ConfirmationUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ConfirmationUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.blockSha.length !== 0) {
       writer.uint32(10).bytes(message.blockSha);
     }
@@ -10637,26 +9937,18 @@ export const ConfirmationUpdate = {
 
   fromJSON(object: any): ConfirmationUpdate {
     return {
-      blockSha: isSet(object.blockSha)
-        ? bytesFromBase64(object.blockSha)
-        : new Uint8Array(),
+      blockSha: isSet(object.blockSha) ? bytesFromBase64(object.blockSha) : new Uint8Array(),
       blockHeight: isSet(object.blockHeight) ? Number(object.blockHeight) : 0,
-      numConfsLeft: isSet(object.numConfsLeft)
-        ? Number(object.numConfsLeft)
-        : 0,
+      numConfsLeft: isSet(object.numConfsLeft) ? Number(object.numConfsLeft) : 0,
     };
   },
 
   toJSON(message: ConfirmationUpdate): unknown {
     const obj: any = {};
     message.blockSha !== undefined &&
-      (obj.blockSha = base64FromBytes(
-        message.blockSha !== undefined ? message.blockSha : new Uint8Array(),
-      ));
-    message.blockHeight !== undefined &&
-      (obj.blockHeight = Math.round(message.blockHeight));
-    message.numConfsLeft !== undefined &&
-      (obj.numConfsLeft = Math.round(message.numConfsLeft));
+      (obj.blockSha = base64FromBytes(message.blockSha !== undefined ? message.blockSha : new Uint8Array()));
+    message.blockHeight !== undefined && (obj.blockHeight = Math.round(message.blockHeight));
+    message.numConfsLeft !== undefined && (obj.numConfsLeft = Math.round(message.numConfsLeft));
     return obj;
   },
 
@@ -10670,19 +9962,13 @@ export const ConfirmationUpdate = {
 };
 
 function createBaseChannelOpenUpdate(): ChannelOpenUpdate {
-  return {channelPoint: undefined};
+  return { channelPoint: undefined };
 }
 
 export const ChannelOpenUpdate = {
-  encode(
-    message: ChannelOpenUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelOpenUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.channelPoint !== undefined) {
-      ChannelPoint.encode(
-        message.channelPoint,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      ChannelPoint.encode(message.channelPoint, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
@@ -10706,41 +9992,31 @@ export const ChannelOpenUpdate = {
   },
 
   fromJSON(object: any): ChannelOpenUpdate {
-    return {
-      channelPoint: isSet(object.channelPoint)
-        ? ChannelPoint.fromJSON(object.channelPoint)
-        : undefined,
-    };
+    return { channelPoint: isSet(object.channelPoint) ? ChannelPoint.fromJSON(object.channelPoint) : undefined };
   },
 
   toJSON(message: ChannelOpenUpdate): unknown {
     const obj: any = {};
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint
-        ? ChannelPoint.toJSON(message.channelPoint)
-        : undefined);
+      (obj.channelPoint = message.channelPoint ? ChannelPoint.toJSON(message.channelPoint) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelOpenUpdate>): ChannelOpenUpdate {
     const message = createBaseChannelOpenUpdate();
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
-        ? ChannelPoint.fromPartial(object.channelPoint)
-        : undefined;
+    message.channelPoint = (object.channelPoint !== undefined && object.channelPoint !== null)
+      ? ChannelPoint.fromPartial(object.channelPoint)
+      : undefined;
     return message;
   },
 };
 
 function createBaseChannelCloseUpdate(): ChannelCloseUpdate {
-  return {closingTxid: new Uint8Array(), success: false};
+  return { closingTxid: new Uint8Array(), success: false };
 }
 
 export const ChannelCloseUpdate = {
-  encode(
-    message: ChannelCloseUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelCloseUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.closingTxid.length !== 0) {
       writer.uint32(10).bytes(message.closingTxid);
     }
@@ -10773,9 +10049,7 @@ export const ChannelCloseUpdate = {
 
   fromJSON(object: any): ChannelCloseUpdate {
     return {
-      closingTxid: isSet(object.closingTxid)
-        ? bytesFromBase64(object.closingTxid)
-        : new Uint8Array(),
+      closingTxid: isSet(object.closingTxid) ? bytesFromBase64(object.closingTxid) : new Uint8Array(),
       success: isSet(object.success) ? Boolean(object.success) : false,
     };
   },
@@ -10783,11 +10057,7 @@ export const ChannelCloseUpdate = {
   toJSON(message: ChannelCloseUpdate): unknown {
     const obj: any = {};
     message.closingTxid !== undefined &&
-      (obj.closingTxid = base64FromBytes(
-        message.closingTxid !== undefined
-          ? message.closingTxid
-          : new Uint8Array(),
-      ));
+      (obj.closingTxid = base64FromBytes(message.closingTxid !== undefined ? message.closingTxid : new Uint8Array()));
     message.success !== undefined && (obj.success = message.success);
     return obj;
   },
@@ -10805,22 +10075,16 @@ function createBaseCloseChannelRequest(): CloseChannelRequest {
     channelPoint: undefined,
     force: false,
     targetConf: 0,
-    satPerByte: '0',
-    deliveryAddress: '',
-    satPerVbyte: '0',
+    satPerByte: "0",
+    deliveryAddress: "",
+    satPerVbyte: "0",
   };
 }
 
 export const CloseChannelRequest = {
-  encode(
-    message: CloseChannelRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: CloseChannelRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.channelPoint !== undefined) {
-      ChannelPoint.encode(
-        message.channelPoint,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      ChannelPoint.encode(message.channelPoint, writer.uint32(10).fork()).ldelim();
     }
     if (message.force === true) {
       writer.uint32(16).bool(message.force);
@@ -10828,13 +10092,13 @@ export const CloseChannelRequest = {
     if (message.targetConf !== 0) {
       writer.uint32(24).int32(message.targetConf);
     }
-    if (message.satPerByte !== '0') {
+    if (message.satPerByte !== "0") {
       writer.uint32(32).int64(message.satPerByte);
     }
-    if (message.deliveryAddress !== '') {
+    if (message.deliveryAddress !== "") {
       writer.uint32(42).string(message.deliveryAddress);
     }
-    if (message.satPerVbyte !== '0') {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(48).uint64(message.satPerVbyte);
     }
     return writer;
@@ -10875,71 +10139,52 @@ export const CloseChannelRequest = {
 
   fromJSON(object: any): CloseChannelRequest {
     return {
-      channelPoint: isSet(object.channelPoint)
-        ? ChannelPoint.fromJSON(object.channelPoint)
-        : undefined,
+      channelPoint: isSet(object.channelPoint) ? ChannelPoint.fromJSON(object.channelPoint) : undefined,
       force: isSet(object.force) ? Boolean(object.force) : false,
       targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
-      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : '0',
-      deliveryAddress: isSet(object.deliveryAddress)
-        ? String(object.deliveryAddress)
-        : '',
-      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : "0",
+      deliveryAddress: isSet(object.deliveryAddress) ? String(object.deliveryAddress) : "",
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : "0",
     };
   },
 
   toJSON(message: CloseChannelRequest): unknown {
     const obj: any = {};
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint
-        ? ChannelPoint.toJSON(message.channelPoint)
-        : undefined);
+      (obj.channelPoint = message.channelPoint ? ChannelPoint.toJSON(message.channelPoint) : undefined);
     message.force !== undefined && (obj.force = message.force);
-    message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
+    message.targetConf !== undefined && (obj.targetConf = Math.round(message.targetConf));
     message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
-    message.deliveryAddress !== undefined &&
-      (obj.deliveryAddress = message.deliveryAddress);
-    message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
+    message.deliveryAddress !== undefined && (obj.deliveryAddress = message.deliveryAddress);
+    message.satPerVbyte !== undefined && (obj.satPerVbyte = message.satPerVbyte);
     return obj;
   },
 
   fromPartial(object: DeepPartial<CloseChannelRequest>): CloseChannelRequest {
     const message = createBaseCloseChannelRequest();
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
-        ? ChannelPoint.fromPartial(object.channelPoint)
-        : undefined;
+    message.channelPoint = (object.channelPoint !== undefined && object.channelPoint !== null)
+      ? ChannelPoint.fromPartial(object.channelPoint)
+      : undefined;
     message.force = object.force ?? false;
     message.targetConf = object.targetConf ?? 0;
-    message.satPerByte = object.satPerByte ?? '0';
-    message.deliveryAddress = object.deliveryAddress ?? '';
-    message.satPerVbyte = object.satPerVbyte ?? '0';
+    message.satPerByte = object.satPerByte ?? "0";
+    message.deliveryAddress = object.deliveryAddress ?? "";
+    message.satPerVbyte = object.satPerVbyte ?? "0";
     return message;
   },
 };
 
 function createBaseCloseStatusUpdate(): CloseStatusUpdate {
-  return {closePending: undefined, chanClose: undefined};
+  return { closePending: undefined, chanClose: undefined };
 }
 
 export const CloseStatusUpdate = {
-  encode(
-    message: CloseStatusUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: CloseStatusUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.closePending !== undefined) {
-      PendingUpdate.encode(
-        message.closePending,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      PendingUpdate.encode(message.closePending, writer.uint32(10).fork()).ldelim();
     }
     if (message.chanClose !== undefined) {
-      ChannelCloseUpdate.encode(
-        message.chanClose,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      ChannelCloseUpdate.encode(message.chanClose, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
@@ -10955,10 +10200,7 @@ export const CloseStatusUpdate = {
           message.closePending = PendingUpdate.decode(reader, reader.uint32());
           break;
         case 3:
-          message.chanClose = ChannelCloseUpdate.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.chanClose = ChannelCloseUpdate.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -10970,51 +10212,38 @@ export const CloseStatusUpdate = {
 
   fromJSON(object: any): CloseStatusUpdate {
     return {
-      closePending: isSet(object.closePending)
-        ? PendingUpdate.fromJSON(object.closePending)
-        : undefined,
-      chanClose: isSet(object.chanClose)
-        ? ChannelCloseUpdate.fromJSON(object.chanClose)
-        : undefined,
+      closePending: isSet(object.closePending) ? PendingUpdate.fromJSON(object.closePending) : undefined,
+      chanClose: isSet(object.chanClose) ? ChannelCloseUpdate.fromJSON(object.chanClose) : undefined,
     };
   },
 
   toJSON(message: CloseStatusUpdate): unknown {
     const obj: any = {};
     message.closePending !== undefined &&
-      (obj.closePending = message.closePending
-        ? PendingUpdate.toJSON(message.closePending)
-        : undefined);
+      (obj.closePending = message.closePending ? PendingUpdate.toJSON(message.closePending) : undefined);
     message.chanClose !== undefined &&
-      (obj.chanClose = message.chanClose
-        ? ChannelCloseUpdate.toJSON(message.chanClose)
-        : undefined);
+      (obj.chanClose = message.chanClose ? ChannelCloseUpdate.toJSON(message.chanClose) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<CloseStatusUpdate>): CloseStatusUpdate {
     const message = createBaseCloseStatusUpdate();
-    message.closePending =
-      object.closePending !== undefined && object.closePending !== null
-        ? PendingUpdate.fromPartial(object.closePending)
-        : undefined;
-    message.chanClose =
-      object.chanClose !== undefined && object.chanClose !== null
-        ? ChannelCloseUpdate.fromPartial(object.chanClose)
-        : undefined;
+    message.closePending = (object.closePending !== undefined && object.closePending !== null)
+      ? PendingUpdate.fromPartial(object.closePending)
+      : undefined;
+    message.chanClose = (object.chanClose !== undefined && object.chanClose !== null)
+      ? ChannelCloseUpdate.fromPartial(object.chanClose)
+      : undefined;
     return message;
   },
 };
 
 function createBasePendingUpdate(): PendingUpdate {
-  return {txid: new Uint8Array(), outputIndex: 0};
+  return { txid: new Uint8Array(), outputIndex: 0 };
 }
 
 export const PendingUpdate = {
-  encode(
-    message: PendingUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PendingUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.txid.length !== 0) {
       writer.uint32(10).bytes(message.txid);
     }
@@ -11047,9 +10276,7 @@ export const PendingUpdate = {
 
   fromJSON(object: any): PendingUpdate {
     return {
-      txid: isSet(object.txid)
-        ? bytesFromBase64(object.txid)
-        : new Uint8Array(),
+      txid: isSet(object.txid) ? bytesFromBase64(object.txid) : new Uint8Array(),
       outputIndex: isSet(object.outputIndex) ? Number(object.outputIndex) : 0,
     };
   },
@@ -11057,11 +10284,8 @@ export const PendingUpdate = {
   toJSON(message: PendingUpdate): unknown {
     const obj: any = {};
     message.txid !== undefined &&
-      (obj.txid = base64FromBytes(
-        message.txid !== undefined ? message.txid : new Uint8Array(),
-      ));
-    message.outputIndex !== undefined &&
-      (obj.outputIndex = Math.round(message.outputIndex));
+      (obj.txid = base64FromBytes(message.txid !== undefined ? message.txid : new Uint8Array()));
+    message.outputIndex !== undefined && (obj.outputIndex = Math.round(message.outputIndex));
     return obj;
   },
 
@@ -11074,18 +10298,15 @@ export const PendingUpdate = {
 };
 
 function createBaseReadyForPsbtFunding(): ReadyForPsbtFunding {
-  return {fundingAddress: '', fundingAmount: '0', psbt: new Uint8Array()};
+  return { fundingAddress: "", fundingAmount: "0", psbt: new Uint8Array() };
 }
 
 export const ReadyForPsbtFunding = {
-  encode(
-    message: ReadyForPsbtFunding,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.fundingAddress !== '') {
+  encode(message: ReadyForPsbtFunding, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.fundingAddress !== "") {
       writer.uint32(10).string(message.fundingAddress);
     }
-    if (message.fundingAmount !== '0') {
+    if (message.fundingAmount !== "0") {
       writer.uint32(16).int64(message.fundingAmount);
     }
     if (message.psbt.length !== 0) {
@@ -11120,63 +10341,43 @@ export const ReadyForPsbtFunding = {
 
   fromJSON(object: any): ReadyForPsbtFunding {
     return {
-      fundingAddress: isSet(object.fundingAddress)
-        ? String(object.fundingAddress)
-        : '',
-      fundingAmount: isSet(object.fundingAmount)
-        ? String(object.fundingAmount)
-        : '0',
-      psbt: isSet(object.psbt)
-        ? bytesFromBase64(object.psbt)
-        : new Uint8Array(),
+      fundingAddress: isSet(object.fundingAddress) ? String(object.fundingAddress) : "",
+      fundingAmount: isSet(object.fundingAmount) ? String(object.fundingAmount) : "0",
+      psbt: isSet(object.psbt) ? bytesFromBase64(object.psbt) : new Uint8Array(),
     };
   },
 
   toJSON(message: ReadyForPsbtFunding): unknown {
     const obj: any = {};
-    message.fundingAddress !== undefined &&
-      (obj.fundingAddress = message.fundingAddress);
-    message.fundingAmount !== undefined &&
-      (obj.fundingAmount = message.fundingAmount);
+    message.fundingAddress !== undefined && (obj.fundingAddress = message.fundingAddress);
+    message.fundingAmount !== undefined && (obj.fundingAmount = message.fundingAmount);
     message.psbt !== undefined &&
-      (obj.psbt = base64FromBytes(
-        message.psbt !== undefined ? message.psbt : new Uint8Array(),
-      ));
+      (obj.psbt = base64FromBytes(message.psbt !== undefined ? message.psbt : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<ReadyForPsbtFunding>): ReadyForPsbtFunding {
     const message = createBaseReadyForPsbtFunding();
-    message.fundingAddress = object.fundingAddress ?? '';
-    message.fundingAmount = object.fundingAmount ?? '0';
+    message.fundingAddress = object.fundingAddress ?? "";
+    message.fundingAmount = object.fundingAmount ?? "0";
     message.psbt = object.psbt ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseBatchOpenChannelRequest(): BatchOpenChannelRequest {
-  return {
-    channels: [],
-    targetConf: 0,
-    satPerVbyte: '0',
-    minConfs: 0,
-    spendUnconfirmed: false,
-    label: '',
-  };
+  return { channels: [], targetConf: 0, satPerVbyte: "0", minConfs: 0, spendUnconfirmed: false, label: "" };
 }
 
 export const BatchOpenChannelRequest = {
-  encode(
-    message: BatchOpenChannelRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: BatchOpenChannelRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.channels) {
       BatchOpenChannel.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     if (message.targetConf !== 0) {
       writer.uint32(16).int32(message.targetConf);
     }
-    if (message.satPerVbyte !== '0') {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(24).int64(message.satPerVbyte);
     }
     if (message.minConfs !== 0) {
@@ -11185,16 +10386,13 @@ export const BatchOpenChannelRequest = {
     if (message.spendUnconfirmed === true) {
       writer.uint32(40).bool(message.spendUnconfirmed);
     }
-    if (message.label !== '') {
+    if (message.label !== "") {
       writer.uint32(50).string(message.label);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): BatchOpenChannelRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): BatchOpenChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBatchOpenChannelRequest();
@@ -11202,9 +10400,7 @@ export const BatchOpenChannelRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channels.push(
-            BatchOpenChannel.decode(reader, reader.uint32()),
-          );
+          message.channels.push(BatchOpenChannel.decode(reader, reader.uint32()));
           break;
         case 2:
           message.targetConf = reader.int32();
@@ -11231,51 +10427,38 @@ export const BatchOpenChannelRequest = {
 
   fromJSON(object: any): BatchOpenChannelRequest {
     return {
-      channels: Array.isArray(object?.channels)
-        ? object.channels.map((e: any) => BatchOpenChannel.fromJSON(e))
-        : [],
+      channels: Array.isArray(object?.channels) ? object.channels.map((e: any) => BatchOpenChannel.fromJSON(e)) : [],
       targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
-      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : "0",
       minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
-      spendUnconfirmed: isSet(object.spendUnconfirmed)
-        ? Boolean(object.spendUnconfirmed)
-        : false,
-      label: isSet(object.label) ? String(object.label) : '',
+      spendUnconfirmed: isSet(object.spendUnconfirmed) ? Boolean(object.spendUnconfirmed) : false,
+      label: isSet(object.label) ? String(object.label) : "",
     };
   },
 
   toJSON(message: BatchOpenChannelRequest): unknown {
     const obj: any = {};
     if (message.channels) {
-      obj.channels = message.channels.map((e) =>
-        e ? BatchOpenChannel.toJSON(e) : undefined,
-      );
+      obj.channels = message.channels.map((e) => e ? BatchOpenChannel.toJSON(e) : undefined);
     } else {
       obj.channels = [];
     }
-    message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
-    message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
-    message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
-    message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
+    message.targetConf !== undefined && (obj.targetConf = Math.round(message.targetConf));
+    message.satPerVbyte !== undefined && (obj.satPerVbyte = message.satPerVbyte);
+    message.minConfs !== undefined && (obj.minConfs = Math.round(message.minConfs));
+    message.spendUnconfirmed !== undefined && (obj.spendUnconfirmed = message.spendUnconfirmed);
     message.label !== undefined && (obj.label = message.label);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<BatchOpenChannelRequest>,
-  ): BatchOpenChannelRequest {
+  fromPartial(object: DeepPartial<BatchOpenChannelRequest>): BatchOpenChannelRequest {
     const message = createBaseBatchOpenChannelRequest();
-    message.channels =
-      object.channels?.map((e) => BatchOpenChannel.fromPartial(e)) || [];
+    message.channels = object.channels?.map((e) => BatchOpenChannel.fromPartial(e)) || [];
     message.targetConf = object.targetConf ?? 0;
-    message.satPerVbyte = object.satPerVbyte ?? '0';
+    message.satPerVbyte = object.satPerVbyte ?? "0";
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
-    message.label = object.label ?? '';
+    message.label = object.label ?? "";
     return message;
   },
 };
@@ -11283,41 +10466,38 @@ export const BatchOpenChannelRequest = {
 function createBaseBatchOpenChannel(): BatchOpenChannel {
   return {
     nodePubkey: new Uint8Array(),
-    localFundingAmount: '0',
-    pushSat: '0',
+    localFundingAmount: "0",
+    pushSat: "0",
     private: false,
-    minHtlcMsat: '0',
+    minHtlcMsat: "0",
     remoteCsvDelay: 0,
-    closeAddress: '',
+    closeAddress: "",
     pendingChanId: new Uint8Array(),
     commitmentType: 0,
   };
 }
 
 export const BatchOpenChannel = {
-  encode(
-    message: BatchOpenChannel,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: BatchOpenChannel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.nodePubkey.length !== 0) {
       writer.uint32(10).bytes(message.nodePubkey);
     }
-    if (message.localFundingAmount !== '0') {
+    if (message.localFundingAmount !== "0") {
       writer.uint32(16).int64(message.localFundingAmount);
     }
-    if (message.pushSat !== '0') {
+    if (message.pushSat !== "0") {
       writer.uint32(24).int64(message.pushSat);
     }
     if (message.private === true) {
       writer.uint32(32).bool(message.private);
     }
-    if (message.minHtlcMsat !== '0') {
+    if (message.minHtlcMsat !== "0") {
       writer.uint32(40).int64(message.minHtlcMsat);
     }
     if (message.remoteCsvDelay !== 0) {
       writer.uint32(48).uint32(message.remoteCsvDelay);
     }
-    if (message.closeAddress !== '') {
+    if (message.closeAddress !== "") {
       writer.uint32(58).string(message.closeAddress);
     }
     if (message.pendingChanId.length !== 0) {
@@ -11373,68 +10553,45 @@ export const BatchOpenChannel = {
 
   fromJSON(object: any): BatchOpenChannel {
     return {
-      nodePubkey: isSet(object.nodePubkey)
-        ? bytesFromBase64(object.nodePubkey)
-        : new Uint8Array(),
-      localFundingAmount: isSet(object.localFundingAmount)
-        ? String(object.localFundingAmount)
-        : '0',
-      pushSat: isSet(object.pushSat) ? String(object.pushSat) : '0',
+      nodePubkey: isSet(object.nodePubkey) ? bytesFromBase64(object.nodePubkey) : new Uint8Array(),
+      localFundingAmount: isSet(object.localFundingAmount) ? String(object.localFundingAmount) : "0",
+      pushSat: isSet(object.pushSat) ? String(object.pushSat) : "0",
       private: isSet(object.private) ? Boolean(object.private) : false,
-      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : '0',
-      remoteCsvDelay: isSet(object.remoteCsvDelay)
-        ? Number(object.remoteCsvDelay)
-        : 0,
-      closeAddress: isSet(object.closeAddress)
-        ? String(object.closeAddress)
-        : '',
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
-      commitmentType: isSet(object.commitmentType)
-        ? commitmentTypeFromJSON(object.commitmentType)
-        : 0,
+      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : "0",
+      remoteCsvDelay: isSet(object.remoteCsvDelay) ? Number(object.remoteCsvDelay) : 0,
+      closeAddress: isSet(object.closeAddress) ? String(object.closeAddress) : "",
+      pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array(),
+      commitmentType: isSet(object.commitmentType) ? commitmentTypeFromJSON(object.commitmentType) : 0,
     };
   },
 
   toJSON(message: BatchOpenChannel): unknown {
     const obj: any = {};
     message.nodePubkey !== undefined &&
-      (obj.nodePubkey = base64FromBytes(
-        message.nodePubkey !== undefined
-          ? message.nodePubkey
-          : new Uint8Array(),
-      ));
-    message.localFundingAmount !== undefined &&
-      (obj.localFundingAmount = message.localFundingAmount);
+      (obj.nodePubkey = base64FromBytes(message.nodePubkey !== undefined ? message.nodePubkey : new Uint8Array()));
+    message.localFundingAmount !== undefined && (obj.localFundingAmount = message.localFundingAmount);
     message.pushSat !== undefined && (obj.pushSat = message.pushSat);
     message.private !== undefined && (obj.private = message.private);
-    message.minHtlcMsat !== undefined &&
-      (obj.minHtlcMsat = message.minHtlcMsat);
-    message.remoteCsvDelay !== undefined &&
-      (obj.remoteCsvDelay = Math.round(message.remoteCsvDelay));
-    message.closeAddress !== undefined &&
-      (obj.closeAddress = message.closeAddress);
+    message.minHtlcMsat !== undefined && (obj.minHtlcMsat = message.minHtlcMsat);
+    message.remoteCsvDelay !== undefined && (obj.remoteCsvDelay = Math.round(message.remoteCsvDelay));
+    message.closeAddress !== undefined && (obj.closeAddress = message.closeAddress);
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
-    message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.commitmentType !== undefined && (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
     return obj;
   },
 
   fromPartial(object: DeepPartial<BatchOpenChannel>): BatchOpenChannel {
     const message = createBaseBatchOpenChannel();
     message.nodePubkey = object.nodePubkey ?? new Uint8Array();
-    message.localFundingAmount = object.localFundingAmount ?? '0';
-    message.pushSat = object.pushSat ?? '0';
+    message.localFundingAmount = object.localFundingAmount ?? "0";
+    message.pushSat = object.pushSat ?? "0";
     message.private = object.private ?? false;
-    message.minHtlcMsat = object.minHtlcMsat ?? '0';
+    message.minHtlcMsat = object.minHtlcMsat ?? "0";
     message.remoteCsvDelay = object.remoteCsvDelay ?? 0;
-    message.closeAddress = object.closeAddress ?? '';
+    message.closeAddress = object.closeAddress ?? "";
     message.pendingChanId = object.pendingChanId ?? new Uint8Array();
     message.commitmentType = object.commitmentType ?? 0;
     return message;
@@ -11442,24 +10599,18 @@ export const BatchOpenChannel = {
 };
 
 function createBaseBatchOpenChannelResponse(): BatchOpenChannelResponse {
-  return {pendingChannels: []};
+  return { pendingChannels: [] };
 }
 
 export const BatchOpenChannelResponse = {
-  encode(
-    message: BatchOpenChannelResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: BatchOpenChannelResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.pendingChannels) {
       PendingUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): BatchOpenChannelResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): BatchOpenChannelResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBatchOpenChannelResponse();
@@ -11467,9 +10618,7 @@ export const BatchOpenChannelResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.pendingChannels.push(
-            PendingUpdate.decode(reader, reader.uint32()),
-          );
+          message.pendingChannels.push(PendingUpdate.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -11490,42 +10639,37 @@ export const BatchOpenChannelResponse = {
   toJSON(message: BatchOpenChannelResponse): unknown {
     const obj: any = {};
     if (message.pendingChannels) {
-      obj.pendingChannels = message.pendingChannels.map((e) =>
-        e ? PendingUpdate.toJSON(e) : undefined,
-      );
+      obj.pendingChannels = message.pendingChannels.map((e) => e ? PendingUpdate.toJSON(e) : undefined);
     } else {
       obj.pendingChannels = [];
     }
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<BatchOpenChannelResponse>,
-  ): BatchOpenChannelResponse {
+  fromPartial(object: DeepPartial<BatchOpenChannelResponse>): BatchOpenChannelResponse {
     const message = createBaseBatchOpenChannelResponse();
-    message.pendingChannels =
-      object.pendingChannels?.map((e) => PendingUpdate.fromPartial(e)) || [];
+    message.pendingChannels = object.pendingChannels?.map((e) => PendingUpdate.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseOpenChannelRequest(): OpenChannelRequest {
   return {
-    satPerVbyte: '0',
+    satPerVbyte: "0",
     nodePubkey: new Uint8Array(),
-    nodePubkeyString: '',
-    localFundingAmount: '0',
-    pushSat: '0',
+    nodePubkeyString: "",
+    localFundingAmount: "0",
+    pushSat: "0",
     targetConf: 0,
-    satPerByte: '0',
+    satPerByte: "0",
     private: false,
-    minHtlcMsat: '0',
+    minHtlcMsat: "0",
     remoteCsvDelay: 0,
     minConfs: 0,
     spendUnconfirmed: false,
-    closeAddress: '',
+    closeAddress: "",
     fundingShim: undefined,
-    remoteMaxValueInFlightMsat: '0',
+    remoteMaxValueInFlightMsat: "0",
     remoteMaxHtlcs: 0,
     maxLocalCsv: 0,
     commitmentType: 0,
@@ -11533,35 +10677,32 @@ function createBaseOpenChannelRequest(): OpenChannelRequest {
 }
 
 export const OpenChannelRequest = {
-  encode(
-    message: OpenChannelRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.satPerVbyte !== '0') {
+  encode(message: OpenChannelRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.satPerVbyte !== "0") {
       writer.uint32(8).uint64(message.satPerVbyte);
     }
     if (message.nodePubkey.length !== 0) {
       writer.uint32(18).bytes(message.nodePubkey);
     }
-    if (message.nodePubkeyString !== '') {
+    if (message.nodePubkeyString !== "") {
       writer.uint32(26).string(message.nodePubkeyString);
     }
-    if (message.localFundingAmount !== '0') {
+    if (message.localFundingAmount !== "0") {
       writer.uint32(32).int64(message.localFundingAmount);
     }
-    if (message.pushSat !== '0') {
+    if (message.pushSat !== "0") {
       writer.uint32(40).int64(message.pushSat);
     }
     if (message.targetConf !== 0) {
       writer.uint32(48).int32(message.targetConf);
     }
-    if (message.satPerByte !== '0') {
+    if (message.satPerByte !== "0") {
       writer.uint32(56).int64(message.satPerByte);
     }
     if (message.private === true) {
       writer.uint32(64).bool(message.private);
     }
-    if (message.minHtlcMsat !== '0') {
+    if (message.minHtlcMsat !== "0") {
       writer.uint32(72).int64(message.minHtlcMsat);
     }
     if (message.remoteCsvDelay !== 0) {
@@ -11573,16 +10714,13 @@ export const OpenChannelRequest = {
     if (message.spendUnconfirmed === true) {
       writer.uint32(96).bool(message.spendUnconfirmed);
     }
-    if (message.closeAddress !== '') {
+    if (message.closeAddress !== "") {
       writer.uint32(106).string(message.closeAddress);
     }
     if (message.fundingShim !== undefined) {
-      FundingShim.encode(
-        message.fundingShim,
-        writer.uint32(114).fork(),
-      ).ldelim();
+      FundingShim.encode(message.fundingShim, writer.uint32(114).fork()).ldelim();
     }
-    if (message.remoteMaxValueInFlightMsat !== '0') {
+    if (message.remoteMaxValueInFlightMsat !== "0") {
       writer.uint32(120).uint64(message.remoteMaxValueInFlightMsat);
     }
     if (message.remoteMaxHtlcs !== 0) {
@@ -11647,9 +10785,7 @@ export const OpenChannelRequest = {
           message.fundingShim = FundingShim.decode(reader, reader.uint32());
           break;
         case 15:
-          message.remoteMaxValueInFlightMsat = longToString(
-            reader.uint64() as Long,
-          );
+          message.remoteMaxValueInFlightMsat = longToString(reader.uint64() as Long);
           break;
         case 16:
           message.remoteMaxHtlcs = reader.uint32();
@@ -11670,112 +10806,74 @@ export const OpenChannelRequest = {
 
   fromJSON(object: any): OpenChannelRequest {
     return {
-      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : '0',
-      nodePubkey: isSet(object.nodePubkey)
-        ? bytesFromBase64(object.nodePubkey)
-        : new Uint8Array(),
-      nodePubkeyString: isSet(object.nodePubkeyString)
-        ? String(object.nodePubkeyString)
-        : '',
-      localFundingAmount: isSet(object.localFundingAmount)
-        ? String(object.localFundingAmount)
-        : '0',
-      pushSat: isSet(object.pushSat) ? String(object.pushSat) : '0',
+      satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : "0",
+      nodePubkey: isSet(object.nodePubkey) ? bytesFromBase64(object.nodePubkey) : new Uint8Array(),
+      nodePubkeyString: isSet(object.nodePubkeyString) ? String(object.nodePubkeyString) : "",
+      localFundingAmount: isSet(object.localFundingAmount) ? String(object.localFundingAmount) : "0",
+      pushSat: isSet(object.pushSat) ? String(object.pushSat) : "0",
       targetConf: isSet(object.targetConf) ? Number(object.targetConf) : 0,
-      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : '0',
+      satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : "0",
       private: isSet(object.private) ? Boolean(object.private) : false,
-      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : '0',
-      remoteCsvDelay: isSet(object.remoteCsvDelay)
-        ? Number(object.remoteCsvDelay)
-        : 0,
+      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : "0",
+      remoteCsvDelay: isSet(object.remoteCsvDelay) ? Number(object.remoteCsvDelay) : 0,
       minConfs: isSet(object.minConfs) ? Number(object.minConfs) : 0,
-      spendUnconfirmed: isSet(object.spendUnconfirmed)
-        ? Boolean(object.spendUnconfirmed)
-        : false,
-      closeAddress: isSet(object.closeAddress)
-        ? String(object.closeAddress)
-        : '',
-      fundingShim: isSet(object.fundingShim)
-        ? FundingShim.fromJSON(object.fundingShim)
-        : undefined,
+      spendUnconfirmed: isSet(object.spendUnconfirmed) ? Boolean(object.spendUnconfirmed) : false,
+      closeAddress: isSet(object.closeAddress) ? String(object.closeAddress) : "",
+      fundingShim: isSet(object.fundingShim) ? FundingShim.fromJSON(object.fundingShim) : undefined,
       remoteMaxValueInFlightMsat: isSet(object.remoteMaxValueInFlightMsat)
         ? String(object.remoteMaxValueInFlightMsat)
-        : '0',
-      remoteMaxHtlcs: isSet(object.remoteMaxHtlcs)
-        ? Number(object.remoteMaxHtlcs)
-        : 0,
+        : "0",
+      remoteMaxHtlcs: isSet(object.remoteMaxHtlcs) ? Number(object.remoteMaxHtlcs) : 0,
       maxLocalCsv: isSet(object.maxLocalCsv) ? Number(object.maxLocalCsv) : 0,
-      commitmentType: isSet(object.commitmentType)
-        ? commitmentTypeFromJSON(object.commitmentType)
-        : 0,
+      commitmentType: isSet(object.commitmentType) ? commitmentTypeFromJSON(object.commitmentType) : 0,
     };
   },
 
   toJSON(message: OpenChannelRequest): unknown {
     const obj: any = {};
-    message.satPerVbyte !== undefined &&
-      (obj.satPerVbyte = message.satPerVbyte);
+    message.satPerVbyte !== undefined && (obj.satPerVbyte = message.satPerVbyte);
     message.nodePubkey !== undefined &&
-      (obj.nodePubkey = base64FromBytes(
-        message.nodePubkey !== undefined
-          ? message.nodePubkey
-          : new Uint8Array(),
-      ));
-    message.nodePubkeyString !== undefined &&
-      (obj.nodePubkeyString = message.nodePubkeyString);
-    message.localFundingAmount !== undefined &&
-      (obj.localFundingAmount = message.localFundingAmount);
+      (obj.nodePubkey = base64FromBytes(message.nodePubkey !== undefined ? message.nodePubkey : new Uint8Array()));
+    message.nodePubkeyString !== undefined && (obj.nodePubkeyString = message.nodePubkeyString);
+    message.localFundingAmount !== undefined && (obj.localFundingAmount = message.localFundingAmount);
     message.pushSat !== undefined && (obj.pushSat = message.pushSat);
-    message.targetConf !== undefined &&
-      (obj.targetConf = Math.round(message.targetConf));
+    message.targetConf !== undefined && (obj.targetConf = Math.round(message.targetConf));
     message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
     message.private !== undefined && (obj.private = message.private);
-    message.minHtlcMsat !== undefined &&
-      (obj.minHtlcMsat = message.minHtlcMsat);
-    message.remoteCsvDelay !== undefined &&
-      (obj.remoteCsvDelay = Math.round(message.remoteCsvDelay));
-    message.minConfs !== undefined &&
-      (obj.minConfs = Math.round(message.minConfs));
-    message.spendUnconfirmed !== undefined &&
-      (obj.spendUnconfirmed = message.spendUnconfirmed);
-    message.closeAddress !== undefined &&
-      (obj.closeAddress = message.closeAddress);
+    message.minHtlcMsat !== undefined && (obj.minHtlcMsat = message.minHtlcMsat);
+    message.remoteCsvDelay !== undefined && (obj.remoteCsvDelay = Math.round(message.remoteCsvDelay));
+    message.minConfs !== undefined && (obj.minConfs = Math.round(message.minConfs));
+    message.spendUnconfirmed !== undefined && (obj.spendUnconfirmed = message.spendUnconfirmed);
+    message.closeAddress !== undefined && (obj.closeAddress = message.closeAddress);
     message.fundingShim !== undefined &&
-      (obj.fundingShim = message.fundingShim
-        ? FundingShim.toJSON(message.fundingShim)
-        : undefined);
+      (obj.fundingShim = message.fundingShim ? FundingShim.toJSON(message.fundingShim) : undefined);
     message.remoteMaxValueInFlightMsat !== undefined &&
       (obj.remoteMaxValueInFlightMsat = message.remoteMaxValueInFlightMsat);
-    message.remoteMaxHtlcs !== undefined &&
-      (obj.remoteMaxHtlcs = Math.round(message.remoteMaxHtlcs));
-    message.maxLocalCsv !== undefined &&
-      (obj.maxLocalCsv = Math.round(message.maxLocalCsv));
-    message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.remoteMaxHtlcs !== undefined && (obj.remoteMaxHtlcs = Math.round(message.remoteMaxHtlcs));
+    message.maxLocalCsv !== undefined && (obj.maxLocalCsv = Math.round(message.maxLocalCsv));
+    message.commitmentType !== undefined && (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
     return obj;
   },
 
   fromPartial(object: DeepPartial<OpenChannelRequest>): OpenChannelRequest {
     const message = createBaseOpenChannelRequest();
-    message.satPerVbyte = object.satPerVbyte ?? '0';
+    message.satPerVbyte = object.satPerVbyte ?? "0";
     message.nodePubkey = object.nodePubkey ?? new Uint8Array();
-    message.nodePubkeyString = object.nodePubkeyString ?? '';
-    message.localFundingAmount = object.localFundingAmount ?? '0';
-    message.pushSat = object.pushSat ?? '0';
+    message.nodePubkeyString = object.nodePubkeyString ?? "";
+    message.localFundingAmount = object.localFundingAmount ?? "0";
+    message.pushSat = object.pushSat ?? "0";
     message.targetConf = object.targetConf ?? 0;
-    message.satPerByte = object.satPerByte ?? '0';
+    message.satPerByte = object.satPerByte ?? "0";
     message.private = object.private ?? false;
-    message.minHtlcMsat = object.minHtlcMsat ?? '0';
+    message.minHtlcMsat = object.minHtlcMsat ?? "0";
     message.remoteCsvDelay = object.remoteCsvDelay ?? 0;
     message.minConfs = object.minConfs ?? 0;
     message.spendUnconfirmed = object.spendUnconfirmed ?? false;
-    message.closeAddress = object.closeAddress ?? '';
-    message.fundingShim =
-      object.fundingShim !== undefined && object.fundingShim !== null
-        ? FundingShim.fromPartial(object.fundingShim)
-        : undefined;
-    message.remoteMaxValueInFlightMsat =
-      object.remoteMaxValueInFlightMsat ?? '0';
+    message.closeAddress = object.closeAddress ?? "";
+    message.fundingShim = (object.fundingShim !== undefined && object.fundingShim !== null)
+      ? FundingShim.fromPartial(object.fundingShim)
+      : undefined;
+    message.remoteMaxValueInFlightMsat = object.remoteMaxValueInFlightMsat ?? "0";
     message.remoteMaxHtlcs = object.remoteMaxHtlcs ?? 0;
     message.maxLocalCsv = object.maxLocalCsv ?? 0;
     message.commitmentType = object.commitmentType ?? 0;
@@ -11784,36 +10882,19 @@ export const OpenChannelRequest = {
 };
 
 function createBaseOpenStatusUpdate(): OpenStatusUpdate {
-  return {
-    chanPending: undefined,
-    chanOpen: undefined,
-    psbtFund: undefined,
-    pendingChanId: new Uint8Array(),
-  };
+  return { chanPending: undefined, chanOpen: undefined, psbtFund: undefined, pendingChanId: new Uint8Array() };
 }
 
 export const OpenStatusUpdate = {
-  encode(
-    message: OpenStatusUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: OpenStatusUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chanPending !== undefined) {
-      PendingUpdate.encode(
-        message.chanPending,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      PendingUpdate.encode(message.chanPending, writer.uint32(10).fork()).ldelim();
     }
     if (message.chanOpen !== undefined) {
-      ChannelOpenUpdate.encode(
-        message.chanOpen,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      ChannelOpenUpdate.encode(message.chanOpen, writer.uint32(26).fork()).ldelim();
     }
     if (message.psbtFund !== undefined) {
-      ReadyForPsbtFunding.encode(
-        message.psbtFund,
-        writer.uint32(42).fork(),
-      ).ldelim();
+      ReadyForPsbtFunding.encode(message.psbtFund, writer.uint32(42).fork()).ldelim();
     }
     if (message.pendingChanId.length !== 0) {
       writer.uint32(34).bytes(message.pendingChanId);
@@ -11835,10 +10916,7 @@ export const OpenStatusUpdate = {
           message.chanOpen = ChannelOpenUpdate.decode(reader, reader.uint32());
           break;
         case 5:
-          message.psbtFund = ReadyForPsbtFunding.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.psbtFund = ReadyForPsbtFunding.decode(reader, reader.uint32());
           break;
         case 4:
           message.pendingChanId = reader.bytes();
@@ -11853,72 +10931,50 @@ export const OpenStatusUpdate = {
 
   fromJSON(object: any): OpenStatusUpdate {
     return {
-      chanPending: isSet(object.chanPending)
-        ? PendingUpdate.fromJSON(object.chanPending)
-        : undefined,
-      chanOpen: isSet(object.chanOpen)
-        ? ChannelOpenUpdate.fromJSON(object.chanOpen)
-        : undefined,
-      psbtFund: isSet(object.psbtFund)
-        ? ReadyForPsbtFunding.fromJSON(object.psbtFund)
-        : undefined,
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
+      chanPending: isSet(object.chanPending) ? PendingUpdate.fromJSON(object.chanPending) : undefined,
+      chanOpen: isSet(object.chanOpen) ? ChannelOpenUpdate.fromJSON(object.chanOpen) : undefined,
+      psbtFund: isSet(object.psbtFund) ? ReadyForPsbtFunding.fromJSON(object.psbtFund) : undefined,
+      pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array(),
     };
   },
 
   toJSON(message: OpenStatusUpdate): unknown {
     const obj: any = {};
     message.chanPending !== undefined &&
-      (obj.chanPending = message.chanPending
-        ? PendingUpdate.toJSON(message.chanPending)
-        : undefined);
+      (obj.chanPending = message.chanPending ? PendingUpdate.toJSON(message.chanPending) : undefined);
     message.chanOpen !== undefined &&
-      (obj.chanOpen = message.chanOpen
-        ? ChannelOpenUpdate.toJSON(message.chanOpen)
-        : undefined);
+      (obj.chanOpen = message.chanOpen ? ChannelOpenUpdate.toJSON(message.chanOpen) : undefined);
     message.psbtFund !== undefined &&
-      (obj.psbtFund = message.psbtFund
-        ? ReadyForPsbtFunding.toJSON(message.psbtFund)
-        : undefined);
+      (obj.psbtFund = message.psbtFund ? ReadyForPsbtFunding.toJSON(message.psbtFund) : undefined);
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
     return obj;
   },
 
   fromPartial(object: DeepPartial<OpenStatusUpdate>): OpenStatusUpdate {
     const message = createBaseOpenStatusUpdate();
-    message.chanPending =
-      object.chanPending !== undefined && object.chanPending !== null
-        ? PendingUpdate.fromPartial(object.chanPending)
-        : undefined;
-    message.chanOpen =
-      object.chanOpen !== undefined && object.chanOpen !== null
-        ? ChannelOpenUpdate.fromPartial(object.chanOpen)
-        : undefined;
-    message.psbtFund =
-      object.psbtFund !== undefined && object.psbtFund !== null
-        ? ReadyForPsbtFunding.fromPartial(object.psbtFund)
-        : undefined;
+    message.chanPending = (object.chanPending !== undefined && object.chanPending !== null)
+      ? PendingUpdate.fromPartial(object.chanPending)
+      : undefined;
+    message.chanOpen = (object.chanOpen !== undefined && object.chanOpen !== null)
+      ? ChannelOpenUpdate.fromPartial(object.chanOpen)
+      : undefined;
+    message.psbtFund = (object.psbtFund !== undefined && object.psbtFund !== null)
+      ? ReadyForPsbtFunding.fromPartial(object.psbtFund)
+      : undefined;
     message.pendingChanId = object.pendingChanId ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseKeyLocator(): KeyLocator {
-  return {keyFamily: 0, keyIndex: 0};
+  return { keyFamily: 0, keyIndex: 0 };
 }
 
 export const KeyLocator = {
-  encode(
-    message: KeyLocator,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: KeyLocator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.keyFamily !== 0) {
       writer.uint32(8).int32(message.keyFamily);
     }
@@ -11958,10 +11014,8 @@ export const KeyLocator = {
 
   toJSON(message: KeyLocator): unknown {
     const obj: any = {};
-    message.keyFamily !== undefined &&
-      (obj.keyFamily = Math.round(message.keyFamily));
-    message.keyIndex !== undefined &&
-      (obj.keyIndex = Math.round(message.keyIndex));
+    message.keyFamily !== undefined && (obj.keyFamily = Math.round(message.keyFamily));
+    message.keyIndex !== undefined && (obj.keyIndex = Math.round(message.keyIndex));
     return obj;
   },
 
@@ -11974,14 +11028,11 @@ export const KeyLocator = {
 };
 
 function createBaseKeyDescriptor(): KeyDescriptor {
-  return {rawKeyBytes: new Uint8Array(), keyLoc: undefined};
+  return { rawKeyBytes: new Uint8Array(), keyLoc: undefined };
 }
 
 export const KeyDescriptor = {
-  encode(
-    message: KeyDescriptor,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: KeyDescriptor, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.rawKeyBytes.length !== 0) {
       writer.uint32(10).bytes(message.rawKeyBytes);
     }
@@ -12014,44 +11065,32 @@ export const KeyDescriptor = {
 
   fromJSON(object: any): KeyDescriptor {
     return {
-      rawKeyBytes: isSet(object.rawKeyBytes)
-        ? bytesFromBase64(object.rawKeyBytes)
-        : new Uint8Array(),
-      keyLoc: isSet(object.keyLoc)
-        ? KeyLocator.fromJSON(object.keyLoc)
-        : undefined,
+      rawKeyBytes: isSet(object.rawKeyBytes) ? bytesFromBase64(object.rawKeyBytes) : new Uint8Array(),
+      keyLoc: isSet(object.keyLoc) ? KeyLocator.fromJSON(object.keyLoc) : undefined,
     };
   },
 
   toJSON(message: KeyDescriptor): unknown {
     const obj: any = {};
     message.rawKeyBytes !== undefined &&
-      (obj.rawKeyBytes = base64FromBytes(
-        message.rawKeyBytes !== undefined
-          ? message.rawKeyBytes
-          : new Uint8Array(),
-      ));
-    message.keyLoc !== undefined &&
-      (obj.keyLoc = message.keyLoc
-        ? KeyLocator.toJSON(message.keyLoc)
-        : undefined);
+      (obj.rawKeyBytes = base64FromBytes(message.rawKeyBytes !== undefined ? message.rawKeyBytes : new Uint8Array()));
+    message.keyLoc !== undefined && (obj.keyLoc = message.keyLoc ? KeyLocator.toJSON(message.keyLoc) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<KeyDescriptor>): KeyDescriptor {
     const message = createBaseKeyDescriptor();
     message.rawKeyBytes = object.rawKeyBytes ?? new Uint8Array();
-    message.keyLoc =
-      object.keyLoc !== undefined && object.keyLoc !== null
-        ? KeyLocator.fromPartial(object.keyLoc)
-        : undefined;
+    message.keyLoc = (object.keyLoc !== undefined && object.keyLoc !== null)
+      ? KeyLocator.fromPartial(object.keyLoc)
+      : undefined;
     return message;
   },
 };
 
 function createBaseChanPointShim(): ChanPointShim {
   return {
-    amt: '0',
+    amt: "0",
     chanPoint: undefined,
     localKey: undefined,
     remoteKey: new Uint8Array(),
@@ -12061,11 +11100,8 @@ function createBaseChanPointShim(): ChanPointShim {
 }
 
 export const ChanPointShim = {
-  encode(
-    message: ChanPointShim,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.amt !== '0') {
+  encode(message: ChanPointShim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.amt !== "0") {
       writer.uint32(8).int64(message.amt);
     }
     if (message.chanPoint !== undefined) {
@@ -12121,19 +11157,11 @@ export const ChanPointShim = {
 
   fromJSON(object: any): ChanPointShim {
     return {
-      amt: isSet(object.amt) ? String(object.amt) : '0',
-      chanPoint: isSet(object.chanPoint)
-        ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined,
-      localKey: isSet(object.localKey)
-        ? KeyDescriptor.fromJSON(object.localKey)
-        : undefined,
-      remoteKey: isSet(object.remoteKey)
-        ? bytesFromBase64(object.remoteKey)
-        : new Uint8Array(),
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
+      amt: isSet(object.amt) ? String(object.amt) : "0",
+      chanPoint: isSet(object.chanPoint) ? ChannelPoint.fromJSON(object.chanPoint) : undefined,
+      localKey: isSet(object.localKey) ? KeyDescriptor.fromJSON(object.localKey) : undefined,
+      remoteKey: isSet(object.remoteKey) ? bytesFromBase64(object.remoteKey) : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array(),
       thawHeight: isSet(object.thawHeight) ? Number(object.thawHeight) : 0,
     };
   },
@@ -12142,39 +11170,28 @@ export const ChanPointShim = {
     const obj: any = {};
     message.amt !== undefined && (obj.amt = message.amt);
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
-        ? ChannelPoint.toJSON(message.chanPoint)
-        : undefined);
+      (obj.chanPoint = message.chanPoint ? ChannelPoint.toJSON(message.chanPoint) : undefined);
     message.localKey !== undefined &&
-      (obj.localKey = message.localKey
-        ? KeyDescriptor.toJSON(message.localKey)
-        : undefined);
+      (obj.localKey = message.localKey ? KeyDescriptor.toJSON(message.localKey) : undefined);
     message.remoteKey !== undefined &&
-      (obj.remoteKey = base64FromBytes(
-        message.remoteKey !== undefined ? message.remoteKey : new Uint8Array(),
-      ));
+      (obj.remoteKey = base64FromBytes(message.remoteKey !== undefined ? message.remoteKey : new Uint8Array()));
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
-    message.thawHeight !== undefined &&
-      (obj.thawHeight = Math.round(message.thawHeight));
+    message.thawHeight !== undefined && (obj.thawHeight = Math.round(message.thawHeight));
     return obj;
   },
 
   fromPartial(object: DeepPartial<ChanPointShim>): ChanPointShim {
     const message = createBaseChanPointShim();
-    message.amt = object.amt ?? '0';
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
-        ? ChannelPoint.fromPartial(object.chanPoint)
-        : undefined;
-    message.localKey =
-      object.localKey !== undefined && object.localKey !== null
-        ? KeyDescriptor.fromPartial(object.localKey)
-        : undefined;
+    message.amt = object.amt ?? "0";
+    message.chanPoint = (object.chanPoint !== undefined && object.chanPoint !== null)
+      ? ChannelPoint.fromPartial(object.chanPoint)
+      : undefined;
+    message.localKey = (object.localKey !== undefined && object.localKey !== null)
+      ? KeyDescriptor.fromPartial(object.localKey)
+      : undefined;
     message.remoteKey = object.remoteKey ?? new Uint8Array();
     message.pendingChanId = object.pendingChanId ?? new Uint8Array();
     message.thawHeight = object.thawHeight ?? 0;
@@ -12183,18 +11200,11 @@ export const ChanPointShim = {
 };
 
 function createBasePsbtShim(): PsbtShim {
-  return {
-    pendingChanId: new Uint8Array(),
-    basePsbt: new Uint8Array(),
-    noPublish: false,
-  };
+  return { pendingChanId: new Uint8Array(), basePsbt: new Uint8Array(), noPublish: false };
 }
 
 export const PsbtShim = {
-  encode(
-    message: PsbtShim,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PsbtShim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pendingChanId.length !== 0) {
       writer.uint32(10).bytes(message.pendingChanId);
     }
@@ -12233,12 +11243,8 @@ export const PsbtShim = {
 
   fromJSON(object: any): PsbtShim {
     return {
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
-      basePsbt: isSet(object.basePsbt)
-        ? bytesFromBase64(object.basePsbt)
-        : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array(),
+      basePsbt: isSet(object.basePsbt) ? bytesFromBase64(object.basePsbt) : new Uint8Array(),
       noPublish: isSet(object.noPublish) ? Boolean(object.noPublish) : false,
     };
   },
@@ -12247,14 +11253,10 @@ export const PsbtShim = {
     const obj: any = {};
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
     message.basePsbt !== undefined &&
-      (obj.basePsbt = base64FromBytes(
-        message.basePsbt !== undefined ? message.basePsbt : new Uint8Array(),
-      ));
+      (obj.basePsbt = base64FromBytes(message.basePsbt !== undefined ? message.basePsbt : new Uint8Array()));
     message.noPublish !== undefined && (obj.noPublish = message.noPublish);
     return obj;
   },
@@ -12269,19 +11271,13 @@ export const PsbtShim = {
 };
 
 function createBaseFundingShim(): FundingShim {
-  return {chanPointShim: undefined, psbtShim: undefined};
+  return { chanPointShim: undefined, psbtShim: undefined };
 }
 
 export const FundingShim = {
-  encode(
-    message: FundingShim,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FundingShim, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chanPointShim !== undefined) {
-      ChanPointShim.encode(
-        message.chanPointShim,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      ChanPointShim.encode(message.chanPointShim, writer.uint32(10).fork()).ldelim();
     }
     if (message.psbtShim !== undefined) {
       PsbtShim.encode(message.psbtShim, writer.uint32(18).fork()).ldelim();
@@ -12312,51 +11308,37 @@ export const FundingShim = {
 
   fromJSON(object: any): FundingShim {
     return {
-      chanPointShim: isSet(object.chanPointShim)
-        ? ChanPointShim.fromJSON(object.chanPointShim)
-        : undefined,
-      psbtShim: isSet(object.psbtShim)
-        ? PsbtShim.fromJSON(object.psbtShim)
-        : undefined,
+      chanPointShim: isSet(object.chanPointShim) ? ChanPointShim.fromJSON(object.chanPointShim) : undefined,
+      psbtShim: isSet(object.psbtShim) ? PsbtShim.fromJSON(object.psbtShim) : undefined,
     };
   },
 
   toJSON(message: FundingShim): unknown {
     const obj: any = {};
     message.chanPointShim !== undefined &&
-      (obj.chanPointShim = message.chanPointShim
-        ? ChanPointShim.toJSON(message.chanPointShim)
-        : undefined);
-    message.psbtShim !== undefined &&
-      (obj.psbtShim = message.psbtShim
-        ? PsbtShim.toJSON(message.psbtShim)
-        : undefined);
+      (obj.chanPointShim = message.chanPointShim ? ChanPointShim.toJSON(message.chanPointShim) : undefined);
+    message.psbtShim !== undefined && (obj.psbtShim = message.psbtShim ? PsbtShim.toJSON(message.psbtShim) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<FundingShim>): FundingShim {
     const message = createBaseFundingShim();
-    message.chanPointShim =
-      object.chanPointShim !== undefined && object.chanPointShim !== null
-        ? ChanPointShim.fromPartial(object.chanPointShim)
-        : undefined;
-    message.psbtShim =
-      object.psbtShim !== undefined && object.psbtShim !== null
-        ? PsbtShim.fromPartial(object.psbtShim)
-        : undefined;
+    message.chanPointShim = (object.chanPointShim !== undefined && object.chanPointShim !== null)
+      ? ChanPointShim.fromPartial(object.chanPointShim)
+      : undefined;
+    message.psbtShim = (object.psbtShim !== undefined && object.psbtShim !== null)
+      ? PsbtShim.fromPartial(object.psbtShim)
+      : undefined;
     return message;
   },
 };
 
 function createBaseFundingShimCancel(): FundingShimCancel {
-  return {pendingChanId: new Uint8Array()};
+  return { pendingChanId: new Uint8Array() };
 }
 
 export const FundingShimCancel = {
-  encode(
-    message: FundingShimCancel,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FundingShimCancel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pendingChanId.length !== 0) {
       writer.uint32(10).bytes(message.pendingChanId);
     }
@@ -12382,20 +11364,14 @@ export const FundingShimCancel = {
   },
 
   fromJSON(object: any): FundingShimCancel {
-    return {
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
-    };
+    return { pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array() };
   },
 
   toJSON(message: FundingShimCancel): unknown {
     const obj: any = {};
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
     return obj;
   },
@@ -12408,18 +11384,11 @@ export const FundingShimCancel = {
 };
 
 function createBaseFundingPsbtVerify(): FundingPsbtVerify {
-  return {
-    fundedPsbt: new Uint8Array(),
-    pendingChanId: new Uint8Array(),
-    skipFinalize: false,
-  };
+  return { fundedPsbt: new Uint8Array(), pendingChanId: new Uint8Array(), skipFinalize: false };
 }
 
 export const FundingPsbtVerify = {
-  encode(
-    message: FundingPsbtVerify,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FundingPsbtVerify, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.fundedPsbt.length !== 0) {
       writer.uint32(10).bytes(message.fundedPsbt);
     }
@@ -12458,34 +11427,21 @@ export const FundingPsbtVerify = {
 
   fromJSON(object: any): FundingPsbtVerify {
     return {
-      fundedPsbt: isSet(object.fundedPsbt)
-        ? bytesFromBase64(object.fundedPsbt)
-        : new Uint8Array(),
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
-      skipFinalize: isSet(object.skipFinalize)
-        ? Boolean(object.skipFinalize)
-        : false,
+      fundedPsbt: isSet(object.fundedPsbt) ? bytesFromBase64(object.fundedPsbt) : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array(),
+      skipFinalize: isSet(object.skipFinalize) ? Boolean(object.skipFinalize) : false,
     };
   },
 
   toJSON(message: FundingPsbtVerify): unknown {
     const obj: any = {};
     message.fundedPsbt !== undefined &&
-      (obj.fundedPsbt = base64FromBytes(
-        message.fundedPsbt !== undefined
-          ? message.fundedPsbt
-          : new Uint8Array(),
-      ));
+      (obj.fundedPsbt = base64FromBytes(message.fundedPsbt !== undefined ? message.fundedPsbt : new Uint8Array()));
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
-    message.skipFinalize !== undefined &&
-      (obj.skipFinalize = message.skipFinalize);
+    message.skipFinalize !== undefined && (obj.skipFinalize = message.skipFinalize);
     return obj;
   },
 
@@ -12499,18 +11455,11 @@ export const FundingPsbtVerify = {
 };
 
 function createBaseFundingPsbtFinalize(): FundingPsbtFinalize {
-  return {
-    signedPsbt: new Uint8Array(),
-    pendingChanId: new Uint8Array(),
-    finalRawTx: new Uint8Array(),
-  };
+  return { signedPsbt: new Uint8Array(), pendingChanId: new Uint8Array(), finalRawTx: new Uint8Array() };
 }
 
 export const FundingPsbtFinalize = {
-  encode(
-    message: FundingPsbtFinalize,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FundingPsbtFinalize, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.signedPsbt.length !== 0) {
       writer.uint32(10).bytes(message.signedPsbt);
     }
@@ -12549,38 +11498,22 @@ export const FundingPsbtFinalize = {
 
   fromJSON(object: any): FundingPsbtFinalize {
     return {
-      signedPsbt: isSet(object.signedPsbt)
-        ? bytesFromBase64(object.signedPsbt)
-        : new Uint8Array(),
-      pendingChanId: isSet(object.pendingChanId)
-        ? bytesFromBase64(object.pendingChanId)
-        : new Uint8Array(),
-      finalRawTx: isSet(object.finalRawTx)
-        ? bytesFromBase64(object.finalRawTx)
-        : new Uint8Array(),
+      signedPsbt: isSet(object.signedPsbt) ? bytesFromBase64(object.signedPsbt) : new Uint8Array(),
+      pendingChanId: isSet(object.pendingChanId) ? bytesFromBase64(object.pendingChanId) : new Uint8Array(),
+      finalRawTx: isSet(object.finalRawTx) ? bytesFromBase64(object.finalRawTx) : new Uint8Array(),
     };
   },
 
   toJSON(message: FundingPsbtFinalize): unknown {
     const obj: any = {};
     message.signedPsbt !== undefined &&
-      (obj.signedPsbt = base64FromBytes(
-        message.signedPsbt !== undefined
-          ? message.signedPsbt
-          : new Uint8Array(),
-      ));
+      (obj.signedPsbt = base64FromBytes(message.signedPsbt !== undefined ? message.signedPsbt : new Uint8Array()));
     message.pendingChanId !== undefined &&
       (obj.pendingChanId = base64FromBytes(
-        message.pendingChanId !== undefined
-          ? message.pendingChanId
-          : new Uint8Array(),
+        message.pendingChanId !== undefined ? message.pendingChanId : new Uint8Array(),
       ));
     message.finalRawTx !== undefined &&
-      (obj.finalRawTx = base64FromBytes(
-        message.finalRawTx !== undefined
-          ? message.finalRawTx
-          : new Uint8Array(),
-      ));
+      (obj.finalRawTx = base64FromBytes(message.finalRawTx !== undefined ? message.finalRawTx : new Uint8Array()));
     return obj;
   },
 
@@ -12594,50 +11527,27 @@ export const FundingPsbtFinalize = {
 };
 
 function createBaseFundingTransitionMsg(): FundingTransitionMsg {
-  return {
-    shimRegister: undefined,
-    shimCancel: undefined,
-    psbtVerify: undefined,
-    psbtFinalize: undefined,
-  };
+  return { shimRegister: undefined, shimCancel: undefined, psbtVerify: undefined, psbtFinalize: undefined };
 }
 
 export const FundingTransitionMsg = {
-  encode(
-    message: FundingTransitionMsg,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FundingTransitionMsg, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.shimRegister !== undefined) {
-      FundingShim.encode(
-        message.shimRegister,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      FundingShim.encode(message.shimRegister, writer.uint32(10).fork()).ldelim();
     }
     if (message.shimCancel !== undefined) {
-      FundingShimCancel.encode(
-        message.shimCancel,
-        writer.uint32(18).fork(),
-      ).ldelim();
+      FundingShimCancel.encode(message.shimCancel, writer.uint32(18).fork()).ldelim();
     }
     if (message.psbtVerify !== undefined) {
-      FundingPsbtVerify.encode(
-        message.psbtVerify,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      FundingPsbtVerify.encode(message.psbtVerify, writer.uint32(26).fork()).ldelim();
     }
     if (message.psbtFinalize !== undefined) {
-      FundingPsbtFinalize.encode(
-        message.psbtFinalize,
-        writer.uint32(34).fork(),
-      ).ldelim();
+      FundingPsbtFinalize.encode(message.psbtFinalize, writer.uint32(34).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): FundingTransitionMsg {
+  decode(input: _m0.Reader | Uint8Array, length?: number): FundingTransitionMsg {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingTransitionMsg();
@@ -12648,22 +11558,13 @@ export const FundingTransitionMsg = {
           message.shimRegister = FundingShim.decode(reader, reader.uint32());
           break;
         case 2:
-          message.shimCancel = FundingShimCancel.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.shimCancel = FundingShimCancel.decode(reader, reader.uint32());
           break;
         case 3:
-          message.psbtVerify = FundingPsbtVerify.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.psbtVerify = FundingPsbtVerify.decode(reader, reader.uint32());
           break;
         case 4:
-          message.psbtFinalize = FundingPsbtFinalize.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.psbtFinalize = FundingPsbtFinalize.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -12675,60 +11576,40 @@ export const FundingTransitionMsg = {
 
   fromJSON(object: any): FundingTransitionMsg {
     return {
-      shimRegister: isSet(object.shimRegister)
-        ? FundingShim.fromJSON(object.shimRegister)
-        : undefined,
-      shimCancel: isSet(object.shimCancel)
-        ? FundingShimCancel.fromJSON(object.shimCancel)
-        : undefined,
-      psbtVerify: isSet(object.psbtVerify)
-        ? FundingPsbtVerify.fromJSON(object.psbtVerify)
-        : undefined,
-      psbtFinalize: isSet(object.psbtFinalize)
-        ? FundingPsbtFinalize.fromJSON(object.psbtFinalize)
-        : undefined,
+      shimRegister: isSet(object.shimRegister) ? FundingShim.fromJSON(object.shimRegister) : undefined,
+      shimCancel: isSet(object.shimCancel) ? FundingShimCancel.fromJSON(object.shimCancel) : undefined,
+      psbtVerify: isSet(object.psbtVerify) ? FundingPsbtVerify.fromJSON(object.psbtVerify) : undefined,
+      psbtFinalize: isSet(object.psbtFinalize) ? FundingPsbtFinalize.fromJSON(object.psbtFinalize) : undefined,
     };
   },
 
   toJSON(message: FundingTransitionMsg): unknown {
     const obj: any = {};
     message.shimRegister !== undefined &&
-      (obj.shimRegister = message.shimRegister
-        ? FundingShim.toJSON(message.shimRegister)
-        : undefined);
+      (obj.shimRegister = message.shimRegister ? FundingShim.toJSON(message.shimRegister) : undefined);
     message.shimCancel !== undefined &&
-      (obj.shimCancel = message.shimCancel
-        ? FundingShimCancel.toJSON(message.shimCancel)
-        : undefined);
+      (obj.shimCancel = message.shimCancel ? FundingShimCancel.toJSON(message.shimCancel) : undefined);
     message.psbtVerify !== undefined &&
-      (obj.psbtVerify = message.psbtVerify
-        ? FundingPsbtVerify.toJSON(message.psbtVerify)
-        : undefined);
+      (obj.psbtVerify = message.psbtVerify ? FundingPsbtVerify.toJSON(message.psbtVerify) : undefined);
     message.psbtFinalize !== undefined &&
-      (obj.psbtFinalize = message.psbtFinalize
-        ? FundingPsbtFinalize.toJSON(message.psbtFinalize)
-        : undefined);
+      (obj.psbtFinalize = message.psbtFinalize ? FundingPsbtFinalize.toJSON(message.psbtFinalize) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<FundingTransitionMsg>): FundingTransitionMsg {
     const message = createBaseFundingTransitionMsg();
-    message.shimRegister =
-      object.shimRegister !== undefined && object.shimRegister !== null
-        ? FundingShim.fromPartial(object.shimRegister)
-        : undefined;
-    message.shimCancel =
-      object.shimCancel !== undefined && object.shimCancel !== null
-        ? FundingShimCancel.fromPartial(object.shimCancel)
-        : undefined;
-    message.psbtVerify =
-      object.psbtVerify !== undefined && object.psbtVerify !== null
-        ? FundingPsbtVerify.fromPartial(object.psbtVerify)
-        : undefined;
-    message.psbtFinalize =
-      object.psbtFinalize !== undefined && object.psbtFinalize !== null
-        ? FundingPsbtFinalize.fromPartial(object.psbtFinalize)
-        : undefined;
+    message.shimRegister = (object.shimRegister !== undefined && object.shimRegister !== null)
+      ? FundingShim.fromPartial(object.shimRegister)
+      : undefined;
+    message.shimCancel = (object.shimCancel !== undefined && object.shimCancel !== null)
+      ? FundingShimCancel.fromPartial(object.shimCancel)
+      : undefined;
+    message.psbtVerify = (object.psbtVerify !== undefined && object.psbtVerify !== null)
+      ? FundingPsbtVerify.fromPartial(object.psbtVerify)
+      : undefined;
+    message.psbtFinalize = (object.psbtFinalize !== undefined && object.psbtFinalize !== null)
+      ? FundingPsbtFinalize.fromPartial(object.psbtFinalize)
+      : undefined;
     return message;
   },
 };
@@ -12738,17 +11619,11 @@ function createBaseFundingStateStepResp(): FundingStateStepResp {
 }
 
 export const FundingStateStepResp = {
-  encode(
-    _: FundingStateStepResp,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: FundingStateStepResp, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): FundingStateStepResp {
+  decode(input: _m0.Reader | Uint8Array, length?: number): FundingStateStepResp {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseFundingStateStepResp();
@@ -12779,28 +11654,18 @@ export const FundingStateStepResp = {
 };
 
 function createBasePendingHTLC(): PendingHTLC {
-  return {
-    incoming: false,
-    amount: '0',
-    outpoint: '',
-    maturityHeight: 0,
-    blocksTilMaturity: 0,
-    stage: 0,
-  };
+  return { incoming: false, amount: "0", outpoint: "", maturityHeight: 0, blocksTilMaturity: 0, stage: 0 };
 }
 
 export const PendingHTLC = {
-  encode(
-    message: PendingHTLC,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PendingHTLC, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.incoming === true) {
       writer.uint32(8).bool(message.incoming);
     }
-    if (message.amount !== '0') {
+    if (message.amount !== "0") {
       writer.uint32(16).int64(message.amount);
     }
-    if (message.outpoint !== '') {
+    if (message.outpoint !== "") {
       writer.uint32(26).string(message.outpoint);
     }
     if (message.maturityHeight !== 0) {
@@ -12851,14 +11716,10 @@ export const PendingHTLC = {
   fromJSON(object: any): PendingHTLC {
     return {
       incoming: isSet(object.incoming) ? Boolean(object.incoming) : false,
-      amount: isSet(object.amount) ? String(object.amount) : '0',
-      outpoint: isSet(object.outpoint) ? String(object.outpoint) : '',
-      maturityHeight: isSet(object.maturityHeight)
-        ? Number(object.maturityHeight)
-        : 0,
-      blocksTilMaturity: isSet(object.blocksTilMaturity)
-        ? Number(object.blocksTilMaturity)
-        : 0,
+      amount: isSet(object.amount) ? String(object.amount) : "0",
+      outpoint: isSet(object.outpoint) ? String(object.outpoint) : "",
+      maturityHeight: isSet(object.maturityHeight) ? Number(object.maturityHeight) : 0,
+      blocksTilMaturity: isSet(object.blocksTilMaturity) ? Number(object.blocksTilMaturity) : 0,
       stage: isSet(object.stage) ? Number(object.stage) : 0,
     };
   },
@@ -12868,10 +11729,8 @@ export const PendingHTLC = {
     message.incoming !== undefined && (obj.incoming = message.incoming);
     message.amount !== undefined && (obj.amount = message.amount);
     message.outpoint !== undefined && (obj.outpoint = message.outpoint);
-    message.maturityHeight !== undefined &&
-      (obj.maturityHeight = Math.round(message.maturityHeight));
-    message.blocksTilMaturity !== undefined &&
-      (obj.blocksTilMaturity = Math.round(message.blocksTilMaturity));
+    message.maturityHeight !== undefined && (obj.maturityHeight = Math.round(message.maturityHeight));
+    message.blocksTilMaturity !== undefined && (obj.blocksTilMaturity = Math.round(message.blocksTilMaturity));
     message.stage !== undefined && (obj.stage = Math.round(message.stage));
     return obj;
   },
@@ -12879,8 +11738,8 @@ export const PendingHTLC = {
   fromPartial(object: DeepPartial<PendingHTLC>): PendingHTLC {
     const message = createBasePendingHTLC();
     message.incoming = object.incoming ?? false;
-    message.amount = object.amount ?? '0';
-    message.outpoint = object.outpoint ?? '';
+    message.amount = object.amount ?? "0";
+    message.outpoint = object.outpoint ?? "";
     message.maturityHeight = object.maturityHeight ?? 0;
     message.blocksTilMaturity = object.blocksTilMaturity ?? 0;
     message.stage = object.stage ?? 0;
@@ -12893,17 +11752,11 @@ function createBasePendingChannelsRequest(): PendingChannelsRequest {
 }
 
 export const PendingChannelsRequest = {
-  encode(
-    _: PendingChannelsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: PendingChannelsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PendingChannelsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PendingChannelsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsRequest();
@@ -12935,7 +11788,7 @@ export const PendingChannelsRequest = {
 
 function createBasePendingChannelsResponse(): PendingChannelsResponse {
   return {
-    totalLimboBalance: '0',
+    totalLimboBalance: "0",
     pendingOpenChannels: [],
     pendingClosingChannels: [],
     pendingForceClosingChannels: [],
@@ -12944,44 +11797,26 @@ function createBasePendingChannelsResponse(): PendingChannelsResponse {
 }
 
 export const PendingChannelsResponse = {
-  encode(
-    message: PendingChannelsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.totalLimboBalance !== '0') {
+  encode(message: PendingChannelsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.totalLimboBalance !== "0") {
       writer.uint32(8).int64(message.totalLimboBalance);
     }
     for (const v of message.pendingOpenChannels) {
-      PendingChannelsResponse_PendingOpenChannel.encode(
-        v!,
-        writer.uint32(18).fork(),
-      ).ldelim();
+      PendingChannelsResponse_PendingOpenChannel.encode(v!, writer.uint32(18).fork()).ldelim();
     }
     for (const v of message.pendingClosingChannels) {
-      PendingChannelsResponse_ClosedChannel.encode(
-        v!,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      PendingChannelsResponse_ClosedChannel.encode(v!, writer.uint32(26).fork()).ldelim();
     }
     for (const v of message.pendingForceClosingChannels) {
-      PendingChannelsResponse_ForceClosedChannel.encode(
-        v!,
-        writer.uint32(34).fork(),
-      ).ldelim();
+      PendingChannelsResponse_ForceClosedChannel.encode(v!, writer.uint32(34).fork()).ldelim();
     }
     for (const v of message.waitingCloseChannels) {
-      PendingChannelsResponse_WaitingCloseChannel.encode(
-        v!,
-        writer.uint32(42).fork(),
-      ).ldelim();
+      PendingChannelsResponse_WaitingCloseChannel.encode(v!, writer.uint32(42).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PendingChannelsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PendingChannelsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse();
@@ -12992,35 +11827,19 @@ export const PendingChannelsResponse = {
           message.totalLimboBalance = longToString(reader.int64() as Long);
           break;
         case 2:
-          message.pendingOpenChannels.push(
-            PendingChannelsResponse_PendingOpenChannel.decode(
-              reader,
-              reader.uint32(),
-            ),
-          );
+          message.pendingOpenChannels.push(PendingChannelsResponse_PendingOpenChannel.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.pendingClosingChannels.push(
-            PendingChannelsResponse_ClosedChannel.decode(
-              reader,
-              reader.uint32(),
-            ),
-          );
+          message.pendingClosingChannels.push(PendingChannelsResponse_ClosedChannel.decode(reader, reader.uint32()));
           break;
         case 4:
           message.pendingForceClosingChannels.push(
-            PendingChannelsResponse_ForceClosedChannel.decode(
-              reader,
-              reader.uint32(),
-            ),
+            PendingChannelsResponse_ForceClosedChannel.decode(reader, reader.uint32()),
           );
           break;
         case 5:
           message.waitingCloseChannels.push(
-            PendingChannelsResponse_WaitingCloseChannel.decode(
-              reader,
-              reader.uint32(),
-            ),
+            PendingChannelsResponse_WaitingCloseChannel.decode(reader, reader.uint32()),
           );
           break;
         default:
@@ -13033,63 +11852,49 @@ export const PendingChannelsResponse = {
 
   fromJSON(object: any): PendingChannelsResponse {
     return {
-      totalLimboBalance: isSet(object.totalLimboBalance)
-        ? String(object.totalLimboBalance)
-        : '0',
+      totalLimboBalance: isSet(object.totalLimboBalance) ? String(object.totalLimboBalance) : "0",
       pendingOpenChannels: Array.isArray(object?.pendingOpenChannels)
-        ? object.pendingOpenChannels.map((e: any) =>
-            PendingChannelsResponse_PendingOpenChannel.fromJSON(e),
-          )
+        ? object.pendingOpenChannels.map((e: any) => PendingChannelsResponse_PendingOpenChannel.fromJSON(e))
         : [],
       pendingClosingChannels: Array.isArray(object?.pendingClosingChannels)
-        ? object.pendingClosingChannels.map((e: any) =>
-            PendingChannelsResponse_ClosedChannel.fromJSON(e),
-          )
+        ? object.pendingClosingChannels.map((e: any) => PendingChannelsResponse_ClosedChannel.fromJSON(e))
         : [],
-      pendingForceClosingChannels: Array.isArray(
-        object?.pendingForceClosingChannels,
-      )
-        ? object.pendingForceClosingChannels.map((e: any) =>
-            PendingChannelsResponse_ForceClosedChannel.fromJSON(e),
-          )
+      pendingForceClosingChannels: Array.isArray(object?.pendingForceClosingChannels)
+        ? object.pendingForceClosingChannels.map((e: any) => PendingChannelsResponse_ForceClosedChannel.fromJSON(e))
         : [],
       waitingCloseChannels: Array.isArray(object?.waitingCloseChannels)
-        ? object.waitingCloseChannels.map((e: any) =>
-            PendingChannelsResponse_WaitingCloseChannel.fromJSON(e),
-          )
+        ? object.waitingCloseChannels.map((e: any) => PendingChannelsResponse_WaitingCloseChannel.fromJSON(e))
         : [],
     };
   },
 
   toJSON(message: PendingChannelsResponse): unknown {
     const obj: any = {};
-    message.totalLimboBalance !== undefined &&
-      (obj.totalLimboBalance = message.totalLimboBalance);
+    message.totalLimboBalance !== undefined && (obj.totalLimboBalance = message.totalLimboBalance);
     if (message.pendingOpenChannels) {
       obj.pendingOpenChannels = message.pendingOpenChannels.map((e) =>
-        e ? PendingChannelsResponse_PendingOpenChannel.toJSON(e) : undefined,
+        e ? PendingChannelsResponse_PendingOpenChannel.toJSON(e) : undefined
       );
     } else {
       obj.pendingOpenChannels = [];
     }
     if (message.pendingClosingChannels) {
       obj.pendingClosingChannels = message.pendingClosingChannels.map((e) =>
-        e ? PendingChannelsResponse_ClosedChannel.toJSON(e) : undefined,
+        e ? PendingChannelsResponse_ClosedChannel.toJSON(e) : undefined
       );
     } else {
       obj.pendingClosingChannels = [];
     }
     if (message.pendingForceClosingChannels) {
-      obj.pendingForceClosingChannels = message.pendingForceClosingChannels.map(
-        (e) =>
-          e ? PendingChannelsResponse_ForceClosedChannel.toJSON(e) : undefined,
+      obj.pendingForceClosingChannels = message.pendingForceClosingChannels.map((e) =>
+        e ? PendingChannelsResponse_ForceClosedChannel.toJSON(e) : undefined
       );
     } else {
       obj.pendingForceClosingChannels = [];
     }
     if (message.waitingCloseChannels) {
       obj.waitingCloseChannels = message.waitingCloseChannels.map((e) =>
-        e ? PendingChannelsResponse_WaitingCloseChannel.toJSON(e) : undefined,
+        e ? PendingChannelsResponse_WaitingCloseChannel.toJSON(e) : undefined
       );
     } else {
       obj.waitingCloseChannels = [];
@@ -13097,72 +11902,59 @@ export const PendingChannelsResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<PendingChannelsResponse>,
-  ): PendingChannelsResponse {
+  fromPartial(object: DeepPartial<PendingChannelsResponse>): PendingChannelsResponse {
     const message = createBasePendingChannelsResponse();
-    message.totalLimboBalance = object.totalLimboBalance ?? '0';
+    message.totalLimboBalance = object.totalLimboBalance ?? "0";
     message.pendingOpenChannels =
-      object.pendingOpenChannels?.map((e) =>
-        PendingChannelsResponse_PendingOpenChannel.fromPartial(e),
-      ) || [];
+      object.pendingOpenChannels?.map((e) => PendingChannelsResponse_PendingOpenChannel.fromPartial(e)) || [];
     message.pendingClosingChannels =
-      object.pendingClosingChannels?.map((e) =>
-        PendingChannelsResponse_ClosedChannel.fromPartial(e),
-      ) || [];
+      object.pendingClosingChannels?.map((e) => PendingChannelsResponse_ClosedChannel.fromPartial(e)) || [];
     message.pendingForceClosingChannels =
-      object.pendingForceClosingChannels?.map((e) =>
-        PendingChannelsResponse_ForceClosedChannel.fromPartial(e),
-      ) || [];
+      object.pendingForceClosingChannels?.map((e) => PendingChannelsResponse_ForceClosedChannel.fromPartial(e)) || [];
     message.waitingCloseChannels =
-      object.waitingCloseChannels?.map((e) =>
-        PendingChannelsResponse_WaitingCloseChannel.fromPartial(e),
-      ) || [];
+      object.waitingCloseChannels?.map((e) => PendingChannelsResponse_WaitingCloseChannel.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBasePendingChannelsResponse_PendingChannel(): PendingChannelsResponse_PendingChannel {
   return {
-    remoteNodePub: '',
-    channelPoint: '',
-    capacity: '0',
-    localBalance: '0',
-    remoteBalance: '0',
-    localChanReserveSat: '0',
-    remoteChanReserveSat: '0',
+    remoteNodePub: "",
+    channelPoint: "",
+    capacity: "0",
+    localBalance: "0",
+    remoteBalance: "0",
+    localChanReserveSat: "0",
+    remoteChanReserveSat: "0",
     initiator: 0,
     commitmentType: 0,
-    numForwardingPackages: '0',
-    chanStatusFlags: '',
+    numForwardingPackages: "0",
+    chanStatusFlags: "",
     private: false,
   };
 }
 
 export const PendingChannelsResponse_PendingChannel = {
-  encode(
-    message: PendingChannelsResponse_PendingChannel,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.remoteNodePub !== '') {
+  encode(message: PendingChannelsResponse_PendingChannel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.remoteNodePub !== "") {
       writer.uint32(10).string(message.remoteNodePub);
     }
-    if (message.channelPoint !== '') {
+    if (message.channelPoint !== "") {
       writer.uint32(18).string(message.channelPoint);
     }
-    if (message.capacity !== '0') {
+    if (message.capacity !== "0") {
       writer.uint32(24).int64(message.capacity);
     }
-    if (message.localBalance !== '0') {
+    if (message.localBalance !== "0") {
       writer.uint32(32).int64(message.localBalance);
     }
-    if (message.remoteBalance !== '0') {
+    if (message.remoteBalance !== "0") {
       writer.uint32(40).int64(message.remoteBalance);
     }
-    if (message.localChanReserveSat !== '0') {
+    if (message.localChanReserveSat !== "0") {
       writer.uint32(48).int64(message.localChanReserveSat);
     }
-    if (message.remoteChanReserveSat !== '0') {
+    if (message.remoteChanReserveSat !== "0") {
       writer.uint32(56).int64(message.remoteChanReserveSat);
     }
     if (message.initiator !== 0) {
@@ -13171,10 +11963,10 @@ export const PendingChannelsResponse_PendingChannel = {
     if (message.commitmentType !== 0) {
       writer.uint32(72).int32(message.commitmentType);
     }
-    if (message.numForwardingPackages !== '0') {
+    if (message.numForwardingPackages !== "0") {
       writer.uint32(80).int64(message.numForwardingPackages);
     }
-    if (message.chanStatusFlags !== '') {
+    if (message.chanStatusFlags !== "") {
       writer.uint32(90).string(message.chanStatusFlags);
     }
     if (message.private === true) {
@@ -13183,10 +11975,7 @@ export const PendingChannelsResponse_PendingChannel = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PendingChannelsResponse_PendingChannel {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PendingChannelsResponse_PendingChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_PendingChannel();
@@ -13239,119 +12028,78 @@ export const PendingChannelsResponse_PendingChannel = {
 
   fromJSON(object: any): PendingChannelsResponse_PendingChannel {
     return {
-      remoteNodePub: isSet(object.remoteNodePub)
-        ? String(object.remoteNodePub)
-        : '',
-      channelPoint: isSet(object.channelPoint)
-        ? String(object.channelPoint)
-        : '',
-      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
-      localBalance: isSet(object.localBalance)
-        ? String(object.localBalance)
-        : '0',
-      remoteBalance: isSet(object.remoteBalance)
-        ? String(object.remoteBalance)
-        : '0',
-      localChanReserveSat: isSet(object.localChanReserveSat)
-        ? String(object.localChanReserveSat)
-        : '0',
-      remoteChanReserveSat: isSet(object.remoteChanReserveSat)
-        ? String(object.remoteChanReserveSat)
-        : '0',
-      initiator: isSet(object.initiator)
-        ? initiatorFromJSON(object.initiator)
-        : 0,
-      commitmentType: isSet(object.commitmentType)
-        ? commitmentTypeFromJSON(object.commitmentType)
-        : 0,
-      numForwardingPackages: isSet(object.numForwardingPackages)
-        ? String(object.numForwardingPackages)
-        : '0',
-      chanStatusFlags: isSet(object.chanStatusFlags)
-        ? String(object.chanStatusFlags)
-        : '',
+      remoteNodePub: isSet(object.remoteNodePub) ? String(object.remoteNodePub) : "",
+      channelPoint: isSet(object.channelPoint) ? String(object.channelPoint) : "",
+      capacity: isSet(object.capacity) ? String(object.capacity) : "0",
+      localBalance: isSet(object.localBalance) ? String(object.localBalance) : "0",
+      remoteBalance: isSet(object.remoteBalance) ? String(object.remoteBalance) : "0",
+      localChanReserveSat: isSet(object.localChanReserveSat) ? String(object.localChanReserveSat) : "0",
+      remoteChanReserveSat: isSet(object.remoteChanReserveSat) ? String(object.remoteChanReserveSat) : "0",
+      initiator: isSet(object.initiator) ? initiatorFromJSON(object.initiator) : 0,
+      commitmentType: isSet(object.commitmentType) ? commitmentTypeFromJSON(object.commitmentType) : 0,
+      numForwardingPackages: isSet(object.numForwardingPackages) ? String(object.numForwardingPackages) : "0",
+      chanStatusFlags: isSet(object.chanStatusFlags) ? String(object.chanStatusFlags) : "",
       private: isSet(object.private) ? Boolean(object.private) : false,
     };
   },
 
   toJSON(message: PendingChannelsResponse_PendingChannel): unknown {
     const obj: any = {};
-    message.remoteNodePub !== undefined &&
-      (obj.remoteNodePub = message.remoteNodePub);
-    message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint);
+    message.remoteNodePub !== undefined && (obj.remoteNodePub = message.remoteNodePub);
+    message.channelPoint !== undefined && (obj.channelPoint = message.channelPoint);
     message.capacity !== undefined && (obj.capacity = message.capacity);
-    message.localBalance !== undefined &&
-      (obj.localBalance = message.localBalance);
-    message.remoteBalance !== undefined &&
-      (obj.remoteBalance = message.remoteBalance);
-    message.localChanReserveSat !== undefined &&
-      (obj.localChanReserveSat = message.localChanReserveSat);
-    message.remoteChanReserveSat !== undefined &&
-      (obj.remoteChanReserveSat = message.remoteChanReserveSat);
-    message.initiator !== undefined &&
-      (obj.initiator = initiatorToJSON(message.initiator));
-    message.commitmentType !== undefined &&
-      (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
-    message.numForwardingPackages !== undefined &&
-      (obj.numForwardingPackages = message.numForwardingPackages);
-    message.chanStatusFlags !== undefined &&
-      (obj.chanStatusFlags = message.chanStatusFlags);
+    message.localBalance !== undefined && (obj.localBalance = message.localBalance);
+    message.remoteBalance !== undefined && (obj.remoteBalance = message.remoteBalance);
+    message.localChanReserveSat !== undefined && (obj.localChanReserveSat = message.localChanReserveSat);
+    message.remoteChanReserveSat !== undefined && (obj.remoteChanReserveSat = message.remoteChanReserveSat);
+    message.initiator !== undefined && (obj.initiator = initiatorToJSON(message.initiator));
+    message.commitmentType !== undefined && (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.numForwardingPackages !== undefined && (obj.numForwardingPackages = message.numForwardingPackages);
+    message.chanStatusFlags !== undefined && (obj.chanStatusFlags = message.chanStatusFlags);
     message.private !== undefined && (obj.private = message.private);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<PendingChannelsResponse_PendingChannel>,
-  ): PendingChannelsResponse_PendingChannel {
+  fromPartial(object: DeepPartial<PendingChannelsResponse_PendingChannel>): PendingChannelsResponse_PendingChannel {
     const message = createBasePendingChannelsResponse_PendingChannel();
-    message.remoteNodePub = object.remoteNodePub ?? '';
-    message.channelPoint = object.channelPoint ?? '';
-    message.capacity = object.capacity ?? '0';
-    message.localBalance = object.localBalance ?? '0';
-    message.remoteBalance = object.remoteBalance ?? '0';
-    message.localChanReserveSat = object.localChanReserveSat ?? '0';
-    message.remoteChanReserveSat = object.remoteChanReserveSat ?? '0';
+    message.remoteNodePub = object.remoteNodePub ?? "";
+    message.channelPoint = object.channelPoint ?? "";
+    message.capacity = object.capacity ?? "0";
+    message.localBalance = object.localBalance ?? "0";
+    message.remoteBalance = object.remoteBalance ?? "0";
+    message.localChanReserveSat = object.localChanReserveSat ?? "0";
+    message.remoteChanReserveSat = object.remoteChanReserveSat ?? "0";
     message.initiator = object.initiator ?? 0;
     message.commitmentType = object.commitmentType ?? 0;
-    message.numForwardingPackages = object.numForwardingPackages ?? '0';
-    message.chanStatusFlags = object.chanStatusFlags ?? '';
+    message.numForwardingPackages = object.numForwardingPackages ?? "0";
+    message.chanStatusFlags = object.chanStatusFlags ?? "";
     message.private = object.private ?? false;
     return message;
   },
 };
 
 function createBasePendingChannelsResponse_PendingOpenChannel(): PendingChannelsResponse_PendingOpenChannel {
-  return {channel: undefined, commitFee: '0', commitWeight: '0', feePerKw: '0'};
+  return { channel: undefined, commitFee: "0", commitWeight: "0", feePerKw: "0" };
 }
 
 export const PendingChannelsResponse_PendingOpenChannel = {
-  encode(
-    message: PendingChannelsResponse_PendingOpenChannel,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PendingChannelsResponse_PendingOpenChannel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.channel !== undefined) {
-      PendingChannelsResponse_PendingChannel.encode(
-        message.channel,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      PendingChannelsResponse_PendingChannel.encode(message.channel, writer.uint32(10).fork()).ldelim();
     }
-    if (message.commitFee !== '0') {
+    if (message.commitFee !== "0") {
       writer.uint32(32).int64(message.commitFee);
     }
-    if (message.commitWeight !== '0') {
+    if (message.commitWeight !== "0") {
       writer.uint32(40).int64(message.commitWeight);
     }
-    if (message.feePerKw !== '0') {
+    if (message.feePerKw !== "0") {
       writer.uint32(48).int64(message.feePerKw);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PendingChannelsResponse_PendingOpenChannel {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PendingChannelsResponse_PendingOpenChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_PendingOpenChannel();
@@ -13359,10 +12107,7 @@ export const PendingChannelsResponse_PendingOpenChannel = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channel = PendingChannelsResponse_PendingChannel.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.channel = PendingChannelsResponse_PendingChannel.decode(reader, reader.uint32());
           break;
         case 4:
           message.commitFee = longToString(reader.int64() as Long);
@@ -13383,26 +12128,19 @@ export const PendingChannelsResponse_PendingOpenChannel = {
 
   fromJSON(object: any): PendingChannelsResponse_PendingOpenChannel {
     return {
-      channel: isSet(object.channel)
-        ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel)
-        : undefined,
-      commitFee: isSet(object.commitFee) ? String(object.commitFee) : '0',
-      commitWeight: isSet(object.commitWeight)
-        ? String(object.commitWeight)
-        : '0',
-      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : '0',
+      channel: isSet(object.channel) ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel) : undefined,
+      commitFee: isSet(object.commitFee) ? String(object.commitFee) : "0",
+      commitWeight: isSet(object.commitWeight) ? String(object.commitWeight) : "0",
+      feePerKw: isSet(object.feePerKw) ? String(object.feePerKw) : "0",
     };
   },
 
   toJSON(message: PendingChannelsResponse_PendingOpenChannel): unknown {
     const obj: any = {};
     message.channel !== undefined &&
-      (obj.channel = message.channel
-        ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
-        : undefined);
+      (obj.channel = message.channel ? PendingChannelsResponse_PendingChannel.toJSON(message.channel) : undefined);
     message.commitFee !== undefined && (obj.commitFee = message.commitFee);
-    message.commitWeight !== undefined &&
-      (obj.commitWeight = message.commitWeight);
+    message.commitWeight !== undefined && (obj.commitWeight = message.commitWeight);
     message.feePerKw !== undefined && (obj.feePerKw = message.feePerKw);
     return obj;
   },
@@ -13411,56 +12149,38 @@ export const PendingChannelsResponse_PendingOpenChannel = {
     object: DeepPartial<PendingChannelsResponse_PendingOpenChannel>,
   ): PendingChannelsResponse_PendingOpenChannel {
     const message = createBasePendingChannelsResponse_PendingOpenChannel();
-    message.channel =
-      object.channel !== undefined && object.channel !== null
-        ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
-        : undefined;
-    message.commitFee = object.commitFee ?? '0';
-    message.commitWeight = object.commitWeight ?? '0';
-    message.feePerKw = object.feePerKw ?? '0';
+    message.channel = (object.channel !== undefined && object.channel !== null)
+      ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
+      : undefined;
+    message.commitFee = object.commitFee ?? "0";
+    message.commitWeight = object.commitWeight ?? "0";
+    message.feePerKw = object.feePerKw ?? "0";
     return message;
   },
 };
 
 function createBasePendingChannelsResponse_WaitingCloseChannel(): PendingChannelsResponse_WaitingCloseChannel {
-  return {
-    channel: undefined,
-    limboBalance: '0',
-    commitments: undefined,
-    closingTxid: '',
-  };
+  return { channel: undefined, limboBalance: "0", commitments: undefined, closingTxid: "" };
 }
 
 export const PendingChannelsResponse_WaitingCloseChannel = {
-  encode(
-    message: PendingChannelsResponse_WaitingCloseChannel,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PendingChannelsResponse_WaitingCloseChannel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.channel !== undefined) {
-      PendingChannelsResponse_PendingChannel.encode(
-        message.channel,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      PendingChannelsResponse_PendingChannel.encode(message.channel, writer.uint32(10).fork()).ldelim();
     }
-    if (message.limboBalance !== '0') {
+    if (message.limboBalance !== "0") {
       writer.uint32(16).int64(message.limboBalance);
     }
     if (message.commitments !== undefined) {
-      PendingChannelsResponse_Commitments.encode(
-        message.commitments,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      PendingChannelsResponse_Commitments.encode(message.commitments, writer.uint32(26).fork()).ldelim();
     }
-    if (message.closingTxid !== '') {
+    if (message.closingTxid !== "") {
       writer.uint32(34).string(message.closingTxid);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PendingChannelsResponse_WaitingCloseChannel {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PendingChannelsResponse_WaitingCloseChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_WaitingCloseChannel();
@@ -13468,19 +12188,13 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channel = PendingChannelsResponse_PendingChannel.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.channel = PendingChannelsResponse_PendingChannel.decode(reader, reader.uint32());
           break;
         case 2:
           message.limboBalance = longToString(reader.int64() as Long);
           break;
         case 3:
-          message.commitments = PendingChannelsResponse_Commitments.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.commitments = PendingChannelsResponse_Commitments.decode(reader, reader.uint32());
           break;
         case 4:
           message.closingTxid = reader.string();
@@ -13495,33 +12209,24 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
 
   fromJSON(object: any): PendingChannelsResponse_WaitingCloseChannel {
     return {
-      channel: isSet(object.channel)
-        ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel)
-        : undefined,
-      limboBalance: isSet(object.limboBalance)
-        ? String(object.limboBalance)
-        : '0',
+      channel: isSet(object.channel) ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel) : undefined,
+      limboBalance: isSet(object.limboBalance) ? String(object.limboBalance) : "0",
       commitments: isSet(object.commitments)
         ? PendingChannelsResponse_Commitments.fromJSON(object.commitments)
         : undefined,
-      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : '',
+      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : "",
     };
   },
 
   toJSON(message: PendingChannelsResponse_WaitingCloseChannel): unknown {
     const obj: any = {};
     message.channel !== undefined &&
-      (obj.channel = message.channel
-        ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
-        : undefined);
-    message.limboBalance !== undefined &&
-      (obj.limboBalance = message.limboBalance);
-    message.commitments !== undefined &&
-      (obj.commitments = message.commitments
-        ? PendingChannelsResponse_Commitments.toJSON(message.commitments)
-        : undefined);
-    message.closingTxid !== undefined &&
-      (obj.closingTxid = message.closingTxid);
+      (obj.channel = message.channel ? PendingChannelsResponse_PendingChannel.toJSON(message.channel) : undefined);
+    message.limboBalance !== undefined && (obj.limboBalance = message.limboBalance);
+    message.commitments !== undefined && (obj.commitments = message.commitments
+      ? PendingChannelsResponse_Commitments.toJSON(message.commitments)
+      : undefined);
+    message.closingTxid !== undefined && (obj.closingTxid = message.closingTxid);
     return obj;
   },
 
@@ -13529,61 +12234,53 @@ export const PendingChannelsResponse_WaitingCloseChannel = {
     object: DeepPartial<PendingChannelsResponse_WaitingCloseChannel>,
   ): PendingChannelsResponse_WaitingCloseChannel {
     const message = createBasePendingChannelsResponse_WaitingCloseChannel();
-    message.channel =
-      object.channel !== undefined && object.channel !== null
-        ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
-        : undefined;
-    message.limboBalance = object.limboBalance ?? '0';
-    message.commitments =
-      object.commitments !== undefined && object.commitments !== null
-        ? PendingChannelsResponse_Commitments.fromPartial(object.commitments)
-        : undefined;
-    message.closingTxid = object.closingTxid ?? '';
+    message.channel = (object.channel !== undefined && object.channel !== null)
+      ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
+      : undefined;
+    message.limboBalance = object.limboBalance ?? "0";
+    message.commitments = (object.commitments !== undefined && object.commitments !== null)
+      ? PendingChannelsResponse_Commitments.fromPartial(object.commitments)
+      : undefined;
+    message.closingTxid = object.closingTxid ?? "";
     return message;
   },
 };
 
 function createBasePendingChannelsResponse_Commitments(): PendingChannelsResponse_Commitments {
   return {
-    localTxid: '',
-    remoteTxid: '',
-    remotePendingTxid: '',
-    localCommitFeeSat: '0',
-    remoteCommitFeeSat: '0',
-    remotePendingCommitFeeSat: '0',
+    localTxid: "",
+    remoteTxid: "",
+    remotePendingTxid: "",
+    localCommitFeeSat: "0",
+    remoteCommitFeeSat: "0",
+    remotePendingCommitFeeSat: "0",
   };
 }
 
 export const PendingChannelsResponse_Commitments = {
-  encode(
-    message: PendingChannelsResponse_Commitments,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.localTxid !== '') {
+  encode(message: PendingChannelsResponse_Commitments, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.localTxid !== "") {
       writer.uint32(10).string(message.localTxid);
     }
-    if (message.remoteTxid !== '') {
+    if (message.remoteTxid !== "") {
       writer.uint32(18).string(message.remoteTxid);
     }
-    if (message.remotePendingTxid !== '') {
+    if (message.remotePendingTxid !== "") {
       writer.uint32(26).string(message.remotePendingTxid);
     }
-    if (message.localCommitFeeSat !== '0') {
+    if (message.localCommitFeeSat !== "0") {
       writer.uint32(32).uint64(message.localCommitFeeSat);
     }
-    if (message.remoteCommitFeeSat !== '0') {
+    if (message.remoteCommitFeeSat !== "0") {
       writer.uint32(40).uint64(message.remoteCommitFeeSat);
     }
-    if (message.remotePendingCommitFeeSat !== '0') {
+    if (message.remotePendingCommitFeeSat !== "0") {
       writer.uint32(48).uint64(message.remotePendingCommitFeeSat);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PendingChannelsResponse_Commitments {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PendingChannelsResponse_Commitments {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_Commitments();
@@ -13606,9 +12303,7 @@ export const PendingChannelsResponse_Commitments = {
           message.remoteCommitFeeSat = longToString(reader.uint64() as Long);
           break;
         case 6:
-          message.remotePendingCommitFeeSat = longToString(
-            reader.uint64() as Long,
-          );
+          message.remotePendingCommitFeeSat = longToString(reader.uint64() as Long);
           break;
         default:
           reader.skipType(tag & 7);
@@ -13620,20 +12315,14 @@ export const PendingChannelsResponse_Commitments = {
 
   fromJSON(object: any): PendingChannelsResponse_Commitments {
     return {
-      localTxid: isSet(object.localTxid) ? String(object.localTxid) : '',
-      remoteTxid: isSet(object.remoteTxid) ? String(object.remoteTxid) : '',
-      remotePendingTxid: isSet(object.remotePendingTxid)
-        ? String(object.remotePendingTxid)
-        : '',
-      localCommitFeeSat: isSet(object.localCommitFeeSat)
-        ? String(object.localCommitFeeSat)
-        : '0',
-      remoteCommitFeeSat: isSet(object.remoteCommitFeeSat)
-        ? String(object.remoteCommitFeeSat)
-        : '0',
+      localTxid: isSet(object.localTxid) ? String(object.localTxid) : "",
+      remoteTxid: isSet(object.remoteTxid) ? String(object.remoteTxid) : "",
+      remotePendingTxid: isSet(object.remotePendingTxid) ? String(object.remotePendingTxid) : "",
+      localCommitFeeSat: isSet(object.localCommitFeeSat) ? String(object.localCommitFeeSat) : "0",
+      remoteCommitFeeSat: isSet(object.remoteCommitFeeSat) ? String(object.remoteCommitFeeSat) : "0",
       remotePendingCommitFeeSat: isSet(object.remotePendingCommitFeeSat)
         ? String(object.remotePendingCommitFeeSat)
-        : '0',
+        : "0",
     };
   },
 
@@ -13641,56 +12330,42 @@ export const PendingChannelsResponse_Commitments = {
     const obj: any = {};
     message.localTxid !== undefined && (obj.localTxid = message.localTxid);
     message.remoteTxid !== undefined && (obj.remoteTxid = message.remoteTxid);
-    message.remotePendingTxid !== undefined &&
-      (obj.remotePendingTxid = message.remotePendingTxid);
-    message.localCommitFeeSat !== undefined &&
-      (obj.localCommitFeeSat = message.localCommitFeeSat);
-    message.remoteCommitFeeSat !== undefined &&
-      (obj.remoteCommitFeeSat = message.remoteCommitFeeSat);
+    message.remotePendingTxid !== undefined && (obj.remotePendingTxid = message.remotePendingTxid);
+    message.localCommitFeeSat !== undefined && (obj.localCommitFeeSat = message.localCommitFeeSat);
+    message.remoteCommitFeeSat !== undefined && (obj.remoteCommitFeeSat = message.remoteCommitFeeSat);
     message.remotePendingCommitFeeSat !== undefined &&
       (obj.remotePendingCommitFeeSat = message.remotePendingCommitFeeSat);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<PendingChannelsResponse_Commitments>,
-  ): PendingChannelsResponse_Commitments {
+  fromPartial(object: DeepPartial<PendingChannelsResponse_Commitments>): PendingChannelsResponse_Commitments {
     const message = createBasePendingChannelsResponse_Commitments();
-    message.localTxid = object.localTxid ?? '';
-    message.remoteTxid = object.remoteTxid ?? '';
-    message.remotePendingTxid = object.remotePendingTxid ?? '';
-    message.localCommitFeeSat = object.localCommitFeeSat ?? '0';
-    message.remoteCommitFeeSat = object.remoteCommitFeeSat ?? '0';
-    message.remotePendingCommitFeeSat = object.remotePendingCommitFeeSat ?? '0';
+    message.localTxid = object.localTxid ?? "";
+    message.remoteTxid = object.remoteTxid ?? "";
+    message.remotePendingTxid = object.remotePendingTxid ?? "";
+    message.localCommitFeeSat = object.localCommitFeeSat ?? "0";
+    message.remoteCommitFeeSat = object.remoteCommitFeeSat ?? "0";
+    message.remotePendingCommitFeeSat = object.remotePendingCommitFeeSat ?? "0";
     return message;
   },
 };
 
 function createBasePendingChannelsResponse_ClosedChannel(): PendingChannelsResponse_ClosedChannel {
-  return {channel: undefined, closingTxid: ''};
+  return { channel: undefined, closingTxid: "" };
 }
 
 export const PendingChannelsResponse_ClosedChannel = {
-  encode(
-    message: PendingChannelsResponse_ClosedChannel,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PendingChannelsResponse_ClosedChannel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.channel !== undefined) {
-      PendingChannelsResponse_PendingChannel.encode(
-        message.channel,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      PendingChannelsResponse_PendingChannel.encode(message.channel, writer.uint32(10).fork()).ldelim();
     }
-    if (message.closingTxid !== '') {
+    if (message.closingTxid !== "") {
       writer.uint32(18).string(message.closingTxid);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PendingChannelsResponse_ClosedChannel {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PendingChannelsResponse_ClosedChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_ClosedChannel();
@@ -13698,10 +12373,7 @@ export const PendingChannelsResponse_ClosedChannel = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channel = PendingChannelsResponse_PendingChannel.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.channel = PendingChannelsResponse_PendingChannel.decode(reader, reader.uint32());
           break;
         case 2:
           message.closingTxid = reader.string();
@@ -13716,33 +12388,25 @@ export const PendingChannelsResponse_ClosedChannel = {
 
   fromJSON(object: any): PendingChannelsResponse_ClosedChannel {
     return {
-      channel: isSet(object.channel)
-        ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel)
-        : undefined,
-      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : '',
+      channel: isSet(object.channel) ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel) : undefined,
+      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : "",
     };
   },
 
   toJSON(message: PendingChannelsResponse_ClosedChannel): unknown {
     const obj: any = {};
     message.channel !== undefined &&
-      (obj.channel = message.channel
-        ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
-        : undefined);
-    message.closingTxid !== undefined &&
-      (obj.closingTxid = message.closingTxid);
+      (obj.channel = message.channel ? PendingChannelsResponse_PendingChannel.toJSON(message.channel) : undefined);
+    message.closingTxid !== undefined && (obj.closingTxid = message.closingTxid);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<PendingChannelsResponse_ClosedChannel>,
-  ): PendingChannelsResponse_ClosedChannel {
+  fromPartial(object: DeepPartial<PendingChannelsResponse_ClosedChannel>): PendingChannelsResponse_ClosedChannel {
     const message = createBasePendingChannelsResponse_ClosedChannel();
-    message.channel =
-      object.channel !== undefined && object.channel !== null
-        ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
-        : undefined;
-    message.closingTxid = object.closingTxid ?? '';
+    message.channel = (object.channel !== undefined && object.channel !== null)
+      ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
+      : undefined;
+    message.closingTxid = object.closingTxid ?? "";
     return message;
   },
 };
@@ -13750,31 +12414,25 @@ export const PendingChannelsResponse_ClosedChannel = {
 function createBasePendingChannelsResponse_ForceClosedChannel(): PendingChannelsResponse_ForceClosedChannel {
   return {
     channel: undefined,
-    closingTxid: '',
-    limboBalance: '0',
+    closingTxid: "",
+    limboBalance: "0",
     maturityHeight: 0,
     blocksTilMaturity: 0,
-    recoveredBalance: '0',
+    recoveredBalance: "0",
     pendingHtlcs: [],
     anchor: 0,
   };
 }
 
 export const PendingChannelsResponse_ForceClosedChannel = {
-  encode(
-    message: PendingChannelsResponse_ForceClosedChannel,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PendingChannelsResponse_ForceClosedChannel, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.channel !== undefined) {
-      PendingChannelsResponse_PendingChannel.encode(
-        message.channel,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      PendingChannelsResponse_PendingChannel.encode(message.channel, writer.uint32(10).fork()).ldelim();
     }
-    if (message.closingTxid !== '') {
+    if (message.closingTxid !== "") {
       writer.uint32(18).string(message.closingTxid);
     }
-    if (message.limboBalance !== '0') {
+    if (message.limboBalance !== "0") {
       writer.uint32(24).int64(message.limboBalance);
     }
     if (message.maturityHeight !== 0) {
@@ -13783,7 +12441,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     if (message.blocksTilMaturity !== 0) {
       writer.uint32(40).int32(message.blocksTilMaturity);
     }
-    if (message.recoveredBalance !== '0') {
+    if (message.recoveredBalance !== "0") {
       writer.uint32(48).int64(message.recoveredBalance);
     }
     for (const v of message.pendingHtlcs) {
@@ -13795,10 +12453,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PendingChannelsResponse_ForceClosedChannel {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PendingChannelsResponse_ForceClosedChannel {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePendingChannelsResponse_ForceClosedChannel();
@@ -13806,10 +12461,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channel = PendingChannelsResponse_PendingChannel.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.channel = PendingChannelsResponse_PendingChannel.decode(reader, reader.uint32());
           break;
         case 2:
           message.closingTxid = reader.string();
@@ -13827,9 +12479,7 @@ export const PendingChannelsResponse_ForceClosedChannel = {
           message.recoveredBalance = longToString(reader.int64() as Long);
           break;
         case 8:
-          message.pendingHtlcs.push(
-            PendingHTLC.decode(reader, reader.uint32()),
-          );
+          message.pendingHtlcs.push(PendingHTLC.decode(reader, reader.uint32()));
           break;
         case 9:
           message.anchor = reader.int32() as any;
@@ -13844,61 +12494,35 @@ export const PendingChannelsResponse_ForceClosedChannel = {
 
   fromJSON(object: any): PendingChannelsResponse_ForceClosedChannel {
     return {
-      channel: isSet(object.channel)
-        ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel)
-        : undefined,
-      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : '',
-      limboBalance: isSet(object.limboBalance)
-        ? String(object.limboBalance)
-        : '0',
-      maturityHeight: isSet(object.maturityHeight)
-        ? Number(object.maturityHeight)
-        : 0,
-      blocksTilMaturity: isSet(object.blocksTilMaturity)
-        ? Number(object.blocksTilMaturity)
-        : 0,
-      recoveredBalance: isSet(object.recoveredBalance)
-        ? String(object.recoveredBalance)
-        : '0',
+      channel: isSet(object.channel) ? PendingChannelsResponse_PendingChannel.fromJSON(object.channel) : undefined,
+      closingTxid: isSet(object.closingTxid) ? String(object.closingTxid) : "",
+      limboBalance: isSet(object.limboBalance) ? String(object.limboBalance) : "0",
+      maturityHeight: isSet(object.maturityHeight) ? Number(object.maturityHeight) : 0,
+      blocksTilMaturity: isSet(object.blocksTilMaturity) ? Number(object.blocksTilMaturity) : 0,
+      recoveredBalance: isSet(object.recoveredBalance) ? String(object.recoveredBalance) : "0",
       pendingHtlcs: Array.isArray(object?.pendingHtlcs)
         ? object.pendingHtlcs.map((e: any) => PendingHTLC.fromJSON(e))
         : [],
-      anchor: isSet(object.anchor)
-        ? pendingChannelsResponse_ForceClosedChannel_AnchorStateFromJSON(
-            object.anchor,
-          )
-        : 0,
+      anchor: isSet(object.anchor) ? pendingChannelsResponse_ForceClosedChannel_AnchorStateFromJSON(object.anchor) : 0,
     };
   },
 
   toJSON(message: PendingChannelsResponse_ForceClosedChannel): unknown {
     const obj: any = {};
     message.channel !== undefined &&
-      (obj.channel = message.channel
-        ? PendingChannelsResponse_PendingChannel.toJSON(message.channel)
-        : undefined);
-    message.closingTxid !== undefined &&
-      (obj.closingTxid = message.closingTxid);
-    message.limboBalance !== undefined &&
-      (obj.limboBalance = message.limboBalance);
-    message.maturityHeight !== undefined &&
-      (obj.maturityHeight = Math.round(message.maturityHeight));
-    message.blocksTilMaturity !== undefined &&
-      (obj.blocksTilMaturity = Math.round(message.blocksTilMaturity));
-    message.recoveredBalance !== undefined &&
-      (obj.recoveredBalance = message.recoveredBalance);
+      (obj.channel = message.channel ? PendingChannelsResponse_PendingChannel.toJSON(message.channel) : undefined);
+    message.closingTxid !== undefined && (obj.closingTxid = message.closingTxid);
+    message.limboBalance !== undefined && (obj.limboBalance = message.limboBalance);
+    message.maturityHeight !== undefined && (obj.maturityHeight = Math.round(message.maturityHeight));
+    message.blocksTilMaturity !== undefined && (obj.blocksTilMaturity = Math.round(message.blocksTilMaturity));
+    message.recoveredBalance !== undefined && (obj.recoveredBalance = message.recoveredBalance);
     if (message.pendingHtlcs) {
-      obj.pendingHtlcs = message.pendingHtlcs.map((e) =>
-        e ? PendingHTLC.toJSON(e) : undefined,
-      );
+      obj.pendingHtlcs = message.pendingHtlcs.map((e) => e ? PendingHTLC.toJSON(e) : undefined);
     } else {
       obj.pendingHtlcs = [];
     }
     message.anchor !== undefined &&
-      (obj.anchor =
-        pendingChannelsResponse_ForceClosedChannel_AnchorStateToJSON(
-          message.anchor,
-        ));
+      (obj.anchor = pendingChannelsResponse_ForceClosedChannel_AnchorStateToJSON(message.anchor));
     return obj;
   },
 
@@ -13906,17 +12530,15 @@ export const PendingChannelsResponse_ForceClosedChannel = {
     object: DeepPartial<PendingChannelsResponse_ForceClosedChannel>,
   ): PendingChannelsResponse_ForceClosedChannel {
     const message = createBasePendingChannelsResponse_ForceClosedChannel();
-    message.channel =
-      object.channel !== undefined && object.channel !== null
-        ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
-        : undefined;
-    message.closingTxid = object.closingTxid ?? '';
-    message.limboBalance = object.limboBalance ?? '0';
+    message.channel = (object.channel !== undefined && object.channel !== null)
+      ? PendingChannelsResponse_PendingChannel.fromPartial(object.channel)
+      : undefined;
+    message.closingTxid = object.closingTxid ?? "";
+    message.limboBalance = object.limboBalance ?? "0";
     message.maturityHeight = object.maturityHeight ?? 0;
     message.blocksTilMaturity = object.blocksTilMaturity ?? 0;
-    message.recoveredBalance = object.recoveredBalance ?? '0';
-    message.pendingHtlcs =
-      object.pendingHtlcs?.map((e) => PendingHTLC.fromPartial(e)) || [];
+    message.recoveredBalance = object.recoveredBalance ?? "0";
+    message.pendingHtlcs = object.pendingHtlcs?.map((e) => PendingHTLC.fromPartial(e)) || [];
     message.anchor = object.anchor ?? 0;
     return message;
   },
@@ -13927,17 +12549,11 @@ function createBaseChannelEventSubscription(): ChannelEventSubscription {
 }
 
 export const ChannelEventSubscription = {
-  encode(
-    _: ChannelEventSubscription,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: ChannelEventSubscription, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChannelEventSubscription {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChannelEventSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelEventSubscription();
@@ -13961,9 +12577,7 @@ export const ChannelEventSubscription = {
     return obj;
   },
 
-  fromPartial(
-    _: DeepPartial<ChannelEventSubscription>,
-  ): ChannelEventSubscription {
+  fromPartial(_: DeepPartial<ChannelEventSubscription>): ChannelEventSubscription {
     const message = createBaseChannelEventSubscription();
     return message;
   },
@@ -13982,42 +12596,24 @@ function createBaseChannelEventUpdate(): ChannelEventUpdate {
 }
 
 export const ChannelEventUpdate = {
-  encode(
-    message: ChannelEventUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelEventUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.openChannel !== undefined) {
       Channel.encode(message.openChannel, writer.uint32(10).fork()).ldelim();
     }
     if (message.closedChannel !== undefined) {
-      ChannelCloseSummary.encode(
-        message.closedChannel,
-        writer.uint32(18).fork(),
-      ).ldelim();
+      ChannelCloseSummary.encode(message.closedChannel, writer.uint32(18).fork()).ldelim();
     }
     if (message.activeChannel !== undefined) {
-      ChannelPoint.encode(
-        message.activeChannel,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      ChannelPoint.encode(message.activeChannel, writer.uint32(26).fork()).ldelim();
     }
     if (message.inactiveChannel !== undefined) {
-      ChannelPoint.encode(
-        message.inactiveChannel,
-        writer.uint32(34).fork(),
-      ).ldelim();
+      ChannelPoint.encode(message.inactiveChannel, writer.uint32(34).fork()).ldelim();
     }
     if (message.pendingOpenChannel !== undefined) {
-      PendingUpdate.encode(
-        message.pendingOpenChannel,
-        writer.uint32(50).fork(),
-      ).ldelim();
+      PendingUpdate.encode(message.pendingOpenChannel, writer.uint32(50).fork()).ldelim();
     }
     if (message.fullyResolvedChannel !== undefined) {
-      ChannelPoint.encode(
-        message.fullyResolvedChannel,
-        writer.uint32(58).fork(),
-      ).ldelim();
+      ChannelPoint.encode(message.fullyResolvedChannel, writer.uint32(58).fork()).ldelim();
     }
     if (message.type !== 0) {
       writer.uint32(40).int32(message.type);
@@ -14036,31 +12632,19 @@ export const ChannelEventUpdate = {
           message.openChannel = Channel.decode(reader, reader.uint32());
           break;
         case 2:
-          message.closedChannel = ChannelCloseSummary.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.closedChannel = ChannelCloseSummary.decode(reader, reader.uint32());
           break;
         case 3:
           message.activeChannel = ChannelPoint.decode(reader, reader.uint32());
           break;
         case 4:
-          message.inactiveChannel = ChannelPoint.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.inactiveChannel = ChannelPoint.decode(reader, reader.uint32());
           break;
         case 6:
-          message.pendingOpenChannel = PendingUpdate.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.pendingOpenChannel = PendingUpdate.decode(reader, reader.uint32());
           break;
         case 7:
-          message.fullyResolvedChannel = ChannelPoint.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.fullyResolvedChannel = ChannelPoint.decode(reader, reader.uint32());
           break;
         case 5:
           message.type = reader.int32() as any;
@@ -14075,116 +12659,81 @@ export const ChannelEventUpdate = {
 
   fromJSON(object: any): ChannelEventUpdate {
     return {
-      openChannel: isSet(object.openChannel)
-        ? Channel.fromJSON(object.openChannel)
-        : undefined,
-      closedChannel: isSet(object.closedChannel)
-        ? ChannelCloseSummary.fromJSON(object.closedChannel)
-        : undefined,
-      activeChannel: isSet(object.activeChannel)
-        ? ChannelPoint.fromJSON(object.activeChannel)
-        : undefined,
-      inactiveChannel: isSet(object.inactiveChannel)
-        ? ChannelPoint.fromJSON(object.inactiveChannel)
-        : undefined,
+      openChannel: isSet(object.openChannel) ? Channel.fromJSON(object.openChannel) : undefined,
+      closedChannel: isSet(object.closedChannel) ? ChannelCloseSummary.fromJSON(object.closedChannel) : undefined,
+      activeChannel: isSet(object.activeChannel) ? ChannelPoint.fromJSON(object.activeChannel) : undefined,
+      inactiveChannel: isSet(object.inactiveChannel) ? ChannelPoint.fromJSON(object.inactiveChannel) : undefined,
       pendingOpenChannel: isSet(object.pendingOpenChannel)
         ? PendingUpdate.fromJSON(object.pendingOpenChannel)
         : undefined,
       fullyResolvedChannel: isSet(object.fullyResolvedChannel)
         ? ChannelPoint.fromJSON(object.fullyResolvedChannel)
         : undefined,
-      type: isSet(object.type)
-        ? channelEventUpdate_UpdateTypeFromJSON(object.type)
-        : 0,
+      type: isSet(object.type) ? channelEventUpdate_UpdateTypeFromJSON(object.type) : 0,
     };
   },
 
   toJSON(message: ChannelEventUpdate): unknown {
     const obj: any = {};
     message.openChannel !== undefined &&
-      (obj.openChannel = message.openChannel
-        ? Channel.toJSON(message.openChannel)
-        : undefined);
+      (obj.openChannel = message.openChannel ? Channel.toJSON(message.openChannel) : undefined);
     message.closedChannel !== undefined &&
-      (obj.closedChannel = message.closedChannel
-        ? ChannelCloseSummary.toJSON(message.closedChannel)
-        : undefined);
+      (obj.closedChannel = message.closedChannel ? ChannelCloseSummary.toJSON(message.closedChannel) : undefined);
     message.activeChannel !== undefined &&
-      (obj.activeChannel = message.activeChannel
-        ? ChannelPoint.toJSON(message.activeChannel)
-        : undefined);
+      (obj.activeChannel = message.activeChannel ? ChannelPoint.toJSON(message.activeChannel) : undefined);
     message.inactiveChannel !== undefined &&
-      (obj.inactiveChannel = message.inactiveChannel
-        ? ChannelPoint.toJSON(message.inactiveChannel)
-        : undefined);
-    message.pendingOpenChannel !== undefined &&
-      (obj.pendingOpenChannel = message.pendingOpenChannel
-        ? PendingUpdate.toJSON(message.pendingOpenChannel)
-        : undefined);
-    message.fullyResolvedChannel !== undefined &&
-      (obj.fullyResolvedChannel = message.fullyResolvedChannel
-        ? ChannelPoint.toJSON(message.fullyResolvedChannel)
-        : undefined);
-    message.type !== undefined &&
-      (obj.type = channelEventUpdate_UpdateTypeToJSON(message.type));
+      (obj.inactiveChannel = message.inactiveChannel ? ChannelPoint.toJSON(message.inactiveChannel) : undefined);
+    message.pendingOpenChannel !== undefined && (obj.pendingOpenChannel = message.pendingOpenChannel
+      ? PendingUpdate.toJSON(message.pendingOpenChannel)
+      : undefined);
+    message.fullyResolvedChannel !== undefined && (obj.fullyResolvedChannel = message.fullyResolvedChannel
+      ? ChannelPoint.toJSON(message.fullyResolvedChannel)
+      : undefined);
+    message.type !== undefined && (obj.type = channelEventUpdate_UpdateTypeToJSON(message.type));
     return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelEventUpdate>): ChannelEventUpdate {
     const message = createBaseChannelEventUpdate();
-    message.openChannel =
-      object.openChannel !== undefined && object.openChannel !== null
-        ? Channel.fromPartial(object.openChannel)
-        : undefined;
-    message.closedChannel =
-      object.closedChannel !== undefined && object.closedChannel !== null
-        ? ChannelCloseSummary.fromPartial(object.closedChannel)
-        : undefined;
-    message.activeChannel =
-      object.activeChannel !== undefined && object.activeChannel !== null
-        ? ChannelPoint.fromPartial(object.activeChannel)
-        : undefined;
-    message.inactiveChannel =
-      object.inactiveChannel !== undefined && object.inactiveChannel !== null
-        ? ChannelPoint.fromPartial(object.inactiveChannel)
-        : undefined;
-    message.pendingOpenChannel =
-      object.pendingOpenChannel !== undefined &&
-      object.pendingOpenChannel !== null
-        ? PendingUpdate.fromPartial(object.pendingOpenChannel)
-        : undefined;
-    message.fullyResolvedChannel =
-      object.fullyResolvedChannel !== undefined &&
-      object.fullyResolvedChannel !== null
-        ? ChannelPoint.fromPartial(object.fullyResolvedChannel)
-        : undefined;
+    message.openChannel = (object.openChannel !== undefined && object.openChannel !== null)
+      ? Channel.fromPartial(object.openChannel)
+      : undefined;
+    message.closedChannel = (object.closedChannel !== undefined && object.closedChannel !== null)
+      ? ChannelCloseSummary.fromPartial(object.closedChannel)
+      : undefined;
+    message.activeChannel = (object.activeChannel !== undefined && object.activeChannel !== null)
+      ? ChannelPoint.fromPartial(object.activeChannel)
+      : undefined;
+    message.inactiveChannel = (object.inactiveChannel !== undefined && object.inactiveChannel !== null)
+      ? ChannelPoint.fromPartial(object.inactiveChannel)
+      : undefined;
+    message.pendingOpenChannel = (object.pendingOpenChannel !== undefined && object.pendingOpenChannel !== null)
+      ? PendingUpdate.fromPartial(object.pendingOpenChannel)
+      : undefined;
+    message.fullyResolvedChannel = (object.fullyResolvedChannel !== undefined && object.fullyResolvedChannel !== null)
+      ? ChannelPoint.fromPartial(object.fullyResolvedChannel)
+      : undefined;
     message.type = object.type ?? 0;
     return message;
   },
 };
 
 function createBaseWalletAccountBalance(): WalletAccountBalance {
-  return {confirmedBalance: '0', unconfirmedBalance: '0'};
+  return { confirmedBalance: "0", unconfirmedBalance: "0" };
 }
 
 export const WalletAccountBalance = {
-  encode(
-    message: WalletAccountBalance,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.confirmedBalance !== '0') {
+  encode(message: WalletAccountBalance, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.confirmedBalance !== "0") {
       writer.uint32(8).int64(message.confirmedBalance);
     }
-    if (message.unconfirmedBalance !== '0') {
+    if (message.unconfirmedBalance !== "0") {
       writer.uint32(16).int64(message.unconfirmedBalance);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): WalletAccountBalance {
+  decode(input: _m0.Reader | Uint8Array, length?: number): WalletAccountBalance {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletAccountBalance();
@@ -14207,28 +12756,22 @@ export const WalletAccountBalance = {
 
   fromJSON(object: any): WalletAccountBalance {
     return {
-      confirmedBalance: isSet(object.confirmedBalance)
-        ? String(object.confirmedBalance)
-        : '0',
-      unconfirmedBalance: isSet(object.unconfirmedBalance)
-        ? String(object.unconfirmedBalance)
-        : '0',
+      confirmedBalance: isSet(object.confirmedBalance) ? String(object.confirmedBalance) : "0",
+      unconfirmedBalance: isSet(object.unconfirmedBalance) ? String(object.unconfirmedBalance) : "0",
     };
   },
 
   toJSON(message: WalletAccountBalance): unknown {
     const obj: any = {};
-    message.confirmedBalance !== undefined &&
-      (obj.confirmedBalance = message.confirmedBalance);
-    message.unconfirmedBalance !== undefined &&
-      (obj.unconfirmedBalance = message.unconfirmedBalance);
+    message.confirmedBalance !== undefined && (obj.confirmedBalance = message.confirmedBalance);
+    message.unconfirmedBalance !== undefined && (obj.unconfirmedBalance = message.unconfirmedBalance);
     return obj;
   },
 
   fromPartial(object: DeepPartial<WalletAccountBalance>): WalletAccountBalance {
     const message = createBaseWalletAccountBalance();
-    message.confirmedBalance = object.confirmedBalance ?? '0';
-    message.unconfirmedBalance = object.unconfirmedBalance ?? '0';
+    message.confirmedBalance = object.confirmedBalance ?? "0";
+    message.unconfirmedBalance = object.unconfirmedBalance ?? "0";
     return message;
   },
 };
@@ -14238,17 +12781,11 @@ function createBaseWalletBalanceRequest(): WalletBalanceRequest {
 }
 
 export const WalletBalanceRequest = {
-  encode(
-    _: WalletBalanceRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: WalletBalanceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): WalletBalanceRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): WalletBalanceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceRequest();
@@ -14279,45 +12816,30 @@ export const WalletBalanceRequest = {
 };
 
 function createBaseWalletBalanceResponse(): WalletBalanceResponse {
-  return {
-    totalBalance: '0',
-    confirmedBalance: '0',
-    unconfirmedBalance: '0',
-    lockedBalance: '0',
-    accountBalance: {},
-  };
+  return { totalBalance: "0", confirmedBalance: "0", unconfirmedBalance: "0", lockedBalance: "0", accountBalance: {} };
 }
 
 export const WalletBalanceResponse = {
-  encode(
-    message: WalletBalanceResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.totalBalance !== '0') {
+  encode(message: WalletBalanceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.totalBalance !== "0") {
       writer.uint32(8).int64(message.totalBalance);
     }
-    if (message.confirmedBalance !== '0') {
+    if (message.confirmedBalance !== "0") {
       writer.uint32(16).int64(message.confirmedBalance);
     }
-    if (message.unconfirmedBalance !== '0') {
+    if (message.unconfirmedBalance !== "0") {
       writer.uint32(24).int64(message.unconfirmedBalance);
     }
-    if (message.lockedBalance !== '0') {
+    if (message.lockedBalance !== "0") {
       writer.uint32(40).int64(message.lockedBalance);
     }
     Object.entries(message.accountBalance).forEach(([key, value]) => {
-      WalletBalanceResponse_AccountBalanceEntry.encode(
-        {key: key as any, value},
-        writer.uint32(34).fork(),
-      ).ldelim();
+      WalletBalanceResponse_AccountBalanceEntry.encode({ key: key as any, value }, writer.uint32(34).fork()).ldelim();
     });
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): WalletBalanceResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): WalletBalanceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceResponse();
@@ -14337,10 +12859,7 @@ export const WalletBalanceResponse = {
           message.lockedBalance = longToString(reader.int64() as Long);
           break;
         case 4:
-          const entry4 = WalletBalanceResponse_AccountBalanceEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry4 = WalletBalanceResponse_AccountBalanceEntry.decode(reader, reader.uint32());
           if (entry4.value !== undefined) {
             message.accountBalance[entry4.key] = entry4.value;
           }
@@ -14355,39 +12874,25 @@ export const WalletBalanceResponse = {
 
   fromJSON(object: any): WalletBalanceResponse {
     return {
-      totalBalance: isSet(object.totalBalance)
-        ? String(object.totalBalance)
-        : '0',
-      confirmedBalance: isSet(object.confirmedBalance)
-        ? String(object.confirmedBalance)
-        : '0',
-      unconfirmedBalance: isSet(object.unconfirmedBalance)
-        ? String(object.unconfirmedBalance)
-        : '0',
-      lockedBalance: isSet(object.lockedBalance)
-        ? String(object.lockedBalance)
-        : '0',
+      totalBalance: isSet(object.totalBalance) ? String(object.totalBalance) : "0",
+      confirmedBalance: isSet(object.confirmedBalance) ? String(object.confirmedBalance) : "0",
+      unconfirmedBalance: isSet(object.unconfirmedBalance) ? String(object.unconfirmedBalance) : "0",
+      lockedBalance: isSet(object.lockedBalance) ? String(object.lockedBalance) : "0",
       accountBalance: isObject(object.accountBalance)
-        ? Object.entries(object.accountBalance).reduce<{
-            [key: string]: WalletAccountBalance;
-          }>((acc, [key, value]) => {
-            acc[key] = WalletAccountBalance.fromJSON(value);
-            return acc;
-          }, {})
+        ? Object.entries(object.accountBalance).reduce<{ [key: string]: WalletAccountBalance }>((acc, [key, value]) => {
+          acc[key] = WalletAccountBalance.fromJSON(value);
+          return acc;
+        }, {})
         : {},
     };
   },
 
   toJSON(message: WalletBalanceResponse): unknown {
     const obj: any = {};
-    message.totalBalance !== undefined &&
-      (obj.totalBalance = message.totalBalance);
-    message.confirmedBalance !== undefined &&
-      (obj.confirmedBalance = message.confirmedBalance);
-    message.unconfirmedBalance !== undefined &&
-      (obj.unconfirmedBalance = message.unconfirmedBalance);
-    message.lockedBalance !== undefined &&
-      (obj.lockedBalance = message.lockedBalance);
+    message.totalBalance !== undefined && (obj.totalBalance = message.totalBalance);
+    message.confirmedBalance !== undefined && (obj.confirmedBalance = message.confirmedBalance);
+    message.unconfirmedBalance !== undefined && (obj.unconfirmedBalance = message.unconfirmedBalance);
+    message.lockedBalance !== undefined && (obj.lockedBalance = message.lockedBalance);
     obj.accountBalance = {};
     if (message.accountBalance) {
       Object.entries(message.accountBalance).forEach(([k, v]) => {
@@ -14397,17 +12902,15 @@ export const WalletBalanceResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<WalletBalanceResponse>,
-  ): WalletBalanceResponse {
+  fromPartial(object: DeepPartial<WalletBalanceResponse>): WalletBalanceResponse {
     const message = createBaseWalletBalanceResponse();
-    message.totalBalance = object.totalBalance ?? '0';
-    message.confirmedBalance = object.confirmedBalance ?? '0';
-    message.unconfirmedBalance = object.unconfirmedBalance ?? '0';
-    message.lockedBalance = object.lockedBalance ?? '0';
-    message.accountBalance = Object.entries(
-      object.accountBalance ?? {},
-    ).reduce<{[key: string]: WalletAccountBalance}>((acc, [key, value]) => {
+    message.totalBalance = object.totalBalance ?? "0";
+    message.confirmedBalance = object.confirmedBalance ?? "0";
+    message.unconfirmedBalance = object.unconfirmedBalance ?? "0";
+    message.lockedBalance = object.lockedBalance ?? "0";
+    message.accountBalance = Object.entries(object.accountBalance ?? {}).reduce<
+      { [key: string]: WalletAccountBalance }
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = WalletAccountBalance.fromPartial(value);
       }
@@ -14418,30 +12921,21 @@ export const WalletBalanceResponse = {
 };
 
 function createBaseWalletBalanceResponse_AccountBalanceEntry(): WalletBalanceResponse_AccountBalanceEntry {
-  return {key: '', value: undefined};
+  return { key: "", value: undefined };
 }
 
 export const WalletBalanceResponse_AccountBalanceEntry = {
-  encode(
-    message: WalletBalanceResponse_AccountBalanceEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.key !== '') {
+  encode(message: WalletBalanceResponse_AccountBalanceEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
-      WalletAccountBalance.encode(
-        message.value,
-        writer.uint32(18).fork(),
-      ).ldelim();
+      WalletAccountBalance.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): WalletBalanceResponse_AccountBalanceEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): WalletBalanceResponse_AccountBalanceEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseWalletBalanceResponse_AccountBalanceEntry();
@@ -14464,20 +12958,15 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
 
   fromJSON(object: any): WalletBalanceResponse_AccountBalanceEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '',
-      value: isSet(object.value)
-        ? WalletAccountBalance.fromJSON(object.value)
-        : undefined,
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? WalletAccountBalance.fromJSON(object.value) : undefined,
     };
   },
 
   toJSON(message: WalletBalanceResponse_AccountBalanceEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
-    message.value !== undefined &&
-      (obj.value = message.value
-        ? WalletAccountBalance.toJSON(message.value)
-        : undefined);
+    message.value !== undefined && (obj.value = message.value ? WalletAccountBalance.toJSON(message.value) : undefined);
     return obj;
   },
 
@@ -14485,28 +12974,24 @@ export const WalletBalanceResponse_AccountBalanceEntry = {
     object: DeepPartial<WalletBalanceResponse_AccountBalanceEntry>,
   ): WalletBalanceResponse_AccountBalanceEntry {
     const message = createBaseWalletBalanceResponse_AccountBalanceEntry();
-    message.key = object.key ?? '';
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? WalletAccountBalance.fromPartial(object.value)
-        : undefined;
+    message.key = object.key ?? "";
+    message.value = (object.value !== undefined && object.value !== null)
+      ? WalletAccountBalance.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
 
 function createBaseAmount(): Amount {
-  return {sat: '0', msat: '0'};
+  return { sat: "0", msat: "0" };
 }
 
 export const Amount = {
-  encode(
-    message: Amount,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.sat !== '0') {
+  encode(message: Amount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.sat !== "0") {
       writer.uint32(8).uint64(message.sat);
     }
-    if (message.msat !== '0') {
+    if (message.msat !== "0") {
       writer.uint32(16).uint64(message.msat);
     }
     return writer;
@@ -14534,10 +13019,7 @@ export const Amount = {
   },
 
   fromJSON(object: any): Amount {
-    return {
-      sat: isSet(object.sat) ? String(object.sat) : '0',
-      msat: isSet(object.msat) ? String(object.msat) : '0',
-    };
+    return { sat: isSet(object.sat) ? String(object.sat) : "0", msat: isSet(object.msat) ? String(object.msat) : "0" };
   },
 
   toJSON(message: Amount): unknown {
@@ -14549,8 +13031,8 @@ export const Amount = {
 
   fromPartial(object: DeepPartial<Amount>): Amount {
     const message = createBaseAmount();
-    message.sat = object.sat ?? '0';
-    message.msat = object.msat ?? '0';
+    message.sat = object.sat ?? "0";
+    message.msat = object.msat ?? "0";
     return message;
   },
 };
@@ -14560,17 +13042,11 @@ function createBaseChannelBalanceRequest(): ChannelBalanceRequest {
 }
 
 export const ChannelBalanceRequest = {
-  encode(
-    _: ChannelBalanceRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: ChannelBalanceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChannelBalanceRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChannelBalanceRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBalanceRequest();
@@ -14602,8 +13078,8 @@ export const ChannelBalanceRequest = {
 
 function createBaseChannelBalanceResponse(): ChannelBalanceResponse {
   return {
-    balance: '0',
-    pendingOpenBalance: '0',
+    balance: "0",
+    pendingOpenBalance: "0",
     localBalance: undefined,
     remoteBalance: undefined,
     unsettledLocalBalance: undefined,
@@ -14614,14 +13090,11 @@ function createBaseChannelBalanceResponse(): ChannelBalanceResponse {
 }
 
 export const ChannelBalanceResponse = {
-  encode(
-    message: ChannelBalanceResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.balance !== '0') {
+  encode(message: ChannelBalanceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.balance !== "0") {
       writer.uint32(8).int64(message.balance);
     }
-    if (message.pendingOpenBalance !== '0') {
+    if (message.pendingOpenBalance !== "0") {
       writer.uint32(16).int64(message.pendingOpenBalance);
     }
     if (message.localBalance !== undefined) {
@@ -14631,36 +13104,21 @@ export const ChannelBalanceResponse = {
       Amount.encode(message.remoteBalance, writer.uint32(34).fork()).ldelim();
     }
     if (message.unsettledLocalBalance !== undefined) {
-      Amount.encode(
-        message.unsettledLocalBalance,
-        writer.uint32(42).fork(),
-      ).ldelim();
+      Amount.encode(message.unsettledLocalBalance, writer.uint32(42).fork()).ldelim();
     }
     if (message.unsettledRemoteBalance !== undefined) {
-      Amount.encode(
-        message.unsettledRemoteBalance,
-        writer.uint32(50).fork(),
-      ).ldelim();
+      Amount.encode(message.unsettledRemoteBalance, writer.uint32(50).fork()).ldelim();
     }
     if (message.pendingOpenLocalBalance !== undefined) {
-      Amount.encode(
-        message.pendingOpenLocalBalance,
-        writer.uint32(58).fork(),
-      ).ldelim();
+      Amount.encode(message.pendingOpenLocalBalance, writer.uint32(58).fork()).ldelim();
     }
     if (message.pendingOpenRemoteBalance !== undefined) {
-      Amount.encode(
-        message.pendingOpenRemoteBalance,
-        writer.uint32(66).fork(),
-      ).ldelim();
+      Amount.encode(message.pendingOpenRemoteBalance, writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChannelBalanceResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChannelBalanceResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBalanceResponse();
@@ -14680,28 +13138,16 @@ export const ChannelBalanceResponse = {
           message.remoteBalance = Amount.decode(reader, reader.uint32());
           break;
         case 5:
-          message.unsettledLocalBalance = Amount.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.unsettledLocalBalance = Amount.decode(reader, reader.uint32());
           break;
         case 6:
-          message.unsettledRemoteBalance = Amount.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.unsettledRemoteBalance = Amount.decode(reader, reader.uint32());
           break;
         case 7:
-          message.pendingOpenLocalBalance = Amount.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.pendingOpenLocalBalance = Amount.decode(reader, reader.uint32());
           break;
         case 8:
-          message.pendingOpenRemoteBalance = Amount.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.pendingOpenRemoteBalance = Amount.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -14713,16 +13159,10 @@ export const ChannelBalanceResponse = {
 
   fromJSON(object: any): ChannelBalanceResponse {
     return {
-      balance: isSet(object.balance) ? String(object.balance) : '0',
-      pendingOpenBalance: isSet(object.pendingOpenBalance)
-        ? String(object.pendingOpenBalance)
-        : '0',
-      localBalance: isSet(object.localBalance)
-        ? Amount.fromJSON(object.localBalance)
-        : undefined,
-      remoteBalance: isSet(object.remoteBalance)
-        ? Amount.fromJSON(object.remoteBalance)
-        : undefined,
+      balance: isSet(object.balance) ? String(object.balance) : "0",
+      pendingOpenBalance: isSet(object.pendingOpenBalance) ? String(object.pendingOpenBalance) : "0",
+      localBalance: isSet(object.localBalance) ? Amount.fromJSON(object.localBalance) : undefined,
+      remoteBalance: isSet(object.remoteBalance) ? Amount.fromJSON(object.remoteBalance) : undefined,
       unsettledLocalBalance: isSet(object.unsettledLocalBalance)
         ? Amount.fromJSON(object.unsettledLocalBalance)
         : undefined,
@@ -14741,67 +13181,50 @@ export const ChannelBalanceResponse = {
   toJSON(message: ChannelBalanceResponse): unknown {
     const obj: any = {};
     message.balance !== undefined && (obj.balance = message.balance);
-    message.pendingOpenBalance !== undefined &&
-      (obj.pendingOpenBalance = message.pendingOpenBalance);
+    message.pendingOpenBalance !== undefined && (obj.pendingOpenBalance = message.pendingOpenBalance);
     message.localBalance !== undefined &&
-      (obj.localBalance = message.localBalance
-        ? Amount.toJSON(message.localBalance)
-        : undefined);
+      (obj.localBalance = message.localBalance ? Amount.toJSON(message.localBalance) : undefined);
     message.remoteBalance !== undefined &&
-      (obj.remoteBalance = message.remoteBalance
-        ? Amount.toJSON(message.remoteBalance)
-        : undefined);
-    message.unsettledLocalBalance !== undefined &&
-      (obj.unsettledLocalBalance = message.unsettledLocalBalance
-        ? Amount.toJSON(message.unsettledLocalBalance)
-        : undefined);
-    message.unsettledRemoteBalance !== undefined &&
-      (obj.unsettledRemoteBalance = message.unsettledRemoteBalance
-        ? Amount.toJSON(message.unsettledRemoteBalance)
-        : undefined);
-    message.pendingOpenLocalBalance !== undefined &&
-      (obj.pendingOpenLocalBalance = message.pendingOpenLocalBalance
-        ? Amount.toJSON(message.pendingOpenLocalBalance)
-        : undefined);
-    message.pendingOpenRemoteBalance !== undefined &&
-      (obj.pendingOpenRemoteBalance = message.pendingOpenRemoteBalance
-        ? Amount.toJSON(message.pendingOpenRemoteBalance)
-        : undefined);
+      (obj.remoteBalance = message.remoteBalance ? Amount.toJSON(message.remoteBalance) : undefined);
+    message.unsettledLocalBalance !== undefined && (obj.unsettledLocalBalance = message.unsettledLocalBalance
+      ? Amount.toJSON(message.unsettledLocalBalance)
+      : undefined);
+    message.unsettledRemoteBalance !== undefined && (obj.unsettledRemoteBalance = message.unsettledRemoteBalance
+      ? Amount.toJSON(message.unsettledRemoteBalance)
+      : undefined);
+    message.pendingOpenLocalBalance !== undefined && (obj.pendingOpenLocalBalance = message.pendingOpenLocalBalance
+      ? Amount.toJSON(message.pendingOpenLocalBalance)
+      : undefined);
+    message.pendingOpenRemoteBalance !== undefined && (obj.pendingOpenRemoteBalance = message.pendingOpenRemoteBalance
+      ? Amount.toJSON(message.pendingOpenRemoteBalance)
+      : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ChannelBalanceResponse>,
-  ): ChannelBalanceResponse {
+  fromPartial(object: DeepPartial<ChannelBalanceResponse>): ChannelBalanceResponse {
     const message = createBaseChannelBalanceResponse();
-    message.balance = object.balance ?? '0';
-    message.pendingOpenBalance = object.pendingOpenBalance ?? '0';
-    message.localBalance =
-      object.localBalance !== undefined && object.localBalance !== null
-        ? Amount.fromPartial(object.localBalance)
-        : undefined;
-    message.remoteBalance =
-      object.remoteBalance !== undefined && object.remoteBalance !== null
-        ? Amount.fromPartial(object.remoteBalance)
-        : undefined;
+    message.balance = object.balance ?? "0";
+    message.pendingOpenBalance = object.pendingOpenBalance ?? "0";
+    message.localBalance = (object.localBalance !== undefined && object.localBalance !== null)
+      ? Amount.fromPartial(object.localBalance)
+      : undefined;
+    message.remoteBalance = (object.remoteBalance !== undefined && object.remoteBalance !== null)
+      ? Amount.fromPartial(object.remoteBalance)
+      : undefined;
     message.unsettledLocalBalance =
-      object.unsettledLocalBalance !== undefined &&
-      object.unsettledLocalBalance !== null
+      (object.unsettledLocalBalance !== undefined && object.unsettledLocalBalance !== null)
         ? Amount.fromPartial(object.unsettledLocalBalance)
         : undefined;
     message.unsettledRemoteBalance =
-      object.unsettledRemoteBalance !== undefined &&
-      object.unsettledRemoteBalance !== null
+      (object.unsettledRemoteBalance !== undefined && object.unsettledRemoteBalance !== null)
         ? Amount.fromPartial(object.unsettledRemoteBalance)
         : undefined;
     message.pendingOpenLocalBalance =
-      object.pendingOpenLocalBalance !== undefined &&
-      object.pendingOpenLocalBalance !== null
+      (object.pendingOpenLocalBalance !== undefined && object.pendingOpenLocalBalance !== null)
         ? Amount.fromPartial(object.pendingOpenLocalBalance)
         : undefined;
     message.pendingOpenRemoteBalance =
-      object.pendingOpenRemoteBalance !== undefined &&
-      object.pendingOpenRemoteBalance !== null
+      (object.pendingOpenRemoteBalance !== undefined && object.pendingOpenRemoteBalance !== null)
         ? Amount.fromPartial(object.pendingOpenRemoteBalance)
         : undefined;
     return message;
@@ -14810,19 +13233,19 @@ export const ChannelBalanceResponse = {
 
 function createBaseQueryRoutesRequest(): QueryRoutesRequest {
   return {
-    pubKey: '',
-    amt: '0',
-    amtMsat: '0',
+    pubKey: "",
+    amt: "0",
+    amtMsat: "0",
     finalCltvDelta: 0,
     feeLimit: undefined,
     ignoredNodes: [],
     ignoredEdges: [],
-    sourcePubKey: '',
+    sourcePubKey: "",
     useMissionControl: false,
     ignoredPairs: [],
     cltvLimit: 0,
     destCustomRecords: {},
-    outgoingChanId: '0',
+    outgoingChanId: "0",
     lastHopPubkey: new Uint8Array(),
     routeHints: [],
     destFeatures: [],
@@ -14831,17 +13254,14 @@ function createBaseQueryRoutesRequest(): QueryRoutesRequest {
 }
 
 export const QueryRoutesRequest = {
-  encode(
-    message: QueryRoutesRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.pubKey !== '') {
+  encode(message: QueryRoutesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pubKey !== "") {
       writer.uint32(10).string(message.pubKey);
     }
-    if (message.amt !== '0') {
+    if (message.amt !== "0") {
       writer.uint32(16).int64(message.amt);
     }
-    if (message.amtMsat !== '0') {
+    if (message.amtMsat !== "0") {
       writer.uint32(96).int64(message.amtMsat);
     }
     if (message.finalCltvDelta !== 0) {
@@ -14856,7 +13276,7 @@ export const QueryRoutesRequest = {
     for (const v of message.ignoredEdges) {
       EdgeLocator.encode(v!, writer.uint32(58).fork()).ldelim();
     }
-    if (message.sourcePubKey !== '') {
+    if (message.sourcePubKey !== "") {
       writer.uint32(66).string(message.sourcePubKey);
     }
     if (message.useMissionControl === true) {
@@ -14869,12 +13289,9 @@ export const QueryRoutesRequest = {
       writer.uint32(88).uint32(message.cltvLimit);
     }
     Object.entries(message.destCustomRecords).forEach(([key, value]) => {
-      QueryRoutesRequest_DestCustomRecordsEntry.encode(
-        {key: key as any, value},
-        writer.uint32(106).fork(),
-      ).ldelim();
+      QueryRoutesRequest_DestCustomRecordsEntry.encode({ key: key as any, value }, writer.uint32(106).fork()).ldelim();
     });
-    if (message.outgoingChanId !== '0') {
+    if (message.outgoingChanId !== "0") {
       writer.uint32(112).uint64(message.outgoingChanId);
     }
     if (message.lastHopPubkey.length !== 0) {
@@ -14920,9 +13337,7 @@ export const QueryRoutesRequest = {
           message.ignoredNodes.push(reader.bytes());
           break;
         case 7:
-          message.ignoredEdges.push(
-            EdgeLocator.decode(reader, reader.uint32()),
-          );
+          message.ignoredEdges.push(EdgeLocator.decode(reader, reader.uint32()));
           break;
         case 8:
           message.sourcePubKey = reader.string();
@@ -14937,10 +13352,7 @@ export const QueryRoutesRequest = {
           message.cltvLimit = reader.uint32();
           break;
         case 13:
-          const entry13 = QueryRoutesRequest_DestCustomRecordsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry13 = QueryRoutesRequest_DestCustomRecordsEntry.decode(reader, reader.uint32());
           if (entry13.value !== undefined) {
             message.destCustomRecords[entry13.key] = entry13.value;
           }
@@ -14977,48 +13389,30 @@ export const QueryRoutesRequest = {
 
   fromJSON(object: any): QueryRoutesRequest {
     return {
-      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
-      amt: isSet(object.amt) ? String(object.amt) : '0',
-      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : '0',
-      finalCltvDelta: isSet(object.finalCltvDelta)
-        ? Number(object.finalCltvDelta)
-        : 0,
-      feeLimit: isSet(object.feeLimit)
-        ? FeeLimit.fromJSON(object.feeLimit)
-        : undefined,
-      ignoredNodes: Array.isArray(object?.ignoredNodes)
-        ? object.ignoredNodes.map((e: any) => bytesFromBase64(e))
-        : [],
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : "",
+      amt: isSet(object.amt) ? String(object.amt) : "0",
+      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : "0",
+      finalCltvDelta: isSet(object.finalCltvDelta) ? Number(object.finalCltvDelta) : 0,
+      feeLimit: isSet(object.feeLimit) ? FeeLimit.fromJSON(object.feeLimit) : undefined,
+      ignoredNodes: Array.isArray(object?.ignoredNodes) ? object.ignoredNodes.map((e: any) => bytesFromBase64(e)) : [],
       ignoredEdges: Array.isArray(object?.ignoredEdges)
         ? object.ignoredEdges.map((e: any) => EdgeLocator.fromJSON(e))
         : [],
-      sourcePubKey: isSet(object.sourcePubKey)
-        ? String(object.sourcePubKey)
-        : '',
-      useMissionControl: isSet(object.useMissionControl)
-        ? Boolean(object.useMissionControl)
-        : false,
+      sourcePubKey: isSet(object.sourcePubKey) ? String(object.sourcePubKey) : "",
+      useMissionControl: isSet(object.useMissionControl) ? Boolean(object.useMissionControl) : false,
       ignoredPairs: Array.isArray(object?.ignoredPairs)
         ? object.ignoredPairs.map((e: any) => NodePair.fromJSON(e))
         : [],
       cltvLimit: isSet(object.cltvLimit) ? Number(object.cltvLimit) : 0,
       destCustomRecords: isObject(object.destCustomRecords)
-        ? Object.entries(object.destCustomRecords).reduce<{
-            [key: string]: Uint8Array;
-          }>((acc, [key, value]) => {
-            acc[key] = bytesFromBase64(value as string);
-            return acc;
-          }, {})
+        ? Object.entries(object.destCustomRecords).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+          acc[key] = bytesFromBase64(value as string);
+          return acc;
+        }, {})
         : {},
-      outgoingChanId: isSet(object.outgoingChanId)
-        ? String(object.outgoingChanId)
-        : '0',
-      lastHopPubkey: isSet(object.lastHopPubkey)
-        ? bytesFromBase64(object.lastHopPubkey)
-        : new Uint8Array(),
-      routeHints: Array.isArray(object?.routeHints)
-        ? object.routeHints.map((e: any) => RouteHint.fromJSON(e))
-        : [],
+      outgoingChanId: isSet(object.outgoingChanId) ? String(object.outgoingChanId) : "0",
+      lastHopPubkey: isSet(object.lastHopPubkey) ? bytesFromBase64(object.lastHopPubkey) : new Uint8Array(),
+      routeHints: Array.isArray(object?.routeHints) ? object.routeHints.map((e: any) => RouteHint.fromJSON(e)) : [],
       destFeatures: Array.isArray(object?.destFeatures)
         ? object.destFeatures.map((e: any) => featureBitFromJSON(e))
         : [],
@@ -15031,57 +13425,39 @@ export const QueryRoutesRequest = {
     message.pubKey !== undefined && (obj.pubKey = message.pubKey);
     message.amt !== undefined && (obj.amt = message.amt);
     message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
-    message.finalCltvDelta !== undefined &&
-      (obj.finalCltvDelta = Math.round(message.finalCltvDelta));
-    message.feeLimit !== undefined &&
-      (obj.feeLimit = message.feeLimit
-        ? FeeLimit.toJSON(message.feeLimit)
-        : undefined);
+    message.finalCltvDelta !== undefined && (obj.finalCltvDelta = Math.round(message.finalCltvDelta));
+    message.feeLimit !== undefined && (obj.feeLimit = message.feeLimit ? FeeLimit.toJSON(message.feeLimit) : undefined);
     if (message.ignoredNodes) {
-      obj.ignoredNodes = message.ignoredNodes.map((e) =>
-        base64FromBytes(e !== undefined ? e : new Uint8Array()),
-      );
+      obj.ignoredNodes = message.ignoredNodes.map((e) => base64FromBytes(e !== undefined ? e : new Uint8Array()));
     } else {
       obj.ignoredNodes = [];
     }
     if (message.ignoredEdges) {
-      obj.ignoredEdges = message.ignoredEdges.map((e) =>
-        e ? EdgeLocator.toJSON(e) : undefined,
-      );
+      obj.ignoredEdges = message.ignoredEdges.map((e) => e ? EdgeLocator.toJSON(e) : undefined);
     } else {
       obj.ignoredEdges = [];
     }
-    message.sourcePubKey !== undefined &&
-      (obj.sourcePubKey = message.sourcePubKey);
-    message.useMissionControl !== undefined &&
-      (obj.useMissionControl = message.useMissionControl);
+    message.sourcePubKey !== undefined && (obj.sourcePubKey = message.sourcePubKey);
+    message.useMissionControl !== undefined && (obj.useMissionControl = message.useMissionControl);
     if (message.ignoredPairs) {
-      obj.ignoredPairs = message.ignoredPairs.map((e) =>
-        e ? NodePair.toJSON(e) : undefined,
-      );
+      obj.ignoredPairs = message.ignoredPairs.map((e) => e ? NodePair.toJSON(e) : undefined);
     } else {
       obj.ignoredPairs = [];
     }
-    message.cltvLimit !== undefined &&
-      (obj.cltvLimit = Math.round(message.cltvLimit));
+    message.cltvLimit !== undefined && (obj.cltvLimit = Math.round(message.cltvLimit));
     obj.destCustomRecords = {};
     if (message.destCustomRecords) {
       Object.entries(message.destCustomRecords).forEach(([k, v]) => {
         obj.destCustomRecords[k] = base64FromBytes(v);
       });
     }
-    message.outgoingChanId !== undefined &&
-      (obj.outgoingChanId = message.outgoingChanId);
+    message.outgoingChanId !== undefined && (obj.outgoingChanId = message.outgoingChanId);
     message.lastHopPubkey !== undefined &&
       (obj.lastHopPubkey = base64FromBytes(
-        message.lastHopPubkey !== undefined
-          ? message.lastHopPubkey
-          : new Uint8Array(),
+        message.lastHopPubkey !== undefined ? message.lastHopPubkey : new Uint8Array(),
       ));
     if (message.routeHints) {
-      obj.routeHints = message.routeHints.map((e) =>
-        e ? RouteHint.toJSON(e) : undefined,
-      );
+      obj.routeHints = message.routeHints.map((e) => e ? RouteHint.toJSON(e) : undefined);
     } else {
       obj.routeHints = [];
     }
@@ -15096,34 +13472,31 @@ export const QueryRoutesRequest = {
 
   fromPartial(object: DeepPartial<QueryRoutesRequest>): QueryRoutesRequest {
     const message = createBaseQueryRoutesRequest();
-    message.pubKey = object.pubKey ?? '';
-    message.amt = object.amt ?? '0';
-    message.amtMsat = object.amtMsat ?? '0';
+    message.pubKey = object.pubKey ?? "";
+    message.amt = object.amt ?? "0";
+    message.amtMsat = object.amtMsat ?? "0";
     message.finalCltvDelta = object.finalCltvDelta ?? 0;
-    message.feeLimit =
-      object.feeLimit !== undefined && object.feeLimit !== null
-        ? FeeLimit.fromPartial(object.feeLimit)
-        : undefined;
+    message.feeLimit = (object.feeLimit !== undefined && object.feeLimit !== null)
+      ? FeeLimit.fromPartial(object.feeLimit)
+      : undefined;
     message.ignoredNodes = object.ignoredNodes?.map((e) => e) || [];
-    message.ignoredEdges =
-      object.ignoredEdges?.map((e) => EdgeLocator.fromPartial(e)) || [];
-    message.sourcePubKey = object.sourcePubKey ?? '';
+    message.ignoredEdges = object.ignoredEdges?.map((e) => EdgeLocator.fromPartial(e)) || [];
+    message.sourcePubKey = object.sourcePubKey ?? "";
     message.useMissionControl = object.useMissionControl ?? false;
-    message.ignoredPairs =
-      object.ignoredPairs?.map((e) => NodePair.fromPartial(e)) || [];
+    message.ignoredPairs = object.ignoredPairs?.map((e) => NodePair.fromPartial(e)) || [];
     message.cltvLimit = object.cltvLimit ?? 0;
-    message.destCustomRecords = Object.entries(
-      object.destCustomRecords ?? {},
-    ).reduce<{[key: string]: Uint8Array}>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = value;
-      }
-      return acc;
-    }, {});
-    message.outgoingChanId = object.outgoingChanId ?? '0';
+    message.destCustomRecords = Object.entries(object.destCustomRecords ?? {}).reduce<{ [key: string]: Uint8Array }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {},
+    );
+    message.outgoingChanId = object.outgoingChanId ?? "0";
     message.lastHopPubkey = object.lastHopPubkey ?? new Uint8Array();
-    message.routeHints =
-      object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
+    message.routeHints = object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
     message.destFeatures = object.destFeatures?.map((e) => e) || [];
     message.timePref = object.timePref ?? 0;
     return message;
@@ -15131,15 +13504,12 @@ export const QueryRoutesRequest = {
 };
 
 function createBaseQueryRoutesRequest_DestCustomRecordsEntry(): QueryRoutesRequest_DestCustomRecordsEntry {
-  return {key: '0', value: new Uint8Array()};
+  return { key: "0", value: new Uint8Array() };
 }
 
 export const QueryRoutesRequest_DestCustomRecordsEntry = {
-  encode(
-    message: QueryRoutesRequest_DestCustomRecordsEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.key !== '0') {
+  encode(message: QueryRoutesRequest_DestCustomRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "0") {
       writer.uint32(8).uint64(message.key);
     }
     if (message.value.length !== 0) {
@@ -15148,10 +13518,7 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): QueryRoutesRequest_DestCustomRecordsEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): QueryRoutesRequest_DestCustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseQueryRoutesRequest_DestCustomRecordsEntry();
@@ -15174,10 +13541,8 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
 
   fromJSON(object: any): QueryRoutesRequest_DestCustomRecordsEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '0',
-      value: isSet(object.value)
-        ? bytesFromBase64(object.value)
-        : new Uint8Array(),
+      key: isSet(object.key) ? String(object.key) : "0",
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
     };
   },
 
@@ -15185,9 +13550,7 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(
-        message.value !== undefined ? message.value : new Uint8Array(),
-      ));
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
     return obj;
   },
 
@@ -15195,21 +13558,18 @@ export const QueryRoutesRequest_DestCustomRecordsEntry = {
     object: DeepPartial<QueryRoutesRequest_DestCustomRecordsEntry>,
   ): QueryRoutesRequest_DestCustomRecordsEntry {
     const message = createBaseQueryRoutesRequest_DestCustomRecordsEntry();
-    message.key = object.key ?? '0';
+    message.key = object.key ?? "0";
     message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseNodePair(): NodePair {
-  return {from: new Uint8Array(), to: new Uint8Array()};
+  return { from: new Uint8Array(), to: new Uint8Array() };
 }
 
 export const NodePair = {
-  encode(
-    message: NodePair,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NodePair, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.from.length !== 0) {
       writer.uint32(10).bytes(message.from);
     }
@@ -15242,9 +13602,7 @@ export const NodePair = {
 
   fromJSON(object: any): NodePair {
     return {
-      from: isSet(object.from)
-        ? bytesFromBase64(object.from)
-        : new Uint8Array(),
+      from: isSet(object.from) ? bytesFromBase64(object.from) : new Uint8Array(),
       to: isSet(object.to) ? bytesFromBase64(object.to) : new Uint8Array(),
     };
   },
@@ -15252,13 +13610,8 @@ export const NodePair = {
   toJSON(message: NodePair): unknown {
     const obj: any = {};
     message.from !== undefined &&
-      (obj.from = base64FromBytes(
-        message.from !== undefined ? message.from : new Uint8Array(),
-      ));
-    message.to !== undefined &&
-      (obj.to = base64FromBytes(
-        message.to !== undefined ? message.to : new Uint8Array(),
-      ));
+      (obj.from = base64FromBytes(message.from !== undefined ? message.from : new Uint8Array()));
+    message.to !== undefined && (obj.to = base64FromBytes(message.to !== undefined ? message.to : new Uint8Array()));
     return obj;
   },
 
@@ -15271,15 +13624,12 @@ export const NodePair = {
 };
 
 function createBaseEdgeLocator(): EdgeLocator {
-  return {channelId: '0', directionReverse: false};
+  return { channelId: "0", directionReverse: false };
 }
 
 export const EdgeLocator = {
-  encode(
-    message: EdgeLocator,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.channelId !== '0') {
+  encode(message: EdgeLocator, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.channelId !== "0") {
       writer.uint32(8).uint64(message.channelId);
     }
     if (message.directionReverse === true) {
@@ -15311,38 +13661,32 @@ export const EdgeLocator = {
 
   fromJSON(object: any): EdgeLocator {
     return {
-      channelId: isSet(object.channelId) ? String(object.channelId) : '0',
-      directionReverse: isSet(object.directionReverse)
-        ? Boolean(object.directionReverse)
-        : false,
+      channelId: isSet(object.channelId) ? String(object.channelId) : "0",
+      directionReverse: isSet(object.directionReverse) ? Boolean(object.directionReverse) : false,
     };
   },
 
   toJSON(message: EdgeLocator): unknown {
     const obj: any = {};
     message.channelId !== undefined && (obj.channelId = message.channelId);
-    message.directionReverse !== undefined &&
-      (obj.directionReverse = message.directionReverse);
+    message.directionReverse !== undefined && (obj.directionReverse = message.directionReverse);
     return obj;
   },
 
   fromPartial(object: DeepPartial<EdgeLocator>): EdgeLocator {
     const message = createBaseEdgeLocator();
-    message.channelId = object.channelId ?? '0';
+    message.channelId = object.channelId ?? "0";
     message.directionReverse = object.directionReverse ?? false;
     return message;
   },
 };
 
 function createBaseQueryRoutesResponse(): QueryRoutesResponse {
-  return {routes: [], successProb: 0};
+  return { routes: [], successProb: 0 };
 }
 
 export const QueryRoutesResponse = {
-  encode(
-    message: QueryRoutesResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: QueryRoutesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.routes) {
       Route.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -15375,9 +13719,7 @@ export const QueryRoutesResponse = {
 
   fromJSON(object: any): QueryRoutesResponse {
     return {
-      routes: Array.isArray(object?.routes)
-        ? object.routes.map((e: any) => Route.fromJSON(e))
-        : [],
+      routes: Array.isArray(object?.routes) ? object.routes.map((e: any) => Route.fromJSON(e)) : [],
       successProb: isSet(object.successProb) ? Number(object.successProb) : 0,
     };
   },
@@ -15385,12 +13727,11 @@ export const QueryRoutesResponse = {
   toJSON(message: QueryRoutesResponse): unknown {
     const obj: any = {};
     if (message.routes) {
-      obj.routes = message.routes.map((e) => (e ? Route.toJSON(e) : undefined));
+      obj.routes = message.routes.map((e) => e ? Route.toJSON(e) : undefined);
     } else {
       obj.routes = [];
     }
-    message.successProb !== undefined &&
-      (obj.successProb = message.successProb);
+    message.successProb !== undefined && (obj.successProb = message.successProb);
     return obj;
   },
 
@@ -15404,14 +13745,14 @@ export const QueryRoutesResponse = {
 
 function createBaseHop(): Hop {
   return {
-    chanId: '0',
-    chanCapacity: '0',
-    amtToForward: '0',
-    fee: '0',
+    chanId: "0",
+    chanCapacity: "0",
+    amtToForward: "0",
+    fee: "0",
     expiry: 0,
-    amtToForwardMsat: '0',
-    feeMsat: '0',
-    pubKey: '',
+    amtToForwardMsat: "0",
+    feeMsat: "0",
+    pubKey: "",
     tlvPayload: false,
     mppRecord: undefined,
     ampRecord: undefined,
@@ -15422,28 +13763,28 @@ function createBaseHop(): Hop {
 
 export const Hop = {
   encode(message: Hop, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.chanId !== '0') {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.chanCapacity !== '0') {
+    if (message.chanCapacity !== "0") {
       writer.uint32(16).int64(message.chanCapacity);
     }
-    if (message.amtToForward !== '0') {
+    if (message.amtToForward !== "0") {
       writer.uint32(24).int64(message.amtToForward);
     }
-    if (message.fee !== '0') {
+    if (message.fee !== "0") {
       writer.uint32(32).int64(message.fee);
     }
     if (message.expiry !== 0) {
       writer.uint32(40).uint32(message.expiry);
     }
-    if (message.amtToForwardMsat !== '0') {
+    if (message.amtToForwardMsat !== "0") {
       writer.uint32(48).int64(message.amtToForwardMsat);
     }
-    if (message.feeMsat !== '0') {
+    if (message.feeMsat !== "0") {
       writer.uint32(56).int64(message.feeMsat);
     }
-    if (message.pubKey !== '') {
+    if (message.pubKey !== "") {
       writer.uint32(66).string(message.pubKey);
     }
     if (message.tlvPayload === true) {
@@ -15456,10 +13797,7 @@ export const Hop = {
       AMPRecord.encode(message.ampRecord, writer.uint32(98).fork()).ldelim();
     }
     Object.entries(message.customRecords).forEach(([key, value]) => {
-      Hop_CustomRecordsEntry.encode(
-        {key: key as any, value},
-        writer.uint32(90).fork(),
-      ).ldelim();
+      Hop_CustomRecordsEntry.encode({ key: key as any, value }, writer.uint32(90).fork()).ldelim();
     });
     if (message.metadata.length !== 0) {
       writer.uint32(106).bytes(message.metadata);
@@ -15508,10 +13846,7 @@ export const Hop = {
           message.ampRecord = AMPRecord.decode(reader, reader.uint32());
           break;
         case 11:
-          const entry11 = Hop_CustomRecordsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry11 = Hop_CustomRecordsEntry.decode(reader, reader.uint32());
           if (entry11.value !== undefined) {
             message.customRecords[entry11.key] = entry11.value;
           }
@@ -15529,63 +13864,42 @@ export const Hop = {
 
   fromJSON(object: any): Hop {
     return {
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
-      chanCapacity: isSet(object.chanCapacity)
-        ? String(object.chanCapacity)
-        : '0',
-      amtToForward: isSet(object.amtToForward)
-        ? String(object.amtToForward)
-        : '0',
-      fee: isSet(object.fee) ? String(object.fee) : '0',
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
+      chanCapacity: isSet(object.chanCapacity) ? String(object.chanCapacity) : "0",
+      amtToForward: isSet(object.amtToForward) ? String(object.amtToForward) : "0",
+      fee: isSet(object.fee) ? String(object.fee) : "0",
       expiry: isSet(object.expiry) ? Number(object.expiry) : 0,
-      amtToForwardMsat: isSet(object.amtToForwardMsat)
-        ? String(object.amtToForwardMsat)
-        : '0',
-      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : '0',
-      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
+      amtToForwardMsat: isSet(object.amtToForwardMsat) ? String(object.amtToForwardMsat) : "0",
+      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : "0",
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : "",
       tlvPayload: isSet(object.tlvPayload) ? Boolean(object.tlvPayload) : false,
-      mppRecord: isSet(object.mppRecord)
-        ? MPPRecord.fromJSON(object.mppRecord)
-        : undefined,
-      ampRecord: isSet(object.ampRecord)
-        ? AMPRecord.fromJSON(object.ampRecord)
-        : undefined,
+      mppRecord: isSet(object.mppRecord) ? MPPRecord.fromJSON(object.mppRecord) : undefined,
+      ampRecord: isSet(object.ampRecord) ? AMPRecord.fromJSON(object.ampRecord) : undefined,
       customRecords: isObject(object.customRecords)
-        ? Object.entries(object.customRecords).reduce<{
-            [key: string]: Uint8Array;
-          }>((acc, [key, value]) => {
-            acc[key] = bytesFromBase64(value as string);
-            return acc;
-          }, {})
+        ? Object.entries(object.customRecords).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+          acc[key] = bytesFromBase64(value as string);
+          return acc;
+        }, {})
         : {},
-      metadata: isSet(object.metadata)
-        ? bytesFromBase64(object.metadata)
-        : new Uint8Array(),
+      metadata: isSet(object.metadata) ? bytesFromBase64(object.metadata) : new Uint8Array(),
     };
   },
 
   toJSON(message: Hop): unknown {
     const obj: any = {};
     message.chanId !== undefined && (obj.chanId = message.chanId);
-    message.chanCapacity !== undefined &&
-      (obj.chanCapacity = message.chanCapacity);
-    message.amtToForward !== undefined &&
-      (obj.amtToForward = message.amtToForward);
+    message.chanCapacity !== undefined && (obj.chanCapacity = message.chanCapacity);
+    message.amtToForward !== undefined && (obj.amtToForward = message.amtToForward);
     message.fee !== undefined && (obj.fee = message.fee);
     message.expiry !== undefined && (obj.expiry = Math.round(message.expiry));
-    message.amtToForwardMsat !== undefined &&
-      (obj.amtToForwardMsat = message.amtToForwardMsat);
+    message.amtToForwardMsat !== undefined && (obj.amtToForwardMsat = message.amtToForwardMsat);
     message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
     message.pubKey !== undefined && (obj.pubKey = message.pubKey);
     message.tlvPayload !== undefined && (obj.tlvPayload = message.tlvPayload);
     message.mppRecord !== undefined &&
-      (obj.mppRecord = message.mppRecord
-        ? MPPRecord.toJSON(message.mppRecord)
-        : undefined);
+      (obj.mppRecord = message.mppRecord ? MPPRecord.toJSON(message.mppRecord) : undefined);
     message.ampRecord !== undefined &&
-      (obj.ampRecord = message.ampRecord
-        ? AMPRecord.toJSON(message.ampRecord)
-        : undefined);
+      (obj.ampRecord = message.ampRecord ? AMPRecord.toJSON(message.ampRecord) : undefined);
     obj.customRecords = {};
     if (message.customRecords) {
       Object.entries(message.customRecords).forEach(([k, v]) => {
@@ -15593,54 +13907,48 @@ export const Hop = {
       });
     }
     message.metadata !== undefined &&
-      (obj.metadata = base64FromBytes(
-        message.metadata !== undefined ? message.metadata : new Uint8Array(),
-      ));
+      (obj.metadata = base64FromBytes(message.metadata !== undefined ? message.metadata : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<Hop>): Hop {
     const message = createBaseHop();
-    message.chanId = object.chanId ?? '0';
-    message.chanCapacity = object.chanCapacity ?? '0';
-    message.amtToForward = object.amtToForward ?? '0';
-    message.fee = object.fee ?? '0';
+    message.chanId = object.chanId ?? "0";
+    message.chanCapacity = object.chanCapacity ?? "0";
+    message.amtToForward = object.amtToForward ?? "0";
+    message.fee = object.fee ?? "0";
     message.expiry = object.expiry ?? 0;
-    message.amtToForwardMsat = object.amtToForwardMsat ?? '0';
-    message.feeMsat = object.feeMsat ?? '0';
-    message.pubKey = object.pubKey ?? '';
+    message.amtToForwardMsat = object.amtToForwardMsat ?? "0";
+    message.feeMsat = object.feeMsat ?? "0";
+    message.pubKey = object.pubKey ?? "";
     message.tlvPayload = object.tlvPayload ?? false;
-    message.mppRecord =
-      object.mppRecord !== undefined && object.mppRecord !== null
-        ? MPPRecord.fromPartial(object.mppRecord)
-        : undefined;
-    message.ampRecord =
-      object.ampRecord !== undefined && object.ampRecord !== null
-        ? AMPRecord.fromPartial(object.ampRecord)
-        : undefined;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{
-      [key: string]: Uint8Array;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = value;
-      }
-      return acc;
-    }, {});
+    message.mppRecord = (object.mppRecord !== undefined && object.mppRecord !== null)
+      ? MPPRecord.fromPartial(object.mppRecord)
+      : undefined;
+    message.ampRecord = (object.ampRecord !== undefined && object.ampRecord !== null)
+      ? AMPRecord.fromPartial(object.ampRecord)
+      : undefined;
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{ [key: string]: Uint8Array }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {},
+    );
     message.metadata = object.metadata ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseHop_CustomRecordsEntry(): Hop_CustomRecordsEntry {
-  return {key: '0', value: new Uint8Array()};
+  return { key: "0", value: new Uint8Array() };
 }
 
 export const Hop_CustomRecordsEntry = {
-  encode(
-    message: Hop_CustomRecordsEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.key !== '0') {
+  encode(message: Hop_CustomRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "0") {
       writer.uint32(8).uint64(message.key);
     }
     if (message.value.length !== 0) {
@@ -15649,10 +13957,7 @@ export const Hop_CustomRecordsEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): Hop_CustomRecordsEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): Hop_CustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseHop_CustomRecordsEntry();
@@ -15675,10 +13980,8 @@ export const Hop_CustomRecordsEntry = {
 
   fromJSON(object: any): Hop_CustomRecordsEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '0',
-      value: isSet(object.value)
-        ? bytesFromBase64(object.value)
-        : new Uint8Array(),
+      key: isSet(object.key) ? String(object.key) : "0",
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
     };
   },
 
@@ -15686,35 +13989,28 @@ export const Hop_CustomRecordsEntry = {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(
-        message.value !== undefined ? message.value : new Uint8Array(),
-      ));
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<Hop_CustomRecordsEntry>,
-  ): Hop_CustomRecordsEntry {
+  fromPartial(object: DeepPartial<Hop_CustomRecordsEntry>): Hop_CustomRecordsEntry {
     const message = createBaseHop_CustomRecordsEntry();
-    message.key = object.key ?? '0';
+    message.key = object.key ?? "0";
     message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseMPPRecord(): MPPRecord {
-  return {paymentAddr: new Uint8Array(), totalAmtMsat: '0'};
+  return { paymentAddr: new Uint8Array(), totalAmtMsat: "0" };
 }
 
 export const MPPRecord = {
-  encode(
-    message: MPPRecord,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: MPPRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.paymentAddr.length !== 0) {
       writer.uint32(90).bytes(message.paymentAddr);
     }
-    if (message.totalAmtMsat !== '0') {
+    if (message.totalAmtMsat !== "0") {
       writer.uint32(80).int64(message.totalAmtMsat);
     }
     return writer;
@@ -15743,45 +14039,33 @@ export const MPPRecord = {
 
   fromJSON(object: any): MPPRecord {
     return {
-      paymentAddr: isSet(object.paymentAddr)
-        ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array(),
-      totalAmtMsat: isSet(object.totalAmtMsat)
-        ? String(object.totalAmtMsat)
-        : '0',
+      paymentAddr: isSet(object.paymentAddr) ? bytesFromBase64(object.paymentAddr) : new Uint8Array(),
+      totalAmtMsat: isSet(object.totalAmtMsat) ? String(object.totalAmtMsat) : "0",
     };
   },
 
   toJSON(message: MPPRecord): unknown {
     const obj: any = {};
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
-        message.paymentAddr !== undefined
-          ? message.paymentAddr
-          : new Uint8Array(),
-      ));
-    message.totalAmtMsat !== undefined &&
-      (obj.totalAmtMsat = message.totalAmtMsat);
+      (obj.paymentAddr = base64FromBytes(message.paymentAddr !== undefined ? message.paymentAddr : new Uint8Array()));
+    message.totalAmtMsat !== undefined && (obj.totalAmtMsat = message.totalAmtMsat);
     return obj;
   },
 
   fromPartial(object: DeepPartial<MPPRecord>): MPPRecord {
     const message = createBaseMPPRecord();
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
-    message.totalAmtMsat = object.totalAmtMsat ?? '0';
+    message.totalAmtMsat = object.totalAmtMsat ?? "0";
     return message;
   },
 };
 
 function createBaseAMPRecord(): AMPRecord {
-  return {rootShare: new Uint8Array(), setId: new Uint8Array(), childIndex: 0};
+  return { rootShare: new Uint8Array(), setId: new Uint8Array(), childIndex: 0 };
 }
 
 export const AMPRecord = {
-  encode(
-    message: AMPRecord,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AMPRecord, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.rootShare.length !== 0) {
       writer.uint32(10).bytes(message.rootShare);
     }
@@ -15820,12 +14104,8 @@ export const AMPRecord = {
 
   fromJSON(object: any): AMPRecord {
     return {
-      rootShare: isSet(object.rootShare)
-        ? bytesFromBase64(object.rootShare)
-        : new Uint8Array(),
-      setId: isSet(object.setId)
-        ? bytesFromBase64(object.setId)
-        : new Uint8Array(),
+      rootShare: isSet(object.rootShare) ? bytesFromBase64(object.rootShare) : new Uint8Array(),
+      setId: isSet(object.setId) ? bytesFromBase64(object.setId) : new Uint8Array(),
       childIndex: isSet(object.childIndex) ? Number(object.childIndex) : 0,
     };
   },
@@ -15833,15 +14113,10 @@ export const AMPRecord = {
   toJSON(message: AMPRecord): unknown {
     const obj: any = {};
     message.rootShare !== undefined &&
-      (obj.rootShare = base64FromBytes(
-        message.rootShare !== undefined ? message.rootShare : new Uint8Array(),
-      ));
+      (obj.rootShare = base64FromBytes(message.rootShare !== undefined ? message.rootShare : new Uint8Array()));
     message.setId !== undefined &&
-      (obj.setId = base64FromBytes(
-        message.setId !== undefined ? message.setId : new Uint8Array(),
-      ));
-    message.childIndex !== undefined &&
-      (obj.childIndex = Math.round(message.childIndex));
+      (obj.setId = base64FromBytes(message.setId !== undefined ? message.setId : new Uint8Array()));
+    message.childIndex !== undefined && (obj.childIndex = Math.round(message.childIndex));
     return obj;
   },
 
@@ -15855,14 +14130,7 @@ export const AMPRecord = {
 };
 
 function createBaseRoute(): Route {
-  return {
-    totalTimeLock: 0,
-    totalFees: '0',
-    totalAmt: '0',
-    hops: [],
-    totalFeesMsat: '0',
-    totalAmtMsat: '0',
-  };
+  return { totalTimeLock: 0, totalFees: "0", totalAmt: "0", hops: [], totalFeesMsat: "0", totalAmtMsat: "0" };
 }
 
 export const Route = {
@@ -15870,19 +14138,19 @@ export const Route = {
     if (message.totalTimeLock !== 0) {
       writer.uint32(8).uint32(message.totalTimeLock);
     }
-    if (message.totalFees !== '0') {
+    if (message.totalFees !== "0") {
       writer.uint32(16).int64(message.totalFees);
     }
-    if (message.totalAmt !== '0') {
+    if (message.totalAmt !== "0") {
       writer.uint32(24).int64(message.totalAmt);
     }
     for (const v of message.hops) {
       Hop.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.totalFeesMsat !== '0') {
+    if (message.totalFeesMsat !== "0") {
       writer.uint32(40).int64(message.totalFeesMsat);
     }
-    if (message.totalAmtMsat !== '0') {
+    if (message.totalAmtMsat !== "0") {
       writer.uint32(48).int64(message.totalAmtMsat);
     }
     return writer;
@@ -15923,63 +14191,49 @@ export const Route = {
 
   fromJSON(object: any): Route {
     return {
-      totalTimeLock: isSet(object.totalTimeLock)
-        ? Number(object.totalTimeLock)
-        : 0,
-      totalFees: isSet(object.totalFees) ? String(object.totalFees) : '0',
-      totalAmt: isSet(object.totalAmt) ? String(object.totalAmt) : '0',
-      hops: Array.isArray(object?.hops)
-        ? object.hops.map((e: any) => Hop.fromJSON(e))
-        : [],
-      totalFeesMsat: isSet(object.totalFeesMsat)
-        ? String(object.totalFeesMsat)
-        : '0',
-      totalAmtMsat: isSet(object.totalAmtMsat)
-        ? String(object.totalAmtMsat)
-        : '0',
+      totalTimeLock: isSet(object.totalTimeLock) ? Number(object.totalTimeLock) : 0,
+      totalFees: isSet(object.totalFees) ? String(object.totalFees) : "0",
+      totalAmt: isSet(object.totalAmt) ? String(object.totalAmt) : "0",
+      hops: Array.isArray(object?.hops) ? object.hops.map((e: any) => Hop.fromJSON(e)) : [],
+      totalFeesMsat: isSet(object.totalFeesMsat) ? String(object.totalFeesMsat) : "0",
+      totalAmtMsat: isSet(object.totalAmtMsat) ? String(object.totalAmtMsat) : "0",
     };
   },
 
   toJSON(message: Route): unknown {
     const obj: any = {};
-    message.totalTimeLock !== undefined &&
-      (obj.totalTimeLock = Math.round(message.totalTimeLock));
+    message.totalTimeLock !== undefined && (obj.totalTimeLock = Math.round(message.totalTimeLock));
     message.totalFees !== undefined && (obj.totalFees = message.totalFees);
     message.totalAmt !== undefined && (obj.totalAmt = message.totalAmt);
     if (message.hops) {
-      obj.hops = message.hops.map((e) => (e ? Hop.toJSON(e) : undefined));
+      obj.hops = message.hops.map((e) => e ? Hop.toJSON(e) : undefined);
     } else {
       obj.hops = [];
     }
-    message.totalFeesMsat !== undefined &&
-      (obj.totalFeesMsat = message.totalFeesMsat);
-    message.totalAmtMsat !== undefined &&
-      (obj.totalAmtMsat = message.totalAmtMsat);
+    message.totalFeesMsat !== undefined && (obj.totalFeesMsat = message.totalFeesMsat);
+    message.totalAmtMsat !== undefined && (obj.totalAmtMsat = message.totalAmtMsat);
     return obj;
   },
 
   fromPartial(object: DeepPartial<Route>): Route {
     const message = createBaseRoute();
     message.totalTimeLock = object.totalTimeLock ?? 0;
-    message.totalFees = object.totalFees ?? '0';
-    message.totalAmt = object.totalAmt ?? '0';
+    message.totalFees = object.totalFees ?? "0";
+    message.totalAmt = object.totalAmt ?? "0";
     message.hops = object.hops?.map((e) => Hop.fromPartial(e)) || [];
-    message.totalFeesMsat = object.totalFeesMsat ?? '0';
-    message.totalAmtMsat = object.totalAmtMsat ?? '0';
+    message.totalFeesMsat = object.totalFeesMsat ?? "0";
+    message.totalAmtMsat = object.totalAmtMsat ?? "0";
     return message;
   },
 };
 
 function createBaseNodeInfoRequest(): NodeInfoRequest {
-  return {pubKey: '', includeChannels: false};
+  return { pubKey: "", includeChannels: false };
 }
 
 export const NodeInfoRequest = {
-  encode(
-    message: NodeInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.pubKey !== '') {
+  encode(message: NodeInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.pubKey !== "") {
       writer.uint32(10).string(message.pubKey);
     }
     if (message.includeChannels === true) {
@@ -16011,45 +14265,39 @@ export const NodeInfoRequest = {
 
   fromJSON(object: any): NodeInfoRequest {
     return {
-      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
-      includeChannels: isSet(object.includeChannels)
-        ? Boolean(object.includeChannels)
-        : false,
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : "",
+      includeChannels: isSet(object.includeChannels) ? Boolean(object.includeChannels) : false,
     };
   },
 
   toJSON(message: NodeInfoRequest): unknown {
     const obj: any = {};
     message.pubKey !== undefined && (obj.pubKey = message.pubKey);
-    message.includeChannels !== undefined &&
-      (obj.includeChannels = message.includeChannels);
+    message.includeChannels !== undefined && (obj.includeChannels = message.includeChannels);
     return obj;
   },
 
   fromPartial(object: DeepPartial<NodeInfoRequest>): NodeInfoRequest {
     const message = createBaseNodeInfoRequest();
-    message.pubKey = object.pubKey ?? '';
+    message.pubKey = object.pubKey ?? "";
     message.includeChannels = object.includeChannels ?? false;
     return message;
   },
 };
 
 function createBaseNodeInfo(): NodeInfo {
-  return {node: undefined, numChannels: 0, totalCapacity: '0', channels: []};
+  return { node: undefined, numChannels: 0, totalCapacity: "0", channels: [] };
 }
 
 export const NodeInfo = {
-  encode(
-    message: NodeInfo,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NodeInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.node !== undefined) {
       LightningNode.encode(message.node, writer.uint32(10).fork()).ldelim();
     }
     if (message.numChannels !== 0) {
       writer.uint32(16).uint32(message.numChannels);
     }
-    if (message.totalCapacity !== '0') {
+    if (message.totalCapacity !== "0") {
       writer.uint32(24).int64(message.totalCapacity);
     }
     for (const v of message.channels) {
@@ -16087,33 +14335,20 @@ export const NodeInfo = {
 
   fromJSON(object: any): NodeInfo {
     return {
-      node: isSet(object.node)
-        ? LightningNode.fromJSON(object.node)
-        : undefined,
+      node: isSet(object.node) ? LightningNode.fromJSON(object.node) : undefined,
       numChannels: isSet(object.numChannels) ? Number(object.numChannels) : 0,
-      totalCapacity: isSet(object.totalCapacity)
-        ? String(object.totalCapacity)
-        : '0',
-      channels: Array.isArray(object?.channels)
-        ? object.channels.map((e: any) => ChannelEdge.fromJSON(e))
-        : [],
+      totalCapacity: isSet(object.totalCapacity) ? String(object.totalCapacity) : "0",
+      channels: Array.isArray(object?.channels) ? object.channels.map((e: any) => ChannelEdge.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: NodeInfo): unknown {
     const obj: any = {};
-    message.node !== undefined &&
-      (obj.node = message.node
-        ? LightningNode.toJSON(message.node)
-        : undefined);
-    message.numChannels !== undefined &&
-      (obj.numChannels = Math.round(message.numChannels));
-    message.totalCapacity !== undefined &&
-      (obj.totalCapacity = message.totalCapacity);
+    message.node !== undefined && (obj.node = message.node ? LightningNode.toJSON(message.node) : undefined);
+    message.numChannels !== undefined && (obj.numChannels = Math.round(message.numChannels));
+    message.totalCapacity !== undefined && (obj.totalCapacity = message.totalCapacity);
     if (message.channels) {
-      obj.channels = message.channels.map((e) =>
-        e ? ChannelEdge.toJSON(e) : undefined,
-      );
+      obj.channels = message.channels.map((e) => e ? ChannelEdge.toJSON(e) : undefined);
     } else {
       obj.channels = [];
     }
@@ -16122,54 +14357,39 @@ export const NodeInfo = {
 
   fromPartial(object: DeepPartial<NodeInfo>): NodeInfo {
     const message = createBaseNodeInfo();
-    message.node =
-      object.node !== undefined && object.node !== null
-        ? LightningNode.fromPartial(object.node)
-        : undefined;
+    message.node = (object.node !== undefined && object.node !== null)
+      ? LightningNode.fromPartial(object.node)
+      : undefined;
     message.numChannels = object.numChannels ?? 0;
-    message.totalCapacity = object.totalCapacity ?? '0';
-    message.channels =
-      object.channels?.map((e) => ChannelEdge.fromPartial(e)) || [];
+    message.totalCapacity = object.totalCapacity ?? "0";
+    message.channels = object.channels?.map((e) => ChannelEdge.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseLightningNode(): LightningNode {
-  return {
-    lastUpdate: 0,
-    pubKey: '',
-    alias: '',
-    addresses: [],
-    color: '',
-    features: {},
-  };
+  return { lastUpdate: 0, pubKey: "", alias: "", addresses: [], color: "", features: {} };
 }
 
 export const LightningNode = {
-  encode(
-    message: LightningNode,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: LightningNode, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.lastUpdate !== 0) {
       writer.uint32(8).uint32(message.lastUpdate);
     }
-    if (message.pubKey !== '') {
+    if (message.pubKey !== "") {
       writer.uint32(18).string(message.pubKey);
     }
-    if (message.alias !== '') {
+    if (message.alias !== "") {
       writer.uint32(26).string(message.alias);
     }
     for (const v of message.addresses) {
       NodeAddress.encode(v!, writer.uint32(34).fork()).ldelim();
     }
-    if (message.color !== '') {
+    if (message.color !== "") {
       writer.uint32(42).string(message.color);
     }
     Object.entries(message.features).forEach(([key, value]) => {
-      LightningNode_FeaturesEntry.encode(
-        {key: key as any, value},
-        writer.uint32(50).fork(),
-      ).ldelim();
+      LightningNode_FeaturesEntry.encode({ key: key as any, value }, writer.uint32(50).fork()).ldelim();
     });
     return writer;
   },
@@ -16197,10 +14417,7 @@ export const LightningNode = {
           message.color = reader.string();
           break;
         case 6:
-          const entry6 = LightningNode_FeaturesEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry6 = LightningNode_FeaturesEntry.decode(reader, reader.uint32());
           if (entry6.value !== undefined) {
             message.features[entry6.key] = entry6.value;
           }
@@ -16216,34 +14433,26 @@ export const LightningNode = {
   fromJSON(object: any): LightningNode {
     return {
       lastUpdate: isSet(object.lastUpdate) ? Number(object.lastUpdate) : 0,
-      pubKey: isSet(object.pubKey) ? String(object.pubKey) : '',
-      alias: isSet(object.alias) ? String(object.alias) : '',
-      addresses: Array.isArray(object?.addresses)
-        ? object.addresses.map((e: any) => NodeAddress.fromJSON(e))
-        : [],
-      color: isSet(object.color) ? String(object.color) : '',
+      pubKey: isSet(object.pubKey) ? String(object.pubKey) : "",
+      alias: isSet(object.alias) ? String(object.alias) : "",
+      addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => NodeAddress.fromJSON(e)) : [],
+      color: isSet(object.color) ? String(object.color) : "",
       features: isObject(object.features)
-        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
-            (acc, [key, value]) => {
-              acc[Number(key)] = Feature.fromJSON(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.features).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
+          acc[Number(key)] = Feature.fromJSON(value);
+          return acc;
+        }, {})
         : {},
     };
   },
 
   toJSON(message: LightningNode): unknown {
     const obj: any = {};
-    message.lastUpdate !== undefined &&
-      (obj.lastUpdate = Math.round(message.lastUpdate));
+    message.lastUpdate !== undefined && (obj.lastUpdate = Math.round(message.lastUpdate));
     message.pubKey !== undefined && (obj.pubKey = message.pubKey);
     message.alias !== undefined && (obj.alias = message.alias);
     if (message.addresses) {
-      obj.addresses = message.addresses.map((e) =>
-        e ? NodeAddress.toJSON(e) : undefined,
-      );
+      obj.addresses = message.addresses.map((e) => e ? NodeAddress.toJSON(e) : undefined);
     } else {
       obj.addresses = [];
     }
@@ -16260,14 +14469,11 @@ export const LightningNode = {
   fromPartial(object: DeepPartial<LightningNode>): LightningNode {
     const message = createBaseLightningNode();
     message.lastUpdate = object.lastUpdate ?? 0;
-    message.pubKey = object.pubKey ?? '';
-    message.alias = object.alias ?? '';
-    message.addresses =
-      object.addresses?.map((e) => NodeAddress.fromPartial(e)) || [];
-    message.color = object.color ?? '';
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.pubKey = object.pubKey ?? "";
+    message.alias = object.alias ?? "";
+    message.addresses = object.addresses?.map((e) => NodeAddress.fromPartial(e)) || [];
+    message.color = object.color ?? "";
+    message.features = Object.entries(object.features ?? {}).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
@@ -16278,14 +14484,11 @@ export const LightningNode = {
 };
 
 function createBaseLightningNode_FeaturesEntry(): LightningNode_FeaturesEntry {
-  return {key: 0, value: undefined};
+  return { key: 0, value: undefined };
 }
 
 export const LightningNode_FeaturesEntry = {
-  encode(
-    message: LightningNode_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: LightningNode_FeaturesEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
@@ -16295,10 +14498,7 @@ export const LightningNode_FeaturesEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): LightningNode_FeaturesEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): LightningNode_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseLightningNode_FeaturesEntry();
@@ -16329,37 +14529,30 @@ export const LightningNode_FeaturesEntry = {
   toJSON(message: LightningNode_FeaturesEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = Math.round(message.key));
-    message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    message.value !== undefined && (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<LightningNode_FeaturesEntry>,
-  ): LightningNode_FeaturesEntry {
+  fromPartial(object: DeepPartial<LightningNode_FeaturesEntry>): LightningNode_FeaturesEntry {
     const message = createBaseLightningNode_FeaturesEntry();
     message.key = object.key ?? 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromPartial(object.value)
-        : undefined;
+    message.value = (object.value !== undefined && object.value !== null)
+      ? Feature.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
 
 function createBaseNodeAddress(): NodeAddress {
-  return {network: '', addr: ''};
+  return { network: "", addr: "" };
 }
 
 export const NodeAddress = {
-  encode(
-    message: NodeAddress,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.network !== '') {
+  encode(message: NodeAddress, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.network !== "") {
       writer.uint32(10).string(message.network);
     }
-    if (message.addr !== '') {
+    if (message.addr !== "") {
       writer.uint32(18).string(message.addr);
     }
     return writer;
@@ -16388,8 +14581,8 @@ export const NodeAddress = {
 
   fromJSON(object: any): NodeAddress {
     return {
-      network: isSet(object.network) ? String(object.network) : '',
-      addr: isSet(object.addr) ? String(object.addr) : '',
+      network: isSet(object.network) ? String(object.network) : "",
+      addr: isSet(object.addr) ? String(object.addr) : "",
     };
   },
 
@@ -16402,8 +14595,8 @@ export const NodeAddress = {
 
   fromPartial(object: DeepPartial<NodeAddress>): NodeAddress {
     const message = createBaseNodeAddress();
-    message.network = object.network ?? '';
-    message.addr = object.addr ?? '';
+    message.network = object.network ?? "";
+    message.addr = object.addr ?? "";
     return message;
   },
 };
@@ -16411,36 +14604,33 @@ export const NodeAddress = {
 function createBaseRoutingPolicy(): RoutingPolicy {
   return {
     timeLockDelta: 0,
-    minHtlc: '0',
-    feeBaseMsat: '0',
-    feeRateMilliMsat: '0',
+    minHtlc: "0",
+    feeBaseMsat: "0",
+    feeRateMilliMsat: "0",
     disabled: false,
-    maxHtlcMsat: '0',
+    maxHtlcMsat: "0",
     lastUpdate: 0,
   };
 }
 
 export const RoutingPolicy = {
-  encode(
-    message: RoutingPolicy,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: RoutingPolicy, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.timeLockDelta !== 0) {
       writer.uint32(8).uint32(message.timeLockDelta);
     }
-    if (message.minHtlc !== '0') {
+    if (message.minHtlc !== "0") {
       writer.uint32(16).int64(message.minHtlc);
     }
-    if (message.feeBaseMsat !== '0') {
+    if (message.feeBaseMsat !== "0") {
       writer.uint32(24).int64(message.feeBaseMsat);
     }
-    if (message.feeRateMilliMsat !== '0') {
+    if (message.feeRateMilliMsat !== "0") {
       writer.uint32(32).int64(message.feeRateMilliMsat);
     }
     if (message.disabled === true) {
       writer.uint32(40).bool(message.disabled);
     }
-    if (message.maxHtlcMsat !== '0') {
+    if (message.maxHtlcMsat !== "0") {
       writer.uint32(48).uint64(message.maxHtlcMsat);
     }
     if (message.lastUpdate !== 0) {
@@ -16487,45 +14677,36 @@ export const RoutingPolicy = {
 
   fromJSON(object: any): RoutingPolicy {
     return {
-      timeLockDelta: isSet(object.timeLockDelta)
-        ? Number(object.timeLockDelta)
-        : 0,
-      minHtlc: isSet(object.minHtlc) ? String(object.minHtlc) : '0',
-      feeBaseMsat: isSet(object.feeBaseMsat) ? String(object.feeBaseMsat) : '0',
-      feeRateMilliMsat: isSet(object.feeRateMilliMsat)
-        ? String(object.feeRateMilliMsat)
-        : '0',
+      timeLockDelta: isSet(object.timeLockDelta) ? Number(object.timeLockDelta) : 0,
+      minHtlc: isSet(object.minHtlc) ? String(object.minHtlc) : "0",
+      feeBaseMsat: isSet(object.feeBaseMsat) ? String(object.feeBaseMsat) : "0",
+      feeRateMilliMsat: isSet(object.feeRateMilliMsat) ? String(object.feeRateMilliMsat) : "0",
       disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
-      maxHtlcMsat: isSet(object.maxHtlcMsat) ? String(object.maxHtlcMsat) : '0',
+      maxHtlcMsat: isSet(object.maxHtlcMsat) ? String(object.maxHtlcMsat) : "0",
       lastUpdate: isSet(object.lastUpdate) ? Number(object.lastUpdate) : 0,
     };
   },
 
   toJSON(message: RoutingPolicy): unknown {
     const obj: any = {};
-    message.timeLockDelta !== undefined &&
-      (obj.timeLockDelta = Math.round(message.timeLockDelta));
+    message.timeLockDelta !== undefined && (obj.timeLockDelta = Math.round(message.timeLockDelta));
     message.minHtlc !== undefined && (obj.minHtlc = message.minHtlc);
-    message.feeBaseMsat !== undefined &&
-      (obj.feeBaseMsat = message.feeBaseMsat);
-    message.feeRateMilliMsat !== undefined &&
-      (obj.feeRateMilliMsat = message.feeRateMilliMsat);
+    message.feeBaseMsat !== undefined && (obj.feeBaseMsat = message.feeBaseMsat);
+    message.feeRateMilliMsat !== undefined && (obj.feeRateMilliMsat = message.feeRateMilliMsat);
     message.disabled !== undefined && (obj.disabled = message.disabled);
-    message.maxHtlcMsat !== undefined &&
-      (obj.maxHtlcMsat = message.maxHtlcMsat);
-    message.lastUpdate !== undefined &&
-      (obj.lastUpdate = Math.round(message.lastUpdate));
+    message.maxHtlcMsat !== undefined && (obj.maxHtlcMsat = message.maxHtlcMsat);
+    message.lastUpdate !== undefined && (obj.lastUpdate = Math.round(message.lastUpdate));
     return obj;
   },
 
   fromPartial(object: DeepPartial<RoutingPolicy>): RoutingPolicy {
     const message = createBaseRoutingPolicy();
     message.timeLockDelta = object.timeLockDelta ?? 0;
-    message.minHtlc = object.minHtlc ?? '0';
-    message.feeBaseMsat = object.feeBaseMsat ?? '0';
-    message.feeRateMilliMsat = object.feeRateMilliMsat ?? '0';
+    message.minHtlc = object.minHtlc ?? "0";
+    message.feeBaseMsat = object.feeBaseMsat ?? "0";
+    message.feeRateMilliMsat = object.feeRateMilliMsat ?? "0";
     message.disabled = object.disabled ?? false;
-    message.maxHtlcMsat = object.maxHtlcMsat ?? '0';
+    message.maxHtlcMsat = object.maxHtlcMsat ?? "0";
     message.lastUpdate = object.lastUpdate ?? 0;
     return message;
   },
@@ -16533,51 +14714,42 @@ export const RoutingPolicy = {
 
 function createBaseChannelEdge(): ChannelEdge {
   return {
-    channelId: '0',
-    chanPoint: '',
+    channelId: "0",
+    chanPoint: "",
     lastUpdate: 0,
-    node1Pub: '',
-    node2Pub: '',
-    capacity: '0',
+    node1Pub: "",
+    node2Pub: "",
+    capacity: "0",
     node1Policy: undefined,
     node2Policy: undefined,
   };
 }
 
 export const ChannelEdge = {
-  encode(
-    message: ChannelEdge,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.channelId !== '0') {
+  encode(message: ChannelEdge, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.channelId !== "0") {
       writer.uint32(8).uint64(message.channelId);
     }
-    if (message.chanPoint !== '') {
+    if (message.chanPoint !== "") {
       writer.uint32(18).string(message.chanPoint);
     }
     if (message.lastUpdate !== 0) {
       writer.uint32(24).uint32(message.lastUpdate);
     }
-    if (message.node1Pub !== '') {
+    if (message.node1Pub !== "") {
       writer.uint32(34).string(message.node1Pub);
     }
-    if (message.node2Pub !== '') {
+    if (message.node2Pub !== "") {
       writer.uint32(42).string(message.node2Pub);
     }
-    if (message.capacity !== '0') {
+    if (message.capacity !== "0") {
       writer.uint32(48).int64(message.capacity);
     }
     if (message.node1Policy !== undefined) {
-      RoutingPolicy.encode(
-        message.node1Policy,
-        writer.uint32(58).fork(),
-      ).ldelim();
+      RoutingPolicy.encode(message.node1Policy, writer.uint32(58).fork()).ldelim();
     }
     if (message.node2Policy !== undefined) {
-      RoutingPolicy.encode(
-        message.node2Policy,
-        writer.uint32(66).fork(),
-      ).ldelim();
+      RoutingPolicy.encode(message.node2Policy, writer.uint32(66).fork()).ldelim();
     }
     return writer;
   },
@@ -16623,18 +14795,14 @@ export const ChannelEdge = {
 
   fromJSON(object: any): ChannelEdge {
     return {
-      channelId: isSet(object.channelId) ? String(object.channelId) : '0',
-      chanPoint: isSet(object.chanPoint) ? String(object.chanPoint) : '',
+      channelId: isSet(object.channelId) ? String(object.channelId) : "0",
+      chanPoint: isSet(object.chanPoint) ? String(object.chanPoint) : "",
       lastUpdate: isSet(object.lastUpdate) ? Number(object.lastUpdate) : 0,
-      node1Pub: isSet(object.node1Pub) ? String(object.node1Pub) : '',
-      node2Pub: isSet(object.node2Pub) ? String(object.node2Pub) : '',
-      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
-      node1Policy: isSet(object.node1Policy)
-        ? RoutingPolicy.fromJSON(object.node1Policy)
-        : undefined,
-      node2Policy: isSet(object.node2Policy)
-        ? RoutingPolicy.fromJSON(object.node2Policy)
-        : undefined,
+      node1Pub: isSet(object.node1Pub) ? String(object.node1Pub) : "",
+      node2Pub: isSet(object.node2Pub) ? String(object.node2Pub) : "",
+      capacity: isSet(object.capacity) ? String(object.capacity) : "0",
+      node1Policy: isSet(object.node1Policy) ? RoutingPolicy.fromJSON(object.node1Policy) : undefined,
+      node2Policy: isSet(object.node2Policy) ? RoutingPolicy.fromJSON(object.node2Policy) : undefined,
     };
   },
 
@@ -16642,51 +14810,41 @@ export const ChannelEdge = {
     const obj: any = {};
     message.channelId !== undefined && (obj.channelId = message.channelId);
     message.chanPoint !== undefined && (obj.chanPoint = message.chanPoint);
-    message.lastUpdate !== undefined &&
-      (obj.lastUpdate = Math.round(message.lastUpdate));
+    message.lastUpdate !== undefined && (obj.lastUpdate = Math.round(message.lastUpdate));
     message.node1Pub !== undefined && (obj.node1Pub = message.node1Pub);
     message.node2Pub !== undefined && (obj.node2Pub = message.node2Pub);
     message.capacity !== undefined && (obj.capacity = message.capacity);
     message.node1Policy !== undefined &&
-      (obj.node1Policy = message.node1Policy
-        ? RoutingPolicy.toJSON(message.node1Policy)
-        : undefined);
+      (obj.node1Policy = message.node1Policy ? RoutingPolicy.toJSON(message.node1Policy) : undefined);
     message.node2Policy !== undefined &&
-      (obj.node2Policy = message.node2Policy
-        ? RoutingPolicy.toJSON(message.node2Policy)
-        : undefined);
+      (obj.node2Policy = message.node2Policy ? RoutingPolicy.toJSON(message.node2Policy) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelEdge>): ChannelEdge {
     const message = createBaseChannelEdge();
-    message.channelId = object.channelId ?? '0';
-    message.chanPoint = object.chanPoint ?? '';
+    message.channelId = object.channelId ?? "0";
+    message.chanPoint = object.chanPoint ?? "";
     message.lastUpdate = object.lastUpdate ?? 0;
-    message.node1Pub = object.node1Pub ?? '';
-    message.node2Pub = object.node2Pub ?? '';
-    message.capacity = object.capacity ?? '0';
-    message.node1Policy =
-      object.node1Policy !== undefined && object.node1Policy !== null
-        ? RoutingPolicy.fromPartial(object.node1Policy)
-        : undefined;
-    message.node2Policy =
-      object.node2Policy !== undefined && object.node2Policy !== null
-        ? RoutingPolicy.fromPartial(object.node2Policy)
-        : undefined;
+    message.node1Pub = object.node1Pub ?? "";
+    message.node2Pub = object.node2Pub ?? "";
+    message.capacity = object.capacity ?? "0";
+    message.node1Policy = (object.node1Policy !== undefined && object.node1Policy !== null)
+      ? RoutingPolicy.fromPartial(object.node1Policy)
+      : undefined;
+    message.node2Policy = (object.node2Policy !== undefined && object.node2Policy !== null)
+      ? RoutingPolicy.fromPartial(object.node2Policy)
+      : undefined;
     return message;
   },
 };
 
 function createBaseChannelGraphRequest(): ChannelGraphRequest {
-  return {includeUnannounced: false};
+  return { includeUnannounced: false };
 }
 
 export const ChannelGraphRequest = {
-  encode(
-    message: ChannelGraphRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelGraphRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.includeUnannounced === true) {
       writer.uint32(8).bool(message.includeUnannounced);
     }
@@ -16712,17 +14870,12 @@ export const ChannelGraphRequest = {
   },
 
   fromJSON(object: any): ChannelGraphRequest {
-    return {
-      includeUnannounced: isSet(object.includeUnannounced)
-        ? Boolean(object.includeUnannounced)
-        : false,
-    };
+    return { includeUnannounced: isSet(object.includeUnannounced) ? Boolean(object.includeUnannounced) : false };
   },
 
   toJSON(message: ChannelGraphRequest): unknown {
     const obj: any = {};
-    message.includeUnannounced !== undefined &&
-      (obj.includeUnannounced = message.includeUnannounced);
+    message.includeUnannounced !== undefined && (obj.includeUnannounced = message.includeUnannounced);
     return obj;
   },
 
@@ -16734,14 +14887,11 @@ export const ChannelGraphRequest = {
 };
 
 function createBaseChannelGraph(): ChannelGraph {
-  return {nodes: [], edges: []};
+  return { nodes: [], edges: [] };
 }
 
 export const ChannelGraph = {
-  encode(
-    message: ChannelGraph,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelGraph, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.nodes) {
       LightningNode.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -16774,28 +14924,20 @@ export const ChannelGraph = {
 
   fromJSON(object: any): ChannelGraph {
     return {
-      nodes: Array.isArray(object?.nodes)
-        ? object.nodes.map((e: any) => LightningNode.fromJSON(e))
-        : [],
-      edges: Array.isArray(object?.edges)
-        ? object.edges.map((e: any) => ChannelEdge.fromJSON(e))
-        : [],
+      nodes: Array.isArray(object?.nodes) ? object.nodes.map((e: any) => LightningNode.fromJSON(e)) : [],
+      edges: Array.isArray(object?.edges) ? object.edges.map((e: any) => ChannelEdge.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: ChannelGraph): unknown {
     const obj: any = {};
     if (message.nodes) {
-      obj.nodes = message.nodes.map((e) =>
-        e ? LightningNode.toJSON(e) : undefined,
-      );
+      obj.nodes = message.nodes.map((e) => e ? LightningNode.toJSON(e) : undefined);
     } else {
       obj.nodes = [];
     }
     if (message.edges) {
-      obj.edges = message.edges.map((e) =>
-        e ? ChannelEdge.toJSON(e) : undefined,
-      );
+      obj.edges = message.edges.map((e) => e ? ChannelEdge.toJSON(e) : undefined);
     } else {
       obj.edges = [];
     }
@@ -16804,22 +14946,18 @@ export const ChannelGraph = {
 
   fromPartial(object: DeepPartial<ChannelGraph>): ChannelGraph {
     const message = createBaseChannelGraph();
-    message.nodes =
-      object.nodes?.map((e) => LightningNode.fromPartial(e)) || [];
+    message.nodes = object.nodes?.map((e) => LightningNode.fromPartial(e)) || [];
     message.edges = object.edges?.map((e) => ChannelEdge.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseNodeMetricsRequest(): NodeMetricsRequest {
-  return {types: []};
+  return { types: [] };
 }
 
 export const NodeMetricsRequest = {
-  encode(
-    message: NodeMetricsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NodeMetricsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     writer.uint32(10).fork();
     for (const v of message.types) {
       writer.int32(v);
@@ -16854,11 +14992,7 @@ export const NodeMetricsRequest = {
   },
 
   fromJSON(object: any): NodeMetricsRequest {
-    return {
-      types: Array.isArray(object?.types)
-        ? object.types.map((e: any) => nodeMetricTypeFromJSON(e))
-        : [],
-    };
+    return { types: Array.isArray(object?.types) ? object.types.map((e: any) => nodeMetricTypeFromJSON(e)) : [] };
   },
 
   toJSON(message: NodeMetricsRequest): unknown {
@@ -16879,19 +15013,14 @@ export const NodeMetricsRequest = {
 };
 
 function createBaseNodeMetricsResponse(): NodeMetricsResponse {
-  return {betweennessCentrality: {}};
+  return { betweennessCentrality: {} };
 }
 
 export const NodeMetricsResponse = {
-  encode(
-    message: NodeMetricsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NodeMetricsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     Object.entries(message.betweennessCentrality).forEach(([key, value]) => {
-      NodeMetricsResponse_BetweennessCentralityEntry.encode(
-        {key: key as any, value},
-        writer.uint32(10).fork(),
-      ).ldelim();
+      NodeMetricsResponse_BetweennessCentralityEntry.encode({ key: key as any, value }, writer.uint32(10).fork())
+        .ldelim();
     });
     return writer;
   },
@@ -16904,10 +15033,7 @@ export const NodeMetricsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          const entry1 = NodeMetricsResponse_BetweennessCentralityEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry1 = NodeMetricsResponse_BetweennessCentralityEntry.decode(reader, reader.uint32());
           if (entry1.value !== undefined) {
             message.betweennessCentrality[entry1.key] = entry1.value;
           }
@@ -16923,12 +15049,10 @@ export const NodeMetricsResponse = {
   fromJSON(object: any): NodeMetricsResponse {
     return {
       betweennessCentrality: isObject(object.betweennessCentrality)
-        ? Object.entries(object.betweennessCentrality).reduce<{
-            [key: string]: FloatMetric;
-          }>((acc, [key, value]) => {
-            acc[key] = FloatMetric.fromJSON(value);
-            return acc;
-          }, {})
+        ? Object.entries(object.betweennessCentrality).reduce<{ [key: string]: FloatMetric }>((acc, [key, value]) => {
+          acc[key] = FloatMetric.fromJSON(value);
+          return acc;
+        }, {})
         : {},
     };
   },
@@ -16946,9 +15070,9 @@ export const NodeMetricsResponse = {
 
   fromPartial(object: DeepPartial<NodeMetricsResponse>): NodeMetricsResponse {
     const message = createBaseNodeMetricsResponse();
-    message.betweennessCentrality = Object.entries(
-      object.betweennessCentrality ?? {},
-    ).reduce<{[key: string]: FloatMetric}>((acc, [key, value]) => {
+    message.betweennessCentrality = Object.entries(object.betweennessCentrality ?? {}).reduce<
+      { [key: string]: FloatMetric }
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = FloatMetric.fromPartial(value);
       }
@@ -16959,7 +15083,7 @@ export const NodeMetricsResponse = {
 };
 
 function createBaseNodeMetricsResponse_BetweennessCentralityEntry(): NodeMetricsResponse_BetweennessCentralityEntry {
-  return {key: '', value: undefined};
+  return { key: "", value: undefined };
 }
 
 export const NodeMetricsResponse_BetweennessCentralityEntry = {
@@ -16967,7 +15091,7 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
     message: NodeMetricsResponse_BetweennessCentralityEntry,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== '') {
+    if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
@@ -16976,10 +15100,7 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): NodeMetricsResponse_BetweennessCentralityEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): NodeMetricsResponse_BetweennessCentralityEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeMetricsResponse_BetweennessCentralityEntry();
@@ -17002,20 +15123,15 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
 
   fromJSON(object: any): NodeMetricsResponse_BetweennessCentralityEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '',
-      value: isSet(object.value)
-        ? FloatMetric.fromJSON(object.value)
-        : undefined,
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? FloatMetric.fromJSON(object.value) : undefined,
     };
   },
 
   toJSON(message: NodeMetricsResponse_BetweennessCentralityEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
-    message.value !== undefined &&
-      (obj.value = message.value
-        ? FloatMetric.toJSON(message.value)
-        : undefined);
+    message.value !== undefined && (obj.value = message.value ? FloatMetric.toJSON(message.value) : undefined);
     return obj;
   },
 
@@ -17023,24 +15139,20 @@ export const NodeMetricsResponse_BetweennessCentralityEntry = {
     object: DeepPartial<NodeMetricsResponse_BetweennessCentralityEntry>,
   ): NodeMetricsResponse_BetweennessCentralityEntry {
     const message = createBaseNodeMetricsResponse_BetweennessCentralityEntry();
-    message.key = object.key ?? '';
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? FloatMetric.fromPartial(object.value)
-        : undefined;
+    message.key = object.key ?? "";
+    message.value = (object.value !== undefined && object.value !== null)
+      ? FloatMetric.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
 
 function createBaseFloatMetric(): FloatMetric {
-  return {value: 0, normalizedValue: 0};
+  return { value: 0, normalizedValue: 0 };
 }
 
 export const FloatMetric = {
-  encode(
-    message: FloatMetric,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FloatMetric, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.value !== 0) {
       writer.uint32(9).double(message.value);
     }
@@ -17074,17 +15186,14 @@ export const FloatMetric = {
   fromJSON(object: any): FloatMetric {
     return {
       value: isSet(object.value) ? Number(object.value) : 0,
-      normalizedValue: isSet(object.normalizedValue)
-        ? Number(object.normalizedValue)
-        : 0,
+      normalizedValue: isSet(object.normalizedValue) ? Number(object.normalizedValue) : 0,
     };
   },
 
   toJSON(message: FloatMetric): unknown {
     const obj: any = {};
     message.value !== undefined && (obj.value = message.value);
-    message.normalizedValue !== undefined &&
-      (obj.normalizedValue = message.normalizedValue);
+    message.normalizedValue !== undefined && (obj.normalizedValue = message.normalizedValue);
     return obj;
   },
 
@@ -17097,15 +15206,12 @@ export const FloatMetric = {
 };
 
 function createBaseChanInfoRequest(): ChanInfoRequest {
-  return {chanId: '0'};
+  return { chanId: "0" };
 }
 
 export const ChanInfoRequest = {
-  encode(
-    message: ChanInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.chanId !== '0') {
+  encode(message: ChanInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
     return writer;
@@ -17130,9 +15236,7 @@ export const ChanInfoRequest = {
   },
 
   fromJSON(object: any): ChanInfoRequest {
-    return {
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
-    };
+    return { chanId: isSet(object.chanId) ? String(object.chanId) : "0" };
   },
 
   toJSON(message: ChanInfoRequest): unknown {
@@ -17143,7 +15247,7 @@ export const ChanInfoRequest = {
 
   fromPartial(object: DeepPartial<ChanInfoRequest>): ChanInfoRequest {
     const message = createBaseChanInfoRequest();
-    message.chanId = object.chanId ?? '0';
+    message.chanId = object.chanId ?? "0";
     return message;
   },
 };
@@ -17153,10 +15257,7 @@ function createBaseNetworkInfoRequest(): NetworkInfoRequest {
 }
 
 export const NetworkInfoRequest = {
-  encode(
-    _: NetworkInfoRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: NetworkInfoRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -17197,20 +15298,17 @@ function createBaseNetworkInfo(): NetworkInfo {
     maxOutDegree: 0,
     numNodes: 0,
     numChannels: 0,
-    totalNetworkCapacity: '0',
+    totalNetworkCapacity: "0",
     avgChannelSize: 0,
-    minChannelSize: '0',
-    maxChannelSize: '0',
-    medianChannelSizeSat: '0',
-    numZombieChans: '0',
+    minChannelSize: "0",
+    maxChannelSize: "0",
+    medianChannelSizeSat: "0",
+    numZombieChans: "0",
   };
 }
 
 export const NetworkInfo = {
-  encode(
-    message: NetworkInfo,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NetworkInfo, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.graphDiameter !== 0) {
       writer.uint32(8).uint32(message.graphDiameter);
     }
@@ -17226,22 +15324,22 @@ export const NetworkInfo = {
     if (message.numChannels !== 0) {
       writer.uint32(40).uint32(message.numChannels);
     }
-    if (message.totalNetworkCapacity !== '0') {
+    if (message.totalNetworkCapacity !== "0") {
       writer.uint32(48).int64(message.totalNetworkCapacity);
     }
     if (message.avgChannelSize !== 0) {
       writer.uint32(57).double(message.avgChannelSize);
     }
-    if (message.minChannelSize !== '0') {
+    if (message.minChannelSize !== "0") {
       writer.uint32(64).int64(message.minChannelSize);
     }
-    if (message.maxChannelSize !== '0') {
+    if (message.maxChannelSize !== "0") {
       writer.uint32(72).int64(message.maxChannelSize);
     }
-    if (message.medianChannelSizeSat !== '0') {
+    if (message.medianChannelSizeSat !== "0") {
       writer.uint32(80).int64(message.medianChannelSizeSat);
     }
-    if (message.numZombieChans !== '0') {
+    if (message.numZombieChans !== "0") {
       writer.uint32(88).uint64(message.numZombieChans);
     }
     return writer;
@@ -17297,62 +15395,33 @@ export const NetworkInfo = {
 
   fromJSON(object: any): NetworkInfo {
     return {
-      graphDiameter: isSet(object.graphDiameter)
-        ? Number(object.graphDiameter)
-        : 0,
-      avgOutDegree: isSet(object.avgOutDegree)
-        ? Number(object.avgOutDegree)
-        : 0,
-      maxOutDegree: isSet(object.maxOutDegree)
-        ? Number(object.maxOutDegree)
-        : 0,
+      graphDiameter: isSet(object.graphDiameter) ? Number(object.graphDiameter) : 0,
+      avgOutDegree: isSet(object.avgOutDegree) ? Number(object.avgOutDegree) : 0,
+      maxOutDegree: isSet(object.maxOutDegree) ? Number(object.maxOutDegree) : 0,
       numNodes: isSet(object.numNodes) ? Number(object.numNodes) : 0,
       numChannels: isSet(object.numChannels) ? Number(object.numChannels) : 0,
-      totalNetworkCapacity: isSet(object.totalNetworkCapacity)
-        ? String(object.totalNetworkCapacity)
-        : '0',
-      avgChannelSize: isSet(object.avgChannelSize)
-        ? Number(object.avgChannelSize)
-        : 0,
-      minChannelSize: isSet(object.minChannelSize)
-        ? String(object.minChannelSize)
-        : '0',
-      maxChannelSize: isSet(object.maxChannelSize)
-        ? String(object.maxChannelSize)
-        : '0',
-      medianChannelSizeSat: isSet(object.medianChannelSizeSat)
-        ? String(object.medianChannelSizeSat)
-        : '0',
-      numZombieChans: isSet(object.numZombieChans)
-        ? String(object.numZombieChans)
-        : '0',
+      totalNetworkCapacity: isSet(object.totalNetworkCapacity) ? String(object.totalNetworkCapacity) : "0",
+      avgChannelSize: isSet(object.avgChannelSize) ? Number(object.avgChannelSize) : 0,
+      minChannelSize: isSet(object.minChannelSize) ? String(object.minChannelSize) : "0",
+      maxChannelSize: isSet(object.maxChannelSize) ? String(object.maxChannelSize) : "0",
+      medianChannelSizeSat: isSet(object.medianChannelSizeSat) ? String(object.medianChannelSizeSat) : "0",
+      numZombieChans: isSet(object.numZombieChans) ? String(object.numZombieChans) : "0",
     };
   },
 
   toJSON(message: NetworkInfo): unknown {
     const obj: any = {};
-    message.graphDiameter !== undefined &&
-      (obj.graphDiameter = Math.round(message.graphDiameter));
-    message.avgOutDegree !== undefined &&
-      (obj.avgOutDegree = message.avgOutDegree);
-    message.maxOutDegree !== undefined &&
-      (obj.maxOutDegree = Math.round(message.maxOutDegree));
-    message.numNodes !== undefined &&
-      (obj.numNodes = Math.round(message.numNodes));
-    message.numChannels !== undefined &&
-      (obj.numChannels = Math.round(message.numChannels));
-    message.totalNetworkCapacity !== undefined &&
-      (obj.totalNetworkCapacity = message.totalNetworkCapacity);
-    message.avgChannelSize !== undefined &&
-      (obj.avgChannelSize = message.avgChannelSize);
-    message.minChannelSize !== undefined &&
-      (obj.minChannelSize = message.minChannelSize);
-    message.maxChannelSize !== undefined &&
-      (obj.maxChannelSize = message.maxChannelSize);
-    message.medianChannelSizeSat !== undefined &&
-      (obj.medianChannelSizeSat = message.medianChannelSizeSat);
-    message.numZombieChans !== undefined &&
-      (obj.numZombieChans = message.numZombieChans);
+    message.graphDiameter !== undefined && (obj.graphDiameter = Math.round(message.graphDiameter));
+    message.avgOutDegree !== undefined && (obj.avgOutDegree = message.avgOutDegree);
+    message.maxOutDegree !== undefined && (obj.maxOutDegree = Math.round(message.maxOutDegree));
+    message.numNodes !== undefined && (obj.numNodes = Math.round(message.numNodes));
+    message.numChannels !== undefined && (obj.numChannels = Math.round(message.numChannels));
+    message.totalNetworkCapacity !== undefined && (obj.totalNetworkCapacity = message.totalNetworkCapacity);
+    message.avgChannelSize !== undefined && (obj.avgChannelSize = message.avgChannelSize);
+    message.minChannelSize !== undefined && (obj.minChannelSize = message.minChannelSize);
+    message.maxChannelSize !== undefined && (obj.maxChannelSize = message.maxChannelSize);
+    message.medianChannelSizeSat !== undefined && (obj.medianChannelSizeSat = message.medianChannelSizeSat);
+    message.numZombieChans !== undefined && (obj.numZombieChans = message.numZombieChans);
     return obj;
   },
 
@@ -17363,12 +15432,12 @@ export const NetworkInfo = {
     message.maxOutDegree = object.maxOutDegree ?? 0;
     message.numNodes = object.numNodes ?? 0;
     message.numChannels = object.numChannels ?? 0;
-    message.totalNetworkCapacity = object.totalNetworkCapacity ?? '0';
+    message.totalNetworkCapacity = object.totalNetworkCapacity ?? "0";
     message.avgChannelSize = object.avgChannelSize ?? 0;
-    message.minChannelSize = object.minChannelSize ?? '0';
-    message.maxChannelSize = object.maxChannelSize ?? '0';
-    message.medianChannelSizeSat = object.medianChannelSizeSat ?? '0';
-    message.numZombieChans = object.numZombieChans ?? '0';
+    message.minChannelSize = object.minChannelSize ?? "0";
+    message.maxChannelSize = object.maxChannelSize ?? "0";
+    message.medianChannelSizeSat = object.medianChannelSizeSat ?? "0";
+    message.numZombieChans = object.numZombieChans ?? "0";
     return message;
   },
 };
@@ -17417,10 +15486,7 @@ function createBaseStopResponse(): StopResponse {
 }
 
 export const StopResponse = {
-  encode(
-    _: StopResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: StopResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -17459,17 +15525,11 @@ function createBaseGraphTopologySubscription(): GraphTopologySubscription {
 }
 
 export const GraphTopologySubscription = {
-  encode(
-    _: GraphTopologySubscription,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: GraphTopologySubscription, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): GraphTopologySubscription {
+  decode(input: _m0.Reader | Uint8Array, length?: number): GraphTopologySubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseGraphTopologySubscription();
@@ -17493,23 +15553,18 @@ export const GraphTopologySubscription = {
     return obj;
   },
 
-  fromPartial(
-    _: DeepPartial<GraphTopologySubscription>,
-  ): GraphTopologySubscription {
+  fromPartial(_: DeepPartial<GraphTopologySubscription>): GraphTopologySubscription {
     const message = createBaseGraphTopologySubscription();
     return message;
   },
 };
 
 function createBaseGraphTopologyUpdate(): GraphTopologyUpdate {
-  return {nodeUpdates: [], channelUpdates: [], closedChans: []};
+  return { nodeUpdates: [], channelUpdates: [], closedChans: [] };
 }
 
 export const GraphTopologyUpdate = {
-  encode(
-    message: GraphTopologyUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: GraphTopologyUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.nodeUpdates) {
       NodeUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -17533,14 +15588,10 @@ export const GraphTopologyUpdate = {
           message.nodeUpdates.push(NodeUpdate.decode(reader, reader.uint32()));
           break;
         case 2:
-          message.channelUpdates.push(
-            ChannelEdgeUpdate.decode(reader, reader.uint32()),
-          );
+          message.channelUpdates.push(ChannelEdgeUpdate.decode(reader, reader.uint32()));
           break;
         case 3:
-          message.closedChans.push(
-            ClosedChannelUpdate.decode(reader, reader.uint32()),
-          );
+          message.closedChans.push(ClosedChannelUpdate.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -17552,9 +15603,7 @@ export const GraphTopologyUpdate = {
 
   fromJSON(object: any): GraphTopologyUpdate {
     return {
-      nodeUpdates: Array.isArray(object?.nodeUpdates)
-        ? object.nodeUpdates.map((e: any) => NodeUpdate.fromJSON(e))
-        : [],
+      nodeUpdates: Array.isArray(object?.nodeUpdates) ? object.nodeUpdates.map((e: any) => NodeUpdate.fromJSON(e)) : [],
       channelUpdates: Array.isArray(object?.channelUpdates)
         ? object.channelUpdates.map((e: any) => ChannelEdgeUpdate.fromJSON(e))
         : [],
@@ -17567,23 +15616,17 @@ export const GraphTopologyUpdate = {
   toJSON(message: GraphTopologyUpdate): unknown {
     const obj: any = {};
     if (message.nodeUpdates) {
-      obj.nodeUpdates = message.nodeUpdates.map((e) =>
-        e ? NodeUpdate.toJSON(e) : undefined,
-      );
+      obj.nodeUpdates = message.nodeUpdates.map((e) => e ? NodeUpdate.toJSON(e) : undefined);
     } else {
       obj.nodeUpdates = [];
     }
     if (message.channelUpdates) {
-      obj.channelUpdates = message.channelUpdates.map((e) =>
-        e ? ChannelEdgeUpdate.toJSON(e) : undefined,
-      );
+      obj.channelUpdates = message.channelUpdates.map((e) => e ? ChannelEdgeUpdate.toJSON(e) : undefined);
     } else {
       obj.channelUpdates = [];
     }
     if (message.closedChans) {
-      obj.closedChans = message.closedChans.map((e) =>
-        e ? ClosedChannelUpdate.toJSON(e) : undefined,
-      );
+      obj.closedChans = message.closedChans.map((e) => e ? ClosedChannelUpdate.toJSON(e) : undefined);
     } else {
       obj.closedChans = [];
     }
@@ -17592,12 +15635,9 @@ export const GraphTopologyUpdate = {
 
   fromPartial(object: DeepPartial<GraphTopologyUpdate>): GraphTopologyUpdate {
     const message = createBaseGraphTopologyUpdate();
-    message.nodeUpdates =
-      object.nodeUpdates?.map((e) => NodeUpdate.fromPartial(e)) || [];
-    message.channelUpdates =
-      object.channelUpdates?.map((e) => ChannelEdgeUpdate.fromPartial(e)) || [];
-    message.closedChans =
-      object.closedChans?.map((e) => ClosedChannelUpdate.fromPartial(e)) || [];
+    message.nodeUpdates = object.nodeUpdates?.map((e) => NodeUpdate.fromPartial(e)) || [];
+    message.channelUpdates = object.channelUpdates?.map((e) => ChannelEdgeUpdate.fromPartial(e)) || [];
+    message.closedChans = object.closedChans?.map((e) => ClosedChannelUpdate.fromPartial(e)) || [];
     return message;
   },
 };
@@ -17605,43 +15645,37 @@ export const GraphTopologyUpdate = {
 function createBaseNodeUpdate(): NodeUpdate {
   return {
     addresses: [],
-    identityKey: '',
+    identityKey: "",
     globalFeatures: new Uint8Array(),
-    alias: '',
-    color: '',
+    alias: "",
+    color: "",
     nodeAddresses: [],
     features: {},
   };
 }
 
 export const NodeUpdate = {
-  encode(
-    message: NodeUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NodeUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.addresses) {
       writer.uint32(10).string(v!);
     }
-    if (message.identityKey !== '') {
+    if (message.identityKey !== "") {
       writer.uint32(18).string(message.identityKey);
     }
     if (message.globalFeatures.length !== 0) {
       writer.uint32(26).bytes(message.globalFeatures);
     }
-    if (message.alias !== '') {
+    if (message.alias !== "") {
       writer.uint32(34).string(message.alias);
     }
-    if (message.color !== '') {
+    if (message.color !== "") {
       writer.uint32(42).string(message.color);
     }
     for (const v of message.nodeAddresses) {
       NodeAddress.encode(v!, writer.uint32(58).fork()).ldelim();
     }
     Object.entries(message.features).forEach(([key, value]) => {
-      NodeUpdate_FeaturesEntry.encode(
-        {key: key as any, value},
-        writer.uint32(50).fork(),
-      ).ldelim();
+      NodeUpdate_FeaturesEntry.encode({ key: key as any, value }, writer.uint32(50).fork()).ldelim();
     });
     return writer;
   },
@@ -17669,15 +15703,10 @@ export const NodeUpdate = {
           message.color = reader.string();
           break;
         case 7:
-          message.nodeAddresses.push(
-            NodeAddress.decode(reader, reader.uint32()),
-          );
+          message.nodeAddresses.push(NodeAddress.decode(reader, reader.uint32()));
           break;
         case 6:
-          const entry6 = NodeUpdate_FeaturesEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry6 = NodeUpdate_FeaturesEntry.decode(reader, reader.uint32());
           if (entry6.value !== undefined) {
             message.features[entry6.key] = entry6.value;
           }
@@ -17692,26 +15721,19 @@ export const NodeUpdate = {
 
   fromJSON(object: any): NodeUpdate {
     return {
-      addresses: Array.isArray(object?.addresses)
-        ? object.addresses.map((e: any) => String(e))
-        : [],
-      identityKey: isSet(object.identityKey) ? String(object.identityKey) : '',
-      globalFeatures: isSet(object.globalFeatures)
-        ? bytesFromBase64(object.globalFeatures)
-        : new Uint8Array(),
-      alias: isSet(object.alias) ? String(object.alias) : '',
-      color: isSet(object.color) ? String(object.color) : '',
+      addresses: Array.isArray(object?.addresses) ? object.addresses.map((e: any) => String(e)) : [],
+      identityKey: isSet(object.identityKey) ? String(object.identityKey) : "",
+      globalFeatures: isSet(object.globalFeatures) ? bytesFromBase64(object.globalFeatures) : new Uint8Array(),
+      alias: isSet(object.alias) ? String(object.alias) : "",
+      color: isSet(object.color) ? String(object.color) : "",
       nodeAddresses: Array.isArray(object?.nodeAddresses)
         ? object.nodeAddresses.map((e: any) => NodeAddress.fromJSON(e))
         : [],
       features: isObject(object.features)
-        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
-            (acc, [key, value]) => {
-              acc[Number(key)] = Feature.fromJSON(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.features).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
+          acc[Number(key)] = Feature.fromJSON(value);
+          return acc;
+        }, {})
         : {},
     };
   },
@@ -17723,20 +15745,15 @@ export const NodeUpdate = {
     } else {
       obj.addresses = [];
     }
-    message.identityKey !== undefined &&
-      (obj.identityKey = message.identityKey);
+    message.identityKey !== undefined && (obj.identityKey = message.identityKey);
     message.globalFeatures !== undefined &&
       (obj.globalFeatures = base64FromBytes(
-        message.globalFeatures !== undefined
-          ? message.globalFeatures
-          : new Uint8Array(),
+        message.globalFeatures !== undefined ? message.globalFeatures : new Uint8Array(),
       ));
     message.alias !== undefined && (obj.alias = message.alias);
     message.color !== undefined && (obj.color = message.color);
     if (message.nodeAddresses) {
-      obj.nodeAddresses = message.nodeAddresses.map((e) =>
-        e ? NodeAddress.toJSON(e) : undefined,
-      );
+      obj.nodeAddresses = message.nodeAddresses.map((e) => e ? NodeAddress.toJSON(e) : undefined);
     } else {
       obj.nodeAddresses = [];
     }
@@ -17752,15 +15769,12 @@ export const NodeUpdate = {
   fromPartial(object: DeepPartial<NodeUpdate>): NodeUpdate {
     const message = createBaseNodeUpdate();
     message.addresses = object.addresses?.map((e) => e) || [];
-    message.identityKey = object.identityKey ?? '';
+    message.identityKey = object.identityKey ?? "";
     message.globalFeatures = object.globalFeatures ?? new Uint8Array();
-    message.alias = object.alias ?? '';
-    message.color = object.color ?? '';
-    message.nodeAddresses =
-      object.nodeAddresses?.map((e) => NodeAddress.fromPartial(e)) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.alias = object.alias ?? "";
+    message.color = object.color ?? "";
+    message.nodeAddresses = object.nodeAddresses?.map((e) => NodeAddress.fromPartial(e)) || [];
+    message.features = Object.entries(object.features ?? {}).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
@@ -17771,14 +15785,11 @@ export const NodeUpdate = {
 };
 
 function createBaseNodeUpdate_FeaturesEntry(): NodeUpdate_FeaturesEntry {
-  return {key: 0, value: undefined};
+  return { key: 0, value: undefined };
 }
 
 export const NodeUpdate_FeaturesEntry = {
-  encode(
-    message: NodeUpdate_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: NodeUpdate_FeaturesEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
@@ -17788,10 +15799,7 @@ export const NodeUpdate_FeaturesEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): NodeUpdate_FeaturesEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): NodeUpdate_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseNodeUpdate_FeaturesEntry();
@@ -17822,59 +15830,49 @@ export const NodeUpdate_FeaturesEntry = {
   toJSON(message: NodeUpdate_FeaturesEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = Math.round(message.key));
-    message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    message.value !== undefined && (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<NodeUpdate_FeaturesEntry>,
-  ): NodeUpdate_FeaturesEntry {
+  fromPartial(object: DeepPartial<NodeUpdate_FeaturesEntry>): NodeUpdate_FeaturesEntry {
     const message = createBaseNodeUpdate_FeaturesEntry();
     message.key = object.key ?? 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromPartial(object.value)
-        : undefined;
+    message.value = (object.value !== undefined && object.value !== null)
+      ? Feature.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
 
 function createBaseChannelEdgeUpdate(): ChannelEdgeUpdate {
   return {
-    chanId: '0',
+    chanId: "0",
     chanPoint: undefined,
-    capacity: '0',
+    capacity: "0",
     routingPolicy: undefined,
-    advertisingNode: '',
-    connectingNode: '',
+    advertisingNode: "",
+    connectingNode: "",
   };
 }
 
 export const ChannelEdgeUpdate = {
-  encode(
-    message: ChannelEdgeUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.chanId !== '0') {
+  encode(message: ChannelEdgeUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-    if (message.capacity !== '0') {
+    if (message.capacity !== "0") {
       writer.uint32(24).int64(message.capacity);
     }
     if (message.routingPolicy !== undefined) {
-      RoutingPolicy.encode(
-        message.routingPolicy,
-        writer.uint32(34).fork(),
-      ).ldelim();
+      RoutingPolicy.encode(message.routingPolicy, writer.uint32(34).fork()).ldelim();
     }
-    if (message.advertisingNode !== '') {
+    if (message.advertisingNode !== "") {
       writer.uint32(42).string(message.advertisingNode);
     }
-    if (message.connectingNode !== '') {
+    if (message.connectingNode !== "") {
       writer.uint32(50).string(message.connectingNode);
     }
     return writer;
@@ -17915,20 +15913,12 @@ export const ChannelEdgeUpdate = {
 
   fromJSON(object: any): ChannelEdgeUpdate {
     return {
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
-      chanPoint: isSet(object.chanPoint)
-        ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined,
-      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
-      routingPolicy: isSet(object.routingPolicy)
-        ? RoutingPolicy.fromJSON(object.routingPolicy)
-        : undefined,
-      advertisingNode: isSet(object.advertisingNode)
-        ? String(object.advertisingNode)
-        : '',
-      connectingNode: isSet(object.connectingNode)
-        ? String(object.connectingNode)
-        : '',
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
+      chanPoint: isSet(object.chanPoint) ? ChannelPoint.fromJSON(object.chanPoint) : undefined,
+      capacity: isSet(object.capacity) ? String(object.capacity) : "0",
+      routingPolicy: isSet(object.routingPolicy) ? RoutingPolicy.fromJSON(object.routingPolicy) : undefined,
+      advertisingNode: isSet(object.advertisingNode) ? String(object.advertisingNode) : "",
+      connectingNode: isSet(object.connectingNode) ? String(object.connectingNode) : "",
     };
   },
 
@@ -17936,52 +15926,41 @@ export const ChannelEdgeUpdate = {
     const obj: any = {};
     message.chanId !== undefined && (obj.chanId = message.chanId);
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
-        ? ChannelPoint.toJSON(message.chanPoint)
-        : undefined);
+      (obj.chanPoint = message.chanPoint ? ChannelPoint.toJSON(message.chanPoint) : undefined);
     message.capacity !== undefined && (obj.capacity = message.capacity);
     message.routingPolicy !== undefined &&
-      (obj.routingPolicy = message.routingPolicy
-        ? RoutingPolicy.toJSON(message.routingPolicy)
-        : undefined);
-    message.advertisingNode !== undefined &&
-      (obj.advertisingNode = message.advertisingNode);
-    message.connectingNode !== undefined &&
-      (obj.connectingNode = message.connectingNode);
+      (obj.routingPolicy = message.routingPolicy ? RoutingPolicy.toJSON(message.routingPolicy) : undefined);
+    message.advertisingNode !== undefined && (obj.advertisingNode = message.advertisingNode);
+    message.connectingNode !== undefined && (obj.connectingNode = message.connectingNode);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelEdgeUpdate>): ChannelEdgeUpdate {
     const message = createBaseChannelEdgeUpdate();
-    message.chanId = object.chanId ?? '0';
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
-        ? ChannelPoint.fromPartial(object.chanPoint)
-        : undefined;
-    message.capacity = object.capacity ?? '0';
-    message.routingPolicy =
-      object.routingPolicy !== undefined && object.routingPolicy !== null
-        ? RoutingPolicy.fromPartial(object.routingPolicy)
-        : undefined;
-    message.advertisingNode = object.advertisingNode ?? '';
-    message.connectingNode = object.connectingNode ?? '';
+    message.chanId = object.chanId ?? "0";
+    message.chanPoint = (object.chanPoint !== undefined && object.chanPoint !== null)
+      ? ChannelPoint.fromPartial(object.chanPoint)
+      : undefined;
+    message.capacity = object.capacity ?? "0";
+    message.routingPolicy = (object.routingPolicy !== undefined && object.routingPolicy !== null)
+      ? RoutingPolicy.fromPartial(object.routingPolicy)
+      : undefined;
+    message.advertisingNode = object.advertisingNode ?? "";
+    message.connectingNode = object.connectingNode ?? "";
     return message;
   },
 };
 
 function createBaseClosedChannelUpdate(): ClosedChannelUpdate {
-  return {chanId: '0', capacity: '0', closedHeight: 0, chanPoint: undefined};
+  return { chanId: "0", capacity: "0", closedHeight: 0, chanPoint: undefined };
 }
 
 export const ClosedChannelUpdate = {
-  encode(
-    message: ClosedChannelUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.chanId !== '0') {
+  encode(message: ClosedChannelUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.capacity !== '0') {
+    if (message.capacity !== "0") {
       writer.uint32(16).int64(message.capacity);
     }
     if (message.closedHeight !== 0) {
@@ -18022,14 +16001,10 @@ export const ClosedChannelUpdate = {
 
   fromJSON(object: any): ClosedChannelUpdate {
     return {
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
-      capacity: isSet(object.capacity) ? String(object.capacity) : '0',
-      closedHeight: isSet(object.closedHeight)
-        ? Number(object.closedHeight)
-        : 0,
-      chanPoint: isSet(object.chanPoint)
-        ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined,
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
+      capacity: isSet(object.capacity) ? String(object.capacity) : "0",
+      closedHeight: isSet(object.closedHeight) ? Number(object.closedHeight) : 0,
+      chanPoint: isSet(object.chanPoint) ? ChannelPoint.fromJSON(object.chanPoint) : undefined,
     };
   },
 
@@ -18037,47 +16012,34 @@ export const ClosedChannelUpdate = {
     const obj: any = {};
     message.chanId !== undefined && (obj.chanId = message.chanId);
     message.capacity !== undefined && (obj.capacity = message.capacity);
-    message.closedHeight !== undefined &&
-      (obj.closedHeight = Math.round(message.closedHeight));
+    message.closedHeight !== undefined && (obj.closedHeight = Math.round(message.closedHeight));
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
-        ? ChannelPoint.toJSON(message.chanPoint)
-        : undefined);
+      (obj.chanPoint = message.chanPoint ? ChannelPoint.toJSON(message.chanPoint) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ClosedChannelUpdate>): ClosedChannelUpdate {
     const message = createBaseClosedChannelUpdate();
-    message.chanId = object.chanId ?? '0';
-    message.capacity = object.capacity ?? '0';
+    message.chanId = object.chanId ?? "0";
+    message.capacity = object.capacity ?? "0";
     message.closedHeight = object.closedHeight ?? 0;
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
-        ? ChannelPoint.fromPartial(object.chanPoint)
-        : undefined;
+    message.chanPoint = (object.chanPoint !== undefined && object.chanPoint !== null)
+      ? ChannelPoint.fromPartial(object.chanPoint)
+      : undefined;
     return message;
   },
 };
 
 function createBaseHopHint(): HopHint {
-  return {
-    nodeId: '',
-    chanId: '0',
-    feeBaseMsat: 0,
-    feeProportionalMillionths: 0,
-    cltvExpiryDelta: 0,
-  };
+  return { nodeId: "", chanId: "0", feeBaseMsat: 0, feeProportionalMillionths: 0, cltvExpiryDelta: 0 };
 }
 
 export const HopHint = {
-  encode(
-    message: HopHint,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.nodeId !== '') {
+  encode(message: HopHint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.nodeId !== "") {
       writer.uint32(10).string(message.nodeId);
     }
-    if (message.chanId !== '0') {
+    if (message.chanId !== "0") {
       writer.uint32(16).uint64(message.chanId);
     }
     if (message.feeBaseMsat !== 0) {
@@ -18124,15 +16086,11 @@ export const HopHint = {
 
   fromJSON(object: any): HopHint {
     return {
-      nodeId: isSet(object.nodeId) ? String(object.nodeId) : '',
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      nodeId: isSet(object.nodeId) ? String(object.nodeId) : "",
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
       feeBaseMsat: isSet(object.feeBaseMsat) ? Number(object.feeBaseMsat) : 0,
-      feeProportionalMillionths: isSet(object.feeProportionalMillionths)
-        ? Number(object.feeProportionalMillionths)
-        : 0,
-      cltvExpiryDelta: isSet(object.cltvExpiryDelta)
-        ? Number(object.cltvExpiryDelta)
-        : 0,
+      feeProportionalMillionths: isSet(object.feeProportionalMillionths) ? Number(object.feeProportionalMillionths) : 0,
+      cltvExpiryDelta: isSet(object.cltvExpiryDelta) ? Number(object.cltvExpiryDelta) : 0,
     };
   },
 
@@ -18140,21 +16098,17 @@ export const HopHint = {
     const obj: any = {};
     message.nodeId !== undefined && (obj.nodeId = message.nodeId);
     message.chanId !== undefined && (obj.chanId = message.chanId);
-    message.feeBaseMsat !== undefined &&
-      (obj.feeBaseMsat = Math.round(message.feeBaseMsat));
+    message.feeBaseMsat !== undefined && (obj.feeBaseMsat = Math.round(message.feeBaseMsat));
     message.feeProportionalMillionths !== undefined &&
-      (obj.feeProportionalMillionths = Math.round(
-        message.feeProportionalMillionths,
-      ));
-    message.cltvExpiryDelta !== undefined &&
-      (obj.cltvExpiryDelta = Math.round(message.cltvExpiryDelta));
+      (obj.feeProportionalMillionths = Math.round(message.feeProportionalMillionths));
+    message.cltvExpiryDelta !== undefined && (obj.cltvExpiryDelta = Math.round(message.cltvExpiryDelta));
     return obj;
   },
 
   fromPartial(object: DeepPartial<HopHint>): HopHint {
     const message = createBaseHopHint();
-    message.nodeId = object.nodeId ?? '';
-    message.chanId = object.chanId ?? '0';
+    message.nodeId = object.nodeId ?? "";
+    message.chanId = object.chanId ?? "0";
     message.feeBaseMsat = object.feeBaseMsat ?? 0;
     message.feeProportionalMillionths = object.feeProportionalMillionths ?? 0;
     message.cltvExpiryDelta = object.cltvExpiryDelta ?? 0;
@@ -18163,7 +16117,7 @@ export const HopHint = {
 };
 
 function createBaseSetID(): SetID {
-  return {setId: new Uint8Array()};
+  return { setId: new Uint8Array() };
 }
 
 export const SetID = {
@@ -18193,19 +16147,13 @@ export const SetID = {
   },
 
   fromJSON(object: any): SetID {
-    return {
-      setId: isSet(object.setId)
-        ? bytesFromBase64(object.setId)
-        : new Uint8Array(),
-    };
+    return { setId: isSet(object.setId) ? bytesFromBase64(object.setId) : new Uint8Array() };
   },
 
   toJSON(message: SetID): unknown {
     const obj: any = {};
     message.setId !== undefined &&
-      (obj.setId = base64FromBytes(
-        message.setId !== undefined ? message.setId : new Uint8Array(),
-      ));
+      (obj.setId = base64FromBytes(message.setId !== undefined ? message.setId : new Uint8Array()));
     return obj;
   },
 
@@ -18217,14 +16165,11 @@ export const SetID = {
 };
 
 function createBaseRouteHint(): RouteHint {
-  return {hopHints: []};
+  return { hopHints: [] };
 }
 
 export const RouteHint = {
-  encode(
-    message: RouteHint,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: RouteHint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.hopHints) {
       HopHint.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -18250,19 +16195,13 @@ export const RouteHint = {
   },
 
   fromJSON(object: any): RouteHint {
-    return {
-      hopHints: Array.isArray(object?.hopHints)
-        ? object.hopHints.map((e: any) => HopHint.fromJSON(e))
-        : [],
-    };
+    return { hopHints: Array.isArray(object?.hopHints) ? object.hopHints.map((e: any) => HopHint.fromJSON(e)) : [] };
   },
 
   toJSON(message: RouteHint): unknown {
     const obj: any = {};
     if (message.hopHints) {
-      obj.hopHints = message.hopHints.map((e) =>
-        e ? HopHint.toJSON(e) : undefined,
-      );
+      obj.hopHints = message.hopHints.map((e) => e ? HopHint.toJSON(e) : undefined);
     } else {
       obj.hopHints = [];
     }
@@ -18271,31 +16210,27 @@ export const RouteHint = {
 
   fromPartial(object: DeepPartial<RouteHint>): RouteHint {
     const message = createBaseRouteHint();
-    message.hopHints =
-      object.hopHints?.map((e) => HopHint.fromPartial(e)) || [];
+    message.hopHints = object.hopHints?.map((e) => HopHint.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseAMPInvoiceState(): AMPInvoiceState {
-  return {state: 0, settleIndex: '0', settleTime: '0', amtPaidMsat: '0'};
+  return { state: 0, settleIndex: "0", settleTime: "0", amtPaidMsat: "0" };
 }
 
 export const AMPInvoiceState = {
-  encode(
-    message: AMPInvoiceState,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AMPInvoiceState, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.state !== 0) {
       writer.uint32(8).int32(message.state);
     }
-    if (message.settleIndex !== '0') {
+    if (message.settleIndex !== "0") {
       writer.uint32(16).uint64(message.settleIndex);
     }
-    if (message.settleTime !== '0') {
+    if (message.settleTime !== "0") {
       writer.uint32(24).int64(message.settleTime);
     }
-    if (message.amtPaidMsat !== '0') {
+    if (message.amtPaidMsat !== "0") {
       writer.uint32(40).int64(message.amtPaidMsat);
     }
     return writer;
@@ -18331,56 +16266,53 @@ export const AMPInvoiceState = {
   fromJSON(object: any): AMPInvoiceState {
     return {
       state: isSet(object.state) ? invoiceHTLCStateFromJSON(object.state) : 0,
-      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : '0',
-      settleTime: isSet(object.settleTime) ? String(object.settleTime) : '0',
-      amtPaidMsat: isSet(object.amtPaidMsat) ? String(object.amtPaidMsat) : '0',
+      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : "0",
+      settleTime: isSet(object.settleTime) ? String(object.settleTime) : "0",
+      amtPaidMsat: isSet(object.amtPaidMsat) ? String(object.amtPaidMsat) : "0",
     };
   },
 
   toJSON(message: AMPInvoiceState): unknown {
     const obj: any = {};
-    message.state !== undefined &&
-      (obj.state = invoiceHTLCStateToJSON(message.state));
-    message.settleIndex !== undefined &&
-      (obj.settleIndex = message.settleIndex);
+    message.state !== undefined && (obj.state = invoiceHTLCStateToJSON(message.state));
+    message.settleIndex !== undefined && (obj.settleIndex = message.settleIndex);
     message.settleTime !== undefined && (obj.settleTime = message.settleTime);
-    message.amtPaidMsat !== undefined &&
-      (obj.amtPaidMsat = message.amtPaidMsat);
+    message.amtPaidMsat !== undefined && (obj.amtPaidMsat = message.amtPaidMsat);
     return obj;
   },
 
   fromPartial(object: DeepPartial<AMPInvoiceState>): AMPInvoiceState {
     const message = createBaseAMPInvoiceState();
     message.state = object.state ?? 0;
-    message.settleIndex = object.settleIndex ?? '0';
-    message.settleTime = object.settleTime ?? '0';
-    message.amtPaidMsat = object.amtPaidMsat ?? '0';
+    message.settleIndex = object.settleIndex ?? "0";
+    message.settleTime = object.settleTime ?? "0";
+    message.amtPaidMsat = object.amtPaidMsat ?? "0";
     return message;
   },
 };
 
 function createBaseInvoice(): Invoice {
   return {
-    memo: '',
+    memo: "",
     rPreimage: new Uint8Array(),
     rHash: new Uint8Array(),
-    value: '0',
-    valueMsat: '0',
+    value: "0",
+    valueMsat: "0",
     settled: false,
-    creationDate: '0',
-    settleDate: '0',
-    paymentRequest: '',
+    creationDate: "0",
+    settleDate: "0",
+    paymentRequest: "",
     descriptionHash: new Uint8Array(),
-    expiry: '0',
-    fallbackAddr: '',
-    cltvExpiry: '0',
+    expiry: "0",
+    fallbackAddr: "",
+    cltvExpiry: "0",
     routeHints: [],
     private: false,
-    addIndex: '0',
-    settleIndex: '0',
-    amtPaid: '0',
-    amtPaidSat: '0',
-    amtPaidMsat: '0',
+    addIndex: "0",
+    settleIndex: "0",
+    amtPaid: "0",
+    amtPaidSat: "0",
+    amtPaidMsat: "0",
     state: 0,
     htlcs: [],
     features: {},
@@ -18392,11 +16324,8 @@ function createBaseInvoice(): Invoice {
 }
 
 export const Invoice = {
-  encode(
-    message: Invoice,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.memo !== '') {
+  encode(message: Invoice, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.memo !== "") {
       writer.uint32(10).string(message.memo);
     }
     if (message.rPreimage.length !== 0) {
@@ -18405,34 +16334,34 @@ export const Invoice = {
     if (message.rHash.length !== 0) {
       writer.uint32(34).bytes(message.rHash);
     }
-    if (message.value !== '0') {
+    if (message.value !== "0") {
       writer.uint32(40).int64(message.value);
     }
-    if (message.valueMsat !== '0') {
+    if (message.valueMsat !== "0") {
       writer.uint32(184).int64(message.valueMsat);
     }
     if (message.settled === true) {
       writer.uint32(48).bool(message.settled);
     }
-    if (message.creationDate !== '0') {
+    if (message.creationDate !== "0") {
       writer.uint32(56).int64(message.creationDate);
     }
-    if (message.settleDate !== '0') {
+    if (message.settleDate !== "0") {
       writer.uint32(64).int64(message.settleDate);
     }
-    if (message.paymentRequest !== '') {
+    if (message.paymentRequest !== "") {
       writer.uint32(74).string(message.paymentRequest);
     }
     if (message.descriptionHash.length !== 0) {
       writer.uint32(82).bytes(message.descriptionHash);
     }
-    if (message.expiry !== '0') {
+    if (message.expiry !== "0") {
       writer.uint32(88).int64(message.expiry);
     }
-    if (message.fallbackAddr !== '') {
+    if (message.fallbackAddr !== "") {
       writer.uint32(98).string(message.fallbackAddr);
     }
-    if (message.cltvExpiry !== '0') {
+    if (message.cltvExpiry !== "0") {
       writer.uint32(104).uint64(message.cltvExpiry);
     }
     for (const v of message.routeHints) {
@@ -18441,19 +16370,19 @@ export const Invoice = {
     if (message.private === true) {
       writer.uint32(120).bool(message.private);
     }
-    if (message.addIndex !== '0') {
+    if (message.addIndex !== "0") {
       writer.uint32(128).uint64(message.addIndex);
     }
-    if (message.settleIndex !== '0') {
+    if (message.settleIndex !== "0") {
       writer.uint32(136).uint64(message.settleIndex);
     }
-    if (message.amtPaid !== '0') {
+    if (message.amtPaid !== "0") {
       writer.uint32(144).int64(message.amtPaid);
     }
-    if (message.amtPaidSat !== '0') {
+    if (message.amtPaidSat !== "0") {
       writer.uint32(152).int64(message.amtPaidSat);
     }
-    if (message.amtPaidMsat !== '0') {
+    if (message.amtPaidMsat !== "0") {
       writer.uint32(160).int64(message.amtPaidMsat);
     }
     if (message.state !== 0) {
@@ -18463,10 +16392,7 @@ export const Invoice = {
       InvoiceHTLC.encode(v!, writer.uint32(178).fork()).ldelim();
     }
     Object.entries(message.features).forEach(([key, value]) => {
-      Invoice_FeaturesEntry.encode(
-        {key: key as any, value},
-        writer.uint32(194).fork(),
-      ).ldelim();
+      Invoice_FeaturesEntry.encode({ key: key as any, value }, writer.uint32(194).fork()).ldelim();
     });
     if (message.isKeysend === true) {
       writer.uint32(200).bool(message.isKeysend);
@@ -18478,10 +16404,7 @@ export const Invoice = {
       writer.uint32(216).bool(message.isAmp);
     }
     Object.entries(message.ampInvoiceState).forEach(([key, value]) => {
-      Invoice_AmpInvoiceStateEntry.encode(
-        {key: key as any, value},
-        writer.uint32(226).fork(),
-      ).ldelim();
+      Invoice_AmpInvoiceStateEntry.encode({ key: key as any, value }, writer.uint32(226).fork()).ldelim();
     });
     return writer;
   },
@@ -18575,10 +16498,7 @@ export const Invoice = {
           message.isAmp = reader.bool();
           break;
         case 28:
-          const entry28 = Invoice_AmpInvoiceStateEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry28 = Invoice_AmpInvoiceStateEntry.decode(reader, reader.uint32());
           if (entry28.value !== undefined) {
             message.ampInvoiceState[entry28.key] = entry28.value;
           }
@@ -18593,67 +16513,42 @@ export const Invoice = {
 
   fromJSON(object: any): Invoice {
     return {
-      memo: isSet(object.memo) ? String(object.memo) : '',
-      rPreimage: isSet(object.rPreimage)
-        ? bytesFromBase64(object.rPreimage)
-        : new Uint8Array(),
-      rHash: isSet(object.rHash)
-        ? bytesFromBase64(object.rHash)
-        : new Uint8Array(),
-      value: isSet(object.value) ? String(object.value) : '0',
-      valueMsat: isSet(object.valueMsat) ? String(object.valueMsat) : '0',
+      memo: isSet(object.memo) ? String(object.memo) : "",
+      rPreimage: isSet(object.rPreimage) ? bytesFromBase64(object.rPreimage) : new Uint8Array(),
+      rHash: isSet(object.rHash) ? bytesFromBase64(object.rHash) : new Uint8Array(),
+      value: isSet(object.value) ? String(object.value) : "0",
+      valueMsat: isSet(object.valueMsat) ? String(object.valueMsat) : "0",
       settled: isSet(object.settled) ? Boolean(object.settled) : false,
-      creationDate: isSet(object.creationDate)
-        ? String(object.creationDate)
-        : '0',
-      settleDate: isSet(object.settleDate) ? String(object.settleDate) : '0',
-      paymentRequest: isSet(object.paymentRequest)
-        ? String(object.paymentRequest)
-        : '',
-      descriptionHash: isSet(object.descriptionHash)
-        ? bytesFromBase64(object.descriptionHash)
-        : new Uint8Array(),
-      expiry: isSet(object.expiry) ? String(object.expiry) : '0',
-      fallbackAddr: isSet(object.fallbackAddr)
-        ? String(object.fallbackAddr)
-        : '',
-      cltvExpiry: isSet(object.cltvExpiry) ? String(object.cltvExpiry) : '0',
-      routeHints: Array.isArray(object?.routeHints)
-        ? object.routeHints.map((e: any) => RouteHint.fromJSON(e))
-        : [],
+      creationDate: isSet(object.creationDate) ? String(object.creationDate) : "0",
+      settleDate: isSet(object.settleDate) ? String(object.settleDate) : "0",
+      paymentRequest: isSet(object.paymentRequest) ? String(object.paymentRequest) : "",
+      descriptionHash: isSet(object.descriptionHash) ? bytesFromBase64(object.descriptionHash) : new Uint8Array(),
+      expiry: isSet(object.expiry) ? String(object.expiry) : "0",
+      fallbackAddr: isSet(object.fallbackAddr) ? String(object.fallbackAddr) : "",
+      cltvExpiry: isSet(object.cltvExpiry) ? String(object.cltvExpiry) : "0",
+      routeHints: Array.isArray(object?.routeHints) ? object.routeHints.map((e: any) => RouteHint.fromJSON(e)) : [],
       private: isSet(object.private) ? Boolean(object.private) : false,
-      addIndex: isSet(object.addIndex) ? String(object.addIndex) : '0',
-      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : '0',
-      amtPaid: isSet(object.amtPaid) ? String(object.amtPaid) : '0',
-      amtPaidSat: isSet(object.amtPaidSat) ? String(object.amtPaidSat) : '0',
-      amtPaidMsat: isSet(object.amtPaidMsat) ? String(object.amtPaidMsat) : '0',
-      state: isSet(object.state)
-        ? invoice_InvoiceStateFromJSON(object.state)
-        : 0,
-      htlcs: Array.isArray(object?.htlcs)
-        ? object.htlcs.map((e: any) => InvoiceHTLC.fromJSON(e))
-        : [],
+      addIndex: isSet(object.addIndex) ? String(object.addIndex) : "0",
+      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : "0",
+      amtPaid: isSet(object.amtPaid) ? String(object.amtPaid) : "0",
+      amtPaidSat: isSet(object.amtPaidSat) ? String(object.amtPaidSat) : "0",
+      amtPaidMsat: isSet(object.amtPaidMsat) ? String(object.amtPaidMsat) : "0",
+      state: isSet(object.state) ? invoice_InvoiceStateFromJSON(object.state) : 0,
+      htlcs: Array.isArray(object?.htlcs) ? object.htlcs.map((e: any) => InvoiceHTLC.fromJSON(e)) : [],
       features: isObject(object.features)
-        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
-            (acc, [key, value]) => {
-              acc[Number(key)] = Feature.fromJSON(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.features).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
+          acc[Number(key)] = Feature.fromJSON(value);
+          return acc;
+        }, {})
         : {},
       isKeysend: isSet(object.isKeysend) ? Boolean(object.isKeysend) : false,
-      paymentAddr: isSet(object.paymentAddr)
-        ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array(),
+      paymentAddr: isSet(object.paymentAddr) ? bytesFromBase64(object.paymentAddr) : new Uint8Array(),
       isAmp: isSet(object.isAmp) ? Boolean(object.isAmp) : false,
       ampInvoiceState: isObject(object.ampInvoiceState)
-        ? Object.entries(object.ampInvoiceState).reduce<{
-            [key: string]: AMPInvoiceState;
-          }>((acc, [key, value]) => {
-            acc[key] = AMPInvoiceState.fromJSON(value);
-            return acc;
-          }, {})
+        ? Object.entries(object.ampInvoiceState).reduce<{ [key: string]: AMPInvoiceState }>((acc, [key, value]) => {
+          acc[key] = AMPInvoiceState.fromJSON(value);
+          return acc;
+        }, {})
         : {},
     };
   },
@@ -18662,52 +16557,36 @@ export const Invoice = {
     const obj: any = {};
     message.memo !== undefined && (obj.memo = message.memo);
     message.rPreimage !== undefined &&
-      (obj.rPreimage = base64FromBytes(
-        message.rPreimage !== undefined ? message.rPreimage : new Uint8Array(),
-      ));
+      (obj.rPreimage = base64FromBytes(message.rPreimage !== undefined ? message.rPreimage : new Uint8Array()));
     message.rHash !== undefined &&
-      (obj.rHash = base64FromBytes(
-        message.rHash !== undefined ? message.rHash : new Uint8Array(),
-      ));
+      (obj.rHash = base64FromBytes(message.rHash !== undefined ? message.rHash : new Uint8Array()));
     message.value !== undefined && (obj.value = message.value);
     message.valueMsat !== undefined && (obj.valueMsat = message.valueMsat);
     message.settled !== undefined && (obj.settled = message.settled);
-    message.creationDate !== undefined &&
-      (obj.creationDate = message.creationDate);
+    message.creationDate !== undefined && (obj.creationDate = message.creationDate);
     message.settleDate !== undefined && (obj.settleDate = message.settleDate);
-    message.paymentRequest !== undefined &&
-      (obj.paymentRequest = message.paymentRequest);
+    message.paymentRequest !== undefined && (obj.paymentRequest = message.paymentRequest);
     message.descriptionHash !== undefined &&
       (obj.descriptionHash = base64FromBytes(
-        message.descriptionHash !== undefined
-          ? message.descriptionHash
-          : new Uint8Array(),
+        message.descriptionHash !== undefined ? message.descriptionHash : new Uint8Array(),
       ));
     message.expiry !== undefined && (obj.expiry = message.expiry);
-    message.fallbackAddr !== undefined &&
-      (obj.fallbackAddr = message.fallbackAddr);
+    message.fallbackAddr !== undefined && (obj.fallbackAddr = message.fallbackAddr);
     message.cltvExpiry !== undefined && (obj.cltvExpiry = message.cltvExpiry);
     if (message.routeHints) {
-      obj.routeHints = message.routeHints.map((e) =>
-        e ? RouteHint.toJSON(e) : undefined,
-      );
+      obj.routeHints = message.routeHints.map((e) => e ? RouteHint.toJSON(e) : undefined);
     } else {
       obj.routeHints = [];
     }
     message.private !== undefined && (obj.private = message.private);
     message.addIndex !== undefined && (obj.addIndex = message.addIndex);
-    message.settleIndex !== undefined &&
-      (obj.settleIndex = message.settleIndex);
+    message.settleIndex !== undefined && (obj.settleIndex = message.settleIndex);
     message.amtPaid !== undefined && (obj.amtPaid = message.amtPaid);
     message.amtPaidSat !== undefined && (obj.amtPaidSat = message.amtPaidSat);
-    message.amtPaidMsat !== undefined &&
-      (obj.amtPaidMsat = message.amtPaidMsat);
-    message.state !== undefined &&
-      (obj.state = invoice_InvoiceStateToJSON(message.state));
+    message.amtPaidMsat !== undefined && (obj.amtPaidMsat = message.amtPaidMsat);
+    message.state !== undefined && (obj.state = invoice_InvoiceStateToJSON(message.state));
     if (message.htlcs) {
-      obj.htlcs = message.htlcs.map((e) =>
-        e ? InvoiceHTLC.toJSON(e) : undefined,
-      );
+      obj.htlcs = message.htlcs.map((e) => e ? InvoiceHTLC.toJSON(e) : undefined);
     } else {
       obj.htlcs = [];
     }
@@ -18719,11 +16598,7 @@ export const Invoice = {
     }
     message.isKeysend !== undefined && (obj.isKeysend = message.isKeysend);
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
-        message.paymentAddr !== undefined
-          ? message.paymentAddr
-          : new Uint8Array(),
-      ));
+      (obj.paymentAddr = base64FromBytes(message.paymentAddr !== undefined ? message.paymentAddr : new Uint8Array()));
     message.isAmp !== undefined && (obj.isAmp = message.isAmp);
     obj.ampInvoiceState = {};
     if (message.ampInvoiceState) {
@@ -18736,32 +16611,29 @@ export const Invoice = {
 
   fromPartial(object: DeepPartial<Invoice>): Invoice {
     const message = createBaseInvoice();
-    message.memo = object.memo ?? '';
+    message.memo = object.memo ?? "";
     message.rPreimage = object.rPreimage ?? new Uint8Array();
     message.rHash = object.rHash ?? new Uint8Array();
-    message.value = object.value ?? '0';
-    message.valueMsat = object.valueMsat ?? '0';
+    message.value = object.value ?? "0";
+    message.valueMsat = object.valueMsat ?? "0";
     message.settled = object.settled ?? false;
-    message.creationDate = object.creationDate ?? '0';
-    message.settleDate = object.settleDate ?? '0';
-    message.paymentRequest = object.paymentRequest ?? '';
+    message.creationDate = object.creationDate ?? "0";
+    message.settleDate = object.settleDate ?? "0";
+    message.paymentRequest = object.paymentRequest ?? "";
     message.descriptionHash = object.descriptionHash ?? new Uint8Array();
-    message.expiry = object.expiry ?? '0';
-    message.fallbackAddr = object.fallbackAddr ?? '';
-    message.cltvExpiry = object.cltvExpiry ?? '0';
-    message.routeHints =
-      object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
+    message.expiry = object.expiry ?? "0";
+    message.fallbackAddr = object.fallbackAddr ?? "";
+    message.cltvExpiry = object.cltvExpiry ?? "0";
+    message.routeHints = object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
     message.private = object.private ?? false;
-    message.addIndex = object.addIndex ?? '0';
-    message.settleIndex = object.settleIndex ?? '0';
-    message.amtPaid = object.amtPaid ?? '0';
-    message.amtPaidSat = object.amtPaidSat ?? '0';
-    message.amtPaidMsat = object.amtPaidMsat ?? '0';
+    message.addIndex = object.addIndex ?? "0";
+    message.settleIndex = object.settleIndex ?? "0";
+    message.amtPaid = object.amtPaid ?? "0";
+    message.amtPaidSat = object.amtPaidSat ?? "0";
+    message.amtPaidMsat = object.amtPaidMsat ?? "0";
     message.state = object.state ?? 0;
     message.htlcs = object.htlcs?.map((e) => InvoiceHTLC.fromPartial(e)) || [];
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.features = Object.entries(object.features ?? {}).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
@@ -18770,27 +16642,25 @@ export const Invoice = {
     message.isKeysend = object.isKeysend ?? false;
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
     message.isAmp = object.isAmp ?? false;
-    message.ampInvoiceState = Object.entries(
-      object.ampInvoiceState ?? {},
-    ).reduce<{[key: string]: AMPInvoiceState}>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = AMPInvoiceState.fromPartial(value);
-      }
-      return acc;
-    }, {});
+    message.ampInvoiceState = Object.entries(object.ampInvoiceState ?? {}).reduce<{ [key: string]: AMPInvoiceState }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = AMPInvoiceState.fromPartial(value);
+        }
+        return acc;
+      },
+      {},
+    );
     return message;
   },
 };
 
 function createBaseInvoice_FeaturesEntry(): Invoice_FeaturesEntry {
-  return {key: 0, value: undefined};
+  return { key: 0, value: undefined };
 }
 
 export const Invoice_FeaturesEntry = {
-  encode(
-    message: Invoice_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Invoice_FeaturesEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
@@ -18800,10 +16670,7 @@ export const Invoice_FeaturesEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): Invoice_FeaturesEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): Invoice_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoice_FeaturesEntry();
@@ -18834,34 +16701,27 @@ export const Invoice_FeaturesEntry = {
   toJSON(message: Invoice_FeaturesEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = Math.round(message.key));
-    message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    message.value !== undefined && (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<Invoice_FeaturesEntry>,
-  ): Invoice_FeaturesEntry {
+  fromPartial(object: DeepPartial<Invoice_FeaturesEntry>): Invoice_FeaturesEntry {
     const message = createBaseInvoice_FeaturesEntry();
     message.key = object.key ?? 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromPartial(object.value)
-        : undefined;
+    message.value = (object.value !== undefined && object.value !== null)
+      ? Feature.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
 
 function createBaseInvoice_AmpInvoiceStateEntry(): Invoice_AmpInvoiceStateEntry {
-  return {key: '', value: undefined};
+  return { key: "", value: undefined };
 }
 
 export const Invoice_AmpInvoiceStateEntry = {
-  encode(
-    message: Invoice_AmpInvoiceStateEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.key !== '') {
+  encode(message: Invoice_AmpInvoiceStateEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
@@ -18870,10 +16730,7 @@ export const Invoice_AmpInvoiceStateEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): Invoice_AmpInvoiceStateEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): Invoice_AmpInvoiceStateEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoice_AmpInvoiceStateEntry();
@@ -18896,73 +16753,62 @@ export const Invoice_AmpInvoiceStateEntry = {
 
   fromJSON(object: any): Invoice_AmpInvoiceStateEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '',
-      value: isSet(object.value)
-        ? AMPInvoiceState.fromJSON(object.value)
-        : undefined,
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? AMPInvoiceState.fromJSON(object.value) : undefined,
     };
   },
 
   toJSON(message: Invoice_AmpInvoiceStateEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
-    message.value !== undefined &&
-      (obj.value = message.value
-        ? AMPInvoiceState.toJSON(message.value)
-        : undefined);
+    message.value !== undefined && (obj.value = message.value ? AMPInvoiceState.toJSON(message.value) : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<Invoice_AmpInvoiceStateEntry>,
-  ): Invoice_AmpInvoiceStateEntry {
+  fromPartial(object: DeepPartial<Invoice_AmpInvoiceStateEntry>): Invoice_AmpInvoiceStateEntry {
     const message = createBaseInvoice_AmpInvoiceStateEntry();
-    message.key = object.key ?? '';
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? AMPInvoiceState.fromPartial(object.value)
-        : undefined;
+    message.key = object.key ?? "";
+    message.value = (object.value !== undefined && object.value !== null)
+      ? AMPInvoiceState.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
 
 function createBaseInvoiceHTLC(): InvoiceHTLC {
   return {
-    chanId: '0',
-    htlcIndex: '0',
-    amtMsat: '0',
+    chanId: "0",
+    htlcIndex: "0",
+    amtMsat: "0",
     acceptHeight: 0,
-    acceptTime: '0',
-    resolveTime: '0',
+    acceptTime: "0",
+    resolveTime: "0",
     expiryHeight: 0,
     state: 0,
     customRecords: {},
-    mppTotalAmtMsat: '0',
+    mppTotalAmtMsat: "0",
     amp: undefined,
   };
 }
 
 export const InvoiceHTLC = {
-  encode(
-    message: InvoiceHTLC,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.chanId !== '0') {
+  encode(message: InvoiceHTLC, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.chanId !== "0") {
       writer.uint32(8).uint64(message.chanId);
     }
-    if (message.htlcIndex !== '0') {
+    if (message.htlcIndex !== "0") {
       writer.uint32(16).uint64(message.htlcIndex);
     }
-    if (message.amtMsat !== '0') {
+    if (message.amtMsat !== "0") {
       writer.uint32(24).uint64(message.amtMsat);
     }
     if (message.acceptHeight !== 0) {
       writer.uint32(32).int32(message.acceptHeight);
     }
-    if (message.acceptTime !== '0') {
+    if (message.acceptTime !== "0") {
       writer.uint32(40).int64(message.acceptTime);
     }
-    if (message.resolveTime !== '0') {
+    if (message.resolveTime !== "0") {
       writer.uint32(48).int64(message.resolveTime);
     }
     if (message.expiryHeight !== 0) {
@@ -18972,12 +16818,9 @@ export const InvoiceHTLC = {
       writer.uint32(64).int32(message.state);
     }
     Object.entries(message.customRecords).forEach(([key, value]) => {
-      InvoiceHTLC_CustomRecordsEntry.encode(
-        {key: key as any, value},
-        writer.uint32(74).fork(),
-      ).ldelim();
+      InvoiceHTLC_CustomRecordsEntry.encode({ key: key as any, value }, writer.uint32(74).fork()).ldelim();
     });
-    if (message.mppTotalAmtMsat !== '0') {
+    if (message.mppTotalAmtMsat !== "0") {
       writer.uint32(80).uint64(message.mppTotalAmtMsat);
     }
     if (message.amp !== undefined) {
@@ -19018,10 +16861,7 @@ export const InvoiceHTLC = {
           message.state = reader.int32() as any;
           break;
         case 9:
-          const entry9 = InvoiceHTLC_CustomRecordsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry9 = InvoiceHTLC_CustomRecordsEntry.decode(reader, reader.uint32());
           if (entry9.value !== undefined) {
             message.customRecords[entry9.key] = entry9.value;
           }
@@ -19042,29 +16882,21 @@ export const InvoiceHTLC = {
 
   fromJSON(object: any): InvoiceHTLC {
     return {
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
-      htlcIndex: isSet(object.htlcIndex) ? String(object.htlcIndex) : '0',
-      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : '0',
-      acceptHeight: isSet(object.acceptHeight)
-        ? Number(object.acceptHeight)
-        : 0,
-      acceptTime: isSet(object.acceptTime) ? String(object.acceptTime) : '0',
-      resolveTime: isSet(object.resolveTime) ? String(object.resolveTime) : '0',
-      expiryHeight: isSet(object.expiryHeight)
-        ? Number(object.expiryHeight)
-        : 0,
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
+      htlcIndex: isSet(object.htlcIndex) ? String(object.htlcIndex) : "0",
+      amtMsat: isSet(object.amtMsat) ? String(object.amtMsat) : "0",
+      acceptHeight: isSet(object.acceptHeight) ? Number(object.acceptHeight) : 0,
+      acceptTime: isSet(object.acceptTime) ? String(object.acceptTime) : "0",
+      resolveTime: isSet(object.resolveTime) ? String(object.resolveTime) : "0",
+      expiryHeight: isSet(object.expiryHeight) ? Number(object.expiryHeight) : 0,
       state: isSet(object.state) ? invoiceHTLCStateFromJSON(object.state) : 0,
       customRecords: isObject(object.customRecords)
-        ? Object.entries(object.customRecords).reduce<{
-            [key: string]: Uint8Array;
-          }>((acc, [key, value]) => {
-            acc[key] = bytesFromBase64(value as string);
-            return acc;
-          }, {})
+        ? Object.entries(object.customRecords).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+          acc[key] = bytesFromBase64(value as string);
+          return acc;
+        }, {})
         : {},
-      mppTotalAmtMsat: isSet(object.mppTotalAmtMsat)
-        ? String(object.mppTotalAmtMsat)
-        : '0',
+      mppTotalAmtMsat: isSet(object.mppTotalAmtMsat) ? String(object.mppTotalAmtMsat) : "0",
       amp: isSet(object.amp) ? AMP.fromJSON(object.amp) : undefined,
     };
   },
@@ -19074,65 +16906,54 @@ export const InvoiceHTLC = {
     message.chanId !== undefined && (obj.chanId = message.chanId);
     message.htlcIndex !== undefined && (obj.htlcIndex = message.htlcIndex);
     message.amtMsat !== undefined && (obj.amtMsat = message.amtMsat);
-    message.acceptHeight !== undefined &&
-      (obj.acceptHeight = Math.round(message.acceptHeight));
+    message.acceptHeight !== undefined && (obj.acceptHeight = Math.round(message.acceptHeight));
     message.acceptTime !== undefined && (obj.acceptTime = message.acceptTime);
-    message.resolveTime !== undefined &&
-      (obj.resolveTime = message.resolveTime);
-    message.expiryHeight !== undefined &&
-      (obj.expiryHeight = Math.round(message.expiryHeight));
-    message.state !== undefined &&
-      (obj.state = invoiceHTLCStateToJSON(message.state));
+    message.resolveTime !== undefined && (obj.resolveTime = message.resolveTime);
+    message.expiryHeight !== undefined && (obj.expiryHeight = Math.round(message.expiryHeight));
+    message.state !== undefined && (obj.state = invoiceHTLCStateToJSON(message.state));
     obj.customRecords = {};
     if (message.customRecords) {
       Object.entries(message.customRecords).forEach(([k, v]) => {
         obj.customRecords[k] = base64FromBytes(v);
       });
     }
-    message.mppTotalAmtMsat !== undefined &&
-      (obj.mppTotalAmtMsat = message.mppTotalAmtMsat);
-    message.amp !== undefined &&
-      (obj.amp = message.amp ? AMP.toJSON(message.amp) : undefined);
+    message.mppTotalAmtMsat !== undefined && (obj.mppTotalAmtMsat = message.mppTotalAmtMsat);
+    message.amp !== undefined && (obj.amp = message.amp ? AMP.toJSON(message.amp) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<InvoiceHTLC>): InvoiceHTLC {
     const message = createBaseInvoiceHTLC();
-    message.chanId = object.chanId ?? '0';
-    message.htlcIndex = object.htlcIndex ?? '0';
-    message.amtMsat = object.amtMsat ?? '0';
+    message.chanId = object.chanId ?? "0";
+    message.htlcIndex = object.htlcIndex ?? "0";
+    message.amtMsat = object.amtMsat ?? "0";
     message.acceptHeight = object.acceptHeight ?? 0;
-    message.acceptTime = object.acceptTime ?? '0';
-    message.resolveTime = object.resolveTime ?? '0';
+    message.acceptTime = object.acceptTime ?? "0";
+    message.resolveTime = object.resolveTime ?? "0";
     message.expiryHeight = object.expiryHeight ?? 0;
     message.state = object.state ?? 0;
-    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{
-      [key: string]: Uint8Array;
-    }>((acc, [key, value]) => {
-      if (value !== undefined) {
-        acc[key] = value;
-      }
-      return acc;
-    }, {});
-    message.mppTotalAmtMsat = object.mppTotalAmtMsat ?? '0';
-    message.amp =
-      object.amp !== undefined && object.amp !== null
-        ? AMP.fromPartial(object.amp)
-        : undefined;
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{ [key: string]: Uint8Array }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {},
+    );
+    message.mppTotalAmtMsat = object.mppTotalAmtMsat ?? "0";
+    message.amp = (object.amp !== undefined && object.amp !== null) ? AMP.fromPartial(object.amp) : undefined;
     return message;
   },
 };
 
 function createBaseInvoiceHTLC_CustomRecordsEntry(): InvoiceHTLC_CustomRecordsEntry {
-  return {key: '0', value: new Uint8Array()};
+  return { key: "0", value: new Uint8Array() };
 }
 
 export const InvoiceHTLC_CustomRecordsEntry = {
-  encode(
-    message: InvoiceHTLC_CustomRecordsEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.key !== '0') {
+  encode(message: InvoiceHTLC_CustomRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "0") {
       writer.uint32(8).uint64(message.key);
     }
     if (message.value.length !== 0) {
@@ -19141,10 +16962,7 @@ export const InvoiceHTLC_CustomRecordsEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): InvoiceHTLC_CustomRecordsEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): InvoiceHTLC_CustomRecordsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseInvoiceHTLC_CustomRecordsEntry();
@@ -19167,10 +16985,8 @@ export const InvoiceHTLC_CustomRecordsEntry = {
 
   fromJSON(object: any): InvoiceHTLC_CustomRecordsEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '0',
-      value: isSet(object.value)
-        ? bytesFromBase64(object.value)
-        : new Uint8Array(),
+      key: isSet(object.key) ? String(object.key) : "0",
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
     };
   },
 
@@ -19178,17 +16994,13 @@ export const InvoiceHTLC_CustomRecordsEntry = {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (obj.value = base64FromBytes(
-        message.value !== undefined ? message.value : new Uint8Array(),
-      ));
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<InvoiceHTLC_CustomRecordsEntry>,
-  ): InvoiceHTLC_CustomRecordsEntry {
+  fromPartial(object: DeepPartial<InvoiceHTLC_CustomRecordsEntry>): InvoiceHTLC_CustomRecordsEntry {
     const message = createBaseInvoiceHTLC_CustomRecordsEntry();
-    message.key = object.key ?? '0';
+    message.key = object.key ?? "0";
     message.value = object.value ?? new Uint8Array();
     return message;
   },
@@ -19256,42 +17068,25 @@ export const AMP = {
 
   fromJSON(object: any): AMP {
     return {
-      rootShare: isSet(object.rootShare)
-        ? bytesFromBase64(object.rootShare)
-        : new Uint8Array(),
-      setId: isSet(object.setId)
-        ? bytesFromBase64(object.setId)
-        : new Uint8Array(),
+      rootShare: isSet(object.rootShare) ? bytesFromBase64(object.rootShare) : new Uint8Array(),
+      setId: isSet(object.setId) ? bytesFromBase64(object.setId) : new Uint8Array(),
       childIndex: isSet(object.childIndex) ? Number(object.childIndex) : 0,
-      hash: isSet(object.hash)
-        ? bytesFromBase64(object.hash)
-        : new Uint8Array(),
-      preimage: isSet(object.preimage)
-        ? bytesFromBase64(object.preimage)
-        : new Uint8Array(),
+      hash: isSet(object.hash) ? bytesFromBase64(object.hash) : new Uint8Array(),
+      preimage: isSet(object.preimage) ? bytesFromBase64(object.preimage) : new Uint8Array(),
     };
   },
 
   toJSON(message: AMP): unknown {
     const obj: any = {};
     message.rootShare !== undefined &&
-      (obj.rootShare = base64FromBytes(
-        message.rootShare !== undefined ? message.rootShare : new Uint8Array(),
-      ));
+      (obj.rootShare = base64FromBytes(message.rootShare !== undefined ? message.rootShare : new Uint8Array()));
     message.setId !== undefined &&
-      (obj.setId = base64FromBytes(
-        message.setId !== undefined ? message.setId : new Uint8Array(),
-      ));
-    message.childIndex !== undefined &&
-      (obj.childIndex = Math.round(message.childIndex));
+      (obj.setId = base64FromBytes(message.setId !== undefined ? message.setId : new Uint8Array()));
+    message.childIndex !== undefined && (obj.childIndex = Math.round(message.childIndex));
     message.hash !== undefined &&
-      (obj.hash = base64FromBytes(
-        message.hash !== undefined ? message.hash : new Uint8Array(),
-      ));
+      (obj.hash = base64FromBytes(message.hash !== undefined ? message.hash : new Uint8Array()));
     message.preimage !== undefined &&
-      (obj.preimage = base64FromBytes(
-        message.preimage !== undefined ? message.preimage : new Uint8Array(),
-      ));
+      (obj.preimage = base64FromBytes(message.preimage !== undefined ? message.preimage : new Uint8Array()));
     return obj;
   },
 
@@ -19307,26 +17102,18 @@ export const AMP = {
 };
 
 function createBaseAddInvoiceResponse(): AddInvoiceResponse {
-  return {
-    rHash: new Uint8Array(),
-    paymentRequest: '',
-    addIndex: '0',
-    paymentAddr: new Uint8Array(),
-  };
+  return { rHash: new Uint8Array(), paymentRequest: "", addIndex: "0", paymentAddr: new Uint8Array() };
 }
 
 export const AddInvoiceResponse = {
-  encode(
-    message: AddInvoiceResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AddInvoiceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.rHash.length !== 0) {
       writer.uint32(10).bytes(message.rHash);
     }
-    if (message.paymentRequest !== '') {
+    if (message.paymentRequest !== "") {
       writer.uint32(18).string(message.paymentRequest);
     }
-    if (message.addIndex !== '0') {
+    if (message.addIndex !== "0") {
       writer.uint32(128).uint64(message.addIndex);
     }
     if (message.paymentAddr.length !== 0) {
@@ -19364,57 +17151,41 @@ export const AddInvoiceResponse = {
 
   fromJSON(object: any): AddInvoiceResponse {
     return {
-      rHash: isSet(object.rHash)
-        ? bytesFromBase64(object.rHash)
-        : new Uint8Array(),
-      paymentRequest: isSet(object.paymentRequest)
-        ? String(object.paymentRequest)
-        : '',
-      addIndex: isSet(object.addIndex) ? String(object.addIndex) : '0',
-      paymentAddr: isSet(object.paymentAddr)
-        ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array(),
+      rHash: isSet(object.rHash) ? bytesFromBase64(object.rHash) : new Uint8Array(),
+      paymentRequest: isSet(object.paymentRequest) ? String(object.paymentRequest) : "",
+      addIndex: isSet(object.addIndex) ? String(object.addIndex) : "0",
+      paymentAddr: isSet(object.paymentAddr) ? bytesFromBase64(object.paymentAddr) : new Uint8Array(),
     };
   },
 
   toJSON(message: AddInvoiceResponse): unknown {
     const obj: any = {};
     message.rHash !== undefined &&
-      (obj.rHash = base64FromBytes(
-        message.rHash !== undefined ? message.rHash : new Uint8Array(),
-      ));
-    message.paymentRequest !== undefined &&
-      (obj.paymentRequest = message.paymentRequest);
+      (obj.rHash = base64FromBytes(message.rHash !== undefined ? message.rHash : new Uint8Array()));
+    message.paymentRequest !== undefined && (obj.paymentRequest = message.paymentRequest);
     message.addIndex !== undefined && (obj.addIndex = message.addIndex);
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
-        message.paymentAddr !== undefined
-          ? message.paymentAddr
-          : new Uint8Array(),
-      ));
+      (obj.paymentAddr = base64FromBytes(message.paymentAddr !== undefined ? message.paymentAddr : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<AddInvoiceResponse>): AddInvoiceResponse {
     const message = createBaseAddInvoiceResponse();
     message.rHash = object.rHash ?? new Uint8Array();
-    message.paymentRequest = object.paymentRequest ?? '';
-    message.addIndex = object.addIndex ?? '0';
+    message.paymentRequest = object.paymentRequest ?? "";
+    message.addIndex = object.addIndex ?? "0";
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
     return message;
   },
 };
 
 function createBasePaymentHash(): PaymentHash {
-  return {rHashStr: '', rHash: new Uint8Array()};
+  return { rHashStr: "", rHash: new Uint8Array() };
 }
 
 export const PaymentHash = {
-  encode(
-    message: PaymentHash,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.rHashStr !== '') {
+  encode(message: PaymentHash, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.rHashStr !== "") {
       writer.uint32(10).string(message.rHashStr);
     }
     if (message.rHash.length !== 0) {
@@ -19446,10 +17217,8 @@ export const PaymentHash = {
 
   fromJSON(object: any): PaymentHash {
     return {
-      rHashStr: isSet(object.rHashStr) ? String(object.rHashStr) : '',
-      rHash: isSet(object.rHash)
-        ? bytesFromBase64(object.rHash)
-        : new Uint8Array(),
+      rHashStr: isSet(object.rHashStr) ? String(object.rHashStr) : "",
+      rHash: isSet(object.rHash) ? bytesFromBase64(object.rHash) : new Uint8Array(),
     };
   },
 
@@ -19457,41 +17226,31 @@ export const PaymentHash = {
     const obj: any = {};
     message.rHashStr !== undefined && (obj.rHashStr = message.rHashStr);
     message.rHash !== undefined &&
-      (obj.rHash = base64FromBytes(
-        message.rHash !== undefined ? message.rHash : new Uint8Array(),
-      ));
+      (obj.rHash = base64FromBytes(message.rHash !== undefined ? message.rHash : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<PaymentHash>): PaymentHash {
     const message = createBasePaymentHash();
-    message.rHashStr = object.rHashStr ?? '';
+    message.rHashStr = object.rHashStr ?? "";
     message.rHash = object.rHash ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseListInvoiceRequest(): ListInvoiceRequest {
-  return {
-    pendingOnly: false,
-    indexOffset: '0',
-    numMaxInvoices: '0',
-    reversed: false,
-  };
+  return { pendingOnly: false, indexOffset: "0", numMaxInvoices: "0", reversed: false };
 }
 
 export const ListInvoiceRequest = {
-  encode(
-    message: ListInvoiceRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListInvoiceRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.pendingOnly === true) {
       writer.uint32(8).bool(message.pendingOnly);
     }
-    if (message.indexOffset !== '0') {
+    if (message.indexOffset !== "0") {
       writer.uint32(32).uint64(message.indexOffset);
     }
-    if (message.numMaxInvoices !== '0') {
+    if (message.numMaxInvoices !== "0") {
       writer.uint32(40).uint64(message.numMaxInvoices);
     }
     if (message.reversed === true) {
@@ -19529,25 +17288,18 @@ export const ListInvoiceRequest = {
 
   fromJSON(object: any): ListInvoiceRequest {
     return {
-      pendingOnly: isSet(object.pendingOnly)
-        ? Boolean(object.pendingOnly)
-        : false,
-      indexOffset: isSet(object.indexOffset) ? String(object.indexOffset) : '0',
-      numMaxInvoices: isSet(object.numMaxInvoices)
-        ? String(object.numMaxInvoices)
-        : '0',
+      pendingOnly: isSet(object.pendingOnly) ? Boolean(object.pendingOnly) : false,
+      indexOffset: isSet(object.indexOffset) ? String(object.indexOffset) : "0",
+      numMaxInvoices: isSet(object.numMaxInvoices) ? String(object.numMaxInvoices) : "0",
       reversed: isSet(object.reversed) ? Boolean(object.reversed) : false,
     };
   },
 
   toJSON(message: ListInvoiceRequest): unknown {
     const obj: any = {};
-    message.pendingOnly !== undefined &&
-      (obj.pendingOnly = message.pendingOnly);
-    message.indexOffset !== undefined &&
-      (obj.indexOffset = message.indexOffset);
-    message.numMaxInvoices !== undefined &&
-      (obj.numMaxInvoices = message.numMaxInvoices);
+    message.pendingOnly !== undefined && (obj.pendingOnly = message.pendingOnly);
+    message.indexOffset !== undefined && (obj.indexOffset = message.indexOffset);
+    message.numMaxInvoices !== undefined && (obj.numMaxInvoices = message.numMaxInvoices);
     message.reversed !== undefined && (obj.reversed = message.reversed);
     return obj;
   },
@@ -19555,29 +17307,26 @@ export const ListInvoiceRequest = {
   fromPartial(object: DeepPartial<ListInvoiceRequest>): ListInvoiceRequest {
     const message = createBaseListInvoiceRequest();
     message.pendingOnly = object.pendingOnly ?? false;
-    message.indexOffset = object.indexOffset ?? '0';
-    message.numMaxInvoices = object.numMaxInvoices ?? '0';
+    message.indexOffset = object.indexOffset ?? "0";
+    message.numMaxInvoices = object.numMaxInvoices ?? "0";
     message.reversed = object.reversed ?? false;
     return message;
   },
 };
 
 function createBaseListInvoiceResponse(): ListInvoiceResponse {
-  return {invoices: [], lastIndexOffset: '0', firstIndexOffset: '0'};
+  return { invoices: [], lastIndexOffset: "0", firstIndexOffset: "0" };
 }
 
 export const ListInvoiceResponse = {
-  encode(
-    message: ListInvoiceResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListInvoiceResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.invoices) {
       Invoice.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.lastIndexOffset !== '0') {
+    if (message.lastIndexOffset !== "0") {
       writer.uint32(16).uint64(message.lastIndexOffset);
     }
-    if (message.firstIndexOffset !== '0') {
+    if (message.firstIndexOffset !== "0") {
       writer.uint32(24).uint64(message.firstIndexOffset);
     }
     return writer;
@@ -19609,57 +17358,43 @@ export const ListInvoiceResponse = {
 
   fromJSON(object: any): ListInvoiceResponse {
     return {
-      invoices: Array.isArray(object?.invoices)
-        ? object.invoices.map((e: any) => Invoice.fromJSON(e))
-        : [],
-      lastIndexOffset: isSet(object.lastIndexOffset)
-        ? String(object.lastIndexOffset)
-        : '0',
-      firstIndexOffset: isSet(object.firstIndexOffset)
-        ? String(object.firstIndexOffset)
-        : '0',
+      invoices: Array.isArray(object?.invoices) ? object.invoices.map((e: any) => Invoice.fromJSON(e)) : [],
+      lastIndexOffset: isSet(object.lastIndexOffset) ? String(object.lastIndexOffset) : "0",
+      firstIndexOffset: isSet(object.firstIndexOffset) ? String(object.firstIndexOffset) : "0",
     };
   },
 
   toJSON(message: ListInvoiceResponse): unknown {
     const obj: any = {};
     if (message.invoices) {
-      obj.invoices = message.invoices.map((e) =>
-        e ? Invoice.toJSON(e) : undefined,
-      );
+      obj.invoices = message.invoices.map((e) => e ? Invoice.toJSON(e) : undefined);
     } else {
       obj.invoices = [];
     }
-    message.lastIndexOffset !== undefined &&
-      (obj.lastIndexOffset = message.lastIndexOffset);
-    message.firstIndexOffset !== undefined &&
-      (obj.firstIndexOffset = message.firstIndexOffset);
+    message.lastIndexOffset !== undefined && (obj.lastIndexOffset = message.lastIndexOffset);
+    message.firstIndexOffset !== undefined && (obj.firstIndexOffset = message.firstIndexOffset);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ListInvoiceResponse>): ListInvoiceResponse {
     const message = createBaseListInvoiceResponse();
-    message.invoices =
-      object.invoices?.map((e) => Invoice.fromPartial(e)) || [];
-    message.lastIndexOffset = object.lastIndexOffset ?? '0';
-    message.firstIndexOffset = object.firstIndexOffset ?? '0';
+    message.invoices = object.invoices?.map((e) => Invoice.fromPartial(e)) || [];
+    message.lastIndexOffset = object.lastIndexOffset ?? "0";
+    message.firstIndexOffset = object.firstIndexOffset ?? "0";
     return message;
   },
 };
 
 function createBaseInvoiceSubscription(): InvoiceSubscription {
-  return {addIndex: '0', settleIndex: '0'};
+  return { addIndex: "0", settleIndex: "0" };
 }
 
 export const InvoiceSubscription = {
-  encode(
-    message: InvoiceSubscription,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.addIndex !== '0') {
+  encode(message: InvoiceSubscription, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.addIndex !== "0") {
       writer.uint32(8).uint64(message.addIndex);
     }
-    if (message.settleIndex !== '0') {
+    if (message.settleIndex !== "0") {
       writer.uint32(16).uint64(message.settleIndex);
     }
     return writer;
@@ -19688,92 +17423,88 @@ export const InvoiceSubscription = {
 
   fromJSON(object: any): InvoiceSubscription {
     return {
-      addIndex: isSet(object.addIndex) ? String(object.addIndex) : '0',
-      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : '0',
+      addIndex: isSet(object.addIndex) ? String(object.addIndex) : "0",
+      settleIndex: isSet(object.settleIndex) ? String(object.settleIndex) : "0",
     };
   },
 
   toJSON(message: InvoiceSubscription): unknown {
     const obj: any = {};
     message.addIndex !== undefined && (obj.addIndex = message.addIndex);
-    message.settleIndex !== undefined &&
-      (obj.settleIndex = message.settleIndex);
+    message.settleIndex !== undefined && (obj.settleIndex = message.settleIndex);
     return obj;
   },
 
   fromPartial(object: DeepPartial<InvoiceSubscription>): InvoiceSubscription {
     const message = createBaseInvoiceSubscription();
-    message.addIndex = object.addIndex ?? '0';
-    message.settleIndex = object.settleIndex ?? '0';
+    message.addIndex = object.addIndex ?? "0";
+    message.settleIndex = object.settleIndex ?? "0";
     return message;
   },
 };
 
 function createBasePayment(): Payment {
   return {
-    paymentHash: '',
-    value: '0',
-    creationDate: '0',
-    fee: '0',
-    paymentPreimage: '',
-    valueSat: '0',
-    valueMsat: '0',
-    paymentRequest: '',
+    paymentHash: "",
+    value: "0",
+    creationDate: "0",
+    fee: "0",
+    paymentPreimage: "",
+    valueSat: "0",
+    valueMsat: "0",
+    paymentRequest: "",
     status: 0,
-    feeSat: '0',
-    feeMsat: '0',
-    creationTimeNs: '0',
+    feeSat: "0",
+    feeMsat: "0",
+    creationTimeNs: "0",
     htlcs: [],
-    paymentIndex: '0',
+    paymentIndex: "0",
     failureReason: 0,
   };
 }
 
 export const Payment = {
-  encode(
-    message: Payment,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.paymentHash !== '') {
+  encode(message: Payment, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.paymentHash !== "") {
       writer.uint32(10).string(message.paymentHash);
     }
-    if (message.value !== '0') {
+    if (message.value !== "0") {
       writer.uint32(16).int64(message.value);
     }
-    if (message.creationDate !== '0') {
+    if (message.creationDate !== "0") {
       writer.uint32(24).int64(message.creationDate);
     }
-    if (message.fee !== '0') {
+    if (message.fee !== "0") {
       writer.uint32(40).int64(message.fee);
     }
-    if (message.paymentPreimage !== '') {
+    if (message.paymentPreimage !== "") {
       writer.uint32(50).string(message.paymentPreimage);
     }
-    if (message.valueSat !== '0') {
+    if (message.valueSat !== "0") {
       writer.uint32(56).int64(message.valueSat);
     }
-    if (message.valueMsat !== '0') {
+    if (message.valueMsat !== "0") {
       writer.uint32(64).int64(message.valueMsat);
     }
-    if (message.paymentRequest !== '') {
+    if (message.paymentRequest !== "") {
       writer.uint32(74).string(message.paymentRequest);
     }
     if (message.status !== 0) {
       writer.uint32(80).int32(message.status);
     }
-    if (message.feeSat !== '0') {
+    if (message.feeSat !== "0") {
       writer.uint32(88).int64(message.feeSat);
     }
-    if (message.feeMsat !== '0') {
+    if (message.feeMsat !== "0") {
       writer.uint32(96).int64(message.feeMsat);
     }
-    if (message.creationTimeNs !== '0') {
+    if (message.creationTimeNs !== "0") {
       writer.uint32(104).int64(message.creationTimeNs);
     }
     for (const v of message.htlcs) {
       HTLCAttempt.encode(v!, writer.uint32(114).fork()).ldelim();
     }
-    if (message.paymentIndex !== '0') {
+    if (message.paymentIndex !== "0") {
       writer.uint32(120).uint64(message.paymentIndex);
     }
     if (message.failureReason !== 0) {
@@ -19844,90 +17575,64 @@ export const Payment = {
 
   fromJSON(object: any): Payment {
     return {
-      paymentHash: isSet(object.paymentHash) ? String(object.paymentHash) : '',
-      value: isSet(object.value) ? String(object.value) : '0',
-      creationDate: isSet(object.creationDate)
-        ? String(object.creationDate)
-        : '0',
-      fee: isSet(object.fee) ? String(object.fee) : '0',
-      paymentPreimage: isSet(object.paymentPreimage)
-        ? String(object.paymentPreimage)
-        : '',
-      valueSat: isSet(object.valueSat) ? String(object.valueSat) : '0',
-      valueMsat: isSet(object.valueMsat) ? String(object.valueMsat) : '0',
-      paymentRequest: isSet(object.paymentRequest)
-        ? String(object.paymentRequest)
-        : '',
-      status: isSet(object.status)
-        ? payment_PaymentStatusFromJSON(object.status)
-        : 0,
-      feeSat: isSet(object.feeSat) ? String(object.feeSat) : '0',
-      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : '0',
-      creationTimeNs: isSet(object.creationTimeNs)
-        ? String(object.creationTimeNs)
-        : '0',
-      htlcs: Array.isArray(object?.htlcs)
-        ? object.htlcs.map((e: any) => HTLCAttempt.fromJSON(e))
-        : [],
-      paymentIndex: isSet(object.paymentIndex)
-        ? String(object.paymentIndex)
-        : '0',
-      failureReason: isSet(object.failureReason)
-        ? paymentFailureReasonFromJSON(object.failureReason)
-        : 0,
+      paymentHash: isSet(object.paymentHash) ? String(object.paymentHash) : "",
+      value: isSet(object.value) ? String(object.value) : "0",
+      creationDate: isSet(object.creationDate) ? String(object.creationDate) : "0",
+      fee: isSet(object.fee) ? String(object.fee) : "0",
+      paymentPreimage: isSet(object.paymentPreimage) ? String(object.paymentPreimage) : "",
+      valueSat: isSet(object.valueSat) ? String(object.valueSat) : "0",
+      valueMsat: isSet(object.valueMsat) ? String(object.valueMsat) : "0",
+      paymentRequest: isSet(object.paymentRequest) ? String(object.paymentRequest) : "",
+      status: isSet(object.status) ? payment_PaymentStatusFromJSON(object.status) : 0,
+      feeSat: isSet(object.feeSat) ? String(object.feeSat) : "0",
+      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : "0",
+      creationTimeNs: isSet(object.creationTimeNs) ? String(object.creationTimeNs) : "0",
+      htlcs: Array.isArray(object?.htlcs) ? object.htlcs.map((e: any) => HTLCAttempt.fromJSON(e)) : [],
+      paymentIndex: isSet(object.paymentIndex) ? String(object.paymentIndex) : "0",
+      failureReason: isSet(object.failureReason) ? paymentFailureReasonFromJSON(object.failureReason) : 0,
     };
   },
 
   toJSON(message: Payment): unknown {
     const obj: any = {};
-    message.paymentHash !== undefined &&
-      (obj.paymentHash = message.paymentHash);
+    message.paymentHash !== undefined && (obj.paymentHash = message.paymentHash);
     message.value !== undefined && (obj.value = message.value);
-    message.creationDate !== undefined &&
-      (obj.creationDate = message.creationDate);
+    message.creationDate !== undefined && (obj.creationDate = message.creationDate);
     message.fee !== undefined && (obj.fee = message.fee);
-    message.paymentPreimage !== undefined &&
-      (obj.paymentPreimage = message.paymentPreimage);
+    message.paymentPreimage !== undefined && (obj.paymentPreimage = message.paymentPreimage);
     message.valueSat !== undefined && (obj.valueSat = message.valueSat);
     message.valueMsat !== undefined && (obj.valueMsat = message.valueMsat);
-    message.paymentRequest !== undefined &&
-      (obj.paymentRequest = message.paymentRequest);
-    message.status !== undefined &&
-      (obj.status = payment_PaymentStatusToJSON(message.status));
+    message.paymentRequest !== undefined && (obj.paymentRequest = message.paymentRequest);
+    message.status !== undefined && (obj.status = payment_PaymentStatusToJSON(message.status));
     message.feeSat !== undefined && (obj.feeSat = message.feeSat);
     message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
-    message.creationTimeNs !== undefined &&
-      (obj.creationTimeNs = message.creationTimeNs);
+    message.creationTimeNs !== undefined && (obj.creationTimeNs = message.creationTimeNs);
     if (message.htlcs) {
-      obj.htlcs = message.htlcs.map((e) =>
-        e ? HTLCAttempt.toJSON(e) : undefined,
-      );
+      obj.htlcs = message.htlcs.map((e) => e ? HTLCAttempt.toJSON(e) : undefined);
     } else {
       obj.htlcs = [];
     }
-    message.paymentIndex !== undefined &&
-      (obj.paymentIndex = message.paymentIndex);
-    message.failureReason !== undefined &&
-      (obj.failureReason = paymentFailureReasonToJSON(message.failureReason));
+    message.paymentIndex !== undefined && (obj.paymentIndex = message.paymentIndex);
+    message.failureReason !== undefined && (obj.failureReason = paymentFailureReasonToJSON(message.failureReason));
     return obj;
   },
 
   fromPartial(object: DeepPartial<Payment>): Payment {
     const message = createBasePayment();
-    message.paymentHash = object.paymentHash ?? '';
-    message.value = object.value ?? '0';
-    message.creationDate = object.creationDate ?? '0';
-    message.fee = object.fee ?? '0';
-    message.paymentPreimage = object.paymentPreimage ?? '';
-    message.valueSat = object.valueSat ?? '0';
-    message.valueMsat = object.valueMsat ?? '0';
-    message.paymentRequest = object.paymentRequest ?? '';
+    message.paymentHash = object.paymentHash ?? "";
+    message.value = object.value ?? "0";
+    message.creationDate = object.creationDate ?? "0";
+    message.fee = object.fee ?? "0";
+    message.paymentPreimage = object.paymentPreimage ?? "";
+    message.valueSat = object.valueSat ?? "0";
+    message.valueMsat = object.valueMsat ?? "0";
+    message.paymentRequest = object.paymentRequest ?? "";
     message.status = object.status ?? 0;
-    message.feeSat = object.feeSat ?? '0';
-    message.feeMsat = object.feeMsat ?? '0';
-    message.creationTimeNs = object.creationTimeNs ?? '0';
+    message.feeSat = object.feeSat ?? "0";
+    message.feeMsat = object.feeMsat ?? "0";
+    message.creationTimeNs = object.creationTimeNs ?? "0";
     message.htlcs = object.htlcs?.map((e) => HTLCAttempt.fromPartial(e)) || [];
-    message.paymentIndex = object.paymentIndex ?? '0';
+    message.paymentIndex = object.paymentIndex ?? "0";
     message.failureReason = object.failureReason ?? 0;
     return message;
   },
@@ -19935,22 +17640,19 @@ export const Payment = {
 
 function createBaseHTLCAttempt(): HTLCAttempt {
   return {
-    attemptId: '0',
+    attemptId: "0",
     status: 0,
     route: undefined,
-    attemptTimeNs: '0',
-    resolveTimeNs: '0',
+    attemptTimeNs: "0",
+    resolveTimeNs: "0",
     failure: undefined,
     preimage: new Uint8Array(),
   };
 }
 
 export const HTLCAttempt = {
-  encode(
-    message: HTLCAttempt,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.attemptId !== '0') {
+  encode(message: HTLCAttempt, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.attemptId !== "0") {
       writer.uint32(56).uint64(message.attemptId);
     }
     if (message.status !== 0) {
@@ -19959,10 +17661,10 @@ export const HTLCAttempt = {
     if (message.route !== undefined) {
       Route.encode(message.route, writer.uint32(18).fork()).ldelim();
     }
-    if (message.attemptTimeNs !== '0') {
+    if (message.attemptTimeNs !== "0") {
       writer.uint32(24).int64(message.attemptTimeNs);
     }
-    if (message.resolveTimeNs !== '0') {
+    if (message.resolveTimeNs !== "0") {
       writer.uint32(32).int64(message.resolveTimeNs);
     }
     if (message.failure !== undefined) {
@@ -20012,89 +17714,57 @@ export const HTLCAttempt = {
 
   fromJSON(object: any): HTLCAttempt {
     return {
-      attemptId: isSet(object.attemptId) ? String(object.attemptId) : '0',
-      status: isSet(object.status)
-        ? hTLCAttempt_HTLCStatusFromJSON(object.status)
-        : 0,
+      attemptId: isSet(object.attemptId) ? String(object.attemptId) : "0",
+      status: isSet(object.status) ? hTLCAttempt_HTLCStatusFromJSON(object.status) : 0,
       route: isSet(object.route) ? Route.fromJSON(object.route) : undefined,
-      attemptTimeNs: isSet(object.attemptTimeNs)
-        ? String(object.attemptTimeNs)
-        : '0',
-      resolveTimeNs: isSet(object.resolveTimeNs)
-        ? String(object.resolveTimeNs)
-        : '0',
-      failure: isSet(object.failure)
-        ? Failure.fromJSON(object.failure)
-        : undefined,
-      preimage: isSet(object.preimage)
-        ? bytesFromBase64(object.preimage)
-        : new Uint8Array(),
+      attemptTimeNs: isSet(object.attemptTimeNs) ? String(object.attemptTimeNs) : "0",
+      resolveTimeNs: isSet(object.resolveTimeNs) ? String(object.resolveTimeNs) : "0",
+      failure: isSet(object.failure) ? Failure.fromJSON(object.failure) : undefined,
+      preimage: isSet(object.preimage) ? bytesFromBase64(object.preimage) : new Uint8Array(),
     };
   },
 
   toJSON(message: HTLCAttempt): unknown {
     const obj: any = {};
     message.attemptId !== undefined && (obj.attemptId = message.attemptId);
-    message.status !== undefined &&
-      (obj.status = hTLCAttempt_HTLCStatusToJSON(message.status));
-    message.route !== undefined &&
-      (obj.route = message.route ? Route.toJSON(message.route) : undefined);
-    message.attemptTimeNs !== undefined &&
-      (obj.attemptTimeNs = message.attemptTimeNs);
-    message.resolveTimeNs !== undefined &&
-      (obj.resolveTimeNs = message.resolveTimeNs);
-    message.failure !== undefined &&
-      (obj.failure = message.failure
-        ? Failure.toJSON(message.failure)
-        : undefined);
+    message.status !== undefined && (obj.status = hTLCAttempt_HTLCStatusToJSON(message.status));
+    message.route !== undefined && (obj.route = message.route ? Route.toJSON(message.route) : undefined);
+    message.attemptTimeNs !== undefined && (obj.attemptTimeNs = message.attemptTimeNs);
+    message.resolveTimeNs !== undefined && (obj.resolveTimeNs = message.resolveTimeNs);
+    message.failure !== undefined && (obj.failure = message.failure ? Failure.toJSON(message.failure) : undefined);
     message.preimage !== undefined &&
-      (obj.preimage = base64FromBytes(
-        message.preimage !== undefined ? message.preimage : new Uint8Array(),
-      ));
+      (obj.preimage = base64FromBytes(message.preimage !== undefined ? message.preimage : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<HTLCAttempt>): HTLCAttempt {
     const message = createBaseHTLCAttempt();
-    message.attemptId = object.attemptId ?? '0';
+    message.attemptId = object.attemptId ?? "0";
     message.status = object.status ?? 0;
-    message.route =
-      object.route !== undefined && object.route !== null
-        ? Route.fromPartial(object.route)
-        : undefined;
-    message.attemptTimeNs = object.attemptTimeNs ?? '0';
-    message.resolveTimeNs = object.resolveTimeNs ?? '0';
-    message.failure =
-      object.failure !== undefined && object.failure !== null
-        ? Failure.fromPartial(object.failure)
-        : undefined;
+    message.route = (object.route !== undefined && object.route !== null) ? Route.fromPartial(object.route) : undefined;
+    message.attemptTimeNs = object.attemptTimeNs ?? "0";
+    message.resolveTimeNs = object.resolveTimeNs ?? "0";
+    message.failure = (object.failure !== undefined && object.failure !== null)
+      ? Failure.fromPartial(object.failure)
+      : undefined;
     message.preimage = object.preimage ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseListPaymentsRequest(): ListPaymentsRequest {
-  return {
-    includeIncomplete: false,
-    indexOffset: '0',
-    maxPayments: '0',
-    reversed: false,
-    countTotalPayments: false,
-  };
+  return { includeIncomplete: false, indexOffset: "0", maxPayments: "0", reversed: false, countTotalPayments: false };
 }
 
 export const ListPaymentsRequest = {
-  encode(
-    message: ListPaymentsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListPaymentsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.includeIncomplete === true) {
       writer.uint32(8).bool(message.includeIncomplete);
     }
-    if (message.indexOffset !== '0') {
+    if (message.indexOffset !== "0") {
       writer.uint32(16).uint64(message.indexOffset);
     }
-    if (message.maxPayments !== '0') {
+    if (message.maxPayments !== "0") {
       writer.uint32(24).uint64(message.maxPayments);
     }
     if (message.reversed === true) {
@@ -20138,37 +17808,29 @@ export const ListPaymentsRequest = {
 
   fromJSON(object: any): ListPaymentsRequest {
     return {
-      includeIncomplete: isSet(object.includeIncomplete)
-        ? Boolean(object.includeIncomplete)
-        : false,
-      indexOffset: isSet(object.indexOffset) ? String(object.indexOffset) : '0',
-      maxPayments: isSet(object.maxPayments) ? String(object.maxPayments) : '0',
+      includeIncomplete: isSet(object.includeIncomplete) ? Boolean(object.includeIncomplete) : false,
+      indexOffset: isSet(object.indexOffset) ? String(object.indexOffset) : "0",
+      maxPayments: isSet(object.maxPayments) ? String(object.maxPayments) : "0",
       reversed: isSet(object.reversed) ? Boolean(object.reversed) : false,
-      countTotalPayments: isSet(object.countTotalPayments)
-        ? Boolean(object.countTotalPayments)
-        : false,
+      countTotalPayments: isSet(object.countTotalPayments) ? Boolean(object.countTotalPayments) : false,
     };
   },
 
   toJSON(message: ListPaymentsRequest): unknown {
     const obj: any = {};
-    message.includeIncomplete !== undefined &&
-      (obj.includeIncomplete = message.includeIncomplete);
-    message.indexOffset !== undefined &&
-      (obj.indexOffset = message.indexOffset);
-    message.maxPayments !== undefined &&
-      (obj.maxPayments = message.maxPayments);
+    message.includeIncomplete !== undefined && (obj.includeIncomplete = message.includeIncomplete);
+    message.indexOffset !== undefined && (obj.indexOffset = message.indexOffset);
+    message.maxPayments !== undefined && (obj.maxPayments = message.maxPayments);
     message.reversed !== undefined && (obj.reversed = message.reversed);
-    message.countTotalPayments !== undefined &&
-      (obj.countTotalPayments = message.countTotalPayments);
+    message.countTotalPayments !== undefined && (obj.countTotalPayments = message.countTotalPayments);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ListPaymentsRequest>): ListPaymentsRequest {
     const message = createBaseListPaymentsRequest();
     message.includeIncomplete = object.includeIncomplete ?? false;
-    message.indexOffset = object.indexOffset ?? '0';
-    message.maxPayments = object.maxPayments ?? '0';
+    message.indexOffset = object.indexOffset ?? "0";
+    message.maxPayments = object.maxPayments ?? "0";
     message.reversed = object.reversed ?? false;
     message.countTotalPayments = object.countTotalPayments ?? false;
     return message;
@@ -20176,38 +17838,27 @@ export const ListPaymentsRequest = {
 };
 
 function createBaseListPaymentsResponse(): ListPaymentsResponse {
-  return {
-    payments: [],
-    firstIndexOffset: '0',
-    lastIndexOffset: '0',
-    totalNumPayments: '0',
-  };
+  return { payments: [], firstIndexOffset: "0", lastIndexOffset: "0", totalNumPayments: "0" };
 }
 
 export const ListPaymentsResponse = {
-  encode(
-    message: ListPaymentsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListPaymentsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.payments) {
       Payment.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.firstIndexOffset !== '0') {
+    if (message.firstIndexOffset !== "0") {
       writer.uint32(16).uint64(message.firstIndexOffset);
     }
-    if (message.lastIndexOffset !== '0') {
+    if (message.lastIndexOffset !== "0") {
       writer.uint32(24).uint64(message.lastIndexOffset);
     }
-    if (message.totalNumPayments !== '0') {
+    if (message.totalNumPayments !== "0") {
       writer.uint32(32).uint64(message.totalNumPayments);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ListPaymentsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListPaymentsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPaymentsResponse();
@@ -20236,59 +17887,42 @@ export const ListPaymentsResponse = {
 
   fromJSON(object: any): ListPaymentsResponse {
     return {
-      payments: Array.isArray(object?.payments)
-        ? object.payments.map((e: any) => Payment.fromJSON(e))
-        : [],
-      firstIndexOffset: isSet(object.firstIndexOffset)
-        ? String(object.firstIndexOffset)
-        : '0',
-      lastIndexOffset: isSet(object.lastIndexOffset)
-        ? String(object.lastIndexOffset)
-        : '0',
-      totalNumPayments: isSet(object.totalNumPayments)
-        ? String(object.totalNumPayments)
-        : '0',
+      payments: Array.isArray(object?.payments) ? object.payments.map((e: any) => Payment.fromJSON(e)) : [],
+      firstIndexOffset: isSet(object.firstIndexOffset) ? String(object.firstIndexOffset) : "0",
+      lastIndexOffset: isSet(object.lastIndexOffset) ? String(object.lastIndexOffset) : "0",
+      totalNumPayments: isSet(object.totalNumPayments) ? String(object.totalNumPayments) : "0",
     };
   },
 
   toJSON(message: ListPaymentsResponse): unknown {
     const obj: any = {};
     if (message.payments) {
-      obj.payments = message.payments.map((e) =>
-        e ? Payment.toJSON(e) : undefined,
-      );
+      obj.payments = message.payments.map((e) => e ? Payment.toJSON(e) : undefined);
     } else {
       obj.payments = [];
     }
-    message.firstIndexOffset !== undefined &&
-      (obj.firstIndexOffset = message.firstIndexOffset);
-    message.lastIndexOffset !== undefined &&
-      (obj.lastIndexOffset = message.lastIndexOffset);
-    message.totalNumPayments !== undefined &&
-      (obj.totalNumPayments = message.totalNumPayments);
+    message.firstIndexOffset !== undefined && (obj.firstIndexOffset = message.firstIndexOffset);
+    message.lastIndexOffset !== undefined && (obj.lastIndexOffset = message.lastIndexOffset);
+    message.totalNumPayments !== undefined && (obj.totalNumPayments = message.totalNumPayments);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ListPaymentsResponse>): ListPaymentsResponse {
     const message = createBaseListPaymentsResponse();
-    message.payments =
-      object.payments?.map((e) => Payment.fromPartial(e)) || [];
-    message.firstIndexOffset = object.firstIndexOffset ?? '0';
-    message.lastIndexOffset = object.lastIndexOffset ?? '0';
-    message.totalNumPayments = object.totalNumPayments ?? '0';
+    message.payments = object.payments?.map((e) => Payment.fromPartial(e)) || [];
+    message.firstIndexOffset = object.firstIndexOffset ?? "0";
+    message.lastIndexOffset = object.lastIndexOffset ?? "0";
+    message.totalNumPayments = object.totalNumPayments ?? "0";
     return message;
   },
 };
 
 function createBaseDeletePaymentRequest(): DeletePaymentRequest {
-  return {paymentHash: new Uint8Array(), failedHtlcsOnly: false};
+  return { paymentHash: new Uint8Array(), failedHtlcsOnly: false };
 }
 
 export const DeletePaymentRequest = {
-  encode(
-    message: DeletePaymentRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: DeletePaymentRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.paymentHash.length !== 0) {
       writer.uint32(10).bytes(message.paymentHash);
     }
@@ -20298,10 +17932,7 @@ export const DeletePaymentRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DeletePaymentRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeletePaymentRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeletePaymentRequest();
@@ -20324,25 +17955,16 @@ export const DeletePaymentRequest = {
 
   fromJSON(object: any): DeletePaymentRequest {
     return {
-      paymentHash: isSet(object.paymentHash)
-        ? bytesFromBase64(object.paymentHash)
-        : new Uint8Array(),
-      failedHtlcsOnly: isSet(object.failedHtlcsOnly)
-        ? Boolean(object.failedHtlcsOnly)
-        : false,
+      paymentHash: isSet(object.paymentHash) ? bytesFromBase64(object.paymentHash) : new Uint8Array(),
+      failedHtlcsOnly: isSet(object.failedHtlcsOnly) ? Boolean(object.failedHtlcsOnly) : false,
     };
   },
 
   toJSON(message: DeletePaymentRequest): unknown {
     const obj: any = {};
     message.paymentHash !== undefined &&
-      (obj.paymentHash = base64FromBytes(
-        message.paymentHash !== undefined
-          ? message.paymentHash
-          : new Uint8Array(),
-      ));
-    message.failedHtlcsOnly !== undefined &&
-      (obj.failedHtlcsOnly = message.failedHtlcsOnly);
+      (obj.paymentHash = base64FromBytes(message.paymentHash !== undefined ? message.paymentHash : new Uint8Array()));
+    message.failedHtlcsOnly !== undefined && (obj.failedHtlcsOnly = message.failedHtlcsOnly);
     return obj;
   },
 
@@ -20355,14 +17977,11 @@ export const DeletePaymentRequest = {
 };
 
 function createBaseDeleteAllPaymentsRequest(): DeleteAllPaymentsRequest {
-  return {failedPaymentsOnly: false, failedHtlcsOnly: false};
+  return { failedPaymentsOnly: false, failedHtlcsOnly: false };
 }
 
 export const DeleteAllPaymentsRequest = {
-  encode(
-    message: DeleteAllPaymentsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: DeleteAllPaymentsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.failedPaymentsOnly === true) {
       writer.uint32(8).bool(message.failedPaymentsOnly);
     }
@@ -20372,10 +17991,7 @@ export const DeleteAllPaymentsRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DeleteAllPaymentsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteAllPaymentsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteAllPaymentsRequest();
@@ -20398,27 +18014,19 @@ export const DeleteAllPaymentsRequest = {
 
   fromJSON(object: any): DeleteAllPaymentsRequest {
     return {
-      failedPaymentsOnly: isSet(object.failedPaymentsOnly)
-        ? Boolean(object.failedPaymentsOnly)
-        : false,
-      failedHtlcsOnly: isSet(object.failedHtlcsOnly)
-        ? Boolean(object.failedHtlcsOnly)
-        : false,
+      failedPaymentsOnly: isSet(object.failedPaymentsOnly) ? Boolean(object.failedPaymentsOnly) : false,
+      failedHtlcsOnly: isSet(object.failedHtlcsOnly) ? Boolean(object.failedHtlcsOnly) : false,
     };
   },
 
   toJSON(message: DeleteAllPaymentsRequest): unknown {
     const obj: any = {};
-    message.failedPaymentsOnly !== undefined &&
-      (obj.failedPaymentsOnly = message.failedPaymentsOnly);
-    message.failedHtlcsOnly !== undefined &&
-      (obj.failedHtlcsOnly = message.failedHtlcsOnly);
+    message.failedPaymentsOnly !== undefined && (obj.failedPaymentsOnly = message.failedPaymentsOnly);
+    message.failedHtlcsOnly !== undefined && (obj.failedHtlcsOnly = message.failedHtlcsOnly);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<DeleteAllPaymentsRequest>,
-  ): DeleteAllPaymentsRequest {
+  fromPartial(object: DeepPartial<DeleteAllPaymentsRequest>): DeleteAllPaymentsRequest {
     const message = createBaseDeleteAllPaymentsRequest();
     message.failedPaymentsOnly = object.failedPaymentsOnly ?? false;
     message.failedHtlcsOnly = object.failedHtlcsOnly ?? false;
@@ -20431,17 +18039,11 @@ function createBaseDeletePaymentResponse(): DeletePaymentResponse {
 }
 
 export const DeletePaymentResponse = {
-  encode(
-    _: DeletePaymentResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: DeletePaymentResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DeletePaymentResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeletePaymentResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeletePaymentResponse();
@@ -20476,17 +18078,11 @@ function createBaseDeleteAllPaymentsResponse(): DeleteAllPaymentsResponse {
 }
 
 export const DeleteAllPaymentsResponse = {
-  encode(
-    _: DeleteAllPaymentsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: DeleteAllPaymentsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DeleteAllPaymentsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteAllPaymentsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteAllPaymentsResponse();
@@ -20510,32 +18106,20 @@ export const DeleteAllPaymentsResponse = {
     return obj;
   },
 
-  fromPartial(
-    _: DeepPartial<DeleteAllPaymentsResponse>,
-  ): DeleteAllPaymentsResponse {
+  fromPartial(_: DeepPartial<DeleteAllPaymentsResponse>): DeleteAllPaymentsResponse {
     const message = createBaseDeleteAllPaymentsResponse();
     return message;
   },
 };
 
 function createBaseAbandonChannelRequest(): AbandonChannelRequest {
-  return {
-    channelPoint: undefined,
-    pendingFundingShimOnly: false,
-    iKnowWhatIAmDoing: false,
-  };
+  return { channelPoint: undefined, pendingFundingShimOnly: false, iKnowWhatIAmDoing: false };
 }
 
 export const AbandonChannelRequest = {
-  encode(
-    message: AbandonChannelRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: AbandonChannelRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.channelPoint !== undefined) {
-      ChannelPoint.encode(
-        message.channelPoint,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      ChannelPoint.encode(message.channelPoint, writer.uint32(10).fork()).ldelim();
     }
     if (message.pendingFundingShimOnly === true) {
       writer.uint32(16).bool(message.pendingFundingShimOnly);
@@ -20546,10 +18130,7 @@ export const AbandonChannelRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): AbandonChannelRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AbandonChannelRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAbandonChannelRequest();
@@ -20575,39 +18156,26 @@ export const AbandonChannelRequest = {
 
   fromJSON(object: any): AbandonChannelRequest {
     return {
-      channelPoint: isSet(object.channelPoint)
-        ? ChannelPoint.fromJSON(object.channelPoint)
-        : undefined,
-      pendingFundingShimOnly: isSet(object.pendingFundingShimOnly)
-        ? Boolean(object.pendingFundingShimOnly)
-        : false,
-      iKnowWhatIAmDoing: isSet(object.iKnowWhatIAmDoing)
-        ? Boolean(object.iKnowWhatIAmDoing)
-        : false,
+      channelPoint: isSet(object.channelPoint) ? ChannelPoint.fromJSON(object.channelPoint) : undefined,
+      pendingFundingShimOnly: isSet(object.pendingFundingShimOnly) ? Boolean(object.pendingFundingShimOnly) : false,
+      iKnowWhatIAmDoing: isSet(object.iKnowWhatIAmDoing) ? Boolean(object.iKnowWhatIAmDoing) : false,
     };
   },
 
   toJSON(message: AbandonChannelRequest): unknown {
     const obj: any = {};
     message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint
-        ? ChannelPoint.toJSON(message.channelPoint)
-        : undefined);
-    message.pendingFundingShimOnly !== undefined &&
-      (obj.pendingFundingShimOnly = message.pendingFundingShimOnly);
-    message.iKnowWhatIAmDoing !== undefined &&
-      (obj.iKnowWhatIAmDoing = message.iKnowWhatIAmDoing);
+      (obj.channelPoint = message.channelPoint ? ChannelPoint.toJSON(message.channelPoint) : undefined);
+    message.pendingFundingShimOnly !== undefined && (obj.pendingFundingShimOnly = message.pendingFundingShimOnly);
+    message.iKnowWhatIAmDoing !== undefined && (obj.iKnowWhatIAmDoing = message.iKnowWhatIAmDoing);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<AbandonChannelRequest>,
-  ): AbandonChannelRequest {
+  fromPartial(object: DeepPartial<AbandonChannelRequest>): AbandonChannelRequest {
     const message = createBaseAbandonChannelRequest();
-    message.channelPoint =
-      object.channelPoint !== undefined && object.channelPoint !== null
-        ? ChannelPoint.fromPartial(object.channelPoint)
-        : undefined;
+    message.channelPoint = (object.channelPoint !== undefined && object.channelPoint !== null)
+      ? ChannelPoint.fromPartial(object.channelPoint)
+      : undefined;
     message.pendingFundingShimOnly = object.pendingFundingShimOnly ?? false;
     message.iKnowWhatIAmDoing = object.iKnowWhatIAmDoing ?? false;
     return message;
@@ -20619,17 +18187,11 @@ function createBaseAbandonChannelResponse(): AbandonChannelResponse {
 }
 
 export const AbandonChannelResponse = {
-  encode(
-    _: AbandonChannelResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: AbandonChannelResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): AbandonChannelResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): AbandonChannelResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseAbandonChannelResponse();
@@ -20660,18 +18222,15 @@ export const AbandonChannelResponse = {
 };
 
 function createBaseDebugLevelRequest(): DebugLevelRequest {
-  return {show: false, levelSpec: ''};
+  return { show: false, levelSpec: "" };
 }
 
 export const DebugLevelRequest = {
-  encode(
-    message: DebugLevelRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: DebugLevelRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.show === true) {
       writer.uint32(8).bool(message.show);
     }
-    if (message.levelSpec !== '') {
+    if (message.levelSpec !== "") {
       writer.uint32(18).string(message.levelSpec);
     }
     return writer;
@@ -20701,7 +18260,7 @@ export const DebugLevelRequest = {
   fromJSON(object: any): DebugLevelRequest {
     return {
       show: isSet(object.show) ? Boolean(object.show) : false,
-      levelSpec: isSet(object.levelSpec) ? String(object.levelSpec) : '',
+      levelSpec: isSet(object.levelSpec) ? String(object.levelSpec) : "",
     };
   },
 
@@ -20715,21 +18274,18 @@ export const DebugLevelRequest = {
   fromPartial(object: DeepPartial<DebugLevelRequest>): DebugLevelRequest {
     const message = createBaseDebugLevelRequest();
     message.show = object.show ?? false;
-    message.levelSpec = object.levelSpec ?? '';
+    message.levelSpec = object.levelSpec ?? "";
     return message;
   },
 };
 
 function createBaseDebugLevelResponse(): DebugLevelResponse {
-  return {subSystems: ''};
+  return { subSystems: "" };
 }
 
 export const DebugLevelResponse = {
-  encode(
-    message: DebugLevelResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.subSystems !== '') {
+  encode(message: DebugLevelResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.subSystems !== "") {
       writer.uint32(10).string(message.subSystems);
     }
     return writer;
@@ -20754,9 +18310,7 @@ export const DebugLevelResponse = {
   },
 
   fromJSON(object: any): DebugLevelResponse {
-    return {
-      subSystems: isSet(object.subSystems) ? String(object.subSystems) : '',
-    };
+    return { subSystems: isSet(object.subSystems) ? String(object.subSystems) : "" };
   },
 
   toJSON(message: DebugLevelResponse): unknown {
@@ -20767,21 +18321,18 @@ export const DebugLevelResponse = {
 
   fromPartial(object: DeepPartial<DebugLevelResponse>): DebugLevelResponse {
     const message = createBaseDebugLevelResponse();
-    message.subSystems = object.subSystems ?? '';
+    message.subSystems = object.subSystems ?? "";
     return message;
   },
 };
 
 function createBasePayReqString(): PayReqString {
-  return {payReq: ''};
+  return { payReq: "" };
 }
 
 export const PayReqString = {
-  encode(
-    message: PayReqString,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.payReq !== '') {
+  encode(message: PayReqString, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.payReq !== "") {
       writer.uint32(10).string(message.payReq);
     }
     return writer;
@@ -20806,9 +18357,7 @@ export const PayReqString = {
   },
 
   fromJSON(object: any): PayReqString {
-    return {
-      payReq: isSet(object.payReq) ? String(object.payReq) : '',
-    };
+    return { payReq: isSet(object.payReq) ? String(object.payReq) : "" };
   },
 
   toJSON(message: PayReqString): unknown {
@@ -20819,59 +18368,56 @@ export const PayReqString = {
 
   fromPartial(object: DeepPartial<PayReqString>): PayReqString {
     const message = createBasePayReqString();
-    message.payReq = object.payReq ?? '';
+    message.payReq = object.payReq ?? "";
     return message;
   },
 };
 
 function createBasePayReq(): PayReq {
   return {
-    destination: '',
-    paymentHash: '',
-    numSatoshis: '0',
-    timestamp: '0',
-    expiry: '0',
-    description: '',
-    descriptionHash: '',
-    fallbackAddr: '',
-    cltvExpiry: '0',
+    destination: "",
+    paymentHash: "",
+    numSatoshis: "0",
+    timestamp: "0",
+    expiry: "0",
+    description: "",
+    descriptionHash: "",
+    fallbackAddr: "",
+    cltvExpiry: "0",
     routeHints: [],
     paymentAddr: new Uint8Array(),
-    numMsat: '0',
+    numMsat: "0",
     features: {},
   };
 }
 
 export const PayReq = {
-  encode(
-    message: PayReq,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.destination !== '') {
+  encode(message: PayReq, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.destination !== "") {
       writer.uint32(10).string(message.destination);
     }
-    if (message.paymentHash !== '') {
+    if (message.paymentHash !== "") {
       writer.uint32(18).string(message.paymentHash);
     }
-    if (message.numSatoshis !== '0') {
+    if (message.numSatoshis !== "0") {
       writer.uint32(24).int64(message.numSatoshis);
     }
-    if (message.timestamp !== '0') {
+    if (message.timestamp !== "0") {
       writer.uint32(32).int64(message.timestamp);
     }
-    if (message.expiry !== '0') {
+    if (message.expiry !== "0") {
       writer.uint32(40).int64(message.expiry);
     }
-    if (message.description !== '') {
+    if (message.description !== "") {
       writer.uint32(50).string(message.description);
     }
-    if (message.descriptionHash !== '') {
+    if (message.descriptionHash !== "") {
       writer.uint32(58).string(message.descriptionHash);
     }
-    if (message.fallbackAddr !== '') {
+    if (message.fallbackAddr !== "") {
       writer.uint32(66).string(message.fallbackAddr);
     }
-    if (message.cltvExpiry !== '0') {
+    if (message.cltvExpiry !== "0") {
       writer.uint32(72).int64(message.cltvExpiry);
     }
     for (const v of message.routeHints) {
@@ -20880,14 +18426,11 @@ export const PayReq = {
     if (message.paymentAddr.length !== 0) {
       writer.uint32(90).bytes(message.paymentAddr);
     }
-    if (message.numMsat !== '0') {
+    if (message.numMsat !== "0") {
       writer.uint32(96).int64(message.numMsat);
     }
     Object.entries(message.features).forEach(([key, value]) => {
-      PayReq_FeaturesEntry.encode(
-        {key: key as any, value},
-        writer.uint32(106).fork(),
-      ).ldelim();
+      PayReq_FeaturesEntry.encode({ key: key as any, value }, writer.uint32(106).fork()).ldelim();
     });
     return writer;
   },
@@ -20951,68 +18494,45 @@ export const PayReq = {
 
   fromJSON(object: any): PayReq {
     return {
-      destination: isSet(object.destination) ? String(object.destination) : '',
-      paymentHash: isSet(object.paymentHash) ? String(object.paymentHash) : '',
-      numSatoshis: isSet(object.numSatoshis) ? String(object.numSatoshis) : '0',
-      timestamp: isSet(object.timestamp) ? String(object.timestamp) : '0',
-      expiry: isSet(object.expiry) ? String(object.expiry) : '0',
-      description: isSet(object.description) ? String(object.description) : '',
-      descriptionHash: isSet(object.descriptionHash)
-        ? String(object.descriptionHash)
-        : '',
-      fallbackAddr: isSet(object.fallbackAddr)
-        ? String(object.fallbackAddr)
-        : '',
-      cltvExpiry: isSet(object.cltvExpiry) ? String(object.cltvExpiry) : '0',
-      routeHints: Array.isArray(object?.routeHints)
-        ? object.routeHints.map((e: any) => RouteHint.fromJSON(e))
-        : [],
-      paymentAddr: isSet(object.paymentAddr)
-        ? bytesFromBase64(object.paymentAddr)
-        : new Uint8Array(),
-      numMsat: isSet(object.numMsat) ? String(object.numMsat) : '0',
+      destination: isSet(object.destination) ? String(object.destination) : "",
+      paymentHash: isSet(object.paymentHash) ? String(object.paymentHash) : "",
+      numSatoshis: isSet(object.numSatoshis) ? String(object.numSatoshis) : "0",
+      timestamp: isSet(object.timestamp) ? String(object.timestamp) : "0",
+      expiry: isSet(object.expiry) ? String(object.expiry) : "0",
+      description: isSet(object.description) ? String(object.description) : "",
+      descriptionHash: isSet(object.descriptionHash) ? String(object.descriptionHash) : "",
+      fallbackAddr: isSet(object.fallbackAddr) ? String(object.fallbackAddr) : "",
+      cltvExpiry: isSet(object.cltvExpiry) ? String(object.cltvExpiry) : "0",
+      routeHints: Array.isArray(object?.routeHints) ? object.routeHints.map((e: any) => RouteHint.fromJSON(e)) : [],
+      paymentAddr: isSet(object.paymentAddr) ? bytesFromBase64(object.paymentAddr) : new Uint8Array(),
+      numMsat: isSet(object.numMsat) ? String(object.numMsat) : "0",
       features: isObject(object.features)
-        ? Object.entries(object.features).reduce<{[key: number]: Feature}>(
-            (acc, [key, value]) => {
-              acc[Number(key)] = Feature.fromJSON(value);
-              return acc;
-            },
-            {},
-          )
+        ? Object.entries(object.features).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
+          acc[Number(key)] = Feature.fromJSON(value);
+          return acc;
+        }, {})
         : {},
     };
   },
 
   toJSON(message: PayReq): unknown {
     const obj: any = {};
-    message.destination !== undefined &&
-      (obj.destination = message.destination);
-    message.paymentHash !== undefined &&
-      (obj.paymentHash = message.paymentHash);
-    message.numSatoshis !== undefined &&
-      (obj.numSatoshis = message.numSatoshis);
+    message.destination !== undefined && (obj.destination = message.destination);
+    message.paymentHash !== undefined && (obj.paymentHash = message.paymentHash);
+    message.numSatoshis !== undefined && (obj.numSatoshis = message.numSatoshis);
     message.timestamp !== undefined && (obj.timestamp = message.timestamp);
     message.expiry !== undefined && (obj.expiry = message.expiry);
-    message.description !== undefined &&
-      (obj.description = message.description);
-    message.descriptionHash !== undefined &&
-      (obj.descriptionHash = message.descriptionHash);
-    message.fallbackAddr !== undefined &&
-      (obj.fallbackAddr = message.fallbackAddr);
+    message.description !== undefined && (obj.description = message.description);
+    message.descriptionHash !== undefined && (obj.descriptionHash = message.descriptionHash);
+    message.fallbackAddr !== undefined && (obj.fallbackAddr = message.fallbackAddr);
     message.cltvExpiry !== undefined && (obj.cltvExpiry = message.cltvExpiry);
     if (message.routeHints) {
-      obj.routeHints = message.routeHints.map((e) =>
-        e ? RouteHint.toJSON(e) : undefined,
-      );
+      obj.routeHints = message.routeHints.map((e) => e ? RouteHint.toJSON(e) : undefined);
     } else {
       obj.routeHints = [];
     }
     message.paymentAddr !== undefined &&
-      (obj.paymentAddr = base64FromBytes(
-        message.paymentAddr !== undefined
-          ? message.paymentAddr
-          : new Uint8Array(),
-      ));
+      (obj.paymentAddr = base64FromBytes(message.paymentAddr !== undefined ? message.paymentAddr : new Uint8Array()));
     message.numMsat !== undefined && (obj.numMsat = message.numMsat);
     obj.features = {};
     if (message.features) {
@@ -21025,22 +18545,19 @@ export const PayReq = {
 
   fromPartial(object: DeepPartial<PayReq>): PayReq {
     const message = createBasePayReq();
-    message.destination = object.destination ?? '';
-    message.paymentHash = object.paymentHash ?? '';
-    message.numSatoshis = object.numSatoshis ?? '0';
-    message.timestamp = object.timestamp ?? '0';
-    message.expiry = object.expiry ?? '0';
-    message.description = object.description ?? '';
-    message.descriptionHash = object.descriptionHash ?? '';
-    message.fallbackAddr = object.fallbackAddr ?? '';
-    message.cltvExpiry = object.cltvExpiry ?? '0';
-    message.routeHints =
-      object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
+    message.destination = object.destination ?? "";
+    message.paymentHash = object.paymentHash ?? "";
+    message.numSatoshis = object.numSatoshis ?? "0";
+    message.timestamp = object.timestamp ?? "0";
+    message.expiry = object.expiry ?? "0";
+    message.description = object.description ?? "";
+    message.descriptionHash = object.descriptionHash ?? "";
+    message.fallbackAddr = object.fallbackAddr ?? "";
+    message.cltvExpiry = object.cltvExpiry ?? "0";
+    message.routeHints = object.routeHints?.map((e) => RouteHint.fromPartial(e)) || [];
     message.paymentAddr = object.paymentAddr ?? new Uint8Array();
-    message.numMsat = object.numMsat ?? '0';
-    message.features = Object.entries(object.features ?? {}).reduce<{
-      [key: number]: Feature;
-    }>((acc, [key, value]) => {
+    message.numMsat = object.numMsat ?? "0";
+    message.features = Object.entries(object.features ?? {}).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
       if (value !== undefined) {
         acc[Number(key)] = Feature.fromPartial(value);
       }
@@ -21051,14 +18568,11 @@ export const PayReq = {
 };
 
 function createBasePayReq_FeaturesEntry(): PayReq_FeaturesEntry {
-  return {key: 0, value: undefined};
+  return { key: 0, value: undefined };
 }
 
 export const PayReq_FeaturesEntry = {
-  encode(
-    message: PayReq_FeaturesEntry,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PayReq_FeaturesEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.key !== 0) {
       writer.uint32(8).uint32(message.key);
     }
@@ -21068,10 +18582,7 @@ export const PayReq_FeaturesEntry = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PayReq_FeaturesEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PayReq_FeaturesEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePayReq_FeaturesEntry();
@@ -21102,32 +18613,27 @@ export const PayReq_FeaturesEntry = {
   toJSON(message: PayReq_FeaturesEntry): unknown {
     const obj: any = {};
     message.key !== undefined && (obj.key = Math.round(message.key));
-    message.value !== undefined &&
-      (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
+    message.value !== undefined && (obj.value = message.value ? Feature.toJSON(message.value) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<PayReq_FeaturesEntry>): PayReq_FeaturesEntry {
     const message = createBasePayReq_FeaturesEntry();
     message.key = object.key ?? 0;
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? Feature.fromPartial(object.value)
-        : undefined;
+    message.value = (object.value !== undefined && object.value !== null)
+      ? Feature.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
 
 function createBaseFeature(): Feature {
-  return {name: '', isRequired: false, isKnown: false};
+  return { name: "", isRequired: false, isKnown: false };
 }
 
 export const Feature = {
-  encode(
-    message: Feature,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.name !== '') {
+  encode(message: Feature, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.name !== "") {
       writer.uint32(18).string(message.name);
     }
     if (message.isRequired === true) {
@@ -21165,7 +18671,7 @@ export const Feature = {
 
   fromJSON(object: any): Feature {
     return {
-      name: isSet(object.name) ? String(object.name) : '',
+      name: isSet(object.name) ? String(object.name) : "",
       isRequired: isSet(object.isRequired) ? Boolean(object.isRequired) : false,
       isKnown: isSet(object.isKnown) ? Boolean(object.isKnown) : false,
     };
@@ -21181,7 +18687,7 @@ export const Feature = {
 
   fromPartial(object: DeepPartial<Feature>): Feature {
     const message = createBaseFeature();
-    message.name = object.name ?? '';
+    message.name = object.name ?? "";
     message.isRequired = object.isRequired ?? false;
     message.isKnown = object.isKnown ?? false;
     return message;
@@ -21193,10 +18699,7 @@ function createBaseFeeReportRequest(): FeeReportRequest {
 }
 
 export const FeeReportRequest = {
-  encode(
-    _: FeeReportRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: FeeReportRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
@@ -21231,30 +18734,21 @@ export const FeeReportRequest = {
 };
 
 function createBaseChannelFeeReport(): ChannelFeeReport {
-  return {
-    chanId: '0',
-    channelPoint: '',
-    baseFeeMsat: '0',
-    feePerMil: '0',
-    feeRate: 0,
-  };
+  return { chanId: "0", channelPoint: "", baseFeeMsat: "0", feePerMil: "0", feeRate: 0 };
 }
 
 export const ChannelFeeReport = {
-  encode(
-    message: ChannelFeeReport,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.chanId !== '0') {
+  encode(message: ChannelFeeReport, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.chanId !== "0") {
       writer.uint32(40).uint64(message.chanId);
     }
-    if (message.channelPoint !== '') {
+    if (message.channelPoint !== "") {
       writer.uint32(10).string(message.channelPoint);
     }
-    if (message.baseFeeMsat !== '0') {
+    if (message.baseFeeMsat !== "0") {
       writer.uint32(16).int64(message.baseFeeMsat);
     }
-    if (message.feePerMil !== '0') {
+    if (message.feePerMil !== "0") {
       writer.uint32(24).int64(message.feePerMil);
     }
     if (message.feeRate !== 0) {
@@ -21295,12 +18789,10 @@ export const ChannelFeeReport = {
 
   fromJSON(object: any): ChannelFeeReport {
     return {
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
-      channelPoint: isSet(object.channelPoint)
-        ? String(object.channelPoint)
-        : '',
-      baseFeeMsat: isSet(object.baseFeeMsat) ? String(object.baseFeeMsat) : '0',
-      feePerMil: isSet(object.feePerMil) ? String(object.feePerMil) : '0',
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
+      channelPoint: isSet(object.channelPoint) ? String(object.channelPoint) : "",
+      baseFeeMsat: isSet(object.baseFeeMsat) ? String(object.baseFeeMsat) : "0",
+      feePerMil: isSet(object.feePerMil) ? String(object.feePerMil) : "0",
       feeRate: isSet(object.feeRate) ? Number(object.feeRate) : 0,
     };
   },
@@ -21308,10 +18800,8 @@ export const ChannelFeeReport = {
   toJSON(message: ChannelFeeReport): unknown {
     const obj: any = {};
     message.chanId !== undefined && (obj.chanId = message.chanId);
-    message.channelPoint !== undefined &&
-      (obj.channelPoint = message.channelPoint);
-    message.baseFeeMsat !== undefined &&
-      (obj.baseFeeMsat = message.baseFeeMsat);
+    message.channelPoint !== undefined && (obj.channelPoint = message.channelPoint);
+    message.baseFeeMsat !== undefined && (obj.baseFeeMsat = message.baseFeeMsat);
     message.feePerMil !== undefined && (obj.feePerMil = message.feePerMil);
     message.feeRate !== undefined && (obj.feeRate = message.feeRate);
     return obj;
@@ -21319,34 +18809,31 @@ export const ChannelFeeReport = {
 
   fromPartial(object: DeepPartial<ChannelFeeReport>): ChannelFeeReport {
     const message = createBaseChannelFeeReport();
-    message.chanId = object.chanId ?? '0';
-    message.channelPoint = object.channelPoint ?? '';
-    message.baseFeeMsat = object.baseFeeMsat ?? '0';
-    message.feePerMil = object.feePerMil ?? '0';
+    message.chanId = object.chanId ?? "0";
+    message.channelPoint = object.channelPoint ?? "";
+    message.baseFeeMsat = object.baseFeeMsat ?? "0";
+    message.feePerMil = object.feePerMil ?? "0";
     message.feeRate = object.feeRate ?? 0;
     return message;
   },
 };
 
 function createBaseFeeReportResponse(): FeeReportResponse {
-  return {channelFees: [], dayFeeSum: '0', weekFeeSum: '0', monthFeeSum: '0'};
+  return { channelFees: [], dayFeeSum: "0", weekFeeSum: "0", monthFeeSum: "0" };
 }
 
 export const FeeReportResponse = {
-  encode(
-    message: FeeReportResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FeeReportResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.channelFees) {
       ChannelFeeReport.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.dayFeeSum !== '0') {
+    if (message.dayFeeSum !== "0") {
       writer.uint32(16).uint64(message.dayFeeSum);
     }
-    if (message.weekFeeSum !== '0') {
+    if (message.weekFeeSum !== "0") {
       writer.uint32(24).uint64(message.weekFeeSum);
     }
-    if (message.monthFeeSum !== '0') {
+    if (message.monthFeeSum !== "0") {
       writer.uint32(32).uint64(message.monthFeeSum);
     }
     return writer;
@@ -21360,9 +18847,7 @@ export const FeeReportResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.channelFees.push(
-            ChannelFeeReport.decode(reader, reader.uint32()),
-          );
+          message.channelFees.push(ChannelFeeReport.decode(reader, reader.uint32()));
           break;
         case 2:
           message.dayFeeSum = longToString(reader.uint64() as Long);
@@ -21386,35 +18871,31 @@ export const FeeReportResponse = {
       channelFees: Array.isArray(object?.channelFees)
         ? object.channelFees.map((e: any) => ChannelFeeReport.fromJSON(e))
         : [],
-      dayFeeSum: isSet(object.dayFeeSum) ? String(object.dayFeeSum) : '0',
-      weekFeeSum: isSet(object.weekFeeSum) ? String(object.weekFeeSum) : '0',
-      monthFeeSum: isSet(object.monthFeeSum) ? String(object.monthFeeSum) : '0',
+      dayFeeSum: isSet(object.dayFeeSum) ? String(object.dayFeeSum) : "0",
+      weekFeeSum: isSet(object.weekFeeSum) ? String(object.weekFeeSum) : "0",
+      monthFeeSum: isSet(object.monthFeeSum) ? String(object.monthFeeSum) : "0",
     };
   },
 
   toJSON(message: FeeReportResponse): unknown {
     const obj: any = {};
     if (message.channelFees) {
-      obj.channelFees = message.channelFees.map((e) =>
-        e ? ChannelFeeReport.toJSON(e) : undefined,
-      );
+      obj.channelFees = message.channelFees.map((e) => e ? ChannelFeeReport.toJSON(e) : undefined);
     } else {
       obj.channelFees = [];
     }
     message.dayFeeSum !== undefined && (obj.dayFeeSum = message.dayFeeSum);
     message.weekFeeSum !== undefined && (obj.weekFeeSum = message.weekFeeSum);
-    message.monthFeeSum !== undefined &&
-      (obj.monthFeeSum = message.monthFeeSum);
+    message.monthFeeSum !== undefined && (obj.monthFeeSum = message.monthFeeSum);
     return obj;
   },
 
   fromPartial(object: DeepPartial<FeeReportResponse>): FeeReportResponse {
     const message = createBaseFeeReportResponse();
-    message.channelFees =
-      object.channelFees?.map((e) => ChannelFeeReport.fromPartial(e)) || [];
-    message.dayFeeSum = object.dayFeeSum ?? '0';
-    message.weekFeeSum = object.weekFeeSum ?? '0';
-    message.monthFeeSum = object.monthFeeSum ?? '0';
+    message.channelFees = object.channelFees?.map((e) => ChannelFeeReport.fromPartial(e)) || [];
+    message.dayFeeSum = object.dayFeeSum ?? "0";
+    message.weekFeeSum = object.weekFeeSum ?? "0";
+    message.monthFeeSum = object.monthFeeSum ?? "0";
     return message;
   },
 };
@@ -21423,28 +18904,25 @@ function createBasePolicyUpdateRequest(): PolicyUpdateRequest {
   return {
     global: undefined,
     chanPoint: undefined,
-    baseFeeMsat: '0',
+    baseFeeMsat: "0",
     feeRate: 0,
     feeRatePpm: 0,
     timeLockDelta: 0,
-    maxHtlcMsat: '0',
-    minHtlcMsat: '0',
+    maxHtlcMsat: "0",
+    minHtlcMsat: "0",
     minHtlcMsatSpecified: false,
   };
 }
 
 export const PolicyUpdateRequest = {
-  encode(
-    message: PolicyUpdateRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PolicyUpdateRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.global !== undefined) {
       writer.uint32(8).bool(message.global);
     }
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(18).fork()).ldelim();
     }
-    if (message.baseFeeMsat !== '0') {
+    if (message.baseFeeMsat !== "0") {
       writer.uint32(24).int64(message.baseFeeMsat);
     }
     if (message.feeRate !== 0) {
@@ -21456,10 +18934,10 @@ export const PolicyUpdateRequest = {
     if (message.timeLockDelta !== 0) {
       writer.uint32(40).uint32(message.timeLockDelta);
     }
-    if (message.maxHtlcMsat !== '0') {
+    if (message.maxHtlcMsat !== "0") {
       writer.uint32(48).uint64(message.maxHtlcMsat);
     }
-    if (message.minHtlcMsat !== '0') {
+    if (message.minHtlcMsat !== "0") {
       writer.uint32(56).uint64(message.minHtlcMsat);
     }
     if (message.minHtlcMsatSpecified === true) {
@@ -21513,20 +18991,14 @@ export const PolicyUpdateRequest = {
   fromJSON(object: any): PolicyUpdateRequest {
     return {
       global: isSet(object.global) ? Boolean(object.global) : undefined,
-      chanPoint: isSet(object.chanPoint)
-        ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined,
-      baseFeeMsat: isSet(object.baseFeeMsat) ? String(object.baseFeeMsat) : '0',
+      chanPoint: isSet(object.chanPoint) ? ChannelPoint.fromJSON(object.chanPoint) : undefined,
+      baseFeeMsat: isSet(object.baseFeeMsat) ? String(object.baseFeeMsat) : "0",
       feeRate: isSet(object.feeRate) ? Number(object.feeRate) : 0,
       feeRatePpm: isSet(object.feeRatePpm) ? Number(object.feeRatePpm) : 0,
-      timeLockDelta: isSet(object.timeLockDelta)
-        ? Number(object.timeLockDelta)
-        : 0,
-      maxHtlcMsat: isSet(object.maxHtlcMsat) ? String(object.maxHtlcMsat) : '0',
-      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : '0',
-      minHtlcMsatSpecified: isSet(object.minHtlcMsatSpecified)
-        ? Boolean(object.minHtlcMsatSpecified)
-        : false,
+      timeLockDelta: isSet(object.timeLockDelta) ? Number(object.timeLockDelta) : 0,
+      maxHtlcMsat: isSet(object.maxHtlcMsat) ? String(object.maxHtlcMsat) : "0",
+      minHtlcMsat: isSet(object.minHtlcMsat) ? String(object.minHtlcMsat) : "0",
+      minHtlcMsatSpecified: isSet(object.minHtlcMsatSpecified) ? Boolean(object.minHtlcMsatSpecified) : false,
     };
   },
 
@@ -21534,59 +19006,47 @@ export const PolicyUpdateRequest = {
     const obj: any = {};
     message.global !== undefined && (obj.global = message.global);
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
-        ? ChannelPoint.toJSON(message.chanPoint)
-        : undefined);
-    message.baseFeeMsat !== undefined &&
-      (obj.baseFeeMsat = message.baseFeeMsat);
+      (obj.chanPoint = message.chanPoint ? ChannelPoint.toJSON(message.chanPoint) : undefined);
+    message.baseFeeMsat !== undefined && (obj.baseFeeMsat = message.baseFeeMsat);
     message.feeRate !== undefined && (obj.feeRate = message.feeRate);
-    message.feeRatePpm !== undefined &&
-      (obj.feeRatePpm = Math.round(message.feeRatePpm));
-    message.timeLockDelta !== undefined &&
-      (obj.timeLockDelta = Math.round(message.timeLockDelta));
-    message.maxHtlcMsat !== undefined &&
-      (obj.maxHtlcMsat = message.maxHtlcMsat);
-    message.minHtlcMsat !== undefined &&
-      (obj.minHtlcMsat = message.minHtlcMsat);
-    message.minHtlcMsatSpecified !== undefined &&
-      (obj.minHtlcMsatSpecified = message.minHtlcMsatSpecified);
+    message.feeRatePpm !== undefined && (obj.feeRatePpm = Math.round(message.feeRatePpm));
+    message.timeLockDelta !== undefined && (obj.timeLockDelta = Math.round(message.timeLockDelta));
+    message.maxHtlcMsat !== undefined && (obj.maxHtlcMsat = message.maxHtlcMsat);
+    message.minHtlcMsat !== undefined && (obj.minHtlcMsat = message.minHtlcMsat);
+    message.minHtlcMsatSpecified !== undefined && (obj.minHtlcMsatSpecified = message.minHtlcMsatSpecified);
     return obj;
   },
 
   fromPartial(object: DeepPartial<PolicyUpdateRequest>): PolicyUpdateRequest {
     const message = createBasePolicyUpdateRequest();
     message.global = object.global ?? undefined;
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
-        ? ChannelPoint.fromPartial(object.chanPoint)
-        : undefined;
-    message.baseFeeMsat = object.baseFeeMsat ?? '0';
+    message.chanPoint = (object.chanPoint !== undefined && object.chanPoint !== null)
+      ? ChannelPoint.fromPartial(object.chanPoint)
+      : undefined;
+    message.baseFeeMsat = object.baseFeeMsat ?? "0";
     message.feeRate = object.feeRate ?? 0;
     message.feeRatePpm = object.feeRatePpm ?? 0;
     message.timeLockDelta = object.timeLockDelta ?? 0;
-    message.maxHtlcMsat = object.maxHtlcMsat ?? '0';
-    message.minHtlcMsat = object.minHtlcMsat ?? '0';
+    message.maxHtlcMsat = object.maxHtlcMsat ?? "0";
+    message.minHtlcMsat = object.minHtlcMsat ?? "0";
     message.minHtlcMsatSpecified = object.minHtlcMsatSpecified ?? false;
     return message;
   },
 };
 
 function createBaseFailedUpdate(): FailedUpdate {
-  return {outpoint: undefined, reason: 0, updateError: ''};
+  return { outpoint: undefined, reason: 0, updateError: "" };
 }
 
 export const FailedUpdate = {
-  encode(
-    message: FailedUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: FailedUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.outpoint !== undefined) {
       OutPoint.encode(message.outpoint, writer.uint32(10).fork()).ldelim();
     }
     if (message.reason !== 0) {
       writer.uint32(16).int32(message.reason);
     }
-    if (message.updateError !== '') {
+    if (message.updateError !== "") {
       writer.uint32(26).string(message.updateError);
     }
     return writer;
@@ -21618,58 +19078,44 @@ export const FailedUpdate = {
 
   fromJSON(object: any): FailedUpdate {
     return {
-      outpoint: isSet(object.outpoint)
-        ? OutPoint.fromJSON(object.outpoint)
-        : undefined,
+      outpoint: isSet(object.outpoint) ? OutPoint.fromJSON(object.outpoint) : undefined,
       reason: isSet(object.reason) ? updateFailureFromJSON(object.reason) : 0,
-      updateError: isSet(object.updateError) ? String(object.updateError) : '',
+      updateError: isSet(object.updateError) ? String(object.updateError) : "",
     };
   },
 
   toJSON(message: FailedUpdate): unknown {
     const obj: any = {};
-    message.outpoint !== undefined &&
-      (obj.outpoint = message.outpoint
-        ? OutPoint.toJSON(message.outpoint)
-        : undefined);
-    message.reason !== undefined &&
-      (obj.reason = updateFailureToJSON(message.reason));
-    message.updateError !== undefined &&
-      (obj.updateError = message.updateError);
+    message.outpoint !== undefined && (obj.outpoint = message.outpoint ? OutPoint.toJSON(message.outpoint) : undefined);
+    message.reason !== undefined && (obj.reason = updateFailureToJSON(message.reason));
+    message.updateError !== undefined && (obj.updateError = message.updateError);
     return obj;
   },
 
   fromPartial(object: DeepPartial<FailedUpdate>): FailedUpdate {
     const message = createBaseFailedUpdate();
-    message.outpoint =
-      object.outpoint !== undefined && object.outpoint !== null
-        ? OutPoint.fromPartial(object.outpoint)
-        : undefined;
+    message.outpoint = (object.outpoint !== undefined && object.outpoint !== null)
+      ? OutPoint.fromPartial(object.outpoint)
+      : undefined;
     message.reason = object.reason ?? 0;
-    message.updateError = object.updateError ?? '';
+    message.updateError = object.updateError ?? "";
     return message;
   },
 };
 
 function createBasePolicyUpdateResponse(): PolicyUpdateResponse {
-  return {failedUpdates: []};
+  return { failedUpdates: [] };
 }
 
 export const PolicyUpdateResponse = {
-  encode(
-    message: PolicyUpdateResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: PolicyUpdateResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.failedUpdates) {
       FailedUpdate.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): PolicyUpdateResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): PolicyUpdateResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBasePolicyUpdateResponse();
@@ -21677,9 +19123,7 @@ export const PolicyUpdateResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.failedUpdates.push(
-            FailedUpdate.decode(reader, reader.uint32()),
-          );
+          message.failedUpdates.push(FailedUpdate.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -21700,9 +19144,7 @@ export const PolicyUpdateResponse = {
   toJSON(message: PolicyUpdateResponse): unknown {
     const obj: any = {};
     if (message.failedUpdates) {
-      obj.failedUpdates = message.failedUpdates.map((e) =>
-        e ? FailedUpdate.toJSON(e) : undefined,
-      );
+      obj.failedUpdates = message.failedUpdates.map((e) => e ? FailedUpdate.toJSON(e) : undefined);
     } else {
       obj.failedUpdates = [];
     }
@@ -21711,25 +19153,21 @@ export const PolicyUpdateResponse = {
 
   fromPartial(object: DeepPartial<PolicyUpdateResponse>): PolicyUpdateResponse {
     const message = createBasePolicyUpdateResponse();
-    message.failedUpdates =
-      object.failedUpdates?.map((e) => FailedUpdate.fromPartial(e)) || [];
+    message.failedUpdates = object.failedUpdates?.map((e) => FailedUpdate.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseForwardingHistoryRequest(): ForwardingHistoryRequest {
-  return {startTime: '0', endTime: '0', indexOffset: 0, numMaxEvents: 0};
+  return { startTime: "0", endTime: "0", indexOffset: 0, numMaxEvents: 0 };
 }
 
 export const ForwardingHistoryRequest = {
-  encode(
-    message: ForwardingHistoryRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.startTime !== '0') {
+  encode(message: ForwardingHistoryRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.startTime !== "0") {
       writer.uint32(8).uint64(message.startTime);
     }
-    if (message.endTime !== '0') {
+    if (message.endTime !== "0") {
       writer.uint32(16).uint64(message.endTime);
     }
     if (message.indexOffset !== 0) {
@@ -21741,10 +19179,7 @@ export const ForwardingHistoryRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ForwardingHistoryRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ForwardingHistoryRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseForwardingHistoryRequest();
@@ -21773,12 +19208,10 @@ export const ForwardingHistoryRequest = {
 
   fromJSON(object: any): ForwardingHistoryRequest {
     return {
-      startTime: isSet(object.startTime) ? String(object.startTime) : '0',
-      endTime: isSet(object.endTime) ? String(object.endTime) : '0',
+      startTime: isSet(object.startTime) ? String(object.startTime) : "0",
+      endTime: isSet(object.endTime) ? String(object.endTime) : "0",
       indexOffset: isSet(object.indexOffset) ? Number(object.indexOffset) : 0,
-      numMaxEvents: isSet(object.numMaxEvents)
-        ? Number(object.numMaxEvents)
-        : 0,
+      numMaxEvents: isSet(object.numMaxEvents) ? Number(object.numMaxEvents) : 0,
     };
   },
 
@@ -21786,19 +19219,15 @@ export const ForwardingHistoryRequest = {
     const obj: any = {};
     message.startTime !== undefined && (obj.startTime = message.startTime);
     message.endTime !== undefined && (obj.endTime = message.endTime);
-    message.indexOffset !== undefined &&
-      (obj.indexOffset = Math.round(message.indexOffset));
-    message.numMaxEvents !== undefined &&
-      (obj.numMaxEvents = Math.round(message.numMaxEvents));
+    message.indexOffset !== undefined && (obj.indexOffset = Math.round(message.indexOffset));
+    message.numMaxEvents !== undefined && (obj.numMaxEvents = Math.round(message.numMaxEvents));
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ForwardingHistoryRequest>,
-  ): ForwardingHistoryRequest {
+  fromPartial(object: DeepPartial<ForwardingHistoryRequest>): ForwardingHistoryRequest {
     const message = createBaseForwardingHistoryRequest();
-    message.startTime = object.startTime ?? '0';
-    message.endTime = object.endTime ?? '0';
+    message.startTime = object.startTime ?? "0";
+    message.endTime = object.endTime ?? "0";
     message.indexOffset = object.indexOffset ?? 0;
     message.numMaxEvents = object.numMaxEvents ?? 0;
     return message;
@@ -21807,52 +19236,49 @@ export const ForwardingHistoryRequest = {
 
 function createBaseForwardingEvent(): ForwardingEvent {
   return {
-    timestamp: '0',
-    chanIdIn: '0',
-    chanIdOut: '0',
-    amtIn: '0',
-    amtOut: '0',
-    fee: '0',
-    feeMsat: '0',
-    amtInMsat: '0',
-    amtOutMsat: '0',
-    timestampNs: '0',
+    timestamp: "0",
+    chanIdIn: "0",
+    chanIdOut: "0",
+    amtIn: "0",
+    amtOut: "0",
+    fee: "0",
+    feeMsat: "0",
+    amtInMsat: "0",
+    amtOutMsat: "0",
+    timestampNs: "0",
   };
 }
 
 export const ForwardingEvent = {
-  encode(
-    message: ForwardingEvent,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.timestamp !== '0') {
+  encode(message: ForwardingEvent, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.timestamp !== "0") {
       writer.uint32(8).uint64(message.timestamp);
     }
-    if (message.chanIdIn !== '0') {
+    if (message.chanIdIn !== "0") {
       writer.uint32(16).uint64(message.chanIdIn);
     }
-    if (message.chanIdOut !== '0') {
+    if (message.chanIdOut !== "0") {
       writer.uint32(32).uint64(message.chanIdOut);
     }
-    if (message.amtIn !== '0') {
+    if (message.amtIn !== "0") {
       writer.uint32(40).uint64(message.amtIn);
     }
-    if (message.amtOut !== '0') {
+    if (message.amtOut !== "0") {
       writer.uint32(48).uint64(message.amtOut);
     }
-    if (message.fee !== '0') {
+    if (message.fee !== "0") {
       writer.uint32(56).uint64(message.fee);
     }
-    if (message.feeMsat !== '0') {
+    if (message.feeMsat !== "0") {
       writer.uint32(64).uint64(message.feeMsat);
     }
-    if (message.amtInMsat !== '0') {
+    if (message.amtInMsat !== "0") {
       writer.uint32(72).uint64(message.amtInMsat);
     }
-    if (message.amtOutMsat !== '0') {
+    if (message.amtOutMsat !== "0") {
       writer.uint32(80).uint64(message.amtOutMsat);
     }
-    if (message.timestampNs !== '0') {
+    if (message.timestampNs !== "0") {
       writer.uint32(88).uint64(message.timestampNs);
     }
     return writer;
@@ -21905,16 +19331,16 @@ export const ForwardingEvent = {
 
   fromJSON(object: any): ForwardingEvent {
     return {
-      timestamp: isSet(object.timestamp) ? String(object.timestamp) : '0',
-      chanIdIn: isSet(object.chanIdIn) ? String(object.chanIdIn) : '0',
-      chanIdOut: isSet(object.chanIdOut) ? String(object.chanIdOut) : '0',
-      amtIn: isSet(object.amtIn) ? String(object.amtIn) : '0',
-      amtOut: isSet(object.amtOut) ? String(object.amtOut) : '0',
-      fee: isSet(object.fee) ? String(object.fee) : '0',
-      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : '0',
-      amtInMsat: isSet(object.amtInMsat) ? String(object.amtInMsat) : '0',
-      amtOutMsat: isSet(object.amtOutMsat) ? String(object.amtOutMsat) : '0',
-      timestampNs: isSet(object.timestampNs) ? String(object.timestampNs) : '0',
+      timestamp: isSet(object.timestamp) ? String(object.timestamp) : "0",
+      chanIdIn: isSet(object.chanIdIn) ? String(object.chanIdIn) : "0",
+      chanIdOut: isSet(object.chanIdOut) ? String(object.chanIdOut) : "0",
+      amtIn: isSet(object.amtIn) ? String(object.amtIn) : "0",
+      amtOut: isSet(object.amtOut) ? String(object.amtOut) : "0",
+      fee: isSet(object.fee) ? String(object.fee) : "0",
+      feeMsat: isSet(object.feeMsat) ? String(object.feeMsat) : "0",
+      amtInMsat: isSet(object.amtInMsat) ? String(object.amtInMsat) : "0",
+      amtOutMsat: isSet(object.amtOutMsat) ? String(object.amtOutMsat) : "0",
+      timestampNs: isSet(object.timestampNs) ? String(object.timestampNs) : "0",
     };
   },
 
@@ -21929,36 +19355,32 @@ export const ForwardingEvent = {
     message.feeMsat !== undefined && (obj.feeMsat = message.feeMsat);
     message.amtInMsat !== undefined && (obj.amtInMsat = message.amtInMsat);
     message.amtOutMsat !== undefined && (obj.amtOutMsat = message.amtOutMsat);
-    message.timestampNs !== undefined &&
-      (obj.timestampNs = message.timestampNs);
+    message.timestampNs !== undefined && (obj.timestampNs = message.timestampNs);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ForwardingEvent>): ForwardingEvent {
     const message = createBaseForwardingEvent();
-    message.timestamp = object.timestamp ?? '0';
-    message.chanIdIn = object.chanIdIn ?? '0';
-    message.chanIdOut = object.chanIdOut ?? '0';
-    message.amtIn = object.amtIn ?? '0';
-    message.amtOut = object.amtOut ?? '0';
-    message.fee = object.fee ?? '0';
-    message.feeMsat = object.feeMsat ?? '0';
-    message.amtInMsat = object.amtInMsat ?? '0';
-    message.amtOutMsat = object.amtOutMsat ?? '0';
-    message.timestampNs = object.timestampNs ?? '0';
+    message.timestamp = object.timestamp ?? "0";
+    message.chanIdIn = object.chanIdIn ?? "0";
+    message.chanIdOut = object.chanIdOut ?? "0";
+    message.amtIn = object.amtIn ?? "0";
+    message.amtOut = object.amtOut ?? "0";
+    message.fee = object.fee ?? "0";
+    message.feeMsat = object.feeMsat ?? "0";
+    message.amtInMsat = object.amtInMsat ?? "0";
+    message.amtOutMsat = object.amtOutMsat ?? "0";
+    message.timestampNs = object.timestampNs ?? "0";
     return message;
   },
 };
 
 function createBaseForwardingHistoryResponse(): ForwardingHistoryResponse {
-  return {forwardingEvents: [], lastOffsetIndex: 0};
+  return { forwardingEvents: [], lastOffsetIndex: 0 };
 }
 
 export const ForwardingHistoryResponse = {
-  encode(
-    message: ForwardingHistoryResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ForwardingHistoryResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.forwardingEvents) {
       ForwardingEvent.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -21968,10 +19390,7 @@ export const ForwardingHistoryResponse = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ForwardingHistoryResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ForwardingHistoryResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseForwardingHistoryResponse();
@@ -21979,9 +19398,7 @@ export const ForwardingHistoryResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.forwardingEvents.push(
-            ForwardingEvent.decode(reader, reader.uint32()),
-          );
+          message.forwardingEvents.push(ForwardingEvent.decode(reader, reader.uint32()));
           break;
         case 2:
           message.lastOffsetIndex = reader.uint32();
@@ -21999,56 +19416,42 @@ export const ForwardingHistoryResponse = {
       forwardingEvents: Array.isArray(object?.forwardingEvents)
         ? object.forwardingEvents.map((e: any) => ForwardingEvent.fromJSON(e))
         : [],
-      lastOffsetIndex: isSet(object.lastOffsetIndex)
-        ? Number(object.lastOffsetIndex)
-        : 0,
+      lastOffsetIndex: isSet(object.lastOffsetIndex) ? Number(object.lastOffsetIndex) : 0,
     };
   },
 
   toJSON(message: ForwardingHistoryResponse): unknown {
     const obj: any = {};
     if (message.forwardingEvents) {
-      obj.forwardingEvents = message.forwardingEvents.map((e) =>
-        e ? ForwardingEvent.toJSON(e) : undefined,
-      );
+      obj.forwardingEvents = message.forwardingEvents.map((e) => e ? ForwardingEvent.toJSON(e) : undefined);
     } else {
       obj.forwardingEvents = [];
     }
-    message.lastOffsetIndex !== undefined &&
-      (obj.lastOffsetIndex = Math.round(message.lastOffsetIndex));
+    message.lastOffsetIndex !== undefined && (obj.lastOffsetIndex = Math.round(message.lastOffsetIndex));
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ForwardingHistoryResponse>,
-  ): ForwardingHistoryResponse {
+  fromPartial(object: DeepPartial<ForwardingHistoryResponse>): ForwardingHistoryResponse {
     const message = createBaseForwardingHistoryResponse();
-    message.forwardingEvents =
-      object.forwardingEvents?.map((e) => ForwardingEvent.fromPartial(e)) || [];
+    message.forwardingEvents = object.forwardingEvents?.map((e) => ForwardingEvent.fromPartial(e)) || [];
     message.lastOffsetIndex = object.lastOffsetIndex ?? 0;
     return message;
   },
 };
 
 function createBaseExportChannelBackupRequest(): ExportChannelBackupRequest {
-  return {chanPoint: undefined};
+  return { chanPoint: undefined };
 }
 
 export const ExportChannelBackupRequest = {
-  encode(
-    message: ExportChannelBackupRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ExportChannelBackupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ExportChannelBackupRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ExportChannelBackupRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseExportChannelBackupRequest();
@@ -22067,43 +19470,31 @@ export const ExportChannelBackupRequest = {
   },
 
   fromJSON(object: any): ExportChannelBackupRequest {
-    return {
-      chanPoint: isSet(object.chanPoint)
-        ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined,
-    };
+    return { chanPoint: isSet(object.chanPoint) ? ChannelPoint.fromJSON(object.chanPoint) : undefined };
   },
 
   toJSON(message: ExportChannelBackupRequest): unknown {
     const obj: any = {};
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
-        ? ChannelPoint.toJSON(message.chanPoint)
-        : undefined);
+      (obj.chanPoint = message.chanPoint ? ChannelPoint.toJSON(message.chanPoint) : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ExportChannelBackupRequest>,
-  ): ExportChannelBackupRequest {
+  fromPartial(object: DeepPartial<ExportChannelBackupRequest>): ExportChannelBackupRequest {
     const message = createBaseExportChannelBackupRequest();
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
-        ? ChannelPoint.fromPartial(object.chanPoint)
-        : undefined;
+    message.chanPoint = (object.chanPoint !== undefined && object.chanPoint !== null)
+      ? ChannelPoint.fromPartial(object.chanPoint)
+      : undefined;
     return message;
   },
 };
 
 function createBaseChannelBackup(): ChannelBackup {
-  return {chanPoint: undefined, chanBackup: new Uint8Array()};
+  return { chanPoint: undefined, chanBackup: new Uint8Array() };
 }
 
 export const ChannelBackup = {
-  encode(
-    message: ChannelBackup,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelBackup, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chanPoint !== undefined) {
       ChannelPoint.encode(message.chanPoint, writer.uint32(10).fork()).ldelim();
     }
@@ -22136,50 +19527,36 @@ export const ChannelBackup = {
 
   fromJSON(object: any): ChannelBackup {
     return {
-      chanPoint: isSet(object.chanPoint)
-        ? ChannelPoint.fromJSON(object.chanPoint)
-        : undefined,
-      chanBackup: isSet(object.chanBackup)
-        ? bytesFromBase64(object.chanBackup)
-        : new Uint8Array(),
+      chanPoint: isSet(object.chanPoint) ? ChannelPoint.fromJSON(object.chanPoint) : undefined,
+      chanBackup: isSet(object.chanBackup) ? bytesFromBase64(object.chanBackup) : new Uint8Array(),
     };
   },
 
   toJSON(message: ChannelBackup): unknown {
     const obj: any = {};
     message.chanPoint !== undefined &&
-      (obj.chanPoint = message.chanPoint
-        ? ChannelPoint.toJSON(message.chanPoint)
-        : undefined);
+      (obj.chanPoint = message.chanPoint ? ChannelPoint.toJSON(message.chanPoint) : undefined);
     message.chanBackup !== undefined &&
-      (obj.chanBackup = base64FromBytes(
-        message.chanBackup !== undefined
-          ? message.chanBackup
-          : new Uint8Array(),
-      ));
+      (obj.chanBackup = base64FromBytes(message.chanBackup !== undefined ? message.chanBackup : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<ChannelBackup>): ChannelBackup {
     const message = createBaseChannelBackup();
-    message.chanPoint =
-      object.chanPoint !== undefined && object.chanPoint !== null
-        ? ChannelPoint.fromPartial(object.chanPoint)
-        : undefined;
+    message.chanPoint = (object.chanPoint !== undefined && object.chanPoint !== null)
+      ? ChannelPoint.fromPartial(object.chanPoint)
+      : undefined;
     message.chanBackup = object.chanBackup ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseMultiChanBackup(): MultiChanBackup {
-  return {chanPoints: [], multiChanBackup: new Uint8Array()};
+  return { chanPoints: [], multiChanBackup: new Uint8Array() };
 }
 
 export const MultiChanBackup = {
-  encode(
-    message: MultiChanBackup,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: MultiChanBackup, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chanPoints) {
       ChannelPoint.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -22212,37 +19589,28 @@ export const MultiChanBackup = {
 
   fromJSON(object: any): MultiChanBackup {
     return {
-      chanPoints: Array.isArray(object?.chanPoints)
-        ? object.chanPoints.map((e: any) => ChannelPoint.fromJSON(e))
-        : [],
-      multiChanBackup: isSet(object.multiChanBackup)
-        ? bytesFromBase64(object.multiChanBackup)
-        : new Uint8Array(),
+      chanPoints: Array.isArray(object?.chanPoints) ? object.chanPoints.map((e: any) => ChannelPoint.fromJSON(e)) : [],
+      multiChanBackup: isSet(object.multiChanBackup) ? bytesFromBase64(object.multiChanBackup) : new Uint8Array(),
     };
   },
 
   toJSON(message: MultiChanBackup): unknown {
     const obj: any = {};
     if (message.chanPoints) {
-      obj.chanPoints = message.chanPoints.map((e) =>
-        e ? ChannelPoint.toJSON(e) : undefined,
-      );
+      obj.chanPoints = message.chanPoints.map((e) => e ? ChannelPoint.toJSON(e) : undefined);
     } else {
       obj.chanPoints = [];
     }
     message.multiChanBackup !== undefined &&
       (obj.multiChanBackup = base64FromBytes(
-        message.multiChanBackup !== undefined
-          ? message.multiChanBackup
-          : new Uint8Array(),
+        message.multiChanBackup !== undefined ? message.multiChanBackup : new Uint8Array(),
       ));
     return obj;
   },
 
   fromPartial(object: DeepPartial<MultiChanBackup>): MultiChanBackup {
     const message = createBaseMultiChanBackup();
-    message.chanPoints =
-      object.chanPoints?.map((e) => ChannelPoint.fromPartial(e)) || [];
+    message.chanPoints = object.chanPoints?.map((e) => ChannelPoint.fromPartial(e)) || [];
     message.multiChanBackup = object.multiChanBackup ?? new Uint8Array();
     return message;
   },
@@ -22253,17 +19621,11 @@ function createBaseChanBackupExportRequest(): ChanBackupExportRequest {
 }
 
 export const ChanBackupExportRequest = {
-  encode(
-    _: ChanBackupExportRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: ChanBackupExportRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChanBackupExportRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChanBackupExportRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChanBackupExportRequest();
@@ -22287,34 +19649,23 @@ export const ChanBackupExportRequest = {
     return obj;
   },
 
-  fromPartial(
-    _: DeepPartial<ChanBackupExportRequest>,
-  ): ChanBackupExportRequest {
+  fromPartial(_: DeepPartial<ChanBackupExportRequest>): ChanBackupExportRequest {
     const message = createBaseChanBackupExportRequest();
     return message;
   },
 };
 
 function createBaseChanBackupSnapshot(): ChanBackupSnapshot {
-  return {singleChanBackups: undefined, multiChanBackup: undefined};
+  return { singleChanBackups: undefined, multiChanBackup: undefined };
 }
 
 export const ChanBackupSnapshot = {
-  encode(
-    message: ChanBackupSnapshot,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChanBackupSnapshot, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.singleChanBackups !== undefined) {
-      ChannelBackups.encode(
-        message.singleChanBackups,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      ChannelBackups.encode(message.singleChanBackups, writer.uint32(10).fork()).ldelim();
     }
     if (message.multiChanBackup !== undefined) {
-      MultiChanBackup.encode(
-        message.multiChanBackup,
-        writer.uint32(18).fork(),
-      ).ldelim();
+      MultiChanBackup.encode(message.multiChanBackup, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
@@ -22327,16 +19678,10 @@ export const ChanBackupSnapshot = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.singleChanBackups = ChannelBackups.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.singleChanBackups = ChannelBackups.decode(reader, reader.uint32());
           break;
         case 2:
-          message.multiChanBackup = MultiChanBackup.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.multiChanBackup = MultiChanBackup.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -22351,9 +19696,7 @@ export const ChanBackupSnapshot = {
       singleChanBackups: isSet(object.singleChanBackups)
         ? ChannelBackups.fromJSON(object.singleChanBackups)
         : undefined,
-      multiChanBackup: isSet(object.multiChanBackup)
-        ? MultiChanBackup.fromJSON(object.multiChanBackup)
-        : undefined,
+      multiChanBackup: isSet(object.multiChanBackup) ? MultiChanBackup.fromJSON(object.multiChanBackup) : undefined,
     };
   },
 
@@ -22364,36 +19707,28 @@ export const ChanBackupSnapshot = {
         ? ChannelBackups.toJSON(message.singleChanBackups)
         : undefined);
     message.multiChanBackup !== undefined &&
-      (obj.multiChanBackup = message.multiChanBackup
-        ? MultiChanBackup.toJSON(message.multiChanBackup)
-        : undefined);
+      (obj.multiChanBackup = message.multiChanBackup ? MultiChanBackup.toJSON(message.multiChanBackup) : undefined);
     return obj;
   },
 
   fromPartial(object: DeepPartial<ChanBackupSnapshot>): ChanBackupSnapshot {
     const message = createBaseChanBackupSnapshot();
-    message.singleChanBackups =
-      object.singleChanBackups !== undefined &&
-      object.singleChanBackups !== null
-        ? ChannelBackups.fromPartial(object.singleChanBackups)
-        : undefined;
-    message.multiChanBackup =
-      object.multiChanBackup !== undefined && object.multiChanBackup !== null
-        ? MultiChanBackup.fromPartial(object.multiChanBackup)
-        : undefined;
+    message.singleChanBackups = (object.singleChanBackups !== undefined && object.singleChanBackups !== null)
+      ? ChannelBackups.fromPartial(object.singleChanBackups)
+      : undefined;
+    message.multiChanBackup = (object.multiChanBackup !== undefined && object.multiChanBackup !== null)
+      ? MultiChanBackup.fromPartial(object.multiChanBackup)
+      : undefined;
     return message;
   },
 };
 
 function createBaseChannelBackups(): ChannelBackups {
-  return {chanBackups: []};
+  return { chanBackups: [] };
 }
 
 export const ChannelBackups = {
-  encode(
-    message: ChannelBackups,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelBackups, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.chanBackups) {
       ChannelBackup.encode(v!, writer.uint32(10).fork()).ldelim();
     }
@@ -22408,9 +19743,7 @@ export const ChannelBackups = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.chanBackups.push(
-            ChannelBackup.decode(reader, reader.uint32()),
-          );
+          message.chanBackups.push(ChannelBackup.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -22431,9 +19764,7 @@ export const ChannelBackups = {
   toJSON(message: ChannelBackups): unknown {
     const obj: any = {};
     if (message.chanBackups) {
-      obj.chanBackups = message.chanBackups.map((e) =>
-        e ? ChannelBackup.toJSON(e) : undefined,
-      );
+      obj.chanBackups = message.chanBackups.map((e) => e ? ChannelBackup.toJSON(e) : undefined);
     } else {
       obj.chanBackups = [];
     }
@@ -22442,26 +19773,19 @@ export const ChannelBackups = {
 
   fromPartial(object: DeepPartial<ChannelBackups>): ChannelBackups {
     const message = createBaseChannelBackups();
-    message.chanBackups =
-      object.chanBackups?.map((e) => ChannelBackup.fromPartial(e)) || [];
+    message.chanBackups = object.chanBackups?.map((e) => ChannelBackup.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseRestoreChanBackupRequest(): RestoreChanBackupRequest {
-  return {chanBackups: undefined, multiChanBackup: undefined};
+  return { chanBackups: undefined, multiChanBackup: undefined };
 }
 
 export const RestoreChanBackupRequest = {
-  encode(
-    message: RestoreChanBackupRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: RestoreChanBackupRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.chanBackups !== undefined) {
-      ChannelBackups.encode(
-        message.chanBackups,
-        writer.uint32(10).fork(),
-      ).ldelim();
+      ChannelBackups.encode(message.chanBackups, writer.uint32(10).fork()).ldelim();
     }
     if (message.multiChanBackup !== undefined) {
       writer.uint32(18).bytes(message.multiChanBackup);
@@ -22469,10 +19793,7 @@ export const RestoreChanBackupRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): RestoreChanBackupRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): RestoreChanBackupRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRestoreChanBackupRequest();
@@ -22495,37 +19816,26 @@ export const RestoreChanBackupRequest = {
 
   fromJSON(object: any): RestoreChanBackupRequest {
     return {
-      chanBackups: isSet(object.chanBackups)
-        ? ChannelBackups.fromJSON(object.chanBackups)
-        : undefined,
-      multiChanBackup: isSet(object.multiChanBackup)
-        ? bytesFromBase64(object.multiChanBackup)
-        : undefined,
+      chanBackups: isSet(object.chanBackups) ? ChannelBackups.fromJSON(object.chanBackups) : undefined,
+      multiChanBackup: isSet(object.multiChanBackup) ? bytesFromBase64(object.multiChanBackup) : undefined,
     };
   },
 
   toJSON(message: RestoreChanBackupRequest): unknown {
     const obj: any = {};
     message.chanBackups !== undefined &&
-      (obj.chanBackups = message.chanBackups
-        ? ChannelBackups.toJSON(message.chanBackups)
-        : undefined);
-    message.multiChanBackup !== undefined &&
-      (obj.multiChanBackup =
-        message.multiChanBackup !== undefined
-          ? base64FromBytes(message.multiChanBackup)
-          : undefined);
+      (obj.chanBackups = message.chanBackups ? ChannelBackups.toJSON(message.chanBackups) : undefined);
+    message.multiChanBackup !== undefined && (obj.multiChanBackup = message.multiChanBackup !== undefined
+      ? base64FromBytes(message.multiChanBackup)
+      : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<RestoreChanBackupRequest>,
-  ): RestoreChanBackupRequest {
+  fromPartial(object: DeepPartial<RestoreChanBackupRequest>): RestoreChanBackupRequest {
     const message = createBaseRestoreChanBackupRequest();
-    message.chanBackups =
-      object.chanBackups !== undefined && object.chanBackups !== null
-        ? ChannelBackups.fromPartial(object.chanBackups)
-        : undefined;
+    message.chanBackups = (object.chanBackups !== undefined && object.chanBackups !== null)
+      ? ChannelBackups.fromPartial(object.chanBackups)
+      : undefined;
     message.multiChanBackup = object.multiChanBackup ?? undefined;
     return message;
   },
@@ -22536,17 +19846,11 @@ function createBaseRestoreBackupResponse(): RestoreBackupResponse {
 }
 
 export const RestoreBackupResponse = {
-  encode(
-    _: RestoreBackupResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: RestoreBackupResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): RestoreBackupResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): RestoreBackupResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRestoreBackupResponse();
@@ -22581,17 +19885,11 @@ function createBaseChannelBackupSubscription(): ChannelBackupSubscription {
 }
 
 export const ChannelBackupSubscription = {
-  encode(
-    _: ChannelBackupSubscription,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: ChannelBackupSubscription, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChannelBackupSubscription {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChannelBackupSubscription {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChannelBackupSubscription();
@@ -22615,9 +19913,7 @@ export const ChannelBackupSubscription = {
     return obj;
   },
 
-  fromPartial(
-    _: DeepPartial<ChannelBackupSubscription>,
-  ): ChannelBackupSubscription {
+  fromPartial(_: DeepPartial<ChannelBackupSubscription>): ChannelBackupSubscription {
     const message = createBaseChannelBackupSubscription();
     return message;
   },
@@ -22628,17 +19924,11 @@ function createBaseVerifyChanBackupResponse(): VerifyChanBackupResponse {
 }
 
 export const VerifyChanBackupResponse = {
-  encode(
-    _: VerifyChanBackupResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: VerifyChanBackupResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): VerifyChanBackupResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): VerifyChanBackupResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseVerifyChanBackupResponse();
@@ -22662,27 +19952,22 @@ export const VerifyChanBackupResponse = {
     return obj;
   },
 
-  fromPartial(
-    _: DeepPartial<VerifyChanBackupResponse>,
-  ): VerifyChanBackupResponse {
+  fromPartial(_: DeepPartial<VerifyChanBackupResponse>): VerifyChanBackupResponse {
     const message = createBaseVerifyChanBackupResponse();
     return message;
   },
 };
 
 function createBaseMacaroonPermission(): MacaroonPermission {
-  return {entity: '', action: ''};
+  return { entity: "", action: "" };
 }
 
 export const MacaroonPermission = {
-  encode(
-    message: MacaroonPermission,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.entity !== '') {
+  encode(message: MacaroonPermission, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.entity !== "") {
       writer.uint32(10).string(message.entity);
     }
-    if (message.action !== '') {
+    if (message.action !== "") {
       writer.uint32(18).string(message.action);
     }
     return writer;
@@ -22711,8 +19996,8 @@ export const MacaroonPermission = {
 
   fromJSON(object: any): MacaroonPermission {
     return {
-      entity: isSet(object.entity) ? String(object.entity) : '',
-      action: isSet(object.action) ? String(object.action) : '',
+      entity: isSet(object.entity) ? String(object.entity) : "",
+      action: isSet(object.action) ? String(object.action) : "",
     };
   },
 
@@ -22725,25 +20010,22 @@ export const MacaroonPermission = {
 
   fromPartial(object: DeepPartial<MacaroonPermission>): MacaroonPermission {
     const message = createBaseMacaroonPermission();
-    message.entity = object.entity ?? '';
-    message.action = object.action ?? '';
+    message.entity = object.entity ?? "";
+    message.action = object.action ?? "";
     return message;
   },
 };
 
 function createBaseBakeMacaroonRequest(): BakeMacaroonRequest {
-  return {permissions: [], rootKeyId: '0', allowExternalPermissions: false};
+  return { permissions: [], rootKeyId: "0", allowExternalPermissions: false };
 }
 
 export const BakeMacaroonRequest = {
-  encode(
-    message: BakeMacaroonRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: BakeMacaroonRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.permissions) {
       MacaroonPermission.encode(v!, writer.uint32(10).fork()).ldelim();
     }
-    if (message.rootKeyId !== '0') {
+    if (message.rootKeyId !== "0") {
       writer.uint32(16).uint64(message.rootKeyId);
     }
     if (message.allowExternalPermissions === true) {
@@ -22760,9 +20042,7 @@ export const BakeMacaroonRequest = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.permissions.push(
-            MacaroonPermission.decode(reader, reader.uint32()),
-          );
+          message.permissions.push(MacaroonPermission.decode(reader, reader.uint32()));
           break;
         case 2:
           message.rootKeyId = longToString(reader.uint64() as Long);
@@ -22783,7 +20063,7 @@ export const BakeMacaroonRequest = {
       permissions: Array.isArray(object?.permissions)
         ? object.permissions.map((e: any) => MacaroonPermission.fromJSON(e))
         : [],
-      rootKeyId: isSet(object.rootKeyId) ? String(object.rootKeyId) : '0',
+      rootKeyId: isSet(object.rootKeyId) ? String(object.rootKeyId) : "0",
       allowExternalPermissions: isSet(object.allowExternalPermissions)
         ? Boolean(object.allowExternalPermissions)
         : false,
@@ -22793,47 +20073,37 @@ export const BakeMacaroonRequest = {
   toJSON(message: BakeMacaroonRequest): unknown {
     const obj: any = {};
     if (message.permissions) {
-      obj.permissions = message.permissions.map((e) =>
-        e ? MacaroonPermission.toJSON(e) : undefined,
-      );
+      obj.permissions = message.permissions.map((e) => e ? MacaroonPermission.toJSON(e) : undefined);
     } else {
       obj.permissions = [];
     }
     message.rootKeyId !== undefined && (obj.rootKeyId = message.rootKeyId);
-    message.allowExternalPermissions !== undefined &&
-      (obj.allowExternalPermissions = message.allowExternalPermissions);
+    message.allowExternalPermissions !== undefined && (obj.allowExternalPermissions = message.allowExternalPermissions);
     return obj;
   },
 
   fromPartial(object: DeepPartial<BakeMacaroonRequest>): BakeMacaroonRequest {
     const message = createBaseBakeMacaroonRequest();
-    message.permissions =
-      object.permissions?.map((e) => MacaroonPermission.fromPartial(e)) || [];
-    message.rootKeyId = object.rootKeyId ?? '0';
+    message.permissions = object.permissions?.map((e) => MacaroonPermission.fromPartial(e)) || [];
+    message.rootKeyId = object.rootKeyId ?? "0";
     message.allowExternalPermissions = object.allowExternalPermissions ?? false;
     return message;
   },
 };
 
 function createBaseBakeMacaroonResponse(): BakeMacaroonResponse {
-  return {macaroon: ''};
+  return { macaroon: "" };
 }
 
 export const BakeMacaroonResponse = {
-  encode(
-    message: BakeMacaroonResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.macaroon !== '') {
+  encode(message: BakeMacaroonResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.macaroon !== "") {
       writer.uint32(10).string(message.macaroon);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): BakeMacaroonResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): BakeMacaroonResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseBakeMacaroonResponse();
@@ -22852,9 +20122,7 @@ export const BakeMacaroonResponse = {
   },
 
   fromJSON(object: any): BakeMacaroonResponse {
-    return {
-      macaroon: isSet(object.macaroon) ? String(object.macaroon) : '',
-    };
+    return { macaroon: isSet(object.macaroon) ? String(object.macaroon) : "" };
   },
 
   toJSON(message: BakeMacaroonResponse): unknown {
@@ -22865,7 +20133,7 @@ export const BakeMacaroonResponse = {
 
   fromPartial(object: DeepPartial<BakeMacaroonResponse>): BakeMacaroonResponse {
     const message = createBaseBakeMacaroonResponse();
-    message.macaroon = object.macaroon ?? '';
+    message.macaroon = object.macaroon ?? "";
     return message;
   },
 };
@@ -22875,17 +20143,11 @@ function createBaseListMacaroonIDsRequest(): ListMacaroonIDsRequest {
 }
 
 export const ListMacaroonIDsRequest = {
-  encode(
-    _: ListMacaroonIDsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: ListMacaroonIDsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ListMacaroonIDsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListMacaroonIDsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListMacaroonIDsRequest();
@@ -22916,14 +20178,11 @@ export const ListMacaroonIDsRequest = {
 };
 
 function createBaseListMacaroonIDsResponse(): ListMacaroonIDsResponse {
-  return {rootKeyIds: []};
+  return { rootKeyIds: [] };
 }
 
 export const ListMacaroonIDsResponse = {
-  encode(
-    message: ListMacaroonIDsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListMacaroonIDsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     writer.uint32(10).fork();
     for (const v of message.rootKeyIds) {
       writer.uint64(v);
@@ -22932,10 +20191,7 @@ export const ListMacaroonIDsResponse = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ListMacaroonIDsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListMacaroonIDsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListMacaroonIDsResponse();
@@ -22961,11 +20217,7 @@ export const ListMacaroonIDsResponse = {
   },
 
   fromJSON(object: any): ListMacaroonIDsResponse {
-    return {
-      rootKeyIds: Array.isArray(object?.rootKeyIds)
-        ? object.rootKeyIds.map((e: any) => String(e))
-        : [],
-    };
+    return { rootKeyIds: Array.isArray(object?.rootKeyIds) ? object.rootKeyIds.map((e: any) => String(e)) : [] };
   },
 
   toJSON(message: ListMacaroonIDsResponse): unknown {
@@ -22978,9 +20230,7 @@ export const ListMacaroonIDsResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ListMacaroonIDsResponse>,
-  ): ListMacaroonIDsResponse {
+  fromPartial(object: DeepPartial<ListMacaroonIDsResponse>): ListMacaroonIDsResponse {
     const message = createBaseListMacaroonIDsResponse();
     message.rootKeyIds = object.rootKeyIds?.map((e) => e) || [];
     return message;
@@ -22988,24 +20238,18 @@ export const ListMacaroonIDsResponse = {
 };
 
 function createBaseDeleteMacaroonIDRequest(): DeleteMacaroonIDRequest {
-  return {rootKeyId: '0'};
+  return { rootKeyId: "0" };
 }
 
 export const DeleteMacaroonIDRequest = {
-  encode(
-    message: DeleteMacaroonIDRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.rootKeyId !== '0') {
+  encode(message: DeleteMacaroonIDRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.rootKeyId !== "0") {
       writer.uint32(8).uint64(message.rootKeyId);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DeleteMacaroonIDRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteMacaroonIDRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteMacaroonIDRequest();
@@ -23024,9 +20268,7 @@ export const DeleteMacaroonIDRequest = {
   },
 
   fromJSON(object: any): DeleteMacaroonIDRequest {
-    return {
-      rootKeyId: isSet(object.rootKeyId) ? String(object.rootKeyId) : '0',
-    };
+    return { rootKeyId: isSet(object.rootKeyId) ? String(object.rootKeyId) : "0" };
   },
 
   toJSON(message: DeleteMacaroonIDRequest): unknown {
@@ -23035,34 +20277,26 @@ export const DeleteMacaroonIDRequest = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<DeleteMacaroonIDRequest>,
-  ): DeleteMacaroonIDRequest {
+  fromPartial(object: DeepPartial<DeleteMacaroonIDRequest>): DeleteMacaroonIDRequest {
     const message = createBaseDeleteMacaroonIDRequest();
-    message.rootKeyId = object.rootKeyId ?? '0';
+    message.rootKeyId = object.rootKeyId ?? "0";
     return message;
   },
 };
 
 function createBaseDeleteMacaroonIDResponse(): DeleteMacaroonIDResponse {
-  return {deleted: false};
+  return { deleted: false };
 }
 
 export const DeleteMacaroonIDResponse = {
-  encode(
-    message: DeleteMacaroonIDResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: DeleteMacaroonIDResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.deleted === true) {
       writer.uint32(8).bool(message.deleted);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): DeleteMacaroonIDResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): DeleteMacaroonIDResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseDeleteMacaroonIDResponse();
@@ -23081,9 +20315,7 @@ export const DeleteMacaroonIDResponse = {
   },
 
   fromJSON(object: any): DeleteMacaroonIDResponse {
-    return {
-      deleted: isSet(object.deleted) ? Boolean(object.deleted) : false,
-    };
+    return { deleted: isSet(object.deleted) ? Boolean(object.deleted) : false };
   },
 
   toJSON(message: DeleteMacaroonIDResponse): unknown {
@@ -23092,9 +20324,7 @@ export const DeleteMacaroonIDResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<DeleteMacaroonIDResponse>,
-  ): DeleteMacaroonIDResponse {
+  fromPartial(object: DeepPartial<DeleteMacaroonIDResponse>): DeleteMacaroonIDResponse {
     const message = createBaseDeleteMacaroonIDResponse();
     message.deleted = object.deleted ?? false;
     return message;
@@ -23102,24 +20332,18 @@ export const DeleteMacaroonIDResponse = {
 };
 
 function createBaseMacaroonPermissionList(): MacaroonPermissionList {
-  return {permissions: []};
+  return { permissions: [] };
 }
 
 export const MacaroonPermissionList = {
-  encode(
-    message: MacaroonPermissionList,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: MacaroonPermissionList, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.permissions) {
       MacaroonPermission.encode(v!, writer.uint32(10).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): MacaroonPermissionList {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MacaroonPermissionList {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMacaroonPermissionList();
@@ -23127,9 +20351,7 @@ export const MacaroonPermissionList = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.permissions.push(
-            MacaroonPermission.decode(reader, reader.uint32()),
-          );
+          message.permissions.push(MacaroonPermission.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -23150,21 +20372,16 @@ export const MacaroonPermissionList = {
   toJSON(message: MacaroonPermissionList): unknown {
     const obj: any = {};
     if (message.permissions) {
-      obj.permissions = message.permissions.map((e) =>
-        e ? MacaroonPermission.toJSON(e) : undefined,
-      );
+      obj.permissions = message.permissions.map((e) => e ? MacaroonPermission.toJSON(e) : undefined);
     } else {
       obj.permissions = [];
     }
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<MacaroonPermissionList>,
-  ): MacaroonPermissionList {
+  fromPartial(object: DeepPartial<MacaroonPermissionList>): MacaroonPermissionList {
     const message = createBaseMacaroonPermissionList();
-    message.permissions =
-      object.permissions?.map((e) => MacaroonPermission.fromPartial(e)) || [];
+    message.permissions = object.permissions?.map((e) => MacaroonPermission.fromPartial(e)) || [];
     return message;
   },
 };
@@ -23174,17 +20391,11 @@ function createBaseListPermissionsRequest(): ListPermissionsRequest {
 }
 
 export const ListPermissionsRequest = {
-  encode(
-    _: ListPermissionsRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: ListPermissionsRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ListPermissionsRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListPermissionsRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsRequest();
@@ -23215,27 +20426,19 @@ export const ListPermissionsRequest = {
 };
 
 function createBaseListPermissionsResponse(): ListPermissionsResponse {
-  return {methodPermissions: {}};
+  return { methodPermissions: {} };
 }
 
 export const ListPermissionsResponse = {
-  encode(
-    message: ListPermissionsResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ListPermissionsResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     Object.entries(message.methodPermissions).forEach(([key, value]) => {
-      ListPermissionsResponse_MethodPermissionsEntry.encode(
-        {key: key as any, value},
-        writer.uint32(10).fork(),
-      ).ldelim();
+      ListPermissionsResponse_MethodPermissionsEntry.encode({ key: key as any, value }, writer.uint32(10).fork())
+        .ldelim();
     });
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ListPermissionsResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListPermissionsResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsResponse();
@@ -23243,10 +20446,7 @@ export const ListPermissionsResponse = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          const entry1 = ListPermissionsResponse_MethodPermissionsEntry.decode(
-            reader,
-            reader.uint32(),
-          );
+          const entry1 = ListPermissionsResponse_MethodPermissionsEntry.decode(reader, reader.uint32());
           if (entry1.value !== undefined) {
             message.methodPermissions[entry1.key] = entry1.value;
           }
@@ -23262,12 +20462,13 @@ export const ListPermissionsResponse = {
   fromJSON(object: any): ListPermissionsResponse {
     return {
       methodPermissions: isObject(object.methodPermissions)
-        ? Object.entries(object.methodPermissions).reduce<{
-            [key: string]: MacaroonPermissionList;
-          }>((acc, [key, value]) => {
+        ? Object.entries(object.methodPermissions).reduce<{ [key: string]: MacaroonPermissionList }>(
+          (acc, [key, value]) => {
             acc[key] = MacaroonPermissionList.fromJSON(value);
             return acc;
-          }, {})
+          },
+          {},
+        )
         : {},
     };
   },
@@ -23283,13 +20484,11 @@ export const ListPermissionsResponse = {
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ListPermissionsResponse>,
-  ): ListPermissionsResponse {
+  fromPartial(object: DeepPartial<ListPermissionsResponse>): ListPermissionsResponse {
     const message = createBaseListPermissionsResponse();
-    message.methodPermissions = Object.entries(
-      object.methodPermissions ?? {},
-    ).reduce<{[key: string]: MacaroonPermissionList}>((acc, [key, value]) => {
+    message.methodPermissions = Object.entries(object.methodPermissions ?? {}).reduce<
+      { [key: string]: MacaroonPermissionList }
+    >((acc, [key, value]) => {
       if (value !== undefined) {
         acc[key] = MacaroonPermissionList.fromPartial(value);
       }
@@ -23300,7 +20499,7 @@ export const ListPermissionsResponse = {
 };
 
 function createBaseListPermissionsResponse_MethodPermissionsEntry(): ListPermissionsResponse_MethodPermissionsEntry {
-  return {key: '', value: undefined};
+  return { key: "", value: undefined };
 }
 
 export const ListPermissionsResponse_MethodPermissionsEntry = {
@@ -23308,22 +20507,16 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
     message: ListPermissionsResponse_MethodPermissionsEntry,
     writer: _m0.Writer = _m0.Writer.create(),
   ): _m0.Writer {
-    if (message.key !== '') {
+    if (message.key !== "") {
       writer.uint32(10).string(message.key);
     }
     if (message.value !== undefined) {
-      MacaroonPermissionList.encode(
-        message.value,
-        writer.uint32(18).fork(),
-      ).ldelim();
+      MacaroonPermissionList.encode(message.value, writer.uint32(18).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ListPermissionsResponse_MethodPermissionsEntry {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListPermissionsResponse_MethodPermissionsEntry {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseListPermissionsResponse_MethodPermissionsEntry();
@@ -23334,10 +20527,7 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
           message.key = reader.string();
           break;
         case 2:
-          message.value = MacaroonPermissionList.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.value = MacaroonPermissionList.decode(reader, reader.uint32());
           break;
         default:
           reader.skipType(tag & 7);
@@ -23349,10 +20539,8 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
 
   fromJSON(object: any): ListPermissionsResponse_MethodPermissionsEntry {
     return {
-      key: isSet(object.key) ? String(object.key) : '',
-      value: isSet(object.value)
-        ? MacaroonPermissionList.fromJSON(object.value)
-        : undefined,
+      key: isSet(object.key) ? String(object.key) : "",
+      value: isSet(object.value) ? MacaroonPermissionList.fromJSON(object.value) : undefined,
     };
   },
 
@@ -23360,9 +20548,7 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
     const obj: any = {};
     message.key !== undefined && (obj.key = message.key);
     message.value !== undefined &&
-      (obj.value = message.value
-        ? MacaroonPermissionList.toJSON(message.value)
-        : undefined);
+      (obj.value = message.value ? MacaroonPermissionList.toJSON(message.value) : undefined);
     return obj;
   },
 
@@ -23370,11 +20556,10 @@ export const ListPermissionsResponse_MethodPermissionsEntry = {
     object: DeepPartial<ListPermissionsResponse_MethodPermissionsEntry>,
   ): ListPermissionsResponse_MethodPermissionsEntry {
     const message = createBaseListPermissionsResponse_MethodPermissionsEntry();
-    message.key = object.key ?? '';
-    message.value =
-      object.value !== undefined && object.value !== null
-        ? MacaroonPermissionList.fromPartial(object.value)
-        : undefined;
+    message.key = object.key ?? "";
+    message.value = (object.value !== undefined && object.value !== null)
+      ? MacaroonPermissionList.fromPartial(object.value)
+      : undefined;
     return message;
   },
 };
@@ -23383,7 +20568,7 @@ function createBaseFailure(): Failure {
   return {
     code: 0,
     channelUpdate: undefined,
-    htlcMsat: '0',
+    htlcMsat: "0",
     onionSha256: new Uint8Array(),
     cltvExpiry: 0,
     flags: 0,
@@ -23393,20 +20578,14 @@ function createBaseFailure(): Failure {
 }
 
 export const Failure = {
-  encode(
-    message: Failure,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: Failure, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.code !== 0) {
       writer.uint32(8).int32(message.code);
     }
     if (message.channelUpdate !== undefined) {
-      ChannelUpdate.encode(
-        message.channelUpdate,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      ChannelUpdate.encode(message.channelUpdate, writer.uint32(26).fork()).ldelim();
     }
-    if (message.htlcMsat !== '0') {
+    if (message.htlcMsat !== "0") {
       writer.uint32(32).uint64(message.htlcMsat);
     }
     if (message.onionSha256.length !== 0) {
@@ -23469,42 +20648,27 @@ export const Failure = {
   fromJSON(object: any): Failure {
     return {
       code: isSet(object.code) ? failure_FailureCodeFromJSON(object.code) : 0,
-      channelUpdate: isSet(object.channelUpdate)
-        ? ChannelUpdate.fromJSON(object.channelUpdate)
-        : undefined,
-      htlcMsat: isSet(object.htlcMsat) ? String(object.htlcMsat) : '0',
-      onionSha256: isSet(object.onionSha256)
-        ? bytesFromBase64(object.onionSha256)
-        : new Uint8Array(),
+      channelUpdate: isSet(object.channelUpdate) ? ChannelUpdate.fromJSON(object.channelUpdate) : undefined,
+      htlcMsat: isSet(object.htlcMsat) ? String(object.htlcMsat) : "0",
+      onionSha256: isSet(object.onionSha256) ? bytesFromBase64(object.onionSha256) : new Uint8Array(),
       cltvExpiry: isSet(object.cltvExpiry) ? Number(object.cltvExpiry) : 0,
       flags: isSet(object.flags) ? Number(object.flags) : 0,
-      failureSourceIndex: isSet(object.failureSourceIndex)
-        ? Number(object.failureSourceIndex)
-        : 0,
+      failureSourceIndex: isSet(object.failureSourceIndex) ? Number(object.failureSourceIndex) : 0,
       height: isSet(object.height) ? Number(object.height) : 0,
     };
   },
 
   toJSON(message: Failure): unknown {
     const obj: any = {};
-    message.code !== undefined &&
-      (obj.code = failure_FailureCodeToJSON(message.code));
+    message.code !== undefined && (obj.code = failure_FailureCodeToJSON(message.code));
     message.channelUpdate !== undefined &&
-      (obj.channelUpdate = message.channelUpdate
-        ? ChannelUpdate.toJSON(message.channelUpdate)
-        : undefined);
+      (obj.channelUpdate = message.channelUpdate ? ChannelUpdate.toJSON(message.channelUpdate) : undefined);
     message.htlcMsat !== undefined && (obj.htlcMsat = message.htlcMsat);
     message.onionSha256 !== undefined &&
-      (obj.onionSha256 = base64FromBytes(
-        message.onionSha256 !== undefined
-          ? message.onionSha256
-          : new Uint8Array(),
-      ));
-    message.cltvExpiry !== undefined &&
-      (obj.cltvExpiry = Math.round(message.cltvExpiry));
+      (obj.onionSha256 = base64FromBytes(message.onionSha256 !== undefined ? message.onionSha256 : new Uint8Array()));
+    message.cltvExpiry !== undefined && (obj.cltvExpiry = Math.round(message.cltvExpiry));
     message.flags !== undefined && (obj.flags = Math.round(message.flags));
-    message.failureSourceIndex !== undefined &&
-      (obj.failureSourceIndex = Math.round(message.failureSourceIndex));
+    message.failureSourceIndex !== undefined && (obj.failureSourceIndex = Math.round(message.failureSourceIndex));
     message.height !== undefined && (obj.height = Math.round(message.height));
     return obj;
   },
@@ -23512,11 +20676,10 @@ export const Failure = {
   fromPartial(object: DeepPartial<Failure>): Failure {
     const message = createBaseFailure();
     message.code = object.code ?? 0;
-    message.channelUpdate =
-      object.channelUpdate !== undefined && object.channelUpdate !== null
-        ? ChannelUpdate.fromPartial(object.channelUpdate)
-        : undefined;
-    message.htlcMsat = object.htlcMsat ?? '0';
+    message.channelUpdate = (object.channelUpdate !== undefined && object.channelUpdate !== null)
+      ? ChannelUpdate.fromPartial(object.channelUpdate)
+      : undefined;
+    message.htlcMsat = object.htlcMsat ?? "0";
     message.onionSha256 = object.onionSha256 ?? new Uint8Array();
     message.cltvExpiry = object.cltvExpiry ?? 0;
     message.flags = object.flags ?? 0;
@@ -23530,31 +20693,28 @@ function createBaseChannelUpdate(): ChannelUpdate {
   return {
     signature: new Uint8Array(),
     chainHash: new Uint8Array(),
-    chanId: '0',
+    chanId: "0",
     timestamp: 0,
     messageFlags: 0,
     channelFlags: 0,
     timeLockDelta: 0,
-    htlcMinimumMsat: '0',
+    htlcMinimumMsat: "0",
     baseFee: 0,
     feeRate: 0,
-    htlcMaximumMsat: '0',
+    htlcMaximumMsat: "0",
     extraOpaqueData: new Uint8Array(),
   };
 }
 
 export const ChannelUpdate = {
-  encode(
-    message: ChannelUpdate,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChannelUpdate, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.signature.length !== 0) {
       writer.uint32(10).bytes(message.signature);
     }
     if (message.chainHash.length !== 0) {
       writer.uint32(18).bytes(message.chainHash);
     }
-    if (message.chanId !== '0') {
+    if (message.chanId !== "0") {
       writer.uint32(24).uint64(message.chanId);
     }
     if (message.timestamp !== 0) {
@@ -23569,7 +20729,7 @@ export const ChannelUpdate = {
     if (message.timeLockDelta !== 0) {
       writer.uint32(48).uint32(message.timeLockDelta);
     }
-    if (message.htlcMinimumMsat !== '0') {
+    if (message.htlcMinimumMsat !== "0") {
       writer.uint32(56).uint64(message.htlcMinimumMsat);
     }
     if (message.baseFee !== 0) {
@@ -23578,7 +20738,7 @@ export const ChannelUpdate = {
     if (message.feeRate !== 0) {
       writer.uint32(72).uint32(message.feeRate);
     }
-    if (message.htlcMaximumMsat !== '0') {
+    if (message.htlcMaximumMsat !== "0") {
       writer.uint32(88).uint64(message.htlcMaximumMsat);
     }
     if (message.extraOpaqueData.length !== 0) {
@@ -23640,69 +20800,39 @@ export const ChannelUpdate = {
 
   fromJSON(object: any): ChannelUpdate {
     return {
-      signature: isSet(object.signature)
-        ? bytesFromBase64(object.signature)
-        : new Uint8Array(),
-      chainHash: isSet(object.chainHash)
-        ? bytesFromBase64(object.chainHash)
-        : new Uint8Array(),
-      chanId: isSet(object.chanId) ? String(object.chanId) : '0',
+      signature: isSet(object.signature) ? bytesFromBase64(object.signature) : new Uint8Array(),
+      chainHash: isSet(object.chainHash) ? bytesFromBase64(object.chainHash) : new Uint8Array(),
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
       timestamp: isSet(object.timestamp) ? Number(object.timestamp) : 0,
-      messageFlags: isSet(object.messageFlags)
-        ? Number(object.messageFlags)
-        : 0,
-      channelFlags: isSet(object.channelFlags)
-        ? Number(object.channelFlags)
-        : 0,
-      timeLockDelta: isSet(object.timeLockDelta)
-        ? Number(object.timeLockDelta)
-        : 0,
-      htlcMinimumMsat: isSet(object.htlcMinimumMsat)
-        ? String(object.htlcMinimumMsat)
-        : '0',
+      messageFlags: isSet(object.messageFlags) ? Number(object.messageFlags) : 0,
+      channelFlags: isSet(object.channelFlags) ? Number(object.channelFlags) : 0,
+      timeLockDelta: isSet(object.timeLockDelta) ? Number(object.timeLockDelta) : 0,
+      htlcMinimumMsat: isSet(object.htlcMinimumMsat) ? String(object.htlcMinimumMsat) : "0",
       baseFee: isSet(object.baseFee) ? Number(object.baseFee) : 0,
       feeRate: isSet(object.feeRate) ? Number(object.feeRate) : 0,
-      htlcMaximumMsat: isSet(object.htlcMaximumMsat)
-        ? String(object.htlcMaximumMsat)
-        : '0',
-      extraOpaqueData: isSet(object.extraOpaqueData)
-        ? bytesFromBase64(object.extraOpaqueData)
-        : new Uint8Array(),
+      htlcMaximumMsat: isSet(object.htlcMaximumMsat) ? String(object.htlcMaximumMsat) : "0",
+      extraOpaqueData: isSet(object.extraOpaqueData) ? bytesFromBase64(object.extraOpaqueData) : new Uint8Array(),
     };
   },
 
   toJSON(message: ChannelUpdate): unknown {
     const obj: any = {};
     message.signature !== undefined &&
-      (obj.signature = base64FromBytes(
-        message.signature !== undefined ? message.signature : new Uint8Array(),
-      ));
+      (obj.signature = base64FromBytes(message.signature !== undefined ? message.signature : new Uint8Array()));
     message.chainHash !== undefined &&
-      (obj.chainHash = base64FromBytes(
-        message.chainHash !== undefined ? message.chainHash : new Uint8Array(),
-      ));
+      (obj.chainHash = base64FromBytes(message.chainHash !== undefined ? message.chainHash : new Uint8Array()));
     message.chanId !== undefined && (obj.chanId = message.chanId);
-    message.timestamp !== undefined &&
-      (obj.timestamp = Math.round(message.timestamp));
-    message.messageFlags !== undefined &&
-      (obj.messageFlags = Math.round(message.messageFlags));
-    message.channelFlags !== undefined &&
-      (obj.channelFlags = Math.round(message.channelFlags));
-    message.timeLockDelta !== undefined &&
-      (obj.timeLockDelta = Math.round(message.timeLockDelta));
-    message.htlcMinimumMsat !== undefined &&
-      (obj.htlcMinimumMsat = message.htlcMinimumMsat);
-    message.baseFee !== undefined &&
-      (obj.baseFee = Math.round(message.baseFee));
-    message.feeRate !== undefined &&
-      (obj.feeRate = Math.round(message.feeRate));
-    message.htlcMaximumMsat !== undefined &&
-      (obj.htlcMaximumMsat = message.htlcMaximumMsat);
+    message.timestamp !== undefined && (obj.timestamp = Math.round(message.timestamp));
+    message.messageFlags !== undefined && (obj.messageFlags = Math.round(message.messageFlags));
+    message.channelFlags !== undefined && (obj.channelFlags = Math.round(message.channelFlags));
+    message.timeLockDelta !== undefined && (obj.timeLockDelta = Math.round(message.timeLockDelta));
+    message.htlcMinimumMsat !== undefined && (obj.htlcMinimumMsat = message.htlcMinimumMsat);
+    message.baseFee !== undefined && (obj.baseFee = Math.round(message.baseFee));
+    message.feeRate !== undefined && (obj.feeRate = Math.round(message.feeRate));
+    message.htlcMaximumMsat !== undefined && (obj.htlcMaximumMsat = message.htlcMaximumMsat);
     message.extraOpaqueData !== undefined &&
       (obj.extraOpaqueData = base64FromBytes(
-        message.extraOpaqueData !== undefined
-          ? message.extraOpaqueData
-          : new Uint8Array(),
+        message.extraOpaqueData !== undefined ? message.extraOpaqueData : new Uint8Array(),
       ));
     return obj;
   },
@@ -23711,29 +20841,26 @@ export const ChannelUpdate = {
     const message = createBaseChannelUpdate();
     message.signature = object.signature ?? new Uint8Array();
     message.chainHash = object.chainHash ?? new Uint8Array();
-    message.chanId = object.chanId ?? '0';
+    message.chanId = object.chanId ?? "0";
     message.timestamp = object.timestamp ?? 0;
     message.messageFlags = object.messageFlags ?? 0;
     message.channelFlags = object.channelFlags ?? 0;
     message.timeLockDelta = object.timeLockDelta ?? 0;
-    message.htlcMinimumMsat = object.htlcMinimumMsat ?? '0';
+    message.htlcMinimumMsat = object.htlcMinimumMsat ?? "0";
     message.baseFee = object.baseFee ?? 0;
     message.feeRate = object.feeRate ?? 0;
-    message.htlcMaximumMsat = object.htlcMaximumMsat ?? '0';
+    message.htlcMaximumMsat = object.htlcMaximumMsat ?? "0";
     message.extraOpaqueData = object.extraOpaqueData ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseMacaroonId(): MacaroonId {
-  return {nonce: new Uint8Array(), storageId: new Uint8Array(), ops: []};
+  return { nonce: new Uint8Array(), storageId: new Uint8Array(), ops: [] };
 }
 
 export const MacaroonId = {
-  encode(
-    message: MacaroonId,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: MacaroonId, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.nonce.length !== 0) {
       writer.uint32(10).bytes(message.nonce);
     }
@@ -23772,30 +20899,20 @@ export const MacaroonId = {
 
   fromJSON(object: any): MacaroonId {
     return {
-      nonce: isSet(object.nonce)
-        ? bytesFromBase64(object.nonce)
-        : new Uint8Array(),
-      storageId: isSet(object.storageId)
-        ? bytesFromBase64(object.storageId)
-        : new Uint8Array(),
-      ops: Array.isArray(object?.ops)
-        ? object.ops.map((e: any) => Op.fromJSON(e))
-        : [],
+      nonce: isSet(object.nonce) ? bytesFromBase64(object.nonce) : new Uint8Array(),
+      storageId: isSet(object.storageId) ? bytesFromBase64(object.storageId) : new Uint8Array(),
+      ops: Array.isArray(object?.ops) ? object.ops.map((e: any) => Op.fromJSON(e)) : [],
     };
   },
 
   toJSON(message: MacaroonId): unknown {
     const obj: any = {};
     message.nonce !== undefined &&
-      (obj.nonce = base64FromBytes(
-        message.nonce !== undefined ? message.nonce : new Uint8Array(),
-      ));
+      (obj.nonce = base64FromBytes(message.nonce !== undefined ? message.nonce : new Uint8Array()));
     message.storageId !== undefined &&
-      (obj.storageId = base64FromBytes(
-        message.storageId !== undefined ? message.storageId : new Uint8Array(),
-      ));
+      (obj.storageId = base64FromBytes(message.storageId !== undefined ? message.storageId : new Uint8Array()));
     if (message.ops) {
-      obj.ops = message.ops.map((e) => (e ? Op.toJSON(e) : undefined));
+      obj.ops = message.ops.map((e) => e ? Op.toJSON(e) : undefined);
     } else {
       obj.ops = [];
     }
@@ -23812,12 +20929,12 @@ export const MacaroonId = {
 };
 
 function createBaseOp(): Op {
-  return {entity: '', actions: []};
+  return { entity: "", actions: [] };
 }
 
 export const Op = {
   encode(message: Op, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
-    if (message.entity !== '') {
+    if (message.entity !== "") {
       writer.uint32(10).string(message.entity);
     }
     for (const v of message.actions) {
@@ -23849,10 +20966,8 @@ export const Op = {
 
   fromJSON(object: any): Op {
     return {
-      entity: isSet(object.entity) ? String(object.entity) : '',
-      actions: Array.isArray(object?.actions)
-        ? object.actions.map((e: any) => String(e))
-        : [],
+      entity: isSet(object.entity) ? String(object.entity) : "",
+      actions: Array.isArray(object?.actions) ? object.actions.map((e: any) => String(e)) : [],
     };
   },
 
@@ -23869,28 +20984,25 @@ export const Op = {
 
   fromPartial(object: DeepPartial<Op>): Op {
     const message = createBaseOp();
-    message.entity = object.entity ?? '';
+    message.entity = object.entity ?? "";
     message.actions = object.actions?.map((e) => e) || [];
     return message;
   },
 };
 
 function createBaseCheckMacPermRequest(): CheckMacPermRequest {
-  return {macaroon: new Uint8Array(), permissions: [], fullMethod: ''};
+  return { macaroon: new Uint8Array(), permissions: [], fullMethod: "" };
 }
 
 export const CheckMacPermRequest = {
-  encode(
-    message: CheckMacPermRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: CheckMacPermRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.macaroon.length !== 0) {
       writer.uint32(10).bytes(message.macaroon);
     }
     for (const v of message.permissions) {
       MacaroonPermission.encode(v!, writer.uint32(18).fork()).ldelim();
     }
-    if (message.fullMethod !== '') {
+    if (message.fullMethod !== "") {
       writer.uint32(26).string(message.fullMethod);
     }
     return writer;
@@ -23907,9 +21019,7 @@ export const CheckMacPermRequest = {
           message.macaroon = reader.bytes();
           break;
         case 2:
-          message.permissions.push(
-            MacaroonPermission.decode(reader, reader.uint32()),
-          );
+          message.permissions.push(MacaroonPermission.decode(reader, reader.uint32()));
           break;
         case 3:
           message.fullMethod = reader.string();
@@ -23924,26 +21034,20 @@ export const CheckMacPermRequest = {
 
   fromJSON(object: any): CheckMacPermRequest {
     return {
-      macaroon: isSet(object.macaroon)
-        ? bytesFromBase64(object.macaroon)
-        : new Uint8Array(),
+      macaroon: isSet(object.macaroon) ? bytesFromBase64(object.macaroon) : new Uint8Array(),
       permissions: Array.isArray(object?.permissions)
         ? object.permissions.map((e: any) => MacaroonPermission.fromJSON(e))
         : [],
-      fullMethod: isSet(object.fullMethod) ? String(object.fullMethod) : '',
+      fullMethod: isSet(object.fullMethod) ? String(object.fullMethod) : "",
     };
   },
 
   toJSON(message: CheckMacPermRequest): unknown {
     const obj: any = {};
     message.macaroon !== undefined &&
-      (obj.macaroon = base64FromBytes(
-        message.macaroon !== undefined ? message.macaroon : new Uint8Array(),
-      ));
+      (obj.macaroon = base64FromBytes(message.macaroon !== undefined ? message.macaroon : new Uint8Array()));
     if (message.permissions) {
-      obj.permissions = message.permissions.map((e) =>
-        e ? MacaroonPermission.toJSON(e) : undefined,
-      );
+      obj.permissions = message.permissions.map((e) => e ? MacaroonPermission.toJSON(e) : undefined);
     } else {
       obj.permissions = [];
     }
@@ -23954,32 +21058,25 @@ export const CheckMacPermRequest = {
   fromPartial(object: DeepPartial<CheckMacPermRequest>): CheckMacPermRequest {
     const message = createBaseCheckMacPermRequest();
     message.macaroon = object.macaroon ?? new Uint8Array();
-    message.permissions =
-      object.permissions?.map((e) => MacaroonPermission.fromPartial(e)) || [];
-    message.fullMethod = object.fullMethod ?? '';
+    message.permissions = object.permissions?.map((e) => MacaroonPermission.fromPartial(e)) || [];
+    message.fullMethod = object.fullMethod ?? "";
     return message;
   },
 };
 
 function createBaseCheckMacPermResponse(): CheckMacPermResponse {
-  return {valid: false};
+  return { valid: false };
 }
 
 export const CheckMacPermResponse = {
-  encode(
-    message: CheckMacPermResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: CheckMacPermResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.valid === true) {
       writer.uint32(8).bool(message.valid);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): CheckMacPermResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): CheckMacPermResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseCheckMacPermResponse();
@@ -23998,9 +21095,7 @@ export const CheckMacPermResponse = {
   },
 
   fromJSON(object: any): CheckMacPermResponse {
-    return {
-      valid: isSet(object.valid) ? Boolean(object.valid) : false,
-    };
+    return { valid: isSet(object.valid) ? Boolean(object.valid) : false };
   },
 
   toJSON(message: CheckMacPermResponse): unknown {
@@ -24018,28 +21113,25 @@ export const CheckMacPermResponse = {
 
 function createBaseRPCMiddlewareRequest(): RPCMiddlewareRequest {
   return {
-    requestId: '0',
+    requestId: "0",
     rawMacaroon: new Uint8Array(),
-    customCaveatCondition: '',
+    customCaveatCondition: "",
     streamAuth: undefined,
     request: undefined,
     response: undefined,
-    msgId: '0',
+    msgId: "0",
   };
 }
 
 export const RPCMiddlewareRequest = {
-  encode(
-    message: RPCMiddlewareRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.requestId !== '0') {
+  encode(message: RPCMiddlewareRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.requestId !== "0") {
       writer.uint32(8).uint64(message.requestId);
     }
     if (message.rawMacaroon.length !== 0) {
       writer.uint32(18).bytes(message.rawMacaroon);
     }
-    if (message.customCaveatCondition !== '') {
+    if (message.customCaveatCondition !== "") {
       writer.uint32(26).string(message.customCaveatCondition);
     }
     if (message.streamAuth !== undefined) {
@@ -24051,16 +21143,13 @@ export const RPCMiddlewareRequest = {
     if (message.response !== undefined) {
       RPCMessage.encode(message.response, writer.uint32(50).fork()).ldelim();
     }
-    if (message.msgId !== '0') {
+    if (message.msgId !== "0") {
       writer.uint32(56).uint64(message.msgId);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): RPCMiddlewareRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): RPCMiddlewareRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRPCMiddlewareRequest();
@@ -24098,23 +21187,13 @@ export const RPCMiddlewareRequest = {
 
   fromJSON(object: any): RPCMiddlewareRequest {
     return {
-      requestId: isSet(object.requestId) ? String(object.requestId) : '0',
-      rawMacaroon: isSet(object.rawMacaroon)
-        ? bytesFromBase64(object.rawMacaroon)
-        : new Uint8Array(),
-      customCaveatCondition: isSet(object.customCaveatCondition)
-        ? String(object.customCaveatCondition)
-        : '',
-      streamAuth: isSet(object.streamAuth)
-        ? StreamAuth.fromJSON(object.streamAuth)
-        : undefined,
-      request: isSet(object.request)
-        ? RPCMessage.fromJSON(object.request)
-        : undefined,
-      response: isSet(object.response)
-        ? RPCMessage.fromJSON(object.response)
-        : undefined,
-      msgId: isSet(object.msgId) ? String(object.msgId) : '0',
+      requestId: isSet(object.requestId) ? String(object.requestId) : "0",
+      rawMacaroon: isSet(object.rawMacaroon) ? bytesFromBase64(object.rawMacaroon) : new Uint8Array(),
+      customCaveatCondition: isSet(object.customCaveatCondition) ? String(object.customCaveatCondition) : "",
+      streamAuth: isSet(object.streamAuth) ? StreamAuth.fromJSON(object.streamAuth) : undefined,
+      request: isSet(object.request) ? RPCMessage.fromJSON(object.request) : undefined,
+      response: isSet(object.response) ? RPCMessage.fromJSON(object.response) : undefined,
+      msgId: isSet(object.msgId) ? String(object.msgId) : "0",
     };
   },
 
@@ -24122,61 +21201,43 @@ export const RPCMiddlewareRequest = {
     const obj: any = {};
     message.requestId !== undefined && (obj.requestId = message.requestId);
     message.rawMacaroon !== undefined &&
-      (obj.rawMacaroon = base64FromBytes(
-        message.rawMacaroon !== undefined
-          ? message.rawMacaroon
-          : new Uint8Array(),
-      ));
-    message.customCaveatCondition !== undefined &&
-      (obj.customCaveatCondition = message.customCaveatCondition);
+      (obj.rawMacaroon = base64FromBytes(message.rawMacaroon !== undefined ? message.rawMacaroon : new Uint8Array()));
+    message.customCaveatCondition !== undefined && (obj.customCaveatCondition = message.customCaveatCondition);
     message.streamAuth !== undefined &&
-      (obj.streamAuth = message.streamAuth
-        ? StreamAuth.toJSON(message.streamAuth)
-        : undefined);
-    message.request !== undefined &&
-      (obj.request = message.request
-        ? RPCMessage.toJSON(message.request)
-        : undefined);
+      (obj.streamAuth = message.streamAuth ? StreamAuth.toJSON(message.streamAuth) : undefined);
+    message.request !== undefined && (obj.request = message.request ? RPCMessage.toJSON(message.request) : undefined);
     message.response !== undefined &&
-      (obj.response = message.response
-        ? RPCMessage.toJSON(message.response)
-        : undefined);
+      (obj.response = message.response ? RPCMessage.toJSON(message.response) : undefined);
     message.msgId !== undefined && (obj.msgId = message.msgId);
     return obj;
   },
 
   fromPartial(object: DeepPartial<RPCMiddlewareRequest>): RPCMiddlewareRequest {
     const message = createBaseRPCMiddlewareRequest();
-    message.requestId = object.requestId ?? '0';
+    message.requestId = object.requestId ?? "0";
     message.rawMacaroon = object.rawMacaroon ?? new Uint8Array();
-    message.customCaveatCondition = object.customCaveatCondition ?? '';
-    message.streamAuth =
-      object.streamAuth !== undefined && object.streamAuth !== null
-        ? StreamAuth.fromPartial(object.streamAuth)
-        : undefined;
-    message.request =
-      object.request !== undefined && object.request !== null
-        ? RPCMessage.fromPartial(object.request)
-        : undefined;
-    message.response =
-      object.response !== undefined && object.response !== null
-        ? RPCMessage.fromPartial(object.response)
-        : undefined;
-    message.msgId = object.msgId ?? '0';
+    message.customCaveatCondition = object.customCaveatCondition ?? "";
+    message.streamAuth = (object.streamAuth !== undefined && object.streamAuth !== null)
+      ? StreamAuth.fromPartial(object.streamAuth)
+      : undefined;
+    message.request = (object.request !== undefined && object.request !== null)
+      ? RPCMessage.fromPartial(object.request)
+      : undefined;
+    message.response = (object.response !== undefined && object.response !== null)
+      ? RPCMessage.fromPartial(object.response)
+      : undefined;
+    message.msgId = object.msgId ?? "0";
     return message;
   },
 };
 
 function createBaseStreamAuth(): StreamAuth {
-  return {methodFullUri: ''};
+  return { methodFullUri: "" };
 }
 
 export const StreamAuth = {
-  encode(
-    message: StreamAuth,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.methodFullUri !== '') {
+  encode(message: StreamAuth, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.methodFullUri !== "") {
       writer.uint32(10).string(message.methodFullUri);
     }
     return writer;
@@ -24201,48 +21262,35 @@ export const StreamAuth = {
   },
 
   fromJSON(object: any): StreamAuth {
-    return {
-      methodFullUri: isSet(object.methodFullUri)
-        ? String(object.methodFullUri)
-        : '',
-    };
+    return { methodFullUri: isSet(object.methodFullUri) ? String(object.methodFullUri) : "" };
   },
 
   toJSON(message: StreamAuth): unknown {
     const obj: any = {};
-    message.methodFullUri !== undefined &&
-      (obj.methodFullUri = message.methodFullUri);
+    message.methodFullUri !== undefined && (obj.methodFullUri = message.methodFullUri);
     return obj;
   },
 
   fromPartial(object: DeepPartial<StreamAuth>): StreamAuth {
     const message = createBaseStreamAuth();
-    message.methodFullUri = object.methodFullUri ?? '';
+    message.methodFullUri = object.methodFullUri ?? "";
     return message;
   },
 };
 
 function createBaseRPCMessage(): RPCMessage {
-  return {
-    methodFullUri: '',
-    streamRpc: false,
-    typeName: '',
-    serialized: new Uint8Array(),
-  };
+  return { methodFullUri: "", streamRpc: false, typeName: "", serialized: new Uint8Array() };
 }
 
 export const RPCMessage = {
-  encode(
-    message: RPCMessage,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.methodFullUri !== '') {
+  encode(message: RPCMessage, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.methodFullUri !== "") {
       writer.uint32(10).string(message.methodFullUri);
     }
     if (message.streamRpc === true) {
       writer.uint32(16).bool(message.streamRpc);
     }
-    if (message.typeName !== '') {
+    if (message.typeName !== "") {
       writer.uint32(26).string(message.typeName);
     }
     if (message.serialized.length !== 0) {
@@ -24280,73 +21328,52 @@ export const RPCMessage = {
 
   fromJSON(object: any): RPCMessage {
     return {
-      methodFullUri: isSet(object.methodFullUri)
-        ? String(object.methodFullUri)
-        : '',
+      methodFullUri: isSet(object.methodFullUri) ? String(object.methodFullUri) : "",
       streamRpc: isSet(object.streamRpc) ? Boolean(object.streamRpc) : false,
-      typeName: isSet(object.typeName) ? String(object.typeName) : '',
-      serialized: isSet(object.serialized)
-        ? bytesFromBase64(object.serialized)
-        : new Uint8Array(),
+      typeName: isSet(object.typeName) ? String(object.typeName) : "",
+      serialized: isSet(object.serialized) ? bytesFromBase64(object.serialized) : new Uint8Array(),
     };
   },
 
   toJSON(message: RPCMessage): unknown {
     const obj: any = {};
-    message.methodFullUri !== undefined &&
-      (obj.methodFullUri = message.methodFullUri);
+    message.methodFullUri !== undefined && (obj.methodFullUri = message.methodFullUri);
     message.streamRpc !== undefined && (obj.streamRpc = message.streamRpc);
     message.typeName !== undefined && (obj.typeName = message.typeName);
     message.serialized !== undefined &&
-      (obj.serialized = base64FromBytes(
-        message.serialized !== undefined
-          ? message.serialized
-          : new Uint8Array(),
-      ));
+      (obj.serialized = base64FromBytes(message.serialized !== undefined ? message.serialized : new Uint8Array()));
     return obj;
   },
 
   fromPartial(object: DeepPartial<RPCMessage>): RPCMessage {
     const message = createBaseRPCMessage();
-    message.methodFullUri = object.methodFullUri ?? '';
+    message.methodFullUri = object.methodFullUri ?? "";
     message.streamRpc = object.streamRpc ?? false;
-    message.typeName = object.typeName ?? '';
+    message.typeName = object.typeName ?? "";
     message.serialized = object.serialized ?? new Uint8Array();
     return message;
   },
 };
 
 function createBaseRPCMiddlewareResponse(): RPCMiddlewareResponse {
-  return {refMsgId: '0', register: undefined, feedback: undefined};
+  return { refMsgId: "0", register: undefined, feedback: undefined };
 }
 
 export const RPCMiddlewareResponse = {
-  encode(
-    message: RPCMiddlewareResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.refMsgId !== '0') {
+  encode(message: RPCMiddlewareResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.refMsgId !== "0") {
       writer.uint32(8).uint64(message.refMsgId);
     }
     if (message.register !== undefined) {
-      MiddlewareRegistration.encode(
-        message.register,
-        writer.uint32(18).fork(),
-      ).ldelim();
+      MiddlewareRegistration.encode(message.register, writer.uint32(18).fork()).ldelim();
     }
     if (message.feedback !== undefined) {
-      InterceptFeedback.encode(
-        message.feedback,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      InterceptFeedback.encode(message.feedback, writer.uint32(26).fork()).ldelim();
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): RPCMiddlewareResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): RPCMiddlewareResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseRPCMiddlewareResponse();
@@ -24357,10 +21384,7 @@ export const RPCMiddlewareResponse = {
           message.refMsgId = longToString(reader.uint64() as Long);
           break;
         case 2:
-          message.register = MiddlewareRegistration.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.register = MiddlewareRegistration.decode(reader, reader.uint32());
           break;
         case 3:
           message.feedback = InterceptFeedback.decode(reader, reader.uint32());
@@ -24375,13 +21399,9 @@ export const RPCMiddlewareResponse = {
 
   fromJSON(object: any): RPCMiddlewareResponse {
     return {
-      refMsgId: isSet(object.refMsgId) ? String(object.refMsgId) : '0',
-      register: isSet(object.register)
-        ? MiddlewareRegistration.fromJSON(object.register)
-        : undefined,
-      feedback: isSet(object.feedback)
-        ? InterceptFeedback.fromJSON(object.feedback)
-        : undefined,
+      refMsgId: isSet(object.refMsgId) ? String(object.refMsgId) : "0",
+      register: isSet(object.register) ? MiddlewareRegistration.fromJSON(object.register) : undefined,
+      feedback: isSet(object.feedback) ? InterceptFeedback.fromJSON(object.feedback) : undefined,
     };
   },
 
@@ -24389,50 +21409,35 @@ export const RPCMiddlewareResponse = {
     const obj: any = {};
     message.refMsgId !== undefined && (obj.refMsgId = message.refMsgId);
     message.register !== undefined &&
-      (obj.register = message.register
-        ? MiddlewareRegistration.toJSON(message.register)
-        : undefined);
+      (obj.register = message.register ? MiddlewareRegistration.toJSON(message.register) : undefined);
     message.feedback !== undefined &&
-      (obj.feedback = message.feedback
-        ? InterceptFeedback.toJSON(message.feedback)
-        : undefined);
+      (obj.feedback = message.feedback ? InterceptFeedback.toJSON(message.feedback) : undefined);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<RPCMiddlewareResponse>,
-  ): RPCMiddlewareResponse {
+  fromPartial(object: DeepPartial<RPCMiddlewareResponse>): RPCMiddlewareResponse {
     const message = createBaseRPCMiddlewareResponse();
-    message.refMsgId = object.refMsgId ?? '0';
-    message.register =
-      object.register !== undefined && object.register !== null
-        ? MiddlewareRegistration.fromPartial(object.register)
-        : undefined;
-    message.feedback =
-      object.feedback !== undefined && object.feedback !== null
-        ? InterceptFeedback.fromPartial(object.feedback)
-        : undefined;
+    message.refMsgId = object.refMsgId ?? "0";
+    message.register = (object.register !== undefined && object.register !== null)
+      ? MiddlewareRegistration.fromPartial(object.register)
+      : undefined;
+    message.feedback = (object.feedback !== undefined && object.feedback !== null)
+      ? InterceptFeedback.fromPartial(object.feedback)
+      : undefined;
     return message;
   },
 };
 
 function createBaseMiddlewareRegistration(): MiddlewareRegistration {
-  return {
-    middlewareName: '',
-    customMacaroonCaveatName: '',
-    readOnlyMode: false,
-  };
+  return { middlewareName: "", customMacaroonCaveatName: "", readOnlyMode: false };
 }
 
 export const MiddlewareRegistration = {
-  encode(
-    message: MiddlewareRegistration,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.middlewareName !== '') {
+  encode(message: MiddlewareRegistration, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.middlewareName !== "") {
       writer.uint32(10).string(message.middlewareName);
     }
-    if (message.customMacaroonCaveatName !== '') {
+    if (message.customMacaroonCaveatName !== "") {
       writer.uint32(18).string(message.customMacaroonCaveatName);
     }
     if (message.readOnlyMode === true) {
@@ -24441,10 +21446,7 @@ export const MiddlewareRegistration = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): MiddlewareRegistration {
+  decode(input: _m0.Reader | Uint8Array, length?: number): MiddlewareRegistration {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseMiddlewareRegistration();
@@ -24470,54 +21472,36 @@ export const MiddlewareRegistration = {
 
   fromJSON(object: any): MiddlewareRegistration {
     return {
-      middlewareName: isSet(object.middlewareName)
-        ? String(object.middlewareName)
-        : '',
-      customMacaroonCaveatName: isSet(object.customMacaroonCaveatName)
-        ? String(object.customMacaroonCaveatName)
-        : '',
-      readOnlyMode: isSet(object.readOnlyMode)
-        ? Boolean(object.readOnlyMode)
-        : false,
+      middlewareName: isSet(object.middlewareName) ? String(object.middlewareName) : "",
+      customMacaroonCaveatName: isSet(object.customMacaroonCaveatName) ? String(object.customMacaroonCaveatName) : "",
+      readOnlyMode: isSet(object.readOnlyMode) ? Boolean(object.readOnlyMode) : false,
     };
   },
 
   toJSON(message: MiddlewareRegistration): unknown {
     const obj: any = {};
-    message.middlewareName !== undefined &&
-      (obj.middlewareName = message.middlewareName);
-    message.customMacaroonCaveatName !== undefined &&
-      (obj.customMacaroonCaveatName = message.customMacaroonCaveatName);
-    message.readOnlyMode !== undefined &&
-      (obj.readOnlyMode = message.readOnlyMode);
+    message.middlewareName !== undefined && (obj.middlewareName = message.middlewareName);
+    message.customMacaroonCaveatName !== undefined && (obj.customMacaroonCaveatName = message.customMacaroonCaveatName);
+    message.readOnlyMode !== undefined && (obj.readOnlyMode = message.readOnlyMode);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<MiddlewareRegistration>,
-  ): MiddlewareRegistration {
+  fromPartial(object: DeepPartial<MiddlewareRegistration>): MiddlewareRegistration {
     const message = createBaseMiddlewareRegistration();
-    message.middlewareName = object.middlewareName ?? '';
-    message.customMacaroonCaveatName = object.customMacaroonCaveatName ?? '';
+    message.middlewareName = object.middlewareName ?? "";
+    message.customMacaroonCaveatName = object.customMacaroonCaveatName ?? "";
     message.readOnlyMode = object.readOnlyMode ?? false;
     return message;
   },
 };
 
 function createBaseInterceptFeedback(): InterceptFeedback {
-  return {
-    error: '',
-    replaceResponse: false,
-    replacementSerialized: new Uint8Array(),
-  };
+  return { error: "", replaceResponse: false, replacementSerialized: new Uint8Array() };
 }
 
 export const InterceptFeedback = {
-  encode(
-    message: InterceptFeedback,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.error !== '') {
+  encode(message: InterceptFeedback, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.error !== "") {
       writer.uint32(10).string(message.error);
     }
     if (message.replaceResponse === true) {
@@ -24555,10 +21539,8 @@ export const InterceptFeedback = {
 
   fromJSON(object: any): InterceptFeedback {
     return {
-      error: isSet(object.error) ? String(object.error) : '',
-      replaceResponse: isSet(object.replaceResponse)
-        ? Boolean(object.replaceResponse)
-        : false,
+      error: isSet(object.error) ? String(object.error) : "",
+      replaceResponse: isSet(object.replaceResponse) ? Boolean(object.replaceResponse) : false,
       replacementSerialized: isSet(object.replacementSerialized)
         ? bytesFromBase64(object.replacementSerialized)
         : new Uint8Array(),
@@ -24568,31 +21550,28 @@ export const InterceptFeedback = {
   toJSON(message: InterceptFeedback): unknown {
     const obj: any = {};
     message.error !== undefined && (obj.error = message.error);
-    message.replaceResponse !== undefined &&
-      (obj.replaceResponse = message.replaceResponse);
+    message.replaceResponse !== undefined && (obj.replaceResponse = message.replaceResponse);
     message.replacementSerialized !== undefined &&
       (obj.replacementSerialized = base64FromBytes(
-        message.replacementSerialized !== undefined
-          ? message.replacementSerialized
-          : new Uint8Array(),
+        message.replacementSerialized !== undefined ? message.replacementSerialized : new Uint8Array(),
       ));
     return obj;
   },
 
   fromPartial(object: DeepPartial<InterceptFeedback>): InterceptFeedback {
     const message = createBaseInterceptFeedback();
-    message.error = object.error ?? '';
+    message.error = object.error ?? "";
     message.replaceResponse = object.replaceResponse ?? false;
-    message.replacementSerialized =
-      object.replacementSerialized ?? new Uint8Array();
+    message.replacementSerialized = object.replacementSerialized ?? new Uint8Array();
     return message;
   },
 };
 
 /** Lightning is the main RPC server of the daemon. */
+export type LightningDefinition = typeof LightningDefinition;
 export const LightningDefinition = {
-  name: 'Lightning',
-  fullName: 'lnrpc.Lightning',
+  name: "Lightning",
+  fullName: "lnrpc.Lightning",
   methods: {
     /**
      * lncli: `walletbalance`
@@ -24601,7 +21580,7 @@ export const LightningDefinition = {
      * of the wallet.
      */
     walletBalance: {
-      name: 'WalletBalance',
+      name: "WalletBalance",
       requestType: WalletBalanceRequest,
       requestStream: false,
       responseType: WalletBalanceResponse,
@@ -24615,7 +21594,7 @@ export const LightningDefinition = {
      * balances.
      */
     channelBalance: {
-      name: 'ChannelBalance',
+      name: "ChannelBalance",
       requestType: ChannelBalanceRequest,
       requestStream: false,
       responseType: ChannelBalanceResponse,
@@ -24628,7 +21607,7 @@ export const LightningDefinition = {
      * relevant to the wallet.
      */
     getTransactions: {
-      name: 'GetTransactions',
+      name: "GetTransactions",
       requestType: GetTransactionsRequest,
       requestStream: false,
       responseType: TransactionDetails,
@@ -24646,7 +21625,7 @@ export const LightningDefinition = {
      * the grpc-gateway library.
      */
     estimateFee: {
-      name: 'EstimateFee',
+      name: "EstimateFee",
       requestType: EstimateFeeRequest,
       requestStream: false,
       responseType: EstimateFeeResponse,
@@ -24662,7 +21641,7 @@ export const LightningDefinition = {
      * target.
      */
     sendCoins: {
-      name: 'SendCoins',
+      name: "SendCoins",
       requestType: SendCoinsRequest,
       requestStream: false,
       responseType: SendCoinsResponse,
@@ -24677,7 +21656,7 @@ export const LightningDefinition = {
      * number of confirmations between the specified minimum and maximum.
      */
     listUnspent: {
-      name: 'ListUnspent',
+      name: "ListUnspent",
       requestType: ListUnspentRequest,
       requestStream: false,
       responseType: ListUnspentResponse,
@@ -24690,7 +21669,7 @@ export const LightningDefinition = {
      * wallet are sent over.
      */
     subscribeTransactions: {
-      name: 'SubscribeTransactions',
+      name: "SubscribeTransactions",
       requestType: GetTransactionsRequest,
       requestStream: false,
       responseType: Transaction,
@@ -24705,7 +21684,7 @@ export const LightningDefinition = {
      * default confirmation target.
      */
     sendMany: {
-      name: 'SendMany',
+      name: "SendMany",
       requestType: SendManyRequest,
       requestStream: false,
       responseType: SendManyResponse,
@@ -24717,7 +21696,7 @@ export const LightningDefinition = {
      * NewAddress creates a new address under control of the local wallet.
      */
     newAddress: {
-      name: 'NewAddress',
+      name: "NewAddress",
       requestType: NewAddressRequest,
       requestStream: false,
       responseType: NewAddressResponse,
@@ -24731,7 +21710,7 @@ export const LightningDefinition = {
      * only the message digest and signature are needed for verification.
      */
     signMessage: {
-      name: 'SignMessage',
+      name: "SignMessage",
       requestType: SignMessageRequest,
       requestStream: false,
       responseType: SignMessageResponse,
@@ -24746,7 +21725,7 @@ export const LightningDefinition = {
      * VerifyMessage also returns the recovered pubkey from the signature.
      */
     verifyMessage: {
-      name: 'VerifyMessage',
+      name: "VerifyMessage",
       requestType: VerifyMessageRequest,
       requestStream: false,
       responseType: VerifyMessageResponse,
@@ -24760,7 +21739,7 @@ export const LightningDefinition = {
      * distinct from establishing a channel with a peer.
      */
     connectPeer: {
-      name: 'ConnectPeer',
+      name: "ConnectPeer",
       requestType: ConnectPeerRequest,
       requestStream: false,
       responseType: ConnectPeerResponse,
@@ -24774,7 +21753,7 @@ export const LightningDefinition = {
      * with the target peer, then this action will be not be allowed.
      */
     disconnectPeer: {
-      name: 'DisconnectPeer',
+      name: "DisconnectPeer",
       requestType: DisconnectPeerRequest,
       requestStream: false,
       responseType: DisconnectPeerResponse,
@@ -24786,7 +21765,7 @@ export const LightningDefinition = {
      * ListPeers returns a verbose listing of all currently active peers.
      */
     listPeers: {
-      name: 'ListPeers',
+      name: "ListPeers",
       requestType: ListPeersRequest,
       requestStream: false,
       responseType: ListPeersResponse,
@@ -24799,7 +21778,7 @@ export const LightningDefinition = {
      * over. Events include peers going online and offline.
      */
     subscribePeerEvents: {
-      name: 'SubscribePeerEvents',
+      name: "SubscribePeerEvents",
       requestType: PeerEventSubscription,
       requestStream: false,
       responseType: PeerEvent,
@@ -24813,7 +21792,7 @@ export const LightningDefinition = {
      * concerning the number of open+pending channels.
      */
     getInfo: {
-      name: 'GetInfo',
+      name: "GetInfo",
       requestType: GetInfoRequest,
       requestStream: false,
       responseType: GetInfoResponse,
@@ -24827,7 +21806,7 @@ export const LightningDefinition = {
      * progress made so far.
      */
     getRecoveryInfo: {
-      name: 'GetRecoveryInfo',
+      name: "GetRecoveryInfo",
       requestType: GetRecoveryInfoRequest,
       requestStream: false,
       responseType: GetRecoveryInfoResponse,
@@ -24842,7 +21821,7 @@ export const LightningDefinition = {
      * process of closure, either initiated cooperatively or non-cooperatively.
      */
     pendingChannels: {
-      name: 'PendingChannels',
+      name: "PendingChannels",
       requestType: PendingChannelsRequest,
       requestStream: false,
       responseType: PendingChannelsResponse,
@@ -24855,7 +21834,7 @@ export const LightningDefinition = {
      * is a participant in.
      */
     listChannels: {
-      name: 'ListChannels',
+      name: "ListChannels",
       requestType: ListChannelsRequest,
       requestStream: false,
       responseType: ListChannelsResponse,
@@ -24869,7 +21848,7 @@ export const LightningDefinition = {
      * channels.
      */
     subscribeChannelEvents: {
-      name: 'SubscribeChannelEvents',
+      name: "SubscribeChannelEvents",
       requestType: ChannelEventSubscription,
       requestStream: false,
       responseType: ChannelEventUpdate,
@@ -24882,7 +21861,7 @@ export const LightningDefinition = {
      * this node was a participant in.
      */
     closedChannels: {
-      name: 'ClosedChannels',
+      name: "ClosedChannels",
       requestType: ClosedChannelsRequest,
       requestStream: false,
       responseType: ClosedChannelsResponse,
@@ -24896,7 +21875,7 @@ export const LightningDefinition = {
      * encoded strings.
      */
     openChannelSync: {
-      name: 'OpenChannelSync',
+      name: "OpenChannelSync",
       requestType: OpenChannelRequest,
       requestStream: false,
       responseType: ChannelPoint,
@@ -24915,7 +21894,7 @@ export const LightningDefinition = {
      * then be used to manually progress the channel funding flow.
      */
     openChannel: {
-      name: 'OpenChannel',
+      name: "OpenChannel",
       requestType: OpenChannelRequest,
       requestStream: false,
       responseType: OpenStatusUpdate,
@@ -24931,7 +21910,7 @@ export const LightningDefinition = {
      * channels through the OpenChannel RPC.
      */
     batchOpenChannel: {
-      name: 'BatchOpenChannel',
+      name: "BatchOpenChannel",
       requestType: BatchOpenChannelRequest,
       requestStream: false,
       responseType: BatchOpenChannelResponse,
@@ -24949,7 +21928,7 @@ export const LightningDefinition = {
      * funding for partially complete funding transactions.
      */
     fundingStateStep: {
-      name: 'FundingStateStep',
+      name: "FundingStateStep",
       requestType: FundingTransitionMsg,
       requestStream: false,
       responseType: FundingStateStepResp,
@@ -24964,7 +21943,7 @@ export const LightningDefinition = {
      * through a single persistent connection.
      */
     channelAcceptor: {
-      name: 'ChannelAcceptor',
+      name: "ChannelAcceptor",
       requestType: ChannelAcceptResponse,
       requestStream: true,
       responseType: ChannelAcceptRequest,
@@ -24982,7 +21961,7 @@ export const LightningDefinition = {
      * specified, then a default lax, block confirmation target is used.
      */
     closeChannel: {
-      name: 'CloseChannel',
+      name: "CloseChannel",
       requestType: CloseChannelRequest,
       requestStream: false,
       responseType: CloseStatusUpdate,
@@ -24999,7 +21978,7 @@ export const LightningDefinition = {
      * build.
      */
     abandonChannel: {
-      name: 'AbandonChannel',
+      name: "AbandonChannel",
       requestType: AbandonChannelRequest,
       requestStream: false,
       responseType: AbandonChannelResponse,
@@ -25017,7 +21996,7 @@ export const LightningDefinition = {
      * @deprecated
      */
     sendPayment: {
-      name: 'SendPayment',
+      name: "SendPayment",
       requestType: SendRequest,
       requestStream: true,
       responseType: SendResponse,
@@ -25031,7 +22010,7 @@ export const LightningDefinition = {
      * hash (if any) to be encoded as hex strings.
      */
     sendPaymentSync: {
-      name: 'SendPaymentSync',
+      name: "SendPaymentSync",
       requestType: SendRequest,
       requestStream: false,
       responseType: SendResponse,
@@ -25049,7 +22028,7 @@ export const LightningDefinition = {
      * @deprecated
      */
     sendToRoute: {
-      name: 'SendToRoute',
+      name: "SendToRoute",
       requestType: SendToRouteRequest,
       requestStream: true,
       responseType: SendResponse,
@@ -25061,7 +22040,7 @@ export const LightningDefinition = {
      * until the payment either fails or succeeds.
      */
     sendToRouteSync: {
-      name: 'SendToRouteSync',
+      name: "SendToRouteSync",
       requestType: SendToRouteRequest,
       requestStream: false,
       responseType: SendResponse,
@@ -25075,7 +22054,7 @@ export const LightningDefinition = {
      * unique payment preimage.
      */
     addInvoice: {
-      name: 'AddInvoice',
+      name: "AddInvoice",
       requestType: Invoice,
       requestStream: false,
       responseType: AddInvoiceResponse,
@@ -25093,7 +22072,7 @@ export const LightningDefinition = {
      * Backwards pagination is also supported through the Reversed flag.
      */
     listInvoices: {
-      name: 'ListInvoices',
+      name: "ListInvoices",
       requestType: ListInvoiceRequest,
       requestStream: false,
       responseType: ListInvoiceResponse,
@@ -25107,7 +22086,7 @@ export const LightningDefinition = {
      * returned.
      */
     lookupInvoice: {
-      name: 'LookupInvoice',
+      name: "LookupInvoice",
       requestType: PaymentHash,
       requestStream: false,
       responseType: Invoice,
@@ -25126,7 +22105,7 @@ export const LightningDefinition = {
      * the latest add/settle events.
      */
     subscribeInvoices: {
-      name: 'SubscribeInvoices',
+      name: "SubscribeInvoices",
       requestType: InvoiceSubscription,
       requestStream: false,
       responseType: Invoice,
@@ -25140,7 +22119,7 @@ export const LightningDefinition = {
      * payment request.
      */
     decodePayReq: {
-      name: 'DecodePayReq',
+      name: "DecodePayReq",
       requestType: PayReqString,
       requestStream: false,
       responseType: PayReq,
@@ -25152,7 +22131,7 @@ export const LightningDefinition = {
      * ListPayments returns a list of all outgoing payments.
      */
     listPayments: {
-      name: 'ListPayments',
+      name: "ListPayments",
       requestType: ListPaymentsRequest,
       requestStream: false,
       responseType: ListPaymentsResponse,
@@ -25164,7 +22143,7 @@ export const LightningDefinition = {
      * attempt to delete an In-Flight payment, since that would be unsafe.
      */
     deletePayment: {
-      name: 'DeletePayment',
+      name: "DeletePayment",
       requestType: DeletePaymentRequest,
       requestStream: false,
       responseType: DeletePaymentResponse,
@@ -25176,7 +22155,7 @@ export const LightningDefinition = {
      * not attempt to delete In-Flight payments, since that would be unsafe.
      */
     deleteAllPayments: {
-      name: 'DeleteAllPayments',
+      name: "DeleteAllPayments",
       requestType: DeleteAllPaymentsRequest,
       requestStream: false,
       responseType: DeleteAllPaymentsResponse,
@@ -25193,7 +22172,7 @@ export const LightningDefinition = {
      * delta, fee information, etc.
      */
     describeGraph: {
-      name: 'DescribeGraph',
+      name: "DescribeGraph",
       requestType: ChannelGraphRequest,
       requestStream: false,
       responseType: ChannelGraph,
@@ -25206,7 +22185,7 @@ export const LightningDefinition = {
      * the only supported metric is betweenness centrality of individual nodes.
      */
     getNodeMetrics: {
-      name: 'GetNodeMetrics',
+      name: "GetNodeMetrics",
       requestType: NodeMetricsRequest,
       requestStream: false,
       responseType: NodeMetricsResponse,
@@ -25221,7 +22200,7 @@ export const LightningDefinition = {
      * blockchain.
      */
     getChanInfo: {
-      name: 'GetChanInfo',
+      name: "GetChanInfo",
       requestType: ChanInfoRequest,
       requestStream: false,
       responseType: ChannelEdge,
@@ -25234,7 +22213,7 @@ export const LightningDefinition = {
      * channel information for the specified node identified by its public key.
      */
     getNodeInfo: {
-      name: 'GetNodeInfo',
+      name: "GetNodeInfo",
       requestType: NodeInfoRequest,
       requestStream: false,
       responseType: NodeInfo,
@@ -25255,7 +22234,7 @@ export const LightningDefinition = {
      * documentation because of a bug in the grpc-gateway library.
      */
     queryRoutes: {
-      name: 'QueryRoutes',
+      name: "QueryRoutes",
       requestType: QueryRoutesRequest,
       requestStream: false,
       responseType: QueryRoutesResponse,
@@ -25268,7 +22247,7 @@ export const LightningDefinition = {
      * the point of view of the node.
      */
     getNetworkInfo: {
-      name: 'GetNetworkInfo',
+      name: "GetNetworkInfo",
       requestType: NetworkInfoRequest,
       requestStream: false,
       responseType: NetworkInfo,
@@ -25281,7 +22260,7 @@ export const LightningDefinition = {
      * a graceful shutdown of the daemon.
      */
     stopDaemon: {
-      name: 'StopDaemon',
+      name: "StopDaemon",
       requestType: StopRequest,
       requestStream: false,
       responseType: StopResponse,
@@ -25297,7 +22276,7 @@ export const LightningDefinition = {
      * channel edge, and when channels are closed on-chain.
      */
     subscribeChannelGraph: {
-      name: 'SubscribeChannelGraph',
+      name: "SubscribeChannelGraph",
       requestType: GraphTopologySubscription,
       requestStream: false,
       responseType: GraphTopologyUpdate,
@@ -25312,7 +22291,7 @@ export const LightningDefinition = {
      * sub-system.
      */
     debugLevel: {
-      name: 'DebugLevel',
+      name: "DebugLevel",
       requestType: DebugLevelRequest,
       requestStream: false,
       responseType: DebugLevelResponse,
@@ -25325,7 +22304,7 @@ export const LightningDefinition = {
      * schedule enforced by the node globally for each channel.
      */
     feeReport: {
-      name: 'FeeReport',
+      name: "FeeReport",
       requestType: FeeReportRequest,
       requestStream: false,
       responseType: FeeReportResponse,
@@ -25338,7 +22317,7 @@ export const LightningDefinition = {
      * channel policies for all channels globally, or a particular channel.
      */
     updateChannelPolicy: {
-      name: 'UpdateChannelPolicy',
+      name: "UpdateChannelPolicy",
       requestType: PolicyUpdateRequest,
       requestStream: false,
       responseType: PolicyUpdateResponse,
@@ -25360,7 +22339,7 @@ export const LightningDefinition = {
      * request to allow the caller to skip a series of records.
      */
     forwardingHistory: {
-      name: 'ForwardingHistory',
+      name: "ForwardingHistory",
       requestType: ForwardingHistoryRequest,
       requestStream: false,
       responseType: ForwardingHistoryResponse,
@@ -25377,7 +22356,7 @@ export const LightningDefinition = {
      * from the WalletUnlocker service.
      */
     exportChannelBackup: {
-      name: 'ExportChannelBackup',
+      name: "ExportChannelBackup",
       requestType: ExportChannelBackupRequest,
       requestStream: false,
       responseType: ChannelBackup,
@@ -25392,7 +22371,7 @@ export const LightningDefinition = {
      * each channel.
      */
     exportAllChannelBackups: {
-      name: 'ExportAllChannelBackups',
+      name: "ExportAllChannelBackups",
       requestType: ChanBackupExportRequest,
       requestStream: false,
       responseType: ChanBackupSnapshot,
@@ -25405,7 +22384,7 @@ export const LightningDefinition = {
      * Specifying both will result in an error.
      */
     verifyChanBackup: {
-      name: 'VerifyChanBackup',
+      name: "VerifyChanBackup",
       requestType: ChanBackupSnapshot,
       requestStream: false,
       responseType: VerifyChanBackupResponse,
@@ -25420,7 +22399,7 @@ export const LightningDefinition = {
      * new channel will be shown under listchannels, as well as pending channels.
      */
     restoreChannelBackups: {
-      name: 'RestoreChannelBackups',
+      name: "RestoreChannelBackups",
       requestType: RestoreChanBackupRequest,
       requestStream: false,
       responseType: RestoreBackupResponse,
@@ -25437,7 +22416,7 @@ export const LightningDefinition = {
      * channel(s) removed.
      */
     subscribeChannelBackups: {
-      name: 'SubscribeChannelBackups',
+      name: "SubscribeChannelBackups",
       requestType: ChannelBackupSubscription,
       requestStream: false,
       responseType: ChanBackupSnapshot,
@@ -25451,7 +22430,7 @@ export const LightningDefinition = {
      * offline.
      */
     bakeMacaroon: {
-      name: 'BakeMacaroon',
+      name: "BakeMacaroon",
       requestType: BakeMacaroonRequest,
       requestStream: false,
       responseType: BakeMacaroonResponse,
@@ -25463,7 +22442,7 @@ export const LightningDefinition = {
      * ListMacaroonIDs returns all root key IDs that are in use.
      */
     listMacaroonIDs: {
-      name: 'ListMacaroonIDs',
+      name: "ListMacaroonIDs",
       requestType: ListMacaroonIDsRequest,
       requestStream: false,
       responseType: ListMacaroonIDsResponse,
@@ -25476,7 +22455,7 @@ export const LightningDefinition = {
      * macaroons derived from that ID.
      */
     deleteMacaroonID: {
-      name: 'DeleteMacaroonID',
+      name: "DeleteMacaroonID",
       requestType: DeleteMacaroonIDRequest,
       requestStream: false,
       responseType: DeleteMacaroonIDResponse,
@@ -25489,7 +22468,7 @@ export const LightningDefinition = {
      * permissions to access them.
      */
     listPermissions: {
-      name: 'ListPermissions',
+      name: "ListPermissions",
       requestType: ListPermissionsRequest,
       requestStream: false,
       responseType: ListPermissionsResponse,
@@ -25502,7 +22481,7 @@ export const LightningDefinition = {
      * provided permissions.
      */
     checkMacaroonPermissions: {
-      name: 'CheckMacaroonPermissions',
+      name: "CheckMacaroonPermissions",
       requestType: CheckMacPermRequest,
       requestStream: false,
       responseType: CheckMacPermResponse,
@@ -25524,7 +22503,7 @@ export const LightningDefinition = {
      * modify responses for requests made with _unencumbered_ macaroons!
      */
     registerRPCMiddleware: {
-      name: 'RegisterRPCMiddleware',
+      name: "RegisterRPCMiddleware",
       requestType: RPCMiddlewareResponse,
       requestStream: true,
       responseType: RPCMiddlewareRequest,
@@ -25536,7 +22515,7 @@ export const LightningDefinition = {
      * SendCustomMessage sends a custom peer message.
      */
     sendCustomMessage: {
-      name: 'SendCustomMessage',
+      name: "SendCustomMessage",
       requestType: SendCustomMessageRequest,
       requestStream: false,
       responseType: SendCustomMessageResponse,
@@ -25549,7 +22528,7 @@ export const LightningDefinition = {
      * messages.
      */
     subscribeCustomMessages: {
-      name: 'SubscribeCustomMessages',
+      name: "SubscribeCustomMessages",
       requestType: SubscribeCustomMessagesRequest,
       requestStream: false,
       responseType: CustomMessage,
@@ -25563,53 +22542,51 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== 'undefined') return globalThis;
-  if (typeof self !== 'undefined') return self;
-  if (typeof window !== 'undefined') return window;
-  if (typeof global !== 'undefined') return global;
-  throw 'Unable to locate global object';
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
 })();
 
-const atob: (b64: string) => string =
-  globalThis.atob ||
-  ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
+  if (globalThis.Buffer) {
+    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  } else {
+    const bin = globalThis.atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+      arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
   }
-  return arr;
 }
 
-const btoa: (bin: string) => string =
-  globalThis.btoa ||
-  ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  for (const byte of arr) {
-    bin.push(String.fromCharCode(byte));
+  if (globalThis.Buffer) {
+    return globalThis.Buffer.from(arr).toString("base64");
+  } else {
+    const bin: string[] = [];
+    arr.forEach((byte) => {
+      bin.push(String.fromCharCode(byte));
+    });
+    return globalThis.btoa(bin.join(""));
   }
-  return btoa(bin.join(''));
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? {[K in keyof T]?: DeepPartial<T[K]>}
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 function longToString(long: Long) {
@@ -25622,7 +22599,7 @@ if (_m0.util.Long !== Long) {
 }
 
 function isObject(value: any): boolean {
-  return typeof value === 'object' && value !== null;
+  return typeof value === "object" && value !== null;
 }
 
 function isSet(value: any): boolean {

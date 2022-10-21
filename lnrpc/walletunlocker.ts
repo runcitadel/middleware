@@ -1,11 +1,11 @@
 /* eslint-disable */
-import Long from 'long';
+import Long from "long";
 // Manually patched with the extension
 import _m0 from 'protobufjs/minimal.js';
 // Manually patched with the extension
 import {ChanBackupSnapshot} from './lightning.js';
 
-export const protobufPackage = 'lnrpc';
+export const protobufPackage = "lnrpc";
 
 export interface GenSeedRequest {
   /**
@@ -74,7 +74,9 @@ export interface InitWalletRequest {
    * funds, lnd begin to carry out the data loss recovery protocol in order to
    * recover the funds in each channel from a remote force closed transaction.
    */
-  channelBackups: ChanBackupSnapshot | undefined;
+  channelBackups:
+    | ChanBackupSnapshot
+    | undefined;
   /**
    * stateless_init is an optional argument instructing the daemon NOT to create
    * any *.macaroon files in its filesystem. If this parameter is set, then the
@@ -201,7 +203,9 @@ export interface UnlockWalletRequest {
    * funds, lnd begin to carry out the data loss recovery protocol in order to
    * recover the funds in each channel from a remote force closed transaction.
    */
-  channelBackups: ChanBackupSnapshot | undefined;
+  channelBackups:
+    | ChanBackupSnapshot
+    | undefined;
   /**
    * stateless_init is an optional argument instructing the daemon NOT to create
    * any *.macaroon files in its file system.
@@ -209,7 +213,8 @@ export interface UnlockWalletRequest {
   statelessInit: boolean;
 }
 
-export interface UnlockWalletResponse {}
+export interface UnlockWalletResponse {
+}
 
 export interface ChangePasswordRequest {
   /**
@@ -250,14 +255,11 @@ export interface ChangePasswordResponse {
 }
 
 function createBaseGenSeedRequest(): GenSeedRequest {
-  return {aezeedPassphrase: new Uint8Array(), seedEntropy: new Uint8Array()};
+  return { aezeedPassphrase: new Uint8Array(), seedEntropy: new Uint8Array() };
 }
 
 export const GenSeedRequest = {
-  encode(
-    message: GenSeedRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: GenSeedRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.aezeedPassphrase.length !== 0) {
       writer.uint32(10).bytes(message.aezeedPassphrase);
     }
@@ -290,12 +292,8 @@ export const GenSeedRequest = {
 
   fromJSON(object: any): GenSeedRequest {
     return {
-      aezeedPassphrase: isSet(object.aezeedPassphrase)
-        ? bytesFromBase64(object.aezeedPassphrase)
-        : new Uint8Array(),
-      seedEntropy: isSet(object.seedEntropy)
-        ? bytesFromBase64(object.seedEntropy)
-        : new Uint8Array(),
+      aezeedPassphrase: isSet(object.aezeedPassphrase) ? bytesFromBase64(object.aezeedPassphrase) : new Uint8Array(),
+      seedEntropy: isSet(object.seedEntropy) ? bytesFromBase64(object.seedEntropy) : new Uint8Array(),
     };
   },
 
@@ -303,16 +301,10 @@ export const GenSeedRequest = {
     const obj: any = {};
     message.aezeedPassphrase !== undefined &&
       (obj.aezeedPassphrase = base64FromBytes(
-        message.aezeedPassphrase !== undefined
-          ? message.aezeedPassphrase
-          : new Uint8Array(),
+        message.aezeedPassphrase !== undefined ? message.aezeedPassphrase : new Uint8Array(),
       ));
     message.seedEntropy !== undefined &&
-      (obj.seedEntropy = base64FromBytes(
-        message.seedEntropy !== undefined
-          ? message.seedEntropy
-          : new Uint8Array(),
-      ));
+      (obj.seedEntropy = base64FromBytes(message.seedEntropy !== undefined ? message.seedEntropy : new Uint8Array()));
     return obj;
   },
 
@@ -325,14 +317,11 @@ export const GenSeedRequest = {
 };
 
 function createBaseGenSeedResponse(): GenSeedResponse {
-  return {cipherSeedMnemonic: [], encipheredSeed: new Uint8Array()};
+  return { cipherSeedMnemonic: [], encipheredSeed: new Uint8Array() };
 }
 
 export const GenSeedResponse = {
-  encode(
-    message: GenSeedResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: GenSeedResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     for (const v of message.cipherSeedMnemonic) {
       writer.uint32(10).string(v!);
     }
@@ -368,9 +357,7 @@ export const GenSeedResponse = {
       cipherSeedMnemonic: Array.isArray(object?.cipherSeedMnemonic)
         ? object.cipherSeedMnemonic.map((e: any) => String(e))
         : [],
-      encipheredSeed: isSet(object.encipheredSeed)
-        ? bytesFromBase64(object.encipheredSeed)
-        : new Uint8Array(),
+      encipheredSeed: isSet(object.encipheredSeed) ? bytesFromBase64(object.encipheredSeed) : new Uint8Array(),
     };
   },
 
@@ -383,9 +370,7 @@ export const GenSeedResponse = {
     }
     message.encipheredSeed !== undefined &&
       (obj.encipheredSeed = base64FromBytes(
-        message.encipheredSeed !== undefined
-          ? message.encipheredSeed
-          : new Uint8Array(),
+        message.encipheredSeed !== undefined ? message.encipheredSeed : new Uint8Array(),
       ));
     return obj;
   },
@@ -406,17 +391,14 @@ function createBaseInitWalletRequest(): InitWalletRequest {
     recoveryWindow: 0,
     channelBackups: undefined,
     statelessInit: false,
-    extendedMasterKey: '',
-    extendedMasterKeyBirthdayTimestamp: '0',
+    extendedMasterKey: "",
+    extendedMasterKeyBirthdayTimestamp: "0",
     watchOnly: undefined,
   };
 }
 
 export const InitWalletRequest = {
-  encode(
-    message: InitWalletRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: InitWalletRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.walletPassword.length !== 0) {
       writer.uint32(10).bytes(message.walletPassword);
     }
@@ -430,18 +412,15 @@ export const InitWalletRequest = {
       writer.uint32(32).int32(message.recoveryWindow);
     }
     if (message.channelBackups !== undefined) {
-      ChanBackupSnapshot.encode(
-        message.channelBackups,
-        writer.uint32(42).fork(),
-      ).ldelim();
+      ChanBackupSnapshot.encode(message.channelBackups, writer.uint32(42).fork()).ldelim();
     }
     if (message.statelessInit === true) {
       writer.uint32(48).bool(message.statelessInit);
     }
-    if (message.extendedMasterKey !== '') {
+    if (message.extendedMasterKey !== "") {
       writer.uint32(58).string(message.extendedMasterKey);
     }
-    if (message.extendedMasterKeyBirthdayTimestamp !== '0') {
+    if (message.extendedMasterKeyBirthdayTimestamp !== "0") {
       writer.uint32(64).uint64(message.extendedMasterKeyBirthdayTimestamp);
     }
     if (message.watchOnly !== undefined) {
@@ -470,10 +449,7 @@ export const InitWalletRequest = {
           message.recoveryWindow = reader.int32();
           break;
         case 5:
-          message.channelBackups = ChanBackupSnapshot.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.channelBackups = ChanBackupSnapshot.decode(reader, reader.uint32());
           break;
         case 6:
           message.statelessInit = reader.bool();
@@ -482,9 +458,7 @@ export const InitWalletRequest = {
           message.extendedMasterKey = reader.string();
           break;
         case 8:
-          message.extendedMasterKeyBirthdayTimestamp = longToString(
-            reader.uint64() as Long,
-          );
+          message.extendedMasterKeyBirthdayTimestamp = longToString(reader.uint64() as Long);
           break;
         case 9:
           message.watchOnly = WatchOnly.decode(reader, reader.uint32());
@@ -499,35 +473,19 @@ export const InitWalletRequest = {
 
   fromJSON(object: any): InitWalletRequest {
     return {
-      walletPassword: isSet(object.walletPassword)
-        ? bytesFromBase64(object.walletPassword)
-        : new Uint8Array(),
+      walletPassword: isSet(object.walletPassword) ? bytesFromBase64(object.walletPassword) : new Uint8Array(),
       cipherSeedMnemonic: Array.isArray(object?.cipherSeedMnemonic)
         ? object.cipherSeedMnemonic.map((e: any) => String(e))
         : [],
-      aezeedPassphrase: isSet(object.aezeedPassphrase)
-        ? bytesFromBase64(object.aezeedPassphrase)
-        : new Uint8Array(),
-      recoveryWindow: isSet(object.recoveryWindow)
-        ? Number(object.recoveryWindow)
-        : 0,
-      channelBackups: isSet(object.channelBackups)
-        ? ChanBackupSnapshot.fromJSON(object.channelBackups)
-        : undefined,
-      statelessInit: isSet(object.statelessInit)
-        ? Boolean(object.statelessInit)
-        : false,
-      extendedMasterKey: isSet(object.extendedMasterKey)
-        ? String(object.extendedMasterKey)
-        : '',
-      extendedMasterKeyBirthdayTimestamp: isSet(
-        object.extendedMasterKeyBirthdayTimestamp,
-      )
+      aezeedPassphrase: isSet(object.aezeedPassphrase) ? bytesFromBase64(object.aezeedPassphrase) : new Uint8Array(),
+      recoveryWindow: isSet(object.recoveryWindow) ? Number(object.recoveryWindow) : 0,
+      channelBackups: isSet(object.channelBackups) ? ChanBackupSnapshot.fromJSON(object.channelBackups) : undefined,
+      statelessInit: isSet(object.statelessInit) ? Boolean(object.statelessInit) : false,
+      extendedMasterKey: isSet(object.extendedMasterKey) ? String(object.extendedMasterKey) : "",
+      extendedMasterKeyBirthdayTimestamp: isSet(object.extendedMasterKeyBirthdayTimestamp)
         ? String(object.extendedMasterKeyBirthdayTimestamp)
-        : '0',
-      watchOnly: isSet(object.watchOnly)
-        ? WatchOnly.fromJSON(object.watchOnly)
-        : undefined,
+        : "0",
+      watchOnly: isSet(object.watchOnly) ? WatchOnly.fromJSON(object.watchOnly) : undefined,
     };
   },
 
@@ -535,9 +493,7 @@ export const InitWalletRequest = {
     const obj: any = {};
     message.walletPassword !== undefined &&
       (obj.walletPassword = base64FromBytes(
-        message.walletPassword !== undefined
-          ? message.walletPassword
-          : new Uint8Array(),
+        message.walletPassword !== undefined ? message.walletPassword : new Uint8Array(),
       ));
     if (message.cipherSeedMnemonic) {
       obj.cipherSeedMnemonic = message.cipherSeedMnemonic.map((e) => e);
@@ -546,27 +502,17 @@ export const InitWalletRequest = {
     }
     message.aezeedPassphrase !== undefined &&
       (obj.aezeedPassphrase = base64FromBytes(
-        message.aezeedPassphrase !== undefined
-          ? message.aezeedPassphrase
-          : new Uint8Array(),
+        message.aezeedPassphrase !== undefined ? message.aezeedPassphrase : new Uint8Array(),
       ));
-    message.recoveryWindow !== undefined &&
-      (obj.recoveryWindow = Math.round(message.recoveryWindow));
+    message.recoveryWindow !== undefined && (obj.recoveryWindow = Math.round(message.recoveryWindow));
     message.channelBackups !== undefined &&
-      (obj.channelBackups = message.channelBackups
-        ? ChanBackupSnapshot.toJSON(message.channelBackups)
-        : undefined);
-    message.statelessInit !== undefined &&
-      (obj.statelessInit = message.statelessInit);
-    message.extendedMasterKey !== undefined &&
-      (obj.extendedMasterKey = message.extendedMasterKey);
+      (obj.channelBackups = message.channelBackups ? ChanBackupSnapshot.toJSON(message.channelBackups) : undefined);
+    message.statelessInit !== undefined && (obj.statelessInit = message.statelessInit);
+    message.extendedMasterKey !== undefined && (obj.extendedMasterKey = message.extendedMasterKey);
     message.extendedMasterKeyBirthdayTimestamp !== undefined &&
-      (obj.extendedMasterKeyBirthdayTimestamp =
-        message.extendedMasterKeyBirthdayTimestamp);
+      (obj.extendedMasterKeyBirthdayTimestamp = message.extendedMasterKeyBirthdayTimestamp);
     message.watchOnly !== undefined &&
-      (obj.watchOnly = message.watchOnly
-        ? WatchOnly.toJSON(message.watchOnly)
-        : undefined);
+      (obj.watchOnly = message.watchOnly ? WatchOnly.toJSON(message.watchOnly) : undefined);
     return obj;
   },
 
@@ -576,31 +522,25 @@ export const InitWalletRequest = {
     message.cipherSeedMnemonic = object.cipherSeedMnemonic?.map((e) => e) || [];
     message.aezeedPassphrase = object.aezeedPassphrase ?? new Uint8Array();
     message.recoveryWindow = object.recoveryWindow ?? 0;
-    message.channelBackups =
-      object.channelBackups !== undefined && object.channelBackups !== null
-        ? ChanBackupSnapshot.fromPartial(object.channelBackups)
-        : undefined;
+    message.channelBackups = (object.channelBackups !== undefined && object.channelBackups !== null)
+      ? ChanBackupSnapshot.fromPartial(object.channelBackups)
+      : undefined;
     message.statelessInit = object.statelessInit ?? false;
-    message.extendedMasterKey = object.extendedMasterKey ?? '';
-    message.extendedMasterKeyBirthdayTimestamp =
-      object.extendedMasterKeyBirthdayTimestamp ?? '0';
-    message.watchOnly =
-      object.watchOnly !== undefined && object.watchOnly !== null
-        ? WatchOnly.fromPartial(object.watchOnly)
-        : undefined;
+    message.extendedMasterKey = object.extendedMasterKey ?? "";
+    message.extendedMasterKeyBirthdayTimestamp = object.extendedMasterKeyBirthdayTimestamp ?? "0";
+    message.watchOnly = (object.watchOnly !== undefined && object.watchOnly !== null)
+      ? WatchOnly.fromPartial(object.watchOnly)
+      : undefined;
     return message;
   },
 };
 
 function createBaseInitWalletResponse(): InitWalletResponse {
-  return {adminMacaroon: new Uint8Array()};
+  return { adminMacaroon: new Uint8Array() };
 }
 
 export const InitWalletResponse = {
-  encode(
-    message: InitWalletResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: InitWalletResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.adminMacaroon.length !== 0) {
       writer.uint32(10).bytes(message.adminMacaroon);
     }
@@ -626,20 +566,14 @@ export const InitWalletResponse = {
   },
 
   fromJSON(object: any): InitWalletResponse {
-    return {
-      adminMacaroon: isSet(object.adminMacaroon)
-        ? bytesFromBase64(object.adminMacaroon)
-        : new Uint8Array(),
-    };
+    return { adminMacaroon: isSet(object.adminMacaroon) ? bytesFromBase64(object.adminMacaroon) : new Uint8Array() };
   },
 
   toJSON(message: InitWalletResponse): unknown {
     const obj: any = {};
     message.adminMacaroon !== undefined &&
       (obj.adminMacaroon = base64FromBytes(
-        message.adminMacaroon !== undefined
-          ? message.adminMacaroon
-          : new Uint8Array(),
+        message.adminMacaroon !== undefined ? message.adminMacaroon : new Uint8Array(),
       ));
     return obj;
   },
@@ -652,19 +586,12 @@ export const InitWalletResponse = {
 };
 
 function createBaseWatchOnly(): WatchOnly {
-  return {
-    masterKeyBirthdayTimestamp: '0',
-    masterKeyFingerprint: new Uint8Array(),
-    accounts: [],
-  };
+  return { masterKeyBirthdayTimestamp: "0", masterKeyFingerprint: new Uint8Array(), accounts: [] };
 }
 
 export const WatchOnly = {
-  encode(
-    message: WatchOnly,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
-    if (message.masterKeyBirthdayTimestamp !== '0') {
+  encode(message: WatchOnly, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.masterKeyBirthdayTimestamp !== "0") {
       writer.uint32(8).uint64(message.masterKeyBirthdayTimestamp);
     }
     if (message.masterKeyFingerprint.length !== 0) {
@@ -684,17 +611,13 @@ export const WatchOnly = {
       const tag = reader.uint32();
       switch (tag >>> 3) {
         case 1:
-          message.masterKeyBirthdayTimestamp = longToString(
-            reader.uint64() as Long,
-          );
+          message.masterKeyBirthdayTimestamp = longToString(reader.uint64() as Long);
           break;
         case 2:
           message.masterKeyFingerprint = reader.bytes();
           break;
         case 3:
-          message.accounts.push(
-            WatchOnlyAccount.decode(reader, reader.uint32()),
-          );
+          message.accounts.push(WatchOnlyAccount.decode(reader, reader.uint32()));
           break;
         default:
           reader.skipType(tag & 7);
@@ -708,13 +631,11 @@ export const WatchOnly = {
     return {
       masterKeyBirthdayTimestamp: isSet(object.masterKeyBirthdayTimestamp)
         ? String(object.masterKeyBirthdayTimestamp)
-        : '0',
+        : "0",
       masterKeyFingerprint: isSet(object.masterKeyFingerprint)
         ? bytesFromBase64(object.masterKeyFingerprint)
         : new Uint8Array(),
-      accounts: Array.isArray(object?.accounts)
-        ? object.accounts.map((e: any) => WatchOnlyAccount.fromJSON(e))
-        : [],
+      accounts: Array.isArray(object?.accounts) ? object.accounts.map((e: any) => WatchOnlyAccount.fromJSON(e)) : [],
     };
   },
 
@@ -724,14 +645,10 @@ export const WatchOnly = {
       (obj.masterKeyBirthdayTimestamp = message.masterKeyBirthdayTimestamp);
     message.masterKeyFingerprint !== undefined &&
       (obj.masterKeyFingerprint = base64FromBytes(
-        message.masterKeyFingerprint !== undefined
-          ? message.masterKeyFingerprint
-          : new Uint8Array(),
+        message.masterKeyFingerprint !== undefined ? message.masterKeyFingerprint : new Uint8Array(),
       ));
     if (message.accounts) {
-      obj.accounts = message.accounts.map((e) =>
-        e ? WatchOnlyAccount.toJSON(e) : undefined,
-      );
+      obj.accounts = message.accounts.map((e) => e ? WatchOnlyAccount.toJSON(e) : undefined);
     } else {
       obj.accounts = [];
     }
@@ -740,25 +657,19 @@ export const WatchOnly = {
 
   fromPartial(object: DeepPartial<WatchOnly>): WatchOnly {
     const message = createBaseWatchOnly();
-    message.masterKeyBirthdayTimestamp =
-      object.masterKeyBirthdayTimestamp ?? '0';
-    message.masterKeyFingerprint =
-      object.masterKeyFingerprint ?? new Uint8Array();
-    message.accounts =
-      object.accounts?.map((e) => WatchOnlyAccount.fromPartial(e)) || [];
+    message.masterKeyBirthdayTimestamp = object.masterKeyBirthdayTimestamp ?? "0";
+    message.masterKeyFingerprint = object.masterKeyFingerprint ?? new Uint8Array();
+    message.accounts = object.accounts?.map((e) => WatchOnlyAccount.fromPartial(e)) || [];
     return message;
   },
 };
 
 function createBaseWatchOnlyAccount(): WatchOnlyAccount {
-  return {purpose: 0, coinType: 0, account: 0, xpub: ''};
+  return { purpose: 0, coinType: 0, account: 0, xpub: "" };
 }
 
 export const WatchOnlyAccount = {
-  encode(
-    message: WatchOnlyAccount,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: WatchOnlyAccount, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.purpose !== 0) {
       writer.uint32(8).uint32(message.purpose);
     }
@@ -768,7 +679,7 @@ export const WatchOnlyAccount = {
     if (message.account !== 0) {
       writer.uint32(24).uint32(message.account);
     }
-    if (message.xpub !== '') {
+    if (message.xpub !== "") {
       writer.uint32(34).string(message.xpub);
     }
     return writer;
@@ -806,18 +717,15 @@ export const WatchOnlyAccount = {
       purpose: isSet(object.purpose) ? Number(object.purpose) : 0,
       coinType: isSet(object.coinType) ? Number(object.coinType) : 0,
       account: isSet(object.account) ? Number(object.account) : 0,
-      xpub: isSet(object.xpub) ? String(object.xpub) : '',
+      xpub: isSet(object.xpub) ? String(object.xpub) : "",
     };
   },
 
   toJSON(message: WatchOnlyAccount): unknown {
     const obj: any = {};
-    message.purpose !== undefined &&
-      (obj.purpose = Math.round(message.purpose));
-    message.coinType !== undefined &&
-      (obj.coinType = Math.round(message.coinType));
-    message.account !== undefined &&
-      (obj.account = Math.round(message.account));
+    message.purpose !== undefined && (obj.purpose = Math.round(message.purpose));
+    message.coinType !== undefined && (obj.coinType = Math.round(message.coinType));
+    message.account !== undefined && (obj.account = Math.round(message.account));
     message.xpub !== undefined && (obj.xpub = message.xpub);
     return obj;
   },
@@ -827,25 +735,17 @@ export const WatchOnlyAccount = {
     message.purpose = object.purpose ?? 0;
     message.coinType = object.coinType ?? 0;
     message.account = object.account ?? 0;
-    message.xpub = object.xpub ?? '';
+    message.xpub = object.xpub ?? "";
     return message;
   },
 };
 
 function createBaseUnlockWalletRequest(): UnlockWalletRequest {
-  return {
-    walletPassword: new Uint8Array(),
-    recoveryWindow: 0,
-    channelBackups: undefined,
-    statelessInit: false,
-  };
+  return { walletPassword: new Uint8Array(), recoveryWindow: 0, channelBackups: undefined, statelessInit: false };
 }
 
 export const UnlockWalletRequest = {
-  encode(
-    message: UnlockWalletRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: UnlockWalletRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.walletPassword.length !== 0) {
       writer.uint32(10).bytes(message.walletPassword);
     }
@@ -853,10 +753,7 @@ export const UnlockWalletRequest = {
       writer.uint32(16).int32(message.recoveryWindow);
     }
     if (message.channelBackups !== undefined) {
-      ChanBackupSnapshot.encode(
-        message.channelBackups,
-        writer.uint32(26).fork(),
-      ).ldelim();
+      ChanBackupSnapshot.encode(message.channelBackups, writer.uint32(26).fork()).ldelim();
     }
     if (message.statelessInit === true) {
       writer.uint32(32).bool(message.statelessInit);
@@ -878,10 +775,7 @@ export const UnlockWalletRequest = {
           message.recoveryWindow = reader.int32();
           break;
         case 3:
-          message.channelBackups = ChanBackupSnapshot.decode(
-            reader,
-            reader.uint32(),
-          );
+          message.channelBackups = ChanBackupSnapshot.decode(reader, reader.uint32());
           break;
         case 4:
           message.statelessInit = reader.bool();
@@ -896,18 +790,10 @@ export const UnlockWalletRequest = {
 
   fromJSON(object: any): UnlockWalletRequest {
     return {
-      walletPassword: isSet(object.walletPassword)
-        ? bytesFromBase64(object.walletPassword)
-        : new Uint8Array(),
-      recoveryWindow: isSet(object.recoveryWindow)
-        ? Number(object.recoveryWindow)
-        : 0,
-      channelBackups: isSet(object.channelBackups)
-        ? ChanBackupSnapshot.fromJSON(object.channelBackups)
-        : undefined,
-      statelessInit: isSet(object.statelessInit)
-        ? Boolean(object.statelessInit)
-        : false,
+      walletPassword: isSet(object.walletPassword) ? bytesFromBase64(object.walletPassword) : new Uint8Array(),
+      recoveryWindow: isSet(object.recoveryWindow) ? Number(object.recoveryWindow) : 0,
+      channelBackups: isSet(object.channelBackups) ? ChanBackupSnapshot.fromJSON(object.channelBackups) : undefined,
+      statelessInit: isSet(object.statelessInit) ? Boolean(object.statelessInit) : false,
     };
   },
 
@@ -915,18 +801,12 @@ export const UnlockWalletRequest = {
     const obj: any = {};
     message.walletPassword !== undefined &&
       (obj.walletPassword = base64FromBytes(
-        message.walletPassword !== undefined
-          ? message.walletPassword
-          : new Uint8Array(),
+        message.walletPassword !== undefined ? message.walletPassword : new Uint8Array(),
       ));
-    message.recoveryWindow !== undefined &&
-      (obj.recoveryWindow = Math.round(message.recoveryWindow));
+    message.recoveryWindow !== undefined && (obj.recoveryWindow = Math.round(message.recoveryWindow));
     message.channelBackups !== undefined &&
-      (obj.channelBackups = message.channelBackups
-        ? ChanBackupSnapshot.toJSON(message.channelBackups)
-        : undefined);
-    message.statelessInit !== undefined &&
-      (obj.statelessInit = message.statelessInit);
+      (obj.channelBackups = message.channelBackups ? ChanBackupSnapshot.toJSON(message.channelBackups) : undefined);
+    message.statelessInit !== undefined && (obj.statelessInit = message.statelessInit);
     return obj;
   },
 
@@ -934,10 +814,9 @@ export const UnlockWalletRequest = {
     const message = createBaseUnlockWalletRequest();
     message.walletPassword = object.walletPassword ?? new Uint8Array();
     message.recoveryWindow = object.recoveryWindow ?? 0;
-    message.channelBackups =
-      object.channelBackups !== undefined && object.channelBackups !== null
-        ? ChanBackupSnapshot.fromPartial(object.channelBackups)
-        : undefined;
+    message.channelBackups = (object.channelBackups !== undefined && object.channelBackups !== null)
+      ? ChanBackupSnapshot.fromPartial(object.channelBackups)
+      : undefined;
     message.statelessInit = object.statelessInit ?? false;
     return message;
   },
@@ -948,17 +827,11 @@ function createBaseUnlockWalletResponse(): UnlockWalletResponse {
 }
 
 export const UnlockWalletResponse = {
-  encode(
-    _: UnlockWalletResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(_: UnlockWalletResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): UnlockWalletResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): UnlockWalletResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseUnlockWalletResponse();
@@ -998,10 +871,7 @@ function createBaseChangePasswordRequest(): ChangePasswordRequest {
 }
 
 export const ChangePasswordRequest = {
-  encode(
-    message: ChangePasswordRequest,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChangePasswordRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.currentPassword.length !== 0) {
       writer.uint32(10).bytes(message.currentPassword);
     }
@@ -1017,10 +887,7 @@ export const ChangePasswordRequest = {
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChangePasswordRequest {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChangePasswordRequest {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChangePasswordRequest();
@@ -1049,18 +916,10 @@ export const ChangePasswordRequest = {
 
   fromJSON(object: any): ChangePasswordRequest {
     return {
-      currentPassword: isSet(object.currentPassword)
-        ? bytesFromBase64(object.currentPassword)
-        : new Uint8Array(),
-      newPassword: isSet(object.newPassword)
-        ? bytesFromBase64(object.newPassword)
-        : new Uint8Array(),
-      statelessInit: isSet(object.statelessInit)
-        ? Boolean(object.statelessInit)
-        : false,
-      newMacaroonRootKey: isSet(object.newMacaroonRootKey)
-        ? Boolean(object.newMacaroonRootKey)
-        : false,
+      currentPassword: isSet(object.currentPassword) ? bytesFromBase64(object.currentPassword) : new Uint8Array(),
+      newPassword: isSet(object.newPassword) ? bytesFromBase64(object.newPassword) : new Uint8Array(),
+      statelessInit: isSet(object.statelessInit) ? Boolean(object.statelessInit) : false,
+      newMacaroonRootKey: isSet(object.newMacaroonRootKey) ? Boolean(object.newMacaroonRootKey) : false,
     };
   },
 
@@ -1068,26 +927,16 @@ export const ChangePasswordRequest = {
     const obj: any = {};
     message.currentPassword !== undefined &&
       (obj.currentPassword = base64FromBytes(
-        message.currentPassword !== undefined
-          ? message.currentPassword
-          : new Uint8Array(),
+        message.currentPassword !== undefined ? message.currentPassword : new Uint8Array(),
       ));
     message.newPassword !== undefined &&
-      (obj.newPassword = base64FromBytes(
-        message.newPassword !== undefined
-          ? message.newPassword
-          : new Uint8Array(),
-      ));
-    message.statelessInit !== undefined &&
-      (obj.statelessInit = message.statelessInit);
-    message.newMacaroonRootKey !== undefined &&
-      (obj.newMacaroonRootKey = message.newMacaroonRootKey);
+      (obj.newPassword = base64FromBytes(message.newPassword !== undefined ? message.newPassword : new Uint8Array()));
+    message.statelessInit !== undefined && (obj.statelessInit = message.statelessInit);
+    message.newMacaroonRootKey !== undefined && (obj.newMacaroonRootKey = message.newMacaroonRootKey);
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ChangePasswordRequest>,
-  ): ChangePasswordRequest {
+  fromPartial(object: DeepPartial<ChangePasswordRequest>): ChangePasswordRequest {
     const message = createBaseChangePasswordRequest();
     message.currentPassword = object.currentPassword ?? new Uint8Array();
     message.newPassword = object.newPassword ?? new Uint8Array();
@@ -1098,24 +947,18 @@ export const ChangePasswordRequest = {
 };
 
 function createBaseChangePasswordResponse(): ChangePasswordResponse {
-  return {adminMacaroon: new Uint8Array()};
+  return { adminMacaroon: new Uint8Array() };
 }
 
 export const ChangePasswordResponse = {
-  encode(
-    message: ChangePasswordResponse,
-    writer: _m0.Writer = _m0.Writer.create(),
-  ): _m0.Writer {
+  encode(message: ChangePasswordResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
     if (message.adminMacaroon.length !== 0) {
       writer.uint32(10).bytes(message.adminMacaroon);
     }
     return writer;
   },
 
-  decode(
-    input: _m0.Reader | Uint8Array,
-    length?: number,
-  ): ChangePasswordResponse {
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChangePasswordResponse {
     const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
     let end = length === undefined ? reader.len : reader.pos + length;
     const message = createBaseChangePasswordResponse();
@@ -1134,27 +977,19 @@ export const ChangePasswordResponse = {
   },
 
   fromJSON(object: any): ChangePasswordResponse {
-    return {
-      adminMacaroon: isSet(object.adminMacaroon)
-        ? bytesFromBase64(object.adminMacaroon)
-        : new Uint8Array(),
-    };
+    return { adminMacaroon: isSet(object.adminMacaroon) ? bytesFromBase64(object.adminMacaroon) : new Uint8Array() };
   },
 
   toJSON(message: ChangePasswordResponse): unknown {
     const obj: any = {};
     message.adminMacaroon !== undefined &&
       (obj.adminMacaroon = base64FromBytes(
-        message.adminMacaroon !== undefined
-          ? message.adminMacaroon
-          : new Uint8Array(),
+        message.adminMacaroon !== undefined ? message.adminMacaroon : new Uint8Array(),
       ));
     return obj;
   },
 
-  fromPartial(
-    object: DeepPartial<ChangePasswordResponse>,
-  ): ChangePasswordResponse {
+  fromPartial(object: DeepPartial<ChangePasswordResponse>): ChangePasswordResponse {
     const message = createBaseChangePasswordResponse();
     message.adminMacaroon = object.adminMacaroon ?? new Uint8Array();
     return message;
@@ -1165,9 +1000,10 @@ export const ChangePasswordResponse = {
  * WalletUnlocker is a service that is used to set up a wallet password for
  * lnd at first startup, and unlock a previously set up wallet.
  */
+export type WalletUnlockerDefinition = typeof WalletUnlockerDefinition;
 export const WalletUnlockerDefinition = {
-  name: 'WalletUnlocker',
-  fullName: 'lnrpc.WalletUnlocker',
+  name: "WalletUnlocker",
+  fullName: "lnrpc.WalletUnlocker",
   methods: {
     /**
      * GenSeed is the first method that should be used to instantiate a new lnd
@@ -1180,7 +1016,7 @@ export const WalletUnlockerDefinition = {
      * wallet.
      */
     genSeed: {
-      name: 'GenSeed',
+      name: "GenSeed",
       requestType: GenSeedRequest,
       requestStream: false,
       responseType: GenSeedResponse,
@@ -1202,7 +1038,7 @@ export const WalletUnlockerDefinition = {
      * the seed can be fed into this RPC in order to commit the new wallet.
      */
     initWallet: {
-      name: 'InitWallet',
+      name: "InitWallet",
       requestType: InitWalletRequest,
       requestStream: false,
       responseType: InitWalletResponse,
@@ -1215,7 +1051,7 @@ export const WalletUnlockerDefinition = {
      * the wallet database.
      */
     unlockWallet: {
-      name: 'UnlockWallet',
+      name: "UnlockWallet",
       requestType: UnlockWalletRequest,
       requestStream: false,
       responseType: UnlockWalletResponse,
@@ -1228,7 +1064,7 @@ export const WalletUnlockerDefinition = {
      * automatically unlock the wallet database if successful.
      */
     changePassword: {
-      name: 'ChangePassword',
+      name: "ChangePassword",
       requestType: ChangePasswordRequest,
       requestStream: false,
       responseType: ChangePasswordResponse,
@@ -1242,53 +1078,51 @@ declare var self: any | undefined;
 declare var window: any | undefined;
 declare var global: any | undefined;
 var globalThis: any = (() => {
-  if (typeof globalThis !== 'undefined') return globalThis;
-  if (typeof self !== 'undefined') return self;
-  if (typeof window !== 'undefined') return window;
-  if (typeof global !== 'undefined') return global;
-  throw 'Unable to locate global object';
+  if (typeof globalThis !== "undefined") {
+    return globalThis;
+  }
+  if (typeof self !== "undefined") {
+    return self;
+  }
+  if (typeof window !== "undefined") {
+    return window;
+  }
+  if (typeof global !== "undefined") {
+    return global;
+  }
+  throw "Unable to locate global object";
 })();
 
-const atob: (b64: string) => string =
-  globalThis.atob ||
-  ((b64) => globalThis.Buffer.from(b64, 'base64').toString('binary'));
 function bytesFromBase64(b64: string): Uint8Array {
-  const bin = atob(b64);
-  const arr = new Uint8Array(bin.length);
-  for (let i = 0; i < bin.length; ++i) {
-    arr[i] = bin.charCodeAt(i);
+  if (globalThis.Buffer) {
+    return Uint8Array.from(globalThis.Buffer.from(b64, "base64"));
+  } else {
+    const bin = globalThis.atob(b64);
+    const arr = new Uint8Array(bin.length);
+    for (let i = 0; i < bin.length; ++i) {
+      arr[i] = bin.charCodeAt(i);
+    }
+    return arr;
   }
-  return arr;
 }
 
-const btoa: (bin: string) => string =
-  globalThis.btoa ||
-  ((bin) => globalThis.Buffer.from(bin, 'binary').toString('base64'));
 function base64FromBytes(arr: Uint8Array): string {
-  const bin: string[] = [];
-  for (const byte of arr) {
-    bin.push(String.fromCharCode(byte));
+  if (globalThis.Buffer) {
+    return globalThis.Buffer.from(arr).toString("base64");
+  } else {
+    const bin: string[] = [];
+    arr.forEach((byte) => {
+      bin.push(String.fromCharCode(byte));
+    });
+    return globalThis.btoa(bin.join(""));
   }
-  return btoa(bin.join(''));
 }
 
-type Builtin =
-  | Date
-  | Function
-  | Uint8Array
-  | string
-  | number
-  | boolean
-  | undefined;
+type Builtin = Date | Function | Uint8Array | string | number | boolean | undefined;
 
-export type DeepPartial<T> = T extends Builtin
-  ? T
-  : T extends Array<infer U>
-  ? Array<DeepPartial<U>>
-  : T extends ReadonlyArray<infer U>
-  ? ReadonlyArray<DeepPartial<U>>
-  : T extends {}
-  ? {[K in keyof T]?: DeepPartial<T[K]>}
+export type DeepPartial<T> = T extends Builtin ? T
+  : T extends Array<infer U> ? Array<DeepPartial<U>> : T extends ReadonlyArray<infer U> ? ReadonlyArray<DeepPartial<U>>
+  : T extends {} ? { [K in keyof T]?: DeepPartial<T[K]> }
   : Partial<T>;
 
 function longToString(long: Long) {

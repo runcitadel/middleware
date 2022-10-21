@@ -7,7 +7,7 @@ import type {
   NetworkInfo,
   Transaction,
   TxIn,
-} from '../services/bitcoin/abstract';
+} from '../services/bitcoin/abstract.js';
 
 /**
  * A higher-level interface to the Bitcoin client.

@@ -1,10 +1,10 @@
+import {randomUUID} from 'node:crypto';
 import ApiClient, {
   ListfundsState,
   ListinvoicesStatus,
   PayRequest,
   WaitsendpayStatus,
 } from '@core-ln/core';
-import {v4 as uuidv4} from 'uuid';
 import ILightningClient, {extendedPaymentRequest} from './abstract.js';
 import {
   Channel,
@@ -68,7 +68,7 @@ export default class CLightningService implements ILightningClient {
     const invoice = await this.apiClient.invoice({
       msatoshi: Number.parseInt(amount.toString()) * 1000,
       description: memo,
-      label: memo + uuidv4(),
+      label: memo + randomUUID(),
       expiry: 3600,
     });
 
@@ -109,12 +109,12 @@ export default class CLightningService implements ILightningClient {
         paymentRequest,
         destination: decoded.payee,
         paymentHash: decoded.payment_hash,
-        numSatoshis: Number(decoded.amount_msat! / 1000n),
+        numSatoshis: (decoded.amount_msat ?? 0) / 1000,
         timestamp: decoded.created_at,
         expiry: decoded.created_at + decoded.expiry,
         description: decoded.description!,
         descriptionHash: decoded.description_hash!,
-        numMsat: Number(decoded.amount_msat),
+        numMsat: decoded.amount_msat,
       };
     if (decoded.valid && decoded.type === 'bolt12 invoice')
       return {
@@ -123,12 +123,12 @@ export default class CLightningService implements ILightningClient {
         vendor: decoded.vendor,
         paymentHash: decoded.payment_hash,
         numSatoshis: decoded.amount_msat
-          ? Number(decoded.amount_msat / 1000n)
+          ? decoded.amount_msat / 1000
           : undefined,
         timestamp: decoded.created_at,
-        expiry: decoded.created_at + decoded.relative_expiry || undefined,
+        expiry: decoded.created_at + decoded.relative_expiry,
         description: decoded.description,
-        numMsat: Number(decoded.amount_msat) || undefined,
+        numMsat: decoded.amount_msat || undefined,
       };
     throw new Error('Failed to decode invoice');
   }
@@ -157,8 +157,8 @@ export default class CLightningService implements ILightningClient {
 
   async getChannelBalance(): Promise<ChannelBalanceResponse> {
     const {channels} = await this.apiClient.listfunds();
-    let localBalance = 0n;
-    let remoteBalance = 0n;
+    let localBalance = 0;
+    let remoteBalance = 0;
     for (const channel of channels) {
       localBalance += channel.our_amount_msat;
       remoteBalance += channel.amount_msat - channel.our_amount_msat;
@@ -166,12 +166,12 @@ export default class CLightningService implements ILightningClient {
 
     return {
       localBalance: {
-        sat: Number(localBalance / 1000n),
-        msat: Number(localBalance),
+        sat: localBalance / 1000,
+        msat: localBalance,
       },
       remoteBalance: {
-        sat: Number(remoteBalance / 1000n),
-        msat: Number(remoteBalance),
+        sat: remoteBalance / 1000,
+        msat: remoteBalance,
       },
     };
   }
@@ -194,26 +194,26 @@ export default class CLightningService implements ILightningClient {
         return {
           chanIdIn: forward.in_channel,
           chanIdOut: forward.out_channel!,
-          amtIn: Number(forward.in_msat / 1000n),
+          amtIn: forward.in_msat / 1000,
           /**
            * The total amount (in satoshis) of the outgoing HTLC that created the
            * second half of the circuit.
            */
-          amtOut: Number(forward.out_msat! / 1000n),
+          amtOut: forward.out_msat! / 1000,
           /** The total fee (in satoshis) that this payment circuit carried. */
-          fee: Number(forward.fee_msat! / 1000n),
+          fee: forward.fee_msat! / 1000,
           /** The total fee (in milli-satoshis) that this payment circuit carried. */
-          feeMsat: Number(forward.fee_msat!),
+          feeMsat: forward.fee_msat!,
           /**
            * The total amount (in milli-satoshis) of the incoming HTLC that created
            * half the circuit.
            */
-          amtInMsat: Number(forward.in_msat),
+          amtInMsat: forward.in_msat,
           /**
            * The total amount (in milli-satoshis) of the outgoing HTLC that created
            * the second half of the circuit.
            */
-          amtOutMsat: Number(forward.out_msat!),
+          amtOutMsat: forward.out_msat!,
           /**
            * The number of nanoseconds elapsed since January 1, 1970 UTC when this
            * circuit was completed.
@@ -278,11 +278,10 @@ export default class CLightningService implements ILightningClient {
           remotePubkey: channel.peer_id,
           channelPoint: `${channel.funding_txid}:${channel.funding_output}`,
           chanId: '',
-          capacity: Number(channel.amount_msat / 1000n),
-          localBalance: Number(channel.our_amount_msat / 1000n),
+          capacity: channel.amount_msat / 1000,
+          localBalance: channel.our_amount_msat / 1000,
           remoteBalance:
-            Number(channel.amount_msat / 1000n) -
-            Number(channel.our_amount_msat / 1000n),
+            channel.amount_msat / 1000 - channel.our_amount_msat / 1000,
         });
     }
 
@@ -326,8 +325,8 @@ export default class CLightningService implements ILightningClient {
 
   async getWalletBalance(): Promise<WalletBalanceResponse> {
     const data = await this.apiClient.listfunds();
-    let confirmedBalanceMsat = 0n;
-    let unconfirmedBalanceMsat = 0n;
+    let confirmedBalanceMsat = 0;
+    let unconfirmedBalanceMsat = 0;
     for (const output of data.outputs) {
       if (output.status === 'confirmed')
         confirmedBalanceMsat += output.amount_msat;
@@ -337,13 +336,11 @@ export default class CLightningService implements ILightningClient {
 
     return {
       /** The balance of the wallet */
-      totalBalance: Number(
-        (confirmedBalanceMsat + unconfirmedBalanceMsat) / 1000n,
-      ),
+      totalBalance: (confirmedBalanceMsat + unconfirmedBalanceMsat) / 1000,
       /** The confirmed balance of a wallet(with >= 1 confirmations) */
-      confirmedBalance: Number(confirmedBalanceMsat / 1000n),
+      confirmedBalance: confirmedBalanceMsat / 1000,
       /** The unconfirmed balance of a wallet(with 0 confirmations) */
-      unconfirmedBalance: Number(unconfirmedBalanceMsat / 1000n),
+      unconfirmedBalance: unconfirmedBalanceMsat / 1000,
       /** A mapping of each wallet account's name to its balance. */
       accountBalance: {},
     };
@@ -360,8 +357,8 @@ export default class CLightningService implements ILightningClient {
     const invoicesLnd: Invoice[] = invoices.map((invoice) => {
       return {
         memo: invoice.description ?? '',
-        value: Number((invoice.amount_msat ?? 0n) / 1000n),
-        valueMsat: Number(invoice.amount_msat),
+        value: (invoice.amount_msat ?? 0) / 1000,
+        valueMsat: invoice.amount_msat,
         paymentRequest: invoice.bolt11 ?? invoice.bolt12 ?? '',
         /** The state the invoice is in. */
         state: convertToLndState(invoice.status),
@@ -403,7 +400,7 @@ export default class CLightningService implements ILightningClient {
         /** The transaction hash */
         txHash: transaction.txid,
         /** The transaction amount, denominated in satoshis */
-        amount: Number(transaction.amount_msat / 1000n),
+        amount: transaction.amount_msat / 1000,
         /** The number of confirmations */
         numConfirmations: transaction.blockheight
           ? currentBlockHeight - transaction.blockheight
@@ -436,7 +433,7 @@ export default class CLightningService implements ILightningClient {
         /** The address */
         address: output.address!,
         /** The value of the unspent coin in satoshis */
-        amountSat: Number(output.amount_msat / 1000n),
+        amountSat: output.amount_msat / 1000,
         /** The outpoint in format txid:n */
         outpoint: {
           txidStr: output.txid,
@@ -488,7 +485,7 @@ export default class CLightningService implements ILightningClient {
     amt?: number,
   ): Promise<SendResponse> {
     const request: PayRequest = {bolt11: paymentRequest};
-    if (amt) request.msatoshi = (BigInt(amt) * 1000n).toString();
+    if (amt) request.msatoshi = (amt * 1000).toString();
     const data = await this.apiClient.pay(request);
     return {
       paymentPreimage: data.payment_preimage,
@@ -538,7 +535,7 @@ export default class CLightningService implements ILightningClient {
       });
       return {
         valid: data.verified,
-        pubkey: data.pubkey!,
+        pubkey: data.pubkey,
       };
     } catch {
       return {
@@ -556,7 +553,7 @@ export default class CLightningService implements ILightningClient {
     bolt12_unsigned: string;
   }> {
     const offerData = await this.apiClient.offer({
-      amount: Number.isNaN(Number(amount)) ? amount.toString() : `${amount}sat`,
+      amount: Number.isNaN(amount) ? amount.toString() : `${amount}sat`,
       description,
     });
 
