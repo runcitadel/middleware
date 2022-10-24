@@ -72,13 +72,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grpc/grpc-js@npm:^1.6.1, @grpc/grpc-js@npm:^1.7.2":
+"@grpc/grpc-js@npm:^1.6.1":
   version: 1.7.2
   resolution: "@grpc/grpc-js@npm:1.7.2"
   dependencies:
     "@grpc/proto-loader": ^0.7.0
     "@types/node": ">=12.12.47"
   checksum: e863c1fe54f09439ae40325e0b610fa295f53b903a26b98521114f781479d7d277e705ca5cb41a6b1124c8d535e3a6e22f51acad913a67ec99049b5934687b80
+  languageName: node
+  linkType: hard
+
+"@grpc/grpc-js@npm:^1.7.3":
+  version: 1.7.3
+  resolution: "@grpc/grpc-js@npm:1.7.3"
+  dependencies:
+    "@grpc/proto-loader": ^0.7.0
+    "@types/node": ">=12.12.47"
+  checksum: cb05aae4599f5deac9e0f50ea458b4465c581653501b5c1f3f3a9d6bfc5120c731726914d2d0d3a8244fce60cdf86ebbfc69c9d9f39fc34f0ab0100afd4af3e4
   languageName: node
   linkType: hard
 
@@ -286,7 +296,7 @@ __metadata:
   resolution: "@runcitadel/middleware@workspace:."
   dependencies:
     "@core-ln/core": ^0.3.2
-    "@grpc/grpc-js": ^1.7.2
+    "@grpc/grpc-js": ^1.7.3
     "@koa/cors": ^4.0.0
     "@koa/router": ^12.0.0
     "@runcitadel/bitcoin-rpc": ^0.0.4
