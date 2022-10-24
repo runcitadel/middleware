@@ -50,7 +50,7 @@
     "@types/morgan": "^1.9.3",
     "@types/node": "^18",
     "@types/passport-jwt": "^3.0.7",
-    "@types/validator": "^13.7.8",
+    "@types/validator": "^13.7.9",
     "@types/xo": "^0",
     "concurrently": "^7.4.0",
     "nodemon": "^2.0.20",
