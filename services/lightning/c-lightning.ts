@@ -126,7 +126,8 @@ export default class CLightningService implements ILightningClient {
           ? decoded.amount_msat / 1000
           : undefined,
         timestamp: decoded.created_at,
-        expiry: decoded.created_at + decoded.relative_expiry,
+        expiry:
+          (decoded.created_at as number) + (decoded.relative_expiry as number),
         description: decoded.description,
         numMsat: decoded.amount_msat || undefined,
       };
@@ -199,11 +200,11 @@ export default class CLightningService implements ILightningClient {
            * The total amount (in satoshis) of the outgoing HTLC that created the
            * second half of the circuit.
            */
-          amtOut: forward.out_msat! / 1000,
+          amtOut: (forward as any).out_msat! / 1000,
           /** The total fee (in satoshis) that this payment circuit carried. */
-          fee: forward.fee_msat! / 1000,
+          fee: (forward as any).fee_msat! / 1000,
           /** The total fee (in milli-satoshis) that this payment circuit carried. */
-          feeMsat: forward.fee_msat!,
+          feeMsat: (forward as any).fee_msat!,
           /**
            * The total amount (in milli-satoshis) of the incoming HTLC that created
            * half the circuit.
@@ -213,7 +214,7 @@ export default class CLightningService implements ILightningClient {
            * The total amount (in milli-satoshis) of the outgoing HTLC that created
            * the second half of the circuit.
            */
-          amtOutMsat: forward.out_msat!,
+          amtOutMsat: (forward as any).out_msat!,
           /**
            * The number of nanoseconds elapsed since January 1, 1970 UTC when this
            * circuit was completed.
