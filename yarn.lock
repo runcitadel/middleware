@@ -301,7 +301,7 @@ __metadata:
     "@types/morgan": ^1.9.3
     "@types/node": ^18
     "@types/passport-jwt": ^3.0.7
-    "@types/validator": ^13.7.8
+    "@types/validator": ^13.7.9
     "@types/xo": ^0
     bech32: ^2.0.0
     concurrently: ^7.5.0
@@ -695,10 +695,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/validator@npm:^13.7.1, @types/validator@npm:^13.7.8":
+"@types/validator@npm:^13.7.1":
   version: 13.7.8
   resolution: "@types/validator@npm:13.7.8"
   checksum: 69be66c1ec29ef19635d704699622c6745451a109cf73fa536c445e1b172db4b20d1bcc09c4b21f199aa2c37634067150057a1c6371228c5674e50ad82b89e62
+  languageName: node
+  linkType: hard
+
+"@types/validator@npm:^13.7.9":
+  version: 13.7.9
+  resolution: "@types/validator@npm:13.7.9"
+  checksum: 562305e75e744c23946e9bfe5cebc73f63c2211fb4eeb42dfb17b8ed92b0da2689d8330b8e262607e37a1ceee6835f9d0c19d1fc040dccfa07be21a27eed2038
   languageName: node
   linkType: hard
 
