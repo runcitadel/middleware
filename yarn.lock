@@ -312,7 +312,7 @@ __metadata:
     koa: ^2.13.4
     koa-body: ^5.0.0
     koa-morgan: ^1.0.1
-    koa-passport: ^5.0.0
+    koa-passport: ^4.1.4
     long: ^5.2.0
     nice-grpc: ^2.0.0
     nodemon: ^2.0.20
@@ -613,14 +613,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0":
-  version: 18.11.3
-  resolution: "@types/node@npm:18.11.3"
-  checksum: 3a2a9142d891a90a195c296149bf64a69cc0abcc42f543be911ab22b2e0ead85ff077f90af92f0f13f6e3e5e72501469200fd753dfd1101825d4646a89d3ee47
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^18":
+"@types/node@npm:*, @types/node@npm:>=12.12.47, @types/node@npm:>=13.7.0, @types/node@npm:^18":
   version: 18.11.5
   resolution: "@types/node@npm:18.11.5"
   checksum: ac54e9287dd4549ea3dc8aabc0cf7bfa04c52f02925d7fd68414789617ec770f034c8ae2e111e8bd00d446a46fcac42587b5a316a1303e2f6ea094854248c9ff
@@ -702,14 +695,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/validator@npm:^13.7.1":
-  version: 13.7.8
-  resolution: "@types/validator@npm:13.7.8"
-  checksum: 69be66c1ec29ef19635d704699622c6745451a109cf73fa536c445e1b172db4b20d1bcc09c4b21f199aa2c37634067150057a1c6371228c5674e50ad82b89e62
-  languageName: node
-  linkType: hard
-
-"@types/validator@npm:^13.7.9":
+"@types/validator@npm:^13.7.1, @types/validator@npm:^13.7.9":
   version: 13.7.9
   resolution: "@types/validator@npm:13.7.9"
   checksum: 562305e75e744c23946e9bfe5cebc73f63c2211fb4eeb42dfb17b8ed92b0da2689d8330b8e262607e37a1ceee6835f9d0c19d1fc040dccfa07be21a27eed2038
@@ -3422,12 +3408,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koa-passport@npm:^5.0.0":
-  version: 5.0.0
-  resolution: "koa-passport@npm:5.0.0"
+"koa-passport@npm:^4.1.4":
+  version: 4.1.4
+  resolution: "koa-passport@npm:4.1.4"
   dependencies:
-    passport: ^0.6.0
-  checksum: d0cc2df188851444e518462241543cb97833b2f0aaf3269ac07145a4a98e443c0186c63ba94a2fe2f23242a5c0a6bcc8b5eea115031b38c19318f6ff37afd24b
+    passport: ^0.4.0
+  checksum: 652627a4980ad637df445fad3cb8247afe35f50376ed181a37ecda9ff6281574b29e65e87e69b58cfae3c0677d3669b121407f31dfdaa629aa11d024cf2f5333
   languageName: node
   linkType: hard
 
@@ -4350,14 +4336,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"passport@npm:^0.6.0":
-  version: 0.6.0
-  resolution: "passport@npm:0.6.0"
+"passport@npm:^0.4.0":
+  version: 0.4.1
+  resolution: "passport@npm:0.4.1"
   dependencies:
     passport-strategy: 1.x.x
     pause: 0.0.1
-    utils-merge: ^1.0.1
-  checksum: ef932ad671d50de34765c7a53cd1e058d8331a82a6df09265a9c6c1168911aee4a7b5215803d0101110ab7f317e096b4954ca7e18fb2c33b9929f0bd17dbe159
+  checksum: 6e0d855e281df8568f4b361d8377995295e59b08391a1b57d18d1404dbaa67af1523c987e9a071d6b0d1550f022637d62f9854bbd31ebc30372f0bfb1acb2567
   languageName: node
   linkType: hard
 
@@ -5485,13 +5470,6 @@ __metadata:
   version: 1.0.2
   resolution: "util-deprecate@npm:1.0.2"
   checksum: 474acf1146cb2701fe3b074892217553dfcf9a031280919ba1b8d651a068c9b15d863b7303cb15bd00a862b498e6cf4ad7b4a08fb134edd5a6f7641681cb54a2
-  languageName: node
-  linkType: hard
-
-"utils-merge@npm:^1.0.1":
-  version: 1.0.1
-  resolution: "utils-merge@npm:1.0.1"
-  checksum: c81095493225ecfc28add49c106ca4f09cdf56bc66731aa8dabc2edbbccb1e1bfe2de6a115e5c6a380d3ea166d1636410b62ef216bb07b3feb1cfde1d95d5080
   languageName: node
   linkType: hard
 
