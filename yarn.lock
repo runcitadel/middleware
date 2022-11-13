@@ -72,7 +72,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@grpc/grpc-js@npm:^1.6.1, @grpc/grpc-js@npm:^1.7.3":
+"@grpc/grpc-js@npm:^1.7.3":
   version: 1.7.3
   resolution: "@grpc/grpc-js@npm:1.7.3"
   dependencies:
@@ -314,7 +314,7 @@ __metadata:
     koa-morgan: ^1.0.1
     koa-passport: ^4.1.4
     long: ^5.2.0
-    nice-grpc: ^2.0.0
+    nice-grpc: ^2.0.1
     nodemon: ^2.0.20
     passport-jwt: ^4.0.0
     protobufjs: ^7.1.2
@@ -3946,14 +3946,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nice-grpc@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "nice-grpc@npm:2.0.0"
+"nice-grpc@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "nice-grpc@npm:2.0.1"
   dependencies:
-    "@grpc/grpc-js": ^1.6.1
+    "@grpc/grpc-js": ^1.7.3
     abort-controller-x: ^0.4.0
     nice-grpc-common: ^2.0.0
-  checksum: 288e28996ac79731af911e36430e545768ef4c8b23a1cdaeb17b86d5230bf3961ee11f2b243a256fca7488e92e125202749fa8d06a0079e5041c600514283938
+  checksum: 7574049ebe17a506e45d3e8378855aaa079281eec09d7516a34490e1b0c434bdc304a3c5f5564361726fab2e92b44f9644a1c2379f107d4f78fd91d580e5b495
   languageName: node
   linkType: hard
 
