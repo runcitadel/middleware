@@ -3,10 +3,9 @@ import App from 'koa';
 import morgan from 'koa-morgan';
 import passport from 'koa-passport';
 import cors from '@koa/cors';
-import bodyParser from 'koa-body';
+import bodyParser, {HttpMethodEnum} from 'koa-body';
 
 import {errorHandler, corsOptions} from '@runcitadel/utils';
-import bitcoind from './routes/v1/bitcoind/info.js';
 import address from './routes/v1/lnd/address.js';
 import channel from './routes/v1/lnd/channel.js';
 import info from './routes/v1/lnd/info.js';
@@ -27,7 +26,11 @@ app.use(cors(corsOptions));
 
 app.use(
   bodyParser({
-    parsedMethods: ['POST', 'DELETE', 'PUT'],
+    parsedMethods: [
+      HttpMethodEnum.POST,
+      HttpMethodEnum.PUT,
+      HttpMethodEnum.DELETE,
+    ],
   }),
 );
 
@@ -44,7 +47,6 @@ app.use(async (ctx, next) => {
 });
 
 app.use(ping.routes());
-app.use(bitcoind.routes());
 app.use(address.routes());
 app.use(channel.routes());
 app.use(info.routes());
