@@ -3,7 +3,7 @@ import App from 'koa';
 import morgan from 'koa-morgan';
 import passport from 'koa-passport';
 import cors from '@koa/cors';
-import bodyParser, {HttpMethodEnum} from 'koa-body';
+import {koaBody, HttpMethodEnum} from 'koa-body';
 
 import {errorHandler, corsOptions} from '@runcitadel/utils';
 import address from './routes/v1/lnd/address.js';
@@ -25,7 +25,7 @@ app.use(errorHandler);
 app.use(cors(corsOptions));
 
 app.use(
-  bodyParser({
+  koaBody({
     parsedMethods: [
       HttpMethodEnum.POST,
       HttpMethodEnum.PUT,
