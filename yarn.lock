@@ -313,7 +313,7 @@ __metadata:
     koa-body: ^6.0.1
     koa-morgan: ^1.0.1
     koa-passport: ^4.1.4
-    long: ^5.2.0
+    long: ^5.2.1
     nice-grpc: ^2.0.1
     nodemon: ^2.0.20
     passport-jwt: ^4.0.0
@@ -3618,10 +3618,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"long@npm:5.2.0":
-  version: 5.2.0
-  resolution: "long@npm:5.2.0"
-  checksum: 37aa4e67b9c3eebc6d9d675adcc9d06f06059ca268922a71273de389746bf07f0ff282f9e604d17fdf84c4149099b44e936ea2b621a6c4759a216621afa97efd
+"long@npm:5.2.1":
+  version: 5.2.1
+  resolution: "long@npm:5.2.1"
+  checksum: 9264da12d1b7df67e5aa6da4498144293caf1ad12e7f092efe4e9a2d32c53f0bbf7334f7cef997080a2a3af061142558ab366efa71698d98b1cdb883477445a7
   languageName: node
   linkType: hard
 
