@@ -34,7 +34,7 @@
     "koa-body": "^6.0.1",
     "koa-morgan": "^1.0.1",
     "koa-passport": "^4.1.4",
-    "long": "^5.2.0",
+    "long": "^5.2.1",
     "nice-grpc": "^2.0.1",
     "passport-jwt": "^4.0.0",
     "protobufjs": "^7.1.2",
@@ -59,7 +59,7 @@
     "xo": "^0.52.4"
   },
   "resolutions": {
-    "long": "5.2.0"
+    "long": "5.2.1"
   },
   "packageManager": "yarn@3.2.4"
 }
