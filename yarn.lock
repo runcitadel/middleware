@@ -318,7 +318,7 @@ __metadata:
     nodemon: ^2.0.20
     passport-jwt: ^4.0.0
     protobufjs: ^7.1.2
-    ts-proto: ^1.130.0
+    ts-proto: ^1.132.1
     typescript: ^4.8.4
     validator: ^13.7.0
     xo: ^0.52.4
@@ -5285,9 +5285,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ts-proto@npm:^1.130.0":
-  version: 1.130.0
-  resolution: "ts-proto@npm:1.130.0"
+"ts-proto@npm:^1.132.1":
+  version: 1.132.1
+  resolution: "ts-proto@npm:1.132.1"
   dependencies:
     "@types/object-hash": ^1.3.0
     dataloader: ^1.4.0
@@ -5297,7 +5297,7 @@ __metadata:
     ts-proto-descriptors: 1.7.1
   bin:
     protoc-gen-ts_proto: protoc-gen-ts_proto
-  checksum: 8785df54bc9fc327717e634c43c2747973090a3e5697df101e903933caaba72c42c2191fb17fe8d6267a470de802fb28f29d3ea20a9c7a4f6c25370c5dd9bbd0
+  checksum: 1acd12dcaa1adfbd42fef9661a9d055c0442935d0b8af5f2ea5461299c2b5f6649fbce25e11e2a6b624406a6112c12115c7078b814c52490b39dd131a209b669
   languageName: node
   linkType: hard
 
