@@ -25,9 +25,6 @@
     "@runcitadel/bitcoin-rpc": "^0.0.4",
     "@runcitadel/fs": "^1.0.2",
     "@runcitadel/utils": "^0.9.2",
-    "bech32": "^2.0.0",
-    "crypto-js": "^4.1.1",
-    "debug": "^4.3.4",
     "dotenv": "^16.0.3",
     "husky": "^8.0.1",
     "koa": "^2.13.4",
@@ -41,7 +38,6 @@
     "simple-lndconnect": "^1.0.5"
   },
   "devDependencies": {
-    "@types/crypto-js": "^4",
     "@types/koa": "^2.13.5",
     "@types/koa-morgan": "^1.0.5",
     "@types/koa-passport": "^4.0.3",

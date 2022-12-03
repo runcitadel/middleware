@@ -6,10 +6,7 @@
 
 import * as http from 'node:http';
 import * as process from 'node:process';
-import debugPkg from 'debug';
 import app from '../app.js';
-
-const debug = debugPkg('citadel-manager:server');
 
 /**
  * Get port from environment and store in Express.
@@ -84,6 +81,5 @@ function onError(error) {
 function onListening() {
   const addr = server.address();
   const bind = typeof addr === 'string' ? 'pipe ' + addr : 'port ' + addr.port;
-  debug('Listening on ' + bind);
   console.log('Listening on ' + bind);
 }
