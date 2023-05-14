@@ -522,6 +522,7 @@ export default class LNDService implements ILightningClient {
     if (
       walletState.state === WalletState.NON_EXISTING ||
       walletState.state === WalletState.LOCKED ||
+      walletState.state === WalletState.UNLOCKED ||
       walletState.state === WalletState.WAITING_TO_START
     ) {
       return {
