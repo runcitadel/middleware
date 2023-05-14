@@ -1,6 +1,7 @@
 /* eslint-disable */
 import Long from "long";
-import _m0 from "protobufjs/minimal.js";
+// Manually patched with the extension
+import _m0 from 'protobufjs/minimal.js';
 
 export const protobufPackage = "lnrpc";
 
@@ -14,6 +15,7 @@ export enum OutputScriptType {
   SCRIPT_TYPE_NULLDATA = 6,
   SCRIPT_TYPE_NON_STANDARD = 7,
   SCRIPT_TYPE_WITNESS_UNKNOWN = 8,
+  SCRIPT_TYPE_WITNESS_V1_TAPROOT = 9,
   UNRECOGNIZED = -1,
 }
 
@@ -46,6 +48,9 @@ export function outputScriptTypeFromJSON(object: any): OutputScriptType {
     case 8:
     case "SCRIPT_TYPE_WITNESS_UNKNOWN":
       return OutputScriptType.SCRIPT_TYPE_WITNESS_UNKNOWN;
+    case 9:
+    case "SCRIPT_TYPE_WITNESS_V1_TAPROOT":
+      return OutputScriptType.SCRIPT_TYPE_WITNESS_V1_TAPROOT;
     case -1:
     case "UNRECOGNIZED":
     default:
@@ -73,6 +78,8 @@ export function outputScriptTypeToJSON(object: OutputScriptType): string {
       return "SCRIPT_TYPE_NON_STANDARD";
     case OutputScriptType.SCRIPT_TYPE_WITNESS_UNKNOWN:
       return "SCRIPT_TYPE_WITNESS_UNKNOWN";
+    case OutputScriptType.SCRIPT_TYPE_WITNESS_V1_TAPROOT:
+      return "SCRIPT_TYPE_WITNESS_V1_TAPROOT";
     case OutputScriptType.UNRECOGNIZED:
     default:
       return "UNRECOGNIZED";
@@ -760,6 +767,18 @@ export function updateFailureToJSON(object: UpdateFailure): string {
   }
 }
 
+export interface LookupHtlcResolutionRequest {
+  chanId: string;
+  htlcIndex: string;
+}
+
+export interface LookupHtlcResolutionResponse {
+  /** Settled is true is the htlc was settled. If false, the htlc was failed. */
+  settled: boolean;
+  /** Offchain indicates whether the htlc was resolved off-chain or on-chain. */
+  offchain: boolean;
+}
+
 export interface SubscribeCustomMessagesRequest {
 }
 
@@ -775,7 +794,12 @@ export interface CustomMessage {
 export interface SendCustomMessageRequest {
   /** Peer to send the message to */
   peer: Uint8Array;
-  /** Message type. This value needs to be in the custom range (>= 32768). */
+  /**
+   * Message type. This value needs to be in the custom range (>= 32768).
+   * To send a type < custom range, lnd needs to be compiled with the `dev`
+   * build tag, and the message type to override should be specified in lnd's
+   * experimental protocol configuration.
+   */
   type: number;
   /** Raw message data. */
   data: Uint8Array;
@@ -844,6 +868,8 @@ export interface Transaction {
   rawTxHex: string;
   /** A label that was optionally set on transaction broadcast. */
   label: string;
+  /** PreviousOutpoints/Inputs of this transaction. */
+  previousOutpoints: PreviousOutPoint[];
 }
 
 export interface GetTransactionsRequest {
@@ -875,7 +901,7 @@ export interface FeeLimit {
    *
    * The fields fixed and fixed_msat are mutually exclusive.
    */
-  fixed:
+  fixed?:
     | string
     | undefined;
   /**
@@ -883,11 +909,11 @@ export interface FeeLimit {
    *
    * The fields fixed and fixed_msat are mutually exclusive.
    */
-  fixedMsat:
+  fixedMsat?:
     | string
     | undefined;
   /** The fee limit expressed as a percentage of the payment amount. */
-  percent: string | undefined;
+  percent?: string | undefined;
 }
 
 export interface SendRequest {
@@ -1059,6 +1085,16 @@ export interface ChannelAcceptRequest {
   channelFlags: number;
   /** The commitment type the initiator wishes to use for the proposed channel. */
   commitmentType: CommitmentType;
+  /**
+   * Whether the initiator wants to open a zero-conf channel via the channel
+   * type.
+   */
+  wantsZeroConf: boolean;
+  /**
+   * Whether the initiator wants to use the scid-alias channel type. This is
+   * separate from the feature bit.
+   */
+  wantsScidAlias: boolean;
 }
 
 export interface ChannelAcceptResponse {
@@ -1102,6 +1138,12 @@ export interface ChannelAcceptResponse {
   minHtlcIn: string;
   /** The number of confirmations we require before we consider the channel open. */
   minAcceptDepth: number;
+  /**
+   * Whether the responder wants this to be a zero-conf channel. This will fail
+   * if either side does not have the scid-alias feature bit set. The minimum
+   * depth field must be zero if this is true.
+   */
+  zeroConf: boolean;
 }
 
 export interface ChannelPoint {
@@ -1109,14 +1151,14 @@ export interface ChannelPoint {
    * Txid of the funding transaction. When using REST, this field must be
    * encoded as base64.
    */
-  fundingTxidBytes:
+  fundingTxidBytes?:
     | Uint8Array
     | undefined;
   /**
    * Hex-encoded string representing the byte-reversed hash of the funding
    * transaction.
    */
-  fundingTxidStr:
+  fundingTxidStr?:
     | string
     | undefined;
   /** The index of the output of the funding transaction */
@@ -1130,6 +1172,16 @@ export interface OutPoint {
   txidStr: string;
   /** The index of the output on the transaction. */
   outputIndex: number;
+}
+
+export interface PreviousOutPoint {
+  /** The outpoint in format txid:n. */
+  outpoint: string;
+  /**
+   * Denotes if the outpoint is controlled by the internal wallet.
+   * The flag will only detect p2wkh, np2wkh and p2tr inputs as its own.
+   */
+  isOurOutput: boolean;
 }
 
 export interface LightningAddress {
@@ -1526,7 +1578,20 @@ export interface Channel {
     | ChannelConstraints
     | undefined;
   /** List constraints for the remote node. */
-  remoteConstraints: ChannelConstraints | undefined;
+  remoteConstraints:
+    | ChannelConstraints
+    | undefined;
+  /**
+   * This lists out the set of alias short channel ids that exist for a channel.
+   * This may be empty.
+   */
+  aliasScids: string[];
+  /** Whether or not this is a zero-conf channel. */
+  zeroConf: boolean;
+  /** This is the confirmed / on-chain zero-conf SCID. */
+  zeroConfConfirmedScid: string;
+  /** The configured alias name of our peer. */
+  peerAlias: string;
 }
 
 export interface ListChannelsRequest {
@@ -1539,11 +1604,34 @@ export interface ListChannelsRequest {
    * empty, all channels will be returned.
    */
   peer: Uint8Array;
+  /**
+   * Informs the server if the peer alias lookup per channel should be
+   * enabled. It is turned off by default in order to avoid degradation of
+   * performance for existing clients.
+   */
+  peerAliasLookup: boolean;
 }
 
 export interface ListChannelsResponse {
   /** The list of active channels */
   channels: Channel[];
+}
+
+export interface AliasMap {
+  /**
+   * For non-zero-conf channels, this is the confirmed SCID. Otherwise, this is
+   * the first assigned "base" alias.
+   */
+  baseScid: string;
+  /** The set of all aliases stored for the base SCID. */
+  aliases: string[];
+}
+
+export interface ListAliasesRequest {
+}
+
+export interface ListAliasesResponse {
+  aliasMaps: AliasMap[];
 }
 
 export interface ChannelCloseSummary {
@@ -1582,6 +1670,13 @@ export interface ChannelCloseSummary {
    */
   closeInitiator: Initiator;
   resolutions: Resolution[];
+  /**
+   * This lists out the set of alias short channel ids that existed for the
+   * closed channel. This may be empty.
+   */
+  aliasScids: string[];
+  /** The confirmed SCID for a zero-conf channel. */
+  zeroConfConfirmedScid: string;
 }
 
 export enum ChannelCloseSummary_ClosureType {
@@ -1884,6 +1979,8 @@ export interface GetInfoResponse {
   features: { [key: number]: Feature };
   /** Indicates whether the HTLC interceptor API is in always-on mode. */
   requireHtlcInterceptor: boolean;
+  /** Indicates whether final htlc resolutions are stored on disk. */
+  storeFinalHtlcResolutions: boolean;
 }
 
 export interface GetInfoResponse_FeaturesEntry {
@@ -1964,11 +2061,17 @@ export interface CloseChannelRequest {
    * closure transaction.
    */
   satPerVbyte: string;
+  /**
+   * The maximum fee rate the closer is willing to pay.
+   *
+   * NOTE: This field is only respected if we're the initiator of the channel.
+   */
+  maxFeePerVbyte: string;
 }
 
 export interface CloseStatusUpdate {
-  closePending: PendingUpdate | undefined;
-  chanClose: ChannelCloseUpdate | undefined;
+  closePending?: PendingUpdate | undefined;
+  chanClose?: ChannelCloseUpdate | undefined;
 }
 
 export interface PendingUpdate {
@@ -2183,6 +2286,40 @@ export interface OpenChannelRequest {
    * the remote peer supports explicit channel negotiation.
    */
   commitmentType: CommitmentType;
+  /** If this is true, then a zero-conf channel open will be attempted. */
+  zeroConf: boolean;
+  /**
+   * If this is true, then an option-scid-alias channel-type open will be
+   * attempted.
+   */
+  scidAlias: boolean;
+  /** The base fee charged regardless of the number of milli-satoshis sent. */
+  baseFee: string;
+  /**
+   * The fee rate in ppm (parts per million) that will be charged in
+   * proportion of the value of each forwarded HTLC.
+   */
+  feeRate: string;
+  /**
+   * If use_base_fee is true the open channel announcement will update the
+   * channel base fee with the value specified in base_fee. In the case of
+   * a base_fee of 0 use_base_fee is needed downstream to distinguish whether
+   * to use the default base fee value specified in the config or 0.
+   */
+  useBaseFee: boolean;
+  /**
+   * If use_fee_rate is true the open channel announcement will update the
+   * channel fee rate with the value specified in fee_rate. In the case of
+   * a fee_rate of 0 use_fee_rate is needed downstream to distinguish whether
+   * to use the default fee rate value specified in the config or 0.
+   */
+  useFeeRate: boolean;
+  /**
+   * The number of satoshis we require the remote peer to reserve. This value,
+   * if specified, must be above the dust limit and below 20% of the channel
+   * capacity.
+   */
+  remoteChanReserveSat: string;
 }
 
 export interface OpenStatusUpdate {
@@ -2190,21 +2327,21 @@ export interface OpenStatusUpdate {
    * Signals that the channel is now fully negotiated and the funding
    * transaction published.
    */
-  chanPending:
+  chanPending?:
     | PendingUpdate
     | undefined;
   /**
    * Signals that the channel's funding transaction has now reached the
    * required number of confirmations on chain and can be used.
    */
-  chanOpen:
+  chanOpen?:
     | ChannelOpenUpdate
     | undefined;
   /**
    * Signals that the funding process has been suspended and the construction
    * of a PSBT that funds the channel PK script is now required.
    */
-  psbtFund:
+  psbtFund?:
     | ReadyForPsbtFunding
     | undefined;
   /**
@@ -2289,14 +2426,14 @@ export interface FundingShim {
    * A channel shim where the channel point was fully constructed outside
    * of lnd's wallet and the transaction might already be published.
    */
-  chanPointShim:
+  chanPointShim?:
     | ChanPointShim
     | undefined;
   /**
    * A channel shim that uses a PSBT to fund and sign the channel funding
    * transaction.
    */
-  psbtShim: PsbtShim | undefined;
+  psbtShim?: PsbtShim | undefined;
 }
 
 export interface FundingShimCancel {
@@ -2351,11 +2488,11 @@ export interface FundingTransitionMsg {
    * channel funding has began by the remote party, as it is intended as a
    * preparatory step for the full channel funding.
    */
-  shimRegister:
+  shimRegister?:
     | FundingShim
     | undefined;
   /** Used to cancel an existing registered funding shim. */
-  shimCancel:
+  shimCancel?:
     | FundingShimCancel
     | undefined;
   /**
@@ -2363,7 +2500,7 @@ export interface FundingTransitionMsg {
    * through a PSBT. This step verifies that the PSBT contains the correct
    * outputs to fund the channel.
    */
-  psbtVerify:
+  psbtVerify?:
     | FundingPsbtVerify
     | undefined;
   /**
@@ -2372,7 +2509,7 @@ export interface FundingTransitionMsg {
    * negotiation with the peer and finally publishes the resulting funding
    * transaction.
    */
-  psbtFinalize: FundingPsbtFinalize | undefined;
+  psbtFinalize?: FundingPsbtFinalize | undefined;
 }
 
 export interface FundingStateStepResp {
@@ -2544,9 +2681,17 @@ export interface PendingChannelsResponse_ForceClosedChannel {
   anchor: PendingChannelsResponse_ForceClosedChannel_AnchorState;
 }
 
+/**
+ * There are three resolution states for the anchor:
+ * limbo, lost and recovered. Derive the current state
+ * from the limbo and recovered balances.
+ */
 export enum PendingChannelsResponse_ForceClosedChannel_AnchorState {
+  /** LIMBO - The recovered_balance is zero and limbo_balance is non-zero. */
   LIMBO = 0,
+  /** RECOVERED - The recovered_balance is non-zero. */
   RECOVERED = 1,
+  /** LOST - A state that is neither LIMBO nor RECOVERED. */
   LOST = 2,
   UNRECOGNIZED = -1,
 }
@@ -2591,12 +2736,12 @@ export interface ChannelEventSubscription {
 }
 
 export interface ChannelEventUpdate {
-  openChannel: Channel | undefined;
-  closedChannel: ChannelCloseSummary | undefined;
-  activeChannel: ChannelPoint | undefined;
-  inactiveChannel: ChannelPoint | undefined;
-  pendingOpenChannel: PendingUpdate | undefined;
-  fullyResolvedChannel: ChannelPoint | undefined;
+  openChannel?: Channel | undefined;
+  closedChannel?: ChannelCloseSummary | undefined;
+  activeChannel?: ChannelPoint | undefined;
+  inactiveChannel?: ChannelPoint | undefined;
+  pendingOpenChannel?: PendingUpdate | undefined;
+  fullyResolvedChannel?: ChannelPoint | undefined;
   type: ChannelEventUpdate_UpdateType;
 }
 
@@ -2679,6 +2824,8 @@ export interface WalletBalanceResponse {
    * other usage.
    */
   lockedBalance: string;
+  /** The amount of reserve required. */
+  reservedBalanceAnchorChan: string;
   /** A mapping of each wallet account's name to its balance. */
   accountBalance: { [key: string]: WalletAccountBalance };
 }
@@ -3039,11 +3186,18 @@ export interface LightningNode {
   addresses: NodeAddress[];
   color: string;
   features: { [key: number]: Feature };
+  /** Custom node announcement tlv records. */
+  customRecords: { [key: string]: Uint8Array };
 }
 
 export interface LightningNode_FeaturesEntry {
   key: number;
   value: Feature | undefined;
+}
+
+export interface LightningNode_CustomRecordsEntry {
+  key: string;
+  value: Uint8Array;
 }
 
 export interface NodeAddress {
@@ -3059,6 +3213,13 @@ export interface RoutingPolicy {
   disabled: boolean;
   maxHtlcMsat: string;
   lastUpdate: number;
+  /** Custom channel update tlv records. */
+  customRecords: { [key: string]: Uint8Array };
+}
+
+export interface RoutingPolicy_CustomRecordsEntry {
+  key: string;
+  value: Uint8Array;
 }
 
 /**
@@ -3082,7 +3243,16 @@ export interface ChannelEdge {
   node2Pub: string;
   capacity: string;
   node1Policy: RoutingPolicy | undefined;
-  node2Policy: RoutingPolicy | undefined;
+  node2Policy:
+    | RoutingPolicy
+    | undefined;
+  /** Custom channel announcement tlv records. */
+  customRecords: { [key: string]: Uint8Array };
+}
+
+export interface ChannelEdge_CustomRecordsEntry {
+  key: string;
+  value: Uint8Array;
 }
 
 export interface ChannelGraphRequest {
@@ -3299,18 +3469,22 @@ export interface Invoice {
    */
   valueMsat: string;
   /**
-   * Whether this invoice has been fulfilled
+   * Whether this invoice has been fulfilled.
+   *
+   * The field is deprecated. Use the state field instead (compare to SETTLED).
    *
    * @deprecated
    */
   settled: boolean;
   /**
    * When this invoice was created.
+   * Measured in seconds since the unix epoch.
    * Note: Output only, don't specify for creating an invoice.
    */
   creationDate: string;
   /**
    * When this invoice was settled.
+   * Measured in seconds since the unix epoch.
    * Note: Output only, don't specify for creating an invoice.
    */
   settleDate: string;
@@ -3328,7 +3502,7 @@ export interface Invoice {
    * as base64.
    */
   descriptionHash: Uint8Array;
-  /** Payment request expiry time in seconds. Default is 3600 (1 hour). */
+  /** Payment request expiry time in seconds. Default is 86400 (24 hours). */
   expiry: string;
   /** Fallback on-chain address. */
   fallbackAddr: string;
@@ -3339,7 +3513,11 @@ export interface Invoice {
    * invoice's destination.
    */
   routeHints: RouteHint[];
-  /** Whether this invoice should include routing hints for private channels. */
+  /**
+   * Whether this invoice should include routing hints for private channels.
+   * Note: When enabled, if value and value_msat are zero, a large number of
+   * hints with these channels can be included, which might not be desirable.
+   */
   private: boolean;
   /**
    * The "add" index of this invoice. Each newly created invoice will increment
@@ -3593,6 +3771,16 @@ export interface ListInvoiceRequest {
    * specified index offset. This can be used to paginate backwards.
    */
   reversed: boolean;
+  /**
+   * If set, returns all invoices with a creation date greater than or equal
+   * to it. Measured in seconds since the unix epoch.
+   */
+  creationDateStart: string;
+  /**
+   * If set, returns all invoices with a creation date less than or equal to
+   * it. Measured in seconds since the unix epoch.
+   */
+  creationDateEnd: string;
 }
 
 export interface ListInvoiceResponse {
@@ -3817,6 +4005,16 @@ export interface ListPaymentsRequest {
    * of payments, as all of them have to be iterated through to be counted.
    */
   countTotalPayments: boolean;
+  /**
+   * If set, returns all invoices with a creation date greater than or equal
+   * to it. Measured in seconds since the unix epoch.
+   */
+  creationDateStart: string;
+  /**
+   * If set, returns all invoices with a creation date less than or equal to
+   * it. Measured in seconds since the unix epoch.
+   */
+  creationDateEnd: string;
 }
 
 export interface ListPaymentsResponse {
@@ -3963,11 +4161,11 @@ export interface FeeReportResponse {
 
 export interface PolicyUpdateRequest {
   /** If set, then this update applies to all currently active channels. */
-  global:
+  global?:
     | boolean
     | undefined;
   /** If set, this update will target a specific channel. */
-  chanPoint:
+  chanPoint?:
     | ChannelPoint
     | undefined;
   /** The base fee charged regardless of the number of milli-satoshis sent. */
@@ -4032,6 +4230,11 @@ export interface ForwardingHistoryRequest {
   indexOffset: number;
   /** The max number of events to return in the response to this query. */
   numMaxEvents: number;
+  /**
+   * Informs the server if the peer alias should be looked up for each
+   * forwarding event.
+   */
+  peerAliasLookup: boolean;
 }
 
 export interface ForwardingEvent {
@@ -4078,6 +4281,10 @@ export interface ForwardingEvent {
    * circuit was completed.
    */
   timestampNs: string;
+  /** The peer alias of the incoming channel. */
+  peerAliasIn: string;
+  /** The peer alias of the outgoing channel. */
+  peerAliasOut: string;
 }
 
 export interface ForwardingHistoryResponse {
@@ -4149,14 +4356,14 @@ export interface ChannelBackups {
 
 export interface RestoreChanBackupRequest {
   /** The channels to restore as a list of channel/backup pairs. */
-  chanBackups:
+  chanBackups?:
     | ChannelBackups
     | undefined;
   /**
    * The channels to restore in the packed multi backup format. When using
    * REST, this field must be encoded as base64.
    */
-  multiChanBackup: Uint8Array | undefined;
+  multiChanBackup?: Uint8Array | undefined;
 }
 
 export interface RestoreBackupResponse {
@@ -4569,7 +4776,7 @@ export interface RPCMiddlewareRequest {
    * must handle the macaroon authentication in the request interception to
    * avoid an additional message round trip between lnd and the middleware.
    */
-  streamAuth:
+  streamAuth?:
     | StreamAuth
     | undefined;
   /**
@@ -4578,7 +4785,7 @@ export interface RPCMiddlewareRequest {
    * inspection. For unary RPC messages the middleware is also expected to
    * validate the custom macaroon caveat of the request.
    */
-  request:
+  request?:
     | RPCMessage
     | undefined;
   /**
@@ -4589,8 +4796,17 @@ export interface RPCMiddlewareRequest {
    * (=forwarded to the client), replaced/overwritten with a new message of
    * the same type, or replaced by an error message.
    */
-  response:
+  response?:
     | RPCMessage
+    | undefined;
+  /**
+   * This is used to indicate to the client that the server has successfully
+   * registered the interceptor. This is only used in the very first message
+   * that the server sends to the client after the client sends the server
+   * the middleware registration message.
+   */
+  regComplete?:
+    | boolean
     | undefined;
   /**
    * The unique message ID of this middleware intercept message. There can be
@@ -4623,7 +4839,8 @@ export interface RPCMessage {
   streamRpc: boolean;
   /**
    * The full canonical gRPC name of the message type (in the format
-   * <rpcpackage>.TypeName, for example lnrpc.GetInfoRequest).
+   * <rpcpackage>.TypeName, for example lnrpc.GetInfoRequest). In case of an
+   * error being returned from lnd, this simply contains the string "error".
    */
   typeName: string;
   /**
@@ -4631,6 +4848,12 @@ export interface RPCMessage {
    * format.
    */
   serialized: Uint8Array;
+  /**
+   * Indicates that the response from lnd was an error, not a gRPC response. If
+   * this is set to true then the type_name contains the string "error" and
+   * serialized contains the error string.
+   */
+  isError: boolean;
 }
 
 export interface RPCMiddlewareResponse {
@@ -4651,14 +4874,14 @@ export interface RPCMiddlewareResponse {
    * measure, _no_ middleware can intercept requests made with _unencumbered_
    * macaroons!
    */
-  register:
+  register?:
     | MiddlewareRegistration
     | undefined;
   /**
    * The middleware received an interception request and gives feedback to
    * it. The request_id indicates what message the feedback refers to.
    */
-  feedback: InterceptFeedback | undefined;
+  feedback?: InterceptFeedback | undefined;
 }
 
 export interface MiddlewareRegistration {
@@ -4697,20 +4920,134 @@ export interface InterceptFeedback {
    */
   error: string;
   /**
-   * A boolean indicating that the gRPC response should be replaced/overwritten.
-   * As its name suggests, this can only be used as a feedback to an intercepted
-   * response RPC message and is ignored for feedback on any other message. This
-   * boolean is needed because in protobuf an empty message is serialized as a
-   * 0-length or nil byte slice and we wouldn't be able to distinguish between
+   * A boolean indicating that the gRPC message should be replaced/overwritten.
+   * This boolean is needed because in protobuf an empty message is serialized as
+   * a 0-length or nil byte slice and we wouldn't be able to distinguish between
    * an empty replacement message and the "don't replace anything" case.
    */
   replaceResponse: boolean;
   /**
    * If the replace_response field is set to true, this field must contain the
-   * binary serialized gRPC response message in the protobuf format.
+   * binary serialized gRPC message in the protobuf format.
    */
   replacementSerialized: Uint8Array;
 }
+
+function createBaseLookupHtlcResolutionRequest(): LookupHtlcResolutionRequest {
+  return { chanId: "0", htlcIndex: "0" };
+}
+
+export const LookupHtlcResolutionRequest = {
+  encode(message: LookupHtlcResolutionRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.chanId !== "0") {
+      writer.uint32(8).uint64(message.chanId);
+    }
+    if (message.htlcIndex !== "0") {
+      writer.uint32(16).uint64(message.htlcIndex);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LookupHtlcResolutionRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLookupHtlcResolutionRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.chanId = longToString(reader.uint64() as Long);
+          break;
+        case 2:
+          message.htlcIndex = longToString(reader.uint64() as Long);
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LookupHtlcResolutionRequest {
+    return {
+      chanId: isSet(object.chanId) ? String(object.chanId) : "0",
+      htlcIndex: isSet(object.htlcIndex) ? String(object.htlcIndex) : "0",
+    };
+  },
+
+  toJSON(message: LookupHtlcResolutionRequest): unknown {
+    const obj: any = {};
+    message.chanId !== undefined && (obj.chanId = message.chanId);
+    message.htlcIndex !== undefined && (obj.htlcIndex = message.htlcIndex);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<LookupHtlcResolutionRequest>): LookupHtlcResolutionRequest {
+    const message = createBaseLookupHtlcResolutionRequest();
+    message.chanId = object.chanId ?? "0";
+    message.htlcIndex = object.htlcIndex ?? "0";
+    return message;
+  },
+};
+
+function createBaseLookupHtlcResolutionResponse(): LookupHtlcResolutionResponse {
+  return { settled: false, offchain: false };
+}
+
+export const LookupHtlcResolutionResponse = {
+  encode(message: LookupHtlcResolutionResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.settled === true) {
+      writer.uint32(8).bool(message.settled);
+    }
+    if (message.offchain === true) {
+      writer.uint32(16).bool(message.offchain);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LookupHtlcResolutionResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLookupHtlcResolutionResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.settled = reader.bool();
+          break;
+        case 2:
+          message.offchain = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LookupHtlcResolutionResponse {
+    return {
+      settled: isSet(object.settled) ? Boolean(object.settled) : false,
+      offchain: isSet(object.offchain) ? Boolean(object.offchain) : false,
+    };
+  },
+
+  toJSON(message: LookupHtlcResolutionResponse): unknown {
+    const obj: any = {};
+    message.settled !== undefined && (obj.settled = message.settled);
+    message.offchain !== undefined && (obj.offchain = message.offchain);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<LookupHtlcResolutionResponse>): LookupHtlcResolutionResponse {
+    const message = createBaseLookupHtlcResolutionResponse();
+    message.settled = object.settled ?? false;
+    message.offchain = object.offchain ?? false;
+    return message;
+  },
+};
 
 function createBaseSubscribeCustomMessagesRequest(): SubscribeCustomMessagesRequest {
   return {};
@@ -5131,6 +5468,7 @@ function createBaseTransaction(): Transaction {
     outputDetails: [],
     rawTxHex: "",
     label: "",
+    previousOutpoints: [],
   };
 }
 
@@ -5168,6 +5506,9 @@ export const Transaction = {
     }
     if (message.label !== "") {
       writer.uint32(82).string(message.label);
+    }
+    for (const v of message.previousOutpoints) {
+      PreviousOutPoint.encode(v!, writer.uint32(98).fork()).ldelim();
     }
     return writer;
   },
@@ -5212,6 +5553,9 @@ export const Transaction = {
         case 10:
           message.label = reader.string();
           break;
+        case 12:
+          message.previousOutpoints.push(PreviousOutPoint.decode(reader, reader.uint32()));
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -5235,6 +5579,9 @@ export const Transaction = {
         : [],
       rawTxHex: isSet(object.rawTxHex) ? String(object.rawTxHex) : "",
       label: isSet(object.label) ? String(object.label) : "",
+      previousOutpoints: Array.isArray(object?.previousOutpoints)
+        ? object.previousOutpoints.map((e: any) => PreviousOutPoint.fromJSON(e))
+        : [],
     };
   },
 
@@ -5259,6 +5606,11 @@ export const Transaction = {
     }
     message.rawTxHex !== undefined && (obj.rawTxHex = message.rawTxHex);
     message.label !== undefined && (obj.label = message.label);
+    if (message.previousOutpoints) {
+      obj.previousOutpoints = message.previousOutpoints.map((e) => e ? PreviousOutPoint.toJSON(e) : undefined);
+    } else {
+      obj.previousOutpoints = [];
+    }
     return obj;
   },
 
@@ -5275,6 +5627,7 @@ export const Transaction = {
     message.outputDetails = object.outputDetails?.map((e) => OutputDetail.fromPartial(e)) || [];
     message.rawTxHex = object.rawTxHex ?? "";
     message.label = object.label ?? "";
+    message.previousOutpoints = object.previousOutpoints?.map((e) => PreviousOutPoint.fromPartial(e)) || [];
     return message;
   },
 };
@@ -5944,6 +6297,8 @@ function createBaseChannelAcceptRequest(): ChannelAcceptRequest {
     maxAcceptedHtlcs: 0,
     channelFlags: 0,
     commitmentType: 0,
+    wantsZeroConf: false,
+    wantsScidAlias: false,
   };
 }
 
@@ -5990,6 +6345,12 @@ export const ChannelAcceptRequest = {
     }
     if (message.commitmentType !== 0) {
       writer.uint32(112).int32(message.commitmentType);
+    }
+    if (message.wantsZeroConf === true) {
+      writer.uint32(120).bool(message.wantsZeroConf);
+    }
+    if (message.wantsScidAlias === true) {
+      writer.uint32(128).bool(message.wantsScidAlias);
     }
     return writer;
   },
@@ -6043,6 +6404,12 @@ export const ChannelAcceptRequest = {
         case 14:
           message.commitmentType = reader.int32() as any;
           break;
+        case 15:
+          message.wantsZeroConf = reader.bool();
+          break;
+        case 16:
+          message.wantsScidAlias = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -6067,6 +6434,8 @@ export const ChannelAcceptRequest = {
       maxAcceptedHtlcs: isSet(object.maxAcceptedHtlcs) ? Number(object.maxAcceptedHtlcs) : 0,
       channelFlags: isSet(object.channelFlags) ? Number(object.channelFlags) : 0,
       commitmentType: isSet(object.commitmentType) ? commitmentTypeFromJSON(object.commitmentType) : 0,
+      wantsZeroConf: isSet(object.wantsZeroConf) ? Boolean(object.wantsZeroConf) : false,
+      wantsScidAlias: isSet(object.wantsScidAlias) ? Boolean(object.wantsScidAlias) : false,
     };
   },
 
@@ -6091,6 +6460,8 @@ export const ChannelAcceptRequest = {
     message.maxAcceptedHtlcs !== undefined && (obj.maxAcceptedHtlcs = Math.round(message.maxAcceptedHtlcs));
     message.channelFlags !== undefined && (obj.channelFlags = Math.round(message.channelFlags));
     message.commitmentType !== undefined && (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.wantsZeroConf !== undefined && (obj.wantsZeroConf = message.wantsZeroConf);
+    message.wantsScidAlias !== undefined && (obj.wantsScidAlias = message.wantsScidAlias);
     return obj;
   },
 
@@ -6110,6 +6481,8 @@ export const ChannelAcceptRequest = {
     message.maxAcceptedHtlcs = object.maxAcceptedHtlcs ?? 0;
     message.channelFlags = object.channelFlags ?? 0;
     message.commitmentType = object.commitmentType ?? 0;
+    message.wantsZeroConf = object.wantsZeroConf ?? false;
+    message.wantsScidAlias = object.wantsScidAlias ?? false;
     return message;
   },
 };
@@ -6126,6 +6499,7 @@ function createBaseChannelAcceptResponse(): ChannelAcceptResponse {
     maxHtlcCount: 0,
     minHtlcIn: "0",
     minAcceptDepth: 0,
+    zeroConf: false,
   };
 }
 
@@ -6160,6 +6534,9 @@ export const ChannelAcceptResponse = {
     }
     if (message.minAcceptDepth !== 0) {
       writer.uint32(80).uint32(message.minAcceptDepth);
+    }
+    if (message.zeroConf === true) {
+      writer.uint32(88).bool(message.zeroConf);
     }
     return writer;
   },
@@ -6201,6 +6578,9 @@ export const ChannelAcceptResponse = {
         case 10:
           message.minAcceptDepth = reader.uint32();
           break;
+        case 11:
+          message.zeroConf = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -6221,6 +6601,7 @@ export const ChannelAcceptResponse = {
       maxHtlcCount: isSet(object.maxHtlcCount) ? Number(object.maxHtlcCount) : 0,
       minHtlcIn: isSet(object.minHtlcIn) ? String(object.minHtlcIn) : "0",
       minAcceptDepth: isSet(object.minAcceptDepth) ? Number(object.minAcceptDepth) : 0,
+      zeroConf: isSet(object.zeroConf) ? Boolean(object.zeroConf) : false,
     };
   },
 
@@ -6239,6 +6620,7 @@ export const ChannelAcceptResponse = {
     message.maxHtlcCount !== undefined && (obj.maxHtlcCount = Math.round(message.maxHtlcCount));
     message.minHtlcIn !== undefined && (obj.minHtlcIn = message.minHtlcIn);
     message.minAcceptDepth !== undefined && (obj.minAcceptDepth = Math.round(message.minAcceptDepth));
+    message.zeroConf !== undefined && (obj.zeroConf = message.zeroConf);
     return obj;
   },
 
@@ -6254,6 +6636,7 @@ export const ChannelAcceptResponse = {
     message.maxHtlcCount = object.maxHtlcCount ?? 0;
     message.minHtlcIn = object.minHtlcIn ?? "0";
     message.minAcceptDepth = object.minAcceptDepth ?? 0;
+    message.zeroConf = object.zeroConf ?? false;
     return message;
   },
 };
@@ -6391,6 +6774,64 @@ export const OutPoint = {
     message.txidBytes = object.txidBytes ?? new Uint8Array();
     message.txidStr = object.txidStr ?? "";
     message.outputIndex = object.outputIndex ?? 0;
+    return message;
+  },
+};
+
+function createBasePreviousOutPoint(): PreviousOutPoint {
+  return { outpoint: "", isOurOutput: false };
+}
+
+export const PreviousOutPoint = {
+  encode(message: PreviousOutPoint, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.outpoint !== "") {
+      writer.uint32(10).string(message.outpoint);
+    }
+    if (message.isOurOutput === true) {
+      writer.uint32(16).bool(message.isOurOutput);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): PreviousOutPoint {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBasePreviousOutPoint();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.outpoint = reader.string();
+          break;
+        case 2:
+          message.isOurOutput = reader.bool();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): PreviousOutPoint {
+    return {
+      outpoint: isSet(object.outpoint) ? String(object.outpoint) : "",
+      isOurOutput: isSet(object.isOurOutput) ? Boolean(object.isOurOutput) : false,
+    };
+  },
+
+  toJSON(message: PreviousOutPoint): unknown {
+    const obj: any = {};
+    message.outpoint !== undefined && (obj.outpoint = message.outpoint);
+    message.isOurOutput !== undefined && (obj.isOurOutput = message.isOurOutput);
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<PreviousOutPoint>): PreviousOutPoint {
+    const message = createBasePreviousOutPoint();
+    message.outpoint = object.outpoint ?? "";
+    message.isOurOutput = object.isOurOutput ?? false;
     return message;
   },
 };
@@ -7975,6 +8416,10 @@ function createBaseChannel(): Channel {
     thawHeight: 0,
     localConstraints: undefined,
     remoteConstraints: undefined,
+    aliasScids: [],
+    zeroConf: false,
+    zeroConfConfirmedScid: "0",
+    peerAlias: "",
   };
 }
 
@@ -8069,6 +8514,20 @@ export const Channel = {
     }
     if (message.remoteConstraints !== undefined) {
       ChannelConstraints.encode(message.remoteConstraints, writer.uint32(242).fork()).ldelim();
+    }
+    writer.uint32(250).fork();
+    for (const v of message.aliasScids) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    if (message.zeroConf === true) {
+      writer.uint32(256).bool(message.zeroConf);
+    }
+    if (message.zeroConfConfirmedScid !== "0") {
+      writer.uint32(264).uint64(message.zeroConfConfirmedScid);
+    }
+    if (message.peerAlias !== "") {
+      writer.uint32(274).string(message.peerAlias);
     }
     return writer;
   },
@@ -8170,6 +8629,25 @@ export const Channel = {
         case 30:
           message.remoteConstraints = ChannelConstraints.decode(reader, reader.uint32());
           break;
+        case 31:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.aliasScids.push(longToString(reader.uint64() as Long));
+            }
+          } else {
+            message.aliasScids.push(longToString(reader.uint64() as Long));
+          }
+          break;
+        case 32:
+          message.zeroConf = reader.bool();
+          break;
+        case 33:
+          message.zeroConfConfirmedScid = longToString(reader.uint64() as Long);
+          break;
+        case 34:
+          message.peerAlias = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -8214,6 +8692,10 @@ export const Channel = {
       remoteConstraints: isSet(object.remoteConstraints)
         ? ChannelConstraints.fromJSON(object.remoteConstraints)
         : undefined,
+      aliasScids: Array.isArray(object?.aliasScids) ? object.aliasScids.map((e: any) => String(e)) : [],
+      zeroConf: isSet(object.zeroConf) ? Boolean(object.zeroConf) : false,
+      zeroConfConfirmedScid: isSet(object.zeroConfConfirmedScid) ? String(object.zeroConfConfirmedScid) : "0",
+      peerAlias: isSet(object.peerAlias) ? String(object.peerAlias) : "",
     };
   },
 
@@ -8258,6 +8740,14 @@ export const Channel = {
     message.remoteConstraints !== undefined && (obj.remoteConstraints = message.remoteConstraints
       ? ChannelConstraints.toJSON(message.remoteConstraints)
       : undefined);
+    if (message.aliasScids) {
+      obj.aliasScids = message.aliasScids.map((e) => e);
+    } else {
+      obj.aliasScids = [];
+    }
+    message.zeroConf !== undefined && (obj.zeroConf = message.zeroConf);
+    message.zeroConfConfirmedScid !== undefined && (obj.zeroConfConfirmedScid = message.zeroConfConfirmedScid);
+    message.peerAlias !== undefined && (obj.peerAlias = message.peerAlias);
     return obj;
   },
 
@@ -8297,12 +8787,23 @@ export const Channel = {
     message.remoteConstraints = (object.remoteConstraints !== undefined && object.remoteConstraints !== null)
       ? ChannelConstraints.fromPartial(object.remoteConstraints)
       : undefined;
+    message.aliasScids = object.aliasScids?.map((e) => e) || [];
+    message.zeroConf = object.zeroConf ?? false;
+    message.zeroConfConfirmedScid = object.zeroConfConfirmedScid ?? "0";
+    message.peerAlias = object.peerAlias ?? "";
     return message;
   },
 };
 
 function createBaseListChannelsRequest(): ListChannelsRequest {
-  return { activeOnly: false, inactiveOnly: false, publicOnly: false, privateOnly: false, peer: new Uint8Array() };
+  return {
+    activeOnly: false,
+    inactiveOnly: false,
+    publicOnly: false,
+    privateOnly: false,
+    peer: new Uint8Array(),
+    peerAliasLookup: false,
+  };
 }
 
 export const ListChannelsRequest = {
@@ -8321,6 +8822,9 @@ export const ListChannelsRequest = {
     }
     if (message.peer.length !== 0) {
       writer.uint32(42).bytes(message.peer);
+    }
+    if (message.peerAliasLookup === true) {
+      writer.uint32(48).bool(message.peerAliasLookup);
     }
     return writer;
   },
@@ -8347,6 +8851,9 @@ export const ListChannelsRequest = {
         case 5:
           message.peer = reader.bytes();
           break;
+        case 6:
+          message.peerAliasLookup = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -8362,6 +8869,7 @@ export const ListChannelsRequest = {
       publicOnly: isSet(object.publicOnly) ? Boolean(object.publicOnly) : false,
       privateOnly: isSet(object.privateOnly) ? Boolean(object.privateOnly) : false,
       peer: isSet(object.peer) ? bytesFromBase64(object.peer) : new Uint8Array(),
+      peerAliasLookup: isSet(object.peerAliasLookup) ? Boolean(object.peerAliasLookup) : false,
     };
   },
 
@@ -8373,6 +8881,7 @@ export const ListChannelsRequest = {
     message.privateOnly !== undefined && (obj.privateOnly = message.privateOnly);
     message.peer !== undefined &&
       (obj.peer = base64FromBytes(message.peer !== undefined ? message.peer : new Uint8Array()));
+    message.peerAliasLookup !== undefined && (obj.peerAliasLookup = message.peerAliasLookup);
     return obj;
   },
 
@@ -8383,6 +8892,7 @@ export const ListChannelsRequest = {
     message.publicOnly = object.publicOnly ?? false;
     message.privateOnly = object.privateOnly ?? false;
     message.peer = object.peer ?? new Uint8Array();
+    message.peerAliasLookup = object.peerAliasLookup ?? false;
     return message;
   },
 };
@@ -8438,6 +8948,169 @@ export const ListChannelsResponse = {
   },
 };
 
+function createBaseAliasMap(): AliasMap {
+  return { baseScid: "0", aliases: [] };
+}
+
+export const AliasMap = {
+  encode(message: AliasMap, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.baseScid !== "0") {
+      writer.uint32(8).uint64(message.baseScid);
+    }
+    writer.uint32(18).fork();
+    for (const v of message.aliases) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): AliasMap {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseAliasMap();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.baseScid = longToString(reader.uint64() as Long);
+          break;
+        case 2:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.aliases.push(longToString(reader.uint64() as Long));
+            }
+          } else {
+            message.aliases.push(longToString(reader.uint64() as Long));
+          }
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): AliasMap {
+    return {
+      baseScid: isSet(object.baseScid) ? String(object.baseScid) : "0",
+      aliases: Array.isArray(object?.aliases) ? object.aliases.map((e: any) => String(e)) : [],
+    };
+  },
+
+  toJSON(message: AliasMap): unknown {
+    const obj: any = {};
+    message.baseScid !== undefined && (obj.baseScid = message.baseScid);
+    if (message.aliases) {
+      obj.aliases = message.aliases.map((e) => e);
+    } else {
+      obj.aliases = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<AliasMap>): AliasMap {
+    const message = createBaseAliasMap();
+    message.baseScid = object.baseScid ?? "0";
+    message.aliases = object.aliases?.map((e) => e) || [];
+    return message;
+  },
+};
+
+function createBaseListAliasesRequest(): ListAliasesRequest {
+  return {};
+}
+
+export const ListAliasesRequest = {
+  encode(_: ListAliasesRequest, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListAliasesRequest {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListAliasesRequest();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(_: any): ListAliasesRequest {
+    return {};
+  },
+
+  toJSON(_: ListAliasesRequest): unknown {
+    const obj: any = {};
+    return obj;
+  },
+
+  fromPartial(_: DeepPartial<ListAliasesRequest>): ListAliasesRequest {
+    const message = createBaseListAliasesRequest();
+    return message;
+  },
+};
+
+function createBaseListAliasesResponse(): ListAliasesResponse {
+  return { aliasMaps: [] };
+}
+
+export const ListAliasesResponse = {
+  encode(message: ListAliasesResponse, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    for (const v of message.aliasMaps) {
+      AliasMap.encode(v!, writer.uint32(10).fork()).ldelim();
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ListAliasesResponse {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseListAliasesResponse();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.aliasMaps.push(AliasMap.decode(reader, reader.uint32()));
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ListAliasesResponse {
+    return {
+      aliasMaps: Array.isArray(object?.aliasMaps) ? object.aliasMaps.map((e: any) => AliasMap.fromJSON(e)) : [],
+    };
+  },
+
+  toJSON(message: ListAliasesResponse): unknown {
+    const obj: any = {};
+    if (message.aliasMaps) {
+      obj.aliasMaps = message.aliasMaps.map((e) => e ? AliasMap.toJSON(e) : undefined);
+    } else {
+      obj.aliasMaps = [];
+    }
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ListAliasesResponse>): ListAliasesResponse {
+    const message = createBaseListAliasesResponse();
+    message.aliasMaps = object.aliasMaps?.map((e) => AliasMap.fromPartial(e)) || [];
+    return message;
+  },
+};
+
 function createBaseChannelCloseSummary(): ChannelCloseSummary {
   return {
     channelPoint: "",
@@ -8453,6 +9126,8 @@ function createBaseChannelCloseSummary(): ChannelCloseSummary {
     openInitiator: 0,
     closeInitiator: 0,
     resolutions: [],
+    aliasScids: [],
+    zeroConfConfirmedScid: "0",
   };
 }
 
@@ -8496,6 +9171,14 @@ export const ChannelCloseSummary = {
     }
     for (const v of message.resolutions) {
       Resolution.encode(v!, writer.uint32(106).fork()).ldelim();
+    }
+    writer.uint32(114).fork();
+    for (const v of message.aliasScids) {
+      writer.uint64(v);
+    }
+    writer.ldelim();
+    if (message.zeroConfConfirmedScid !== "0") {
+      writer.uint32(120).uint64(message.zeroConfConfirmedScid);
     }
     return writer;
   },
@@ -8546,6 +9229,19 @@ export const ChannelCloseSummary = {
         case 13:
           message.resolutions.push(Resolution.decode(reader, reader.uint32()));
           break;
+        case 14:
+          if ((tag & 7) === 2) {
+            const end2 = reader.uint32() + reader.pos;
+            while (reader.pos < end2) {
+              message.aliasScids.push(longToString(reader.uint64() as Long));
+            }
+          } else {
+            message.aliasScids.push(longToString(reader.uint64() as Long));
+          }
+          break;
+        case 15:
+          message.zeroConfConfirmedScid = longToString(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -8569,6 +9265,8 @@ export const ChannelCloseSummary = {
       openInitiator: isSet(object.openInitiator) ? initiatorFromJSON(object.openInitiator) : 0,
       closeInitiator: isSet(object.closeInitiator) ? initiatorFromJSON(object.closeInitiator) : 0,
       resolutions: Array.isArray(object?.resolutions) ? object.resolutions.map((e: any) => Resolution.fromJSON(e)) : [],
+      aliasScids: Array.isArray(object?.aliasScids) ? object.aliasScids.map((e: any) => String(e)) : [],
+      zeroConfConfirmedScid: isSet(object.zeroConfConfirmedScid) ? String(object.zeroConfConfirmedScid) : "0",
     };
   },
 
@@ -8591,6 +9289,12 @@ export const ChannelCloseSummary = {
     } else {
       obj.resolutions = [];
     }
+    if (message.aliasScids) {
+      obj.aliasScids = message.aliasScids.map((e) => e);
+    } else {
+      obj.aliasScids = [];
+    }
+    message.zeroConfConfirmedScid !== undefined && (obj.zeroConfConfirmedScid = message.zeroConfConfirmedScid);
     return obj;
   },
 
@@ -8609,6 +9313,8 @@ export const ChannelCloseSummary = {
     message.openInitiator = object.openInitiator ?? 0;
     message.closeInitiator = object.closeInitiator ?? 0;
     message.resolutions = object.resolutions?.map((e) => Resolution.fromPartial(e)) || [];
+    message.aliasScids = object.aliasScids?.map((e) => e) || [];
+    message.zeroConfConfirmedScid = object.zeroConfConfirmedScid ?? "0";
     return message;
   },
 };
@@ -9433,6 +10139,7 @@ function createBaseGetInfoResponse(): GetInfoResponse {
     uris: [],
     features: {},
     requireHtlcInterceptor: false,
+    storeFinalHtlcResolutions: false,
   };
 }
 
@@ -9494,6 +10201,9 @@ export const GetInfoResponse = {
     });
     if (message.requireHtlcInterceptor === true) {
       writer.uint32(168).bool(message.requireHtlcInterceptor);
+    }
+    if (message.storeFinalHtlcResolutions === true) {
+      writer.uint32(176).bool(message.storeFinalHtlcResolutions);
     }
     return writer;
   },
@@ -9565,6 +10275,9 @@ export const GetInfoResponse = {
         case 21:
           message.requireHtlcInterceptor = reader.bool();
           break;
+        case 22:
+          message.storeFinalHtlcResolutions = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -9599,6 +10312,9 @@ export const GetInfoResponse = {
         }, {})
         : {},
       requireHtlcInterceptor: isSet(object.requireHtlcInterceptor) ? Boolean(object.requireHtlcInterceptor) : false,
+      storeFinalHtlcResolutions: isSet(object.storeFinalHtlcResolutions)
+        ? Boolean(object.storeFinalHtlcResolutions)
+        : false,
     };
   },
 
@@ -9636,6 +10352,8 @@ export const GetInfoResponse = {
       });
     }
     message.requireHtlcInterceptor !== undefined && (obj.requireHtlcInterceptor = message.requireHtlcInterceptor);
+    message.storeFinalHtlcResolutions !== undefined &&
+      (obj.storeFinalHtlcResolutions = message.storeFinalHtlcResolutions);
     return obj;
   },
 
@@ -9665,6 +10383,7 @@ export const GetInfoResponse = {
       return acc;
     }, {});
     message.requireHtlcInterceptor = object.requireHtlcInterceptor ?? false;
+    message.storeFinalHtlcResolutions = object.storeFinalHtlcResolutions ?? false;
     return message;
   },
 };
@@ -10078,6 +10797,7 @@ function createBaseCloseChannelRequest(): CloseChannelRequest {
     satPerByte: "0",
     deliveryAddress: "",
     satPerVbyte: "0",
+    maxFeePerVbyte: "0",
   };
 }
 
@@ -10100,6 +10820,9 @@ export const CloseChannelRequest = {
     }
     if (message.satPerVbyte !== "0") {
       writer.uint32(48).uint64(message.satPerVbyte);
+    }
+    if (message.maxFeePerVbyte !== "0") {
+      writer.uint32(56).uint64(message.maxFeePerVbyte);
     }
     return writer;
   },
@@ -10129,6 +10852,9 @@ export const CloseChannelRequest = {
         case 6:
           message.satPerVbyte = longToString(reader.uint64() as Long);
           break;
+        case 7:
+          message.maxFeePerVbyte = longToString(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -10145,6 +10871,7 @@ export const CloseChannelRequest = {
       satPerByte: isSet(object.satPerByte) ? String(object.satPerByte) : "0",
       deliveryAddress: isSet(object.deliveryAddress) ? String(object.deliveryAddress) : "",
       satPerVbyte: isSet(object.satPerVbyte) ? String(object.satPerVbyte) : "0",
+      maxFeePerVbyte: isSet(object.maxFeePerVbyte) ? String(object.maxFeePerVbyte) : "0",
     };
   },
 
@@ -10157,6 +10884,7 @@ export const CloseChannelRequest = {
     message.satPerByte !== undefined && (obj.satPerByte = message.satPerByte);
     message.deliveryAddress !== undefined && (obj.deliveryAddress = message.deliveryAddress);
     message.satPerVbyte !== undefined && (obj.satPerVbyte = message.satPerVbyte);
+    message.maxFeePerVbyte !== undefined && (obj.maxFeePerVbyte = message.maxFeePerVbyte);
     return obj;
   },
 
@@ -10170,6 +10898,7 @@ export const CloseChannelRequest = {
     message.satPerByte = object.satPerByte ?? "0";
     message.deliveryAddress = object.deliveryAddress ?? "";
     message.satPerVbyte = object.satPerVbyte ?? "0";
+    message.maxFeePerVbyte = object.maxFeePerVbyte ?? "0";
     return message;
   },
 };
@@ -10673,6 +11402,13 @@ function createBaseOpenChannelRequest(): OpenChannelRequest {
     remoteMaxHtlcs: 0,
     maxLocalCsv: 0,
     commitmentType: 0,
+    zeroConf: false,
+    scidAlias: false,
+    baseFee: "0",
+    feeRate: "0",
+    useBaseFee: false,
+    useFeeRate: false,
+    remoteChanReserveSat: "0",
   };
 }
 
@@ -10731,6 +11467,27 @@ export const OpenChannelRequest = {
     }
     if (message.commitmentType !== 0) {
       writer.uint32(144).int32(message.commitmentType);
+    }
+    if (message.zeroConf === true) {
+      writer.uint32(152).bool(message.zeroConf);
+    }
+    if (message.scidAlias === true) {
+      writer.uint32(160).bool(message.scidAlias);
+    }
+    if (message.baseFee !== "0") {
+      writer.uint32(168).uint64(message.baseFee);
+    }
+    if (message.feeRate !== "0") {
+      writer.uint32(176).uint64(message.feeRate);
+    }
+    if (message.useBaseFee === true) {
+      writer.uint32(184).bool(message.useBaseFee);
+    }
+    if (message.useFeeRate === true) {
+      writer.uint32(192).bool(message.useFeeRate);
+    }
+    if (message.remoteChanReserveSat !== "0") {
+      writer.uint32(200).uint64(message.remoteChanReserveSat);
     }
     return writer;
   },
@@ -10796,6 +11553,27 @@ export const OpenChannelRequest = {
         case 18:
           message.commitmentType = reader.int32() as any;
           break;
+        case 19:
+          message.zeroConf = reader.bool();
+          break;
+        case 20:
+          message.scidAlias = reader.bool();
+          break;
+        case 21:
+          message.baseFee = longToString(reader.uint64() as Long);
+          break;
+        case 22:
+          message.feeRate = longToString(reader.uint64() as Long);
+          break;
+        case 23:
+          message.useBaseFee = reader.bool();
+          break;
+        case 24:
+          message.useFeeRate = reader.bool();
+          break;
+        case 25:
+          message.remoteChanReserveSat = longToString(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -10826,6 +11604,13 @@ export const OpenChannelRequest = {
       remoteMaxHtlcs: isSet(object.remoteMaxHtlcs) ? Number(object.remoteMaxHtlcs) : 0,
       maxLocalCsv: isSet(object.maxLocalCsv) ? Number(object.maxLocalCsv) : 0,
       commitmentType: isSet(object.commitmentType) ? commitmentTypeFromJSON(object.commitmentType) : 0,
+      zeroConf: isSet(object.zeroConf) ? Boolean(object.zeroConf) : false,
+      scidAlias: isSet(object.scidAlias) ? Boolean(object.scidAlias) : false,
+      baseFee: isSet(object.baseFee) ? String(object.baseFee) : "0",
+      feeRate: isSet(object.feeRate) ? String(object.feeRate) : "0",
+      useBaseFee: isSet(object.useBaseFee) ? Boolean(object.useBaseFee) : false,
+      useFeeRate: isSet(object.useFeeRate) ? Boolean(object.useFeeRate) : false,
+      remoteChanReserveSat: isSet(object.remoteChanReserveSat) ? String(object.remoteChanReserveSat) : "0",
     };
   },
 
@@ -10852,6 +11637,13 @@ export const OpenChannelRequest = {
     message.remoteMaxHtlcs !== undefined && (obj.remoteMaxHtlcs = Math.round(message.remoteMaxHtlcs));
     message.maxLocalCsv !== undefined && (obj.maxLocalCsv = Math.round(message.maxLocalCsv));
     message.commitmentType !== undefined && (obj.commitmentType = commitmentTypeToJSON(message.commitmentType));
+    message.zeroConf !== undefined && (obj.zeroConf = message.zeroConf);
+    message.scidAlias !== undefined && (obj.scidAlias = message.scidAlias);
+    message.baseFee !== undefined && (obj.baseFee = message.baseFee);
+    message.feeRate !== undefined && (obj.feeRate = message.feeRate);
+    message.useBaseFee !== undefined && (obj.useBaseFee = message.useBaseFee);
+    message.useFeeRate !== undefined && (obj.useFeeRate = message.useFeeRate);
+    message.remoteChanReserveSat !== undefined && (obj.remoteChanReserveSat = message.remoteChanReserveSat);
     return obj;
   },
 
@@ -10877,6 +11669,13 @@ export const OpenChannelRequest = {
     message.remoteMaxHtlcs = object.remoteMaxHtlcs ?? 0;
     message.maxLocalCsv = object.maxLocalCsv ?? 0;
     message.commitmentType = object.commitmentType ?? 0;
+    message.zeroConf = object.zeroConf ?? false;
+    message.scidAlias = object.scidAlias ?? false;
+    message.baseFee = object.baseFee ?? "0";
+    message.feeRate = object.feeRate ?? "0";
+    message.useBaseFee = object.useBaseFee ?? false;
+    message.useFeeRate = object.useFeeRate ?? false;
+    message.remoteChanReserveSat = object.remoteChanReserveSat ?? "0";
     return message;
   },
 };
@@ -12816,7 +13615,14 @@ export const WalletBalanceRequest = {
 };
 
 function createBaseWalletBalanceResponse(): WalletBalanceResponse {
-  return { totalBalance: "0", confirmedBalance: "0", unconfirmedBalance: "0", lockedBalance: "0", accountBalance: {} };
+  return {
+    totalBalance: "0",
+    confirmedBalance: "0",
+    unconfirmedBalance: "0",
+    lockedBalance: "0",
+    reservedBalanceAnchorChan: "0",
+    accountBalance: {},
+  };
 }
 
 export const WalletBalanceResponse = {
@@ -12832,6 +13638,9 @@ export const WalletBalanceResponse = {
     }
     if (message.lockedBalance !== "0") {
       writer.uint32(40).int64(message.lockedBalance);
+    }
+    if (message.reservedBalanceAnchorChan !== "0") {
+      writer.uint32(48).int64(message.reservedBalanceAnchorChan);
     }
     Object.entries(message.accountBalance).forEach(([key, value]) => {
       WalletBalanceResponse_AccountBalanceEntry.encode({ key: key as any, value }, writer.uint32(34).fork()).ldelim();
@@ -12858,6 +13667,9 @@ export const WalletBalanceResponse = {
         case 5:
           message.lockedBalance = longToString(reader.int64() as Long);
           break;
+        case 6:
+          message.reservedBalanceAnchorChan = longToString(reader.int64() as Long);
+          break;
         case 4:
           const entry4 = WalletBalanceResponse_AccountBalanceEntry.decode(reader, reader.uint32());
           if (entry4.value !== undefined) {
@@ -12878,6 +13690,9 @@ export const WalletBalanceResponse = {
       confirmedBalance: isSet(object.confirmedBalance) ? String(object.confirmedBalance) : "0",
       unconfirmedBalance: isSet(object.unconfirmedBalance) ? String(object.unconfirmedBalance) : "0",
       lockedBalance: isSet(object.lockedBalance) ? String(object.lockedBalance) : "0",
+      reservedBalanceAnchorChan: isSet(object.reservedBalanceAnchorChan)
+        ? String(object.reservedBalanceAnchorChan)
+        : "0",
       accountBalance: isObject(object.accountBalance)
         ? Object.entries(object.accountBalance).reduce<{ [key: string]: WalletAccountBalance }>((acc, [key, value]) => {
           acc[key] = WalletAccountBalance.fromJSON(value);
@@ -12893,6 +13708,8 @@ export const WalletBalanceResponse = {
     message.confirmedBalance !== undefined && (obj.confirmedBalance = message.confirmedBalance);
     message.unconfirmedBalance !== undefined && (obj.unconfirmedBalance = message.unconfirmedBalance);
     message.lockedBalance !== undefined && (obj.lockedBalance = message.lockedBalance);
+    message.reservedBalanceAnchorChan !== undefined &&
+      (obj.reservedBalanceAnchorChan = message.reservedBalanceAnchorChan);
     obj.accountBalance = {};
     if (message.accountBalance) {
       Object.entries(message.accountBalance).forEach(([k, v]) => {
@@ -12908,6 +13725,7 @@ export const WalletBalanceResponse = {
     message.confirmedBalance = object.confirmedBalance ?? "0";
     message.unconfirmedBalance = object.unconfirmedBalance ?? "0";
     message.lockedBalance = object.lockedBalance ?? "0";
+    message.reservedBalanceAnchorChan = object.reservedBalanceAnchorChan ?? "0";
     message.accountBalance = Object.entries(object.accountBalance ?? {}).reduce<
       { [key: string]: WalletAccountBalance }
     >((acc, [key, value]) => {
@@ -14368,7 +15186,7 @@ export const NodeInfo = {
 };
 
 function createBaseLightningNode(): LightningNode {
-  return { lastUpdate: 0, pubKey: "", alias: "", addresses: [], color: "", features: {} };
+  return { lastUpdate: 0, pubKey: "", alias: "", addresses: [], color: "", features: {}, customRecords: {} };
 }
 
 export const LightningNode = {
@@ -14390,6 +15208,9 @@ export const LightningNode = {
     }
     Object.entries(message.features).forEach(([key, value]) => {
       LightningNode_FeaturesEntry.encode({ key: key as any, value }, writer.uint32(50).fork()).ldelim();
+    });
+    Object.entries(message.customRecords).forEach(([key, value]) => {
+      LightningNode_CustomRecordsEntry.encode({ key: key as any, value }, writer.uint32(58).fork()).ldelim();
     });
     return writer;
   },
@@ -14422,6 +15243,12 @@ export const LightningNode = {
             message.features[entry6.key] = entry6.value;
           }
           break;
+        case 7:
+          const entry7 = LightningNode_CustomRecordsEntry.decode(reader, reader.uint32());
+          if (entry7.value !== undefined) {
+            message.customRecords[entry7.key] = entry7.value;
+          }
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -14440,6 +15267,12 @@ export const LightningNode = {
       features: isObject(object.features)
         ? Object.entries(object.features).reduce<{ [key: number]: Feature }>((acc, [key, value]) => {
           acc[Number(key)] = Feature.fromJSON(value);
+          return acc;
+        }, {})
+        : {},
+      customRecords: isObject(object.customRecords)
+        ? Object.entries(object.customRecords).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+          acc[key] = bytesFromBase64(value as string);
           return acc;
         }, {})
         : {},
@@ -14463,6 +15296,12 @@ export const LightningNode = {
         obj.features[k] = Feature.toJSON(v);
       });
     }
+    obj.customRecords = {};
+    if (message.customRecords) {
+      Object.entries(message.customRecords).forEach(([k, v]) => {
+        obj.customRecords[k] = base64FromBytes(v);
+      });
+    }
     return obj;
   },
 
@@ -14479,6 +15318,15 @@ export const LightningNode = {
       }
       return acc;
     }, {});
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{ [key: string]: Uint8Array }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {},
+    );
     return message;
   },
 };
@@ -14539,6 +15387,65 @@ export const LightningNode_FeaturesEntry = {
     message.value = (object.value !== undefined && object.value !== null)
       ? Feature.fromPartial(object.value)
       : undefined;
+    return message;
+  },
+};
+
+function createBaseLightningNode_CustomRecordsEntry(): LightningNode_CustomRecordsEntry {
+  return { key: "0", value: new Uint8Array() };
+}
+
+export const LightningNode_CustomRecordsEntry = {
+  encode(message: LightningNode_CustomRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "0") {
+      writer.uint32(8).uint64(message.key);
+    }
+    if (message.value.length !== 0) {
+      writer.uint32(18).bytes(message.value);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): LightningNode_CustomRecordsEntry {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseLightningNode_CustomRecordsEntry();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.key = longToString(reader.uint64() as Long);
+          break;
+        case 2:
+          message.value = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): LightningNode_CustomRecordsEntry {
+    return {
+      key: isSet(object.key) ? String(object.key) : "0",
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: LightningNode_CustomRecordsEntry): unknown {
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined &&
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<LightningNode_CustomRecordsEntry>): LightningNode_CustomRecordsEntry {
+    const message = createBaseLightningNode_CustomRecordsEntry();
+    message.key = object.key ?? "0";
+    message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
@@ -14610,6 +15517,7 @@ function createBaseRoutingPolicy(): RoutingPolicy {
     disabled: false,
     maxHtlcMsat: "0",
     lastUpdate: 0,
+    customRecords: {},
   };
 }
 
@@ -14636,6 +15544,9 @@ export const RoutingPolicy = {
     if (message.lastUpdate !== 0) {
       writer.uint32(56).uint32(message.lastUpdate);
     }
+    Object.entries(message.customRecords).forEach(([key, value]) => {
+      RoutingPolicy_CustomRecordsEntry.encode({ key: key as any, value }, writer.uint32(66).fork()).ldelim();
+    });
     return writer;
   },
 
@@ -14667,6 +15578,12 @@ export const RoutingPolicy = {
         case 7:
           message.lastUpdate = reader.uint32();
           break;
+        case 8:
+          const entry8 = RoutingPolicy_CustomRecordsEntry.decode(reader, reader.uint32());
+          if (entry8.value !== undefined) {
+            message.customRecords[entry8.key] = entry8.value;
+          }
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -14684,6 +15601,12 @@ export const RoutingPolicy = {
       disabled: isSet(object.disabled) ? Boolean(object.disabled) : false,
       maxHtlcMsat: isSet(object.maxHtlcMsat) ? String(object.maxHtlcMsat) : "0",
       lastUpdate: isSet(object.lastUpdate) ? Number(object.lastUpdate) : 0,
+      customRecords: isObject(object.customRecords)
+        ? Object.entries(object.customRecords).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+          acc[key] = bytesFromBase64(value as string);
+          return acc;
+        }, {})
+        : {},
     };
   },
 
@@ -14696,6 +15619,12 @@ export const RoutingPolicy = {
     message.disabled !== undefined && (obj.disabled = message.disabled);
     message.maxHtlcMsat !== undefined && (obj.maxHtlcMsat = message.maxHtlcMsat);
     message.lastUpdate !== undefined && (obj.lastUpdate = Math.round(message.lastUpdate));
+    obj.customRecords = {};
+    if (message.customRecords) {
+      Object.entries(message.customRecords).forEach(([k, v]) => {
+        obj.customRecords[k] = base64FromBytes(v);
+      });
+    }
     return obj;
   },
 
@@ -14708,6 +15637,74 @@ export const RoutingPolicy = {
     message.disabled = object.disabled ?? false;
     message.maxHtlcMsat = object.maxHtlcMsat ?? "0";
     message.lastUpdate = object.lastUpdate ?? 0;
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{ [key: string]: Uint8Array }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {},
+    );
+    return message;
+  },
+};
+
+function createBaseRoutingPolicy_CustomRecordsEntry(): RoutingPolicy_CustomRecordsEntry {
+  return { key: "0", value: new Uint8Array() };
+}
+
+export const RoutingPolicy_CustomRecordsEntry = {
+  encode(message: RoutingPolicy_CustomRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "0") {
+      writer.uint32(8).uint64(message.key);
+    }
+    if (message.value.length !== 0) {
+      writer.uint32(18).bytes(message.value);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): RoutingPolicy_CustomRecordsEntry {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseRoutingPolicy_CustomRecordsEntry();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.key = longToString(reader.uint64() as Long);
+          break;
+        case 2:
+          message.value = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): RoutingPolicy_CustomRecordsEntry {
+    return {
+      key: isSet(object.key) ? String(object.key) : "0",
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: RoutingPolicy_CustomRecordsEntry): unknown {
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined &&
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<RoutingPolicy_CustomRecordsEntry>): RoutingPolicy_CustomRecordsEntry {
+    const message = createBaseRoutingPolicy_CustomRecordsEntry();
+    message.key = object.key ?? "0";
+    message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
@@ -14722,6 +15719,7 @@ function createBaseChannelEdge(): ChannelEdge {
     capacity: "0",
     node1Policy: undefined,
     node2Policy: undefined,
+    customRecords: {},
   };
 }
 
@@ -14751,6 +15749,9 @@ export const ChannelEdge = {
     if (message.node2Policy !== undefined) {
       RoutingPolicy.encode(message.node2Policy, writer.uint32(66).fork()).ldelim();
     }
+    Object.entries(message.customRecords).forEach(([key, value]) => {
+      ChannelEdge_CustomRecordsEntry.encode({ key: key as any, value }, writer.uint32(74).fork()).ldelim();
+    });
     return writer;
   },
 
@@ -14785,6 +15786,12 @@ export const ChannelEdge = {
         case 8:
           message.node2Policy = RoutingPolicy.decode(reader, reader.uint32());
           break;
+        case 9:
+          const entry9 = ChannelEdge_CustomRecordsEntry.decode(reader, reader.uint32());
+          if (entry9.value !== undefined) {
+            message.customRecords[entry9.key] = entry9.value;
+          }
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -14803,6 +15810,12 @@ export const ChannelEdge = {
       capacity: isSet(object.capacity) ? String(object.capacity) : "0",
       node1Policy: isSet(object.node1Policy) ? RoutingPolicy.fromJSON(object.node1Policy) : undefined,
       node2Policy: isSet(object.node2Policy) ? RoutingPolicy.fromJSON(object.node2Policy) : undefined,
+      customRecords: isObject(object.customRecords)
+        ? Object.entries(object.customRecords).reduce<{ [key: string]: Uint8Array }>((acc, [key, value]) => {
+          acc[key] = bytesFromBase64(value as string);
+          return acc;
+        }, {})
+        : {},
     };
   },
 
@@ -14818,6 +15831,12 @@ export const ChannelEdge = {
       (obj.node1Policy = message.node1Policy ? RoutingPolicy.toJSON(message.node1Policy) : undefined);
     message.node2Policy !== undefined &&
       (obj.node2Policy = message.node2Policy ? RoutingPolicy.toJSON(message.node2Policy) : undefined);
+    obj.customRecords = {};
+    if (message.customRecords) {
+      Object.entries(message.customRecords).forEach(([k, v]) => {
+        obj.customRecords[k] = base64FromBytes(v);
+      });
+    }
     return obj;
   },
 
@@ -14835,6 +15854,74 @@ export const ChannelEdge = {
     message.node2Policy = (object.node2Policy !== undefined && object.node2Policy !== null)
       ? RoutingPolicy.fromPartial(object.node2Policy)
       : undefined;
+    message.customRecords = Object.entries(object.customRecords ?? {}).reduce<{ [key: string]: Uint8Array }>(
+      (acc, [key, value]) => {
+        if (value !== undefined) {
+          acc[key] = value;
+        }
+        return acc;
+      },
+      {},
+    );
+    return message;
+  },
+};
+
+function createBaseChannelEdge_CustomRecordsEntry(): ChannelEdge_CustomRecordsEntry {
+  return { key: "0", value: new Uint8Array() };
+}
+
+export const ChannelEdge_CustomRecordsEntry = {
+  encode(message: ChannelEdge_CustomRecordsEntry, writer: _m0.Writer = _m0.Writer.create()): _m0.Writer {
+    if (message.key !== "0") {
+      writer.uint32(8).uint64(message.key);
+    }
+    if (message.value.length !== 0) {
+      writer.uint32(18).bytes(message.value);
+    }
+    return writer;
+  },
+
+  decode(input: _m0.Reader | Uint8Array, length?: number): ChannelEdge_CustomRecordsEntry {
+    const reader = input instanceof _m0.Reader ? input : new _m0.Reader(input);
+    let end = length === undefined ? reader.len : reader.pos + length;
+    const message = createBaseChannelEdge_CustomRecordsEntry();
+    while (reader.pos < end) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 1:
+          message.key = longToString(reader.uint64() as Long);
+          break;
+        case 2:
+          message.value = reader.bytes();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return message;
+  },
+
+  fromJSON(object: any): ChannelEdge_CustomRecordsEntry {
+    return {
+      key: isSet(object.key) ? String(object.key) : "0",
+      value: isSet(object.value) ? bytesFromBase64(object.value) : new Uint8Array(),
+    };
+  },
+
+  toJSON(message: ChannelEdge_CustomRecordsEntry): unknown {
+    const obj: any = {};
+    message.key !== undefined && (obj.key = message.key);
+    message.value !== undefined &&
+      (obj.value = base64FromBytes(message.value !== undefined ? message.value : new Uint8Array()));
+    return obj;
+  },
+
+  fromPartial(object: DeepPartial<ChannelEdge_CustomRecordsEntry>): ChannelEdge_CustomRecordsEntry {
+    const message = createBaseChannelEdge_CustomRecordsEntry();
+    message.key = object.key ?? "0";
+    message.value = object.value ?? new Uint8Array();
     return message;
   },
 };
@@ -17239,7 +18326,14 @@ export const PaymentHash = {
 };
 
 function createBaseListInvoiceRequest(): ListInvoiceRequest {
-  return { pendingOnly: false, indexOffset: "0", numMaxInvoices: "0", reversed: false };
+  return {
+    pendingOnly: false,
+    indexOffset: "0",
+    numMaxInvoices: "0",
+    reversed: false,
+    creationDateStart: "0",
+    creationDateEnd: "0",
+  };
 }
 
 export const ListInvoiceRequest = {
@@ -17255,6 +18349,12 @@ export const ListInvoiceRequest = {
     }
     if (message.reversed === true) {
       writer.uint32(48).bool(message.reversed);
+    }
+    if (message.creationDateStart !== "0") {
+      writer.uint32(56).uint64(message.creationDateStart);
+    }
+    if (message.creationDateEnd !== "0") {
+      writer.uint32(64).uint64(message.creationDateEnd);
     }
     return writer;
   },
@@ -17278,6 +18378,12 @@ export const ListInvoiceRequest = {
         case 6:
           message.reversed = reader.bool();
           break;
+        case 7:
+          message.creationDateStart = longToString(reader.uint64() as Long);
+          break;
+        case 8:
+          message.creationDateEnd = longToString(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -17292,6 +18398,8 @@ export const ListInvoiceRequest = {
       indexOffset: isSet(object.indexOffset) ? String(object.indexOffset) : "0",
       numMaxInvoices: isSet(object.numMaxInvoices) ? String(object.numMaxInvoices) : "0",
       reversed: isSet(object.reversed) ? Boolean(object.reversed) : false,
+      creationDateStart: isSet(object.creationDateStart) ? String(object.creationDateStart) : "0",
+      creationDateEnd: isSet(object.creationDateEnd) ? String(object.creationDateEnd) : "0",
     };
   },
 
@@ -17301,6 +18409,8 @@ export const ListInvoiceRequest = {
     message.indexOffset !== undefined && (obj.indexOffset = message.indexOffset);
     message.numMaxInvoices !== undefined && (obj.numMaxInvoices = message.numMaxInvoices);
     message.reversed !== undefined && (obj.reversed = message.reversed);
+    message.creationDateStart !== undefined && (obj.creationDateStart = message.creationDateStart);
+    message.creationDateEnd !== undefined && (obj.creationDateEnd = message.creationDateEnd);
     return obj;
   },
 
@@ -17310,6 +18420,8 @@ export const ListInvoiceRequest = {
     message.indexOffset = object.indexOffset ?? "0";
     message.numMaxInvoices = object.numMaxInvoices ?? "0";
     message.reversed = object.reversed ?? false;
+    message.creationDateStart = object.creationDateStart ?? "0";
+    message.creationDateEnd = object.creationDateEnd ?? "0";
     return message;
   },
 };
@@ -17753,7 +18865,15 @@ export const HTLCAttempt = {
 };
 
 function createBaseListPaymentsRequest(): ListPaymentsRequest {
-  return { includeIncomplete: false, indexOffset: "0", maxPayments: "0", reversed: false, countTotalPayments: false };
+  return {
+    includeIncomplete: false,
+    indexOffset: "0",
+    maxPayments: "0",
+    reversed: false,
+    countTotalPayments: false,
+    creationDateStart: "0",
+    creationDateEnd: "0",
+  };
 }
 
 export const ListPaymentsRequest = {
@@ -17772,6 +18892,12 @@ export const ListPaymentsRequest = {
     }
     if (message.countTotalPayments === true) {
       writer.uint32(40).bool(message.countTotalPayments);
+    }
+    if (message.creationDateStart !== "0") {
+      writer.uint32(48).uint64(message.creationDateStart);
+    }
+    if (message.creationDateEnd !== "0") {
+      writer.uint32(56).uint64(message.creationDateEnd);
     }
     return writer;
   },
@@ -17798,6 +18924,12 @@ export const ListPaymentsRequest = {
         case 5:
           message.countTotalPayments = reader.bool();
           break;
+        case 6:
+          message.creationDateStart = longToString(reader.uint64() as Long);
+          break;
+        case 7:
+          message.creationDateEnd = longToString(reader.uint64() as Long);
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -17813,6 +18945,8 @@ export const ListPaymentsRequest = {
       maxPayments: isSet(object.maxPayments) ? String(object.maxPayments) : "0",
       reversed: isSet(object.reversed) ? Boolean(object.reversed) : false,
       countTotalPayments: isSet(object.countTotalPayments) ? Boolean(object.countTotalPayments) : false,
+      creationDateStart: isSet(object.creationDateStart) ? String(object.creationDateStart) : "0",
+      creationDateEnd: isSet(object.creationDateEnd) ? String(object.creationDateEnd) : "0",
     };
   },
 
@@ -17823,6 +18957,8 @@ export const ListPaymentsRequest = {
     message.maxPayments !== undefined && (obj.maxPayments = message.maxPayments);
     message.reversed !== undefined && (obj.reversed = message.reversed);
     message.countTotalPayments !== undefined && (obj.countTotalPayments = message.countTotalPayments);
+    message.creationDateStart !== undefined && (obj.creationDateStart = message.creationDateStart);
+    message.creationDateEnd !== undefined && (obj.creationDateEnd = message.creationDateEnd);
     return obj;
   },
 
@@ -17833,6 +18969,8 @@ export const ListPaymentsRequest = {
     message.maxPayments = object.maxPayments ?? "0";
     message.reversed = object.reversed ?? false;
     message.countTotalPayments = object.countTotalPayments ?? false;
+    message.creationDateStart = object.creationDateStart ?? "0";
+    message.creationDateEnd = object.creationDateEnd ?? "0";
     return message;
   },
 };
@@ -19159,7 +20297,7 @@ export const PolicyUpdateResponse = {
 };
 
 function createBaseForwardingHistoryRequest(): ForwardingHistoryRequest {
-  return { startTime: "0", endTime: "0", indexOffset: 0, numMaxEvents: 0 };
+  return { startTime: "0", endTime: "0", indexOffset: 0, numMaxEvents: 0, peerAliasLookup: false };
 }
 
 export const ForwardingHistoryRequest = {
@@ -19175,6 +20313,9 @@ export const ForwardingHistoryRequest = {
     }
     if (message.numMaxEvents !== 0) {
       writer.uint32(32).uint32(message.numMaxEvents);
+    }
+    if (message.peerAliasLookup === true) {
+      writer.uint32(40).bool(message.peerAliasLookup);
     }
     return writer;
   },
@@ -19198,6 +20339,9 @@ export const ForwardingHistoryRequest = {
         case 4:
           message.numMaxEvents = reader.uint32();
           break;
+        case 5:
+          message.peerAliasLookup = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -19212,6 +20356,7 @@ export const ForwardingHistoryRequest = {
       endTime: isSet(object.endTime) ? String(object.endTime) : "0",
       indexOffset: isSet(object.indexOffset) ? Number(object.indexOffset) : 0,
       numMaxEvents: isSet(object.numMaxEvents) ? Number(object.numMaxEvents) : 0,
+      peerAliasLookup: isSet(object.peerAliasLookup) ? Boolean(object.peerAliasLookup) : false,
     };
   },
 
@@ -19221,6 +20366,7 @@ export const ForwardingHistoryRequest = {
     message.endTime !== undefined && (obj.endTime = message.endTime);
     message.indexOffset !== undefined && (obj.indexOffset = Math.round(message.indexOffset));
     message.numMaxEvents !== undefined && (obj.numMaxEvents = Math.round(message.numMaxEvents));
+    message.peerAliasLookup !== undefined && (obj.peerAliasLookup = message.peerAliasLookup);
     return obj;
   },
 
@@ -19230,6 +20376,7 @@ export const ForwardingHistoryRequest = {
     message.endTime = object.endTime ?? "0";
     message.indexOffset = object.indexOffset ?? 0;
     message.numMaxEvents = object.numMaxEvents ?? 0;
+    message.peerAliasLookup = object.peerAliasLookup ?? false;
     return message;
   },
 };
@@ -19246,6 +20393,8 @@ function createBaseForwardingEvent(): ForwardingEvent {
     amtInMsat: "0",
     amtOutMsat: "0",
     timestampNs: "0",
+    peerAliasIn: "",
+    peerAliasOut: "",
   };
 }
 
@@ -19280,6 +20429,12 @@ export const ForwardingEvent = {
     }
     if (message.timestampNs !== "0") {
       writer.uint32(88).uint64(message.timestampNs);
+    }
+    if (message.peerAliasIn !== "") {
+      writer.uint32(98).string(message.peerAliasIn);
+    }
+    if (message.peerAliasOut !== "") {
+      writer.uint32(106).string(message.peerAliasOut);
     }
     return writer;
   },
@@ -19321,6 +20476,12 @@ export const ForwardingEvent = {
         case 11:
           message.timestampNs = longToString(reader.uint64() as Long);
           break;
+        case 12:
+          message.peerAliasIn = reader.string();
+          break;
+        case 13:
+          message.peerAliasOut = reader.string();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -19341,6 +20502,8 @@ export const ForwardingEvent = {
       amtInMsat: isSet(object.amtInMsat) ? String(object.amtInMsat) : "0",
       amtOutMsat: isSet(object.amtOutMsat) ? String(object.amtOutMsat) : "0",
       timestampNs: isSet(object.timestampNs) ? String(object.timestampNs) : "0",
+      peerAliasIn: isSet(object.peerAliasIn) ? String(object.peerAliasIn) : "",
+      peerAliasOut: isSet(object.peerAliasOut) ? String(object.peerAliasOut) : "",
     };
   },
 
@@ -19356,6 +20519,8 @@ export const ForwardingEvent = {
     message.amtInMsat !== undefined && (obj.amtInMsat = message.amtInMsat);
     message.amtOutMsat !== undefined && (obj.amtOutMsat = message.amtOutMsat);
     message.timestampNs !== undefined && (obj.timestampNs = message.timestampNs);
+    message.peerAliasIn !== undefined && (obj.peerAliasIn = message.peerAliasIn);
+    message.peerAliasOut !== undefined && (obj.peerAliasOut = message.peerAliasOut);
     return obj;
   },
 
@@ -19371,6 +20536,8 @@ export const ForwardingEvent = {
     message.amtInMsat = object.amtInMsat ?? "0";
     message.amtOutMsat = object.amtOutMsat ?? "0";
     message.timestampNs = object.timestampNs ?? "0";
+    message.peerAliasIn = object.peerAliasIn ?? "";
+    message.peerAliasOut = object.peerAliasOut ?? "";
     return message;
   },
 };
@@ -21119,6 +22286,7 @@ function createBaseRPCMiddlewareRequest(): RPCMiddlewareRequest {
     streamAuth: undefined,
     request: undefined,
     response: undefined,
+    regComplete: undefined,
     msgId: "0",
   };
 }
@@ -21142,6 +22310,9 @@ export const RPCMiddlewareRequest = {
     }
     if (message.response !== undefined) {
       RPCMessage.encode(message.response, writer.uint32(50).fork()).ldelim();
+    }
+    if (message.regComplete !== undefined) {
+      writer.uint32(64).bool(message.regComplete);
     }
     if (message.msgId !== "0") {
       writer.uint32(56).uint64(message.msgId);
@@ -21174,6 +22345,9 @@ export const RPCMiddlewareRequest = {
         case 6:
           message.response = RPCMessage.decode(reader, reader.uint32());
           break;
+        case 8:
+          message.regComplete = reader.bool();
+          break;
         case 7:
           message.msgId = longToString(reader.uint64() as Long);
           break;
@@ -21193,6 +22367,7 @@ export const RPCMiddlewareRequest = {
       streamAuth: isSet(object.streamAuth) ? StreamAuth.fromJSON(object.streamAuth) : undefined,
       request: isSet(object.request) ? RPCMessage.fromJSON(object.request) : undefined,
       response: isSet(object.response) ? RPCMessage.fromJSON(object.response) : undefined,
+      regComplete: isSet(object.regComplete) ? Boolean(object.regComplete) : undefined,
       msgId: isSet(object.msgId) ? String(object.msgId) : "0",
     };
   },
@@ -21208,6 +22383,7 @@ export const RPCMiddlewareRequest = {
     message.request !== undefined && (obj.request = message.request ? RPCMessage.toJSON(message.request) : undefined);
     message.response !== undefined &&
       (obj.response = message.response ? RPCMessage.toJSON(message.response) : undefined);
+    message.regComplete !== undefined && (obj.regComplete = message.regComplete);
     message.msgId !== undefined && (obj.msgId = message.msgId);
     return obj;
   },
@@ -21226,6 +22402,7 @@ export const RPCMiddlewareRequest = {
     message.response = (object.response !== undefined && object.response !== null)
       ? RPCMessage.fromPartial(object.response)
       : undefined;
+    message.regComplete = object.regComplete ?? undefined;
     message.msgId = object.msgId ?? "0";
     return message;
   },
@@ -21279,7 +22456,7 @@ export const StreamAuth = {
 };
 
 function createBaseRPCMessage(): RPCMessage {
-  return { methodFullUri: "", streamRpc: false, typeName: "", serialized: new Uint8Array() };
+  return { methodFullUri: "", streamRpc: false, typeName: "", serialized: new Uint8Array(), isError: false };
 }
 
 export const RPCMessage = {
@@ -21295,6 +22472,9 @@ export const RPCMessage = {
     }
     if (message.serialized.length !== 0) {
       writer.uint32(34).bytes(message.serialized);
+    }
+    if (message.isError === true) {
+      writer.uint32(40).bool(message.isError);
     }
     return writer;
   },
@@ -21318,6 +22498,9 @@ export const RPCMessage = {
         case 4:
           message.serialized = reader.bytes();
           break;
+        case 5:
+          message.isError = reader.bool();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -21332,6 +22515,7 @@ export const RPCMessage = {
       streamRpc: isSet(object.streamRpc) ? Boolean(object.streamRpc) : false,
       typeName: isSet(object.typeName) ? String(object.typeName) : "",
       serialized: isSet(object.serialized) ? bytesFromBase64(object.serialized) : new Uint8Array(),
+      isError: isSet(object.isError) ? Boolean(object.isError) : false,
     };
   },
 
@@ -21342,6 +22526,7 @@ export const RPCMessage = {
     message.typeName !== undefined && (obj.typeName = message.typeName);
     message.serialized !== undefined &&
       (obj.serialized = base64FromBytes(message.serialized !== undefined ? message.serialized : new Uint8Array()));
+    message.isError !== undefined && (obj.isError = message.isError);
     return obj;
   },
 
@@ -21351,6 +22536,7 @@ export const RPCMessage = {
     message.streamRpc = object.streamRpc ?? false;
     message.typeName = object.typeName ?? "";
     message.serialized = object.serialized ?? new Uint8Array();
+    message.isError = object.isError ?? false;
     return message;
   },
 };
@@ -22526,6 +23712,10 @@ export const LightningDefinition = {
      * lncli: `subscribecustom`
      * SubscribeCustomMessages subscribes to a stream of incoming custom peer
      * messages.
+     *
+     * To include messages with type outside of the custom range (>= 32768) lnd
+     * needs to be compiled with  the `dev` build tag, and the message type to
+     * override should be specified in lnd's experimental protocol configuration.
      */
     subscribeCustomMessages: {
       name: "SubscribeCustomMessages",
@@ -22533,6 +23723,33 @@ export const LightningDefinition = {
       requestStream: false,
       responseType: CustomMessage,
       responseStream: true,
+      options: {},
+    },
+    /**
+     * lncli: `listaliases`
+     * ListAliases returns the set of all aliases that have ever existed with
+     * their confirmed SCID (if it exists) and/or the base SCID (in the case of
+     * zero conf).
+     */
+    listAliases: {
+      name: "ListAliases",
+      requestType: ListAliasesRequest,
+      requestStream: false,
+      responseType: ListAliasesResponse,
+      responseStream: false,
+      options: {},
+    },
+    /**
+     * LookupHtlcResolution retrieves a final htlc resolution from the database.
+     * If the htlc has no final resolution yet, a NotFound grpc status code is
+     * returned.
+     */
+    lookupHtlcResolution: {
+      name: "LookupHtlcResolution",
+      requestType: LookupHtlcResolutionRequest,
+      requestStream: false,
+      responseType: LookupHtlcResolutionResponse,
+      responseStream: false,
       options: {},
     },
   },

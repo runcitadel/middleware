@@ -168,9 +168,9 @@ export interface ChannelPoint {
    * Hex-encoded string representing the byte-reversed hash of the funding
    * transaction.
    */
-  fundingTxidStr: string | undefined;
+  fundingTxidStr?: string | undefined;
   /** The index of the output of the funding transaction */
-  outputIndex: number | string;
+  outputIndex?: number | string;
 }
 export interface OutPoint {
   /** Reversed, hex-encoded string representing the transaction id. */

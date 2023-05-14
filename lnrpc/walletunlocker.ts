@@ -116,7 +116,15 @@ export interface InitWalletRequest {
    * any of the keys and _needs_ to be run with a remote signer that has the
    * corresponding private keys and can serve signing RPC requests.
    */
-  watchOnly: WatchOnly | undefined;
+  watchOnly:
+    | WatchOnly
+    | undefined;
+  /**
+   * macaroon_root_key is an optional 32 byte macaroon root key that can be
+   * provided when initializing the wallet rather than letting lnd generate one
+   * on its own.
+   */
+  macaroonRootKey: Uint8Array;
 }
 
 export interface InitWalletResponse {
@@ -394,6 +402,7 @@ function createBaseInitWalletRequest(): InitWalletRequest {
     extendedMasterKey: "",
     extendedMasterKeyBirthdayTimestamp: "0",
     watchOnly: undefined,
+    macaroonRootKey: new Uint8Array(),
   };
 }
 
@@ -425,6 +434,9 @@ export const InitWalletRequest = {
     }
     if (message.watchOnly !== undefined) {
       WatchOnly.encode(message.watchOnly, writer.uint32(74).fork()).ldelim();
+    }
+    if (message.macaroonRootKey.length !== 0) {
+      writer.uint32(82).bytes(message.macaroonRootKey);
     }
     return writer;
   },
@@ -463,6 +475,9 @@ export const InitWalletRequest = {
         case 9:
           message.watchOnly = WatchOnly.decode(reader, reader.uint32());
           break;
+        case 10:
+          message.macaroonRootKey = reader.bytes();
+          break;
         default:
           reader.skipType(tag & 7);
           break;
@@ -486,6 +501,7 @@ export const InitWalletRequest = {
         ? String(object.extendedMasterKeyBirthdayTimestamp)
         : "0",
       watchOnly: isSet(object.watchOnly) ? WatchOnly.fromJSON(object.watchOnly) : undefined,
+      macaroonRootKey: isSet(object.macaroonRootKey) ? bytesFromBase64(object.macaroonRootKey) : new Uint8Array(),
     };
   },
 
@@ -513,6 +529,10 @@ export const InitWalletRequest = {
       (obj.extendedMasterKeyBirthdayTimestamp = message.extendedMasterKeyBirthdayTimestamp);
     message.watchOnly !== undefined &&
       (obj.watchOnly = message.watchOnly ? WatchOnly.toJSON(message.watchOnly) : undefined);
+    message.macaroonRootKey !== undefined &&
+      (obj.macaroonRootKey = base64FromBytes(
+        message.macaroonRootKey !== undefined ? message.macaroonRootKey : new Uint8Array(),
+      ));
     return obj;
   },
 
@@ -531,6 +551,7 @@ export const InitWalletRequest = {
     message.watchOnly = (object.watchOnly !== undefined && object.watchOnly !== null)
       ? WatchOnly.fromPartial(object.watchOnly)
       : undefined;
+    message.macaroonRootKey = object.macaroonRootKey ?? new Uint8Array();
     return message;
   },
 };

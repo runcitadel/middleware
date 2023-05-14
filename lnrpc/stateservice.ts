@@ -5,12 +5,26 @@ import _m0 from 'protobufjs/minimal.js';
 export const protobufPackage = "lnrpc";
 
 export enum WalletState {
+  /** NON_EXISTING - NON_EXISTING means that the wallet has not yet been initialized. */
   NON_EXISTING = 0,
+  /** LOCKED - LOCKED means that the wallet is locked and requires a password to unlock. */
   LOCKED = 1,
+  /**
+   * UNLOCKED - UNLOCKED means that the wallet was unlocked successfully, but RPC server
+   * isn't ready.
+   */
   UNLOCKED = 2,
+  /**
+   * RPC_ACTIVE - RPC_ACTIVE means that the lnd server is active but not fully ready for
+   * calls.
+   */
   RPC_ACTIVE = 3,
   /** SERVER_ACTIVE - SERVER_ACTIVE means that the lnd server is ready to accept calls. */
   SERVER_ACTIVE = 4,
+  /**
+   * WAITING_TO_START - WAITING_TO_START means that node is waiting to become the leader in a
+   * cluster and is not started yet.
+   */
   WAITING_TO_START = 255,
   UNRECOGNIZED = -1,
 }

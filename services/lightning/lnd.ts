@@ -552,7 +552,7 @@ export default class LNDService implements ILightningClient {
       };
     }
 
-    throw new Error('Unexpected LND state!');
+    throw new Error(`Unexpected LND state: ${walletState.state}!`);
   }
 
   protected async expectWalletToExist(): Promise<RpcClientWithLightningForSure> {

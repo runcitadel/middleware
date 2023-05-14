@@ -8,7 +8,7 @@ const CHANNEL_BACKUP_FILE =
 const DEVICE_HOSTNAME = process.env.DEVICE_HOSTNAME ?? 'citadel';
 const LND_CERT_FILE = process.env.LND_CERT_FILE ?? '/lnd/tls.cert';
 const TOR_HIDDEN_SERVICE_DIR = process.env.TOR_HIDDEN_SERVICE_DIR ?? '/tor';
-export const LND_ADMIN_MACAROON_FILE =
+const LND_ADMIN_MACAROON_FILE =
   process.env.LND_ADMIN_MACAROON_FILE ??
   '/lnd/data/chain/bitcoin/mainnet/admin.macaroon';
 
